@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Steelcase Leap Plus",
+    "review": {
+      "@type": "Review",
+      "reviewRating": { "@type": "Rating", "ratingValue": "4.6", "bestRating": "5" },
+      "author": { "@type": "Organization", "name": "Tall Chair Advisor" }
+    },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.6", "reviewCount": "1" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs" },
+      { "@type": "ListItem", "position": 3, "name": "Leap Plus Review", "item": "https://tallchairadvisor.com/review/leap-plus" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Steelcase Leap Plus Review: Best for Tall & Larger Users | Tall Chair Advisor"
+  description="Full review of the Steelcase Leap Plus for tall users. Adjustable seat depth, 500lb capacity, and fit for frames 6ft+."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Steelcase Leap Plus Review</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        In-depth evaluation for users up to 500 lbs
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <figure class="mb-10">
+      <img alt="Steelcase Leap Plus office chair in black fabric, showing full chair with high back, adjustable arms, and reinforced 5-star base" src="/images/leap-plus-hero.webp" class="w-full max-w-lg mx-auto shadow-md rounded-xl" />
+      <figcaption class="text-center text-sm text-muted-foreground mt-3">Steelcase Leap Plus — engineered for users up to 500 lbs</figcaption>
+    </figure>
+
+    <div class="prose-tca">
+      <section>
+        <h2>Overview</h2>
+        <p>The Steelcase Leap Plus represents Steelcase's commitment to inclusive ergonomic seating, specifically designed for users who exceed the weight capacity of standard office chairs. Built on the award-winning Leap platform, the Plus variant extends structural reinforcement and dimensional adjustments to accommodate users up to 500 lbs without sacrificing the adaptive ergonomic technologies that made the original Leap a benchmark in the industry.</p>
+        <p>For tall and heavy users, finding a chair that provides genuine ergonomic support rather than mere capacity tolerance is challenging. The Leap Plus takes a different approach: it maintains the Leap's sophisticated LiveBack technology and Natural Glide System while reinforcing structural components and expanding adjustment ranges to properly support larger users.</p>
+      </section>
+
+      <section>
+        <h2>Key Specifications</h2>
+        <ul>
+          <li><strong>Seat Depth:</strong> 15.75" to 19.75" (adjustable) — 4-inch range accommodates thigh lengths from 18 to 23 inches.</li>
+          <li><strong>Seat Height Range:</strong> 15.5" to 22.5" — Extended range accommodates taller users at standard desk heights.</li>
+          <li><strong>Seat Width:</strong> 22" — Two inches wider than the standard Leap.</li>
+          <li><strong>Back Height:</strong> 25" — Reaches upper shoulder blade for users up to approximately 6'4".</li>
+          <li><strong>Weight Capacity:</strong> 500 lbs — Reinforced frame, upgraded cylinder, and heavy-duty casters.</li>
+          <li><strong>Overall Dimensions:</strong> 28" W × 26" D × 39-46" H</li>
+        </ul>
+        <p>The adjustable seat depth distinguishes the Leap Plus from competitors like the Aeron, which offers only fixed seat depth. For users with longer thighs, this adjustability proves essential for proper support.</p>
+      </section>
+
+      <section>
+        <h2>Comfort and Support Analysis</h2>
+        <p>The Leap Plus inherits the standard Leap's LiveBack technology—a flexible back frame that mimics the spine's natural shape changes as users shift positions throughout the day. This adaptive design matters significantly for heavier users, who often experience accelerated fatigue in chairs with static back support.</p>
+
+        <figure class="my-8">
+          <img alt="Close-up of the Leap Plus seat cushion showing contoured foam and fabric upholstery detail" class="w-full max-w-md mx-auto rounded-lg shadow-md" src="/images/leap-plus-seat-detail.jpg" />
+          <figcaption class="text-center text-sm text-muted-foreground mt-3">Contoured seat cushion with adjustable depth mechanism</figcaption>
+        </figure>
+
+        <p>The adjustable seat depth mechanism operates via a lever under the front edge of the seat. Extending the seat pan forward increases thigh support for taller users, while retracting it accommodates shorter legs. This adjustment proves particularly valuable for users between 6'2" and 6'6".</p>
+        <p>Lumbar support adjusts both vertically (4 inches of travel) and in firmness. The firmness adjustment uses a tension dial rather than a simple pad, allowing precise calibration to individual preference.</p>
+      </section>
+
+      <section>
+        <h2>Pros</h2>
+        <ul>
+          <li>✓ <strong>500 lb weight capacity:</strong> Genuine structural support at capacity.</li>
+          <li>✓ <strong>Adjustable seat depth:</strong> 4 inches of travel accommodates a wide range of thigh lengths.</li>
+          <li>✓ <strong>LiveBack technology:</strong> Adaptive back support reduces fatigue during long sessions.</li>
+          <li>✓ <strong>Adjustable lumbar firmness:</strong> Dial-controlled tension allows precise calibration.</li>
+          <li>✓ <strong>12-year warranty:</strong> Full coverage at rated capacity.</li>
+          <li>✓ <strong>Reinforced construction throughout:</strong> Heavy-duty cylinder, upgraded casters, and reinforced frame.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Cons</h2>
+        <ul>
+          <li>✗ <strong>Significant weight:</strong> At 60+ lbs, difficult to move.</li>
+          <li>✗ <strong>Fabric upholstery only:</strong> No mesh option means reduced breathability.</li>
+          <li>✗ <strong>Higher price than standard Leap:</strong> Reinforced construction commands a premium.</li>
+          <li>✗ <strong>Limited color options:</strong> Fewer upholstery choices.</li>
+          <li>✗ <strong>Back height limitations for tallest users:</strong> Users above 6'5" may find 25" insufficient.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Who This Is For</h2>
+        <p>The Leap Plus serves users weighing between 250 and 500 lbs who need genuine ergonomic support. It excels for tall users between 6'0" and 6'4" who require adjustable seat depth and higher weight capacity than standard ergonomic chairs provide.</p>
+        <h3>Who Should Skip</h3>
+        <p>Users who run warm should consider mesh alternatives like the Aeron Size C, though they'll sacrifice adjustable seat depth and weight capacity. Users above 6'5" should evaluate whether the 25-inch back height provides adequate upper-back support.</p>
+      </section>
+
+      <section>
+        <h2>Verdict</h2>
+        <p>The Steelcase Leap Plus delivers what it promises: genuine ergonomic support for users up to 500 lbs, built on a platform with proven technology and construction quality. The adjustable seat depth addresses a critical need that many competitors ignore.</p>
+        <p><strong>Bottom Line:</strong> The benchmark big and tall ergonomic chair for users who need genuine support at higher weight capacities. Verify that the 25-inch back height meets your requirements if you're above 6'4".</p>
+      </section>
+
+      <section>
+        <h2>Compare With</h2>
+        <ul>
+          <li><a href="/aeron-vs-leap-plus" class="link-internal">Aeron vs Leap Plus</a> — Compare mesh breathability against cushioned comfort and adjustable seat depth.</li>
+          <li><a href="/gesture-vs-leap-plus" class="link-internal">Gesture vs Leap Plus</a> — Evaluate armrest adjustability and upper-back support differences.</li>
+        </ul>
+      </section>
+
+      <nav class="mt-8 pt-6 border-t border-border" aria-label="Post-review navigation">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Continue exploring:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a></li>
+          <li><a href="/aeron-vs-leap-plus" class="link-internal text-muted-foreground">↑ Return to Aeron vs Leap Plus comparison</a></li>
+          <li><a href="/gesture-vs-leap-plus" class="link-internal text-muted-foreground">↑ Return to Gesture vs Leap Plus comparison</a></li>
+        </ul>
+      </nav>
+
+      <section>
+        <h2>Where to Buy</h2>
+        <p>The Steelcase Leap Plus is available through office furniture retailers and online marketplaces.</p>
+        <p class="mt-4">
+          <a target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors" href="https://www.amazon.com/s?k=Steelcase+Leap+Plus&tag=tallchairadvi-20">
+            View on Amazon
+          </a>
+        </p>
+      </section>
+
+      <div class="bg-accent/30 border border-border rounded-lg p-4 mt-8 text-sm text-muted-foreground">
+        <strong>Affiliate Disclosure:</strong> We may earn a commission from qualifying purchases. This does not influence our evaluations.
+      </div>
+    </div>
+  </article>
+</Layout>

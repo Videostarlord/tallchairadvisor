@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Tall Chair Advisor",
+    "url": "https://tallchairadvisor.com",
+    "description": "Independent expert guidance on ergonomic office chairs for people 6 feet and taller.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://tallchairadvisor.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tall Chair Advisor",
+    "url": "https://tallchairadvisor.com",
+    "description": "Independent ergonomic chair guidance for tall people."
+  }
+];
+---
+
+<Layout
+  title="Best Office Chairs for Tall People 2026 | Tall Chair Advisor"
+  description="Independent expert guidance on ergonomic office chairs for people 6 feet and taller. Reviews, fit guides, and pain solutions."
+  schema={schema}
+>
+  <!-- Hero Section -->
+  <section class="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-secondary/50 to-background">
+    <div class="container-wide">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-balance animate-fade-in">
+          Expert Chair Guidance for Tall People
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-muted-foreground animate-slide-up">
+          Finding the right office chair when you're tall shouldn't be guesswork.
+          We provide independent, research-backed guidance to help you sit comfortably.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/office-chairs-for-tall-people"
+            class="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+          >
+            Start Here
+            <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a
+            href="/pain-ergonomics"
+            class="inline-flex items-center px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/80 transition-colors"
+          >
+            Explore Pain Solutions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Props -->
+  <section class="py-16 border-b border-border">
+    <div class="container-wide">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="mx-auto w-12 h-12 rounded-full bg-accent flex items-center justify-center mb-4">
+            <svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg font-medium text-heading mb-2">For Tall Users</h3>
+          <p class="text-sm text-muted-foreground">
+            Content specifically created for people 6'0" and taller who struggle with standard office chairs.
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto w-12 h-12 rounded-full bg-accent flex items-center justify-center mb-4">
+            <svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg font-medium text-heading mb-2">Dimension-Focused</h3>
+          <p class="text-sm text-muted-foreground">
+            We analyze seat depth, height ranges, and back support dimensions that matter for larger frames.
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto w-12 h-12 rounded-full bg-accent flex items-center justify-center mb-4">
+            <svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg font-medium text-heading mb-2">Independent Reviews</h3>
+          <p class="text-sm text-muted-foreground">
+            Honest evaluations based on ergonomic principles, not marketing claims.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hub Navigation - Layer 1 -->
+  <section class="py-16">
+    <div class="container-wide">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-heading">Understand the Problem</h2>
+        <p class="mt-3 text-muted-foreground max-w-xl mx-auto">
+          Learn why standard chairs fail tall people and how specific pain points connect to chair design.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="/office-chairs-for-tall-people" class="group card-hub flex flex-col">
+          <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+            Office Chairs for Tall People
+          </h3>
+          <p class="text-sm text-muted-foreground flex-1 mb-4">
+            The complete introduction to why finding the right chair matters for your health and productivity.
+          </p>
+          <div class="flex items-center text-sm font-medium text-primary">
+            Learn more
+            <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+        <a href="/pain-ergonomics" class="group card-hub flex flex-col">
+          <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+            Pain & Ergonomics Hub
+          </h3>
+          <p class="text-sm text-muted-foreground flex-1 mb-4">
+            Explore how chair dimensions directly cause knee pain, back pain, and circulation issues.
+          </p>
+          <div class="flex items-center text-sm font-medium text-primary">
+            Learn more
+            <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+        <a href="/why-standard-chairs-dont-fit" class="group card-hub flex flex-col">
+          <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+            Why Standard Chairs Don't Fit
+          </h3>
+          <p class="text-sm text-muted-foreground flex-1 mb-4">
+            Understand the fundamental design limitations that make most chairs unsuitable for tall users.
+          </p>
+          <div class="flex items-center text-sm font-medium text-primary">
+            Learn more
+            <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hub Navigation - Layer 2 -->
+  <section class="py-16 bg-secondary/30">
+    <div class="container-wide">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-heading">Learn to Evaluate</h2>
+        <p class="mt-3 text-muted-foreground max-w-xl mx-auto">
+          Guides for measuring fit and adjusting chairs to work with your body dimensions.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <a href="/fit-guides" class="group card-hub flex flex-col">
+          <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+            Fit & Adjustment Guides
+          </h3>
+          <p class="text-sm text-muted-foreground flex-1 mb-4">
+            Step-by-step instructions for evaluating chair fit and making proper adjustments.
+          </p>
+          <div class="flex items-center text-sm font-medium text-primary">
+            Learn more
+            <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+        <a href="/correct-chair-dimensions" class="group card-hub flex flex-col">
+          <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+            Correct Chair Dimensions
+          </h3>
+          <p class="text-sm text-muted-foreground flex-1 mb-4">
+            The specific measurements and ranges tall users should look for when evaluating chairs.
+          </p>
+          <div class="flex items-center text-sm font-medium text-primary">
+            Learn more
+            <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Link -->
+  <section class="py-16">
+    <div class="container-article text-center">
+      <h2 class="font-serif text-2xl text-heading mb-4">About Tall Chair Advisor</h2>
+      <p class="text-muted-foreground mb-6">
+        Learn about our approach to evaluating office chairs and why we focus exclusively on tall users.
+      </p>
+      <a href="/about" class="inline-flex items-center text-primary font-medium hover:text-primary/80">
+        About Us
+        <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

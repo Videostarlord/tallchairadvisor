@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Herman Miller Aeron vs Steelcase Leap Plus: For Tall People",
+    "url": "https://tallchairadvisor.com/aeron-vs-leap-plus",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs" },
+      { "@type": "ListItem", "position": 3, "name": "Aeron vs Leap Plus", "item": "https://tallchairadvisor.com/aeron-vs-leap-plus" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Herman Miller Aeron vs Steelcase Leap Plus: For Tall People | Tall Chair Advisor"
+  description="Direct comparison of the Aeron Size C vs Leap Plus for tall users: seat depth, height range, build, and which to choose."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Aeron Size C vs Steelcase Leap Plus</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        A direct comparison for tall users choosing between these two premium chairs
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <div class="prose-tca">
+      <section>
+        <h2>Overview</h2>
+        <p>
+          Both the Herman Miller Aeron Size C and the Steelcase Leap Plus are popular ergonomic chairs for tall users,
+          but they serve different body types and preferences. The Aeron Size C focuses on breathability and posture
+          support for lean-to-average builds, while the Leap Plus is designed for larger users who need greater
+          adjustability and higher weight capacity. This comparison breaks down the key differences in dimensions,
+          fit, and overall suitability for tall users.
+        </p>
+      </section>
+
+      <section>
+        <h2>Dimensional Comparison</h2>
+        <p>
+          The Aeron Size C offers a fixed seat depth of approximately 18.5 inches and a seat height range of about 16
+          to 20.5 inches, with a weight capacity up to 350 lbs. Its mesh construction prioritizes airflow and pressure
+          distribution but limits depth adjustability. The Steelcase Leap Plus features an adjustable seat depth up to
+          roughly 19.75 inches and a wider seat, with a seat height range of approximately 15.5 to 22.5 inches. It
+          supports users up to 500 lbs, making it better suited for taller and heavier builds that require more flexibility.
+        </p>
+      </section>
+
+      <section>
+        <h2>For Tall Users</h2>
+        <p>
+          For tall users with larger frames or those over 300 lbs, the Leap Plus generally provides better support due
+          to its wider seat, deeper adjustability, and higher weight rating. It accommodates longer femurs and offers
+          a broader range of ergonomic tuning. The Aeron Size C works well for tall users with leaner builds who value
+          breathability and a firmer, more upright sitting posture. Its mesh design is especially appealing for users
+          who sit for long hours and tend to run hot.
+        </p>
+      </section>
+
+      <section>
+        <h2>Verdict</h2>
+        <p>
+          Choose the Steelcase Leap Plus if you are a taller user with a larger or heavier build who needs maximum
+          adjustability and long-term support. Choose the Herman Miller Aeron Size C if you are tall with a
+          lean-to-average build and prioritize ventilation, posture support, and a lighter seating feel.
+        </p>
+      </section>
+
+      <section>
+        <h2>Read Full Reviews</h2>
+        <ul>
+          <li><a href="/review/aeron-size-c" class="link-internal">Herman Miller Aeron Size C Review</a></li>
+          <li><a href="/review/leap-plus" class="link-internal">Steelcase Leap Plus Review</a></li>
+        </ul>
+      </section>
+
+      <div class="mt-8 pt-6 border-t border-border">
+        <a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a>
+      </div>
+    </div>
+  </article>
+</Layout>

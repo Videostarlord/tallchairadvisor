@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Office Chair Fit Guides for Tall People",
+    "url": "https://tallchairadvisor.com/fit-guides",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Office Chair Fit Guides for Tall People | Tall Chair Advisor"
+  description="Step-by-step guides for measuring chair fit and adjusting ergonomic chairs to work with a taller body."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Fit & Adjustment Guides</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Learn to evaluate chair fit and make proper adjustments for your body dimensions
+      </p>
+    </div>
+  </header>
+
+  <div class="container-wide py-12 md:py-16">
+    <div class="max-w-3xl mx-auto mb-12">
+      <p class="text-body text-center">
+        Understanding your dimensional requirements and how to properly adjust a chair
+        is essential before making any purchase decision. These guides help you evaluate
+        fit objectively.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <a href="/correct-chair-dimensions" class="group card-hub flex flex-col">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-2 rounded-lg bg-accent text-primary">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+          Correct Chair Dimensions
+        </h3>
+        <p class="text-sm text-muted-foreground flex-1 mb-4">
+          The specific measurements tall and large users should look for: seat depth, seat height, back height, and armrest positioning.
+        </p>
+        <div class="flex items-center text-sm font-medium text-primary">
+          Learn more
+          <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </a>
+
+      <a href="/how-to-adjust-chair" class="group card-hub flex flex-col">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-2 rounded-lg bg-accent text-primary">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+          How to Adjust Your Chair
+        </h3>
+        <p class="text-sm text-muted-foreground flex-1 mb-4">
+          Step-by-step instructions for adjusting any office chair to work better with a tall frame.
+        </p>
+        <div class="flex items-center text-sm font-medium text-primary">
+          Learn more
+          <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </a>
+    </div>
+
+    <div class="mt-12 max-w-2xl mx-auto">
+      <div class="p-6 rounded-lg bg-secondary/50 border border-border">
+        <h3 class="font-serif text-xl font-medium text-heading mb-3">Ready to Compare Options?</h3>
+        <p class="text-muted-foreground text-sm mb-4">
+          Once you understand your requirements, explore chairs that meet tall user specifications.
+        </p>
+        <a href="/best-office-chairs" class="link-internal text-sm">
+          Best Office Chairs for Tall People →
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

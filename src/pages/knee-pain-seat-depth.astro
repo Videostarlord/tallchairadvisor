@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Office Chair Knee Pain: How Seat Depth Affects Tall Users",
+    "url": "https://tallchairadvisor.com/knee-pain-seat-depth",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Pain & Ergonomics", "item": "https://tallchairadvisor.com/pain-ergonomics" },
+      { "@type": "ListItem", "position": 3, "name": "Knee Pain & Seat Depth", "item": "https://tallchairadvisor.com/knee-pain-seat-depth" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Office Chair Knee Pain: How Seat Depth Affects Tall Users | Tall Chair Advisor"
+  description="Why shallow seat depth causes popliteal pressure and knee pain for tall users, and the minimum depths you need."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Knee Pain & Seat Depth</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        How insufficient seat depth creates pressure and circulation problems for tall users
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <div class="prose-tca">
+      <section>
+        <h2>The Popliteal Pressure Problem</h2>
+        <p>
+          The popliteal region—the soft area behind your knee—contains blood vessels,
+          nerves, and tendons. When a seat is too shallow for your thigh length, the
+          edge of the seat pan presses directly into this sensitive area.
+        </p>
+        <p>
+          This compression restricts blood flow to your lower legs and puts pressure on
+          the tibial nerve, leading to numbness, tingling, and chronic discomfort that
+          builds throughout the workday.
+        </p>
+      </section>
+
+      <section>
+        <h2>How Seat Depth Relates to Thigh Length</h2>
+        <p>
+          Proper seat depth should allow two to three finger-widths (approximately 2-3 inches)
+          of clearance between the seat edge and the back of your knees when sitting with
+          your back against the backrest.
+        </p>
+        <p>For tall users with longer femurs, this typically requires:</p>
+        <ul>
+          <li>Minimum seat depth of 19 inches for users 6'0" to 6'2"</li>
+          <li>20+ inches of depth for users 6'3" and taller</li>
+          <li>Adjustable seat depth to fine-tune the fit</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>The Compensatory Posture Cascade</h2>
+        <p>
+          When the seat is too shallow, users naturally compensate by sliding forward
+          to relieve knee pressure. This creates a cascade of problems:
+        </p>
+        <ul>
+          <li>Loss of lumbar support as the back moves away from the backrest</li>
+          <li>Increased spinal compression from unsupported sitting</li>
+          <li>Neck strain as the head moves forward to maintain visual alignment</li>
+        </ul>
+        <p>
+          What begins as knee discomfort often manifests as back and neck pain due to
+          these compensatory positions.
+        </p>
+      </section>
+
+      <section>
+        <h2>Measuring Your Requirements</h2>
+        <p>To determine your ideal seat depth:</p>
+        <ol>
+          <li>Sit with your back fully against a wall</li>
+          <li>Measure from the wall to 2 inches behind your knee crease</li>
+          <li>This measurement is your minimum seat depth</li>
+        </ol>
+        <p>
+          Most tall users find they need depths that exceed standard chair offerings,
+          pointing toward chairs with adjustable seat pans or models specifically
+          designed for larger users.
+        </p>
+      </section>
+
+      <section>
+        <h2>Related Reading</h2>
+        <ul>
+          <li><a href="/back-pain-spine-height" class="link-internal">Back Pain & Spine Height</a></li>
+          <li><a href="/leg-pain-circulation" class="link-internal">Leg Pain & Circulation</a></li>
+          <li><a href="/correct-chair-dimensions" class="link-internal">Correct Chair Dimensions for Tall Users</a></li>
+        </ul>
+        <div class="mt-6 pt-6 border-t border-border">
+          <a href="/pain-ergonomics" class="link-internal">← Back to Pain & Ergonomics</a>
+        </div>
+      </section>
+    </div>
+  </article>
+</Layout>

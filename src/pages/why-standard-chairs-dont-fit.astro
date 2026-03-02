@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why Standard Office Chairs Don't Fit Tall People",
+    "url": "https://tallchairadvisor.com/why-standard-chairs-dont-fit",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Why Standard Chairs Don't Fit", "item": "https://tallchairadvisor.com/why-standard-chairs-dont-fit" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Why Standard Office Chairs Don't Fit Tall People | Tall Chair Advisor"
+  description="The engineering decisions that make most chairs fail at 6ft+: seat depth, cylinder height limits, and lumbar placement explained."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Why Standard Office Chairs Don't Fit Tall People</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        The engineering and design decisions that make most chairs unsuitable for larger frames
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <div class="prose-tca">
+      <section>
+        <h2>Designed for the Average</h2>
+        <p>
+          Office furniture manufacturers design for the statistical middle. When a chair
+          is marketed as fitting "most users," the implied range is typically 5'4" to 5'10".
+          This covers the bulk of the population curve but systematically excludes those
+          at either extreme.
+        </p>
+        <p>
+          For tall users—particularly those 6'2" and above—this design philosophy creates
+          chairs that are fundamentally too small in critical dimensions.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Seat Depth Problem</h2>
+        <p>Standard chairs typically offer seat depths of 15 to 17 inches. For a tall user with longer thighs, this means:</p>
+        <ul>
+          <li>The seat edge cuts into the back of the knees</li>
+          <li>Pressure on the popliteal region restricts blood flow</li>
+          <li>Users slide forward to relieve pressure, losing back support</li>
+        </ul>
+        <p>
+          This single dimensional mismatch cascades into multiple problems: knee pain,
+          poor circulation, and compensatory postures that stress the spine.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Cylinder Height Limit</h2>
+        <p>
+          The gas cylinder that controls seat height has a fixed range. Most office chairs
+          max out at 17 to 18 inches of seat height—adequate for average users but
+          insufficient for those with longer lower legs.
+        </p>
+        <p>
+          When you can't raise the seat high enough, your thighs angle downward, shifting
+          weight distribution and creating pressure points that lead to discomfort and
+          circulation issues.
+        </p>
+      </section>
+
+      <section>
+        <h2>Lumbar Placement Assumptions</h2>
+        <p>
+          Lumbar support is designed to sit at a specific height from the seat pan—typically
+          around 8 to 10 inches. For tall users with longer torsos, this puts the lumbar
+          curve against the mid-back rather than the lower spine.
+        </p>
+        <p>
+          The result: the support that should reduce strain actually creates new pressure
+          points while leaving the lower back unsupported.
+        </p>
+      </section>
+
+      <section>
+        <h2>What This Means for Chair Selection</h2>
+        <p>
+          Understanding these design limitations helps focus your search. Rather than
+          looking for chairs with more features, prioritize:
+        </p>
+        <ul>
+          <li>
+            <a href="/correct-chair-dimensions" class="link-internal">
+              Specific dimensional requirements for your body
+            </a>
+          </li>
+          <li>
+            <a href="/how-to-adjust-chair" class="link-internal">
+              How to maximize adjustability in any chair
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </article>
+</Layout>

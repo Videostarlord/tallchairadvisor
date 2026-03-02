@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Office Chair Back Pain: Lumbar Height Issues for Tall People",
+    "url": "https://tallchairadvisor.com/back-pain-spine-height",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Pain & Ergonomics", "item": "https://tallchairadvisor.com/pain-ergonomics" },
+      { "@type": "ListItem", "position": 3, "name": "Back Pain & Spine Height", "item": "https://tallchairadvisor.com/back-pain-spine-height" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Office Chair Back Pain: Lumbar Height Issues for Tall People | Tall Chair Advisor"
+  description="How misaligned lumbar support causes chronic back pain for tall users, and what back height specs to require."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Back Pain & Spine Height</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Why lumbar support designed for average users creates misalignment for tall people
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <div class="prose-tca">
+      <section>
+        <h2>The Lumbar Misalignment Problem</h2>
+        <p>
+          Your lumbar spine—the lower five vertebrae—has a natural inward curve that should be supported by your
+          chair. Most chairs position lumbar support 8-10 inches above the seat pan, targeting the average user's
+          lower back.
+        </p>
+        <p>
+          For tall users with longer torsos, this placement pushes against the mid-back instead, creating pressure
+          where there should be none while leaving the actual lumbar region unsupported.
+        </p>
+      </section>
+
+      <section>
+        <h2>Why Back Height Matters</h2>
+        <p>
+          A chair's backrest height determines how much of your spine receives support. Standard chairs often have
+          backrests that end at or below the shoulder blades for average users—but for tall users, this means
+          significantly less spinal coverage.
+        </p>
+        <p>Key requirements for tall users:</p>
+        <ul>
+          <li>Lumbar support adjustable to 10-14 inches above the seat</li>
+          <li>Total back height of 25+ inches for full support</li>
+          <li>Headrest position adjustable for taller necks</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>The Thoracic Strain Pattern</h2>
+        <p>
+          When lumbar support hits the wrong location, the thoracic spine (mid-back) compensates by rounding
+          forward. This creates:
+        </p>
+        <ul>
+          <li>Increased disc pressure in the thoracic region</li>
+          <li>Shoulder blade tension from constant muscle engagement</li>
+          <li>Forward head posture as the body seeks balance</li>
+        </ul>
+        <p>
+          Over time, this compensatory pattern can lead to chronic mid-back pain, shoulder tension, and tension
+          headaches—all stemming from a simple dimensional mismatch in lumbar placement.
+        </p>
+      </section>
+
+      <section>
+        <h2>Why This Pain Persists Even With "Good Posture"</h2>
+        <p>
+          Many tall users try to correct back pain by sitting more upright or consciously engaging their core. While
+          this can help briefly, it rarely solves the problem long-term.
+        </p>
+        <p>
+          When a chair's support geometry doesn't align with spine height, maintaining neutral posture requires
+          constant muscular effort. Over time, fatigue sets in and the body returns to a compensated position —
+          regardless of intent or awareness.
+        </p>
+        <p>This is why back pain often:</p>
+        <ul>
+          <li>Improves temporarily</li>
+          <li>Returns later in the day</li>
+          <li>Worsens over weeks or months</li>
+        </ul>
+        <p>
+          The issue isn't discipline or posture habits. It's a mismatch between body proportions and chair design.
+        </p>
+        <p>Understanding this distinction is the first step toward resolving the pain sustainably.</p>
+      </section>
+
+      <section>
+        <h2>Related Reading</h2>
+        <ul>
+          <li><a href="/knee-pain-seat-depth" class="link-internal">Knee Pain &amp; Seat Depth</a></li>
+          <li><a href="/leg-pain-circulation" class="link-internal">Leg Pain &amp; Circulation</a></li>
+          <li><a href="/how-to-adjust-chair" class="link-internal">How to Adjust Your Chair</a></li>
+        </ul>
+        <div class="mt-6 pt-6 border-t border-border">
+          <a href="/pain-ergonomics" class="link-internal">← Back to Pain &amp; Ergonomics</a>
+        </div>
+      </section>
+    </div>
+  </article>
+</Layout>

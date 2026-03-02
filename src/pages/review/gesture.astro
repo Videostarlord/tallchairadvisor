@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Steelcase Gesture",
+    "review": {
+      "@type": "Review",
+      "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5" },
+      "author": { "@type": "Organization", "name": "Tall Chair Advisor" }
+    },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "1" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs" },
+      { "@type": "ListItem", "position": 3, "name": "Gesture Review", "item": "https://tallchairadvisor.com/review/gesture" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Steelcase Gesture Review for Tall People | Tall Chair Advisor"
+  description={`Review of the Steelcase Gesture for tall users. 360° armrests, flexible seat edge, and suitability for users 6ft–6'4".`}
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Steelcase Gesture Review</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Comprehensive evaluation for tall users seeking multi-device ergonomics
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <figure class="mb-10">
+      <img alt="Steelcase Gesture office chair in dark grey, showing 360-degree armrests, contoured seat, and synchronized recline mechanism" class="w-full max-w-lg mx-auto rounded-lg shadow-md" src="/images/gesture-hero.jpg" />
+      <figcaption class="text-center text-sm text-muted-foreground mt-3">
+        Steelcase Gesture with 360° arm design and LiveBack technology
+      </figcaption>
+    </figure>
+
+    <div class="prose-tca">
+      <section>
+        <h2>Overview</h2>
+        <p>The Steelcase Gesture represents a departure from traditional ergonomic chair design, built around the observation that modern work involves constant movement between devices. Its signature 360-degree armrest system was developed after studying over 2,000 postures across six continents.</p>
+        <p>For tall users between 6'0" and 6'4", the Gesture offers competitive adjustability with a seat height reaching 21 inches and an adjustable seat depth up to 18.75 inches. The chair excels for those who frequently shift positions throughout the day, though users above 6'4" may find the back height limiting compared to alternatives like the Steelcase Leap Plus.</p>
+      </section>
+
+      <section>
+        <h2>Key Specifications</h2>
+        <ul>
+          <li><strong>Seat depth:</strong> 15.75" – 18.75" (adjustable via slider)</li>
+          <li><strong>Seat height range:</strong> 16" – 21"</li>
+          <li><strong>Seat width:</strong> 19.25"</li>
+          <li><strong>Back height:</strong> 24" from seat</li>
+          <li><strong>Weight capacity:</strong> 400 lbs</li>
+          <li><strong>Warranty:</strong> 12-year manufacturer warranty</li>
+          <li><strong>Certifications:</strong> BIFMA certified, GREENGUARD certified</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Fit and Comfort for Tall Users</h2>
+        <p>The Gesture's seat depth adjustment of 18.75 inches provides adequate thigh support for most tall users in the 6'0" to 6'4" range, though it falls approximately one inch short of the Leap Plus maximum. The seat pan features a flexible edge that reduces pressure behind the knees during extended sitting.</p>
+
+        <figure class="my-8">
+          <img alt="Close-up of Steelcase Gesture armrest showing 360-degree pivot range and height adjustment mechanism" class="w-full max-w-md mx-auto rounded-lg shadow-sm" src="/images/gesture-armrest-detail.webp" />
+          <figcaption class="text-center text-sm text-muted-foreground mt-3">
+            360° armrest pivot allows support across multiple working positions
+          </figcaption>
+        </figure>
+
+        <p>The 24-inch back height accommodates shoulder blades adequately for users up to approximately 6'4". The LiveBack technology—where the backrest flexes and moves with your spine—provides continuous lumbar support without manual adjustment.</p>
+        <p>Where the Gesture genuinely excels is arm support. The 360-degree armrests can pivot, angle, and extend to support virtually any working position. For tall users who work across multiple devices, this flexibility addresses a gap that most ergonomic chairs ignore.</p>
+      </section>
+
+      <section>
+        <h2>Pros</h2>
+        <ul>
+          <li>✓ 360° armrest movement supports diverse working postures</li>
+          <li>✓ Flexible seat edge reduces knee pressure</li>
+          <li>✓ LiveBack technology provides adaptive lumbar support</li>
+          <li>✓ 400 lb weight capacity with 12-year warranty</li>
+          <li>✓ Strong multi-device ergonomic foundation</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Cons</h2>
+        <ul>
+          <li>✗ Maximum seat depth shorter than Leap Plus (18.75" vs 19.75")</li>
+          <li>✗ Back height may be insufficient above 6'4"</li>
+          <li>✗ Premium pricing comparable to Herman Miller Aeron</li>
+          <li>✗ No forward tilt mechanism</li>
+          <li>✗ Firm seat requires break-in period</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Who This Is For / Who Should Skip</h2>
+        <p><strong>Consider the Gesture if you:</strong></p>
+        <ul>
+          <li>Work across multiple devices throughout the day</li>
+          <li>Fall within the 6'0" to 6'4" height range</li>
+          <li>Value arm positioning flexibility over maximum seat depth</li>
+          <li>Frequently shift between upright typing and reclined positions</li>
+        </ul>
+        <p><strong>Look elsewhere if you:</strong></p>
+        <ul>
+          <li>Are taller than 6'4" and need maximum thigh support</li>
+          <li>Require a forward tilt mechanism for active sitting</li>
+          <li>Prefer mesh seating over foam cushions</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Verdict</h2>
+        <p>The Steelcase Gesture occupies a specific niche: it's the strongest choice for users between 6'0" and 6'4" who work across multiple devices and need arm support that adapts to varied postures. The 360-degree armrest system genuinely solves a problem that traditional chairs don't address.</p>
+        <p>However, taller users above 6'4" should consider the Steelcase Leap Plus for its additional seat depth and back height.</p>
+      </section>
+
+      <section>
+        <h2>Compare With</h2>
+        <ul>
+          <li><a href="/gesture-vs-leap-plus" class="link-internal">Gesture vs Leap Plus</a> — When maximum seat depth matters</li>
+          <li><a href="/aeron-vs-gesture" class="link-internal">Aeron Size C vs Gesture</a> — Mesh vs foam, ventilation vs arm flexibility</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Where to Buy</h2>
+        <p>The Steelcase Gesture is available through authorized dealers and select online retailers.</p>
+        <p class="mt-4">
+          <a href="https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
+            View Steelcase Gesture on Amazon →
+          </a>
+        </p>
+      </section>
+
+      <div class="bg-accent/30 border border-border rounded-lg p-4 mt-8 text-sm text-muted-foreground">
+        <strong>Affiliate Disclosure:</strong> We may earn a commission from qualifying purchases. This does not influence our evaluations.
+      </div>
+
+      <nav class="mt-8 pt-6 border-t border-border" aria-label="Post-review navigation">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Continue exploring:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a></li>
+          <li><a href="/aeron-vs-gesture" class="link-internal text-muted-foreground">↑ Return to Aeron vs Gesture comparison</a></li>
+          <li><a href="/gesture-vs-leap-plus" class="link-internal text-muted-foreground">↑ Return to Gesture vs Leap Plus comparison</a></li>
+        </ul>
+      </nav>
+    </div>
+  </article>
+</Layout>

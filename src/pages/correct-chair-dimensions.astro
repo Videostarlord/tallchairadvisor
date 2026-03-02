@@ -1,0 +1,169 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Correct Office Chair Dimensions for Tall People",
+    "url": "https://tallchairadvisor.com/correct-chair-dimensions",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides" },
+      { "@type": "ListItem", "position": 3, "name": "Correct Chair Dimensions", "item": "https://tallchairadvisor.com/correct-chair-dimensions" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Correct Office Chair Dimensions for Tall People | Tall Chair Advisor"
+  description="The exact seat height, seat depth, back height, and lumbar measurements tall users (6ft+) should require from any chair."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Correct Chair Dimensions for Tall & Large Bodies</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        The specific measurements and ranges tall users should look for when evaluating chairs
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <div class="prose-tca">
+      <section>
+        <h2>Dimensional Requirements by Height</h2>
+        <p>
+          The following specifications represent minimum requirements based on typical
+          body proportions. Individual needs may vary based on torso-to-leg ratio and
+          body composition.
+        </p>
+      </section>
+
+      <section class="my-8">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+            <thead class="bg-secondary/50">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-heading">User Height</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Seat Depth</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Max Seat Height</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Back Height</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground">6'0" - 6'2"</td>
+                <td class="px-4 py-3 text-muted-foreground">18-19"</td>
+                <td class="px-4 py-3 text-muted-foreground">19"+"</td>
+                <td class="px-4 py-3 text-muted-foreground">23"+"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground">6'2" - 6'4"</td>
+                <td class="px-4 py-3 text-muted-foreground">19-20"</td>
+                <td class="px-4 py-3 text-muted-foreground">20"+"</td>
+                <td class="px-4 py-3 text-muted-foreground">25"+"</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground">6'4" - 6'6"</td>
+                <td class="px-4 py-3 text-muted-foreground">20-21"</td>
+                <td class="px-4 py-3 text-muted-foreground">21"+"</td>
+                <td class="px-4 py-3 text-muted-foreground">26"+"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground">6'6"+"</td>
+                <td class="px-4 py-3 text-muted-foreground">21"+"</td>
+                <td class="px-4 py-3 text-muted-foreground">22"+"</td>
+                <td class="px-4 py-3 text-muted-foreground">27"+"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Seat Depth: The Critical Measurement</h2>
+        <p>
+          Seat depth is often the most limiting factor for tall users. The measurement
+          refers to the distance from the front edge of the seat to the backrest.
+        </p>
+        <h3>How to Measure Your Need</h3>
+        <ol>
+          <li>Sit with your back firmly against a vertical surface</li>
+          <li>Measure from that surface to 2-3 inches before your knee crease</li>
+          <li>This gives your minimum required seat depth</li>
+        </ol>
+        <p>
+          Chairs with adjustable seat depth (seat slider) provide flexibility to fine-tune
+          this dimension and are strongly recommended for tall users.
+        </p>
+      </section>
+
+      <section>
+        <h2>Seat Height: Beyond Standard Range</h2>
+        <p>
+          Maximum seat height determines whether you can position your thighs parallel
+          to the floor. Standard chairs typically max out at 17-18 inches—insufficient
+          for most users over 6'0".
+        </p>
+        <h3>What to Look For</h3>
+        <ul>
+          <li>Standard cylinder range: 16-21 inches (adequate for 6'0" - 6'2")</li>
+          <li>Extended cylinder: 21-24 inches (needed for 6'2"+)</li>
+          <li>Counter/drafting height: 24-30 inches (specialized applications)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Back Height and Lumbar Position</h2>
+        <p>
+          Back height should allow full spinal support from lumbar to upper back. For
+          tall users, this means:
+        </p>
+        <ul>
+          <li>Total back height extending to shoulder blade level</li>
+          <li>Adjustable lumbar support that can move to 10-14 inches above seat pan</li>
+          <li>Optional headrest for users wanting neck support</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Weight Capacity Considerations</h2>
+        <p>
+          Height often correlates with higher body weight. If you're tall and have a
+          larger build, verify:
+        </p>
+        <ul>
+          <li>Weight capacity rating exceeds your weight by at least 50 lbs</li>
+          <li>Component durability (casters, cylinder, base) rated for higher loads</li>
+          <li>Seat width provides adequate hip clearance</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Next Steps</h2>
+        <p>
+          With your dimensional requirements established, you're ready to
+          evaluate specific chairs against these specifications.
+        </p>
+        <p class="mt-4">
+          <a href="/best-office-chairs" class="link-internal font-medium">
+            → View Best Office Chairs for Tall People
+          </a>
+        </p>
+        <div class="mt-6 pt-6 border-t border-border">
+          <a href="/fit-guides" class="link-internal">← Back to Fit & Adjustment Guides</a>
+        </div>
+        <p class="text-sm text-muted-foreground mt-4">
+          Related: <a href="/how-to-adjust-chair" class="link-internal">How to Adjust Your Chair</a>
+        </p>
+      </section>
+    </div>
+  </article>
+</Layout>

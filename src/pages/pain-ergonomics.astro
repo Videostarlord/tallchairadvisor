@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Ergonomic Chair Pain for Tall People: Causes & Fixes",
+    "url": "https://tallchairadvisor.com/pain-ergonomics",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Pain & Ergonomics", "item": "https://tallchairadvisor.com/pain-ergonomics" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Ergonomic Chair Pain for Tall People: Causes & Fixes | Tall Chair Advisor"
+  description="How chair dimensions cause knee pain, back pain, and leg circulation issues for tall users. Understand the root cause before buying."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Pain & Ergonomics</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Understanding how chair dimensions directly cause specific pain points for tall users
+      </p>
+    </div>
+  </header>
+
+  <div class="container-wide py-12 md:py-16">
+    <div class="max-w-3xl mx-auto mb-12">
+      <p class="text-body text-center">
+        When a chair doesn't fit your body, the consequences go beyond discomfort.
+        Explore how specific dimensional mismatches lead to pain in different areas.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a href="/knee-pain-seat-depth" class="group card-hub flex flex-col">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-2 rounded-lg bg-accent text-primary">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+          Knee Pain & Seat Depth
+        </h3>
+        <p class="text-sm text-muted-foreground flex-1 mb-4">
+          How insufficient seat depth creates pressure points behind the knees and causes circulation issues for tall users.
+        </p>
+        <div class="flex items-center text-sm font-medium text-primary">
+          Learn more
+          <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </a>
+
+      <a href="/back-pain-spine-height" class="group card-hub flex flex-col">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-2 rounded-lg bg-accent text-primary">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v18m6-18v18M3 9h18M3 15h18" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+          Back Pain & Spine Height
+        </h3>
+        <p class="text-sm text-muted-foreground flex-1 mb-4">
+          Why lumbar support positioned for average users creates misalignment and chronic back pain for taller individuals.
+        </p>
+        <div class="flex items-center text-sm font-medium text-primary">
+          Learn more
+          <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </a>
+
+      <a href="/leg-pain-circulation" class="group card-hub flex flex-col">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-2 rounded-lg bg-accent text-primary">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-serif text-xl font-medium text-heading mb-2 group-hover:text-primary transition-colors">
+          Leg Pain & Circulation
+        </h3>
+        <p class="text-sm text-muted-foreground flex-1 mb-4">
+          The relationship between seat height, chair cylinder length, and blood flow issues in the legs.
+        </p>
+        <div class="flex items-center text-sm font-medium text-primary">
+          Learn more
+          <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </a>
+    </div>
+
+    <div class="mt-12 max-w-2xl mx-auto">
+      <div class="p-6 rounded-lg bg-secondary/50 border border-border">
+        <h3 class="font-serif text-xl font-medium text-heading mb-3">Foundation Reading</h3>
+        <p class="text-muted-foreground text-sm mb-4">
+          Before diving into specific pain points, understand the fundamental problem.
+        </p>
+        <a href="/why-standard-chairs-dont-fit" class="link-internal text-sm">
+          Why Standard Office Chairs Don't Fit Tall People →
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

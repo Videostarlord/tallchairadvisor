@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Steelcase Gesture vs Leap Plus: Which Is Better for Tall People?",
+    "url": "https://tallchairadvisor.com/gesture-vs-leap-plus",
+    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs" },
+      { "@type": "ListItem", "position": 3, "name": "Gesture vs Leap Plus", "item": "https://tallchairadvisor.com/gesture-vs-leap-plus" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Steelcase Gesture vs Leap Plus: Which Is Better for Tall People? | Tall Chair Advisor"
+  description="Gesture vs Leap Plus compared on dimensions, adjustability, and suitability for tall users 6ft and above."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance animate-fade-in">Steelcase Gesture vs Leap Plus</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Comparing Steelcase's two flagship options for tall users
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <div class="prose-tca">
+      <section>
+        <h2>Overview</h2>
+        <p>
+          The Steelcase Gesture and Steelcase Leap Plus are both premium ergonomic chairs, but they are designed to
+          solve different problems for tall users. The Gesture emphasizes arm mobility and posture flexibility, while
+          the Leap Plus focuses on size accommodation, deeper seat adjustment, and higher weight capacity.
+        </p>
+        <p>
+          This comparison looks at real-world fit factors—seat dimensions, adjustability, support feel, and overall
+          usability—to help tall users determine which chair better matches their body type and working style.
+        </p>
+      </section>
+
+      <section>
+        <h2>Dimensional Comparison</h2>
+        <p>
+          The Steelcase Gesture typically offers a seat height range of approximately 16 to 21 inches and is designed
+          to support a wide variety of seated postures. Its seat depth adjustment works well for many tall users, but
+          the overall platform remains closer to standard sizing with a strong emphasis on upper-body ergonomics and
+          arm movement.
+        </p>
+        <p>
+          The Steelcase Leap Plus is built for users who need more physical room and adjustment margin. It provides a
+          wider seat, deeper seat depth adjustment—often cited up to roughly 19.75 inches—and a much higher weight
+          capacity, commonly listed up to 500 lbs. This makes it a better fit when standard chair dimensions feel
+          restrictive.
+        </p>
+      </section>
+
+      <section>
+        <h2>For Tall Users</h2>
+        <p>
+          For tall users with larger frames or those who regularly feel constrained by standard office chairs, the
+          Leap Plus is generally the safer choice. Its larger seat platform and deeper adjustability help support
+          longer legs and reduce the "perched" feeling that can occur when seat depth is too shallow.
+        </p>
+        <p>
+          The Gesture is often a strong option for tall users with more average builds who prioritize movement and
+          flexibility. Its arm system is particularly well suited for device-heavy workflows, where arm positioning
+          changes frequently throughout the day.
+        </p>
+      </section>
+
+      <section>
+        <h2>Verdict</h2>
+        <p>
+          Choose the <strong>Steelcase Leap Plus</strong> if you need maximum size accommodation, deeper seat support,
+          and higher weight capacity for long-term comfort.
+        </p>
+        <p>
+          Choose the <strong>Steelcase Gesture</strong> if you are tall with a more average build and value advanced
+          arm mobility and dynamic sitting support.
+        </p>
+      </section>
+
+      <section>
+        <h2>Read Full Reviews</h2>
+        <ul>
+          <li><a href="/review/gesture" class="link-internal">Steelcase Gesture Review</a></li>
+          <li><a href="/review/leap-plus" class="link-internal">Steelcase Leap Plus Review</a></li>
+        </ul>
+      </section>
+
+      <div class="mt-8 pt-6 border-t border-border">
+        <a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a>
+      </div>
+    </div>
+  </article>
+</Layout>
