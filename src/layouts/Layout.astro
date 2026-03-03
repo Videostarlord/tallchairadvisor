@@ -8,7 +8,9 @@ interface Props {
   description: string;
   canonical?: string;
   ogImage?: string;
+  ogType?: string;
   schema?: object | object[];
+  noindex?: boolean;
 }
 
 const {
@@ -16,7 +18,9 @@ const {
   description,
   canonical,
   ogImage = '/images/og-default.jpg',
+  ogType = 'website',
   schema,
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchairadvisor.com').href;
@@ -35,7 +39,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchair
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={`https://tallchairadvisor.com${ogImage}`} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Tall Chair Advisor" />
 
     <!-- Twitter -->
@@ -43,9 +47,17 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchair
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Performance hints -->
+    <!-- Google Fonts — preconnect + non-render-blocking preload (H2) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap" />
+    </noscript>
+
+    <!-- Performance hints -->
     <link rel="preconnect" href="https://www.googletagmanager.com" />
 
     <!-- GA4 -->
@@ -61,7 +73,10 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchair
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <!-- Robots -->
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    {noindex
+      ? <meta name="robots" content="noindex, follow" />
+      : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    }
   </head>
   <body>
     <Header />

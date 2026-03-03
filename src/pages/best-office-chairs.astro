@@ -6,19 +6,19 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Best Office Chairs for Tall People 2026",
-    "url": "https://tallchairadvisor.com/best-office-chairs",
+    "url": "https://tallchairadvisor.com/best-office-chairs/",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Herman Miller Aeron Size C", "url": "https://tallchairadvisor.com/review/aeron-size-c" },
-      { "@type": "ListItem", "position": 2, "name": "Steelcase Leap Plus", "url": "https://tallchairadvisor.com/review/leap-plus" },
-      { "@type": "ListItem", "position": 3, "name": "Steelcase Gesture", "url": "https://tallchairadvisor.com/review/gesture" }
+      { "@type": "ListItem", "position": 1, "name": "Herman Miller Aeron Size C", "url": "https://tallchairadvisor.com/review/aeron-size-c/" },
+      { "@type": "ListItem", "position": 2, "name": "Steelcase Leap Plus", "url": "https://tallchairadvisor.com/review/leap-plus/" },
+      { "@type": "ListItem", "position": 3, "name": "Steelcase Gesture", "url": "https://tallchairadvisor.com/review/gesture/" }
     ]
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
-      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" }
     ]
   }
 ];
@@ -62,12 +62,12 @@ const chairs = [
 
 <Layout
   title="Best Office Chairs for Tall People 2026 | Tall Chair Advisor"
-  description="Curated shortlist of ergonomic chairs that meet dimensional requirements for users 6ft+. Criteria-based selection, no fluff."
+  description="The three ergonomic office chairs that reliably work for users 6'0\" and taller — with dimensional specs, fit guidance, and who each chair suits best."
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
-      <h1 class="text-balance animate-fade-in">Best Office Chairs for Tall People</h1>
+      <h1 class="text-balance">Best Office Chairs for Tall People</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
         A curated shortlist of chairs that meet dimensional requirements for users 6 feet and taller
       </p>
@@ -121,6 +121,7 @@ const chairs = [
     </section>
 
     <!-- Chair Cards -->
+    <h2 class="sr-only">Our Recommended Chairs</h2>
     <section class="space-y-8">
       {chairs.map((chair) => (
         <div class="bg-card border border-border rounded-lg p-6 md:p-8">

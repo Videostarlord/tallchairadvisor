@@ -6,20 +6,36 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Steelcase Gesture",
+    "image": "https://tallchairadvisor.com/images/gesture-hero.jpg",
+    "description": "The Steelcase Gesture is an ergonomic office chair featuring 360-degree armrests, adjustable seat depth up to 18.75\", and a 400 lb weight capacity designed for multi-device workers.",
+    "brand": { "@type": "Brand", "name": "Steelcase" },
     "review": {
       "@type": "Review",
-      "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5" },
-      "author": { "@type": "Organization", "name": "Tall Chair Advisor" }
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.5",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+      "reviewBody": "The Steelcase Gesture excels for tall users 6'0\"–6'4\" who work across multiple devices, thanks to its 360-degree armrest system and adjustable seat depth. Users above 6'4\" should consider the Leap Plus for greater seat depth.",
+      "datePublished": "2025-01-15"
     },
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "1" }
+    "offers": {
+      "@type": "Offer",
+      "price": "1649.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2027-03-01"
+    }
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
-      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs" },
-      { "@type": "ListItem", "position": 3, "name": "Gesture Review", "item": "https://tallchairadvisor.com/review/gesture" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Gesture Review", "item": "https://tallchairadvisor.com/review/gesture/" }
     ]
   }
 ];
@@ -27,12 +43,13 @@ const schema = [
 
 <Layout
   title="Steelcase Gesture Review for Tall People | Tall Chair Advisor"
-  description={`Review of the Steelcase Gesture for tall users. 360° armrests, flexible seat edge, and suitability for users 6ft–6'4".`}
+  description="Steelcase Gesture review for tall users. How the 15.75\"–18.75\" seat depth, back height, and armrest range perform for people 6'0\" and taller."
+  ogType="article"
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
-      <h1 class="text-balance animate-fade-in">Steelcase Gesture Review</h1>
+      <h1 class="text-balance">Steelcase Gesture Review</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
         Comprehensive evaluation for tall users seeking multi-device ergonomics
       </p>
@@ -40,8 +57,20 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
     <figure class="mb-10">
-      <img alt="Steelcase Gesture office chair in dark grey, showing 360-degree armrests, contoured seat, and synchronized recline mechanism" class="w-full max-w-lg mx-auto rounded-lg shadow-md" src="/images/gesture-hero.jpg" />
+      <img
+        alt="Steelcase Gesture office chair in dark grey, showing 360-degree armrests, contoured seat, and synchronized recline mechanism"
+        class="w-full max-w-lg mx-auto rounded-lg shadow-md"
+        src="/images/gesture-hero.jpg"
+        width="800"
+        height="533"
+        fetchpriority="high"
+      />
       <figcaption class="text-center text-sm text-muted-foreground mt-3">
         Steelcase Gesture with 360° arm design and LiveBack technology
       </figcaption>
@@ -72,7 +101,14 @@ const schema = [
         <p>The Gesture's seat depth adjustment of 18.75 inches provides adequate thigh support for most tall users in the 6'0" to 6'4" range, though it falls approximately one inch short of the Leap Plus maximum. The seat pan features a flexible edge that reduces pressure behind the knees during extended sitting.</p>
 
         <figure class="my-8">
-          <img alt="Close-up of Steelcase Gesture armrest showing 360-degree pivot range and height adjustment mechanism" class="w-full max-w-md mx-auto rounded-lg shadow-sm" src="/images/gesture-armrest-detail.webp" />
+          <img
+            alt="Close-up of Steelcase Gesture armrest showing 360-degree pivot range and height adjustment mechanism"
+            class="w-full max-w-md mx-auto rounded-lg shadow-sm"
+            src="/images/gesture-armrest-detail.webp"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
           <figcaption class="text-center text-sm text-muted-foreground mt-3">
             360° armrest pivot allows support across multiple working positions
           </figcaption>
@@ -144,10 +180,6 @@ const schema = [
           </a>
         </p>
       </section>
-
-      <div class="bg-accent/30 border border-border rounded-lg p-4 mt-8 text-sm text-muted-foreground">
-        <strong>Affiliate Disclosure:</strong> We may earn a commission from qualifying purchases. This does not influence our evaluations.
-      </div>
 
       <nav class="mt-8 pt-6 border-t border-border" aria-label="Post-review navigation">
         <p class="text-sm font-medium text-muted-foreground mb-3">Continue exploring:</p>

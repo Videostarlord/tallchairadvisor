@@ -6,16 +6,24 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Correct Office Chair Dimensions for Tall People",
-    "url": "https://tallchairadvisor.com/correct-chair-dimensions",
-    "publisher": { "@type": "Organization", "name": "Tall Chair Advisor" }
+    "url": "https://tallchairadvisor.com/correct-chair-dimensions/",
+    "image": "https://tallchairadvisor.com/images/og-default.jpg",
+    "datePublished": "2025-01-15",
+    "dateModified": "2026-03-01",
+    "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.jpg" }
+    }
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
-      { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides" },
-      { "@type": "ListItem", "position": 3, "name": "Correct Chair Dimensions", "item": "https://tallchairadvisor.com/correct-chair-dimensions" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides/" },
+      { "@type": "ListItem", "position": 3, "name": "Correct Chair Dimensions", "item": "https://tallchairadvisor.com/correct-chair-dimensions/" }
     ]
   }
 ];
@@ -23,12 +31,12 @@ const schema = [
 
 <Layout
   title="Correct Office Chair Dimensions for Tall People | Tall Chair Advisor"
-  description="The exact seat height, seat depth, back height, and lumbar measurements tall users (6ft+) should require from any chair."
+  description="The correct office chair dimensions for tall and large users: seat depth, height, back height, and armrest ranges by body height."
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
-      <h1 class="text-balance animate-fade-in">Correct Chair Dimensions for Tall & Large Bodies</h1>
+      <h1 class="text-balance">Correct Chair Dimensions for Tall & Large Bodies</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
         The specific measurements and ranges tall users should look for when evaluating chairs
       </p>

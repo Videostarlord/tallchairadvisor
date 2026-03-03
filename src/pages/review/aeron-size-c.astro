@@ -6,21 +6,36 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Herman Miller Aeron Size C",
+    "image": "https://tallchairadvisor.com/images/aeron-size-c-hero.png",
+    "description": "The Herman Miller Aeron Size C is a large-format ergonomic office chair with Pellicle mesh, PostureFit SL lumbar support, and a 350 lb weight capacity, designed for users 6'0\"–6'6\".",
+    "brand": { "@type": "Brand", "name": "Herman Miller" },
     "review": {
       "@type": "Review",
-      "reviewRating": { "@type": "Rating", "ratingValue": "4.7", "bestRating": "5" },
-      "author": { "@type": "Organization", "name": "Tall Chair Advisor" }
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.7",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+      "reviewBody": "The Aeron Size C delivers exceptional breathability and proven lumbar support for tall users 6'0\"–6'4\" with lean builds. The fixed 18.5\" seat depth is the primary limitation for taller users with longer femurs.",
+      "datePublished": "2025-01-15"
     },
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.7", "reviewCount": "1" },
-    "offers": { "@type": "Offer", "price": "1795.00", "priceCurrency": "USD" }
+    "offers": {
+      "@type": "Offer",
+      "price": "1795.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2027-03-01"
+    }
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com" },
-      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs" },
-      { "@type": "ListItem", "position": 3, "name": "Aeron Size C Review", "item": "https://tallchairadvisor.com/review/aeron-size-c" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Aeron Size C Review", "item": "https://tallchairadvisor.com/review/aeron-size-c/" }
     ]
   }
 ];
@@ -28,12 +43,13 @@ const schema = [
 
 <Layout
   title={`Herman Miller Aeron Size C Review: For Tall Users 6'0"–6'6" | Tall Chair Advisor`}
-  description="In-depth review of the Aeron Size C for tall people. Specs, pros/cons, comfort analysis, and who it fits best."
+  description="In-depth Herman Miller Aeron Size C review for users 6'0\"–6'6\". Seat depth, height range, PostureFit SL lumbar assessment, and who should skip it."
+  ogType="article"
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
-      <h1 class="text-balance animate-fade-in">Herman Miller Aeron Size C Review</h1>
+      <h1 class="text-balance">Herman Miller Aeron Size C Review</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
         In-depth evaluation for tall users (6 feet to 6 foot 6)
       </p>
@@ -41,8 +57,20 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
     <figure class="mb-10">
-      <img alt="Herman Miller Aeron Size C office chair in graphite, showing full chair with mesh back, adjustable armrests, and 5-star base" class="w-full max-w-lg mx-auto rounded-lg shadow-md" src="/images/aeron-size-c-hero.png" />
+      <img
+        alt="Herman Miller Aeron Size C office chair in graphite, showing full chair with mesh back, adjustable armrests, and 5-star base"
+        class="w-full max-w-lg mx-auto rounded-lg shadow-md"
+        src="/images/aeron-size-c-hero.png"
+        width="800"
+        height="533"
+        fetchpriority="high"
+      />
       <figcaption class="text-center text-sm text-muted-foreground mt-3">Herman Miller Aeron Size C — designed for users 6'0" to 6'6"</figcaption>
     </figure>
 
@@ -72,7 +100,14 @@ const schema = [
         <p>The Aeron Size C's comfort profile centers on its Pellicle mesh suspension system. Unlike foam-padded chairs that compress over time, the mesh distributes weight evenly across its surface while allowing continuous airflow. For tall users who often run warm, this breathability provides meaningful all-day comfort.</p>
 
         <figure class="my-8">
-          <img alt="Close-up of the Aeron's PostureFit SL lumbar support system and Pellicle mesh back construction" class="w-full max-w-md mx-auto rounded-lg shadow-md" src="/images/aeron-lumbar-detail.jpg" />
+          <img
+            alt="Close-up of the Aeron's PostureFit SL lumbar support system and Pellicle mesh back construction"
+            class="w-full max-w-md mx-auto rounded-lg shadow-md"
+            src="/images/aeron-lumbar-detail.jpg"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
           <figcaption class="text-center text-sm text-muted-foreground mt-3">PostureFit SL lumbar support and Pellicle mesh detail</figcaption>
         </figure>
 
@@ -143,10 +178,6 @@ const schema = [
         </p>
         <p class="text-sm text-muted-foreground mt-3">Availability and pricing may vary. Refurbished units from certified resellers can offer savings while maintaining warranty coverage.</p>
       </section>
-
-      <div class="bg-accent/30 border border-border rounded-lg p-4 mt-8 text-sm text-muted-foreground">
-        <strong>Affiliate Disclosure:</strong> We may earn a commission from qualifying purchases. This does not influence our evaluations.
-      </div>
     </div>
   </article>
 </Layout>

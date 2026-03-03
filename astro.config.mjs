@@ -6,7 +6,13 @@ export default defineConfig({
   site: 'https://tallchairadvisor.com',
   integrations: [
     tailwind({ applyBaseStyles: false }),
-    sitemap(),
+    sitemap({
+      filter: (page) =>
+        !page.includes('/affiliate-disclosure/') &&
+        !page.includes('/contact/') &&
+        !page.includes('/privacy-policy/'),
+      lastmod: new Date(),
+    }),
   ],
   output: 'static',
 });
