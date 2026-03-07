@@ -20,49 +20,67 @@ const schema = [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
       { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best office chair for someone 6'4\"?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Leap Plus is the strongest option for someone 6'4\". Its adjustable seat depth reaches 19.75\" (vs 18.5\" on the Aeron) and its maximum seat height of 22.5\" accommodates taller users at standard desk heights. The 25\" back height also provides more shoulder blade coverage than most alternatives."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron Size C good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, for users between 6'0\" and 6'4\" with lean to average builds. The Size C extends the Aeron's dimensions for taller frames — its seat height reaches 20.5\" and back height is 23\". The main limitation is fixed seat depth at 18.5\", which may feel short for users above 6'4\" with longer femurs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat height do I need for a 6'3\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At 6'3\", you typically need a seat height of 18\"–20\" to keep your thighs parallel to the floor with feet flat. The exact height depends on your inseam and the height of your desk. All three chairs on this list — the Aeron Size C (max 20.5\"), Steelcase Leap Plus (max 22.5\"), and Steelcase Gesture (max 21\") — accommodate this range."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between the Steelcase Leap and Leap Plus for tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Leap Plus has a higher weight capacity (500 lbs vs 400 lbs), a wider seat (22\" vs 19.5\"), and a taller seat height range (up to 22.5\" vs 20.5\"). The Leap Plus is specifically designed for larger users and provides more room for tall people with broader builds, while the standard Leap is better suited for tall users with average builds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use a standard office chair if I'm 6'1\" or taller?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most standard office chairs max out at 17\"–18\" seat height and 16\"–17\" seat depth — dimensions designed for users around 5'8\"–5'10\". If you're 6'1\" or taller, a standard chair will likely leave your knees above your hips and your thighs without proper support. Height-specific ergonomic chairs with seat heights of 19\"+ and adjustable seat depths are worth the investment for long-term posture and pain prevention."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which chair is best for tall people with back pain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C's PostureFit SL lumbar system is the most targeted lumbar support of the three, using dual pads to support both the sacrum and lumbar spine. The Steelcase Leap Plus and Gesture both use LiveBack technology, which adapts the entire backrest to your spine's movement. For lower back pain specifically, the Aeron's PostureFit SL is often preferred."
+        }
+      }
+    ]
   }
-];
-
-const chairs = [
-  {
-    name: "Herman Miller Aeron Size C",
-    suitability: 'Users 6\'0" to 6\'6" with average to lean builds',
-    strengths: ["Extensive adjustability", "Proven long-term durability", "Excellent ventilation"],
-    considerations: ["Mesh may not suit all preferences", "Premium pricing"],
-    reviewHref: "/review/aeron-size-c",
-    compareLinks: [
-      { name: "vs Steelcase Leap Plus", href: "/aeron-vs-leap-plus" },
-      { name: "vs Steelcase Gesture", href: "/aeron-vs-gesture" },
-    ],
-  },
-  {
-    name: "Steelcase Leap Plus",
-    suitability: 'Users 6\'0" to 6\'6" with larger builds, up to 500 lbs',
-    strengths: ["Higher weight capacity", "Deep seat option", "Flexible back support"],
-    considerations: ["Heavier unit", "Less ventilation than mesh"],
-    reviewHref: "/review/leap-plus",
-    compareLinks: [
-      { name: "vs Aeron Size C", href: "/aeron-vs-leap-plus" },
-      { name: "vs Steelcase Gesture", href: "/gesture-vs-leap-plus" },
-    ],
-  },
-  {
-    name: "Steelcase Gesture",
-    suitability: 'Users 6\'0" to 6\'4" who use multiple devices',
-    strengths: ["360° armrest movement", "Flexible seat edge", "Multiple sitting postures"],
-    considerations: ["Smaller than Leap Plus", "Higher price point"],
-    reviewHref: "/review/gesture",
-    compareLinks: [
-      { name: "vs Leap Plus", href: "/gesture-vs-leap-plus" },
-      { name: "vs Aeron Size C", href: "/aeron-vs-gesture" },
-    ],
-  },
 ];
 ---
 
 <Layout
   title="Best Office Chairs for Tall People 2026 | Tall Chair Advisor"
-  description="The three ergonomic office chairs that reliably work for users 6'0&quot; and taller — with dimensional specs, fit guidance, and who each chair suits best."
+  description="The three ergonomic office chairs that reliably fit users 6'0&quot; and taller — with exact seat heights, seat depths, back heights, and who each chair suits by height."
   ogType="article"
   schema={schema}
 >
@@ -70,13 +88,57 @@ const chairs = [
     <div class="container-article text-center">
       <h1 class="text-balance">Best Office Chairs for Tall People</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
-        A curated shortlist of chairs that meet dimensional requirements for users 6 feet and taller
+        Chairs that meet dimensional requirements for users 6'0" and taller — with exact specs and height-specific fit guidance
       </p>
+      <p class="mt-2 text-sm text-muted-foreground">Last reviewed: March 2026</p>
     </div>
   </header>
 
   <div class="container-wide py-12 md:py-16">
-    <!-- Inclusion Criteria -->
+
+    <!-- Affiliate Disclosure -->
+    <div class="max-w-3xl mx-auto mb-10">
+      <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-900">
+        <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+        <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+      </div>
+    </div>
+
+    <!-- Quick Answer -->
+    <section class="max-w-3xl mx-auto mb-14">
+      <div class="bg-card border border-border rounded-lg p-6">
+        <h2 class="font-serif text-xl text-heading mb-4">Quick Picks</h2>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-3">
+            <span class="font-semibold text-primary min-w-fit">Best overall (6'0"–6'4"):</span>
+            <span class="text-muted-foreground"><a href="/review/aeron-size-c" class="link-internal font-medium">Herman Miller Aeron Size C</a> — Breathable mesh, proven PostureFit SL lumbar, 20.5" max seat height</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="font-semibold text-primary min-w-fit">Best for tall and larger builds (6'0"–6'6"+):</span>
+            <span class="text-muted-foreground"><a href="/review/leap-plus" class="link-internal font-medium">Steelcase Leap Plus</a> — 19.75" adjustable seat depth, 22.5" max seat height, 500 lb capacity</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="font-semibold text-primary min-w-fit">Best for multi-device workers (6'0"–6'4"):</span>
+            <span class="text-muted-foreground"><a href="/review/gesture" class="link-internal font-medium">Steelcase Gesture</a> — 360° armrests, LiveBack technology, 21" max seat height</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Why Tall People Need Different Chairs -->
+    <section class="max-w-3xl mx-auto mb-14 prose-tca">
+      <h2>Why Standard Chairs Don't Work for Tall People</h2>
+      <p>Most office chairs are engineered around an average user: roughly 5'8"–5'10" and 150–180 lbs. Every dimension — seat height, seat depth, back height — is calibrated for that person. If you're 6'1" or taller, you're sitting in a chair that was never designed for your body.</p>
+      <p>The problems are biomechanical, not just comfort preferences:</p>
+      <ul>
+        <li><strong>Seat height:</strong> Standard chairs max out at 17"–18". At 6'2", you need 19"–21" to keep your thighs parallel to the floor. A seat too low forces your knees above your hips, tilting your pelvis forward and loading your lumbar spine.</li>
+        <li><strong>Seat depth:</strong> Standard seats are 16"–17" deep, designed for femurs around 15"–16" long. A 6'3" person typically has a femur length of 19"–21". A seat that's too shallow leaves your thighs unsupported, which means more pressure on your lower back and the back of your knees.</li>
+        <li><strong>Back height:</strong> A 20"–21" backrest leaves your shoulder blades unsupported if you're above 6 feet. Unsupported upper back leads to forward head posture and chronic neck strain.</li>
+      </ul>
+      <p>Every chair on this list clears a minimum bar on all three dimensions. That's what makes the shortlist short.</p>
+    </section>
+
+    <!-- Selection Criteria -->
     <section class="max-w-3xl mx-auto mb-16">
       <h2 class="font-serif text-2xl text-heading mb-6 text-center">Selection Criteria</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -93,105 +155,456 @@ const chairs = [
               <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              Seat depth of 19"+ or adjustable depth
+              Seat depth of 18.5"+ or adjustable depth with range reaching 19"+
             </li>
             <li class="flex items-start gap-2">
               <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              Back height accommodates taller torsos
+              Back height of 23"+ to support shoulder blades for tall torsos
             </li>
             <li class="flex items-start gap-2">
               <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              Proven track record with tall users
+              Proven track record with tall users over multiple years
             </li>
           </ul>
         </div>
         <div class="p-4 rounded-lg bg-muted/30 border border-border">
           <h4 class="font-medium text-heading mb-2">Excluded If</h4>
           <ul class="space-y-2 text-sm text-muted-foreground">
-            <li>• Maximum seat height under 18"</li>
-            <li>• Fixed, non-adjustable seat depth under 18"</li>
-            <li>• Back height designed for average users</li>
+            <li>• Maximum seat height under 19"</li>
+            <li>• Fixed seat depth under 18.5" with no adjustment</li>
+            <li>• Back height under 22" (fails users above 6')</li>
             <li>• Insufficient long-term durability data</li>
+            <li>• No ergonomic adjustability (lumbar, tilt, armrests)</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Chair Cards -->
-    <h2 class="sr-only">Our Recommended Chairs</h2>
-    <section class="space-y-8">
-      {chairs.map((chair) => (
-        <div class="bg-card border border-border rounded-lg p-6 md:p-8">
-          <div class="flex flex-col lg:flex-row lg:items-start gap-6">
-            <div class="flex-1">
-              <h3 class="font-serif text-2xl text-heading mb-2">{chair.name}</h3>
-              <p class="text-primary text-sm font-medium mb-4">{chair.suitability}</p>
+    <!-- Chair 1: Herman Miller Aeron Size C -->
+    <section class="max-w-3xl mx-auto mb-12">
+      <div class="bg-card border border-border rounded-lg p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-0.5 rounded">Best Overall</span>
+        </div>
+        <h2 class="font-serif text-2xl text-heading mb-1">1. Herman Miller Aeron Size C</h2>
+        <p class="text-sm text-muted-foreground mb-5">Best for users 6'0"–6'4" with lean to average builds who prioritize breathability</p>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div>
-                  <h4 class="text-sm font-semibold text-heading mb-3">Strengths</h4>
-                  <ul class="space-y-2">
-                    {chair.strengths.map((strength) => (
-                      <li class="flex items-start gap-2 text-sm text-muted-foreground">
-                        <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        {strength}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="text-sm font-semibold text-heading mb-3">Considerations</h4>
-                  <ul class="space-y-2">
-                    {chair.considerations.map((consideration) => (
-                      <li class="text-sm text-muted-foreground">• {consideration}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+        <div class="prose-tca mb-6">
+          <p>The Aeron Size C is the most-tested, most-refined ergonomic chair for tall users. Herman Miller has been iterating on the Aeron since 1994, and the Size C — their largest variant — extends every critical dimension for taller frames. Its Pellicle mesh suspension eliminates the heat buildup that plagues foam-padded alternatives, making it a standout for anyone who runs warm during long work sessions.</p>
+          <p>For tall users, the PostureFit SL lumbar system is the Aeron's strongest differentiator. Unlike single-point lumbar pads, it uses two independent supports targeting the sacrum and lumbar spine separately. Tall users tend to struggle with single-point systems because a longer torso shifts where lumbar support needs to land — the dual-zone approach handles this better.</p>
+          <p>The key limitation to know before buying: the seat depth is fixed at 18.5". For users between 6'0" and 6'4" with average femur lengths, this works well. If you're above 6'4" or have longer-than-average thighs for your height, the Leap Plus's adjustable seat depth is a better fit.</p>
+        </div>
 
-              <div class="mt-6">
-                <a href={chair.reviewHref} class="link-internal text-sm font-medium">
-                  Read full review →
-                </a>
-              </div>
-            </div>
-
-            <div class="lg:w-64 flex-shrink-0">
-              <h4 class="text-sm font-semibold text-heading mb-3">Compare This Chair</h4>
-              <div class="space-y-2">
-                {chair.compareLinks.map((link) => (
-                  <a
-                    href={link.href}
-                    class="flex items-center justify-between p-3 rounded-lg bg-secondary/50 hover:bg-accent transition-colors text-sm"
-                  >
-                    <span class="text-muted-foreground">{link.name}</span>
-                    <svg class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                ))}
-              </div>
-            </div>
+        <!-- Aeron Specs -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6 text-sm">
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Height</p>
+            <p class="font-semibold text-heading">16" – 20.5"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Depth</p>
+            <p class="font-semibold text-heading">18.5" (fixed)</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Back Height</p>
+            <p class="font-semibold text-heading">23"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Weight Capacity</p>
+            <p class="font-semibold text-heading">350 lbs</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Type</p>
+            <p class="font-semibold text-heading">Pellicle mesh</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Warranty</p>
+            <p class="font-semibold text-heading">12 years</p>
           </div>
         </div>
-      ))}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h4 class="text-sm font-semibold text-heading mb-3">Strengths</h4>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Pellicle mesh eliminates heat buildup
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                PostureFit SL dual-zone lumbar support
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                30+ years of ergonomic refinement
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Strong resale value (secondary market is mature)
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-heading mb-3">Limitations</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-muted-foreground">• Fixed 18.5" seat depth — no adjustment for longer thighs</li>
+              <li class="text-sm text-muted-foreground">• 23" back height may fall short above 6'4"</li>
+              <li class="text-sm text-muted-foreground">• Mesh firmness requires adaptation period</li>
+              <li class="text-sm text-muted-foreground">• Premium pricing (~$1,795 new)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="https://www.amazon.com/s?k=Herman+Miller+Aeron+Size+C&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Aeron Size C on Amazon →
+          </a>
+          <a href="/review/aeron-size-c" class="link-internal text-sm font-medium flex items-center">
+            Read full review →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chair 2: Steelcase Leap Plus -->
+    <section class="max-w-3xl mx-auto mb-12">
+      <div class="bg-card border border-border rounded-lg p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-0.5 rounded">Best for 6'4"+</span>
+        </div>
+        <h2 class="font-serif text-2xl text-heading mb-1">2. Steelcase Leap Plus</h2>
+        <p class="text-sm text-muted-foreground mb-5">Best for users 6'0"–6'6"+ who need adjustable seat depth or higher weight capacity</p>
+
+        <div class="prose-tca mb-6">
+          <p>The Steelcase Leap Plus is the most accommodating chair on this list for genuinely tall users — specifically those above 6'4" or anyone with longer-than-average thighs for their height. Its defining advantage is a 4-inch adjustable seat depth range (15.75"–19.75"), which allows you to dial in the exact amount of thigh support your femur length requires. The Aeron doesn't offer this. The standard Gesture's maximum depth of 18.75" is lower.</p>
+          <p>At 6'5" with a 22" femur, you need every bit of that 19.75" maximum. You won't find it anywhere else in this class.</p>
+          <p>The Leap Plus also carries the highest seat height ceiling of the three at 22.5", which matters when you're trying to position yourself correctly at a standard-height desk. Its 25" back height provides the most shoulder blade coverage of any chair on this list — meaningful if you're a taller person who has struggled with backrests that end mid-shoulder.</p>
+          <p>The trade-off: fabric-only upholstery means less breathability than the Aeron's mesh. If you run hot during long work sessions, that's worth factoring in.</p>
+        </div>
+
+        <!-- Leap Plus Specs -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6 text-sm">
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Height</p>
+            <p class="font-semibold text-heading">15.5" – 22.5"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Depth</p>
+            <p class="font-semibold text-heading">15.75" – 19.75"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Back Height</p>
+            <p class="font-semibold text-heading">25"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Weight Capacity</p>
+            <p class="font-semibold text-heading">500 lbs</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Type</p>
+            <p class="font-semibold text-heading">Foam / fabric</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Warranty</p>
+            <p class="font-semibold text-heading">12 years</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h4 class="text-sm font-semibold text-heading mb-3">Strengths</h4>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Adjustable seat depth with the widest range (4" travel)
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Highest seat height maximum (22.5")
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Tallest backrest (25") for most shoulder blade coverage
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                500 lb weight capacity with full 12-year warranty
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-heading mb-3">Limitations</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-muted-foreground">• Fabric only — less breathable than mesh</li>
+              <li class="text-sm text-muted-foreground">• Heavy unit (60+ lbs) — harder to reposition</li>
+              <li class="text-sm text-muted-foreground">• Fewer upholstery color options</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="https://www.amazon.com/s?k=Steelcase+Leap+Plus&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Steelcase Leap Plus on Amazon →
+          </a>
+          <a href="/review/leap-plus" class="link-internal text-sm font-medium flex items-center">
+            Read full review →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chair 3: Steelcase Gesture -->
+    <section class="max-w-3xl mx-auto mb-16">
+      <div class="bg-card border border-border rounded-lg p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-0.5 rounded">Best for Multi-Device Workers</span>
+        </div>
+        <h2 class="font-serif text-2xl text-heading mb-1">3. Steelcase Gesture</h2>
+        <p class="text-sm text-muted-foreground mb-5">Best for users 6'0"–6'4" who work across multiple devices throughout the day</p>
+
+        <div class="prose-tca mb-6">
+          <p>The Steelcase Gesture solves a problem the Aeron and Leap Plus don't fully address: arm support that follows you as you move between a keyboard, touchscreen, phone, and tablet. Its 360-degree armrest system can pivot inward, outward, forward, and at virtually any angle — designed after studying over 2,000 postures across six continents.</p>
+          <p>For tall users in the 6'0"–6'4" range, the Gesture is competitive on seat dimensions. Its seat height reaches 21" and the adjustable seat depth goes up to 18.75", covering most users in this height range. The LiveBack flexible backrest adapts to your spine's movement rather than requiring you to manually adjust lumbar support throughout the day.</p>
+          <p>The Gesture's foam seat feels different from the Aeron's mesh — firmer initially, with a break-in period of a few weeks. Some users prefer the structured feel; others miss the ventilation. Users above 6'4" should note that the 18.75" maximum seat depth and 24" back height both fall short of what the Leap Plus offers at the extreme tall end.</p>
+        </div>
+
+        <!-- Gesture Specs -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6 text-sm">
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Height</p>
+            <p class="font-semibold text-heading">16" – 21"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Depth</p>
+            <p class="font-semibold text-heading">15.75" – 18.75"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Back Height</p>
+            <p class="font-semibold text-heading">24"</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Weight Capacity</p>
+            <p class="font-semibold text-heading">400 lbs</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Seat Type</p>
+            <p class="font-semibold text-heading">Foam / fabric</p>
+          </div>
+          <div class="p-3 rounded bg-secondary/30 border border-border">
+            <p class="text-xs text-muted-foreground mb-0.5">Warranty</p>
+            <p class="font-semibold text-heading">12 years</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h4 class="text-sm font-semibold text-heading mb-3">Strengths</h4>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                360° armrests — best arm support for varied working postures
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                LiveBack technology adapts to spine movement continuously
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Flexible seat edge reduces knee pressure for tall users
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <svg class="h-4 w-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                400 lb weight capacity, 12-year warranty
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-heading mb-3">Limitations</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-muted-foreground">• 18.75" max seat depth — shorter than Leap Plus</li>
+              <li class="text-sm text-muted-foreground">• No mesh option — runs warmer than Aeron</li>
+              <li class="text-sm text-muted-foreground">• Firm foam seat requires break-in period</li>
+              <li class="text-sm text-muted-foreground">• No forward tilt mechanism</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Steelcase Gesture on Amazon →
+          </a>
+          <a href="/review/gesture" class="link-internal text-sm font-medium flex items-center">
+            Read full review →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spec Comparison Table -->
+    <section class="max-w-3xl mx-auto mb-16">
+      <h2 class="font-serif text-2xl text-heading mb-6 text-center">Side-by-Side Specs</h2>
+      <div class="overflow-x-auto rounded-lg border border-border">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-secondary/40 border-b border-border">
+              <th class="text-left p-3 font-semibold text-heading">Spec</th>
+              <th class="text-center p-3 font-semibold text-heading">Aeron Size C</th>
+              <th class="text-center p-3 font-semibold text-heading">Leap Plus</th>
+              <th class="text-center p-3 font-semibold text-heading">Gesture</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Max seat height</td>
+              <td class="p-3 text-center">20.5"</td>
+              <td class="p-3 text-center font-semibold text-primary">22.5"</td>
+              <td class="p-3 text-center">21"</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Seat depth</td>
+              <td class="p-3 text-center">18.5" (fixed)</td>
+              <td class="p-3 text-center font-semibold text-primary">15.75"–19.75"</td>
+              <td class="p-3 text-center">15.75"–18.75"</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Back height</td>
+              <td class="p-3 text-center">23"</td>
+              <td class="p-3 text-center font-semibold text-primary">25"</td>
+              <td class="p-3 text-center">24"</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Weight capacity</td>
+              <td class="p-3 text-center">350 lbs</td>
+              <td class="p-3 text-center font-semibold text-primary">500 lbs</td>
+              <td class="p-3 text-center">400 lbs</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Seat type</td>
+              <td class="p-3 text-center">Mesh</td>
+              <td class="p-3 text-center">Foam</td>
+              <td class="p-3 text-center">Foam</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Lumbar type</td>
+              <td class="p-3 text-center">PostureFit SL (dual)</td>
+              <td class="p-3 text-center">LiveBack + dial</td>
+              <td class="p-3 text-center">LiveBack</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Armrests</td>
+              <td class="p-3 text-center">4D adjustable</td>
+              <td class="p-3 text-center">4D adjustable</td>
+              <td class="p-3 text-center font-semibold text-primary">360° pivot</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Best for height</td>
+              <td class="p-3 text-center">6'0"–6'4"</td>
+              <td class="p-3 text-center">6'0"–6'7"+</td>
+              <td class="p-3 text-center">6'0"–6'4"</td>
+            </tr>
+            <tr class="hover:bg-secondary/20">
+              <td class="p-3 text-muted-foreground font-medium">Price (approx.)</td>
+              <td class="p-3 text-center">~$1,795</td>
+              <td class="p-3 text-center">~$1,595</td>
+              <td class="p-3 text-center">~$1,649</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Height Fit Guide -->
+    <section class="max-w-3xl mx-auto mb-16">
+      <h2 class="font-serif text-2xl text-heading mb-6 text-center">Which Chair Fits Your Height?</h2>
+      <div class="space-y-4">
+        <div class="p-5 rounded-lg bg-card border border-border">
+          <h3 class="font-semibold text-heading mb-2">6'0" – 6'3"</h3>
+          <p class="text-sm text-muted-foreground mb-3">All three chairs work well at this range. Your choice comes down to priorities:</p>
+          <ul class="text-sm text-muted-foreground space-y-1">
+            <li>→ <strong class="text-heading">Choose the Aeron</strong> if you run hot, prefer mesh, and have an average build</li>
+            <li>→ <strong class="text-heading">Choose the Gesture</strong> if you switch between devices frequently (laptop, monitors, tablet, phone)</li>
+            <li>→ <strong class="text-heading">Choose the Leap Plus</strong> if you have a larger build, need higher weight capacity, or want maximum thigh support flexibility</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-lg bg-card border border-border">
+          <h3 class="font-semibold text-heading mb-2">6'3" – 6'5"</h3>
+          <p class="text-sm text-muted-foreground mb-3">The Leap Plus starts to pull ahead at this range, particularly for seat depth. The Aeron's fixed 18.5" seat depth becomes limiting for users with longer femurs. The Gesture's 18.75" maximum is borderline.</p>
+          <ul class="text-sm text-muted-foreground space-y-1">
+            <li>→ <strong class="text-heading">Lean toward the Leap Plus</strong> — its adjustable depth at 19.75" accommodates longer thighs better than either alternative</li>
+            <li>→ <strong class="text-heading">The Aeron still works</strong> if your thighs are average-length for your height and you prioritize breathability</li>
+            <li>→ <strong class="text-heading">The Gesture works</strong> if arm support for multi-device work is the priority and you're not on the taller end of this range</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-lg bg-card border border-border">
+          <h3 class="font-semibold text-heading mb-2">6'5" – 6'7"</h3>
+          <p class="text-sm text-muted-foreground mb-3">The Steelcase Leap Plus is the clearest recommendation here. Its 22.5" maximum seat height is the highest of the three, its 19.75" seat depth handles longer femurs, and its 25" backrest provides the most shoulder blade coverage.</p>
+          <ul class="text-sm text-muted-foreground space-y-1">
+            <li>→ <strong class="text-heading">Steelcase Leap Plus</strong> is the primary recommendation for users 6'5" and above</li>
+            <li>→ The Aeron and standard Gesture both start to fall short at this range on multiple dimensions</li>
+            <li>→ If you're 6'7"+, also check the Steelcase Leap Plus with the optional tall cylinder — contact a Steelcase dealer for configuration</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="max-w-3xl mx-auto mb-16 prose-tca">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What is the best office chair for someone 6'4"?</h3>
+      <p>The Steelcase Leap Plus is the strongest option for 6'4". Its adjustable seat depth reaches 19.75" (vs 18.5" fixed on the Aeron), maximum seat height is 22.5", and 25" back height provides more shoulder coverage. If breathability is a priority, the Aeron Size C still works at 6'4" provided your femur length is average for your height.</p>
+
+      <h3>Is the Herman Miller Aeron Size C good for tall people?</h3>
+      <p>Yes, for users between 6'0" and 6'4" with lean to average builds. The main limitation is its fixed 18.5" seat depth. If you're above 6'4" or have longer-than-average thighs, the fixed depth may feel short — you can't extend it further.</p>
+
+      <h3>What seat height do I need for a 6'3" person?</h3>
+      <p>At 6'3", a seat height of 18"–20" typically keeps thighs parallel to the floor with feet flat, assuming a standard desk height around 28"–30". The exact range depends on your inseam length and desk height. All three chairs on this list reach at least 20.5" maximum, which covers this range.</p>
+
+      <h3>What's the difference between the Steelcase Leap and Leap Plus for tall users?</h3>
+      <p>The Leap Plus has a higher weight capacity (500 lbs vs 400 lbs), a wider seat (22" vs 19.5"), and a taller seat height range (up to 22.5" vs 20.5"). For tall users with average builds under 250 lbs, the standard Leap may suffice — but the Plus's extended seat height ceiling makes it the better fit for users above 6'4".</p>
+
+      <h3>Can I use a standard office chair if I'm 6'1" or taller?</h3>
+      <p>Most standard chairs max out at 17"–18" seat height — designed for users around 5'8"–5'10". A seat too low forces your knees above your hips, loading your lumbar spine. For occasional use it's fine. For 6+ hour work days, a chair sized for your body is worth the investment.</p>
+
+      <h3>Which chair is best for tall people with lower back pain?</h3>
+      <p>The Herman Miller Aeron's PostureFit SL is the most targeted lumbar system of the three, using dual pads to support the sacrum and lumbar spine separately. The Leap Plus and Gesture both use LiveBack technology, which adapts the backrest to your movement. For lower back pain specifically, the Aeron's PostureFit SL is often cited as more effective than single-point alternatives.</p>
+    </section>
+
+    <!-- Compare Section -->
+    <section class="max-w-3xl mx-auto mb-12">
+      <h2 class="font-serif text-xl text-heading mb-4">Dig Deeper</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <a href="/aeron-vs-gesture" class="flex items-center justify-between p-4 rounded-lg bg-secondary/50 hover:bg-accent transition-colors text-sm">
+          <span class="text-muted-foreground font-medium">Aeron vs Gesture</span>
+          <svg class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </a>
+        <a href="/gesture-vs-leap-plus" class="flex items-center justify-between p-4 rounded-lg bg-secondary/50 hover:bg-accent transition-colors text-sm">
+          <span class="text-muted-foreground font-medium">Gesture vs Leap Plus</span>
+          <svg class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </a>
+        <a href="/aeron-vs-leap-plus" class="flex items-center justify-between p-4 rounded-lg bg-secondary/50 hover:bg-accent transition-colors text-sm">
+          <span class="text-muted-foreground font-medium">Aeron vs Leap Plus</span>
+          <svg class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </a>
+      </div>
     </section>
 
     <!-- Educational Context -->
-    <section class="mt-16 max-w-2xl mx-auto text-center">
-      <p class="text-muted-foreground">
+    <section class="max-w-2xl mx-auto text-center">
+      <p class="text-muted-foreground text-sm">
         Not sure which dimensions you need? Review our{" "}
         <a href="/correct-chair-dimensions" class="link-internal">chair dimension guide</a>{" "}
         or learn{" "}
-        <a href="/how-to-adjust-chair" class="link-internal">how to adjust chairs</a>{" "}
-        for tall users.
+        <a href="/how-to-adjust-chair" class="link-internal">how to adjust a chair</a>{" "}
+        for tall users. For back pain related to seating, see our{" "}
+        <a href="/back-pain-spine-height" class="link-internal">back pain and spine height guide</a>.
       </p>
     </section>
+
   </div>
 </Layout>
