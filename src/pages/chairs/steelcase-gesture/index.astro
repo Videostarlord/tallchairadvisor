@@ -1,0 +1,114 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Steelcase Gesture", "item": "https://tallchairadvisor.com/chairs/steelcase-gesture/" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Steelcase Gesture: Specs, Fit & Reviews for Tall People | Tall Chair Advisor"
+  description="Everything about the Steelcase Gesture for tall users — seat height range, seat depth adjustment, fit for 6'0\"–6'4\", and how it compares to the Aeron and Leap Plus."
+  ogType="article"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Steelcase Gesture</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Specs, fit guides, and reviews for tall users
+      </p>
+    </div>
+  </header>
+
+  <div class="container-article py-12 md:py-16">
+
+    <!-- Quick Specs -->
+    <section class="mb-12">
+      <h2 class="font-serif text-2xl text-heading mb-6">Key Specifications</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Height</p>
+          <p class="font-semibold text-heading text-base">16" – 21"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Depth</p>
+          <p class="font-semibold text-heading text-base">15.75" – 18.75"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Back Height</p>
+          <p class="font-semibold text-heading text-base">24"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Width</p>
+          <p class="font-semibold text-heading text-base">19.25"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Weight Capacity</p>
+          <p class="font-semibold text-heading text-base">400 lbs</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Warranty</p>
+          <p class="font-semibold text-heading text-base">12 years</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cluster navigation -->
+    <section class="mb-12">
+      <h2 class="font-serif text-2xl text-heading mb-6">Detailed Guides</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a href="/chairs/steelcase-gesture/seat-height/" class="block p-5 rounded-lg bg-card border border-border hover:bg-accent transition-colors">
+          <h3 class="font-semibold text-heading mb-1 text-base">Seat Height Range</h3>
+          <p class="text-sm text-muted-foreground">16"–21" range explained. Which setting is right for your height.</p>
+          <span class="text-primary text-sm mt-3 inline-block">Read guide →</span>
+        </a>
+        <a href="/chairs/steelcase-gesture/seat-depth/" class="block p-5 rounded-lg bg-card border border-border hover:bg-accent transition-colors">
+          <h3 class="font-semibold text-heading mb-1 text-base">Seat Depth Adjustment</h3>
+          <p class="text-sm text-muted-foreground">How to adjust the 15.75"–18.75" seat depth and why it matters for tall users.</p>
+          <span class="text-primary text-sm mt-3 inline-block">Read guide →</span>
+        </a>
+        <a href="/chairs/steelcase-gesture/tall-people/" class="block p-5 rounded-lg bg-card border border-border hover:bg-accent transition-colors">
+          <h3 class="font-semibold text-heading mb-1 text-base">Is It Good for Tall People?</h3>
+          <p class="text-sm text-muted-foreground">Full fit analysis for users 6'0"–6'7". Who it fits, who should look elsewhere.</p>
+          <span class="text-primary text-sm mt-3 inline-block">Read guide →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="prose-tca mb-12">
+      <h2>Steelcase Gesture Overview</h2>
+      <p>The Steelcase Gesture is an ergonomic office chair built around modern multi-device work. Its signature feature — a 360-degree armrest system — was developed after Steelcase studied over 2,000 working postures across six continents, observing how people shift between keyboards, touchscreens, tablets, and phones throughout the day.</p>
+      <p>For tall users specifically, the Gesture is well-suited for the 6'0"–6'4" range. Its seat height reaches 21", the adjustable seat depth extends to 18.75", and the 24" backrest provides adequate shoulder blade support for most tall torsos. Above 6'4", the Steelcase Leap Plus's higher seat ceiling (22.5") and deeper seat depth (19.75") become more relevant.</p>
+      <p>The Gesture uses LiveBack technology — the backrest flexes and changes shape as you move, providing continuous lumbar and mid-back support without manual adjustment. This distinguishes it from chairs with static backrests that require you to stop and readjust throughout the day.</p>
+    </section>
+
+    <!-- Compare + Review links -->
+    <section class="mb-8">
+      <h2 class="font-serif text-xl text-heading mb-4">Compare & Review</h2>
+      <div class="space-y-2 text-sm">
+        <div><a href="/review/gesture" class="link-internal font-medium">Full Steelcase Gesture Review</a> — Detailed pros, cons, and tall-user verdict</div>
+        <div><a href="/aeron-vs-gesture" class="link-internal font-medium">Gesture vs Herman Miller Aeron Size C</a> — Mesh vs foam, breathability vs arm flexibility</div>
+        <div><a href="/gesture-vs-leap-plus" class="link-internal font-medium">Gesture vs Steelcase Leap Plus</a> — When maximum seat depth matters</div>
+        <div><a href="/best-office-chairs" class="link-internal font-medium">Best Office Chairs for Tall People</a> — How the Gesture compares to all top picks</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="mt-8">
+      <a href="https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+        View Steelcase Gesture on Amazon →
+      </a>
+    </div>
+
+  </div>
+</Layout>
