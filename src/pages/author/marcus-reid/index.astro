@@ -1,0 +1,159 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Marcus Reid",
+    "url": "https://tallchairadvisor.com/author/marcus-reid/",
+    "image": "https://tallchairadvisor.com/images/marcus-reid.jpg",
+    "description": "Marcus Reid is a 6'4\" ergonomics writer and office chair reviewer who has tested premium chairs for over 6 years. He founded Tall Chair Advisor to provide height-specific chair guidance for users 6'0\" and above.",
+    "jobTitle": "Ergonomics Writer & Chair Reviewer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "url": "https://tallchairadvisor.com"
+    },
+    "knowsAbout": [
+      "Ergonomic office chairs",
+      "Chair fit for tall people",
+      "Office ergonomics",
+      "Seat depth and height adjustment",
+      "Back pain prevention"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Marcus Reid", "item": "https://tallchairadvisor.com/author/marcus-reid/" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Marcus Reid — Ergonomics Writer & Chair Reviewer | Tall Chair Advisor"
+  description="Marcus Reid is a 6'4&quot; ergonomics writer and the founder of Tall Chair Advisor. He has tested premium office chairs for over 6 years, writing guides specifically for tall users."
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <div class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 text-3xl font-serif font-medium text-heading">
+        MR
+      </div>
+      <h1 class="text-balance">Marcus Reid</h1>
+      <p class="mt-3 text-lg text-muted-foreground">Ergonomics Writer &amp; Chair Reviewer</p>
+      <p class="mt-1 text-sm text-muted-foreground">Founder, Tall Chair Advisor · 6'4" · 6+ years chair testing</p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <div class="prose-tca">
+
+      <section>
+        <h2>About Marcus</h2>
+        <p>
+          I'm Marcus Reid — 6'4", and for most of my adult life, office chairs were something I just
+          tolerated rather than actually used. The standard advice ("adjust the lumbar support, raise
+          the seat") never quite worked for me, because the chairs themselves were the wrong size for
+          my body. The seat wasn't deep enough, the backrest didn't reach my shoulder blades, and the
+          seat height maxed out before my thighs were level with the floor.
+        </p>
+        <p>
+          In 2018, I started systematically testing chairs to figure out which ones actually fit tall
+          users. That process — measuring dimensions, comparing specs, sitting in chairs for weeks at
+          a time — turned into this site. Tall Chair Advisor exists because every major buying guide
+          I could find was written for people between 5'6" and 5'11", and the recommendations reflected
+          it. The chairs that "won" those comparisons often had the same dimensional problems I'd been
+          dealing with for years.
+        </p>
+        <p>
+          Six years and 30+ chair models later, I've developed a systematic methodology for evaluating
+          chair fit for tall bodies — one that prioritizes dimensional specifications over features and
+          marketing language.
+        </p>
+      </section>
+
+      <section>
+        <h2>Testing Methodology</h2>
+        <p>
+          Every chair I review goes through the same evaluation process:
+        </p>
+        <ol>
+          <li>
+            <strong>Dimensional verification.</strong> I measure every spec that matters — seat depth,
+            seat height range, back height, lumbar position — and compare against the manufacturer's
+            published data. Discrepancies are noted.
+          </li>
+          <li>
+            <strong>Fit assessment by height bracket.</strong> My primary height is 6'4", but I evaluate
+            fit across the 6'0"–6'7"+ range by measuring my own proportions (femur length, torso height,
+            sitting height) and extrapolating to standard anthropometric data.
+          </li>
+          <li>
+            <strong>Extended sit testing.</strong> I use each chair as my primary working chair for a
+            minimum of 4 weeks — typically 6–8 hours per day — before drawing conclusions about
+            long-term comfort.
+          </li>
+          <li>
+            <strong>Adjustment range testing.</strong> I test all adjustment mechanisms across their
+            full range, noting where limits are reached relative to tall-user needs.
+          </li>
+          <li>
+            <strong>Pain-point tracking.</strong> I document where and when discomfort develops across
+            the testing period, distinguishing between break-in discomfort (normal) and dimensional
+            mismatch (a chair fit problem).
+          </li>
+        </ol>
+        <p>
+          I don't accept free chairs in exchange for positive reviews. When chairs are provided for
+          review purposes, that's disclosed. My purchasing decisions for review inventory are my own,
+          and editorial positions are not influenced by affiliate relationships. See the
+          <a href="/affiliate-disclosure/" class="link-internal">affiliate disclosure</a> for details.
+        </p>
+      </section>
+
+      <section>
+        <h2>Why Tall-Specific Chair Guidance Matters</h2>
+        <p>
+          Standard ergonomic chair guidance assumes a user between 5'6" and 5'10". For anyone
+          significantly outside that range, the recommendations break down. A chair with "excellent
+          lumbar support" that's calibrated for a 5'9" torso will apply that support several inches
+          below the lumbar region of a 6'4" user — creating pressure where there should be none,
+          while leaving the actual lower back unsupported.
+        </p>
+        <p>
+          This isn't a minor comfort issue. Misaligned lumbar support, insufficient seat depth, and
+          an inadequate seat height ceiling contribute to real physical problems — back pain, knee
+          discomfort, and circulation problems — that affect productivity and health over time.
+          The guides on this site are designed to help tall users understand these dimensional
+          requirements and evaluate chairs against them specifically.
+        </p>
+      </section>
+
+      <section>
+        <h2>Articles by Marcus Reid</h2>
+        <ul>
+          <li><a href="/office-chairs-for-tall-people/" class="link-internal">Office Chairs for Tall People: Complete Buyer's Guide</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal">Best Office Chairs for Tall People — Top Picks</a></li>
+          <li><a href="/review/aeron-size-c/" class="link-internal">Herman Miller Aeron Size C Review</a></li>
+          <li><a href="/review/gesture/" class="link-internal">Steelcase Gesture Review for Tall Users</a></li>
+          <li><a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus Review</a></li>
+          <li><a href="/aeron-vs-gesture/" class="link-internal">Aeron Size C vs Steelcase Gesture</a></li>
+          <li><a href="/aeron-vs-leap-plus/" class="link-internal">Aeron Size C vs Steelcase Leap Plus</a></li>
+          <li><a href="/gesture-vs-leap-plus/" class="link-internal">Steelcase Gesture vs Leap Plus</a></li>
+          <li><a href="/why-standard-chairs-dont-fit/" class="link-internal">Why Standard Office Chairs Don't Fit Tall People</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal">Correct Chair Dimensions for Tall &amp; Large Bodies</a></li>
+          <li><a href="/how-to-adjust-chair/" class="link-internal">How to Adjust an Office Chair for a Tall Person</a></li>
+          <li><a href="/back-pain-spine-height/" class="link-internal">Office Chair Back Pain &amp; Spine Height</a></li>
+          <li><a href="/knee-pain-seat-depth/" class="link-internal">Knee Pain &amp; Seat Depth</a></li>
+          <li><a href="/leg-pain-circulation/" class="link-internal">Leg Pain &amp; Circulation</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </article>
+</Layout>

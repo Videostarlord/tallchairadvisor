@@ -4,6 +4,26 @@ import Layout from '../../../layouts/Layout.astro';
 const schema = [
   {
     "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Herman Miller Aeron Size C",
+    "image": "https://tallchairadvisor.com/images/aeron-size-c-hero.png",
+    "description": "The Herman Miller Aeron Size C is a large-format ergonomic office chair with Pellicle mesh, PostureFit SL lumbar support, and a 350 lb weight capacity, designed for users 6'0\"–6'6\".",
+    "brand": { "@type": "Brand", "name": "Herman Miller" },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "bestRating": "5",
+      "worstRating": "1",
+      "reviewCount": "1"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },

@@ -9,8 +9,8 @@ const schema = [
     "url": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
     "image": "https://tallchairadvisor.com/images/og-default.jpg",
     "datePublished": "2024-12-26",
-    "dateModified": "2026-03-01",
-    "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+    "dateModified": "2026-03-08",
+    "author": { "@type": "Person", "name": "Marcus Reid", "url": "https://tallchairadvisor.com/author/marcus-reid/" },
     "publisher": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
@@ -24,13 +24,67 @@ const schema = [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
       { "@type": "ListItem", "position": 2, "name": "Office Chairs for Tall People", "item": "https://tallchairadvisor.com/office-chairs-for-tall-people/" }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What seat height range do tall people need in an office chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most users between 6'0\" and 6'2\" need a maximum seat height of at least 19–20 inches. Users 6'3\" and taller typically need 20–22 inches of maximum seat height. Standard office chair cylinders max out around 17–18 inches, which is insufficient for tall users and leads to thighs angling upward, causing pressure and circulation issues."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat depth is correct for a tall person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tall users generally need a minimum seat depth of 19 inches, with users 6'3\" and above often requiring 20 inches or more. The ideal fit leaves 2–3 finger-widths of clearance between the front edge of the seat and the back of the knees. Chairs with an adjustable seat slider are strongly recommended so you can fine-tune the depth precisely."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C is the correct size for tall users. It offers a seat height range of approximately 16–20.5 inches, seat depth of 18.5–20.5 inches, and a back height of 25.5 inches — all of which meet or exceed the minimum requirements for users up to around 6'4\". Users taller than 6'4\" may find the Steelcase Leap Plus or a purpose-built big-and-tall chair a better fit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best office chair for someone 6'4\" or taller?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For users 6'4\" and above, the Steelcase Leap Plus and purpose-built big-and-tall chairs offer the most dimensional headroom. The Leap Plus provides extended seat height ranges and a wide seat pan. For users who prioritize lumbar adaptability and are up to about 6'5\", the Steelcase Gesture is also a strong option. Always verify that seat height maximum, seat depth, and back height meet your specific body measurements before purchasing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my office chair hurt my back even though I sit up straight?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If your chair's lumbar support is positioned too low on the backrest, it pushes against your mid-back instead of your lower spine, forcing constant muscular effort to maintain neutral posture. For tall users, this misalignment is common because lumbar support is typically calibrated for users 5'4\"–5'10\". Even deliberate upright posture cannot fully compensate for structural lumbar misalignment — the solution is a chair with adjustable lumbar height that can reach 10–14 inches above the seat pan."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What back height should I look for in an office chair as a tall person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tall users should look for a total back height of at least 25 inches to ensure the backrest reaches the shoulder blades. Users 6'4\" and above typically need 26–28 inches of back height. Additionally, the chair should have adjustable lumbar support that can be positioned 10–14 inches above the seat pan to target the correct spinal curve for a longer torso."
+        }
+      }
+    ]
   }
 ];
 ---
 
 <Layout
-  title="Office Chairs for Tall People: Guide 2026 | Tall Chair Advisor"
-  description="Expert guide to office chairs for tall people: what dimensions matter, which chairs meet them, and how to evaluate fit before you buy."
+  title="Office Chairs for Tall People: Buyer's Guide 2026 | Tall Chair Advisor"
+  description="Expert buyer's guide to office chairs for tall people: measurement frameworks, height-bracket recommendations, chair comparisons, and a decision framework for evaluating fit."
   ogType="article"
   schema={schema}
 >
@@ -38,13 +92,14 @@ const schema = [
     <div class="container-article text-center">
       <h1 class="text-balance">Office Chairs for Tall People</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
-        Understanding the unique challenges tall users face with standard office seating
+        A complete buyer's guide: what dimensions matter, which chairs meet them, and how to evaluate fit before you buy
       </p>
     </div>
   </header>
 
   <article class="container-article py-12 md:py-16">
     <div class="prose-tca">
+
       <section>
         <h2>The Problem With Standard Office Chairs</h2>
         <p>
@@ -54,9 +109,106 @@ const schema = [
           your lower spine.
         </p>
         <p>
-          This isn't just discomfort—it's a fundamental design mismatch. Most office chairs are
+          This isn't just discomfort — it's a fundamental design mismatch. Most office chairs are
           engineered for users between 5'4" and 5'10", leaving taller individuals to adapt to
-          equipment that wasn't built for their bodies.
+          equipment that wasn't built for their bodies. The consequences compound over hours of
+          daily use: <a href="/back-pain-spine-height/" class="link-internal">chronic back pain</a>,
+          <a href="/knee-pain-seat-depth/" class="link-internal">knee pressure from seat depth shortfalls</a>,
+          and <a href="/leg-pain-circulation/" class="link-internal">circulation problems from insufficient seat height</a>.
+        </p>
+        <p>
+          This guide gives you a practical framework for evaluating chairs against your specific
+          body dimensions — so you can stop guessing and start comparing objectively.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Measurement Framework for Tall Buyers</h2>
+        <p>
+          Before looking at any chair, you need three body measurements. These translate directly
+          into the chair specifications you'll use when evaluating options. Take them seated on a
+          firm, flat surface with your feet flat on the floor and hips at roughly 90 degrees.
+        </p>
+
+        <h3>1. Seat Height Requirement (Popliteal Height)</h3>
+        <p>
+          Measure from the floor to the crease behind your knee while seated. This is your
+          ideal seat height — the measurement at which your thighs sit parallel to the floor
+          with feet fully supported. For most tall users, this falls between 18 and 24 inches.
+          A chair's maximum seat height must equal or exceed this number.
+        </p>
+
+        <h3>2. Seat Depth Requirement (Thigh Length)</h3>
+        <p>
+          Sit with your back against a flat wall. Measure from the wall to a point 2–3 inches
+          in front of your knee crease. This is your minimum required seat depth. Chairs with
+          less depth than this measurement will press the seat edge into the popliteal region
+          behind your knees, restricting blood flow and causing progressive discomfort.
+        </p>
+
+        <h3>3. Back Height Requirement (Torso Length)</h3>
+        <p>
+          Measure from the seat surface to your shoulder blades while sitting upright. A chair's
+          backrest should cover this range to provide full spinal support. Tall users with longer
+          torsos frequently find that standard backrests end before reaching their shoulder blades,
+          leaving the upper back unsupported and forcing the body into a compensatory forward lean.
+        </p>
+
+        <p>
+          With these three numbers in hand, you can evaluate any chair objectively. See our full
+          <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a>
+          for the complete dimensional reference table.
+        </p>
+      </section>
+
+      <section>
+        <h2>Recommended Specs by Height Bracket</h2>
+        <p>
+          While individual proportions vary — particularly torso-to-leg ratios — the following
+          table provides reliable starting targets for most tall users in each height range.
+          Use these as minimum thresholds, not exact targets.
+        </p>
+      </section>
+
+      <section class="my-8">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+            <thead class="bg-secondary/50">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Height Range</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Min. Seat Height</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Min. Seat Depth</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Min. Back Height</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Lumbar Range</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">5'11" – 6'1"</td>
+                <td class="px-4 py-3 text-muted-foreground">19"</td>
+                <td class="px-4 py-3 text-muted-foreground">18–19"</td>
+                <td class="px-4 py-3 text-muted-foreground">23–25"</td>
+                <td class="px-4 py-3 text-muted-foreground">8–12" above seat</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground font-medium">6'2" – 6'4"</td>
+                <td class="px-4 py-3 text-muted-foreground">20"</td>
+                <td class="px-4 py-3 text-muted-foreground">19–20"</td>
+                <td class="px-4 py-3 text-muted-foreground">25–27"</td>
+                <td class="px-4 py-3 text-muted-foreground">10–14" above seat</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">6'5"+</td>
+                <td class="px-4 py-3 text-muted-foreground">21–22"</td>
+                <td class="px-4 py-3 text-muted-foreground">20–21"</td>
+                <td class="px-4 py-3 text-muted-foreground">27–29"</td>
+                <td class="px-4 py-3 text-muted-foreground">12–16" above seat</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm text-muted-foreground mt-3">
+          Note: Seat height refers to the maximum height the chair can achieve, not the midpoint of its range. Verify manufacturer specs carefully — listed ranges often reflect the full travel, not the usable maximum.
         </p>
       </section>
 
@@ -64,98 +216,344 @@ const schema = [
         <h2>Why Dimensions Matter More Than Features</h2>
         <p>
           Marketing materials emphasize features: mesh backs, adjustable armrests, tilt
-          mechanisms. But for tall users, the critical factors are dimensional:
+          mechanisms, lumbar inflators. But for tall users, the critical factors are dimensional.
+          A chair with every premium feature will still cause pain if the fundamental numbers
+          don't match your body.
         </p>
+        <p>The four dimensions that determine fit for tall users:</p>
         <ul>
-          <li><strong>Seat depth:</strong> Too shallow creates pressure behind the knees</li>
-          <li><strong>Seat height range:</strong> Must accommodate longer leg length</li>
-          <li><strong>Back height:</strong> Should support the full length of your spine</li>
-          <li><strong>Lumbar position:</strong> Needs to align with your actual lower back</li>
+          <li><strong>Seat depth:</strong> Too shallow creates pressure behind the knees and forces a forward slide that removes all lumbar support</li>
+          <li><strong>Seat height range:</strong> Must accommodate longer leg length — if the chair can't raise high enough, thigh pressure and circulation problems follow</li>
+          <li><strong>Back height:</strong> Should support the full length of your spine from lumbar to shoulder blades</li>
+          <li><strong>Adjustable lumbar position:</strong> Must reach your actual lower back, not the average user's lower back — for tall users this is typically 10–14 inches above the seat pan</li>
         </ul>
         <p>
-          A chair with every premium feature will still cause pain if these basic dimensions
-          don't match your body.
+          These aren't arbitrary numbers — they're derived from anthropometric data on
+          larger body proportions. Learn more in our
+          <a href="/why-standard-chairs-dont-fit/" class="link-internal">deep-dive on why standard chairs fail tall people</a>.
         </p>
       </section>
 
       <section>
-        <h2>The Health Consequences</h2>
+        <h2>Chair-by-Chair Coverage: Top Options for Tall Users</h2>
         <p>
-          Sitting in an ill-fitting chair doesn't just feel uncomfortable—it creates measurable
-          physical stress:
+          Three chairs consistently appear at the top of every serious evaluation for tall users.
+          Each has meaningful strengths and specific fit caveats you should understand before buying.
+        </p>
+
+        <h3>Herman Miller Aeron Size C</h3>
+        <p>
+          The Aeron Size C is Herman Miller's largest Aeron variant and the most commonly
+          recommended ergonomic chair for tall users. Its PostureFit SL lumbar system supports
+          both the sacrum and lumbar simultaneously — a meaningful advantage for users whose
+          torsos require a longer lumbar target zone.
+        </p>
+        <p><strong>Key specs:</strong></p>
+        <ul>
+          <li>Seat height range: approximately 16.0–20.5 inches</li>
+          <li>Seat depth: 18.5–20.5 inches (adjustable)</li>
+          <li>Back height: approximately 25.5 inches</li>
+          <li>Weight capacity: 350 lbs</li>
+        </ul>
+        <p>
+          <strong>Best for:</strong> Users 6'0"–6'4" who want a proven ergonomic platform with
+          strong lumbar design and excellent adjustability. The mesh back promotes airflow during
+          long sessions. At 6'5" and above, the back height begins to feel short for users with
+          longer torsos. Read the
+          <a href="/review/aeron-size-c/" class="link-internal">full Aeron Size C review</a>
+          for complete specs and fit analysis.
+        </p>
+
+        <h3>Steelcase Gesture</h3>
+        <p>
+          The Steelcase Gesture is designed around modern computing postures and offers one of
+          the most adaptable arm systems available. Its backrest follows the user's movement
+          dynamically rather than returning to a fixed position.
+        </p>
+        <p><strong>Key specs:</strong></p>
+        <ul>
+          <li>Seat height range: approximately 15.5–20.5 inches</li>
+          <li>Seat depth: 15.75–17.75 inches (adjustable)</li>
+          <li>Back height: approximately 21–23 inches (variable by adjustment)</li>
+          <li>Weight capacity: 400 lbs</li>
+        </ul>
+        <p>
+          <strong>Best for:</strong> Users 6'0"–6'3" who multitask across multiple screens or
+          devices and want maximum arm adaptability. One important caveat: the Gesture's seat
+          depth range maxes out at roughly 17.75 inches, which is on the lower end for users
+          with longer thigh lengths. Users who need 19+ inches of seat depth should look at
+          the Aeron C or Leap Plus instead. Read the
+          <a href="/review/gesture/" class="link-internal">full Steelcase Gesture review</a>
+          for the complete fit breakdown.
+        </p>
+
+        <h3>Steelcase Leap Plus</h3>
+        <p>
+          The Steelcase Leap Plus is Steelcase's purpose-built big-and-tall variant of the
+          popular Leap V2. It extends seat height, seat width, and weight capacity beyond the
+          standard Leap — making it one of the few chairs that genuinely fits users at 6'4"
+          and above.
+        </p>
+        <p><strong>Key specs:</strong></p>
+        <ul>
+          <li>Seat height range: approximately 15.5–22 inches</li>
+          <li>Seat depth: 17–20.5 inches (adjustable)</li>
+          <li>Seat width: 21 inches (wider than standard Leap)</li>
+          <li>Back height: approximately 25–27 inches</li>
+          <li>Weight capacity: 500 lbs</li>
+        </ul>
+        <p>
+          <strong>Best for:</strong> Users 6'2"–6'6"+ who need maximum seat height range and
+          a wider seat pan. The Leap Plus is one of the few chairs where the seat height ceiling
+          (22 inches) actually clears the popliteal height for most users in the 6'4"–6'6" range.
+          Its LiveBack technology adjusts the backrest shape to match your spine's movement. Read
+          the <a href="/review/leap-plus/" class="link-internal">full Steelcase Leap Plus review</a>
+          for detailed fit data.
+        </p>
+      </section>
+
+      <section>
+        <h2>Side-by-Side Comparison</h2>
+        <p>
+          Use this table to compare the three chairs against the dimensional requirements from the
+          height-bracket table above.
+        </p>
+      </section>
+
+      <section class="my-8">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+            <thead class="bg-secondary/50">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Spec</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Aeron Size C</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Steelcase Gesture</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Leap Plus</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Seat Height Max</td>
+                <td class="px-4 py-3 text-muted-foreground">~20.5"</td>
+                <td class="px-4 py-3 text-muted-foreground">~20.5"</td>
+                <td class="px-4 py-3 text-muted-foreground">~22"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Seat Depth Range</td>
+                <td class="px-4 py-3 text-muted-foreground">18.5–20.5"</td>
+                <td class="px-4 py-3 text-muted-foreground">15.75–17.75"</td>
+                <td class="px-4 py-3 text-muted-foreground">17–20.5"</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Back Height</td>
+                <td class="px-4 py-3 text-muted-foreground">~25.5"</td>
+                <td class="px-4 py-3 text-muted-foreground">~21–23"</td>
+                <td class="px-4 py-3 text-muted-foreground">~25–27"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Adjustable Lumbar</td>
+                <td class="px-4 py-3 text-muted-foreground">Yes (PostureFit SL)</td>
+                <td class="px-4 py-3 text-muted-foreground">Yes (height + firmness)</td>
+                <td class="px-4 py-3 text-muted-foreground">Yes (LiveBack)</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Weight Capacity</td>
+                <td class="px-4 py-3 text-muted-foreground">350 lbs</td>
+                <td class="px-4 py-3 text-muted-foreground">400 lbs</td>
+                <td class="px-4 py-3 text-muted-foreground">500 lbs</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Best Fit Range</td>
+                <td class="px-4 py-3 text-muted-foreground">6'0"–6'4"</td>
+                <td class="px-4 py-3 text-muted-foreground">6'0"–6'3"</td>
+                <td class="px-4 py-3 text-muted-foreground">6'2"–6'6"+</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Price Range</td>
+                <td class="px-4 py-3 text-muted-foreground">$1,400–$1,700</td>
+                <td class="px-4 py-3 text-muted-foreground">$1,300–$1,600</td>
+                <td class="px-4 py-3 text-muted-foreground">$1,400–$1,800</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>How to Evaluate Chair Fit: A Decision Framework</h2>
+        <p>
+          Use this sequence when evaluating any chair — in a showroom, from a spec sheet, or
+          from a review. Work through each dimension in order. If a chair fails at any step,
+          it's unlikely to work well for your body regardless of its other merits.
+        </p>
+
+        <h3>Step 1: Seat Height Check</h3>
+        <p>
+          Compare the chair's maximum seat height to your popliteal height (floor-to-knee-crease
+          measurement). The chair's maximum must equal or exceed your popliteal height. If it
+          doesn't, your thighs will angle upward at the maximum setting — causing hip flexor
+          compression and downstream circulation issues.
+        </p>
+
+        <h3>Step 2: Seat Depth Check</h3>
+        <p>
+          Compare the chair's seat depth range to your thigh length measurement. The maximum
+          available depth must meet or exceed your required seat depth. If the seat depth is
+          fixed (no slider), it must fall within 1 inch of your required depth. A seat that is
+          too shallow forces a forward slide that disconnects your back from the lumbar support
+          — eliminating the backrest's primary benefit.
+        </p>
+
+        <h3>Step 3: Lumbar Position Check</h3>
+        <p>
+          Ask whether the lumbar support is height-adjustable. If fixed, note its position above
+          the seat pan. For tall users, lumbar support positioned at 8 inches above the seat pan
+          (the standard design point) will contact the mid-back, not the lumbar spine. You need
+          adjustability that reaches at least 10–12 inches above the seat, preferably 14 inches.
+          See our <a href="/how-to-adjust-chair/" class="link-internal">chair adjustment guide</a>
+          for how to test this in person.
+        </p>
+
+        <h3>Step 4: Back Height Check</h3>
+        <p>
+          The backrest should reach your shoulder blades. Sit in the chair (or use the spec's back
+          height measurement against your torso length). A backrest that ends well below the
+          shoulder blades leaves the upper back unsupported, and users typically compensate by
+          rounding forward — shifting the spine into a C-curve that stresses the thoracic discs.
+          For reference, our
+          <a href="/back-pain-spine-height/" class="link-internal">back pain and spine height guide</a>
+          explains how this cascade develops over time.
+        </p>
+
+        <h3>Step 5: Armrest Height Check</h3>
+        <p>
+          With the seat at your correct height, the armrests should support your forearms with
+          your shoulders relaxed and elbows at roughly 90 degrees. If armrests can't raise high
+          enough, users unconsciously elevate their shoulders to "meet" the armrests — leading
+          to trapezius tension and neck pain. Tall users frequently find that armrests max out
+          2–3 inches below the required height on standard chairs.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Health Consequences of a Mismatched Chair</h2>
+        <p>
+          Sitting in an ill-fitting chair doesn't just feel uncomfortable — it creates measurable
+          physical stress that compounds over weeks and months:
         </p>
         <ul>
           <li>
-            <a href="/knee-pain-seat-depth" class="link-internal">
+            <a href="/knee-pain-seat-depth/" class="link-internal">
               Knee pain from inadequate seat depth
-            </a>
+            </a> — popliteal compression from seat edges, leading to tingling and chronic discomfort
           </li>
           <li>
-            <a href="/back-pain-spine-height" class="link-internal">
+            <a href="/back-pain-spine-height/" class="link-internal">
               Back pain from misaligned lumbar support
-            </a>
+            </a> — thoracic strain and forward head posture as the body compensates for unsupported lumbar
           </li>
           <li>
-            <a href="/leg-pain-circulation" class="link-internal">
+            <a href="/leg-pain-circulation/" class="link-internal">
               Circulation issues from incorrect seat height
-            </a>
+            </a> — femoral vessel compression, leg numbness, and end-of-day swelling
           </li>
         </ul>
         <p>
           Understanding these connections helps you identify which dimensional issues are
-          causing your specific problems.
+          causing your specific problems — and prioritize fixes accordingly.
         </p>
       </section>
 
       <section>
-        <h2>What Tall Users Actually Need</h2>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>What seat height range do tall people need?</h3>
         <p>
-          Rather than searching for a "tall person's chair," you need to identify chairs
-          that meet specific dimensional thresholds:
+          Users 5'11"–6'1" typically need a maximum seat height of at least 19 inches. Users
+          6'2"–6'4" need 20 inches minimum. Users 6'5" and above should look for chairs with
+          a 21–22 inch maximum. Standard chairs max out around 17–18 inches — which is why
+          tall users often feel like they're sitting in chairs built for someone else.
         </p>
-        <ul>
-          <li>Seat depth of at least 19 inches (or adjustable depth)</li>
-          <li>Maximum seat height of 19 inches or higher</li>
-          <li>Back height that supports your shoulder blades</li>
-          <li>Adjustable lumbar that reaches your actual lower back</li>
-        </ul>
+
+        <h3>Can I use a standard office chair if I'm 6'2"?</h3>
         <p>
-          These aren't arbitrary numbers—they're derived from ergonomic research on
-          larger body proportions.
+          Potentially, if the chair has a high-stroke cylinder and adjustable seat depth. But most
+          standard chairs won't meet both requirements. At 6'2", you're at the outer edge of what
+          a standard chair can accommodate without aftermarket modifications. A purpose-built ergonomic
+          chair with verified specs is a far more reliable starting point.
+        </p>
+
+        <h3>Is the Aeron Size C or the Steelcase Leap Plus better for tall users?</h3>
+        <p>
+          It depends on your height and build. For users 6'0"–6'3", both are competitive — the
+          Aeron C has better seat depth range, while the Leap Plus has a higher seat height ceiling.
+          For users 6'4" and above, the Leap Plus is generally the stronger fit because of its 22-inch
+          maximum seat height and wider seat pan. Try both if you can.
+        </p>
+
+        <h3>How do I know if my chair is causing my back pain?</h3>
+        <p>
+          The clearest indicator is that back pain appears or worsens after extended sitting and
+          improves when you stand or move around. If this pattern is consistent, the chair's geometry
+          is almost certainly contributing. Check whether the lumbar support is actually contacting
+          your lower back (not your mid-back) and whether the seat depth is forcing you to slide
+          forward. Our <a href="/back-pain-spine-height/" class="link-internal">back pain guide</a>
+          walks through the diagnostic process in detail.
+        </p>
+
+        <h3>What's the minimum budget for a chair that actually fits a tall person?</h3>
+        <p>
+          Chairs that meet the dimensional requirements for tall users reliably start around
+          $800–$1,000 for quality used ergonomic chairs (Aeron Size C, Leap Plus) and $1,300+
+          new. Budget chairs almost universally fail on seat depth, seat height maximum, or
+          adjustable lumbar range — sometimes all three. For users who sit 6–8 hours per day,
+          the investment in a correctly fitting chair is justified by the reduction in pain and
+          long-term musculoskeletal risk.
         </p>
       </section>
 
       <section>
         <h2>Next Steps</h2>
-        <p>Understanding the problem is the first step. From here, you can:</p>
+        <p>Now that you understand the framework, here's where to go from here:</p>
         <ul>
           <li>
-            <a href="/why-standard-chairs-dont-fit" class="link-internal">
-              Learn why standard chairs fail tall users
+            <a href="/correct-chair-dimensions/" class="link-internal">
+              Correct chair dimensions for tall people — the full reference guide
             </a>
           </li>
           <li>
-            <a href="/pain-ergonomics" class="link-internal">
+            <a href="/why-standard-chairs-dont-fit/" class="link-internal">
+              Why standard chairs fail tall users — the engineering explanation
+            </a>
+          </li>
+          <li>
+            <a href="/how-to-adjust-chair/" class="link-internal">
+              How to adjust your chair for tall-person fit
+            </a>
+          </li>
+          <li>
+            <a href="/pain-ergonomics/" class="link-internal">
               Explore specific pain points and their causes
             </a>
           </li>
           <li>
-            <a href="/correct-chair-dimensions" class="link-internal">
-              Understand the exact dimensions you need
+            <a href="/review/aeron-size-c/" class="link-internal">
+              Herman Miller Aeron Size C — full review and fit data
             </a>
           </li>
           <li>
-            <a href="/best-office-chairs/" class="link-internal">
-              Best office chairs for tall people — our top picks
+            <a href="/review/gesture/" class="link-internal">
+              Steelcase Gesture — full review and tall-user fit analysis
             </a>
           </li>
           <li>
-            <a href="/chairs/herman-miller-aeron/" class="link-internal">
-              Herman Miller Aeron Size C — full specs and fit guides
+            <a href="/review/leap-plus/" class="link-internal">
+              Steelcase Leap Plus — full review for 6'4"+ users
             </a>
           </li>
         </ul>
       </section>
+
     </div>
   </article>
 </Layout>

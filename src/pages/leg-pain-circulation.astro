@@ -5,12 +5,12 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Leg Pain & Numbness from Office Chair: Tall User Guide",
+    "headline": "Leg Pain & Poor Circulation from Office Chairs (Tall People)",
     "url": "https://tallchairadvisor.com/leg-pain-circulation/",
     "image": "https://tallchairadvisor.com/images/og-default.jpg",
     "datePublished": "2024-11-25",
-    "dateModified": "2026-03-01",
-    "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+    "dateModified": "2026-03-08",
+    "author": { "@type": "Person", "name": "Marcus Reid", "url": "https://tallchairadvisor.com/author/marcus-reid/" },
     "publisher": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
@@ -25,19 +25,65 @@ const schema = [
       { "@type": "ListItem", "position": 2, "name": "Pain & Ergonomics", "item": "https://tallchairadvisor.com/pain-ergonomics/" },
       { "@type": "ListItem", "position": 3, "name": "Leg Pain & Circulation", "item": "https://tallchairadvisor.com/leg-pain-circulation/" }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do tall people get leg numbness and circulation problems from office chairs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard office chairs max out their seat height at 17–18 inches — insufficient for most users 6'1\" and taller. When the seat can't rise to the user's correct height (their popliteal height, or floor-to-knee-crease measurement), the thighs angle upward. This concentrates pressure under the front of the thighs and compresses the femoral vessels running along the underside of the thigh near the hip. Sustained compression restricts venous return from the lower legs, leading to numbness, heaviness, cold feet, and end-of-day swelling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat height do I need to prevent leg circulation problems?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your target seat height is your popliteal height — the distance from the floor to the crease behind your knee when seated on a firm surface with feet flat. For most users 6'0\"–6'2\", this is approximately 17–19 inches. For users 6'2\"–6'4\", it's typically 19–21 inches. For users 6'5\" and above, it can reach 21–23 inches. The chair must be able to achieve this height at maximum — not just within its range."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is leg pain from sitting a posture problem or a chair problem for tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For tall users, it is predominantly a chair problem. When a chair's maximum seat height is below the user's popliteal height, no amount of postural correction can achieve the correct thigh angle — the chair's structure prevents it. Improving posture habits on a dimensionally inadequate chair provides temporary and partial relief at best. The reliable solution is a chair whose seat height range covers the user's popliteal height."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does walking relieve leg pain but sitting brings it back?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Walking restores circulation by contracting the calf muscles, which pump venous blood back toward the heart, and by removing the seated pressure on the femoral vessels. When you return to the same poorly fitting chair, the same compression resumes and the cycle repeats. This pattern — temporary relief from movement, return of symptoms when sitting resumes — is a reliable indicator that the problem is seated geometry rather than a systemic circulation condition."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What chair features help with leg circulation problems for tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The most important feature is sufficient maximum seat height. For users 6'2\" and above, look for chairs with a maximum seat height of 20–22 inches or the option to install an extended gas cylinder. Additionally, a waterfall seat edge (rounded or downward-sloping front edge) reduces pressure on the popliteal region compared to a flat, square seat edge. Seat depth adjustment also matters — a seat that's too shallow concentrates thigh pressure, exacerbating circulation restriction."
+        }
+      }
+    ]
   }
 ];
 ---
 
 <Layout
-  title="Leg Pain in Office Chairs for Tall People | Tall Chair Advisor"
+  title="Leg Pain & Poor Circulation from Office Chairs (Tall People) | Tall Chair Advisor"
   description="Why tall people get leg numbness and circulation problems in office chairs, and how seat height and edge design affect blood flow and comfort."
   ogType="article"
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
-      <h1 class="text-balance">Leg Pain & Circulation</h1>
+      <h1 class="text-balance">Leg Pain & Poor Circulation from Office Chairs (Tall People)</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
         How incorrect seat height affects blood flow and creates chronic leg discomfort
       </p>
@@ -55,6 +101,9 @@ const schema = [
         <p>
           Proper seated posture requires your thighs to be roughly parallel to the floor or angled slightly
           downward. This position distributes weight evenly and allows unobstructed blood flow through the legs.
+          <a href="https://www.osha.gov/ergonomics" class="underline text-muted-foreground hover:text-primary" target="_blank" rel="noopener noreferrer">OSHA's ergonomics guidelines for computer workstations</a>
+          specify that seat height should be adjustable to allow the thighs to be parallel or angled slightly
+          downward with feet flat on the floor — a standard that most chairs cannot achieve for users 6'2" and taller.
         </p>
         <p>
           When a chair can't adjust high enough for your leg length, your thighs angle upward, creating pressure
@@ -90,7 +139,10 @@ const schema = [
         </p>
         <p>
           Because the body adapts temporarily, early symptoms are often ignored or misattributed to fatigue rather
-          than seating geometry.
+          than seating geometry. Research on seated circulation published through
+          <a href="https://pubmed.ncbi.nlm.nih.gov/" class="underline text-muted-foreground hover:text-primary" target="_blank" rel="noopener noreferrer">PubMed on occupational seated posture and lower-limb circulation</a>
+          shows that thigh compression from improper seat height measurably reduces venous return even at
+          subclinical levels that users don't initially notice.
         </p>
       </section>
 
@@ -103,13 +155,15 @@ const schema = [
         </p>
         <p>For tall users, this pressure often comes from:</p>
         <ul>
-          <li>Seats that end too early along the thigh</li>
-          <li>Seats positioned too low relative to leg length</li>
+          <li>Seats that end too early along the thigh (seat depth problem)</li>
+          <li>Seats positioned too low relative to leg length (seat height problem)</li>
           <li>Unsupported leg weight resting on a narrow contact point</li>
         </ul>
         <p>
           The result is reduced circulation rather than immediate pain, which explains why symptoms often worsen
-          later in the day.
+          later in the day. See our
+          <a href="/knee-pain-seat-depth/" class="link-internal">knee pain and seat depth guide</a>
+          for how these two problems — seat height and seat depth — interact and compound each other.
         </p>
       </section>
 
@@ -121,7 +175,7 @@ const schema = [
         </p>
         <p>
           These sensations are commonly mistaken for nerve problems or poor posture. In reality, they are often
-          signs of prolonged compression caused by seated position and leg proportions—not user behavior.
+          signs of prolonged compression caused by seated position and leg proportions — not user behavior.
         </p>
       </section>
 
@@ -134,7 +188,10 @@ const schema = [
         <p>
           This cycle can give the impression that the issue is inactivity, when the real cause is how the chair
           interacts with leg length during seated work. Without addressing the underlying mismatch, symptoms tend to
-          return predictably.
+          return predictably. The sustainable solution requires a chair whose seat height range reaches your
+          popliteal height — see our
+          <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a>
+          for the specific seat height targets by height bracket.
         </p>
       </section>
 
@@ -154,22 +211,24 @@ const schema = [
       <section>
         <h2>Understanding the Pattern Is the First Step</h2>
         <p>
-          Recognizing that leg pain stems from seated geometry—not posture or effort—helps narrow the path forward.
-          Once the cause is understood, it becomes easier to evaluate chairs, adjustments, and setups without
-          guessing or self-blame.
+          Recognizing that leg pain stems from seated geometry — not posture or effort — helps narrow the path
+          forward. Once the cause is understood, it becomes easier to evaluate chairs, adjustments, and setups
+          without guessing or self-blame. If you're ready to evaluate specific chairs, see our
+          <a href="/office-chairs-for-tall-people/" class="link-internal">office chair buyer's guide for tall people</a>
+          for a full framework including seat height comparisons across top ergonomic models.
         </p>
       </section>
 
       <section>
         <h2>Related Reading</h2>
         <ul>
-          <li><a href="/knee-pain-seat-depth" class="link-internal">Knee Pain &amp; Seat Depth</a></li>
-          <li><a href="/back-pain-spine-height" class="link-internal">Back Pain &amp; Spine Height Issues for Tall Users</a></li>
-          <li><a href="/correct-chair-dimensions" class="link-internal">Correct Chair Dimensions for Tall &amp; Large Bodies</a></li>
+          <li><a href="/knee-pain-seat-depth/" class="link-internal">Knee Pain from Office Chair Seat Depth (Tall People Guide)</a></li>
+          <li><a href="/back-pain-spine-height/" class="link-internal">Back Pain from Office Chairs for Tall People</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal">Correct Chair Dimensions for Tall &amp; Large Bodies</a></li>
           <li><a href="/chairs/steelcase-gesture/seat-height/" class="link-internal">Steelcase Gesture seat height — how it affects leg circulation</a></li>
         </ul>
         <div class="mt-6 pt-6 border-t border-border">
-          <a href="/pain-ergonomics" class="link-internal">← Back to Pain &amp; Ergonomics</a>
+          <a href="/pain-ergonomics/" class="link-internal">← Back to Pain &amp; Ergonomics</a>
         </div>
       </section>
     </div>

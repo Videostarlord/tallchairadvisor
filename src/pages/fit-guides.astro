@@ -9,8 +9,8 @@ const schema = [
     "url": "https://tallchairadvisor.com/fit-guides/",
     "image": "https://tallchairadvisor.com/images/og-default.jpg",
     "datePublished": "2024-12-23",
-    "dateModified": "2026-03-01",
-    "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+    "dateModified": "2026-03-08",
+    "author": { "@type": "Person", "name": "Marcus Reid", "url": "https://tallchairadvisor.com/author/marcus-reid/" },
     "publisher": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
@@ -24,6 +24,52 @@ const schema = [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
       { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides/" }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why doesn't standard chair fit guidance work for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard ergonomic fit guidance — such as OSHA's seated workstation guidelines and most ergonomics textbooks — is calibrated for users between the 5th and 95th percentile of a reference population. The 95th percentile male in the US is approximately 6'2\", meaning guidance designed to cover \"most users\" already treats 6'2\" as an edge case. For users at 6'3\", 6'4\", and above, the dimensional targets in standard guidance simply don't apply. Seat height targets, seat depth recommendations, and lumbar positioning guidelines all need to be adjusted upward to match taller body proportions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does 'fit' mean dimensionally for a tall office chair user?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For tall users, chair fit is defined by three primary dimensions: (1) Seat height — the chair must raise high enough to let the thighs sit parallel to the floor with feet flat, requiring a maximum seat height at or above the user's popliteal height; (2) Seat depth — the seat must be deep enough to support the full thigh length without the front edge pressing into the backs of the knees, typically requiring 19–21 inches for users 6'1\" and above; (3) Back height and lumbar position — the backrest must reach the shoulder blades and the lumbar support must be positioned high enough to target the lumbar spine rather than the mid-back."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the most common mistakes tall people make when adjusting office chairs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The most common mistakes are: (1) Raising the seat without adjusting desk height — the chair goes up but the desk stays at the wrong level, forcing awkward arm angles; (2) Ignoring seat depth — users focus on seat height but leave the seat too shallow, which forces a forward slide that removes all lumbar support; (3) Treating lumbar position as fixed — many chairs have adjustable lumbar height, but users never move it from the factory default, leaving it targeting the wrong spinal level; (4) Setting armrests too low — at maximum seat height, armrests often can't rise high enough, leading users to unconsciously elevate their shoulders to compensate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I measure my body to find the right chair dimensions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three measurements determine your chair requirements: (1) Popliteal height: sit on a firm, flat surface with feet flat on the floor and measure from the floor to the crease behind your knee — this is your target seat height; (2) Thigh length: sit against a flat wall and measure from the wall to 2–3 inches before your knee crease — this is your minimum required seat depth; (3) Torso length: sit upright and measure from the seat surface to your shoulder blades — the chair's backrest must cover at least this distance. With these three numbers you can evaluate any chair against your body's actual requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I adjust a standard chair to fit a tall person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sometimes, with limitations. If a chair's maximum seat height is within 1–2 inches of your popliteal height, a high-stroke aftermarket gas cylinder can extend the range. If the seat depth is slightly short, some users use a lumbar cushion to effectively shift their seating position forward. However, if the seat depth is more than 2 inches shorter than you need, or if the back height doesn't reach your shoulder blades, no adjustment will compensate. In those cases, the chair is structurally unsuitable and replacing it is the only reliable fix."
+        }
+      }
+    ]
   }
 ];
 ---
@@ -36,7 +82,7 @@ const schema = [
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
-      <h1 class="text-balance">Fit & Adjustment Guides</h1>
+      <h1 class="text-balance">Fit &amp; Adjustment Guides for Tall People</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
         Learn to evaluate chair fit and make proper adjustments for your body dimensions
       </p>
@@ -44,6 +90,162 @@ const schema = [
   </header>
 
   <div class="container-wide py-12 md:py-16">
+
+    <div class="container-article mb-16">
+      <div class="prose-tca">
+
+        <section>
+          <h2>Why Standard Chair Fit Guidance Doesn't Apply to Tall People</h2>
+          <p>
+            When you search for "how to adjust an office chair," most guides give you the same
+            advice: raise the seat until your feet are flat on the floor with thighs parallel to
+            the ground, set the armrests at elbow height, position the lumbar support in your
+            lower back, and adjust the monitor to eye level. It's sound advice — for average-sized users.
+          </p>
+          <p>
+            For tall users, these instructions have a fatal gap: they assume the chair can actually
+            achieve the required positions. Standard ergonomic guidance is calibrated to the
+            5th–95th percentile of reference populations. The 95th percentile US male is approximately
+            6'2" — which means chairs designed to accommodate "nearly everyone" treat 6'2" as an
+            upper boundary, not a midpoint. Users who are 6'3", 6'4", or taller fall outside the
+            design envelope of most chairs on the market.
+          </p>
+          <p>
+            This matters practically because: a chair that can't raise high enough can't let your
+            thighs be parallel to the floor regardless of how carefully you follow the instructions.
+            A seat that's too short for your thigh length will press into the backs of your knees
+            regardless of how good your posture is. Lumbar support positioned at 8–9 inches above
+            the seat will contact your mid-back, not your lumbar spine, regardless of how far you
+            recline.
+          </p>
+          <p>
+            Standard fit guidance assumes the chair is capable of the adjustment. Tall users need
+            fit guidance that starts one step earlier: identifying whether the chair is dimensionally
+            capable in the first place.
+          </p>
+        </section>
+
+        <section>
+          <h2>What "Fit" Means Dimensionally for Tall Users</h2>
+          <p>
+            Chair fit for tall users is defined by three primary dimensions. Each must be satisfied
+            independently — a chair that excels in two but fails in one will still cause problems,
+            because the failure cascades into compensatory postures that stress other body regions.
+          </p>
+
+          <h3>Seat Height</h3>
+          <p>
+            Your seat height requirement is your popliteal height: the distance from the floor to
+            the crease behind your knee when seated on a firm surface with feet flat. For most users
+            6'0"–6'2", this is approximately 17–19 inches. For users 6'3"–6'5", it's typically
+            19–21 inches. For users 6'5" and above, it can reach 22 inches or more.
+          </p>
+          <p>
+            The chair must be able to reach this height at maximum — not its midpoint. A chair with
+            a "range of 15–19 inches" maxes out at 19 inches. A 6'3" user with a 20-inch popliteal
+            height is already outside that chair's capability regardless of other adjustments.
+          </p>
+
+          <h3>Seat Depth</h3>
+          <p>
+            Seat depth — the front-to-back measurement of the seat cushion — must accommodate your
+            thigh length while leaving 2–3 inches of clearance at the knee. Too deep and the front
+            edge presses into the popliteal region behind the knee, restricting blood flow and
+            causing nerve compression. Too shallow and you can't sit back against the lumbar support
+            without your knees extending past the seat edge.
+          </p>
+          <p>
+            Tall users with longer femurs need more seat depth than standard chairs provide.
+            Users 6'0"–6'2" typically need a minimum of 18–19 inches. Users 6'2"–6'4" typically
+            need 19–20 inches. Users 6'5" and above often need 20 inches or more. Standard chairs
+            offer 15–17 inches — sometimes with a 1–2 inch slider adjustment that still falls short
+            of what tall users need.
+          </p>
+
+          <h3>Back Height and Lumbar Position</h3>
+          <p>
+            The backrest must cover your full spinal length from the lumbar curve to the shoulder
+            blades. For tall users with longer torsos, this requires backrests taller than the
+            23–24 inches common in standard chairs. Additionally, the lumbar support must be
+            vertically adjustable to reach a tall user's actual lumbar region — which sits higher
+            above the seat than in average-height users. Fixed lumbar support positioned at 8–10
+            inches above the seat will contact the mid-back of a tall user, causing thoracic
+            discomfort rather than relieving lumbar strain.
+          </p>
+        </section>
+
+        <section>
+          <h2>Key Mistakes Tall Users Make When Adjusting Chairs</h2>
+          <p>
+            Even when tall users have a chair that's dimensionally capable, common adjustment
+            errors undermine the fit:
+          </p>
+
+          <h3>Raising the Seat Without Adjusting the Desk</h3>
+          <p>
+            When tall users correctly raise their seat to achieve proper thigh angle, the desk
+            surface becomes too low. The natural compensation — leaning forward or hunching the
+            shoulders to reach the keyboard — creates exactly the posture problems the seat height
+            fix was meant to prevent. The correct sequence is: raise the seat to the correct height,
+            then adjust the desk (or use a keyboard tray) to match.
+          </p>
+
+          <h3>Ignoring Seat Depth After Adjusting Height</h3>
+          <p>
+            Users who successfully adjust seat height often neglect seat depth. Even at the correct
+            seat height, a seat that's too shallow forces a forward slide to relieve knee pressure.
+            Once in that forward position, the back is no longer in contact with the lumbar support
+            — eliminating its benefit entirely.
+          </p>
+
+          <h3>Leaving Lumbar Support at the Factory Position</h3>
+          <p>
+            Most adjustable lumbar systems ship at a default height calibrated for average users.
+            Tall users who never move the lumbar support from factory settings are almost certainly
+            sitting with it targeting the wrong spinal level. The lumbar support should be raised
+            until it contacts the natural inward curve of your lower back — which for tall users
+            is almost always higher than the factory default.
+          </p>
+
+          <h3>Accepting Armrest Height as Fixed</h3>
+          <p>
+            At correct seat height for a tall user, standard armrests frequently can't rise high
+            enough to support the forearms without elevating the shoulders. Rather than struggling
+            with inadequate armrest height, tall users should verify that a chair's armrest
+            maximum height exceeds their elbow height when seated at the correct seat position.
+          </p>
+        </section>
+
+        <section>
+          <h2>What the Sub-Pages Cover and When to Use Each</h2>
+          <p>
+            The two fit guides below address different aspects of the evaluation and setup process.
+            Use them in sequence for the most complete picture:
+          </p>
+          <ul>
+            <li>
+              <strong><a href="/correct-chair-dimensions/" class="link-internal">Correct Chair Dimensions</a></strong> —
+              Start here if you're evaluating chairs to buy. This guide gives you the specific dimensional
+              targets by height bracket, explains how to measure your own requirements, and provides a
+              reference table for comparing chairs against your needs.
+            </li>
+            <li>
+              <strong><a href="/how-to-adjust-chair/" class="link-internal">How to Adjust Your Chair</a></strong> —
+              Use this guide if you already have a chair and want to optimize its setup for your tall frame.
+              It walks through the correct adjustment sequence, explains what each control does, and
+              identifies when a chair's adjustments are genuinely insufficient.
+            </li>
+          </ul>
+          <p>
+            If you're still at the research stage, the
+            <a href="/office-chairs-for-tall-people/" class="link-internal">office chair buyer's guide for tall people</a>
+            covers the full selection framework including chair-by-chair comparisons.
+          </p>
+        </section>
+
+      </div>
+    </div>
+
     <div class="max-w-3xl mx-auto mb-12">
       <p class="text-body text-center">
         Understanding your dimensional requirements and how to properly adjust a chair
@@ -53,7 +255,7 @@ const schema = [
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-      <a href="/correct-chair-dimensions" class="group card-hub flex flex-col">
+      <a href="/correct-chair-dimensions/" class="group card-hub flex flex-col">
         <div class="flex items-start justify-between mb-4">
           <div class="p-2 rounded-lg bg-accent text-primary">
             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,7 +277,7 @@ const schema = [
         </div>
       </a>
 
-      <a href="/how-to-adjust-chair" class="group card-hub flex flex-col">
+      <a href="/how-to-adjust-chair/" class="group card-hub flex flex-col">
         <div class="flex items-start justify-between mb-4">
           <div class="p-2 rounded-lg bg-accent text-primary">
             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,7 +306,7 @@ const schema = [
         <p class="text-muted-foreground text-sm mb-4">
           Once you understand your requirements, explore chairs that meet tall user specifications.
         </p>
-        <a href="/best-office-chairs" class="link-internal text-sm">
+        <a href="/best-office-chairs/" class="link-internal text-sm">
           Best Office Chairs for Tall People →
         </a>
         <div class="mt-4">
