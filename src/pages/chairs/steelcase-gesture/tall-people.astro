@@ -1,7 +1,22 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Byline from '../../../components/Byline.astro';
 
 const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Is the Steelcase Gesture Good for Tall People?",
+    "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/",
+    "datePublished": "2026-03-07",
+    "dateModified": "2026-03-07",
+    "author": { "@type": "Person", "name": "Marcus Reid", "url": "https://tallchairadvisor.com/about/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.jpg" }
+    }
+  },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -62,7 +77,7 @@ const schema = [
 ---
 
 <Layout
-  title={`Is the Steelcase Gesture Good for Tall People? Fit Guide 6'0"–6'7" | Tall Chair Advisor`}
+  title="Steelcase Gesture: Tall People Fit Guide | Tall Chair Advisor"
   description="Steelcase Gesture fit analysis for tall users 6'0&quot;–6'7&quot;. Seat height, seat depth, and back height assessed by height range, with a clear verdict on who it fits best."
   ogType="article"
   schema={schema}
@@ -77,6 +92,13 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-03-07" />
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
     <div class="prose-tca">
 
       <!-- Quick Answer -->

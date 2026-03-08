@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
 
 const schema = [
   {
@@ -9,13 +10,51 @@ const schema = [
     "url": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
     "image": "https://tallchairadvisor.com/images/og-default.jpg",
     "datePublished": "2025-01-15",
-    "dateModified": "2026-03-01",
-    "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+    "dateModified": "2026-03-07",
+    "author": { "@type": "Person", "name": "Marcus Reid", "url": "https://tallchairadvisor.com/about/" },
     "publisher": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
       "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.jpg" }
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Steelcase Gesture good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Gesture works well for tall users between 6'0\" and 6'4\". Its seat depth reaches 18.75\" and seat height reaches 21\", which covers most users in that range. Above 6'4\", the Leap Plus is usually the better fit due to its additional seat depth and higher seat height ceiling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the seat depth difference between the Gesture and Leap Plus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture has a maximum seat depth of 18.75\". The Steelcase Leap Plus has a maximum seat depth of 19.75\". That one-inch difference is meaningful for users with long femurs — typically anyone 6'3\" or taller."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Leap Plus worth the extra cost over the Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For users 6'4\" and above, yes. The Leap Plus adds an inch of seat depth, raises the seat height ceiling to 22.5\" (vs 21\" on the Gesture), and increases weight capacity to 500 lbs. For users 6'0\"–6'3\" with average builds, the Gesture's 360-degree armrests may justify the lower price if multi-device arm support matters."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which Steelcase chair is better for a 6'5\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Leap Plus. At 6'5\", the Gesture's 21\" seat height ceiling and 18.75\" maximum seat depth may be too shallow for adequate thigh support. The Leap Plus reaches 22.5\" seat height and 19.75\" seat depth, better accommodating a longer torso and femur length."
+        }
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -30,8 +69,8 @@ const schema = [
 ---
 
 <Layout
-  title="Steelcase Gesture vs Leap Plus for Tall People | Tall Chair Advisor"
-  description="Steelcase Gesture vs Leap Plus for tall people: adjustable seat depth, back height, armrest flexibility, and the $200 price difference explained."
+  title="Gesture vs Leap Plus for Tall People | Tall Chair Advisor"
+  description="Steelcase Gesture vs Leap Plus compared for tall users: seat depth, back height, armrests, and which chair fits at 6'0&quot;, 6'3&quot;, and 6'5&quot;+."
   ogType="article"
   schema={schema}
 >
@@ -45,78 +84,297 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2025-01-15" updatedDate="2026-03-07" />
+
     <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
 
     <div class="prose-tca">
+
+      <!-- Quick Answer -->
+      <div class="bg-secondary/40 border border-border rounded-lg p-5 mb-10">
+        <h2 class="mt-0 text-lg font-semibold">Quick Answer</h2>
+        <ul class="mt-2 mb-0 space-y-1">
+          <li><strong>6'0"–6'3", average build:</strong> Gesture — better arm support for multi-device work, adequate seat depth</li>
+          <li><strong>6'3"–6'5", any build:</strong> Leap Plus — the extra inch of seat depth and higher seat height ceiling matter at this range</li>
+          <li><strong>6'5" and above:</strong> Leap Plus — the Gesture's dimensions become limiting above this height</li>
+          <li><strong>Over 300 lbs:</strong> Leap Plus — 500 lb capacity vs 400 lb on the Gesture</li>
+        </ul>
+      </div>
+
       <section>
         <h2>Overview</h2>
         <p>
-          The Steelcase Gesture and Steelcase Leap Plus are both premium ergonomic chairs, but they are designed to
-          solve different problems for tall users. The Gesture emphasizes arm mobility and posture flexibility, while
-          the Leap Plus focuses on size accommodation, deeper seat adjustment, and higher weight capacity.
+          The Steelcase Gesture and the Steelcase Leap Plus are both premium ergonomic chairs, and both are
+          legitimately good options for tall users. But they solve different problems and fit different bodies.
+          The Gesture is built around posture flexibility and arm mobility — it's the chair for someone who
+          shifts between keyboard, tablet, and phone throughout the day. The Leap Plus is built around
+          size accommodation — deeper seat, higher seat height ceiling, heavier weight rating.
         </p>
         <p>
-          This comparison looks at real-world fit factors—seat dimensions, adjustability, support feel, and overall
-          usability—to help tall users determine which chair better matches their body type and working style.
-        </p>
-      </section>
-
-      <section>
-        <h2>Dimensional Comparison</h2>
-        <p>
-          The Steelcase Gesture typically offers a seat height range of approximately 16 to 21 inches and is designed
-          to support a wide variety of seated postures. Its seat depth adjustment works well for many tall users, but
-          the overall platform remains closer to standard sizing with a strong emphasis on upper-body ergonomics and
-          arm movement.
-        </p>
-        <p>
-          The Steelcase Leap Plus is built for users who need more physical room and adjustment margin. It provides a
-          wider seat, deeper seat depth adjustment—often cited up to roughly 19.75 inches—and a much higher weight
-          capacity, commonly listed up to 500 lbs. This makes it a better fit when standard chair dimensions feel
-          restrictive.
+          For the average-height user, these distinctions might not matter. For a tall user — say, 6'3" and above —
+          choosing the wrong one means spending $1,600 on a chair that still doesn't quite fit.
         </p>
       </section>
 
       <section>
-        <h2>For Tall Users</h2>
+        <h2>Specifications at a Glance</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left py-2 px-3 font-medium">Spec</th>
+                <th class="text-left py-2 px-3 font-medium">Steelcase Gesture</th>
+                <th class="text-left py-2 px-3 font-medium">Steelcase Leap Plus</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr>
+                <td class="py-2 px-3 font-medium">Seat depth</td>
+                <td class="py-2 px-3">15.75" – 18.75"</td>
+                <td class="py-2 px-3">15.75" – 19.75"</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Seat height</td>
+                <td class="py-2 px-3">16" – 21"</td>
+                <td class="py-2 px-3">15.5" – 22.5"</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Seat width</td>
+                <td class="py-2 px-3">19.25"</td>
+                <td class="py-2 px-3">22"</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Back height</td>
+                <td class="py-2 px-3">24"</td>
+                <td class="py-2 px-3">25.5"</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Weight capacity</td>
+                <td class="py-2 px-3">400 lbs</td>
+                <td class="py-2 px-3">500 lbs</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Armrests</td>
+                <td class="py-2 px-3">360° pivot, 4D</td>
+                <td class="py-2 px-3">4D</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Lumbar</td>
+                <td class="py-2 px-3">LiveBack (adaptive)</td>
+                <td class="py-2 px-3">LiveBack + adjustable lumbar</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Warranty</td>
+                <td class="py-2 px-3">12 years</td>
+                <td class="py-2 px-3">12 years</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Street price</td>
+                <td class="py-2 px-3">~$1,450–$1,650</td>
+                <td class="py-2 px-3">~$1,600–$1,850</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Seat Depth: The Most Important Spec for Tall Users</h2>
         <p>
-          For tall users with larger frames or those who regularly feel constrained by standard office chairs, the
-          Leap Plus is generally the safer choice. Its larger seat platform and deeper adjustability help support
-          longer legs and reduce the "perched" feeling that can occur when seat depth is too shallow.
+          Seat depth is the single most important dimension for tall users, and it's the number where
+          the Gesture and Leap Plus diverge most meaningfully. The Gesture maxes out at 18.75 inches.
+          The Leap Plus reaches 19.75 inches. That one-inch difference sounds minor, but in practice
+          it determines whether someone with a 34-inch inseam can sit fully back against the lumbar
+          support without the seat edge cutting into the back of their knees.
         </p>
         <p>
-          The Gesture is often a strong option for tall users with more average builds who prioritize movement and
-          flexibility. Its arm system is particularly well suited for device-heavy workflows, where arm positioning
-          changes frequently throughout the day.
+          The standard fit rule is that there should be 2–3 finger widths of clearance between the
+          seat edge and the back of the knee. For users around 6'3"–6'4", the Gesture often falls
+          at the edge of acceptable at maximum depth. For users 6'5" and above, it routinely doesn't
+          provide enough depth to sit all the way back.
+        </p>
+        <p>
+          Both chairs use a seat depth slider, so you're not locked into one setting. But what matters
+          is the <em>maximum</em> — and the Leap Plus has the larger ceiling.
+        </p>
+      </section>
+
+      <section>
+        <h2>Back Height and Lumbar Support</h2>
+        <p>
+          The Gesture's back height is 24 inches from the seat. The Leap Plus measures 25.5 inches.
+          For users with longer torsos — common in people 6'3" and above — that 1.5-inch difference
+          can determine whether the top of the backrest reaches between the shoulder blades (supportive)
+          or stops below them (useless for upper back).
+        </p>
+        <p>
+          Both chairs use Steelcase's LiveBack technology, which flexes with your spine rather than
+          holding a fixed lumbar position. This is genuinely useful because tall users often need
+          lumbar support that follows movement, not just one static position. The Leap Plus adds a
+          separate manual lumbar height adjustment on top of LiveBack, which gives it a meaningful edge
+          for users whose lumbar curve sits unusually high or low.
+        </p>
+      </section>
+
+      <section>
+        <h2>Armrests: Where the Gesture Wins</h2>
+        <p>
+          The Gesture's signature feature is its 360-degree armrest system. The arms pivot forward,
+          backward, inward, and outward — not just up and down. This was designed specifically for
+          multi-device workers who need arm support across a wide range of postures: upright typing,
+          tablet use in the lap, phone in one hand, reclined reading.
+        </p>
+        <p>
+          The Leap Plus uses standard 4D armrests (height, width, depth, pivot). These are
+          good — better than most chairs on the market — but they're not in the same category as
+          the Gesture's 360-degree system. If your workflow keeps your hands in one place most of
+          the day, this distinction doesn't matter. If you're constantly shifting between devices,
+          the Gesture's arm flexibility is a real daily-use advantage.
+        </p>
+      </section>
+
+      <section>
+        <h2>Seat Width and Body Accommodation</h2>
+        <p>
+          The Leap Plus has a 22-inch seat width versus 19.25 inches on the Gesture. This matters
+          less for height than it does for frame width, but tall users often have proportionally
+          wider hips and shoulders. If you find standard chairs feel narrow across the hips or if
+          the seat pan edges press against your thighs when sitting with your legs at shoulder width,
+          the Leap Plus's wider seat resolves that.
+        </p>
+        <p>
+          The Gesture's 19.25-inch seat width is adequate for most users up to about a 42-inch hip
+          measurement. Beyond that, the Leap Plus is the better fit.
+        </p>
+      </section>
+
+      <section>
+        <h2>Sitting Feel and Break-In</h2>
+        <p>
+          Both chairs use upholstered foam seats rather than mesh. The Gesture's seat is noticeably
+          firmer out of the box — expect a 3–4 week break-in period before it reaches its final
+          feel. The Leap Plus has a slightly more yielding initial feel, though it also firms up with
+          use. Neither chair is as pressure-relieving as the Aeron's mesh for users who run hot.
+        </p>
+        <p>
+          The recline mechanism differs as well. The Gesture is designed for dynamic sitting — it
+          encourages movement and provides less resistance to postural shifting. The Leap Plus has a
+          more traditional recline feel with a firm tension adjustment. For users who prefer to
+          actively recline and hold positions, the Leap Plus is more predictable. For users who
+          like the chair to respond fluidly to their movement, the Gesture is more satisfying.
+        </p>
+      </section>
+
+      <section>
+        <h2>Height-Specific Guidance</h2>
+        <ul>
+          <li>
+            <strong>6'0"–6'2":</strong> Either chair works. Choose the Gesture if arm mobility matters;
+            choose the Leap Plus if you want more seat depth margin or weigh over 300 lbs.
+          </li>
+          <li>
+            <strong>6'2"–6'4":</strong> Both chairs are viable, but you'll be near the top of the
+            Gesture's depth range. Test the Gesture at maximum depth before committing. The Leap Plus
+            gives you more headroom.
+          </li>
+          <li>
+            <strong>6'4"–6'6":</strong> Lean toward the Leap Plus. The Gesture's 18.75" max depth
+            and 21" seat height ceiling are likely to feel tight. The Leap Plus's 22.5" seat height
+            ceiling matters here.
+          </li>
+          <li>
+            <strong>6'6" and above:</strong> Leap Plus. The Gesture is not designed for this height range.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Price and Value</h2>
+        <p>
+          The Gesture typically runs $150–$200 less than the Leap Plus at street prices. Both carry
+          12-year warranties. Refurbished options exist for both chairs through Steelcase-certified
+          dealers and platforms like Crandall Office Furniture, often at 40–60% of new price.
+          If budget is a constraint, refurbished Leap Plus units are worth exploring before buying
+          a new Gesture.
+        </p>
+        <p>
+          For users 6'4" and above: the Leap Plus's dimensional advantages justify the price premium.
+          For users 6'0"–6'3": the Gesture is a meaningful value if the armrest system appeals and
+          your seat depth needs fall within its range.
         </p>
       </section>
 
       <section>
         <h2>Verdict</h2>
         <p>
-          Choose the <strong>Steelcase Leap Plus</strong> if you need maximum size accommodation, deeper seat support,
-          and higher weight capacity for long-term comfort.
+          The Leap Plus is the safer recommendation for most tall users — particularly anyone 6'3"
+          and above — because its larger dimensions leave more margin for error. The Gesture is a
+          genuinely better chair for multi-device work if you happen to fall within its fit range.
         </p>
         <p>
-          Choose the <strong>Steelcase Gesture</strong> if you are tall with a more average build and value advanced
-          arm mobility and dynamic sitting support.
+          If you're on the border (around 6'3"–6'4"), the deciding question is: do you work across
+          multiple devices and change arm positions frequently? If yes, try the Gesture. If your
+          work is primarily keyboard-and-monitor, the Leap Plus's additional seat depth will serve
+          you better for the next decade.
         </p>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">
+            View Steelcase Gesture on Amazon →
+          </a>
+          <a href="https://www.amazon.com/s?k=steelcase+leap+plus+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 border border-border px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/30 transition-colors">
+            View Steelcase Leap Plus on Amazon →
+          </a>
+        </div>
       </section>
 
       <section>
-        <h2>Read Full Reviews</h2>
-        <ul>
-          <li><a href="/review/gesture" class="link-internal">Steelcase Gesture Review</a></li>
-          <li><a href="/review/leap-plus" class="link-internal">Steelcase Leap Plus Review</a></li>
-        </ul>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Is the Steelcase Gesture good for tall people?</h3>
+        <p>
+          Yes, within a range. The Gesture works well for tall users between 6'0" and 6'4". Its seat depth
+          reaches 18.75" and seat height reaches 21", covering most users in that range. Above 6'4", the
+          Leap Plus is usually the better fit due to its additional seat depth and higher seat height ceiling.
+        </p>
+
+        <h3>What is the seat depth difference between the Gesture and Leap Plus?</h3>
+        <p>
+          The Gesture's maximum seat depth is 18.75". The Leap Plus is 19.75". That one inch is meaningful
+          for users with long femurs — typically anyone 6'3" or taller — because it determines whether you
+          can sit fully back against the lumbar support without pressure behind the knees.
+        </p>
+
+        <h3>Is the Leap Plus worth the extra cost over the Gesture?</h3>
+        <p>
+          For users 6'4" and above, yes. The Leap Plus adds an inch of seat depth, raises the seat height
+          ceiling to 22.5" (vs 21" on the Gesture), and increases weight capacity to 500 lbs. For users
+          6'0"–6'3" with average builds, the Gesture's 360-degree armrests may justify the lower price if
+          multi-device arm support matters.
+        </p>
+
+        <h3>Which Steelcase chair is better for a 6'5" person?</h3>
+        <p>
+          The Steelcase Leap Plus. At 6'5", the Gesture's 21" seat height ceiling and 18.75" maximum
+          seat depth are likely to feel limiting. The Leap Plus reaches 22.5" seat height and 19.75"
+          seat depth, better accommodating longer torso and femur length.
+        </p>
       </section>
 
-      <div class="mt-8 pt-6 border-t border-border">
-        <a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a>
-      </div>
+      <nav class="mt-8 pt-6 border-t border-border" aria-label="Related content">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related reviews and comparisons:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/review/gesture/" class="link-internal">Steelcase Gesture full review →</a></li>
+          <li><a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus full review →</a></li>
+          <li><a href="/aeron-vs-leap-plus/" class="link-internal">Aeron Size C vs Leap Plus →</a></li>
+          <li><a href="/chairs/steelcase-gesture/" class="link-internal">Gesture specs and fit guides →</a></li>
+          <li><a href="/chairs/steelcase-leap-plus/" class="link-internal">Leap Plus specs and fit guides →</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal">← Back to Best Office Chairs for Tall People</a></li>
+        </ul>
+      </nav>
+
     </div>
   </article>
 </Layout>

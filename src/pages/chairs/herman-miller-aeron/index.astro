@@ -1,0 +1,115 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Herman Miller Aeron Size C", "item": "https://tallchairadvisor.com/chairs/herman-miller-aeron/" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Herman Miller Aeron Size C for Tall People | Tall Chair Advisor"
+  description="Everything about the Herman Miller Aeron Size C for tall users — seat height range, fixed seat depth, fit for 6'0&quot;–6'4&quot;, and how it compares to the Gesture and Leap Plus."
+  ogType="article"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Herman Miller Aeron Size C</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Specs, fit guides, and reviews for tall users
+      </p>
+    </div>
+  </header>
+
+  <div class="container-article py-12 md:py-16">
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
+    <!-- Quick Specs -->
+    <section class="mb-12">
+      <h2 class="font-serif text-2xl text-heading mb-6">Key Specifications</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Height</p>
+          <p class="font-semibold text-heading text-base">16" – 20.5"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Depth</p>
+          <p class="font-semibold text-heading text-base">~18.5" (fixed)</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Back Height</p>
+          <p class="font-semibold text-heading text-base">~23.5"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Width</p>
+          <p class="font-semibold text-heading text-base">20.75"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Weight Capacity</p>
+          <p class="font-semibold text-heading text-base">350 lbs</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Warranty</p>
+          <p class="font-semibold text-heading text-base">12 years</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cluster navigation -->
+    <section class="mb-12">
+      <h2 class="font-serif text-2xl text-heading mb-6">Detailed Guides</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/chairs/herman-miller-aeron/seat-height/" class="block p-5 rounded-lg bg-card border border-border hover:bg-accent transition-colors">
+          <h3 class="font-semibold text-heading mb-1 text-base">Seat Height Range</h3>
+          <p class="text-sm text-muted-foreground">16"–20.5" range explained. Recommended settings by height for tall users 6'0"–6'5".</p>
+          <span class="text-primary text-sm mt-3 inline-block">Read guide →</span>
+        </a>
+        <a href="/chairs/herman-miller-aeron/tall-people/" class="block p-5 rounded-lg bg-card border border-border hover:bg-accent transition-colors">
+          <h3 class="font-semibold text-heading mb-1 text-base">Is It Good for Tall People?</h3>
+          <p class="text-sm text-muted-foreground">Full fit analysis for users 6'0"–6'6". The fixed seat depth trade-off explained clearly.</p>
+          <span class="text-primary text-sm mt-3 inline-block">Read guide →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="prose-tca mb-12">
+      <h2>Herman Miller Aeron Size C Overview</h2>
+      <p>The Herman Miller Aeron Size C is the largest format in Herman Miller's flagship Aeron line, engineered for users 6'0" and taller. Originally introduced in 1994 and substantially remastered in 2016, the Aeron is one of the most studied and iterated-upon ergonomic chairs in office history — with over 9 million units sold across three decades.</p>
+      <p>For tall users, the Size C addresses the most common failure of standard office chairs: insufficient scale. The Size C extends seat depth, back height, and overall frame dimensions to accommodate larger frames while retaining the Aeron's signature Pellicle mesh suspension — a breathable, pressure-distributing system that eliminated the heat buildup of foam seating.</p>
+      <p>The key trade-off for tall users is the fixed seat depth. Unlike the Steelcase Gesture or Leap Plus, the Aeron's seat pan does not adjust. The 18.5" depth works well for tall users with average-to-moderate thigh lengths — typically those in the 6'0"–6'4" range. Users with longer femurs, or those above 6'4", may find the fixed depth a limiting factor. This is the single most important specification to verify before purchasing.</p>
+      <p>Where the Aeron excels is breathability. The Pellicle mesh distributes your weight across a suspension surface with continuous airflow, making it the best choice among premium ergonomic chairs for users who run warm or work in warmer environments.</p>
+    </section>
+
+    <!-- Compare + Review links -->
+    <section class="mb-8">
+      <h2 class="font-serif text-xl text-heading mb-4">Compare & Review</h2>
+      <div class="space-y-2 text-sm">
+        <div><a href="/review/aeron-size-c/" class="link-internal font-medium">Full Herman Miller Aeron Size C Review</a> — Detailed pros, cons, and tall-user verdict</div>
+        <div><a href="/aeron-vs-gesture/" class="link-internal font-medium">Aeron vs Steelcase Gesture</a> — Mesh breathability vs foam comfort and 360° arms</div>
+        <div><a href="/aeron-vs-leap-plus/" class="link-internal font-medium">Aeron vs Steelcase Leap Plus</a> — Fixed depth vs adjustable depth, mesh vs cushion</div>
+        <div><a href="/best-office-chairs/" class="link-internal font-medium">Best Office Chairs for Tall People</a> — How the Aeron compares to all top picks</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="mt-8">
+      <a href="https://www.amazon.com/s?k=herman+miller+aeron+size+c&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+        View Herman Miller Aeron on Amazon →
+      </a>
+    </div>
+
+  </div>
+</Layout>

@@ -1,0 +1,115 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Steelcase Leap Plus", "item": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Steelcase Leap Plus for Tall People | Tall Chair Advisor"
+  description="Everything about the Steelcase Leap Plus for tall users — 22.5&quot; seat height, adjustable seat depth, 500 lb capacity, and how it compares to the Aeron and Gesture."
+  ogType="article"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Steelcase Leap Plus</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Specs, fit guides, and reviews for tall users
+      </p>
+    </div>
+  </header>
+
+  <div class="container-article py-12 md:py-16">
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
+    <!-- Quick Specs -->
+    <section class="mb-12">
+      <h2 class="font-serif text-2xl text-heading mb-6">Key Specifications</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Height</p>
+          <p class="font-semibold text-heading text-base">15.5" – 22.5"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Depth</p>
+          <p class="font-semibold text-heading text-base">15.75" – 19.75"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Back Height</p>
+          <p class="font-semibold text-heading text-base">25.5"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Seat Width</p>
+          <p class="font-semibold text-heading text-base">22"</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Weight Capacity</p>
+          <p class="font-semibold text-heading text-base">500 lbs</p>
+        </div>
+        <div class="p-4 rounded-lg bg-secondary/30 border border-border">
+          <p class="text-xs text-muted-foreground mb-1">Warranty</p>
+          <p class="font-semibold text-heading text-base">12 years</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cluster navigation -->
+    <section class="mb-12">
+      <h2 class="font-serif text-2xl text-heading mb-6">Detailed Guides</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/chairs/steelcase-leap-plus/seat-height/" class="block p-5 rounded-lg bg-card border border-border hover:bg-accent transition-colors">
+          <h3 class="font-semibold text-heading mb-1 text-base">Seat Height Range</h3>
+          <p class="text-sm text-muted-foreground">22.5" maximum explained — the highest ceiling of any major ergonomic chair. Recommended settings by height for 6'0"–6'6"+.</p>
+          <span class="text-primary text-sm mt-3 inline-block">Read guide →</span>
+        </a>
+        <a href="/chairs/steelcase-leap-plus/tall-people/" class="block p-5 rounded-lg bg-card border border-border hover:bg-accent transition-colors">
+          <h3 class="font-semibold text-heading mb-1 text-base">Is It Good for Tall People?</h3>
+          <p class="text-sm text-muted-foreground">Full fit analysis for users 6'0"–6'7"+. Why the 4" adjustable seat depth range is the key differentiator for tall users.</p>
+          <span class="text-primary text-sm mt-3 inline-block">Read guide →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="prose-tca mb-12">
+      <h2>Steelcase Leap Plus Overview</h2>
+      <p>The Steelcase Leap Plus is the reinforced, extended-range variant of Steelcase's flagship Leap ergonomic chair. Where the standard Leap targets users up to 400 lbs with average proportions, the Plus extends every critical dimension upward: seat height reaches 22.5", seat depth adjusts up to 19.75", seat width widens to 22", back height grows to 25.5", and the weight capacity doubles to 500 lbs.</p>
+      <p>For tall users specifically, the Leap Plus has the highest seat height ceiling of any mainstream ergonomic chair — 22.5" as standard, with no aftermarket modifications required. Its 4-inch adjustable seat depth range (15.75"–19.75") is also the widest of the three top contenders, giving it the most dimensional flexibility for users with longer thighs or unusual proportions.</p>
+      <p>The Leap Plus runs on the same core technology as the standard Leap: LiveBack, which flexes and reshapes the backrest as you move to provide consistent lumbar and upper-back support without manual adjustment. The Natural Glide System allows the seat to slide forward as you recline, maintaining the pelvis-to-torso relationship that standard recline mechanisms disrupt. Both features matter more for tall users, whose longer torsos amplify the postural errors that static backrests create.</p>
+      <p>The primary trade-off is breathability. Like the Gesture, the Leap Plus uses fabric upholstery over foam rather than mesh. Users who run warm may notice heat retention during long sessions — a consideration if breathability ranks high in your priorities.</p>
+    </section>
+
+    <!-- Compare + Review links -->
+    <section class="mb-8">
+      <h2 class="font-serif text-xl text-heading mb-4">Compare & Review</h2>
+      <div class="space-y-2 text-sm">
+        <div><a href="/review/leap-plus/" class="link-internal font-medium">Full Steelcase Leap Plus Review</a> — Detailed pros, cons, and tall-user verdict</div>
+        <div><a href="/gesture-vs-leap-plus/" class="link-internal font-medium">Gesture vs Leap Plus</a> — Armrests and foam feel vs maximum seat depth and height</div>
+        <div><a href="/aeron-vs-leap-plus/" class="link-internal font-medium">Aeron vs Leap Plus</a> — Mesh breathability vs adjustable depth and 500 lb capacity</div>
+        <div><a href="/best-office-chairs/" class="link-internal font-medium">Best Office Chairs for Tall People</a> — How the Leap Plus compares to all top picks</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="mt-8">
+      <a href="https://www.amazon.com/s?k=Steelcase+Leap+Plus&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+        View Steelcase Leap Plus on Amazon →
+      </a>
+    </div>
+
+  </div>
+</Layout>

@@ -1,21 +1,60 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
 
 const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Herman Miller Aeron vs Steelcase Leap Plus: For Tall People",
+    "headline": "Herman Miller Aeron Size C vs Steelcase Leap Plus: For Tall People",
     "url": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
     "image": "https://tallchairadvisor.com/images/og-default.jpg",
     "datePublished": "2025-01-15",
-    "dateModified": "2026-03-01",
-    "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+    "dateModified": "2026-03-07",
+    "author": { "@type": "Person", "name": "Marcus Reid", "url": "https://tallchairadvisor.com/about/" },
     "publisher": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
       "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.jpg" }
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron Size C good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Aeron Size C fits tall users between roughly 6'0\" and 6'6\" with lean to average builds. Its fixed seat depth of 18.5\" and 20.5\" seat height ceiling can be limiting for users 6'4\"+ who need maximum seat depth adjustment. The Leap Plus accommodates taller users with more adjustability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the main difference between the Aeron Size C and the Leap Plus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The biggest difference is seat depth: the Aeron Size C has a fixed seat depth of approximately 18.5\", while the Leap Plus adjusts from 15.75\" to 19.75\". The Aeron uses mesh for breathability; the Leap Plus uses upholstered foam. The Leap Plus also has a higher weight capacity (500 lbs vs 350 lbs) and wider seat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which is better for hot climates or users who run warm — Aeron or Leap Plus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron is significantly better for users who run warm. Its 8Z Pellicle mesh allows airflow through the seat and back, preventing the heat buildup that occurs with foam-upholstered chairs like the Leap Plus. For warm climates or users who work in non-air-conditioned spaces, this difference is substantial."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can the Aeron Size C support a 250 lb tall person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The Aeron Size C is rated to 350 lbs. A 250 lb user is well within the weight limit. The more relevant question is height and build proportions — the Aeron Size C has a narrower seat (20.75\") than the Leap Plus (22\"), which can feel snug for taller users with wider hip measurements."
+        }
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -30,8 +69,8 @@ const schema = [
 ---
 
 <Layout
-  title="Aeron Size C vs Steelcase Leap Plus for Tall People | Tall Chair Advisor"
-  description="Aeron Size C vs Steelcase Leap Plus compared for tall users. Fixed vs adjustable seat depth, lumbar support, and which handles users over 6'3&quot; better."
+  title="Aeron vs Leap Plus for Tall People | Tall Chair Advisor"
+  description="Aeron Size C vs Steelcase Leap Plus compared for tall users. Fixed vs adjustable seat depth, mesh vs foam, lumbar support, and which handles users over 6'3&quot; better."
   ogType="article"
   schema={schema}
 >
@@ -45,65 +84,311 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2025-01-15" updatedDate="2026-03-07" />
+
     <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
 
     <div class="prose-tca">
+
+      <!-- Quick Answer -->
+      <div class="bg-secondary/40 border border-border rounded-lg p-5 mb-10">
+        <h2 class="mt-0 text-lg font-semibold">Quick Answer</h2>
+        <ul class="mt-2 mb-0 space-y-1">
+          <li><strong>6'0"–6'3", lean/average build:</strong> Aeron Size C — mesh ventilation, PostureFit SL, excellent posture support</li>
+          <li><strong>6'3"–6'5", any build:</strong> Leap Plus — adjustable seat depth, higher seat height, more accommodation</li>
+          <li><strong>6'5" and above:</strong> Leap Plus — Aeron Size C's fixed seat depth becomes limiting at this height</li>
+          <li><strong>Runs warm or hot climate:</strong> Aeron — mesh vs foam is a real daily comfort difference</li>
+          <li><strong>Over 300 lbs:</strong> Leap Plus — 500 lb capacity vs 350 lb on the Aeron Size C</li>
+        </ul>
+      </div>
+
       <section>
         <h2>Overview</h2>
         <p>
-          Both the Herman Miller Aeron Size C and the Steelcase Leap Plus are popular ergonomic chairs for tall users,
-          but they serve different body types and preferences. The Aeron Size C focuses on breathability and posture
-          support for lean-to-average builds, while the Leap Plus is designed for larger users who need greater
-          adjustability and higher weight capacity. This comparison breaks down the key differences in dimensions,
-          fit, and overall suitability for tall users.
+          The Herman Miller Aeron Size C and the Steelcase Leap Plus represent two different philosophies
+          in ergonomic chair design. The Aeron is a precision instrument built around posture alignment,
+          mesh ventilation, and a specific body shape. The Leap Plus is built around accommodation —
+          more adjustability, more space, more weight capacity.
+        </p>
+        <p>
+          Both chairs cost over $1,500 new. Both have long track records and strong warranties. The question
+          isn't which is "better" in the abstract — it's which fits your body, your working style, and
+          your environment. For tall users specifically, the seat depth difference and the Leap Plus's
+          adjustability range often tip the decision.
         </p>
       </section>
 
       <section>
-        <h2>Dimensional Comparison</h2>
+        <h2>Specifications at a Glance</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left py-2 px-3 font-medium">Spec</th>
+                <th class="text-left py-2 px-3 font-medium">Aeron Size C</th>
+                <th class="text-left py-2 px-3 font-medium">Steelcase Leap Plus</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr>
+                <td class="py-2 px-3 font-medium">Seat depth</td>
+                <td class="py-2 px-3">~18.5" (fixed)</td>
+                <td class="py-2 px-3">15.75" – 19.75" (adjustable)</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Seat height</td>
+                <td class="py-2 px-3">16" – 20.5"</td>
+                <td class="py-2 px-3">15.5" – 22.5"</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Seat width</td>
+                <td class="py-2 px-3">20.75"</td>
+                <td class="py-2 px-3">22"</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Back height</td>
+                <td class="py-2 px-3">~23.5" (adjustable tilt)</td>
+                <td class="py-2 px-3">25.5"</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Weight capacity</td>
+                <td class="py-2 px-3">350 lbs</td>
+                <td class="py-2 px-3">500 lbs</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Seat material</td>
+                <td class="py-2 px-3">8Z Pellicle mesh</td>
+                <td class="py-2 px-3">Upholstered foam</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Lumbar</td>
+                <td class="py-2 px-3">PostureFit SL (sacrum + lumbar)</td>
+                <td class="py-2 px-3">LiveBack + adjustable lumbar</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Armrests</td>
+                <td class="py-2 px-3">4D</td>
+                <td class="py-2 px-3">4D</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Warranty</td>
+                <td class="py-2 px-3">12 years</td>
+                <td class="py-2 px-3">12 years</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-3 font-medium">Street price</td>
+                <td class="py-2 px-3">~$1,500–$1,800</td>
+                <td class="py-2 px-3">~$1,600–$1,850</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>The Critical Difference: Fixed vs Adjustable Seat Depth</h2>
         <p>
-          The Aeron Size C offers a fixed seat depth of approximately 18.5 inches and a seat height range of about 16
-          to 20.5 inches, with a weight capacity up to 350 lbs. Its mesh construction prioritizes airflow and pressure
-          distribution but limits depth adjustability. The Steelcase Leap Plus features an adjustable seat depth up to
-          roughly 19.75 inches and a wider seat, with a seat height range of approximately 15.5 to 22.5 inches. It
-          supports users up to 500 lbs, making it better suited for taller and heavier builds that require more flexibility.
+          The Aeron Size C has a fixed seat depth of approximately 18.5 inches. There is no seat depth
+          slider. Herman Miller designed each Aeron size with a specific depth for that size bracket —
+          Size C is the large model — but "large" in Herman Miller's sizing is built around a particular
+          body proportion, not simply height.
+        </p>
+        <p>
+          The Steelcase Leap Plus has a seat depth range of 15.75" to 19.75". You can dial in the exact
+          depth that provides 2–3 fingers of clearance behind your knee regardless of your femur length.
+        </p>
+        <p>
+          For tall users with proportionally long legs, the Aeron's fixed 18.5" depth is often adequate
+          at 6'0"–6'2". At 6'3"–6'4", it becomes marginal. Above 6'4", many tall users find it too short
+          — they can't sit fully back against the lumbar support without edge pressure behind the knees.
+          The Leap Plus eliminates this uncertainty.
         </p>
       </section>
 
       <section>
-        <h2>For Tall Users</h2>
+        <h2>Lumbar Support: PostureFit SL vs LiveBack</h2>
         <p>
-          For tall users with larger frames or those over 300 lbs, the Leap Plus generally provides better support due
-          to its wider seat, deeper adjustability, and higher weight rating. It accommodates longer femurs and offers
-          a broader range of ergonomic tuning. The Aeron Size C works well for tall users with leaner builds who value
-          breathability and a firmer, more upright sitting posture. Its mesh design is especially appealing for users
-          who sit for long hours and tend to run hot.
+          This is where the two chairs take genuinely different approaches, and both have merit.
+        </p>
+        <p>
+          The Aeron's PostureFit SL supports both the sacrum (the bone at the base of your spine) and
+          the lumbar vertebrae above it. Herman Miller's research suggests that starting with sacral
+          support allows the entire spine to align naturally from the bottom up, rather than trying to
+          push the lumbar curve into position. For many tall users, this produces an unusually upright
+          sitting posture that reduces disc pressure. The PostureFit SL pad is adjustable in firmness
+          but not in height — you get what the Size C puts in front of you.
+        </p>
+        <p>
+          The Leap Plus uses LiveBack — a flexible backrest that moves with your spine — combined with a
+          separate adjustable lumbar pad you can position up or down. This is more configurable for
+          users whose lumbar curve sits at an unusual height. If the Aeron's PostureFit lands in the
+          wrong position for your anatomy (which happens for some taller users with longer torsos), you
+          can't move it. The Leap Plus lets you dial it in.
+        </p>
+      </section>
+
+      <section>
+        <h2>Mesh vs Foam: Ventilation and Feel</h2>
+        <p>
+          The Aeron's 8Z Pellicle mesh is the most referenced advantage of that chair, and for good
+          reason. The mesh allows full airflow through the seat and back — there's no surface trapping
+          heat against your legs or back. For users who work in warm environments, tend to run warm,
+          or sit for 8+ hours continuously, this is a meaningful daily comfort factor. Foam-upholstered
+          chairs, including the Leap Plus, create a sealed surface that accumulates heat.
+        </p>
+        <p>
+          The tradeoff is pressure distribution. Mesh suspends your weight across a large elastic surface,
+          which can cause a "hammock" effect — pressure concentrated at the outer edges of the seat if
+          the mesh tension isn't precisely matched to your weight. The Aeron's 8-zone tension design
+          addresses this, but the Leap Plus's foam provides more consistent pressure distribution for a
+          wider range of builds, particularly users with heavier lower bodies.
+        </p>
+        <p>
+          If you work in a temperature-controlled office and comfort is your primary concern, foam can
+          be softer and more immediately comfortable. If ventilation is a daily issue, the Aeron's mesh
+          advantage is real and lasting.
+        </p>
+      </section>
+
+      <section>
+        <h2>Seat Height Range</h2>
+        <p>
+          The Aeron Size C's seat height maxes out at 20.5 inches. The Leap Plus reaches 22.5 inches.
+          For very tall users — 6'5" and above — the Aeron's ceiling may force an awkward angle where
+          the knees are higher than ideal relative to the hip. The Leap Plus's additional 2 inches of
+          height range makes it the clear choice for users at the upper end of the tall spectrum.
+        </p>
+        <p>
+          At 6'0"–6'3", both chairs typically provide enough seat height range to achieve a neutral
+          hip-knee angle at most standard desk heights. At 6'4"+, the Leap Plus's additional range
+          matters.
+        </p>
+      </section>
+
+      <section>
+        <h2>Weight Capacity and Size Accommodation</h2>
+        <p>
+          The Aeron Size C is rated to 350 lbs with a 20.75-inch seat width. The Leap Plus is rated
+          to 500 lbs with a 22-inch seat width. For users over approximately 250 lbs or with wide hip
+          measurements, the Leap Plus provides more margin.
+        </p>
+        <p>
+          The Aeron is an excellent chair for lean-to-average builds. Its proportions are designed around
+          a specific body archetype, and it performs best within that range. The Leap Plus is more
+          tolerant of variation.
+        </p>
+      </section>
+
+      <section>
+        <h2>Height-Specific Guidance</h2>
+        <ul>
+          <li>
+            <strong>6'0"–6'2", lean build:</strong> Aeron Size C is worth serious consideration. PostureFit SL,
+            mesh ventilation, and lighter feel work well at this height range with a slender frame.
+          </li>
+          <li>
+            <strong>6'0"–6'2", average/larger build:</strong> Leap Plus gives more accommodation. The Aeron
+            can feel snug across the seat width for broader hips at this height.
+          </li>
+          <li>
+            <strong>6'2"–6'4":</strong> The Aeron's fixed 18.5" seat depth is at its limit. If you can test
+            the Aeron at a dealer and confirm the depth feels adequate, it's still a contender. If you're
+            buying without testing, the Leap Plus is lower risk.
+          </li>
+          <li>
+            <strong>6'4" and above:</strong> Leap Plus. The Aeron Size C's seat depth, seat height ceiling,
+            and weight capacity all become limiting above this height.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Price and Value</h2>
+        <p>
+          Both chairs are priced within $200–$300 of each other at street prices. Both carry 12-year
+          warranties. Refurbished Aerons are widely available and often represent better value than
+          a new Gesture or Leap Plus — the chair's design has been largely unchanged for decades,
+          and a refurbished Aeron from a reputable dealer performs identically to a new one.
+          Refurbished Leap Plus units are less common but do exist.
+        </p>
+        <p>
+          If you're in the 6'0"–6'2" lean build range and ventilation matters to you, a refurbished
+          Aeron Size C at $600–$900 is exceptional value. If you're taller or have a larger build,
+          the Leap Plus is worth paying for new.
         </p>
       </section>
 
       <section>
         <h2>Verdict</h2>
         <p>
-          Choose the Steelcase Leap Plus if you are a taller user with a larger or heavier build who needs maximum
-          adjustability and long-term support. Choose the Herman Miller Aeron Size C if you are tall with a
-          lean-to-average build and prioritize ventilation, posture support, and a lighter seating feel.
+          For tall users who prioritize ventilation, have a lean build, and fall in the 6'0"–6'3" range,
+          the Aeron Size C is a legitimate choice. Its PostureFit SL lumbar system and mesh construction
+          are genuinely differentiated features that the Leap Plus doesn't replicate.
         </p>
+        <p>
+          For tall users 6'3" and above, or anyone with a larger frame, the Leap Plus's adjustable seat
+          depth, higher seat height ceiling, and 500 lb weight capacity make it the more practical
+          long-term investment. It accommodates more variation, which matters when you're buying a chair
+          you'll use for the next 10–15 years and your body will change.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="https://www.amazon.com/s?k=herman+miller+aeron+size+c&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">
+            View Aeron Size C on Amazon →
+          </a>
+          <a href="https://www.amazon.com/s?k=steelcase+leap+plus+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 border border-border px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/30 transition-colors">
+            View Steelcase Leap Plus on Amazon →
+          </a>
+        </div>
       </section>
 
       <section>
-        <h2>Read Full Reviews</h2>
-        <ul>
-          <li><a href="/review/aeron-size-c" class="link-internal">Herman Miller Aeron Size C Review</a></li>
-          <li><a href="/review/leap-plus" class="link-internal">Steelcase Leap Plus Review</a></li>
-        </ul>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Is the Herman Miller Aeron Size C good for tall people?</h3>
+        <p>
+          The Aeron Size C fits tall users between roughly 6'0" and 6'3" with lean to average builds.
+          Its fixed seat depth of 18.5" and 20.5" seat height ceiling can be limiting for users 6'4"+
+          who need more seat depth adjustment. The Leap Plus accommodates taller users with more adjustability.
+        </p>
+
+        <h3>What is the main difference between the Aeron Size C and the Leap Plus?</h3>
+        <p>
+          The biggest difference is seat depth: the Aeron Size C has a fixed seat depth of approximately
+          18.5", while the Leap Plus adjusts from 15.75" to 19.75". The Aeron uses mesh for breathability;
+          the Leap Plus uses upholstered foam. The Leap Plus also has a higher weight capacity (500 lbs vs
+          350 lbs) and a wider seat.
+        </p>
+
+        <h3>Which is better for hot climates — Aeron or Leap Plus?</h3>
+        <p>
+          The Herman Miller Aeron is significantly better for users who run warm. Its 8Z Pellicle mesh
+          allows airflow through the seat and back, preventing heat buildup. For warm climates or non-air-conditioned
+          spaces, this difference is substantial and lasting.
+        </p>
+
+        <h3>Can the Aeron Size C support a 250 lb tall person?</h3>
+        <p>
+          Yes. The Aeron Size C is rated to 350 lbs, so a 250 lb user is well within the weight limit.
+          The more relevant question is build proportions — the Aeron Size C has a narrower seat (20.75")
+          than the Leap Plus (22"), which can feel snug for taller users with wider hip measurements.
+        </p>
       </section>
 
-      <div class="mt-8 pt-6 border-t border-border">
-        <a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a>
-      </div>
+      <nav class="mt-8 pt-6 border-t border-border" aria-label="Related content">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related reviews and comparisons:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/review/aeron-size-c/" class="link-internal">Herman Miller Aeron Size C full review →</a></li>
+          <li><a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus full review →</a></li>
+          <li><a href="/gesture-vs-leap-plus/" class="link-internal">Gesture vs Leap Plus →</a></li>
+          <li><a href="/chairs/herman-miller-aeron/" class="link-internal">Aeron Size C specs and fit guides →</a></li>
+          <li><a href="/chairs/steelcase-leap-plus/" class="link-internal">Leap Plus specs and fit guides →</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal">← Back to Best Office Chairs for Tall People</a></li>
+        </ul>
+      </nav>
+
     </div>
   </article>
 </Layout>

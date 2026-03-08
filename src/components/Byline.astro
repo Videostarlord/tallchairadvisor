@@ -1,0 +1,29 @@
+---
+interface Props {
+  publishedDate: string;   // ISO 8601, e.g. "2025-01-15"
+  updatedDate?: string;    // ISO 8601, optional
+}
+
+const { publishedDate, updatedDate } = Astro.props;
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<div class="flex items-center gap-3 py-4 border-b border-border mb-8 text-sm text-muted-foreground">
+  <div class="w-9 h-9 rounded-full bg-secondary flex items-center justify-center shrink-0 font-medium text-heading text-base">
+    MR
+  </div>
+  <div>
+    <span>By <a href="/about/" class="font-medium text-heading hover:text-primary transition-colors">Marcus Reid</a></span>
+    <span class="mx-1.5">·</span>
+    <time datetime={publishedDate}>Published {formatDate(publishedDate)}</time>
+    {updatedDate && (
+      <>
+        <span class="mx-1.5">·</span>
+        <time datetime={updatedDate}>Updated {formatDate(updatedDate)}</time>
+      </>
+    )}
+  </div>
+</div>

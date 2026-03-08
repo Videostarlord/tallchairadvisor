@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
 
 const schema = [
   {
@@ -9,13 +10,59 @@ const schema = [
     "url": "https://tallchairadvisor.com/aeron-vs-gesture/",
     "image": "https://tallchairadvisor.com/images/aeron-vs-gesture-comparison.jpg",
     "datePublished": "2025-01-15",
-    "dateModified": "2026-03-01",
-    "author": { "@type": "Organization", "name": "Tall Chair Advisor" },
+    "dateModified": "2026-03-07",
+    "author": { "@type": "Person", "name": "Marcus Reid", "url": "https://tallchairadvisor.com/about/" },
     "publisher": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
       "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.jpg" }
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Aeron Size C vs Steelcase Gesture — which is better for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For tall users 6'0\"–6'3\" who run warm and prioritize breathability, the Herman Miller Aeron Size C is often the better choice. Its Pellicle mesh delivers unmatched ventilation, and its PostureFit SL lumbar system supports the sacrum and lumbar simultaneously. For users 6'0\"–6'4\" who work across multiple devices, prefer foam cushioning, or need more than 350 lbs weight capacity, the Steelcase Gesture is the stronger fit — its 360° armrests are genuinely unique, and its adjustable seat depth (15.75\"–18.75\") gives more flexibility for different thigh lengths."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the Herman Miller Aeron have adjustable seat depth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Herman Miller Aeron's seat depth is fixed per size — the Size C has approximately 18.5 inches of seat depth that cannot be adjusted. This is the primary ergonomic trade-off of the Aeron compared to the Steelcase Gesture (adjustable 15.75\"–18.75\") and Leap Plus (adjustable 15.75\"–19.75\"). Verify that 18.5\" matches your thigh length before purchasing the Aeron."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the weight limit difference between the Aeron and Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C has a weight capacity of 350 lbs. The Steelcase Gesture has a weight capacity of 400 lbs. For users above 350 lbs, the Gesture is the appropriate choice between these two chairs. If you need even higher capacity, the Steelcase Leap Plus supports up to 500 lbs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Steelcase Gesture mesh or foam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture uses a foam seat cushion and a flexible plastic backrest shell covered in fabric or leather — it is not a mesh chair. This is the primary comfort and breathability difference compared to the Herman Miller Aeron, which uses Pellicle mesh for both the seat and back. The Gesture retains more heat; the Aeron allows continuous airflow."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which chair has better lumbar support — Aeron or Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron has more adjustable lumbar support via its PostureFit SL system — two independent pads that target both the sacrum and the lumbar region, adjustable independently. The Steelcase Gesture uses LiveBack technology, where the backrest flexes with your spine automatically as you move. Neither is objectively superior; the Aeron's is more targeted and manually adjustable, the Gesture's is more passive and dynamic."
+        }
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -30,8 +77,8 @@ const schema = [
 ---
 
 <Layout
-  title="Aeron Size C vs Steelcase Gesture for Tall People | Tall Chair Advisor"
-  description="Herman Miller Aeron Size C vs Steelcase Gesture: seat depth, back height, armrest range, and which chair fits tall users over 6'2&quot; better."
+  title="Aeron vs Steelcase Gesture for Tall People | Tall Chair Advisor"
+  description="Herman Miller Aeron Size C vs Steelcase Gesture: seat depth, breathability, armrests, and which chair fits tall users over 6'2&quot; better. Spec table and height guide."
   ogType="article"
   schema={schema}
 >
@@ -39,18 +86,28 @@ const schema = [
     <div class="container-article text-center">
       <h1 class="text-balance">Herman Miller Aeron Size C vs Steelcase Gesture</h1>
       <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
-        Mesh breathability versus padded versatility: choosing the right approach for tall users
+        Mesh breathability vs foam versatility — which chair fits tall users better?
       </p>
     </div>
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2025-01-15" updatedDate="2026-03-07" />
+
     <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
 
     <div class="prose-tca">
+
+      <!-- Quick Answer -->
+      <div class="not-prose bg-card border border-border rounded-lg p-5 mb-10">
+        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Quick Answer</p>
+        <p class="font-semibold text-heading text-lg mb-2">Aeron for breathability; Gesture for armrests and adjustable depth</p>
+        <p class="text-sm text-muted-foreground">For tall users 6'0"–6'3" who run warm, the Aeron's Pellicle mesh is unmatched. For users who work across multiple devices or need adjustable seat depth, the Gesture's 360° armrests and 15.75"–18.75" depth range are the better fit. Both are strong choices — the difference is comfort philosophy, not quality.</p>
+      </div>
+
       <section>
         <h2>Overview</h2>
         <figure class="my-6">
@@ -66,168 +123,194 @@ const schema = [
             Aeron Size C (left) vs Steelcase Gesture (right)
           </figcaption>
         </figure>
-        <p>
-          The Herman Miller Aeron Size C and Steelcase Gesture represent two fundamentally different philosophies in ergonomic seating. The Aeron pioneered the mesh office chair category and remains the benchmark for breathable, performance-focused seating. The Gesture was designed from the ground up for the modern multi-device era, prioritizing arm positioning versatility and cushioned comfort.
-        </p>
-        <p>
-          For tall users comparing these chairs, the choice often comes down to sitting style, build type, and environmental preferences. Both chairs serve the 6'0"+ demographic effectively, but through distinctly different mechanisms and comfort approaches.
-        </p>
+        <p>The Herman Miller Aeron Size C and Steelcase Gesture represent two distinct philosophies in ergonomic seating. The Aeron — originally launched in 1994 and remastered in 2016 — is built around mesh suspension, PostureFit lumbar support, and a shape derived from deep biomechanical research. The Gesture was designed a decade later for a different problem: how people actually work with multiple devices throughout the day.</p>
+        <p>For tall users comparing them, the decision usually comes down to three things: breathability preference, seat depth (the Aeron's is fixed; the Gesture's adjusts), and how much arm support variety matters to your workflow.</p>
       </section>
 
       <section>
-        <h2>Key Specifications Comparison</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-border">
-                <th class="text-left py-3 pr-4 font-semibold">Specification</th>
-                <th class="text-left py-3 px-4 font-semibold">Aeron Size C</th>
-                <th class="text-left py-3 pl-4 font-semibold">Gesture</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-border">
-              <tr>
-                <td class="py-3 pr-4 font-medium">Recommended Height</td>
-                <td class="py-3 px-4">6'0" – 6'6"</td>
-                <td class="py-3 pl-4">6'0" – 6'4"</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Weight Capacity</td>
-                <td class="py-3 px-4">350 lbs</td>
-                <td class="py-3 pl-4">400 lbs</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Seat Depth Range</td>
-                <td class="py-3 px-4">18.5" – 20"</td>
-                <td class="py-3 pl-4">15.75" – 18.75"</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Seat Width</td>
-                <td class="py-3 px-4">21.25"</td>
-                <td class="py-3 pl-4">19.25"</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Seat Height Range</td>
-                <td class="py-3 px-4">16" – 20.5"</td>
-                <td class="py-3 pl-4">16" – 21"</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Back Height</td>
-                <td class="py-3 px-4">23.75"</td>
-                <td class="py-3 pl-4">24.5" – 28.5"</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Seat Material</td>
-                <td class="py-3 px-4">Pellicle mesh</td>
-                <td class="py-3 pl-4">Foam cushion</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Back Material</td>
-                <td class="py-3 px-4">Pellicle mesh</td>
-                <td class="py-3 pl-4">Flexible plastic shell</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Lumbar Support</td>
-                <td class="py-3 px-4">PostureFit SL (adjustable)</td>
-                <td class="py-3 pl-4">Integrated LiveBack</td>
-              </tr>
-              <tr>
-                <td class="py-3 pr-4 font-medium">Warranty</td>
-                <td class="py-3 px-4">12 years</td>
-                <td class="py-3 pl-4">12 years</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h2>Key Specifications</h2>
+      </section>
+
+    </div>
+
+    <!-- Specs table -->
+    <div class="not-prose overflow-x-auto rounded-lg border border-border my-8">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="border-b border-border bg-secondary/30">
+            <th class="text-left p-3 font-semibold text-heading">Specification</th>
+            <th class="text-center p-3 font-semibold text-heading">Aeron Size C</th>
+            <th class="text-center p-3 font-semibold text-heading">Steelcase Gesture</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Seat Height Range</td>
+            <td class="p-3 text-center">16" – 20.5"</td>
+            <td class="p-3 text-center">16" – 21"</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Seat Depth</td>
+            <td class="p-3 text-center">~18.5" <span class="text-muted-foreground text-xs">(fixed)</span></td>
+            <td class="p-3 text-center">15.75" – 18.75" <span class="text-muted-foreground text-xs">(adjustable)</span></td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Back Height</td>
+            <td class="p-3 text-center">~23.5"</td>
+            <td class="p-3 text-center">24"</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Seat Width</td>
+            <td class="p-3 text-center">20.75"</td>
+            <td class="p-3 text-center">19.25"</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Weight Capacity</td>
+            <td class="p-3 text-center">350 lbs</td>
+            <td class="p-3 text-center">400 lbs</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Seat Material</td>
+            <td class="p-3 text-center">Pellicle mesh</td>
+            <td class="p-3 text-center">Foam cushion</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Back Material</td>
+            <td class="p-3 text-center">Pellicle mesh</td>
+            <td class="p-3 text-center">Flexible plastic shell</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Lumbar Support</td>
+            <td class="p-3 text-center">PostureFit SL (manual)</td>
+            <td class="p-3 text-center">LiveBack (automatic)</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Armrests</td>
+            <td class="p-3 text-center">4D adjustable</td>
+            <td class="p-3 text-center">360° rotation</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Forward Tilt</td>
+            <td class="p-3 text-center">Yes</td>
+            <td class="p-3 text-center">No</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Tall Cylinder Option</td>
+            <td class="p-3 text-center">No</td>
+            <td class="p-3 text-center">Yes (dealer)</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Warranty</td>
+            <td class="p-3 text-center">12 years</td>
+            <td class="p-3 text-center">12 years</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>The Seat Depth Difference: The Most Important Factor for Tall Users</h2>
+        <p>The single biggest ergonomic difference between these two chairs for tall users is seat depth — specifically, that the Aeron's is fixed and the Gesture's adjusts.</p>
+        <p>The Aeron Size C has a seat depth of approximately 18.5 inches. You cannot change this. For most tall users 6'0"–6'3" with typical proportions, 18.5" provides good thigh support with the right amount of clearance behind the knee. But if your thigh length doesn't match — either too long or too short — you're left with a chair that doesn't fit correctly, with no way to adjust your way out of it.</p>
+        <p>The Steelcase Gesture's seat depth adjusts from 15.75" to 18.75". This slider lets you dial in thigh support precisely for your body. At maximum extension, it's 0.25" deeper than the Aeron — a minor difference — but the key advantage is the ability to tune the setting. If the Aeron's 18.5" is slightly short for your femur length, the Gesture's slider lets you extend to whatever you need up to 18.75".</p>
+        <p><strong>Practical implication:</strong> If you can verify that 18.5" matches your thigh length, the Aeron's fixed depth is not a problem. If you're unsure, or if your proportions are unusual for your height, the Gesture's adjustable depth reduces that risk.</p>
       </section>
 
       <section>
-        <h2>Fit Analysis for Tall Users</h2>
-        <p>
-          Both chairs can accommodate users above 6'0", but their approaches differ significantly in how they achieve this fit.
-        </p>
-        <h3>Aeron Size C Fit Characteristics</h3>
-        <p>
-          The Aeron Size C is engineered for taller users with longer torsos and legs. Its 18.5" to 20" seat depth provides adequate thigh support for users up to approximately 6'6", though individuals with proportionally long femurs may find the maximum depth just sufficient. The fixed seat pan dimensions mean the chair works best for those who fit within its designed envelope—users with leaner builds typically report better ergonomic outcomes than those requiring more lateral space.
-        </p>
-        <p>
-          The mesh construction eliminates pressure points that taller users often experience with padded chairs, distributing weight evenly across the sitting surface. However, the lack of cushioning means bony anatomy is more directly supported, which some users find less comfortable for extended periods.
-        </p>
-        <h3>Gesture Fit Characteristics</h3>
-        <p>
-          The Gesture's adjustable back height (24.5" to 28.5") provides flexibility that the Aeron cannot match, making it suitable for a wider range of torso proportions. However, its seat depth maxes out at 18.75", which may feel short for users above 6'4" with longer legs.
-        </p>
-        <p>
-          The foam cushion provides a more traditional seating feel and accommodates various body types without the "hammock" effect of mesh. Users with broader builds often find the Gesture's structure more accommodating, though the 19.25" seat width is narrower than the Aeron's 21.25".
-        </p>
+        <h2>Breathability: Clear Aeron Advantage</h2>
+        <p>The Aeron's Pellicle mesh — covering both the seat and back — allows continuous airflow across the entire sitting surface. There is no fabric-to-skin contact trapping heat; the mesh suspends you and allows air to pass through on both sides.</p>
+        <p>The Steelcase Gesture uses a foam seat cushion and a plastic shell back. Both retain heat. In a warm room, or after sitting for 4–6+ hours, the Gesture's seat surface noticeably traps heat. This isn't a design flaw — it's the inherent nature of foam seating — but it's a real difference.</p>
+        <p>For tall users who run warm, or who work in warmer environments without strong climate control, this breathability advantage is not trivial. Many tall users report this as their primary reason for choosing the Aeron over foam alternatives.</p>
       </section>
 
       <section>
-        <h2>Support and Comfort Philosophy</h2>
-        <h3>Lumbar and Back Support</h3>
-        <p>
-          The Aeron's PostureFit SL system targets both the lumbar spine and the sacral region, providing two-zone adjustability that many tall users find effective for maintaining proper posture throughout long work sessions. The mesh back conforms to spinal curvature while the PostureFit mechanism provides active support.
-        </p>
-        <p>
-          The Gesture's LiveBack technology allows the backrest to flex and move with the user, mimicking the natural motion of the spine. This approach provides consistent support across different sitting positions but offers less targeted lumbar adjustment than the Aeron's system.
-        </p>
-        <h3>Temperature and Breathability</h3>
-        <p>
-          The Aeron's full mesh construction provides superior airflow, making it the clear choice for warm environments or users who tend to run hot. The Gesture's foam seat and solid back shell retain more body heat, which can be either a benefit in cooler environments or a drawback in warmer ones.
-        </p>
-        <h3>Arm Support</h3>
-        <p>
-          The Gesture's 360-degree arm design is its signature feature, allowing armrests to follow natural arm movements across devices—from keyboard to tablet to phone. For tall users who frequently shift between devices or have unconventional arm positioning needs, this versatility is unmatched.
-        </p>
-        <p>
-          The Aeron's arms, while fully adjustable in height, width, pivot, and depth, follow a more traditional adjustment paradigm. They're highly functional but designed primarily for keyboard and mouse work rather than multi-device flexibility.
-        </p>
+        <h2>Armrests: The Gesture's Signature Advantage</h2>
+        <p>The Steelcase Gesture's 360-degree armrest system is its most distinctive feature. The arms can rotate forward (toward a keyboard), backward (toward a reclining position), inward (to support phone or tablet use), and outward (for open-arm resting). Combined with height and pivot adjustments, they track natural arm movement across different devices and tasks.</p>
+        <p>For tall users who work across a keyboard, external monitor, laptop, and phone throughout the day, this arm range is genuinely useful. Tall users often have longer arms with more arc of motion, and standard armrests that only adjust height and pivot feel constraining.</p>
+        <p>The Aeron's 4D armrests adjust in height, width, depth, and pivot. They're well-designed for keyboard and mouse work, but they don't approach the Gesture's range of motion for multi-device work.</p>
+        <p>If arm support variety matters to your workflow, the Gesture wins clearly. If you work primarily at a keyboard and mouse, the difference is small.</p>
+      </section>
+
+      <section>
+        <h2>Lumbar Support: Different Philosophies</h2>
+        <p>The Aeron's PostureFit SL uses two independent pads — one targeting the sacrum, one the lumbar region. You adjust them manually to your preference. For tall users whose longer torsos often exceed the coverage area of single-point lumbar systems, this dual-zone approach provides more comprehensive spinal support.</p>
+        <p>The Gesture's LiveBack technology takes a different approach: the backrest flexes and changes shape passively as you move, without manual adjustment. As you lean back, forward, or sideways, the backrest adapts to follow your spine's position. This is more forgiving for users who shift posture frequently throughout the day — you're not fighting a static lumbar pad that works for one position.</p>
+        <p>Neither is objectively better. The Aeron's approach is more targeted and controllable; the Gesture's is more dynamic and automatic. Users who want to "set it and forget it" often prefer the LiveBack. Users who want precise spinal support at a specific position prefer the PostureFit SL.</p>
+      </section>
+
+      <section>
+        <h2>Height Guide: Which Chair Works Better at Your Height</h2>
+        <p>Consolidating the fit analysis by height range:</p>
+
+        <h3>6'0" – 6'2": Both are strong choices</h3>
+        <p>At this height range, both chairs fit well within their dimensional envelopes. The decision comes down to preference: breathability (Aeron) vs adjustable seat depth and arm variety (Gesture). Most users in this range are better served by testing both if possible. Lean toward the Aeron if you run warm; lean toward the Gesture if you work across multiple devices or need seat depth flexibility.</p>
+
+        <h3>6'2" – 6'4": Gesture has more dimensional headroom</h3>
+        <p>At 6'3"–6'4", the Gesture's adjustable seat depth becomes a meaningful advantage. The Aeron's fixed 18.5" may feel slightly short for the longer femurs common at this height, and there's no way to extend it. The Gesture's slider reaches 18.75", and you can set it precisely. The Gesture's seat height also reaches 21" vs the Aeron's 20.5", giving an extra half-inch of headroom at the top of its range — useful for users who are right at the ceiling.</p>
+        <p>The Aeron is still a viable choice at 6'2"–6'4" if your thigh length is well-matched to 18.5". The Gesture just has more flexibility if you're on the edge.</p>
+
+        <h3>6'4" – 6'6": Gesture (or Leap Plus)</h3>
+        <p>Above 6'4", the Gesture pulls clearly ahead of the Aeron for most users. The Gesture's taller optional gas cylinder (from a Steelcase dealer) extends the seat height above the standard 21" maximum — the Aeron has no equivalent option. The Gesture's 400 lb weight capacity also covers a higher proportion of taller users than the Aeron's 350 lb limit. For users above 6'5", the Steelcase Leap Plus (22.5" seat height, 19.75" adjustable depth) is worth a close look alongside the Gesture.</p>
       </section>
 
       <section>
         <h2>Who Should Choose Which</h2>
-        <h3>Choose the Aeron Size C If:</h3>
+
+        <h3>Choose the Aeron Size C if:</h3>
         <ul>
-          <li>You're between 6'0" and 6'6" with a lean to average build</li>
-          <li>Temperature regulation and breathability are priorities</li>
-          <li>You prefer responsive, firm support over cushioned comfort</li>
-          <li>Your work involves primarily keyboard and mouse tasks</li>
-          <li>You want proven long-term durability with established service networks</li>
+          <li>You're 6'0"–6'3" with typical proportions and can verify your thigh length matches ~18.5"</li>
+          <li>Breathability is a top priority — you run warm or work in a warm environment</li>
+          <li>You prefer firm mesh support over cushioned foam seating</li>
+          <li>You want forward tilt capability for active sitting postures</li>
+          <li>You prioritize manual, targeted lumbar adjustment (PostureFit SL)</li>
+          <li>You're considering a certified refurbished unit for significant cost savings</li>
         </ul>
-        <h3>Choose the Gesture If:</h3>
+
+        <h3>Choose the Steelcase Gesture if:</h3>
         <ul>
-          <li>You're between 6'0" and 6'4" with any build type</li>
-          <li>You frequently switch between devices throughout the day</li>
-          <li>You prefer traditional cushioned seating over mesh</li>
-          <li>Arm positioning flexibility is a primary concern</li>
-          <li>You want adjustable back height for torso customization</li>
+          <li>You work across multiple devices (laptop, external monitor, tablet, phone) and need versatile arm support</li>
+          <li>You need adjustable seat depth to dial in your exact thigh support</li>
+          <li>You're 6'4"+ and need seat height above 20.5" or the option to add a taller cylinder</li>
+          <li>You weigh more than 350 lbs (Gesture supports 400 lbs)</li>
+          <li>You prefer cushioned foam seating over mesh</li>
+          <li>You want automatic lumbar adaptation (LiveBack) rather than manual adjustment</li>
         </ul>
       </section>
 
       <section>
         <h2>Verdict</h2>
-        <p>
-          The Aeron Size C and Gesture serve overlapping but distinct user profiles. The Aeron excels as a breathable, performance-oriented chair for tall users who prioritize temperature regulation and firm, responsive support. Its PostureFit SL system provides superior lumbar targeting for those who benefit from active postural support.
-        </p>
-        <p>
-          The Gesture offers greater versatility in arm positioning and a more traditional cushioned feel, making it the better choice for multi-device workers who value comfort adaptability over mesh breathability. Its adjustable back height also provides flexibility for users whose torso proportions don't fit neatly into the Aeron's fixed dimensions.
-        </p>
-        <p>
-          Neither chair is universally superior—the right choice depends on your specific body proportions, work habits, and comfort preferences. For tall users, testing both options when possible remains the most reliable path to a satisfying decision.
-        </p>
+        <p>These chairs are closer in overall quality than any spec comparison suggests. Both have 12-year warranties, both are designed by companies with decades of ergonomic research, and both genuinely serve tall users — just in different ways.</p>
+        <p>The Aeron Size C is the better chair if breathability matters most to you and your dimensions align with its fixed seat depth. It's a more refined, proven product for a specific comfort profile.</p>
+        <p>The Steelcase Gesture is the more versatile chair, with adjustable seat depth, more seat height headroom, higher weight capacity, and unmatched arm flexibility. It accommodates a wider range of tall users without the need to verify dimensional compatibility upfront.</p>
+        <p>For most tall users who aren't sure which to choose: the Gesture is the lower-risk purchase. For tall users who run warm and know their thigh length fits 18.5" — the Aeron is worth its premium.</p>
       </section>
 
-      <section>
-        <h2>Read Full Reviews</h2>
-        <ul>
-          <li><a href="/review/aeron-size-c" class="link-internal">Herman Miller Aeron Size C Review</a></li>
-          <li><a href="/review/gesture" class="link-internal">Steelcase Gesture Review</a></li>
-        </ul>
-      </section>
-
-      <div class="mt-8 pt-6 border-t border-border">
-        <a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a>
+      <!-- Buy buttons -->
+      <div class="not-prose mt-8 flex flex-col sm:flex-row gap-3">
+        <a href="https://www.amazon.com/s?k=herman+miller+aeron+size+c&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+          View Herman Miller Aeron on Amazon →
+        </a>
+        <a href="https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 border border-border text-heading px-5 py-3 rounded-md font-medium hover:bg-accent transition-colors text-sm">
+          View Steelcase Gesture on Amazon →
+        </a>
       </div>
+
+      <!-- Internal links -->
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related comparisons and reviews:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/aeron-vs-leap-plus/" class="link-internal">Aeron Size C vs Steelcase Leap Plus →</a></li>
+          <li><a href="/gesture-vs-leap-plus/" class="link-internal">Steelcase Gesture vs Steelcase Leap Plus →</a></li>
+          <li><a href="/chairs/herman-miller-aeron/" class="link-internal">Aeron Size C specs and fit guides →</a></li>
+          <li><a href="/chairs/steelcase-gesture/" class="link-internal">Gesture specs and fit guides →</a></li>
+          <li><a href="/review/aeron-size-c/" class="link-internal text-muted-foreground">Full Herman Miller Aeron Size C review</a></li>
+          <li><a href="/review/gesture/" class="link-internal text-muted-foreground">Full Steelcase Gesture review</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal text-muted-foreground">← Best office chairs for tall people</a></li>
+        </ul>
+      </nav>
+
     </div>
   </article>
 </Layout>
