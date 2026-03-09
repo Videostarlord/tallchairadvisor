@@ -2,6 +2,12 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
+const sitemapExcludedPaths = new Set([
+  '/affiliate-disclosure/',
+  '/contact/',
+  '/privacy-policy/',
+]);
+
 // Per-page lastmod dates — update when a page is significantly revised
 const pageLastmod = {
   'https://tallchairadvisor.com/': new Date('2026-03-08'),
@@ -36,7 +42,7 @@ const pageLastmod = {
   'https://tallchairadvisor.com/contact/': new Date('2026-01-01'),
   'https://tallchairadvisor.com/privacy-policy/': new Date('2026-01-01'),
   'https://tallchairadvisor.com/affiliate-disclosure/': new Date('2026-01-01'),
-  'https://tallchairadvisor.com/author/marcus-reid/': new Date('2026-03-08'),
+  'https://tallchairadvisor.com/author/jackson-christopher/': new Date('2026-03-08'),
 };
 
 export default defineConfig({
@@ -44,6 +50,10 @@ export default defineConfig({
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
+      filter(page) {
+        const path = new URL(page).pathname;
+        return !sitemapExcludedPaths.has(path);
+      },
       serialize(item) {
         const lastmod = pageLastmod[item.url];
         if (lastmod) item.lastmod = lastmod;
@@ -73,7 +83,7 @@ export default defineConfig({
           item.url === 'https://tallchairadvisor.com/correct-chair-dimensions/' ||
           item.url === 'https://tallchairadvisor.com/how-to-adjust-chair/' ||
           item.url === 'https://tallchairadvisor.com/why-standard-chairs-dont-fit/' ||
-          item.url === 'https://tallchairadvisor.com/author/marcus-reid/'
+          item.url === 'https://tallchairadvisor.com/author/jackson-christopher/'
         ) {
           item.priority = 0.6;
           item.changefreq = 'monthly';
