@@ -1,5 +1,10 @@
 ---
 import '../styles/global.css';
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/500.css';
+import '@fontsource/playfair-display/600.css';
+import '@fontsource/source-sans-3/400.css';
+import '@fontsource/source-sans-3/500.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -50,16 +55,6 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchair
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-
-    <!-- Google Fonts — preconnect + non-render-blocking preload (H2) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style"
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap" />
-    </noscript>
 
     <!-- Performance hints -->
     <link rel="preconnect" href="https://www.googletagmanager.com" />
