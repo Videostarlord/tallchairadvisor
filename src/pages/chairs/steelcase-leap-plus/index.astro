@@ -9,18 +9,41 @@ const schema = [
     "image": "https://tallchairadvisor.com/images/leap-plus-hero.webp",
     "description": "The Steelcase Leap Plus is a heavy-duty ergonomic office chair with adjustable seat depth (15.75\"–19.75\"), a 500 lb weight capacity, and LiveBack technology for adaptive lumbar support.",
     "brand": { "@type": "Brand", "name": "Steelcase" },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.6",
-      "bestRating": "5",
-      "worstRating": "1",
-      "reviewCount": "1"
-    },
     "offers": {
       "@type": "Offer",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Steelcase Leap Plus good for very tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The Steelcase Leap Plus is the top ergonomic chair for users 6'3\" and above. Its 22.5\" seat height ceiling is the highest of any mainstream ergonomic chair. The 4-inch adjustable seat depth range (15.75\"–19.75\") accommodates longer thighs, and the 25.5\" back height reaches the shoulder blades of users up to approximately 6'5\". For users 6'5\"+ or those who weigh over 300 lbs, the Leap Plus is the most practical premium choice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the weight capacity of the Steelcase Leap Plus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Leap Plus has a weight capacity of 500 lbs, tested to BIFMA x5.1 standards. This is the highest weight rating in Steelcase's office chair lineup. The reinforced frame, upgraded gas cylinder, and heavy-duty casters are all designed to support this capacity through years of regular use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Steelcase Leap Plus seat depth adjustment work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Leap Plus seat depth adjusts from 15.75\" to 19.75\" — a 4-inch range — using a lever under the front edge of the seat pan. Extending the seat forward increases thigh support for taller users. The correct setting provides 2–3 finger widths of clearance between the seat edge and the back of your knee when you're seated fully against the backrest. For most users 6'2\"–6'5\", this means setting the depth near maximum."
+        }
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

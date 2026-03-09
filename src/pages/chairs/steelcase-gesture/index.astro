@@ -9,18 +9,41 @@ const schema = [
     "image": "https://tallchairadvisor.com/images/gesture-hero.jpg",
     "description": "The Steelcase Gesture is an ergonomic office chair featuring 360-degree armrests, adjustable seat depth up to 18.75\", and a 400 lb weight capacity designed for multi-device workers.",
     "brand": { "@type": "Brand", "name": "Steelcase" },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.5",
-      "bestRating": "5",
-      "worstRating": "1",
-      "reviewCount": "1"
-    },
     "offers": {
       "@type": "Offer",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Steelcase Gesture good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture fits tall users between 6'0\" and 6'4\" well. Its seat height reaches 21\", seat depth adjusts up to 18.75\", and the 24\" backrest covers the shoulder blades for most tall torsos in this range. Above 6'4\", the Steelcase Leap Plus offers a higher seat height ceiling (22.5\"), deeper seat depth (19.75\"), and taller backrest (25.5\")."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Steelcase Gesture seat height range?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture seat height ranges from 16 to 21 inches. This accommodates most tall users up to approximately 6'4\" at standard desk heights. For users 6'4\"+ who need more than 21\" of seat height, Steelcase offers an optional taller gas cylinder through authorized dealers. The Steelcase Leap Plus reaches 22.5\" as standard."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Steelcase Gesture seat depth adjustment work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture seat depth adjusts from 15.75\" to 18.75\" via a slider under the front of the seat. To set it correctly, extend the seat until you have 2–3 finger widths of clearance between the seat edge and the back of your knee when seated fully against the backrest. For tall users, this often means setting the depth near maximum."
+        }
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -126,10 +149,10 @@ const schema = [
     <section class="mb-8">
       <h2 class="font-serif text-xl text-heading mb-4">Compare & Review</h2>
       <div class="space-y-2 text-sm">
-        <div><a href="/review/gesture" class="link-internal font-medium">Full Steelcase Gesture Review</a> — Detailed pros, cons, and tall-user verdict</div>
-        <div><a href="/aeron-vs-gesture" class="link-internal font-medium">Gesture vs Herman Miller Aeron Size C</a> — Mesh vs foam, breathability vs arm flexibility</div>
-        <div><a href="/gesture-vs-leap-plus" class="link-internal font-medium">Gesture vs Steelcase Leap Plus</a> — When maximum seat depth matters</div>
-        <div><a href="/best-office-chairs" class="link-internal font-medium">Best Office Chairs for Tall People</a> — How the Gesture compares to all top picks</div>
+        <div><a href="/review/gesture/" class="link-internal font-medium">Full Steelcase Gesture Review</a> — Detailed pros, cons, and tall-user verdict</div>
+        <div><a href="/aeron-vs-gesture/" class="link-internal font-medium">Gesture vs Herman Miller Aeron Size C</a> — Mesh vs foam, breathability vs arm flexibility</div>
+        <div><a href="/gesture-vs-leap-plus/" class="link-internal font-medium">Gesture vs Steelcase Leap Plus</a> — When maximum seat depth matters</div>
+        <div><a href="/best-office-chairs/" class="link-internal font-medium">Best Office Chairs for Tall People</a> — How the Gesture compares to all top picks</div>
       </div>
     </section>
 

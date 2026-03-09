@@ -23,6 +23,14 @@ const schema = [
       "datePublished": "2025-01-15",
       "dateModified": "2026-03-07"
     },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "1",
+      "reviewCount": "1"
+    },
     "offers": {
       "@type": "Offer",
       "price": "1795.00",
@@ -30,6 +38,52 @@ const schema = [
       "availability": "https://schema.org/InStock",
       "priceValidUntil": "2027-03-01"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron Size C good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Aeron Size C fits tall users between 6'0\" and 6'4\" with lean to average builds. Its fixed seat depth of 18.5\" is well-matched to thigh lengths in this range. The PostureFit SL lumbar system and Pellicle mesh breathability are standout advantages. Above 6'4\", or if your thigh length exceeds 18.5\", consider the Steelcase Leap Plus for adjustable seat depth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the Herman Miller Aeron Size C have adjustable seat depth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The Aeron Size C has a fixed seat depth of approximately 18.5 inches that cannot be adjusted. This is the primary ergonomic trade-off of the Aeron compared to the Steelcase Gesture (15.75\"–18.75\" adjustable) and Leap Plus (15.75\"–19.75\" adjustable). Before purchasing, verify that 18.5\" provides 2–3 finger widths of clearance between the seat edge and the back of your knee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the weight limit of the Herman Miller Aeron Size C?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C has a weight capacity of 350 lbs. Users above 350 lbs should consider the Steelcase Gesture (400 lbs) or Steelcase Leap Plus (500 lbs) for greater structural capacity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does the Aeron Size C take to break in?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unlike foam chairs, the Aeron Size C's Pellicle mesh does not require a significant break-in period — it delivers its intended feel from day one. Some users note that the firmness of the mesh feels unfamiliar for the first week, particularly if switching from a foam-cushioned chair, but this is an adjustment rather than a break-in process."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron worth the price for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For tall users 6'0\"–6'4\" who run warm, prioritize ventilation, and have thigh lengths compatible with the 18.5\" fixed seat depth, the Aeron Size C is worth its premium. The 12-year warranty, proven track record, and strong resale value improve the long-term cost picture. A certified refurbished Aeron from a reputable dealer can deliver the same performance at 40–60% of new price."
+        }
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -159,8 +213,8 @@ const schema = [
       <section>
         <h2>Compare With</h2>
         <ul>
-          <li><a href="/aeron-vs-leap-plus" class="link-internal">Aeron vs Leap Plus</a> — Compare mesh breathability against cushioned comfort and adjustable seat depth.</li>
-          <li><a href="/aeron-vs-gesture" class="link-internal">Aeron vs Gesture</a> — Evaluate focused ergonomics against broader adjustability.</li>
+          <li><a href="/aeron-vs-leap-plus/" class="link-internal">Aeron vs Leap Plus</a> — Compare mesh breathability against cushioned comfort and adjustable seat depth.</li>
+          <li><a href="/aeron-vs-gesture/" class="link-internal">Aeron vs Gesture</a> — Evaluate focused ergonomics against broader adjustability.</li>
           <li><a href="/chairs/herman-miller-aeron/" class="link-internal">Full Aeron Size C specs and fit guides →</a></li>
         </ul>
       </section>
@@ -168,9 +222,9 @@ const schema = [
       <nav class="mt-8 pt-6 border-t border-border" aria-label="Post-review navigation">
         <p class="text-sm font-medium text-muted-foreground mb-3">Continue exploring:</p>
         <ul class="space-y-2 text-sm">
-          <li><a href="/best-office-chairs" class="link-internal">← Back to Best Office Chairs for Tall People</a></li>
-          <li><a href="/aeron-vs-leap-plus" class="link-internal text-muted-foreground">↑ Return to Aeron vs Leap Plus comparison</a></li>
-          <li><a href="/aeron-vs-gesture" class="link-internal text-muted-foreground">↑ Return to Aeron vs Gesture comparison</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal">← Back to Best Office Chairs for Tall People</a></li>
+          <li><a href="/aeron-vs-leap-plus/" class="link-internal text-muted-foreground">↑ Return to Aeron vs Leap Plus comparison</a></li>
+          <li><a href="/aeron-vs-gesture/" class="link-internal text-muted-foreground">↑ Return to Aeron vs Gesture comparison</a></li>
         </ul>
       </nav>
 

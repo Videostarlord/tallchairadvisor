@@ -47,6 +47,41 @@ export default defineConfig({
       serialize(item) {
         const lastmod = pageLastmod[item.url];
         if (lastmod) item.lastmod = lastmod;
+
+        // Priority tiers
+        if (
+          item.url === 'https://tallchairadvisor.com/' ||
+          item.url === 'https://tallchairadvisor.com/best-office-chairs/' ||
+          item.url === 'https://tallchairadvisor.com/office-chairs-for-tall-people/'
+        ) {
+          item.priority = 1.0;
+          item.changefreq = 'weekly';
+        } else if (
+          item.url.includes('/review/') ||
+          item.url.includes('/aeron-vs-') ||
+          item.url.includes('/gesture-vs-') ||
+          item.url === 'https://tallchairadvisor.com/pain-ergonomics/' ||
+          item.url === 'https://tallchairadvisor.com/fit-guides/'
+        ) {
+          item.priority = 0.8;
+          item.changefreq = 'monthly';
+        } else if (
+          item.url.includes('/chairs/') ||
+          item.url.includes('/knee-pain') ||
+          item.url.includes('/back-pain') ||
+          item.url.includes('/leg-pain') ||
+          item.url === 'https://tallchairadvisor.com/correct-chair-dimensions/' ||
+          item.url === 'https://tallchairadvisor.com/how-to-adjust-chair/' ||
+          item.url === 'https://tallchairadvisor.com/why-standard-chairs-dont-fit/' ||
+          item.url === 'https://tallchairadvisor.com/author/marcus-reid/'
+        ) {
+          item.priority = 0.6;
+          item.changefreq = 'monthly';
+        } else {
+          item.priority = 0.3;
+          item.changefreq = 'yearly';
+        }
+
         return item;
       },
     }),

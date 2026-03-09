@@ -9,18 +9,41 @@ const schema = [
     "image": "https://tallchairadvisor.com/images/aeron-size-c-hero.png",
     "description": "The Herman Miller Aeron Size C is a large-format ergonomic office chair with Pellicle mesh, PostureFit SL lumbar support, and a 350 lb weight capacity, designed for users 6'0\"–6'6\".",
     "brand": { "@type": "Brand", "name": "Herman Miller" },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.7",
-      "bestRating": "5",
-      "worstRating": "1",
-      "reviewCount": "1"
-    },
     "offers": {
       "@type": "Offer",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What size is the Herman Miller Aeron for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tall users 6'0\" and above should choose the Aeron Size C — the largest variant. The Size C has a seat height range of 16\"–20.5\", a fixed seat depth of approximately 18.5\", and a back height of ~23.5\". It is designed for users 6'0\"–6'6\" with lean to average builds. Users above 6'4\" with longer femurs may find the fixed seat depth limiting and should evaluate the Steelcase Leap Plus instead."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the seat height range of the Herman Miller Aeron Size C?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C has a seat height range of 16 to 20.5 inches. For tall users, the key target is your popliteal height — the floor-to-knee-crease measurement. Most users 6'0\"–6'3\" fall within this range comfortably. Users 6'4\"+ may be near the top of the range; the Steelcase Leap Plus reaches 22.5\" for users who need more seat height."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Aeron Size C good for tall users with longer thighs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Aeron Size C's fixed 18.5\" seat depth works well for tall users whose thigh length falls within that measurement — typically those in the 6'0\"–6'3\" range with average proportions. If your thigh length is longer (common above 6'3\"), the fixed depth may not provide adequate thigh support without seat-edge pressure behind the knee. The Steelcase Gesture (adjustable to 18.75\") or Leap Plus (adjustable to 19.75\") offer more flexibility."
+        }
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
