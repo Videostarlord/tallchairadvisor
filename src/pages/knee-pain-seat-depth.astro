@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
 
 const schema = [
   {
@@ -76,7 +77,7 @@ const schema = [
 ---
 
 <Layout
-  title="Knee Pain from Office Chair Seat Depth (Tall People Guide) | Tall Chair Advisor"
+  title="Knee Pain from Office Chair Seat Depth | Tall Chair Advisor"
   description="How seat depth causes knee pain in tall people, what the correct seat depth is for your leg length, and which chairs offer enough adjustment."
   ogType="article"
   schema={schema}
@@ -91,6 +92,7 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2024-12-02" updatedDate="2026-03-08" />
     <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-8 text-sm text-blue-900">
       <strong>Note:</strong> This content is for informational purposes only and does not constitute medical advice. If you experience persistent back, knee, or leg pain, consult a qualified healthcare professional.
     </div>

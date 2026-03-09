@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
 
 const schema = [
   {
@@ -114,7 +115,7 @@ const schema = [
 
 <Layout
   title="Chair Dimensions for Tall People | Tall Chair Advisor"
-  description="The correct office chair dimensions for tall and large users: seat depth, height, back height, and armrest ranges by body height, plus how to measure your own requirements."
+  description="Correct office chair dimensions for tall users: seat depth, height, back height, and armrest ranges by body height, plus how to measure your own requirements."
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
@@ -127,6 +128,7 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2024-12-09" updatedDate="2026-03-08" />
     <div class="prose-tca">
 
       <section>

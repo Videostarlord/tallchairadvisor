@@ -6,7 +6,15 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Tall Chair Advisor",
-    "url": "https://tallchairadvisor.com/"
+    "url": "https://tallchairadvisor.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://tallchairadvisor.com/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   },
   {
     "@context": "https://schema.org",
@@ -14,12 +22,58 @@ const schema = [
     "name": "Tall Chair Advisor",
     "url": "https://tallchairadvisor.com/",
     "description": "Independent ergonomic chair guidance for tall people."
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What chairs work for people over 6 feet tall?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The best office chairs for people over 6 feet tall are the Herman Miller Aeron Size C, Steelcase Leap Plus, and Steelcase Gesture. These chairs offer seat heights, seat depths, and back heights that can accommodate taller frames. The Leap Plus has the highest seat ceiling at 22.5 inches, making it the best option for users 6'4 and above."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat height do I need if I'm 6'4\"?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At 6'4\", you typically need a seat height of 20–22 inches to achieve a neutral seated position with thighs parallel to the floor. Most standard office chairs max out at 18–20 inches, which is insufficient. Look for chairs with a maximum seat height of at least 21 inches, or the Steelcase Leap Plus which reaches 22.5 inches."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between the Aeron Size C and the Steelcase Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C uses a Pellicle mesh suspension for breathability and has a fixed seat depth of approximately 18.5 inches. The Steelcase Gesture uses foam upholstery, has an adjustable seat depth (15.75–18.75 inches), and features a 360-degree armrest system designed for multi-device work. The Aeron suits users who prioritize breathability; the Gesture suits those who need maximum arm flexibility or sit on a firm surface preference."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do standard office chairs cause back pain for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard office chairs are designed for users up to about 6'2\". For taller users, the lumbar support lands too low on the spine, the seat may not raise high enough, and the backrest may not reach the shoulder blades. These mismatches create compensatory postures — forward head, rounded shoulders, posterior pelvic tilt — that cause cumulative back, neck, and shoulder pain."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat depth do tall people need in an office chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tall people generally need a seat depth of 18–21 inches depending on their thigh length. The standard test: sit fully back against the lumbar support and measure from the backrest to 2–3 fingers in front of your knee crease. If your chair's maximum depth falls short of this measurement, the seat edge will press into your knees when you sit correctly."
+        }
+      }
+    ]
   }
 ];
 ---
 
 <Layout
-  title="Expert Chair Reviews for Tall People 2026 | Tall Chair Advisor"
+  title="Expert Chair Reviews for Tall People | Tall Chair Advisor"
   description="Independent expert guidance on ergonomic office chairs for people 6 feet and taller. Reviews, fit guides, and pain solutions."
   schema={schema}
 >
@@ -52,6 +106,68 @@ const schema = [
           </a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- About Jackson -->
+  <section class="py-14 border-b border-border bg-card/50">
+    <div class="container-article">
+      <div class="flex flex-col sm:flex-row gap-8 items-start">
+        <img
+          src="/images/jackson-christopher.png"
+          alt="Jackson Christopher, founder of Tall Chair Advisor"
+          width="128"
+          height="128"
+          class="rounded-lg object-cover flex-shrink-0 w-28 h-28 sm:w-32 sm:h-32"
+          loading="lazy"
+        />
+        <div>
+          <h2 class="font-serif text-2xl text-heading mb-3">Why This Site Exists</h2>
+          <p class="text-muted-foreground mb-3">
+            I'm Jackson Christopher — 6'4", a Mechanical Engineering senior at UC Berkeley.
+            For years I dealt with lower back pain and shoulder tension that I blamed on long
+            study sessions. The real problem was simpler: every chair I owned was designed for
+            someone shorter than me. Seat height too low, lumbar support in the wrong place,
+            backrest ending below my shoulder blades.
+          </p>
+          <p class="text-muted-foreground mb-4">
+            I started systematically testing chairs in 2019 to solve my own problem. What I found
+            was that every major buying guide was written for people 5'6"–5'11" — and the
+            recommendations reflected it. I built Tall Chair Advisor to be the resource I
+            couldn't find: dimension-first, engineering-grounded, and written by someone who
+            literally can't fit in standard chairs.
+          </p>
+          <div class="text-sm text-muted-foreground mb-2">
+            <strong class="text-heading">How I test:</strong> I verify manufacturer specs against physical measurements,
+            evaluate chairs at the extremes of their adjustment range (where tall users actually
+            sit), and use every primary review chair as my main seat for a minimum of 3–4 weeks
+            before drawing conclusions. 15+ chairs tested over 6+ years.
+          </div>
+          <a href="/about/" class="inline-flex items-center text-sm text-primary font-medium hover:text-primary/80 mt-2">
+            Full methodology →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Pick CTA -->
+  <section class="py-10 bg-primary/5 border-b border-border">
+    <div class="container-article text-center">
+      <p class="text-muted-foreground mb-3 text-sm font-medium uppercase tracking-wide">Ready to find your chair?</p>
+      <h2 class="font-serif text-2xl text-heading mb-4">See the Top Picks for Tall People</h2>
+      <p class="text-muted-foreground mb-6 max-w-xl mx-auto">
+        Three chairs that meet dimensional requirements for users 6'0" and taller — with exact specs and height-specific fit guidance.
+      </p>
+      <a
+        href="/best-office-chairs/"
+        class="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+      >
+        View Best Office Chairs
+        <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
     </div>
   </section>
 

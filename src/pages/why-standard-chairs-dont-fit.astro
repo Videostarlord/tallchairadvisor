@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
 
 const schema = [
   {
@@ -75,8 +76,8 @@ const schema = [
 ---
 
 <Layout
-  title="Why Standard Chairs Don't Fit Tall People | Tall Chair Advisor"
-  description="Why standard office chairs fail users 6'0&quot; and taller — seat depth, back height, armrest reach, headrest design, and how multiple failures compound each other."
+  title="Why Standard Office Chairs Don't Fit Tall People"
+  description="Why standard office chairs fail users 6 ft and taller — seat depth, back height, armrest reach, headrest design, and how multiple failures compound each other."
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
@@ -89,6 +90,7 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2024-11-10" updatedDate="2026-03-08" />
     <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-8 text-sm text-blue-900">
       <strong>Note:</strong> This content is for informational purposes only and does not constitute medical advice. If you experience persistent back, knee, or leg pain, consult a qualified healthcare professional.
     </div>

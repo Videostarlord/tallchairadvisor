@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page Not Found | Tall Chair Advisor"
+  description="The page you're looking for doesn't exist. Browse our guides and reviews for tall people."
+  noindex={true}
+>
+  <section class="py-24 md:py-32">
+    <div class="container-article text-center">
+      <p class="text-6xl font-bold text-primary mb-4">404</p>
+      <h1 class="text-balance mb-4">Page Not Found</h1>
+      <p class="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
+        The page you're looking for doesn't exist or may have been moved.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/"
+          class="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+        >
+          Go Home
+        </a>
+        <a
+          href="/best-office-chairs/"
+          class="inline-flex items-center px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/80 transition-colors"
+        >
+          Best Chairs for Tall People
+        </a>
+      </div>
+      <div class="mt-12 text-sm text-muted-foreground">
+        <p class="mb-3 font-medium">Popular pages:</p>
+        <ul class="space-y-1">
+          <li><a href="/office-chairs-for-tall-people/" class="link-internal">Office Chairs for Tall People: Buyer's Guide</a></li>
+          <li><a href="/why-standard-chairs-dont-fit/" class="link-internal">Why Standard Chairs Don't Fit Tall People</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal">Correct Chair Dimensions for Tall Users</a></li>
+          <li><a href="/back-pain-spine-height/" class="link-internal">Back Pain & Spine Height</a></li>
+          <li><a href="/review/aeron-size-c/" class="link-internal">Herman Miller Aeron Size C Review</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>
