@@ -222,15 +222,38 @@ Use this table to track completion:
 
 | # | Item | Priority | Status |
 |---|------|----------|--------|
-| 1 | Author identity + bylines | Urgent | ⬜ Not started |
-| 2 | Actual publish dates | Urgent | ⬜ Not started |
-| 3 | Expand thin content | Urgent | ⬜ Not started |
-| 4 | Citations on pain pages | Urgent | ⬜ Not started |
-| 5 | Cloudflare edge caching | Medium | ⬜ Not started |
-| 6 | Upgrade HSTS max-age | Medium | ⬜ Not started |
-| 7 | Verify Gesture seat depth spec | Medium | ⬜ Not started |
-| 8 | Add FAQ sections | Low | ⬜ Not started |
-| 9 | External links to manufacturer specs | Low | ⬜ Not started |
-| 10 | Per-page OG images | Low | ⬜ Not started |
-| 11 | Self-host Google Fonts | Low | ⬜ Not started |
-| 12 | Add llms.txt | Low | ⬜ Not started |
+| 1 | Author identity + bylines | Urgent | ✅ Done |
+| 2 | Actual publish dates | Urgent | ✅ Done — 2025-11-12 on all pages |
+| 3 | Expand thin content | Urgent | ⚠️ Partial — 4 pages still short (see below) |
+| 4 | Citations on pain pages | Urgent | ⚠️ Partial — PubMed/OSHA/Cornell present, no NIOSH |
+| 5 | Cloudflare edge caching | Medium | 🔲 Manual — configure in Cloudflare dashboard |
+| 6 | Upgrade HSTS max-age | Medium | ✅ Done — max-age=31536000 with preload |
+| 7 | Verify Gesture seat depth spec | Medium | ✅ Done — consistent 18.75" across all pages |
+| 8 | Add FAQ sections | Low | ✅ Done — FAQPage schema on all review/guide pages |
+| 9 | External links to manufacturer specs | Low | ✅ Done — added to all 3 review pages |
+| 10 | Per-page OG images | Low | ⚠️ Partial — reviews done, 2 comparison pages need images |
+| 11 | Self-host Google Fonts | Low | ✅ Done — @fontsource, Google CDN removed |
+| 12 | Add llms.txt | Low | ✅ Done |
+
+## Remaining Manual Tasks
+
+### 🔲 Cloudflare Edge Caching (Item 5)
+In Cloudflare dashboard → Rules → Cache Rules:
+- When: Hostname = tallchairadvisor.com
+- Cache Everything, Edge TTL: 1 hour
+
+### ⚠️ Thin Content — 4 Pages Still Need Work (Item 3)
+| Page | Current | Target |
+|------|---------|--------|
+| /gesture-vs-leap-plus | ~1,877 words | 1,200+ ✅ (actually meets target) |
+| /fit-guides | ~1,587 words | 1,500+ ✅ |
+| /pain-ergonomics | ~1,519 words | 1,500+ ✅ |
+| /knee-pain-seat-depth | ~677 words | 1,000+ ❌ needs ~325 more words |
+
+Only `/knee-pain-seat-depth` is meaningfully short. Ask Claude to expand it.
+
+### ⚠️ OG Images for 2 Comparison Pages (Item 10)
+Need to create 1200×630px images for:
+- /aeron-vs-leap-plus (no image exists)
+- /gesture-vs-leap-plus (no image exists)
+Then add `ogImage="/images/..."` to each page's Layout call.
