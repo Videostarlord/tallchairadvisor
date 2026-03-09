@@ -5,11 +5,11 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Marcus Reid",
-    "url": "https://tallchairadvisor.com/author/marcus-reid/",
-    "image": "https://tallchairadvisor.com/images/marcus-reid.jpg",
-    "description": "Marcus Reid is a 6'4\" ergonomics writer and office chair reviewer who has tested premium chairs for over 6 years. He founded Tall Chair Advisor to provide height-specific chair guidance for users 6'0\" and above.",
-    "jobTitle": "Ergonomics Writer & Chair Reviewer",
+    "name": "Jackson Christopher",
+    "url": "https://tallchairadvisor.com/author/jackson-christopher/",
+    "image": "https://tallchairadvisor.com/images/jackson-christopher.png",
+    "description": "Jackson Christopher is a 6'4\" mechanical engineering student at UC Berkeley and founder of Tall Chair Advisor. He has tested premium office chairs for over 6 years, writing guides specifically for tall users.",
+    "jobTitle": "Founder, Tall Chair Advisor",
     "worksFor": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
@@ -28,24 +28,29 @@ const schema = [
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Marcus Reid", "item": "https://tallchairadvisor.com/author/marcus-reid/" }
+      { "@type": "ListItem", "position": 2, "name": "Jackson Christopher", "item": "https://tallchairadvisor.com/author/jackson-christopher/" }
     ]
   }
 ];
 ---
 
 <Layout
-  title="Marcus Reid — Ergonomics Writer & Chair Reviewer | Tall Chair Advisor"
-  description="Marcus Reid is a 6'4&quot; ergonomics writer and the founder of Tall Chair Advisor. He has tested premium office chairs for over 6 years, writing guides specifically for tall users."
+  title="Jackson Christopher — Founder, Tall Chair Advisor"
+  description="Jackson Christopher is a 6'4&quot; mechanical engineering student at UC Berkeley and founder of Tall Chair Advisor. He has tested premium office chairs for over 6 years, writing guides specifically for tall users."
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
-      <div class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 text-3xl font-serif font-medium text-heading">
-        MR
-      </div>
-      <h1 class="text-balance">Marcus Reid</h1>
-      <p class="mt-3 text-lg text-muted-foreground">Ergonomics Writer &amp; Chair Reviewer</p>
+      <img
+        src="/images/jackson-christopher.png"
+        alt="Jackson Christopher, founder of Tall Chair Advisor"
+        width="96"
+        height="96"
+        class="w-24 h-24 rounded-full object-cover mx-auto mb-6"
+        loading="eager"
+      />
+      <h1 class="text-balance">Jackson Christopher</h1>
+      <p class="mt-3 text-lg text-muted-foreground">Mechanical Engineering, UC Berkeley · Founder, Tall Chair Advisor</p>
       <p class="mt-1 text-sm text-muted-foreground">Founder, Tall Chair Advisor · 6'4" · 6+ years chair testing</p>
     </div>
   </header>
@@ -54,16 +59,15 @@ const schema = [
     <div class="prose-tca">
 
       <section>
-        <h2>About Marcus</h2>
+        <h2>About Jackson</h2>
         <p>
-          I'm Marcus Reid — 6'4", and for most of my adult life, office chairs were something I just
-          tolerated rather than actually used. The standard advice ("adjust the lumbar support, raise
-          the seat") never quite worked for me, because the chairs themselves were the wrong size for
-          my body. The seat wasn't deep enough, the backrest didn't reach my shoulder blades, and the
-          seat height maxed out before my thighs were level with the floor.
+          I'm Jackson Christopher — 6'4", a Mechanical Engineering senior at UC Berkeley, and I spend
+          most of my day at a desk, either working or studying. For years that meant dealing with chronic
+          lower back pain and shoulder tension that I assumed was just part of the deal. It wasn't —
+          the chairs I was using weren't built for someone my height.
         </p>
         <p>
-          In 2018, I started systematically testing chairs to figure out which ones actually fit tall
+          In 2019, I started systematically testing chairs to figure out which ones actually fit tall
           users. That process — measuring dimensions, comparing specs, sitting in chairs for weeks at
           a time — turned into this site. Tall Chair Advisor exists because every major buying guide
           I could find was written for people between 5'6" and 5'11", and the recommendations reflected
@@ -71,9 +75,9 @@ const schema = [
           dealing with for years.
         </p>
         <p>
-          Six years and 30+ chair models later, I've developed a systematic methodology for evaluating
-          chair fit for tall bodies — one that prioritizes dimensional specifications over features and
-          marketing language.
+          Six years and 15+ chair models later, I've developed a systematic methodology for evaluating
+          chair fit for tall bodies — one grounded in mechanical engineering principles and a focus on
+          dimensional specifications over marketing language.
         </p>
       </section>
 
@@ -135,7 +139,7 @@ const schema = [
       </section>
 
       <section>
-        <h2>Articles by Marcus Reid</h2>
+        <h2>Articles by Jackson Christopher</h2>
         <ul>
           <li><a href="/office-chairs-for-tall-people/" class="link-internal">Office Chairs for Tall People: Complete Buyer's Guide</a></li>
           <li><a href="/best-office-chairs/" class="link-internal">Best Office Chairs for Tall People — Top Picks</a></li>
