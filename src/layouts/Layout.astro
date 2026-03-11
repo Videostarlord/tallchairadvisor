@@ -16,6 +16,7 @@ interface Props {
   ogType?: string;
   schema?: object | object[];
   noindex?: boolean;
+  preloadImage?: string;
 }
 
 const {
@@ -26,6 +27,7 @@ const {
   ogType = 'website',
   schema,
   noindex = false,
+  preloadImage,
 } = Astro.props;
 
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchairadvisor.com').href;
@@ -57,6 +59,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchair
     <meta name="twitter:description" content={description} />
 
     <!-- Performance hints -->
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
     <link rel="preconnect" href="https://www.googletagmanager.com" />
 
     <!-- GA4 -->
