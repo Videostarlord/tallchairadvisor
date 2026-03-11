@@ -8,7 +8,8 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Steelcase Gesture",
-    "image": "https://tallchairadvisor.com/images/gesture-hero.jpg",
+    "url": "https://tallchairadvisor.com/review/gesture/",
+    "image": "https://tallchairadvisor.com/images/gesture-hero.webp",
     "description": "The Steelcase Gesture is an ergonomic office chair featuring 360-degree armrests, adjustable seat depth up to 18.75\", and a 400 lb weight capacity designed for multi-device workers.",
     "brand": { "@type": "Brand", "name": "Steelcase" },
     "review": {
@@ -19,18 +20,10 @@ const schema = [
         "bestRating": "5",
         "worstRating": "1"
       },
-      "author": { "@type": "Person", "name": "Jackson Christopher", "url": "https://tallchairadvisor.com/author/jackson-christopher/" },
+      "author": { "@type": "Person", "@id": "https://tallchairadvisor.com/about/#author", "name": "Jackson Christopher", "url": "https://tallchairadvisor.com/author/jackson-christopher/" },
       "reviewBody": "The Steelcase Gesture excels for tall users 6'0\"–6'4\" who work across multiple devices, thanks to its 360-degree armrest system and adjustable seat depth. Users above 6'4\" should consider the Leap Plus for greater seat depth.",
       "datePublished": "2025-11-12",
       "dateModified": "2026-03-07"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.5",
-      "bestRating": "5",
-      "worstRating": "1",
-      "ratingCount": "1",
-      "reviewCount": "1"
     },
     "offers": {
       "@type": "Offer",
@@ -99,10 +92,10 @@ const schema = [
 ---
 
 <Layout
-  title="Gesture Review for Tall People | Tall Chair Advisor"
-  description="Steelcase Gesture review for tall users. How the 15.75-18.75 in seat depth, back height, and armrest range perform for people 6'0 and taller."
+  title="Steelcase Gesture Review (Independent) | Tall Chair Advisor"
+  description="Independent Steelcase Gesture review tested by a 6'4 user. Seat depth, back height, and armrest fit analysis for tall people 6'0 to 6'4."
   ogType="article"
-  ogImage="/images/gesture-hero.jpg"
+  ogImage="/images/gesture-hero.webp"
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
@@ -126,7 +119,7 @@ const schema = [
       <img
         alt="Steelcase Gesture office chair in dark grey, showing 360-degree armrests, contoured seat, and synchronized recline mechanism"
         class="w-full max-w-lg mx-auto rounded-lg shadow-md"
-        src="/images/gesture-hero.jpg"
+        src="/images/gesture-hero.webp"
         width="800"
         height="533"
         fetchpriority="high"

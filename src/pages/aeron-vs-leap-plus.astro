@@ -11,7 +11,7 @@ const schema = [
     "image": "https://tallchairadvisor.com/images/og-default.jpg",
     "datePublished": "2025-11-12",
     "dateModified": "2026-03-07",
-    "author": { "@type": "Person", "name": "Jackson Christopher", "url": "https://tallchairadvisor.com/author/jackson-christopher/" },
+    "author": { "@type": "Person", "@id": "https://tallchairadvisor.com/about/#author", "name": "Jackson Christopher", "url": "https://tallchairadvisor.com/author/jackson-christopher/" },
     "publisher": {
       "@type": "Organization",
       "name": "Tall Chair Advisor",
@@ -54,6 +54,15 @@ const schema = [
           "text": "Yes. The Aeron Size C is rated to 350 lbs. A 250 lb user is well within the weight limit. The more relevant question is height and build proportions — the Aeron Size C has a narrower seat (20.75\") than the Leap Plus (22\"), which can feel snug for taller users with wider hip measurements."
         }
       }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Herman Miller Aeron Size C vs Steelcase Leap Plus",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Herman Miller Aeron Size C", "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/" },
+      { "@type": "ListItem", "position": 2, "name": "Steelcase Leap Plus", "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/" }
     ]
   },
   {

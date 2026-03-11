@@ -5,9 +5,10 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://tallchairadvisor.com/about/#author",
     "name": "Jackson Christopher",
     "url": "https://tallchairadvisor.com/author/jackson-christopher/",
-    "image": "https://tallchairadvisor.com/images/jackson-christopher.png",
+    "image": "https://tallchairadvisor.com/images/jackson-christopher.webp",
     "description": "Jackson Christopher is a 6'4\" mechanical engineering student at UC Berkeley and founder of Tall Chair Advisor. He has tested premium office chairs for over 6 years, writing guides specifically for tall users.",
     "jobTitle": "Founder, Tall Chair Advisor",
     "worksFor": {
@@ -16,6 +17,7 @@ const schema = [
       "url": "https://tallchairadvisor.com"
     },
     "sameAs": ["https://www.linkedin.com/in/jackson-christopher-"],
+    "alumniOf": { "@type": "EducationalOrganization", "name": "University of California, Berkeley" },
     "knowsAbout": [
       "Ergonomic office chairs",
       "Chair fit for tall people",
@@ -43,7 +45,7 @@ const schema = [
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
     <div class="container-article text-center">
       <img
-        src="/images/jackson-christopher.png"
+        src="/images/jackson-christopher.webp"
         alt="Jackson Christopher, founder of Tall Chair Advisor"
         width="96"
         height="96"

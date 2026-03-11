@@ -19,9 +19,12 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://tallchairadvisor.com/#organization",
     "name": "Tall Chair Advisor",
     "url": "https://tallchairadvisor.com/",
-    "description": "Independent ergonomic chair guidance for tall people."
+    "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.jpg" },
+    "description": "Independent ergonomic chair guidance for tall people.",
+    "founder": { "@id": "https://tallchairadvisor.com/about/#author" }
   },
   {
     "@context": "https://schema.org",
@@ -114,7 +117,7 @@ const schema = [
     <div class="container-article">
       <div class="flex flex-col sm:flex-row gap-8 items-start">
         <img
-          src="/images/jackson-christopher.png"
+          src="/images/jackson-christopher.webp"
           alt="Jackson Christopher, founder of Tall Chair Advisor"
           width="128"
           height="128"

@@ -2,11 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
-const sitemapExcludedPaths = new Set([
-  '/affiliate-disclosure/',
-  '/contact/',
-  '/privacy-policy/',
-]);
+const sitemapExcludedPaths = new Set([]);
 
 // Per-page lastmod dates — update when a page is significantly revised
 const pageLastmod = {
@@ -47,6 +43,7 @@ const pageLastmod = {
 
 export default defineConfig({
   site: 'https://tallchairadvisor.com',
+  trailingSlash: 'always',
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
@@ -87,6 +84,15 @@ export default defineConfig({
         ) {
           item.priority = 0.6;
           item.changefreq = 'monthly';
+        } else if (
+          item.url === 'https://tallchairadvisor.com/affiliate-disclosure/' ||
+          item.url === 'https://tallchairadvisor.com/privacy-policy/'
+        ) {
+          item.priority = 0.1;
+          item.changefreq = 'yearly';
+        } else if (item.url === 'https://tallchairadvisor.com/contact/') {
+          item.priority = 0.2;
+          item.changefreq = 'yearly';
         } else {
           item.priority = 0.3;
           item.changefreq = 'yearly';
