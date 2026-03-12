@@ -30,7 +30,10 @@ const {
   preloadImage,
 } = Astro.props;
 
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
+const gaEnabled = Boolean(gaMeasurementId);
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchairadvisor.com').href;
+const socialImageURL = new URL(ogImage, 'https://tallchairadvisor.com').href;
 ---
 
 <html lang="en-US">
@@ -49,7 +52,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchair
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={`https://tallchairadvisor.com${ogImage}`} />
+    <meta property="og:image" content={socialImageURL} />
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Tall Chair Advisor" />
 
@@ -57,19 +60,24 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchair
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
 
     <!-- Performance hints -->
     {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    {gaEnabled && <link rel="preconnect" href="https://www.googletagmanager.com" />}
 
     <!-- GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TWK4EPV8DT"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TWK4EPV8DT');
-    </script>
+    {gaEnabled && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+        <script is:inline define:vars={{ gaMeasurementId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaMeasurementId);
+        </script>
+      </>
+    )}
 
     <!-- Schema -->
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
