@@ -11,7 +11,7 @@ const schema = [
     "description": "How poor chair ergonomics causes pain in tall people and which specific chair dimensions address back, knee, and leg pain for users 6'0\" and taller.",
     "image": "https://tallchairadvisor.com/images/og-default.jpg",
     "datePublished": "2024-12-20",
-    "dateModified": "2026-03-08",
+    "dateModified": "2026-03-11",
     "author": { "@type": "Person", "@id": "https://tallchairadvisor.com/about/#author", "name": "Jackson Christopher", "url": "https://tallchairadvisor.com/author/jackson-christopher/" },
     "publisher": {
       "@type": "Organization",
@@ -94,7 +94,7 @@ const schema = [
   <div class="container-wide py-12 md:py-16">
 
     <div class="container-article mb-16">
-      <Byline publishedDate="2024-12-20" updatedDate="2026-03-08" />
+      <Byline publishedDate="2024-12-20" updatedDate="2026-03-11" />
       <div class="prose-tca">
 
         <section>
@@ -124,72 +124,65 @@ const schema = [
         </section>
 
         <section>
-          <h2>The Three Dimensions That Cause Most Tall-User Pain</h2>
+          <h2>Diagnosing Your Pain: Which Dimension Is Causing It?</h2>
           <p>
-            After evaluating dozens of chairs and analyzing the patterns of discomfort reported by
-            tall users, three dimensional mismatches account for the vast majority of pain:
+            The location and timing of your pain is a reliable indicator of which chair dimension
+            is failing. Each mismatch produces a distinct symptom pattern — though in practice,
+            tall users often experience multiple mismatches simultaneously because the problems
+            compound each other.
           </p>
 
-          <h3>1. Seat Depth</h3>
-          <p>
-            Seat depth is the distance from the front edge of the seat cushion to the backrest.
-            Standard office chairs offer 15–17 inches of seat depth — calibrated for the average
-            user's thigh length. A person who is 5'8" might have a thigh length (hip to knee crease)
-            of around 23 inches, meaning a 17-inch seat depth leaves a comfortable gap at the knee.
-          </p>
-          <p>
-            A person who is 6'3" typically has a thigh length of 26–27 inches. On a 17-inch seat,
-            this means the front edge of the cushion cuts directly into the popliteal region — the
-            soft tissue behind the knee where the popliteal artery, tibial nerve, and major tendons
-            run close to the surface. Sustained pressure here restricts blood flow to the lower leg,
-            creates nerve irritation, and generates the distinctive "knee ache" or "pins and needles"
-            that tall users often report building through the afternoon.
-          </p>
-          <p>
-            The compensatory behavior — sliding forward on the seat to relieve knee pressure — then
-            disconnects the back from the lumbar support, creating a second problem: unsupported
-            lumbar flexion that stresses the lower spine. For a deeper look at how seat depth causes knee pain, see our <a href="/knee-pain-seat-depth/" class="link-internal">knee pain and seat depth guide</a>.
-          </p>
+          <div class="overflow-x-auto my-6 not-prose">
+            <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+              <thead class="bg-secondary/50">
+                <tr>
+                  <th class="px-4 py-3 text-left font-semibold text-heading">Symptom</th>
+                  <th class="px-4 py-3 text-left font-semibold text-heading">When it appears</th>
+                  <th class="px-4 py-3 text-left font-semibold text-heading">Likely cause</th>
+                  <th class="px-4 py-3 text-left font-semibold text-heading">Dimension to fix</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr class="bg-card">
+                  <td class="px-4 py-3 font-medium">Knee ache or numbness behind the knee</td>
+                  <td class="px-4 py-3 text-muted-foreground">Builds through afternoon, eases when standing</td>
+                  <td class="px-4 py-3 text-muted-foreground">Seat edge pressing into popliteal region</td>
+                  <td class="px-4 py-3 text-muted-foreground"><a href="/knee-pain-seat-depth/" class="link-internal">Seat depth</a></td>
+                </tr>
+                <tr class="bg-secondary/20">
+                  <td class="px-4 py-3 font-medium">Leg heaviness, cold feet, or swelling by end of day</td>
+                  <td class="px-4 py-3 text-muted-foreground">Progressive; worse on long work days</td>
+                  <td class="px-4 py-3 text-muted-foreground">Upward thigh angle compressing femoral vessels</td>
+                  <td class="px-4 py-3 text-muted-foreground"><a href="/leg-pain-circulation/" class="link-internal">Seat height</a></td>
+                </tr>
+                <tr class="bg-card">
+                  <td class="px-4 py-3 font-medium">Mid-back pain and shoulder tension</td>
+                  <td class="px-4 py-3 text-muted-foreground">Worsens during seated work, eases when walking</td>
+                  <td class="px-4 py-3 text-muted-foreground">Lumbar support hitting thoracic region instead of lumbar</td>
+                  <td class="px-4 py-3 text-muted-foreground"><a href="/back-pain-spine-height/" class="link-internal">Lumbar height</a></td>
+                </tr>
+                <tr class="bg-secondary/20">
+                  <td class="px-4 py-3 font-medium">Neck tension and forward head posture</td>
+                  <td class="px-4 py-3 text-muted-foreground">Develops over hours; often worst mid-afternoon</td>
+                  <td class="px-4 py-3 text-muted-foreground">Upper back unsupported; backrest too short to reach shoulder blades</td>
+                  <td class="px-4 py-3 text-muted-foreground"><a href="/back-pain-spine-height/" class="link-internal">Back height</a></td>
+                </tr>
+                <tr class="bg-card">
+                  <td class="px-4 py-3 font-medium">Shoulder elevation, trapezius tightness</td>
+                  <td class="px-4 py-3 text-muted-foreground">Subtle, chronic; easy to dismiss as "desk tension"</td>
+                  <td class="px-4 py-3 text-muted-foreground">Armrests too low for seated elbow height; user shrugs to compensate</td>
+                  <td class="px-4 py-3 text-muted-foreground">Armrest height range</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-          <h3>2. Seat Height</h3>
           <p>
-            Ergonomic seated posture requires the thighs to be roughly parallel to the floor with
-            feet resting flat. This position distributes body weight evenly across the seat and
-            allows blood to flow freely through the legs. Achieving it requires the seat to be
-            set at approximately your popliteal height — the distance from the floor to the crease
-            behind your knee.
-          </p>
-          <p>
-            For a 6'3" user, popliteal height is typically 19–21 inches. Standard office chair
-            cylinders reach a maximum of 17–18 inches. The seat simply cannot go high enough.
-            When users sit at the maximum height of a too-short chair, the thighs angle upward
-            toward the hips. This creates concentrated pressure under the front of the thighs,
-            compresses the femoral blood vessels, and generates the numbness, heaviness, and
-            swelling in the legs that many tall users experience by the end of the workday.
-          </p>
-
-          <h3>3. Backrest Height and Lumbar Position</h3>
-          <p>
-            The lumbar spine — the five lowest vertebrae in the back — has a natural inward curve
-            called lordosis that should be maintained during seated work. Ergonomic chairs include
-            lumbar support to preserve this curve. The challenge is placement: lumbar support is
-            typically positioned 8–10 inches above the seat pan in standard chairs, targeting the
-            average user's lumbar region.
-          </p>
-          <p>
-            For a tall user with a longer torso, the lumbar spine sits higher above the seat.
-            A lumbar support positioned at 8 inches above the seat contacts the mid-back — the
-            thoracic region — rather than the lumbar. Instead of reinforcing the natural lordotic
-            curve, it pushes the mid-back forward, flattening the lumbar and creating thoracic
-            flexion. The user then unconsciously braces the mid-back muscles to counteract this
-            pressure, leading to the characteristic thoracic fatigue and shoulder tension that
-            tall users experience after extended sitting.
-          </p>
-          <p>
-            Additionally, standard backrests often end below a tall user's shoulder blades,
-            leaving the upper back without support. This gap causes the thoracic spine to round
-            forward over time, resulting in the forward head posture and trapezius tension that
-            compounds throughout the workday.
+            If your pain pattern matches multiple rows in that table, you're likely experiencing
+            the compound effect: a seat that's too shallow forces a forward slide that removes
+            lumbar support, which causes spinal flexion, which shifts the load to the neck. Each
+            failure triggers the next. The sub-pages below go deep on each dimension individually
+            so you can identify and fix the primary driver first.
           </p>
         </section>
 
