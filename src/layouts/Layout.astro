@@ -34,6 +34,13 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
 const gaEnabled = Boolean(gaMeasurementId);
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, 'https://tallchairadvisor.com').href;
 const socialImageURL = new URL(ogImage, 'https://tallchairadvisor.com').href;
+
+const schemaArray = Array.isArray(schema) ? schema : (schema ? [schema] : []);
+const breadcrumbSchema = schemaArray.find((s: any) => s['@type'] === 'BreadcrumbList');
+const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemListElement?.map((item: any) => ({
+  name: item.name,
+  href: item.item,
+})) ?? [];
 ---
 
 <html lang="en-US">
@@ -90,6 +97,26 @@ const socialImageURL = new URL(ogImage, 'https://tallchairadvisor.com').href;
   </head>
   <body>
     <Header />
+    {breadcrumbs.length > 1 && (
+      <nav aria-label="Breadcrumb" class="border-b border-border bg-background">
+        <div class="container-wide">
+          <ol class="flex flex-wrap items-center gap-1 py-2 text-sm text-muted-foreground">
+            {breadcrumbs.map((crumb, i) => (
+              <li class="flex items-center gap-1">
+                {i < breadcrumbs.length - 1 ? (
+                  <>
+                    <a href={crumb.href} class="hover:text-foreground transition-colors">{crumb.name}</a>
+                    <span aria-hidden="true" class="text-border">/</span>
+                  </>
+                ) : (
+                  <span aria-current="page" class="text-foreground font-medium">{crumb.name}</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </nav>
+    )}
     <slot />
     <Footer />
   </body>
