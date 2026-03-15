@@ -1,7 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Byline from '../../components/Byline.astro';
+import RedditInsights from '../../components/RedditInsights.astro';
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
 
+const gestureInsightsPath = path.join(process.cwd(), 'data/reddit/published/steelcase-gesture.json');
+const gestureInsights = existsSync(gestureInsightsPath)
+  ? JSON.parse(readFileSync(gestureInsightsPath, 'utf8'))
+  : null;
 
 const schema = [
   {
@@ -142,7 +149,7 @@ const schema = [
 
 <Layout
   title="Steelcase Gesture Review (2026): Honest Fit Analysis for Tall Users"
-  description="Evaluated at 6'4\" — the Gesture's 18.75\" seat depth works for most tall users through 6'3\". Full armrest, backrest, and fit analysis with height-by-height verdict."
+  description={`Evaluated at 6'4" — the Gesture's 18.75" seat depth works for most tall users through 6'3". Full armrest, backrest, and fit analysis with height-by-height verdict.`}
   ogType="article"
   ogImage="/images/gesture-hero.webp"
   preloadImage="/images/gesture-hero.webp"
@@ -473,6 +480,8 @@ const schema = [
           </a>
         </p>
       </section>
+
+      <RedditInsights insights={gestureInsights} />
 
       <nav class="mt-8 pt-6 border-t border-border" aria-label="Post-review navigation">
         <p class="text-sm font-medium text-muted-foreground mb-3">Continue exploring:</p>

@@ -5,15 +5,25 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "reddit:fetch": "tsx scripts/reddit-fetch.ts",
+    "reddit:normalize": "tsx scripts/reddit-normalize.ts",
+    "reddit:summarize": "tsx scripts/reddit-summarize.ts",
+    "reddit:all": "npm run reddit:fetch all && npm run reddit:normalize all && npm run reddit:summarize all"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.36.3",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.3",
     "@fontsource/playfair-display": "^5.2.8",
     "@fontsource/source-sans-3": "^5.2.9",
+    "apify-client": "^2.11.1",
     "astro": "^4.16.18",
+    "dotenv": "^16.4.7",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
   }
 }

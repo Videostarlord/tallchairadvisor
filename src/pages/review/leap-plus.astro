@@ -1,6 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Byline from '../../components/Byline.astro';
+import RedditInsights from '../../components/RedditInsights.astro';
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
+
+const leapInsightsPath = path.join(process.cwd(), 'data/reddit/published/steelcase-leap-plus.json');
+const leapInsights = existsSync(leapInsightsPath)
+  ? JSON.parse(readFileSync(leapInsightsPath, 'utf8'))
+  : null;
 
 const schema = [
   {
@@ -293,6 +301,8 @@ const schema = [
           <li><a href="/chairs/steelcase-leap-plus/" class="link-internal">Full Steelcase Leap Plus specs and fit guides →</a></li>
         </ul>
       </section>
+
+      <RedditInsights insights={leapInsights} />
 
       <nav class="mt-8 pt-6 border-t border-border" aria-label="Post-review navigation">
         <p class="text-sm font-medium text-muted-foreground mb-3">Continue exploring:</p>

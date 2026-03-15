@@ -1,6 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Byline from '../../components/Byline.astro';
+import RedditInsights from '../../components/RedditInsights.astro';
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
+
+const aeronInsightsPath = path.join(process.cwd(), 'data/reddit/published/herman-miller-aeron.json');
+const aeronInsights = existsSync(aeronInsightsPath)
+  ? JSON.parse(readFileSync(aeronInsightsPath, 'utf8'))
+  : null;
 
 const schema = [
   {
@@ -248,6 +256,8 @@ const schema = [
           <li><a href="/chairs/herman-miller-aeron/" class="link-internal">Full Aeron Size C specs and fit guides →</a></li>
         </ul>
       </section>
+
+      <RedditInsights insights={aeronInsights} />
 
       <nav class="mt-8 pt-6 border-t border-border" aria-label="Post-review navigation">
         <p class="text-sm font-medium text-muted-foreground mb-3">Continue exploring:</p>

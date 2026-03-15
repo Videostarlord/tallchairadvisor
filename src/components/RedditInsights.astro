@@ -1,0 +1,107 @@
+---
+interface QuoteCandidate {
+  text: string;
+  permalink: string;
+  author: string;
+  score: number;
+  subreddit: string;
+}
+
+interface ChairRedditInsights {
+  chairId: string;
+  generatedAt: string;
+  corpusSummary: string;
+  ownerReportCounts: { confirmed: number; likely: number };
+  topPositiveThemes: string[];
+  topNegativeThemes: string[];
+  tallUserFindings: string[];
+  comparisonPatterns: string[];
+  durabilityPatterns: string[];
+  quoteCandidates: QuoteCandidate[];
+  faqAngles: string[];
+  editorialWarnings: string[];
+  pageSnippets: {
+    whatRedditOwnersLike: string;
+    commonComplaints: string;
+    tallUserNotes: string;
+  };
+}
+
+interface Props {
+  insights: ChairRedditInsights | null;
+}
+
+const { insights } = Astro.props;
+
+const INSUFFICIENT = 'Insufficient data';
+const totalOwners =
+  insights ? insights.ownerReportCounts.confirmed + insights.ownerReportCounts.likely : 0;
+
+const snippets = insights?.pageSnippets;
+const hasOwnerLikes = snippets?.whatRedditOwnersLike && snippets.whatRedditOwnersLike !== INSUFFICIENT;
+const hasComplaints = snippets?.commonComplaints && snippets.commonComplaints !== INSUFFICIENT;
+const hasTallNotes = snippets?.tallUserNotes && snippets.tallUserNotes !== INSUFFICIENT;
+const topQuotes = insights?.quoteCandidates?.slice(0, 3) ?? [];
+
+const generatedDate = insights
+  ? new Date(insights.generatedAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  : '';
+---
+
+{insights && (hasOwnerLikes || hasComplaints || hasTallNotes) && (
+  <section class="mt-10 border-t border-border pt-8">
+    <h2>What Reddit Owners Say</h2>
+    <p class="text-sm text-muted-foreground mb-5">
+      Based on {totalOwners} owner reports from r/officechairs and related subreddits. These reflect real-user experiences, not sponsored content.
+    </p>
+
+    <div class="space-y-5">
+      {hasOwnerLikes && (
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-1">What owners like</h3>
+          <p>{snippets!.whatRedditOwnersLike}</p>
+        </div>
+      )}
+
+      {hasComplaints && (
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-1">Common complaints</h3>
+          <p>{snippets!.commonComplaints}</p>
+        </div>
+      )}
+
+      {hasTallNotes && (
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-1">Tall-user notes (6'0"+)</h3>
+          <p>{snippets!.tallUserNotes}</p>
+        </div>
+      )}
+    </div>
+
+    {topQuotes.length > 0 && (
+      <div class="mt-6 space-y-4">
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Owner quotes</h3>
+        {topQuotes.map((q) => (
+          <blockquote class="border-l-2 border-border pl-4">
+            <p class="text-sm italic text-muted-foreground mb-1">"{q.text}"</p>
+            <cite class="not-italic text-xs text-muted-foreground/70">
+              <a
+                href={q.permalink}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                class="hover:underline"
+              >
+                u/{q.author} on r/{q.subreddit}
+              </a>
+              {q.score > 0 && <span class="ml-2">{q.score} points</span>}
+            </cite>
+          </blockquote>
+        ))}
+      </div>
+    )}
+
+    <p class="text-xs text-muted-foreground mt-6">
+      Reddit data collected {generatedDate}. Quotes link to original threads.
+    </p>
+  </section>
+)}
