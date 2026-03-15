@@ -1,11 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tallchairadvisor.com/contact/#webpage",
+  "name": "Contact",
+  "url": "https://tallchairadvisor.com/contact/",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://tallchairadvisor.com/#website"
+  }
+};
 ---
 
 <Layout
   title="Contact | Tall Chair Advisor"
   description="Get in touch with Tall Chair Advisor. We read every message and typically respond within 48 hours."
   noindex={true}
+  schema={schema}
 >
   <main class="container-wide py-16">
     <article class="prose prose-lg max-w-3xl mx-auto">

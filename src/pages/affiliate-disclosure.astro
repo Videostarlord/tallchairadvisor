@@ -1,11 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tallchairadvisor.com/affiliate-disclosure/#webpage",
+  "name": "Affiliate Disclosure",
+  "url": "https://tallchairadvisor.com/affiliate-disclosure/",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://tallchairadvisor.com/#website"
+  }
+};
 ---
 
 <Layout
   title="Affiliate Disclosure | Tall Chair Advisor"
   description="Tall Chair Advisor affiliate disclosure — how our links work, what commissions we receive, and why they never influence our chair evaluations."
   noindex={true}
+  schema={schema}
 >
   <main class="container-wide py-16">
     <article class="prose prose-lg max-w-3xl mx-auto">
