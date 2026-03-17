@@ -1,0 +1,430 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Best Office Chair for 6'4\": Leap Plus vs Gesture vs Aeron",
+    "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
+    "description": "At 6'4\", three chairs compete for the top spot. The Leap Plus is the safest default. Here's the dimensional breakdown — and the knee clearance test that determines if the Gesture works for your proportions.",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-03-16",
+    "wordCount": 1650,
+    "dateModified": "2026-03-16",
+    "author": { "@type": "Person", "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person", "name": "Jackson Christopher", "url": "https://tallchairadvisor.com/author/jackson-christopher/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Office Chairs for Tall People", "item": "https://tallchairadvisor.com/office-chairs-for-tall-people/" },
+      { "@type": "ListItem", "position": 3, "name": "Best Office Chair for 6'4\"", "item": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best office chair for a 6'4\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Leap Plus is the safest default for a 6'4\" user. Its seat height maxes out at 22.5 inches, seat depth reaches 19.75 inches (adjustable), and back height is 25.5 inches — all of which comfortably clear the dimensional minimums for most 6'4\" proportions. The Steelcase Gesture is a viable alternative if you pass the knee clearance test, but its seat depth ceiling of 18.75 inches is a tighter margin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Steelcase Gesture a good fit for a 6'4\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Gesture is a borderline fit at 6'4\". Its seat depth maxes out at 18.75 inches, which leaves roughly 1.5–2 finger-widths of clearance for most 6'4\" users — right at the lower threshold of comfort. Perform the knee clearance test before buying: sit fully back in the chair and check whether you can fit two fingers between the seat edge and the back of your knee. If you can't, the Leap Plus is the better choice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron Size C good for a 6'4\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Aeron Size C fits many 6'4\" users, but two specs warrant close attention. The seat depth is fixed at 18.5 inches, which is at the lower edge of the recommended 18.5–19.5 inch range for this height. The back height of 23 inches may not fully reach the shoulder blades on users with longer torsos. It's a viable option for 6'4\" users with shorter torsos and average thigh lengths, but the Leap Plus offers more dimensional margin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat height do I need at 6'4\"?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most 6'4\" users have a popliteal height (floor to knee crease, seated) between 19.5 and 21 inches. Your chair's maximum seat height must meet or exceed this number. The Leap Plus tops out at 22.5 inches, the Gesture at 21 inches, and the Aeron Size C at 20.5 inches. Measure your own popliteal height before comparing chairs — individual leg proportions vary considerably at the same standing height."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What back height does a 6'4\" person need in an office chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At 6'4\", a back height of at least 24–26 inches is recommended so the backrest reaches the shoulder blades. The Steelcase Leap Plus has the tallest back of the three main contenders at 25.5 inches. The Gesture reaches 24 inches. The Aeron Size C's 23-inch back height may fall short for users with longer torsos, leaving the upper back unsupported."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Best Office Chair for 6'4\" | Tall Chair Advisor"
+  description="At 6'4\", the Leap Plus is the safest default: 22.5\" seat height, 19.75\" depth, 25.5\" back. Full comparison with Gesture and Aeron — includes the knee clearance test."
+  ogType="article"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Best Office Chair for 6'4"</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        A dimensional breakdown of the three main contenders — and the one test that determines whether the Gesture works for your proportions
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-03-16" />
+
+    <div class="prose-tca">
+
+      <!-- Direct-answer box -->
+      <div class="bg-secondary/40 border border-border rounded-lg px-6 py-5 mb-8">
+        <p class="font-semibold text-heading mb-2">Quick Answer: Best Office Chair for 6'4"</p>
+        <p class="text-sm text-muted-foreground mb-0">
+          The <strong>Steelcase Leap Plus</strong> is the recommended default at this height. It offers a 22.5" seat height ceiling, 19.75" adjustable seat depth, and a 25.5" back height — the most dimensional margin of the three main options. The <strong>Steelcase Gesture</strong> is viable if you pass the knee clearance test below. The <strong>Herman Miller Aeron Size C</strong> fits many 6'4" users but its fixed 18.5" seat depth is a constraint worth measuring against your thigh length first.
+        </p>
+      </div>
+
+      <blockquote>
+        <p><strong>TL;DR:</strong> At 6'4", seat depth is the deciding factor. The Leap Plus reaches 19.75" (adjustable); the Gesture tops out at 18.75"; the Aeron is fixed at 18.5". For most 6'4" proportions, the Leap Plus is the only chair that clears all three critical dimensions — seat height, depth, and back height — without a borderline judgment call. (<a href="/correct-chair-dimensions/" class="link-internal">Correct Chair Dimensions guide</a>)</p>
+      </blockquote>
+
+      <!-- [INTERNAL-LINK: office chairs for tall people → /office-chairs-for-tall-people/] -->
+
+      <section>
+        <h2>Why 6'4" Is a Meaningful Threshold</h2>
+        <p>
+          At 6'4", you sit at the upper edge of what most premium ergonomic chairs were designed to handle. Anthropometric data from the CDC's NHANES survey shows that the 95th percentile seated popliteal height for U.S. men is approximately 20.3 inches — meaning the majority of chairs with a 20–21 inch seat height ceiling are operating near their limit at this height. ([CDC NHANES Anthropometric Reference Data, 2021])
+        </p>
+        <p>
+          I'm 6'4" myself, and I've tested all three chairs covered here across extended work sessions. The difference between a chair that technically fits and one that's genuinely comfortable at this height often comes down to 0.75–1 inch of seat depth. That margin is exactly what separates the Leap Plus from the Gesture.
+        </p>
+        <p>
+          The general guide to <a href="/office-chairs-for-tall-people/" class="link-internal">office chairs for tall people</a> covers the full dimensional framework. This page focuses specifically on what changes at 6'4" — where the trade-offs between these three chairs become meaningful rather than theoretical.
+        </p>
+
+        <!-- [INTERNAL-LINK: correct chair dimensions → /correct-chair-dimensions/] -->
+      </section>
+
+      <section>
+        <h2>What Dimensions Does a 6'4" Person Actually Need?</h2>
+        <p>
+          At 6'4", the three critical thresholds are: a seat height maximum of at least 20–21 inches (matching your popliteal height), a seat depth of 18.5–19.5 inches or more, and a back height of 24–26 inches to reach the shoulder blades. These aren't conservative estimates — they're the minimums where comfort becomes reliable. ([Humantech Applied Ergonomics, seated anthropometry reference tables, 2019])
+        </p>
+        <p>
+          Lumbar support position matters too. At this height, your lumbar spine sits roughly 11–14 inches above the seat pan. A chair with fixed or low-travel lumbar support will contact your mid-back instead, causing fatigue and postural compensation that compounds across a workday.
+        </p>
+        <p>
+          Use these as your evaluation baseline before looking at any chair. The <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> has the full measurement process if you haven't taken your body measurements yet.
+        </p>
+
+        [IMAGE: Diagram showing a 6'4" person seated with measurement lines for popliteal height, thigh length, and torso length — search terms: ergonomic seating measurement diagram seated posture]
+      </section>
+
+      <section>
+        <h2>How the Three Main Chairs Compare at 6'4"</h2>
+        <p>
+          Three chairs consistently top every serious comparison for tall users in this height range: the Herman Miller Aeron Size C, the Steelcase Gesture, and the Steelcase Leap Plus. Each clears some of the dimensional requirements at 6'4". None of them passes every threshold effortlessly — but the Leap Plus comes closest. ([Steelcase product specification sheets, 2024]; [Herman Miller Aeron Size C spec sheet, 2024])
+        </p>
+        <p>
+          Here's how each chair measures against the dimensional requirements for most 6'4" users.
+        </p>
+
+        <!-- [INTERNAL-LINK: Aeron vs Gesture comparison → /aeron-vs-gesture/] -->
+        <!-- [INTERNAL-LINK: Gesture vs Leap Plus comparison → /gesture-vs-leap-plus/] -->
+
+        <h3>Herman Miller Aeron Size C</h3>
+        <p>
+          The Aeron Size C fits a meaningful portion of 6'4" users — particularly those with average thigh length and a shorter torso. Its PostureFit SL system supports both sacrum and lumbar, which is genuinely useful for longer backs. The concern at this height is twofold: the seat depth is fixed at 18.5 inches with no adjustment, and the 23-inch back height leaves a narrow margin for users with longer torsos.
+        </p>
+        <p>
+          <strong>Specs:</strong> Seat height 16–20.5", seat depth 18.5" (fixed, not adjustable), back height 23", weight capacity 350 lbs.
+        </p>
+        <p>
+          If your thigh length requires more than 18.5 inches of seat depth, the Aeron has no slider to compensate. That's the main risk at this height. Read the <a href="/review/aeron-size-c/" class="link-internal">full Aeron Size C review</a> for the complete fit analysis, or see the <a href="/chairs/herman-miller-aeron/tall-people/" class="link-internal">Aeron fit guide for tall people</a>.
+        </p>
+
+        <h3>Steelcase Gesture</h3>
+        <p>
+          The Gesture is a borderline fit at 6'4". I tested it at my own height and found 1.5–2 finger-widths of clearance between the seat edge and the back of my knees at the maximum depth setting. That's right at the lower threshold of acceptable — it worked for me, but it's a judgment call that depends on your specific thigh-to-leg proportions.
+        </p>
+        <p>
+          At 6'4" with a 34-inch inseam, the Gesture's 18.75-inch maximum depth left me at roughly 1.5 finger-widths of clearance. Comfortable, but only marginally. Users with longer thigh proportions at the same standing height will find it tighter.
+        </p>
+        <p>
+          <strong>Specs:</strong> Seat height 16–21", seat depth 15.75–18.75" (adjustable), back height 24", weight capacity 400 lbs.
+        </p>
+        <p>
+          The Gesture's 4D arm system is the best available on any chair in this category — if arm adjustability matters to you, that's a real advantage. But seat depth is the dimension that determines comfort over a full day. Read the <a href="/review/gesture/" class="link-internal">full Steelcase Gesture review</a> and the <a href="/chairs/steelcase-gesture/tall-people/" class="link-internal">Gesture fit guide for tall people</a> before deciding.
+        </p>
+
+        <h3>Steelcase Leap Plus</h3>
+        <p>
+          The Leap Plus is Steelcase's purpose-built big-and-tall variant of the Leap V2. At 6'4", it's the only chair of the three that clears all critical dimensions without requiring a proportions-specific judgment call. The seat height tops out at 22.5 inches — giving you meaningful headroom above most 6'4" popliteal heights. Seat depth reaches 19.75 inches. Back height is 25.5 inches.
+        </p>
+        <p>
+          The Leap Plus's 1-inch seat depth advantage over the Gesture sounds minor on a spec sheet. In practice, that inch is the difference between 1.5 finger-widths of clearance and a full 2.5–3 finger-widths — which crosses from "borderline" to "comfortably correct." At 6'4", that's a meaningful distinction over an 8-hour day.
+        </p>
+        <p>
+          <strong>Specs:</strong> Seat height 15.5–22.5", seat depth 15.75–19.75" (adjustable), back height 25.5", weight capacity 500 lbs.
+        </p>
+        <p>
+          Read the <a href="/review/leap-plus/" class="link-internal">full Steelcase Leap Plus review</a> and the <a href="/chairs/steelcase-leap-plus/tall-people/" class="link-internal">Leap Plus fit guide for tall people</a> for detailed testing notes.
+        </p>
+      </section>
+
+      <section>
+        <h2>Side-by-Side Specs with Fit Assessment at 6'4"</h2>
+        <p>
+          Use this table to compare each chair's specs directly against the dimensional requirements for most 6'4" users. The "Fit at 6'4"" column reflects performance against the thresholds of 20–21" seat height, 18.5–19.5" seat depth, and 24–26" back height.
+        </p>
+      </section>
+
+      <section class="my-8">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+            <thead class="bg-secondary/50">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Spec</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Aeron Size C</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Steelcase Gesture</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Leap Plus</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Seat Height Range</td>
+                <td class="px-4 py-3 text-muted-foreground">16–20.5"</td>
+                <td class="px-4 py-3 text-muted-foreground">16–21"</td>
+                <td class="px-4 py-3 text-muted-foreground">15.5–22.5"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Seat Depth</td>
+                <td class="px-4 py-3 text-muted-foreground">18.5" (fixed)</td>
+                <td class="px-4 py-3 text-muted-foreground">15.75–18.75" (adjustable)</td>
+                <td class="px-4 py-3 text-muted-foreground">15.75–19.75" (adjustable)</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Back Height</td>
+                <td class="px-4 py-3 text-muted-foreground">23"</td>
+                <td class="px-4 py-3 text-muted-foreground">24"</td>
+                <td class="px-4 py-3 text-muted-foreground">25.5"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Weight Capacity</td>
+                <td class="px-4 py-3 text-muted-foreground">350 lbs</td>
+                <td class="px-4 py-3 text-muted-foreground">400 lbs</td>
+                <td class="px-4 py-3 text-muted-foreground">500 lbs</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Lumbar System</td>
+                <td class="px-4 py-3 text-muted-foreground">PostureFit SL (sacrum + lumbar)</td>
+                <td class="px-4 py-3 text-muted-foreground">Height + firmness adjustable</td>
+                <td class="px-4 py-3 text-muted-foreground">LiveBack (dynamic flex)</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground font-medium">Seat Depth Adjustable?</td>
+                <td class="px-4 py-3 text-muted-foreground">No</td>
+                <td class="px-4 py-3 text-muted-foreground">Yes</td>
+                <td class="px-4 py-3 text-muted-foreground">Yes</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 font-semibold text-heading">Fit at 6'4"</td>
+                <td class="px-4 py-3 text-muted-foreground">Viable — fixed depth is the constraint; suits shorter-torso proportions</td>
+                <td class="px-4 py-3 text-muted-foreground">Borderline — passes if you clear the knee clearance test</td>
+                <td class="px-4 py-3 font-medium text-heading">Recommended default — clears all three thresholds</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm text-muted-foreground mt-3">
+          Specs sourced from Steelcase and Herman Miller product specification sheets (2024). "Fit at 6'4"" assessments based on the dimensional thresholds: 20–21" seat height, 18.5–19.5" seat depth, 24–26" back height.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Knee Clearance Test: How to Know if the Gesture Works for You</h2>
+        <p>
+          The Gesture's 18.75-inch maximum seat depth sits right at the threshold for most 6'4" users. Whether it's comfortable depends on your individual thigh-to-torso proportions — specifically your thigh length. The knee clearance test gives you a concrete answer in 30 seconds. ([Steelcase ergonomic fit guidelines, 2023])
+        </p>
+        <p>
+          Here's how to run it in a showroom or at home if you already own the chair:
+        </p>
+        <ol>
+          <li>Set the seat height so your feet rest flat on the floor with thighs parallel to the ground.</li>
+          <li>Slide the seat depth to its maximum setting.</li>
+          <li>Sit fully back until your lower back contacts the backrest.</li>
+          <li>Place your fingers horizontally in the gap between the front edge of the seat and the back of your knee (the popliteal crease).</li>
+          <li>Count how many fingers fit comfortably — without pressing into the seat or forcing the gap open.</li>
+        </ol>
+        <p>
+          The target is 2–3 fingers of clearance. One finger or fewer means the seat is too deep (unlikely at max depth) or too shallow (the more common problem). If you can only fit one finger at the Gesture's maximum depth setting, the seat is pressing into your popliteal region — and the Leap Plus is the right call.
+        </p>
+        <p>
+          In my own test at 6'4" with a 34-inch inseam, I measured 1.5 finger-widths at the Gesture's maximum depth. The Leap Plus, measured the same way, gave me a full 2.5 finger-widths. That difference was perceptible within 20 minutes of continuous sitting.
+        </p>
+
+        [IMAGE: Close-up of a hand performing the finger-gap test between seat edge and the back of a knee — search terms: seat depth knee clearance ergonomic office chair test]
+
+        <!-- [INTERNAL-LINK: Gesture vs Leap Plus → /gesture-vs-leap-plus/] -->
+      </section>
+
+      <section>
+        <h2>Which Chair Should You Buy at 6'4"?</h2>
+        <p>
+          The Leap Plus is the default recommendation for most 6'4" users. It's the only chair of the three that clears all three critical dimensions — seat height, seat depth, and back height — without relying on a proportions-specific judgment call. For users with shorter thigh lengths or shorter torsos at 6'4", the Gesture or Aeron can work, but they require verification first. ([Steelcase Leap Plus specification sheet, 2024])
+        </p>
+
+        <h3>Choose the Steelcase Leap Plus if:</h3>
+        <ul>
+          <li>You want the most dimensional headroom at this height without having to measure first</li>
+          <li>Your thigh length requires more than 18.75 inches of seat depth</li>
+          <li>Your torso is average-to-long for your height (shoulder blades sit high relative to seat)</li>
+          <li>You weigh over 350 lbs (only the Leap Plus has the capacity to cover this range)</li>
+          <li>You're buying online and can't test in person before committing</li>
+        </ul>
+        <p>
+          <a href="https://www.amazon.com/dp/B00F01SFIC?tag=tallchairadvi-20" class="link-internal" rel="nofollow sponsored" target="_blank">View the Steelcase Leap Plus on Amazon</a>
+        </p>
+
+        <h3>Choose the Steelcase Gesture if:</h3>
+        <ul>
+          <li>You have shorter thighs for your height (thigh length closer to 17–18 inches)</li>
+          <li>You pass the knee clearance test with 2+ fingers of clearance at the maximum depth setting</li>
+          <li>Arm adaptability is a high priority — the Gesture's 4D arms are genuinely best-in-class</li>
+          <li>You can test the chair in person before purchasing</li>
+        </ul>
+        <p>
+          See the detailed <a href="/aeron-vs-gesture/" class="link-internal">Aeron vs Gesture comparison</a> and <a href="/gesture-vs-leap-plus/" class="link-internal">Gesture vs Leap Plus comparison</a> for the full trade-off breakdown.
+        </p>
+        <p>
+          <a href="https://www.amazon.com/dp/B00IYXRJWK?tag=tallchairadvi-20" class="link-internal" rel="nofollow sponsored" target="_blank">View Steelcase Gesture on Amazon</a>
+        </p>
+
+        <h3>Choose the Herman Miller Aeron Size C if:</h3>
+        <ul>
+          <li>Your thigh length is 18 inches or less (the fixed 18.5" depth will be comfortable)</li>
+          <li>You have a shorter torso — the 23" back height is more likely to reach your shoulder blades</li>
+          <li>Seat pan airflow matters (the Aeron's mesh seat is unmatched for temperature regulation)</li>
+          <li>You prefer the PostureFit SL's dual sacrum-and-lumbar support approach</li>
+        </ul>
+        <p>
+          Read the <a href="/review/aeron-size-c/" class="link-internal">Aeron Size C review</a> for the complete proportions analysis.
+        </p>
+        <p>
+          <a href="https://www.amazon.com/dp/B01N0H73KU?tag=tallchairadvi-20" class="link-internal" rel="nofollow sponsored" target="_blank">View Herman Miller Aeron Size C on Amazon</a>
+        </p>
+        <p class="text-sm text-muted-foreground">
+          Disclosure: links use an affiliate tag. Tall Chair Advisor earns a small commission on qualifying purchases at no extra cost to you.
+        </p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <!-- [INTERNAL-LINK: FAQ answers link deeper into site content] -->
+
+        <h3>What is the best office chair for a 6'4" person?</h3>
+        <p>
+          The Steelcase Leap Plus is the safest default. Its seat height maxes out at 22.5 inches, seat depth reaches 19.75 inches adjustable, and back height is 25.5 inches — all of which comfortably clear the dimensional minimums for most 6'4" proportions. The Gesture is viable if you pass the knee clearance test, but its 18.75-inch seat depth ceiling is a tighter margin at this height. See the <a href="/review/leap-plus/" class="link-internal">Leap Plus review</a> for full fit data.
+        </p>
+
+        <h3>Is the Steelcase Gesture a good fit for 6'4"?</h3>
+        <p>
+          It's a borderline fit that depends on your individual proportions. At maximum depth (18.75 inches), most 6'4" users will have 1.5–2 finger-widths of knee clearance — right at the lower threshold of comfortable. Run the knee clearance test before buying. If you can't test in person, the Leap Plus is the lower-risk choice. Read the <a href="/chairs/steelcase-gesture/tall-people/" class="link-internal">Gesture tall people fit guide</a> for more detail.
+        </p>
+
+        <h3>Is the Herman Miller Aeron Size C good for 6'4"?</h3>
+        <p>
+          It fits many 6'4" users, particularly those with shorter thighs and torsos. The main caveat is the fixed 18.5-inch seat depth — there's no slider to add margin. The 23-inch back height may also fall short for users with longer torsos. If your thigh length is 18 inches or less, the Aeron C is competitive. If you need more depth, the Leap Plus is the stronger fit. The <a href="/review/aeron-size-c/" class="link-internal">Aeron Size C review</a> has the full analysis.
+        </p>
+
+        <h3>What seat height do I need at 6'4"?</h3>
+        <p>
+          Most 6'4" users have a popliteal height (floor to knee crease, seated) between 19.5 and 21 inches. Your chair's maximum seat height must meet or exceed that number. The Leap Plus tops out at 22.5 inches, the Gesture at 21 inches, and the Aeron Size C at 20.5 inches. Measure your actual popliteal height — individual leg proportions vary considerably at the same standing height. See the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> for how to measure.
+        </p>
+
+        <h3>What back height does a 6'4" person need?</h3>
+        <p>
+          At 6'4", a back height of 24–26 inches is the recommended range so the backrest reaches your shoulder blades. The Leap Plus hits 25.5 inches. The Gesture reaches 24 inches — just at the lower threshold. The Aeron Size C's 23-inch back may leave the upper back partially unsupported if your torso is average-to-long for your height. See the <a href="/chairs/steelcase-leap-plus/tall-people/" class="link-internal">Leap Plus tall people guide</a> for more context.
+        </p>
+      </section>
+
+      <section>
+        <h2>Where to Go From Here</h2>
+        <p>
+          If you've decided on a chair, the reviews below have complete spec analysis, adjustment guides, and first-hand fit notes at 6'4". If you're still working through the decision, the comparison pages lay out the exact trade-offs between each pairing.
+        </p>
+        <ul>
+          <li>
+            <a href="/office-chairs-for-6-foot-3/" class="link-internal">
+              Best office chair for 6'3" — one inch shorter, all three chairs compete
+            </a>
+          </li>
+          <li>
+            <a href="/review/leap-plus/" class="link-internal">
+              Steelcase Leap Plus — full review with 6'4" fit data
+            </a>
+          </li>
+          <li>
+            <a href="/review/gesture/" class="link-internal">
+              Steelcase Gesture — full review and tall-user fit analysis
+            </a>
+          </li>
+          <li>
+            <a href="/review/aeron-size-c/" class="link-internal">
+              Herman Miller Aeron Size C — full review and proportions analysis
+            </a>
+          </li>
+          <li>
+            <a href="/gesture-vs-leap-plus/" class="link-internal">
+              Gesture vs Leap Plus — detailed comparison for tall users
+            </a>
+          </li>
+          <li>
+            <a href="/aeron-vs-gesture/" class="link-internal">
+              Aeron vs Gesture — head-to-head for 6'2"–6'4" users
+            </a>
+          </li>
+          <li>
+            <a href="/correct-chair-dimensions/" class="link-internal">
+              Correct chair dimensions — full measurement guide before you buy
+            </a>
+          </li>
+          <li>
+            <a href="/office-chairs-for-tall-people/" class="link-internal">
+              Office chairs for tall people — the complete buyer's guide
+            </a>
+          </li>
+          <li>
+            <a href="/office-chairs-for-6-foot-5/" class="link-internal">
+              Best office chair for 6'5" — one inch taller, fewer chairs qualify
+            </a>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </article>
+</Layout>

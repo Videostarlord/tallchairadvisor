@@ -79,6 +79,13 @@ const schema = [
           }
         }
       }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "reviewCount": "1",
+      "bestRating": "5",
+      "worstRating": "1"
     }
   },
   {
@@ -149,7 +156,7 @@ const schema = [
 
 <Layout
   title="Steelcase Gesture Review (2026): Tall User Fit Analysis"
-  description={`Evaluated at 6'4" — the Gesture's 18.75" seat depth works for most tall users through 6'3". Armrest, backrest, and fit analysis with height-by-height verdict.`}
+  description={`Evaluated at 6'4" — the Gesture's 18.75" seat depth fits most tall users through 6'3". Height-by-height verdict with armrest and back analysis.`}
   ogType="article"
   ogImage="/images/gesture-hero.webp"
   preloadImage="/images/gesture-hero.webp"
@@ -166,6 +173,11 @@ const schema = [
 
   <article class="container-article py-12 md:py-16">
     <Byline publishedDate="2025-11-12" updatedDate="2026-03-14" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">The Steelcase Gesture fits tall users between 6'0" and 6'3" well, with an 18.75" maximum seat depth, 21" seat height ceiling, and 24" backrest. At 6'4", seat depth is a borderline fit — a knee clearance check (2–3 finger-widths between the seat edge and the back of the knee) is the deciding test. Above 6'4", the Steelcase Leap Plus is the stronger dimensional fit: 19.75" seat depth, 22.5" seat height ceiling, and 25.5" back height at a similar price point.</p>
+    </div>
 
     <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
@@ -423,11 +435,13 @@ const schema = [
       <section>
         <h2>Verdict: Who Should Buy the Gesture?</h2>
         <p><strong>Rating: 4.5 / 5 for users 6'0"–6'3". 3.5 / 5 above 6'4".</strong></p>
-        <p>The Steelcase Gesture earns its reputation for users in the right height range. For tall users between 6'0" and 6'3" who work across multiple devices, it is the strongest ergonomic chair in its class — the 360-degree armrest system solves a real problem, the LiveBack mechanism delivers adaptive lumbar support without manual fiddling, and the dimensional spec sheet covers this range comfortably.</p>
-        <p>At 6'4", the Gesture becomes a judgment call based on your specific proportions. The seat depth ceiling of 18.75" is right at the threshold where it works for most body types and doesn't for some. If you can test the chair before purchasing — even in a showroom or at a friend's — the knee clearance check described above gives you a definitive answer. If you can't test it, and you're 6'4" or taller, the Leap Plus removes the uncertainty at a similar price point.</p>
-        <p>The one area where the Gesture has no competition across the entire tall-user range is arm support. If you switch frequently between a keyboard, a phone, a tablet, and a secondary screen, that flexibility has ergonomic value that the spec sheet doesn't fully convey.</p>
 
+        <h3>For Users 6'0"–6'3"</h3>
+        <p>The Steelcase Gesture earns its reputation for users in the right height range. For tall users between 6'0" and 6'3" who work across multiple devices, it is the strongest ergonomic chair in its class — the 360-degree armrest system solves a real problem, the LiveBack mechanism delivers adaptive lumbar support without manual fiddling, and the dimensional spec sheet (21" seat height, 18.75" max seat depth, 24" back) covers this range comfortably. The one area where the Gesture has no competition is arm support: if you switch frequently between a keyboard, a phone, a tablet, and a secondary screen, that flexibility has ergonomic value that the spec sheet doesn't fully convey.</p>
         <p><strong>Buy the Gesture if:</strong> you're 6'0"–6'3", work across multiple devices, and value arm positioning flexibility over maximum seat depth.</p>
+
+        <h3>For Users 6'4" and Above</h3>
+        <p>At 6'4", the Gesture becomes a judgment call based on your specific proportions. The seat depth ceiling of 18.75" is right at the threshold where it works for most body types and doesn't for some. If you can test the chair before purchasing — even in a showroom or at a friend's — the knee clearance check described above gives you a definitive answer. If you can't test it and you're 6'4" or taller, the Leap Plus removes the uncertainty at a similar price point: 19.75" seat depth, 22.5" seat height ceiling, 25.5" back height.</p>
         <p><strong>Buy the Leap Plus instead if:</strong> you're 6'4" or taller, primarily keyboard-and-mouse, or need a forward tilt mechanism.</p>
       </section>
 

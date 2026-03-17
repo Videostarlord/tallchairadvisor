@@ -37,6 +37,52 @@ const schema = [
       { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
       { "@type": "ListItem", "position": 3, "name": "Aeron vs Gesture", "item": "https://tallchairadvisor.com/aeron-vs-gesture/" }
     ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Aeron or Gesture better for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For users 6'0\"–6'3\": both meet dimensional requirements, with the Aeron winning on breathability (Pellicle mesh) and the Gesture winning on arm positioning flexibility (360° armrests). For users 6'2\"–6'4\": the Gesture's adjustable seat depth (15.75\"–18.75\") and taller seat height ceiling (21\" vs 20.5\") give it a dimensional edge. Above 6'4\": consider the Steelcase Leap Plus (22.5\" seat height, 19.75\" depth) as the primary option alongside the Gesture."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the seat depth difference between Aeron Size C and Steelcase Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C has a fixed seat depth of 18.5 inches — it cannot be adjusted. The Steelcase Gesture has an adjustable seat depth of 15.75\" to 18.75\", giving it a 3-inch range. For tall users with longer femur proportions who need 19\" or more of seat depth, neither chair fully covers that requirement — the Steelcase Leap Plus (adjustable to 19.75\") is the better option at that threshold."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which is more breathable, the Aeron or Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C is significantly more breathable. Its Pellicle mesh suspension allows continuous airflow across the entire seating surface, preventing heat and moisture buildup during long sessions. The Steelcase Gesture uses foam padding on the seat and back, which retains more heat. For users who run warm or sit 8+ hours daily, the Aeron's breathability is a meaningful comfort advantage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which chair is better for users over 6'4\": Aeron or Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For users above 6'4\", the Steelcase Gesture is the stronger choice between the two — its 21\" seat height ceiling and adjustable depth give more dimensional headroom than the Aeron's 20.5\" ceiling and fixed 18.5\" depth. However, both chairs begin to reach their dimensional limits above 6'4\". The Steelcase Leap Plus (22.5\" seat height ceiling, 19.75\" seat depth, 25.5\" back height) is the recommended primary option for users above 6'4\"."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I add a taller gas cylinder to the Aeron Size C or Steelcase Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes for both, though availability varies. The Steelcase Gesture has an official optional taller gas cylinder available through authorized Steelcase dealers, which raises the seat height ceiling beyond the standard 21\". The Herman Miller Aeron Size C can accept aftermarket extended cylinders from third-party suppliers, though these are not officially supported by Herman Miller. Extended cylinders typically add 2–3 inches to the seat height range."
+        }
+      }
+    ]
   }
 ];
 ---
@@ -72,6 +118,7 @@ const schema = [
         <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Quick Answer</p>
         <p class="font-semibold text-heading text-lg mb-2">Aeron for breathability; Gesture for armrests and adjustable depth</p>
         <p class="text-sm text-muted-foreground">For tall users 6'0"–6'3" who run warm, the Aeron's Pellicle mesh is unmatched. For users who work across multiple devices or need adjustable seat depth, the Gesture's 360° armrests and 15.75"–18.75" depth range are the better fit. Both are strong choices — the difference is comfort philosophy, not quality.</p>
+        <p class="text-sm text-muted-foreground mt-2">For users 6'0"–6'3": both chairs meet dimensional requirements — the decision is breathability preference (Aeron) vs arm positioning flexibility (Gesture). For users 6'2"–6'4": the Gesture's adjustable seat depth (up to 18.75") and taller seat height ceiling (21" vs 20.5") give it a dimensional edge. Above 6'4": the Steelcase Leap Plus (22.5" seat height, 19.75" depth, 25.5" back) is the recommended primary option for both chairs' height ceilings.</p>
       </div>
 
       <section>
