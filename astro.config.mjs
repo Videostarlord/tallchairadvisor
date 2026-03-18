@@ -2,7 +2,11 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
-const sitemapExcludedPaths = new Set([]);
+const sitemapExcludedPaths = new Set([
+  '/contact/',
+  '/privacy-policy/',
+  '/affiliate-disclosure/',
+]);
 
 // Per-page lastmod dates — update when a page is significantly revised
 const pageLastmod = {
