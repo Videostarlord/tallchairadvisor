@@ -1,0 +1,352 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why Tall People Get Shoulder Pain at Desks — And How to Fix It",
+    "description": "Shoulders are the third most affected body region for office workers with musculoskeletal disorders. For users above 6'1\", standard chair design leaves the trapezius and deltoid chronically overloaded. Here's the biomechanical reason, and what actually helped.",
+    "url": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
+    "image": "https://tallchairadvisor.com/images/shoulder-pain-tall-people-hero.webp",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "url": "https://tallchairadvisor.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tallchairadvisor.com/images/logo.png"
+      }
+    },
+    "datePublished": "2026-03-17",
+    "dateModified": "2026-03-17",
+    "mainEntityOfPage": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
+    "wordCount": 2100
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do tall people get more shoulder pain from office chairs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard office chairs are designed for users up to the 95th-percentile male height — approximately 6'1\" (185 cm). Users above that fall outside the design envelope, meaning armrests sit too low for their elbow height relative to the desk. When armrests can't support the forearm at the correct position, the trapezius and levator scapulae fire continuously to hold the arm's weight, generating chronic tension that refers into the neck and across the shoulder girdle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What chair armrest height do I need at 6'3\" or 6'4\"?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At 6'4\", your elbow height from the floor in a seated position is typically 27–29 inches. Your armrests need to reach that height while also clearing the underside of your desk (typically 27–30 inches). The Steelcase Gesture's armrests adjust from 7.5\" to 11.5\" above the seat pan — at a maximum seat height of 21\", that puts armrest tops between 28.5\" and 32.5\" from the floor. Verify this clears your specific desk underside before purchasing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does forearm support actually reduce shoulder pain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, with published EMG evidence. A 2017 study in the Journal of Physical Therapy Science measured that forearm support reduced upper trapezius activation by 3.8% MVIC and anterior deltoid activation by 7.8% MVIC compared to unsupported arms (PMC5462674). Over an 8-hour workday, that reduction in continuous muscle firing is the difference between a fatigued shoulder and a functional one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can an office chair actually fix shoulder pain, or do I need to see a doctor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A chair can address posture-driven shoulder pain — the type caused by chronically overloaded trapezius and deltoid from unsupported arms and mismatched armrest height. It won't address rotator cuff injuries, frozen shoulder, or referred pain from cervical disc issues. If your shoulder pain has acute onset, radiates down the arm, or doesn't improve with ergonomic changes within 4–6 weeks, consult a physician before attributing it to furniture."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What else besides the chair causes shoulder pain for tall people at desks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Monitor height is the most common secondary factor. Tall users often have their monitor too low, causing a sustained forward-neck posture that loads the trapezius from above while undersized armrests load it from below. Keyboard placement (too far forward increases anterior deltoid load), desk height (too low forces shoulder elevation), and a lack of movement breaks all compound the effect of a mismatched chair."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Ergonomics & Pain", "item": "https://tallchairadvisor.com/pain-ergonomics/" },
+      { "@type": "ListItem", "position": 3, "name": "Shoulder Pain for Tall People", "item": "https://tallchairadvisor.com/shoulder-pain-tall-people/" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Why Tall People Get Shoulder Pain at Desks — And How to Fix It"
+  description="Shoulders are the 3rd most common WMSD site for office workers. For users above 6'1&quot;, standard chairs leave trapezius muscles chronically overloaded. Here's the fix."
+  ogType="article"
+  ogImage="/images/shoulder-pain-tall-people-hero.webp"
+  preloadImage="/images/shoulder-pain-tall-people-hero.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Why Tall People Get Shoulder Pain at Desks — And How to Fix It</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        The biomechanical reason standard chairs fail above 6'1" — and what actually helped my chronic shoulder tension
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-03-17" updatedDate="2026-03-17" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">Shoulders are the third most affected body region for office workers with musculoskeletal disorders, affecting 37.4% of cases (<a href="https://www.nature.com/articles/s41598-025-30155-6" target="_blank" rel="noopener noreferrer">Scientific Reports, 2025</a>). For users above 6'1", the root cause is usually the same: standard chair armrests are designed for the 95th-percentile male at ~185 cm and sit too low to support the forearms of taller users, forcing the trapezius and deltoid to fire continuously to hold arm weight throughout the workday.</p>
+    </div>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Note:</strong> This article covers posture-driven shoulder pain from desk setup and chair fit. If your pain has acute onset, radiates down your arm, or doesn't improve with ergonomic changes in 4–6 weeks, consult a physician — those symptoms may indicate rotator cuff or cervical issues that furniture changes won't address.
+    </div>
+
+    <div class="prose-tca">
+
+      <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. For most of my undergraduate years, I had a persistent shoulder tension problem that I'd been managing with heat packs and ignoring. Both shoulders, worse on the right, worse after long study sessions. I assumed it was just part of sitting at a desk for hours.</p>
+      <p>It wasn't until I started studying ergonomics from an engineering perspective — force diagrams, moment arms, muscle fatigue mechanics — that I understood what was actually happening. My chairs were too small for my body, and my trapezius muscles were paying for it every single day. This page is what I wish I'd read three years earlier.</p>
+
+      <!-- TL;DR -->
+      <div class="bg-card border border-border rounded-lg px-5 py-4 my-6">
+        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">TL;DR</p>
+        <p class="text-sm">Standard chair armrests are engineered for users up to ~6'1" — above that, they don't reach the elbow and the trapezius chronically overloads. Forearm support reduces upper trapezius activation by 3.8% MVIC and deltoid by 7.8% MVIC (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5462674/" target="_blank" rel="noopener noreferrer">PMC5462674, 2017</a>). Getting a chair with a high armrest range + 360° pivot fixed my shoulder tension. The specs that matter: armrest height max, armrest adjustability, and desk underside clearance.</p>
+      </div>
+
+      <section>
+        <h2>Why Tall People Get Shoulder Pain at Desks</h2>
+
+        <!-- [PERSONAL EXPERIENCE] -->
+        <p>For most of my time at Berkeley, I sat in lecture hall seats and dorm chairs sized for someone around 5'10". My shoulders were slightly elevated — not dramatically, just enough that the armrests didn't contact my forearms at the right height, if they contacted them at all. Over four or five hours, that's my trapezius and levator scapulae working continuously to suspend my forearms in space. No rest, no recovery. Just sustained low-level contraction, over and over, until the muscle is chronically fatigued and tender.</p>
+
+        <p>A 2017 study in the <em>Journal of Physical Therapy Science</em> measured this precisely using electromyography (EMG). When forearms were unsupported, trapezius activation increased by 3.8% MVIC compared to supported forearms — and anterior deltoid activation increased by 7.8% MVIC. The interaction between arm support and shoulder angle was statistically significant (p=0.001) for both muscle groups (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5462674/" target="_blank" rel="noopener noreferrer">PMC5462674</a>). That sustained activation is exactly what accumulates into chronic shoulder tension over months and years of desk work.</p>
+
+        <!-- Citation Capsule 1 -->
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm italic">Forearm support significantly reduces upper trapezius and deltoid muscle activation during seated desk work. A 2017 EMG study found that forearm support reduced trapezius activation by 3.8% MVIC and anterior deltoid activation by 7.8% MVIC compared to unsupported arms — a meaningful difference over an 8-hour workday (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5462674/" target="_blank" rel="noopener noreferrer">PMC5462674</a>).</p>
+
+        <p>The biomechanical mechanism is a moment arm problem. Your arm, from shoulder joint to fingertips, weighs roughly 4–5% of your body weight — about 8–10 lbs for a 180–200 lb person. When your forearm isn't supported, the shoulder complex has to generate a torque moment to hold that weight in the position your work requires. Sustained sub-maximal muscle contraction — holding a load at less than full effort, indefinitely — is one of the fastest pathways to chronic muscle fatigue and eventual pain.</p>
+
+        <p>For tall people, this problem is amplified by a second factor: the desk-to-elbow clearance problem. When you're 6'4", your elbow height from the floor in a correct seated position is typically 27–29 inches. Standard 30" desks are low relative to that. If you lower your chair to get your feet flat on the floor (which you should), your elbows end up close to desk height — meaning armrests have to be very high to actually support your forearms without hitting the desk underside. Most standard chairs can't do that.</p>
+
+        <!-- Chart 1: WMSD by body region -->
+        <figure class="my-8">
+          <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Horizontal bar chart showing prevalence of work-related musculoskeletal disorders by body region among office workers" class="w-full max-w-lg mx-auto">
+            <title>WMSDs by Body Region — Office Workers (Scientific Reports, 2025)</title>
+            <text x="260" y="18" text-anchor="middle" font-size="12" font-weight="600" fill="#374151" font-family="system-ui, -apple-system, sans-serif">WMSDs by Body Region — Office Workers</text>
+            <!-- Grid lines -->
+            <line x1="160" y1="30" x2="160" y2="220" stroke="#d1d5db" stroke-width="1"/>
+            <line x1="225" y1="30" x2="225" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+            <line x1="290" y1="30" x2="290" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+            <line x1="355" y1="30" x2="355" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+            <line x1="420" y1="30" x2="420" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+            <line x1="485" y1="30" x2="485" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+            <!-- X-axis labels -->
+            <text x="160" y="235" text-anchor="middle" font-size="9" fill="#6b7280">0%</text>
+            <text x="225" y="235" text-anchor="middle" font-size="9" fill="#6b7280">20%</text>
+            <text x="290" y="235" text-anchor="middle" font-size="9" fill="#6b7280">40%</text>
+            <text x="355" y="235" text-anchor="middle" font-size="9" fill="#6b7280">60%</text>
+            <text x="420" y="235" text-anchor="middle" font-size="9" fill="#6b7280">80%</text>
+            <text x="485" y="235" text-anchor="middle" font-size="9" fill="#6b7280">100%</text>
+            <!-- X-axis title -->
+            <text x="322" y="250" text-anchor="middle" font-size="10" fill="#6b7280">Prevalence (% of workers with WMSDs)</text>
+            <!-- Neck: 58.6% → 225+58.6/100×325 = 225+190.4=415 → from x=160, width=190.4 -->
+            <text x="155" y="53" text-anchor="end" font-size="11" fill="#374151">Neck</text>
+            <rect x="160" y="40" width="190" height="18" fill="#3b82f6" rx="2"/>
+            <text x="355" y="53" font-size="10" fill="#374151" font-weight="600">58.6%</text>
+            <!-- Lower back: 52.5% → width=170.6 -->
+            <text x="155" y="83" text-anchor="end" font-size="11" fill="#374151">Lower back</text>
+            <rect x="160" y="70" width="171" height="18" fill="#6366f1" rx="2"/>
+            <text x="335" y="83" font-size="10" fill="#374151" font-weight="600">52.5%</text>
+            <!-- Shoulders: 37.4% → width=121.6 — highlighted -->
+            <text x="155" y="113" text-anchor="end" font-size="11" fill="#374151" font-weight="700">Shoulders</text>
+            <rect x="160" y="100" width="122" height="18" fill="#ef4444" rx="2"/>
+            <text x="286" y="113" font-size="10" fill="#374151" font-weight="700">37.4%</text>
+            <text x="310" y="113" font-size="10" fill="#ef4444" font-weight="600">← you are here</text>
+            <!-- Upper back: ~30% → width=97.5 -->
+            <text x="155" y="143" text-anchor="end" font-size="11" fill="#374151">Upper back</text>
+            <rect x="160" y="130" width="97" height="18" fill="#8b5cf6" rx="2"/>
+            <text x="261" y="143" font-size="10" fill="#374151" font-weight="600">~30%</text>
+            <!-- Wrist/hand: ~22% → width=71.5 -->
+            <text x="155" y="173" text-anchor="end" font-size="11" fill="#374151">Wrist/hand</text>
+            <rect x="160" y="160" width="72" height="18" fill="#10b981" rx="2"/>
+            <text x="236" y="173" font-size="10" fill="#374151" font-weight="600">~22%</text>
+            <!-- Elbow: ~15% → width=48.75 -->
+            <text x="155" y="203" text-anchor="end" font-size="11" fill="#374151">Elbow</text>
+            <rect x="160" y="190" width="49" height="18" fill="#f59e0b" rx="2"/>
+            <text x="213" y="203" font-size="10" fill="#374151" font-weight="600">~15%</text>
+            <!-- Source note -->
+            <text x="160" y="248" font-size="9" fill="#9ca3af">Source: Scientific Reports, 2025 (n=508 office workers)</text>
+          </svg>
+          <figcaption class="text-center text-sm text-muted-foreground mt-2">
+            Shoulder disorders affect 37.4% of office workers with musculoskeletal conditions — third only to neck and lower back. (<a href="https://www.nature.com/articles/s41598-025-30155-6" target="_blank" rel="noopener noreferrer">Scientific Reports, 2025</a>)
+          </figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>The Armrest Height Problem: Standard Chairs Aren't Built for Bodies Above 6'1"</h2>
+
+        <!-- [UNIQUE INSIGHT] -->
+        <p>This is the part that took me too long to understand, and it's not well explained anywhere. Standard office chairs are designed using published ergonomic formulas that work from a defined user height range. A 2023 study in <em>PLOS ONE</em> that analyzed chair size design methodology found that the standard design envelope runs from the 5th-percentile woman (150 cm / 4'11") to the 95th-percentile man (185 cm / ~6'1") (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9944090/" target="_blank" rel="noopener noreferrer">PMC9944090</a>). Users above 6'1" fall outside the assumed design population.</p>
+
+        <p>The armrest height formula in that design methodology is based on 27% of the tallest male in the design range — approximately 185 cm. Apply that formula and armrests are sized for someone around 6'1". At 6'4" (193 cm), your seated elbow height is roughly 8 cm higher than the top of the design range. The chair's maximum armrest height was never calculated to reach your elbow.</p>
+
+        <!-- Citation Capsule 2 -->
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm italic">Standard office chairs are engineered to fit users from the 5th-percentile woman (150 cm) to the 95th-percentile man (~185 cm / 6'1"). Users above 6'1" fall outside this design envelope — meaning armrest heights, seat heights, and back heights were not calculated with their proportions in mind (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9944090/" target="_blank" rel="noopener noreferrer">PMC9944090, 2023</a>).</p>
+
+        <p>There's a secondary problem that makes this worse specifically for tall users: desk clearance. Most standing desks and fixed desks have an underside height of 27–30 inches. Your chair's armrests need to fit under that clearance when you roll close. If your armrests are at the right height for your 6'4" elbow (roughly 28–29 inches from the floor), they're going to catch on a 28-inch desk underside. So you end up with armrests set lower than ideal — which puts you right back at the unsupported forearm problem.</p>
+
+        <p>The practical consequence of all of this: tall users frequently end up using chairs with armrests that either can't reach their elbows, or that they've lowered to clear the desk and which are now too low to be useful. Either way, the trapezius fires continuously. Over days, weeks, months — the cumulative load builds into chronic pain.</p>
+
+        <!-- Chart 2: Design range vs tall user heights -->
+        <figure class="my-8">
+          <svg viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing standard chair design height range versus where tall users fall" class="w-full max-w-lg mx-auto">
+            <title>Standard Chair Design Range vs. Tall Users</title>
+            <text x="260" y="18" text-anchor="middle" font-size="12" font-weight="600" fill="#374151" font-family="system-ui">Who Standard Chair Design Is Built For</text>
+            <!-- Range bar -->
+            <rect x="60" y="45" width="290" height="28" fill="#d1fae5" rx="4" stroke="#10b981" stroke-width="1.5"/>
+            <text x="60" y="40" font-size="10" fill="#6b7280">4'11"</text>
+            <text x="350" y="40" font-size="10" fill="#6b7280" text-anchor="middle">6'1" (95th pct. ♂)</text>
+            <text x="205" y="64" text-anchor="middle" font-size="11" font-weight="600" fill="#065f46">Standard design range — chairs built for this</text>
+            <!-- Arrow and labels for tall users -->
+            <line x1="350" y1="59" x2="490" y2="59" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4"/>
+            <!-- 6'2" marker -->
+            <line x1="372" y1="45" x2="372" y2="95" stroke="#f59e0b" stroke-width="2"/>
+            <text x="372" y="110" text-anchor="middle" font-size="10" fill="#92400e" font-weight="600">6'2"</text>
+            <text x="372" y="123" text-anchor="middle" font-size="9" fill="#92400e">borderline</text>
+            <!-- 6'4" marker -->
+            <line x1="416" y1="45" x2="416" y2="95" stroke="#ef4444" stroke-width="2"/>
+            <text x="416" y="110" text-anchor="middle" font-size="10" fill="#991b1b" font-weight="700">6'4"</text>
+            <text x="416" y="123" text-anchor="middle" font-size="9" fill="#991b1b">8cm out of range</text>
+            <!-- 6'6" marker -->
+            <line x1="462" y1="45" x2="462" y2="95" stroke="#7f1d1d" stroke-width="2"/>
+            <text x="462" y="110" text-anchor="middle" font-size="10" fill="#7f1d1d" font-weight="700">6'6"</text>
+            <text x="462" y="123" text-anchor="middle" font-size="9" fill="#7f1d1d">16cm out</text>
+            <!-- Source -->
+            <text x="60" y="165" font-size="9" fill="#9ca3af">Source: PMC9944090 (2023) — chair size design methodology analysis</text>
+          </svg>
+          <figcaption class="text-center text-sm text-muted-foreground mt-2">
+            The 95th-percentile male ceiling in standard ergonomic chair design is approximately 6'1". Users above that are in territory no standard chair manufacturer explicitly sized for.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>What Changed When I Got the Steelcase Gesture</h2>
+
+        <!-- [PERSONAL EXPERIENCE] -->
+        <p>I bought the Steelcase Gesture after spending several months analyzing chair specs against my exact proportions. The 360-degree armrest system was a major factor in that decision — not because it sounds good in a brochure, but because I understood specifically why my shoulders were hurting and what the armrests needed to do to fix it.</p>
+
+        <p>The Gesture's armrests adjust from 7.5" to 11.5" above the seat pan. At my usual seat height (I run it near maximum at 20–21"), that puts armrest tops at roughly 27.5–32.5" from the floor. My elbows in a relaxed seated position are around 28–29" from the floor. For the first time in years, I had armrests that actually reached my elbows without my having to raise my shoulders to meet them.</p>
+
+        <p>The 360-degree pivot was the other piece. I change postures constantly during long study sessions — forward lean for writing, upright for typing, slight recline for reading. On a standard 4D armrest, I'd either adjust the arms constantly or leave them in one position that was only right for one posture. The Gesture's arms rotate inward to follow my forearms as I reach for the keyboard, then swing slightly outward when I recline. I don't think about it anymore — they just follow.</p>
+
+        <p>The shoulder improvement took about three weeks to become obvious. Some of that was the break-in period on the chair itself. More of it, I think, was the accumulated deficit from years of tension starting to clear. My right shoulder — the one that was worse — still gets fatigued during very long sessions, but the daily baseline tension that I'd normalized as "just how my shoulder feels" is largely gone.</p>
+
+        <p>I want to be careful here: I'm not saying the Gesture cured my shoulder pain. It addressed the mechanical cause of the pain — the unsupported forearm, the too-low armrests, the absence of adaptive positioning during posture transitions. Removing the cause let the muscle recover. If you have an acute injury, structural issue, or referred cervical pain, furniture changes alone won't be sufficient.</p>
+      </section>
+
+      <section>
+        <h2>What to Look for in a Chair if You Have Shoulder Pain</h2>
+
+        <p>Based on both the engineering analysis and what's worked for my own situation, here are the specs that actually matter for shoulder pain in tall users. These aren't generic ergonomics tips — these are the specific numbers to check before buying.</p>
+
+        <h3>Armrest height range (most important)</h3>
+        <p>Check the armrest height adjustment range, measured from the seat pan. Then add your target seat height to get floor-to-armrest height. Compare that to your seated elbow height (measure this: sit normally, feet flat, and measure from floor to the point of your elbow). You need at least 1–2 inches of adjustability above and below your elbow height to account for different postures and desk setups.</p>
+
+        <h3>Armrest pivot / rotation (second most important)</h3>
+        <p>Standard 4D armrests move up/down, in/out, forward/back, and tilt slightly. They're fixed in the rotation axis. The Steelcase Gesture's arms rotate 360 degrees — they can pivot inward while you type and swing outward while you recline. For users who change postures frequently, this pivot removes the need to manually readjust the arms every time. For primarily keyboard-and-mouse-at-one-monitor users, 4D arms with good height range can be sufficient.</p>
+
+        <h3>Desk underside clearance</h3>
+        <p>Measure the height of your desk's underside. Your armrests at working height need to clear this by at least half an inch when you're rolled in. This is the constraint that limits how high you can actually set your armrests. If your desk underside is 27 inches, your armrests can't be set above about 26.5 inches — check whether that matches your elbow height before buying anything.</p>
+
+        <h3>Chairs worth considering</h3>
+        <ul>
+          <li><strong>Steelcase Gesture</strong> — Best armrest system in the category (360° pivot, 11.5" max above seat). Best for 6'0"–6'3", borderline at 6'4". <a href="/review/gesture/" class="link-internal">Full Gesture review →</a></li>
+          <li><strong>Steelcase Leap Plus</strong> — Standard 4D arms but very high height range. Better dimensional fit for 6'4"+. <a href="/gesture-vs-leap-plus/" class="link-internal">Gesture vs Leap Plus comparison →</a></li>
+          <li><strong>Herman Miller Aeron Size C</strong> — PostureFit SL lumbar support is excellent; armrests are competent 4D but not the Gesture's equal. <a href="/aeron-vs-gesture/" class="link-internal">Aeron vs Gesture comparison →</a></li>
+        </ul>
+
+        <p>For a full breakdown of the dimensional specs that matter by height, see the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> — it covers seat height, seat depth, and armrest height formulas for users from 6'0" to 6'6"+.</p>
+      </section>
+
+      <section>
+        <h2>Other Desk Factors Contributing to Shoulder Pain for Tall Users</h2>
+
+        <p>The chair is usually the biggest lever, but it's rarely the only factor. If you've fixed your armrests and still have shoulder tension, check these.</p>
+
+        <h3>Monitor height</h3>
+        <p>The correct monitor height for most users is with the top of the screen at or slightly below eye level. At 6'4", that means the top of your monitor is roughly 65–67 inches from the floor in a seated position. A standard monitor on a desk without a stand sits at roughly 50–55 inches. That 10–15 inch gap means you're either craning forward and down all day (loading the posterior neck and upper trapezius from above) or shrugging slightly to hold the monitor at comfortable eye contact. Either way, the trapezius is working. A monitor arm that raises your screen to the correct height is the cheapest, highest-leverage fix after the chair.</p>
+
+        <h3>Desk height</h3>
+        <p>A standard fixed desk at 30" is low for a 6'4" user. Correct desk height for typing is roughly elbow height in a relaxed seated position — typically 27–30 inches from the floor for tall users. If your desk is lower than that, you're either hunching to reach it (which loads the shoulder girdle) or raising your arms to type (which activates the trapezius). A height-adjustable desk is the clean solution; a keyboard tray lowered below the desk surface can also help with fixed desks.</p>
+
+        <h3>Keyboard and mouse placement</h3>
+        <p>The keyboard should be close enough that your elbows stay roughly at 90 degrees and your forearms aren't reaching forward. Reaching forward — even 6–8 inches further than ideal — significantly increases anterior deltoid activation and starts to pull on the shoulder girdle. If you're tall and your desk is deep, push the monitor toward the back and keep input devices close.</p>
+
+        <h3>Movement breaks</h3>
+        <p>A 2024 German longitudinal study found that office workers sitting 25–35 hours per week without leisure-time physical activity had a prevalence ratio of 1.30 for shoulder pain versus less-sedentary workers — a 30% higher risk (<a href="https://occup-med.biomedcentral.com/articles/10.1186/s12995-024-00408-7" target="_blank" rel="noopener noreferrer">BioMed Central, 2024</a>). The chair and desk setup reduces the per-hour load; movement breaks reduce total exposure. Standing for 5 minutes per hour, shoulder rolls, and neck tilts every 45–60 minutes are low-friction interventions that compound the effect of a better chair.</p>
+
+        <!-- Citation Capsule 3 -->
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm italic">Office workers who sit 25–35 hours per week without leisure-time exercise have a prevalence ratio of 1.30 for shoulder pain compared to less-sedentary workers — a 30% higher risk. The mechanical quality of the seated position matters, but total sedentary exposure is an independent risk factor that movement breaks directly address (<a href="https://occup-med.biomedcentral.com/articles/10.1186/s12995-024-00408-7" target="_blank" rel="noopener noreferrer">BioMed Central, 2024</a>).</p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Why do tall people get more shoulder pain from office chairs?</h3>
+        <p>Standard office chairs are designed for users up to approximately 6'1" — the 95th-percentile male height. Above that, armrests sit too low for the user's elbow height at a standard desk, leaving the trapezius and deltoid to hold the forearm weight continuously. Over a workday, that sustained low-level muscle contraction accumulates into chronic tension and eventually pain. For more detail on the dimensional mismatch, see <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions for tall users</a>.</p>
+
+        <h3>What chair armrest height do I need at 6'3" or 6'4"?</h3>
+        <p>Measure your seated elbow height — sit normally, feet flat, and measure from the floor to the point of your elbow. At 6'4", that's typically 28–29 inches. Your armrests need to reach that height while clearing your desk underside. The Steelcase Gesture's armrests can reach 27.5–32.5 inches from the floor depending on seat height setting — the widest range in the mainstream category. Check desk clearance first before setting armrest height.</p>
+
+        <h3>Does forearm support actually reduce shoulder pain?</h3>
+        <p>Yes — EMG studies show that forearm support reduces upper trapezius activation by 3.8% MVIC and anterior deltoid activation by 7.8% MVIC compared to unsupported positions (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5462674/" target="_blank" rel="noopener noreferrer">PMC5462674, 2017</a>). That reduction in sustained muscle activation is the mechanism by which armrests reduce shoulder fatigue over a workday.</p>
+
+        <h3>Can an office chair fix shoulder pain, or do I need to see a doctor?</h3>
+        <p>A chair can address posture-driven shoulder pain — the type caused by chronically overloaded muscles from unsupported forearms and mismatched armrest height. It won't address rotator cuff injuries, frozen shoulder, or referred cervical pain. If pain has acute onset, radiates down the arm, or doesn't improve within 4–6 weeks of ergonomic changes, consult a physician. See also: <a href="/back-pain-spine-height/" class="link-internal">lower back pain for tall users</a> for a similar breakdown of when furniture helps and when it doesn't.</p>
+
+        <h3>What else besides the chair causes shoulder pain for tall people at desks?</h3>
+        <p>Monitor too low (forces forward head posture that loads the trapezius from above), desk too low (forces shoulder elevation or hunching to reach input devices), keyboard too far forward (increases anterior deltoid load), and insufficient movement breaks. Fix the chair armrests first — that's usually the largest single contributor — then audit monitor height. A monitor arm is often the cheapest high-leverage fix after the chair.</p>
+      </section>
+
+      <section>
+        <h2>Where to Go From Here</h2>
+        <p>If you're confident the chair is the primary cause and you want to address it directly, the Steelcase Gesture is the chair I use and recommend for users up to 6'4". The 360-degree armrest system is the specific reason I chose it over the alternatives, and the reason my shoulder situation improved after making the switch.</p>
+        <p class="mt-4">
+          <a target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors" href="https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20">
+            View Steelcase Gesture on Amazon →
+          </a>
+        </p>
+        <p class="text-sm text-muted-foreground mt-3">Above 6'4"? The Steelcase Leap Plus has more dimensional headroom and similarly capable armrests.</p>
+      </section>
+
+      <nav class="mt-8 pt-6 border-t border-border" aria-label="Related content navigation">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related guides:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/review/gesture/" class="link-internal">Steelcase Gesture full review — tested at 6'4" →</a></li>
+          <li><a href="/back-pain-spine-height/" class="link-internal text-muted-foreground">Lower back pain for tall people at desks →</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal text-muted-foreground">Correct chair dimensions by height →</a></li>
+          <li><a href="/aeron-vs-gesture/" class="link-internal text-muted-foreground">Aeron vs Gesture — armrest comparison →</a></li>
+          <li><a href="/chairs/steelcase-gesture/" class="link-internal text-muted-foreground">Steelcase Gesture full specs and fit guides →</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>
