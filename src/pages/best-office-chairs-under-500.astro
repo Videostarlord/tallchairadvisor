@@ -1,0 +1,384 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Best Office Chairs for Tall People Under $500 (2026)",
+    "url": "https://tallchairadvisor.com/best-office-chairs-under-500/",
+    "description": "The honest budget analysis from an ME student who spent months researching before buying the $1,649 Steelcase Gesture. Spec-driven picks for tall users on a budget.",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-03-17",
+    "dateModified": "2026-03-17",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Best Office Chairs for Tall People Under $500",
+    "url": "https://tallchairadvisor.com/best-office-chairs-under-500/",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Sihoo Doro S300", "url": "https://tallchairadvisor.com/review/sihoo-doro-s300/" },
+      { "@type": "ListItem", "position": 2, "name": "Hbada E3 Pro", "url": "https://tallchairadvisor.com/best-office-chairs-under-500/" },
+      { "@type": "ListItem", "position": 3, "name": "Branch Ergonomic Chair", "url": "https://tallchairadvisor.com/best-office-chairs-under-500/" },
+      { "@type": "ListItem", "position": 4, "name": "Flexispot BS14 (Ergonomic Plus)", "url": "https://tallchairadvisor.com/best-office-chairs-under-500/" },
+      { "@type": "ListItem", "position": 5, "name": "Refurbished Steelcase Leap V2", "url": "https://tallchairadvisor.com/best-office-chairs-under-500/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Best Office Chairs Under $500", "item": "https://tallchairadvisor.com/best-office-chairs-under-500/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best office chair for tall people under $500?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For tall users on a budget, the Sihoo Doro S300 (~$450–$500) is the strongest new-chair option under $500 — it offers a split-back design, mesh breathability, and a 21\" seat height ceiling. However, the fixed ~17\" seat depth limits it to users 6'0\"–6'2\". For users 6'3\"+ with a sub-$500 budget, a refurbished Steelcase Leap V2 is the better path — refurbished units from certified dealers often sell for $350–$500 and provide the adjustable seat depth that budget new chairs can't match."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you find a good tall chair for under $500?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, though with tradeoffs. Under $500, the main dimensional compromise is seat depth: most chairs in this range have fixed seat depths of 17–18 inches, which is borderline for users above 6'2\" and insufficient for users above 6'4\". The workaround is the refurbished market — a certified refurbished Steelcase Leap V2 or Gesture can often be found for $400–$700 and solves the seat depth problem that new budget chairs cannot."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat height do I need for a tall person's office chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At 6'2\", you typically need a seat height of 19–21\" to keep your thighs parallel with feet flat on the floor. At 6'4\", 20–22\" is the usual requirement depending on inseam length. Most budget chairs reach 18–19\" maximum, which is borderline at 6'2\" and insufficient at 6'4\". Check the seat height maximum carefully before buying — it is the spec most commonly omitted from budget chair listings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a refurbished Steelcase chair better than a new $500 chair for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Generally yes, especially for users 6'2\" and above. A certified refurbished Steelcase Leap V2 ($350–$500) or refurbished Gesture ($400–$700) provides adjustable seat depth that no new $500 chair can match, along with Steelcase's build quality and 12-year warranty (which carries through on certified refurbishments). The tradeoff is that refurbished availability varies and you need to buy from a reputable dealer. For users 6'0\"–6'2\", the new Sihoo Doro S300 is a competitive alternative to a refurbished option."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Best Office Chairs for Tall People Under $500"
+  description="Honest budget picks for tall users from an ME student who spent months researching before buying the $1,649 Gesture. Spec-driven fit analysis by height."
+  ogType="article"
+  ogImage="/images/og-default.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Best Office Chairs for Tall People Under $500 (2026)</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        The honest budget analysis — spec-driven picks with height-specific fit guidance
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-03-17" updatedDate="2026-03-17" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">Best new chair under $500 for tall users 6'0"–6'2": Sihoo Doro S300 (~$450). Best path for tall users 6'2"+ with a sub-$500 budget: a certified refurbished Steelcase Leap V2 ($350–$500). No new chair under $500 solves the adjustable seat depth problem that matters most above 6'2" — the refurbished market is the workaround.</p>
+    </div>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>The Honest Budget Context</h2>
+        <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. I spent several months analyzing office chairs before buying the Steelcase Gesture at $1,649. During that research process, I built a detailed spec comparison across every price tier — including the sub-$500 segment — because I wasn't sure I could justify the Gesture's price.</p>
+        <p>What I found: the under-$500 market has genuinely improved in the past few years, but it has a structural limitation for tall users that no amount of marketing language resolves. The limitation is seat depth. The chairs that matter ergonomically for users above 6'2" need adjustable seat depth in the 18–20" range. No new chair under $500 provides this reliably. The Gesture's seat depth adjustment was the spec that ultimately justified the price for me — nothing in the budget tier offered an equivalent.</p>
+        <p>That said, not everyone is 6'4" with long femors and a graduate-school study habit requiring 6-hour desk sessions. For tall users 6'0"–6'2" on a genuine budget, some of these chairs are solid choices. This guide will tell you which ones, for which heights, and why — without pretending the tradeoffs don't exist.</p>
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm">
+          <strong>Note on testing:</strong> I personally use and have tested the Steelcase Gesture. The chairs in this guide are research-based assessments drawing on manufacturer specs, engineering analysis, and aggregated user reports. I haven't personally sat in most of them. Where I note "community reports suggest" or "based on specs," that's the honest sourcing.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Spec That Matters Most: Seat Depth</h2>
+        <p>Before covering specific chairs, it's worth explaining the single most important dimensional variable for tall users — because most buyers and most reviews skip it.</p>
+        <p>Seat depth is the front-to-back measurement of the seat pan, from the front edge to the backrest. The ergonomic requirement is that you should have 2–3 finger-widths of clearance between the front edge and the back of your knee when seated fully against the backrest (per the Cornell Ergonomics Lab). This prevents pressure on the popliteal area — behind the knee — which restricts blood flow and causes leg numbness during long sessions.</p>
+        <p>At 6'0"–6'2", typical seat depth requirement is roughly 17–18.5 inches. At 6'3"–6'4", 18.5–20 inches. At 6'5"+, 19.5–21 inches. Most budget chairs offer 16–17.5 inches of fixed depth — they cover the 6'0"–6'1" range adequately and fall short above that.</p>
+        <p>The implication: for tall users above 6'2", no new chair under $500 fully solves the seat depth problem. The options are: (a) accept the constraint and buy a budget chair, knowing the fit is imperfect, or (b) buy a certified refurbished premium chair that solves it. I'll flag which option is more appropriate at each height range throughout this guide.</p>
+        <p>For more on the dimensional math, see the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide by height →</a></p>
+      </section>
+
+      <section>
+        <h2>Quick Comparison Table</h2>
+      </section>
+
+    </div>
+
+    <!-- Comparison table -->
+    <div class="not-prose overflow-x-auto rounded-lg border border-border my-8">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="border-b border-border bg-secondary/30">
+            <th class="text-left p-3 font-semibold text-heading">Chair</th>
+            <th class="text-center p-3 font-semibold text-heading">Price</th>
+            <th class="text-center p-3 font-semibold text-heading">Seat Height Max</th>
+            <th class="text-center p-3 font-semibold text-heading">Seat Depth</th>
+            <th class="text-center p-3 font-semibold text-heading">Best Height</th>
+            <th class="text-center p-3 font-semibold text-heading">Seat Material</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Sihoo Doro S300</td>
+            <td class="p-3 text-center">~$450–500</td>
+            <td class="p-3 text-center">21"</td>
+            <td class="p-3 text-center">~17" (fixed)</td>
+            <td class="p-3 text-center">6'0"–6'2"</td>
+            <td class="p-3 text-center">Mesh</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Hbada E3 Pro</td>
+            <td class="p-3 text-center">~$350–400</td>
+            <td class="p-3 text-center">20.5"</td>
+            <td class="p-3 text-center">~16.5" (fixed)</td>
+            <td class="p-3 text-center">6'0"–6'1"</td>
+            <td class="p-3 text-center">Mesh</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Branch Ergonomic Chair</td>
+            <td class="p-3 text-center">~$500</td>
+            <td class="p-3 text-center">20"</td>
+            <td class="p-3 text-center">~17" (fixed)</td>
+            <td class="p-3 text-center">6'0"–6'2"</td>
+            <td class="p-3 text-center">Fabric/Mesh</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Flexispot BS14 (Ergonomic Plus)</td>
+            <td class="p-3 text-center">~$350–450</td>
+            <td class="p-3 text-center">20"</td>
+            <td class="p-3 text-center">~17.5" (fixed)</td>
+            <td class="p-3 text-center">6'0"–6'1"</td>
+            <td class="p-3 text-center">Mesh</td>
+          </tr>
+          <tr class="hover:bg-secondary/20 bg-primary/5">
+            <td class="p-3 font-medium">Refurb. Steelcase Leap V2 ✓</td>
+            <td class="p-3 text-center">~$350–500</td>
+            <td class="p-3 text-center">20"</td>
+            <td class="p-3 text-center">15.5"–18.5" (adj.)</td>
+            <td class="p-3 text-center">6'0"–6'3"</td>
+            <td class="p-3 text-center">Fabric</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>1. Sihoo Doro S300 — Best New Chair Under $500 for Tall Users</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'2" who run warm and can't justify a premium chair.<br/>
+        <strong>Price:</strong> ~$450–$500 on Amazon<br/>
+        <strong>Key specs:</strong> 17"–21" seat height, ~17" fixed seat depth, ~22" back height, 300 lb capacity, mesh seat + back</p>
+
+        <p>The Sihoo Doro S300 is the strongest new-chair option under $500 for tall users based on spec analysis and community reports. Its distinguishing features versus competitors at this price tier:</p>
+        <ul>
+          <li><strong>Split-back design with independent lumbar adjustment.</strong> The lumbar module adjusts independently from the upper back — both in height and firmness. This is an above-average feature for this price tier and directly relevant for tall users whose lumbar region sits higher above the seat pan than the chair's default position assumes.</li>
+          <li><strong>Full mesh seat and back.</strong> Continuous airflow prevents heat buildup — a meaningful daily comfort advantage over foam alternatives at a similar price.</li>
+          <li><strong>21" seat height ceiling.</strong> Matches the Steelcase Gesture's maximum, which is above most budget alternatives. For users who need a higher seat position at a standard desk, this matters.</li>
+        </ul>
+
+        <p>The constraint to accept: fixed ~17" seat depth. For tall users 6'0"–6'2" with average proportions, this is borderline adequate. For users at 6'2"+ with longer femurs, it's likely to cause knee pressure during extended sessions. No budget chair solves this — the S300 just handles it better than most because of the back system and breathability.</p>
+
+        <p>Full analysis: <a href="/review/sihoo-doro-s300/" class="link-internal">Sihoo Doro S300 full review for tall people →</a></p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=sihoo+doro+s300+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Sihoo Doro S300 on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Hbada E3 Pro — Best Under $400 for 6'0"–6'1"</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'1" on a tighter budget who need mesh breathability.<br/>
+        <strong>Price:</strong> ~$350–$400 on Amazon<br/>
+        <strong>Key specs:</strong> 17.5"–20.5" seat height, ~16.5" fixed seat depth, adjustable headrest, mesh back, 275 lb capacity</p>
+
+        <p>The Hbada E3 Pro is a competitively priced mesh chair that earns solid marks in the ergonomics community for its back support and breathability at the sub-$400 price point. Based on manufacturer specs and community reports:</p>
+        <ul>
+          <li><strong>20.5" seat height ceiling</strong> is above the standard for this price tier and covers most users at 6'0"–6'1" at a typical desk height.</li>
+          <li><strong>Adjustable headrest</strong> with height and angle adjustment is a feature that most budget chairs omit — relevant for tall users who frequently recline or need neck support for reading postures.</li>
+          <li><strong>Mesh back</strong> provides breathability, though the seat is a cushioned base rather than full mesh. Better airflow than foam alternatives; not as fully ventilated as the S300's mesh seat.</li>
+        </ul>
+
+        <p>The ~16.5" seat depth is the more pressing constraint here than on the S300 — at 6'1"+, users with average proportions will likely find this seat short. The Hbada E3 Pro is best positioned for tall users at 6'0"–6'1" where the seat depth is more likely to accommodate typical thigh lengths.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=hbada+e3+pro+ergonomic+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Hbada E3 Pro on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Branch Ergonomic Chair — Best at Exactly $500 for Comfort + Adjustability</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'2" who prioritize a premium feel at the budget ceiling.<br/>
+        <strong>Price:</strong> ~$500<br/>
+        <strong>Key specs:</strong> 16.5"–20" seat height, ~17" fixed seat depth, 4D armrests, adjustable lumbar, 275 lb capacity</p>
+
+        <p>The Branch Ergonomic Chair is a direct-to-consumer option that has built a positive reputation in the ergonomics community, particularly among remote workers who've used it as an entry into better-than-budget seating. Based on spec analysis and reported user experiences:</p>
+        <ul>
+          <li><strong>4D adjustable armrests</strong> with more range than typical budget 4D systems — the height adjustment range appears to accommodate taller users better than the Hbada or many similarly-priced competitors.</li>
+          <li><strong>Adjustable lumbar depth and height</strong> — not as sophisticated as the S300's split-back, but more adjustable than single-position lumbar pads common at this tier.</li>
+          <li><strong>20" seat height ceiling</strong> is adequate through 6'1"; borderline at 6'2" for users with longer legs.</li>
+        </ul>
+
+        <p>The 275 lb weight capacity is the lowest in this roundup — relevant for tall users who are also heavier. The fabric upholstery retains more heat than the S300's full-mesh construction.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=branch+ergonomic+office+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Branch Ergonomic Chair on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Flexispot BS14 (Ergonomic Plus) — Tallest Seat Height in the Budget Tier</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'2" who need a higher seat position at a non-standard desk.<br/>
+        <strong>Price:</strong> ~$350–$450<br/>
+        <strong>Key specs:</strong> 17.5"–20" seat height range (with optional tall cylinder to ~22"), mesh back, ~17.5" fixed seat depth, 300 lb capacity</p>
+
+        <p>The Flexispot Ergonomic Plus (BS14) has an optional tall cylinder that extends the seat height beyond the standard 20" ceiling — a relatively rare feature in this price range that makes it worth noting for very tall users who've struggled to find adequate seat height in the budget segment. Based on manufacturer specs:</p>
+        <ul>
+          <li><strong>Optional tall cylinder</strong> reportedly raises the seat height to ~22" — approaching the Leap Plus's range at a fraction of the cost. This is the key reason it's on this list.</li>
+          <li><strong>Mesh back</strong> provides adequate breathability for the price tier.</li>
+          <li><strong>~17.5" fixed seat depth</strong> is slightly more than average for this tier, though still limiting at 6'3"+.</li>
+        </ul>
+
+        <p>The tall cylinder option is the specific use case for this chair — tall users whose primary bottleneck is seat height rather than seat depth. Verify that the tall cylinder is compatible with the current BS14 version before purchasing.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=flexispot+bs14+ergonomic+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Flexispot BS14 on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>5. Refurbished Steelcase Leap V2 — Best Overall Path for Tall Users 6'2"+ on a Budget</h2>
+        <p><strong>Best for:</strong> Tall users 6'2"–6'3" who need adjustable seat depth and can find a certified refurb.<br/>
+        <strong>Price:</strong> ~$350–$500 from certified dealers<br/>
+        <strong>Key specs:</strong> 15.5"–18.5" adjustable seat depth, 15.5"–20" seat height, 400 lb capacity, LiveBack, 12-year warranty (Steelcase-certified refurbs)</p>
+
+        <p>The refurbished Steelcase Leap V2 is the single most important recommendation in this guide for tall users above 6'2" — not because it's a new option, but because it solves the problem no new budget chair can solve: adjustable seat depth.</p>
+        <p>The Leap V2 adjusts seat depth from 15.5" to 18.5". At the 18.5" maximum, it provides adequate fit for most users at 6'2"–6'3" with typical proportions. Combined with LiveBack technology (the flexible back frame that follows your spine through posture changes) and a 400 lb weight capacity, a refurbished Leap V2 from a certified dealer is structurally identical to a new unit — Steelcase's refurbishment process restores the chair to like-new condition.</p>
+
+        <h3>Where to find a certified refurbished Leap V2</h3>
+        <ul>
+          <li><strong>Crandall Office Furniture</strong> — one of the most reputable Steelcase refurbishers; warranty-backed units typically $350–$450</li>
+          <li><strong>Steelcase's own certified refurb program</strong> — periodically available through their website</li>
+          <li><strong>eBay from established sellers</strong> — higher variance in condition; verify with the seller before purchasing</li>
+        </ul>
+
+        <p><strong>The honest caveat:</strong> availability varies. Certified refurb inventory changes constantly. If you can't find a Leap V2 in this price range, the Sihoo Doro S300 is the best new alternative for users at the lower end of the tall-user range.</p>
+
+        <p>For users who need the Leap Plus (the dimensionally larger version with 19.75" seat depth and 22.5" seat height), refurbished units exist but are harder to find under $500 — they typically run $500–$700.</p>
+      </section>
+
+      <section>
+        <h2>The Refurbished Premium Chairs I'd Buy Instead (If Budget Allows)</h2>
+        <p>Since we're discussing budget strategies for tall users, the refurbished market deserves a clear mention beyond just the Leap V2. All three of the top-tier chairs I cover on this site are available refurbished in the $400–$800 range from certified dealers:</p>
+        <ul>
+          <li><strong>Steelcase Gesture (refurb): $400–$700</strong> — Adjustable seat depth to 18.75", 360° armrests, 21" seat height ceiling. The chair I own. Best for 6'0"–6'3". <a href="/review/gesture/" class="link-internal">Full review →</a></li>
+          <li><strong>Steelcase Leap Plus (refurb): $500–$800</strong> — 19.75" adjustable seat depth, 22.5" seat height ceiling, 500 lb capacity. Best for 6'3"+. <a href="/review/leap-plus/" class="link-internal">Full review →</a></li>
+          <li><strong>Herman Miller Aeron Size C (refurb): $500–$900</strong> — Mesh Pellicle seat and back, 20.5" seat height ceiling, fixed 18.5" depth. Best for users 6'0"–6'3" who run warm. <a href="/review/aeron-size-c/" class="link-internal">Full review →</a></li>
+        </ul>
+        <p>If you're 6'3" or above and looking at this budget guide, check refurbished Gesture or Leap Plus pricing before finalizing on a new budget chair. The overlap in price range is more significant than most buyers realize.</p>
+      </section>
+
+      <section>
+        <h2>What to Avoid</h2>
+        <p>Several chair categories consistently underperform for tall users regardless of marketing claims:</p>
+        <ul>
+          <li><strong>Gaming chairs.</strong> Designed for a different aesthetic and different user profile. Tall gaming chairs typically have high seat backs that look good but are often sized for an average-height user — the lumbar padding is frequently in the wrong position for tall users, and the seat depth is typically insufficient. The "tall" versions add height to the back but often don't address seat depth or height range.</li>
+          <li><strong>Chairs listed as "for tall people" with no seat height spec provided.</strong> Any chair marketing itself for tall users without publishing its seat height range is not worth investigating further. The seat height spec is the first number to check, and its absence is a red flag.</li>
+          <li><strong>Budget chairs with foam seats and no depth adjustment.</strong> Foam retains heat. Fixed shallow depth doesn't fit tall frames. Neither problem is fixed by adjusting the other controls on the chair. If the two key specs are wrong, the rest of the adjustment system doesn't rescue the fit.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Height-Based Buying Guide Summary</h2>
+
+        <h3>6'0"–6'1": Multiple solid options</h3>
+        <p>The budget chair market covers this range reasonably well. The Sihoo Doro S300, Hbada E3 Pro, and Branch Ergonomic Chair all provide acceptable dimensional fit at 6'0"–6'1" with typical proportions. Prioritize seat height maximum and breathability at this range — the seat depth constraint is less likely to be a dealbreaker. A refurbished Leap V2 in the $350–$400 range is a better investment if you can find one, but the new budget options work.</p>
+
+        <h3>6'2": Budget options start to strain — verify seat depth first</h3>
+        <p>At 6'2", the fixed ~17" seat depth on budget new chairs is borderline. Users with average proportions may find it adequate; users with longer femurs will not. The S300 is the best new option at this height because of its higher seat ceiling (21") and back system — but test the seat depth fit if possible. A refurbished Leap V2 (~$350–$500) with its 18.5" adjustable maximum is a more reliable dimensional fit at 6'2".</p>
+
+        <h3>6'3"–6'4": Refurbished premium is the right answer</h3>
+        <p>No new chair under $500 provides the seat depth needed at 6'3"+. The refurbished Steelcase Gesture or Leap V2 in the $400–$700 range is the practical recommendation at this height. If budget genuinely prohibits it, the S300 is the least-bad new option — but understand the seat depth limitation before buying.</p>
+
+        <h3>6'5" and above: Steelcase Leap Plus required</h3>
+        <p>The Leap Plus is the only mainstream chair with the seat height ceiling (22.5"), seat depth (19.75"), and back height (25.5") needed at 6'5"+. Refurbished units run $500–$800. There is no new under-$500 chair that adequately fits users above 6'5". <a href="/review/leap-plus/" class="link-internal">Full Leap Plus review →</a></p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>What is the best office chair for tall people under $500?</h3>
+        <p>For users 6'0"–6'2": the <a href="/review/sihoo-doro-s300/" class="link-internal">Sihoo Doro S300</a> (~$450) is the strongest new option. For users 6'2"+: a certified refurbished Steelcase Leap V2 (~$350–$500) is the better fit because of its adjustable seat depth. No new chair under $500 solves the seat depth problem at taller heights.</p>
+
+        <h3>Can you find a good tall chair for under $500?</h3>
+        <p>Yes, with caveats. For users 6'0"–6'2", the budget new market has several reasonable options. Above 6'2", the refurbished premium market is the practical answer — certified refurbished Steelcase chairs often fall in the same price range as the best new budget options and perform significantly better on the specs that matter for tall users. See the <a href="/best-office-chairs/" class="link-internal">best office chairs for tall people →</a> for the full-tier overview.</p>
+
+        <h3>What seat height do I need for a tall person's office chair?</h3>
+        <p>At 6'2": typically 19–21". At 6'4": 20–22". At 6'5"+: 21–23". Most budget chairs max at 18–20" — check the spec carefully. See the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> for height-specific calculations.</p>
+
+        <h3>Is a refurbished Steelcase better than a new $500 chair for tall people?</h3>
+        <p>Generally yes, especially above 6'2". A certified refurbished Leap V2 or Gesture provides adjustable seat depth that budget new chairs can't match, along with Steelcase's 12-year warranty on certified refurbishments. The main tradeoff is availability — inventory varies. Reputable dealers include Crandall Office Furniture and Steelcase's own certified refurb program.</p>
+      </section>
+
+      <!-- Internal links -->
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related guides and full reviews:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/review/sihoo-doro-s300/" class="link-internal">Sihoo Doro S300 full review for tall people →</a></li>
+          <li><a href="/review/gesture/" class="link-internal text-muted-foreground">Steelcase Gesture review — tested at 6'4" →</a></li>
+          <li><a href="/review/leap-plus/" class="link-internal text-muted-foreground">Steelcase Leap Plus review — best for 6'3"+ →</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal text-muted-foreground">← Best office chairs for tall people (all price tiers)</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal text-muted-foreground">Correct chair dimensions by height →</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,418 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Byline from '../../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Sihoo Doro S300",
+    "url": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
+    "image": "https://tallchairadvisor.com/images/sihoo-doro-s300-hero.webp",
+    "description": "The Sihoo Doro S300 is a budget-to-mid-range ergonomic office chair featuring a split-back mesh design with independent lumbar support, adjustable armrests, and a seat height range of 17–21 inches.",
+    "brand": { "@type": "Brand", "name": "Sihoo" },
+    "review": {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "3.8",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+        "name": "Jackson Christopher",
+        "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+      },
+      "reviewBody": "The Sihoo Doro S300 is a competitively priced mesh chair that performs above its price tier on back adjustability. Its split-back design and independent lumbar zone are genuinely useful features for tall users — but the 21\" seat height ceiling and fixed seat depth limit its fit above 6'2\". The mesh breathability is its clearest advantage over foam alternatives at this price point. Research-based analysis drawing on manufacturer specs and community reports — I haven't personally tested this chair.",
+      "datePublished": "2026-03-17",
+      "dateModified": "2026-03-17"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "499.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2027-03-01",
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "US",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 30,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "USD"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "US"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 0,
+            "maxValue": 1,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 3,
+            "maxValue": 7,
+            "unitCode": "DAY"
+          }
+        }
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "3.8",
+      "reviewCount": "1",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Sihoo Doro S300 good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Sihoo Doro S300 works adequately for tall users up to around 6'2\" — the 21\" seat height ceiling and approximately 17\" fixed seat depth are the primary constraints. At 6'3\"–6'4\", the fixed seat depth is likely to feel short for typical femur proportions, and there is no adjustment to compensate. For tall users with a budget under $500 who are 6'0\"–6'2\", the S300 is a reasonable choice. Above 6'2\", the dimensional constraints start to work against you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the Sihoo Doro S300 have adjustable seat depth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No — the Sihoo Doro S300 does not have an adjustable seat depth mechanism. The seat pan is fixed at approximately 17–17.5 inches. This is the chair's most significant limitation for tall users, as taller frames typically require 18–20 inches of seat depth for proper thigh support. The Steelcase Gesture (adjustable to 18.75\") and Steelcase Leap Plus (adjustable to 19.75\") solve this problem but at a significantly higher price point."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Sihoo Doro S300 compare to the Steelcase Gesture for tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture outperforms the S300 on every tall-user-relevant dimension: adjustable seat depth (15.75\"–18.75\" vs fixed ~17\"), higher weight capacity (400 lbs vs 300 lbs), more sophisticated armrest system (360° pivot vs standard 4D), and substantially better long-term build quality. The Sihoo Doro S300's advantage is price — roughly $450–$500 vs $1,649 for the Gesture. For tall users whose budget allows the Gesture, it is unambiguously the better fit. The S300 is a viable temporary solution or a fit for users who simply cannot stretch to the Gesture's price tier."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the weight capacity of the Sihoo Doro S300?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Sihoo Doro S300 is rated to 300 lbs (approximately 136 kg). For tall users who are also heavier, this capacity is lower than the Steelcase Gesture (400 lbs) and significantly lower than the Steelcase Leap Plus (500 lbs). Users above 250 lbs should factor in the capacity margin when considering long-term durability at rated load."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Sihoo Doro S300 worth it for tall people on a budget?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For tall users 6'0\"–6'2\" with a $500 budget, the Sihoo Doro S300 is one of the better options available. The split-back design with independent lumbar support is a genuine ergonomic feature, not just marketing — it allows more targeted spinal adjustment than single-zone back designs at this price tier. The mesh construction provides adequate breathability. The fixed seat depth is the key limitation to accept before purchasing. Above 6'2\", the dimensional constraints make it a harder recommendation."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Sihoo Doro S300 Review", "item": "https://tallchairadvisor.com/review/sihoo-doro-s300/" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Sihoo Doro S300 Review for Tall People (2026)"
+  description="Sihoo Doro S300 spec analysis for tall users. Split-back mesh, 21&quot; seat height ceiling, fixed depth — honest fit verdict for users 6'0&quot;–6'4&quot;."
+  ogType="article"
+  ogImage="/images/sihoo-doro-s300-hero.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Sihoo Doro S300 Review (2026)</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Spec analysis for tall users — what works, what doesn't, and who it actually fits
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-03-17" updatedDate="2026-03-17" />
+
+    <!-- NOTE: Image file must be sourced and placed at public/images/sihoo-doro-s300-hero.webp before deploying -->
+    <figure class="mb-8">
+      <img
+        src="/images/sihoo-doro-s300-hero.webp"
+        alt="Sihoo Doro S300 ergonomic office chair with split-back mesh design and adjustable lumbar support"
+        class="w-full max-w-lg mx-auto rounded-lg shadow-md"
+        width="800"
+        height="533"
+        fetchpriority="high"
+        loading="eager"
+      />
+    </figure>
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">The Sihoo Doro S300 is a mid-range mesh chair with a split-back design and independent lumbar zone that performs above its price tier on back adjustability. For tall users 6'0"–6'2", it's a viable option at roughly $450–$500. Above 6'2", the fixed seat depth (~17") and 300 lb weight capacity start to work against taller frames. This is a research-based analysis — I own the Steelcase Gesture, not the S300. The Doro S300 has been rising in AI citation indexes and community discussions, which is why I'm covering it here.</p>
+    </div>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
+    <div class="prose-tca">
+
+      <div class="bg-card border border-border rounded-lg p-5 mb-10">
+        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">TL;DR Verdict</p>
+        <p class="font-semibold text-heading text-lg mb-3">3.8 / 5 — Best budget mesh chair for tall users up to 6'2". Fixed seat depth is the ceiling.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <div>
+            <p class="font-medium text-heading mb-1">Best for</p>
+            <ul class="text-muted-foreground space-y-1 list-none pl-0">
+              <li>✓ Tall users 6'0"–6'2" on a budget</li>
+              <li>✓ Users who run warm (mesh seat + back)</li>
+              <li>✓ Split-back lumbar flexibility</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-medium text-heading mb-1">Not ideal for</p>
+            <ul class="text-muted-foreground space-y-1 list-none pl-0">
+              <li>✗ Users above 6'2" with longer femurs</li>
+              <li>✗ Users over 250 lbs (300 lb capacity limit)</li>
+              <li>✗ Anyone needing adjustable seat depth</li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-sm text-muted-foreground mt-3">Seat height: 17"–21" &nbsp;|&nbsp; Seat depth: ~17" (fixed) &nbsp;|&nbsp; Back height: ~22" &nbsp;|&nbsp; Price: ~$450–$500</p>
+      </div>
+
+      <section>
+        <h2>Who This Review Is For</h2>
+        <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. I own the Steelcase Gesture, which I bought after spending months researching alternatives across every price tier. The Sihoo Doro S300 wasn't on my original shortlist because its dimensional specs didn't meet my requirements at 6'4" — but it has become a notable option in the budget-to-mid-range segment and is increasingly appearing in AI citation results for tall-user chair queries.</p>
+        <p>This review is research-based: manufacturer specifications, engineering analysis of the design, and aggregated community reports from r/OfficeChairs and r/Ergonomics. I have not personally sat in the S300. Where the analysis reflects spec calculations and biomechanical reasoning rather than direct experience, I say so explicitly. That framing matters for tall users evaluating this chair — I want you to know what this review is grounded in.</p>
+      </section>
+
+      <section>
+        <h2>Key Specifications</h2>
+
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left py-2 pr-4 font-semibold text-heading">Spec</th>
+                <th class="text-left py-2 pr-4 font-semibold text-heading">Sihoo Doro S300</th>
+                <th class="text-left py-2 pr-4 font-semibold text-heading">Steelcase Gesture</th>
+                <th class="text-left py-2 font-semibold text-heading">Leap Plus</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted-foreground">
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Seat height (max)</td>
+                <td class="py-2 pr-4">21"</td>
+                <td class="py-2 pr-4">21"</td>
+                <td class="py-2">22.5"</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Seat depth</td>
+                <td class="py-2 pr-4">~17" <span class="text-xs">(fixed)</span></td>
+                <td class="py-2 pr-4">15.75"–18.75" <span class="text-xs">(adj.)</span></td>
+                <td class="py-2">15.75"–19.75" <span class="text-xs">(adj.)</span></td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Back height</td>
+                <td class="py-2 pr-4">~22"</td>
+                <td class="py-2 pr-4">24"</td>
+                <td class="py-2">25.5"</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Seat width</td>
+                <td class="py-2 pr-4">~19.7"</td>
+                <td class="py-2 pr-4">19.25"</td>
+                <td class="py-2">20.5"</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Weight capacity</td>
+                <td class="py-2 pr-4">300 lbs</td>
+                <td class="py-2 pr-4">400 lbs</td>
+                <td class="py-2">500 lbs</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Seat material</td>
+                <td class="py-2 pr-4">Mesh</td>
+                <td class="py-2 pr-4">Foam cushion</td>
+                <td class="py-2">Foam cushion</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Back design</td>
+                <td class="py-2 pr-4">Split-back mesh</td>
+                <td class="py-2 pr-4">Flexible shell</td>
+                <td class="py-2">Flexible shell</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2 pr-4 font-medium text-heading">Armrests</td>
+                <td class="py-2 pr-4">4D adjustable</td>
+                <td class="py-2 pr-4">360° pivot</td>
+                <td class="py-2">4D standard</td>
+              </tr>
+              <tr>
+                <td class="py-2 pr-4 font-medium text-heading">Price (approx.)</td>
+                <td class="py-2 pr-4">~$450–$500</td>
+                <td class="py-2 pr-4">~$1,649</td>
+                <td class="py-2">~$1,595</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm text-muted-foreground">Sources: Sihoo official product page; <a href="https://www.steelcase.com/products/office-chairs/gesture/" target="_blank" rel="noopener noreferrer">Steelcase Gesture specs →</a>. Verify S300 dimensions on Sihoo's current product page before purchasing — minor spec variations exist across configurations and retail listings.</p>
+      </section>
+
+      <section>
+        <h2>Why Does Seat Depth Matter So Much for Tall Users?</h2>
+        <p>The single most important thing to understand about the Sihoo Doro S300 for tall users is that the seat depth is fixed at approximately 17–17.5 inches with no adjustment. There is no seat depth slider, no forward/back pan adjustment — the position you receive is the position you sit in.</p>
+        <p>The ergonomic standard for seat depth (per the <a href="https://ergo.human.cornell.edu/CUESinfo.html" target="_blank" rel="noopener noreferrer">Cornell Ergonomics Lab</a> guideline) is that seated users should have 2–3 finger-widths of clearance between the front edge of the seat pan and the back of the knee. At 6'0"–6'2" with typical proportions, 17–17.5 inches may just barely meet this guideline — some users in this range will fit, others with longer femur proportions relative to their height won't. At 6'3"–6'4", a 17" seat depth will almost certainly be short: longer femurs mean the seat edge contacts the back of the knee rather than clearing it, creating pressure on the popliteal area that reduces circulation over long sessions.</p>
+        <p>This is the engineering reason the Sihoo Doro S300 has a clear height ceiling as a recommendation. It's not a value judgment on the chair's quality — it's a dimensional constraint that no amount of adjustment can compensate for. Taller users with longer femurs need more seat depth, and the S300 cannot provide it.</p>
+        <p><strong>The comparison that matters:</strong> The Steelcase Gesture's adjustable seat depth (15.75"–18.75") costs roughly 3x more. For users who can absorb that cost, the Gesture solves this problem directly. For users who can't, the S300 is one of the better options available at its price tier — but the seat depth constraint is real and should be the deciding factor in the fit assessment.</p>
+      </section>
+
+      <section>
+        <h2>The Split-Back Design: Genuine Ergonomic Value</h2>
+        <p>The Sihoo Doro S300's most distinctive feature is its split-back construction. Rather than a single continuous backrest panel, the S300 separates the lumbar support zone from the upper back section, allowing each to flex independently. The lumbar module can be adjusted in height and firmness; the upper section provides thoracic support without the lumbar being locked in a fixed relationship to it.</p>
+        <p>From an engineering standpoint, this is a meaningful design choice. The human spine has different curvature requirements at the lumbar (lordotic curve) and thoracic (kyphotic curve) regions. A single-panel backrest is forced to compromise between these two requirements at any given recline angle. The split-back design reduces that compromise by decoupling the adjustment.</p>
+        <p>For tall users specifically, the split-back has a secondary benefit: lumbar height adjustment. Taller torsos have a lumbar region that sits higher above the seat pan than shorter users. A fixed lumbar position that works for someone at 5'10" often lands at the wrong spinal level for someone at 6'2". The S300's independent lumbar module slides vertically, which helps address this mismatch — based on Sihoo's specifications and the pattern of user feedback in ergonomics communities, this adjustment range appears adequate for users up to around 6'2".</p>
+        <p>Reddit reports from tall users who've tested the S300 (r/OfficeChairs, r/Ergonomics) broadly confirm the lumbar adjustment is a positive differentiator versus similarly-priced single-panel alternatives. The most common complaint at tall heights is the seat depth issue described above, not the back system.</p>
+      </section>
+
+      <section>
+        <h2>Is Mesh Breathability Worth Prioritizing on a Budget Chair?</h2>
+        <p>The Sihoo Doro S300 uses mesh for both the seat pan and the backrest. This is meaningful at the budget-to-mid-range tier, where many competitors (including the Steelcase Gesture at 3x the price) use foam seat cushions that retain heat.</p>
+        <p>Mesh seating allows air to circulate through the sitting surface continuously, preventing the heat and moisture buildup that foam generates over extended sessions. For users who run warm, work in warm environments, or sit for 6+ hours daily, mesh is the correct material choice regardless of price tier. The Sihoo's mesh quality won't match the Herman Miller Aeron's Pellicle suspension, which uses a precisely tuned mesh that balances pressure distribution and airflow — but at its price point, the S300's mesh is competitive.</p>
+        <p>Users considering the S300 specifically because of heat concerns should note: the Gesture's foam seat is the primary complaint from warm-running Gesture owners. If breathability is your top priority and you're working within a $500 budget, mesh-seat options like the S300 are worth prioritizing over foam alternatives in the same price range.</p>
+      </section>
+
+      <section>
+        <h2>Armrests and Adjustment System</h2>
+        <p>The Sihoo Doro S300 includes 4D adjustable armrests: height, width, depth, and pivot. This is a standard feature set at this price point — not exceptional, but adequate for most tall users whose primary requirement is reaching the correct elbow height at their desk.</p>
+        <p>The armrest height range is the spec that matters most for tall users. Based on manufacturer specifications, the S300's armrests reach a maximum of approximately 10–11 inches above the seat pan. At a seat height of 20–21", that puts armrest tops at roughly 30–32 inches from the floor — within the typical elbow range for users at 6'0"–6'2" at a standard desk. At 6'3"–6'4", this may be borderline depending on your specific proportions and desk setup; verify your elbow height against the chair's maximum armrest range before purchasing.</p>
+        <p>What the S300 doesn't have is the Gesture's 360° pivot system. The Gesture's arms rotate through a full arc to support forearms during posture transitions — forward for typing, inward for phone use, outward during recline. The S300's 4D arms pivot but don't rotate to the same degree. For users who work across multiple devices constantly, this is a real limitation. For primarily keyboard-and-mouse users at a single monitor, 4D arms with adequate height range are sufficient.</p>
+      </section>
+
+      <section>
+        <h2>Height Fit Guide</h2>
+
+        <h3>6'0"–6'2": Workable, with caveats</h3>
+        <p>At this height range, the S300 can provide adequate fit for many users — but the seat depth is the critical variable. If you're 6'0"–6'1" with average proportions, 17" of seat depth may provide the 2–3 finger-width knee clearance required for proper fit. At 6'2", you're approaching the limit — users with longer femurs relative to their height may find the fixed seat depth uncomfortable within the first hour of extended use. The back system and breathability are genuine advantages at this range; the seat depth is the constraint to verify.</p>
+
+        <h3>6'2"–6'4": Proceed with caution</h3>
+        <p>Above 6'2", the fixed 17" seat depth is increasingly likely to be insufficient for your femur length. The engineering reason: at 6'3"–6'4", typical thigh length from hip joint to back of knee is 19–21 inches. A 17" seat depth means the seat edge contacts roughly 2–4 inches short of the back of your knee — which either forces you to slide forward off the backrest (losing lumbar support) or pushes against the popliteal region (restricting circulation). Neither outcome is ergonomically correct. There are users in this range who find the S300 acceptable — typically those with shorter-than-average femur proportions — but it's a roll of the dice without trying the chair first.</p>
+
+        <h3>6'4" and above: Not recommended</h3>
+        <p>Above 6'4", the S300's dimensional limits compound across multiple measurements: seat depth, back height (~22" vs 24" on the Gesture), and weight capacity (300 lbs vs 400 lbs on the Gesture). The chair wasn't engineered for this range and the community data from tall users at 6'4"+ consistently reflects fit issues. The Steelcase Leap Plus or Steelcase Gesture are the appropriate alternatives — neither is cheap, but both solve the dimensional problems the S300 cannot.</p>
+      </section>
+
+      <section>
+        <h2>What Tall Users Say on Reddit</h2>
+        <p>Across community discussions in r/OfficeChairs and r/Ergonomics, the Sihoo Doro S300 occupies a consistent position: recommended as a best-in-class option for the sub-$500 tier, with explicit caveats about seat depth for taller users. Several patterns emerge from the corpus:</p>
+        <ul>
+          <li><strong>Positive signal: Back system.</strong> Users across height ranges consistently rate the split-back lumbar adjustment positively. The independent lumbar module and its vertical adjustability are frequently cited as a differentiator versus single-panel backs at the same price tier.</li>
+          <li><strong>Negative signal: Seat depth.</strong> Users at 6'2"+ regularly flag the fixed seat depth as the reason they'd switch to a different chair. The pattern is: positive initial impressions, followed by discomfort behind the knee during longer sessions, attributed to seat edge contact.</li>
+          <li><strong>Mixed signal: Durability.</strong> The S300 is a relatively newer chair with a smaller long-term ownership corpus than the Gesture or Leap Plus. Reports from 2–3 year owners are limited. Sihoo provides a 3-year warranty, which is shorter than Steelcase's 12-year coverage — factor this into the value calculation for daily long-term use.</li>
+          <li><strong>Consistent positive: Breathability.</strong> Tall users who run warm consistently prefer the S300's mesh over foam alternatives at a similar price. The breathability advantage versus competitors like the Flexispot or Autonomous chairs at this tier is frequently noted.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Pros and Cons</h2>
+
+        <h3>What the S300 does well</h3>
+        <ul>
+          <li><strong>Split-back with independent lumbar.</strong> Above-average back adjustability for this price tier. The independent lumbar module with height and firmness adjustment addresses spinal level matching better than fixed-lumbar competitors.</li>
+          <li><strong>Mesh seat and back.</strong> Continuous airflow eliminates heat buildup — a meaningful daily comfort advantage over foam alternatives at the same price point.</li>
+          <li><strong>21" seat height ceiling.</strong> Reaches the same height maximum as the Steelcase Gesture, which is above most standard ergonomic chairs at this price tier.</li>
+          <li><strong>Price.&nbsp;</strong> At roughly $450–$500 on Amazon, the S300 delivers ergonomic features (split back, 4D arms, mesh) that cost significantly more from Steelcase and Herman Miller.</li>
+        </ul>
+
+        <h3>Where the S300 falls short</h3>
+        <ul>
+          <li><strong>Fixed seat depth at ~17".</strong> The primary limitation for tall users. No adjustment mechanism — the constraint is permanent, not something firmware or configuration can address.</li>
+          <li><strong>300 lb weight capacity.</strong> Lower than the Gesture (400 lbs) and substantially lower than the Leap Plus (500 lbs). Tall users with larger builds may be close to or above this limit.</li>
+          <li><strong>3-year warranty vs 12 years on Steelcase/Herman Miller.</strong> The warranty difference reflects the difference in expected durability. For daily 8-hour use, the longer warranty on premium chairs is not just marketing — it reflects construction quality that holds up over time.</li>
+          <li><strong>Back height ~22".</strong> Shorter than the Gesture (24") and Leap Plus (25.5"). At 6'2"+, the top of the backrest may not reach the shoulder blades during upright typing posture.</li>
+          <li><strong>Limited long-term ownership data.</strong> The S300 is a newer product with fewer multi-year ownership reports than the established Steelcase and Herman Miller alternatives.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Is the Price Gap Between the S300 and a Premium Chair Justified?</h2>
+        <p>The Sihoo Doro S300 at ~$500 vs the Steelcase Gesture at ~$1,649 is a 3.3x price difference. Whether that difference is worth it depends entirely on which constraints matter for your specific body and workflow.</p>
+        <p>If you're 6'0"–6'2" with average proportions and a sub-$500 budget, the S300 is genuinely competitive. You get mesh breathability, a split-back with useful lumbar adjustment, and a 21" seat height ceiling that covers this range. The fixed seat depth is a constraint, not a dealbreaker, at the lower end of this height range.</p>
+        <p>If you're 6'3"–6'4", the seat depth gap becomes the central question. The Gesture's adjustable depth directly addresses the fit problem the S300 cannot solve. At that height range, the Gesture is the better investment — but if budget genuinely prohibits it, a refurbished Steelcase Gesture from a certified dealer often runs $400–$700, which is comparable to or only slightly above the S300's new price. That comparison is worth making before settling on the S300 at 6'3"+.</p>
+      </section>
+
+      <section>
+        <h2>Verdict: Who Should Buy the Sihoo Doro S300?</h2>
+        <p><strong>Rating: 3.8 / 5 for tall users 6'0"–6'2". Not recommended above 6'2" without trying first.</strong></p>
+        <p>The Sihoo Doro S300 is the best-engineered mesh chair for tall users at the sub-$500 price tier. The split-back design with independent lumbar adjustment is a genuine ergonomic feature that outperforms similarly-priced single-panel alternatives. The mesh seat and back provide breathability that foam chairs at this price point cannot match.</p>
+        <p>The fixed seat depth is the ceiling that defines this chair's recommendation range. For tall users 6'0"–6'2" who run warm, can't justify the Gesture's $1,649 price, and don't have unusually long femur proportions — the S300 is a defensible choice. For users above 6'2" who need adjustable seat depth, the Steelcase Gesture (new or certified refurbished) or the Steelcase Leap Plus is the correct next step regardless of the price difference.</p>
+        <p><strong>Buy the S300 if:</strong> you're 6'0"–6'2", need mesh breathability, and can't stretch to the Gesture's price tier.</p>
+        <p><strong>Consider the Gesture or Leap Plus instead if:</strong> you're 6'2"+ and need adjustable seat depth, weigh over 250 lbs, or will be using the chair for daily 8-hour sessions long-term.</p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Is the Sihoo Doro S300 good for tall people?</h3>
+        <p>For tall users 6'0"–6'2", the S300 is one of the better options at the sub-$500 price tier — the split-back lumbar system, mesh construction, and 21" seat height ceiling are all positives. Above 6'2", the fixed ~17" seat depth is the primary limitation: it's typically insufficient for the longer femur lengths common at that height. See the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> for the seat depth calculation by height.</p>
+
+        <h3>Does the Sihoo Doro S300 have adjustable seat depth?</h3>
+        <p>No — the seat depth is fixed at approximately 17–17.5 inches. This is the key limitation for tall users above 6'2". For adjustable seat depth at this price tier, options are limited; the next step up is the <a href="/review/gesture/" class="link-internal">Steelcase Gesture</a> (~$1,649 new, $400–$700 refurbished) with 15.75"–18.75" adjustable depth.</p>
+
+        <h3>How does the Sihoo Doro S300 compare to the Steelcase Gesture?</h3>
+        <p>The Gesture outperforms the S300 on every tall-user-relevant dimension — adjustable seat depth, weight capacity, armrest system, back height, and warranty. The S300's advantage is price (~$500 vs ~$1,649). For the height range where the S300 works (6'0"–6'2"), the Gesture is still the better chair — the question is whether the performance gap justifies the price difference for your situation. Full comparison: <a href="/best-office-chairs/" class="link-internal">best office chairs for tall people →</a></p>
+
+        <h3>What is the weight capacity of the Sihoo Doro S300?</h3>
+        <p>300 lbs. This is lower than the Steelcase Gesture (400 lbs) and significantly lower than the Steelcase Leap Plus (500 lbs). Tall users with larger builds should factor in this margin when evaluating long-term durability.</p>
+
+        <h3>Is the Sihoo Doro S300 worth it for tall people on a budget?</h3>
+        <p>For users 6'0"–6'2" with a $500 budget, yes — it's one of the better-designed options in this tier. For users 6'2"+, compare the S300's new price against a refurbished Steelcase Gesture before deciding; the price gap may be smaller than you expect, and the dimensional improvement is substantial.</p>
+      </section>
+
+      <!-- Buy button -->
+      <div class="not-prose mt-8 flex flex-col sm:flex-row gap-3">
+        <a href="https://www.amazon.com/s?k=sihoo+doro+s300+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+          View Sihoo Doro S300 on Amazon →
+        </a>
+      </div>
+
+      <!-- Internal links -->
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Compare and explore further:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/review/gesture/" class="link-internal">Steelcase Gesture full review — the step-up option →</a></li>
+          <li><a href="/review/leap-plus/" class="link-internal text-muted-foreground">Steelcase Leap Plus review — best for 6'3"+ →</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal text-muted-foreground">← Best office chairs for tall people</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal text-muted-foreground">Correct chair dimensions by height →</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>
