@@ -2,10 +2,62 @@ https://www.tallchairadvisor.com/* https://tallchairadvisor.com/:splat 301!
 /author/marcus-reid /author/jackson-christopher/ 301
 /author/marcus-reid/ /author/jackson-christopher/ 301
 /author/marcus-reid/* /author/jackson-christopher/:splat 301
-/review/gesture /review/gesture/ 301
-/aeron-vs-gesture /aeron-vs-gesture/ 301
+
+# No-slash → trailing-slash (301 permanent redirects)
+# Without these, Cloudflare Pages defaults to 308 (wrong for SEO)
+
+# Top-level pages
+/best-office-chairs /best-office-chairs/ 301
 /office-chairs-for-tall-people /office-chairs-for-tall-people/ 301
-/back-pain-spine-height /back-pain-spine-height/ 301
+/correct-chair-dimensions /correct-chair-dimensions/ 301
+/shoulder-pain-tall-people /shoulder-pain-tall-people/ 301
+/best-office-chairs-under-500 /best-office-chairs-under-500/ 301
+/fit-guides /fit-guides/ 301
+/about /about/ 301
+/contact /contact/ 301
+/privacy-policy /privacy-policy/ 301
+/affiliate-disclosure /affiliate-disclosure/ 301
+
+# Height-specific pages
+/office-chairs-for-6-foot-3 /office-chairs-for-6-foot-3/ 301
+/office-chairs-for-6-foot-4 /office-chairs-for-6-foot-4/ 301
+/office-chairs-for-6-foot-5 /office-chairs-for-6-foot-5/ 301
+/office-chairs-for-6-foot-6 /office-chairs-for-6-foot-6/ 301
+/office-chairs-for-6-foot-7 /office-chairs-for-6-foot-7/ 301
+
+# Pain & ergonomics pages
 /pain-ergonomics /pain-ergonomics/ 301
 /why-standard-chairs-dont-fit /why-standard-chairs-dont-fit/ 301
-/privacy-policy /privacy-policy/ 301
+/back-pain-spine-height /back-pain-spine-height/ 301
+/knee-pain-seat-depth /knee-pain-seat-depth/ 301
+/leg-pain-circulation /leg-pain-circulation/ 301
+/how-to-adjust-chair /how-to-adjust-chair/ 301
+
+# Reviews
+/review/gesture /review/gesture/ 301
+/review/aeron-size-c /review/aeron-size-c/ 301
+/review/leap-plus /review/leap-plus/ 301
+/review/sihoo-doro-s300 /review/sihoo-doro-s300/ 301
+
+# Comparisons
+/aeron-vs-gesture /aeron-vs-gesture/ 301
+/aeron-vs-leap-plus /aeron-vs-leap-plus/ 301
+/gesture-vs-leap-plus /gesture-vs-leap-plus/ 301
+
+# Chair brand pages
+/chairs/herman-miller-aeron /chairs/herman-miller-aeron/ 301
+/chairs/steelcase-gesture /chairs/steelcase-gesture/ 301
+/chairs/steelcase-leap-plus /chairs/steelcase-leap-plus/ 301
+
+# Chair sub-pages
+/chairs/herman-miller-aeron/seat-height /chairs/herman-miller-aeron/seat-height/ 301
+/chairs/herman-miller-aeron/tall-people /chairs/herman-miller-aeron/tall-people/ 301
+/chairs/steelcase-gesture/seat-depth /chairs/steelcase-gesture/seat-depth/ 301
+/chairs/steelcase-gesture/seat-height /chairs/steelcase-gesture/seat-height/ 301
+/chairs/steelcase-gesture/tall-people /chairs/steelcase-gesture/tall-people/ 301
+/chairs/steelcase-gesture/weight-limit /chairs/steelcase-gesture/weight-limit/ 301
+/chairs/steelcase-leap-plus/seat-height /chairs/steelcase-leap-plus/seat-height/ 301
+/chairs/steelcase-leap-plus/tall-people /chairs/steelcase-leap-plus/tall-people/ 301
+
+# Author
+/author/jackson-christopher /author/jackson-christopher/ 301
