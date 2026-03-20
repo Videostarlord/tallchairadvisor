@@ -43,6 +43,14 @@ const pageLastmod = {
   'https://tallchairadvisor.com/privacy-policy/': new Date('2026-01-01'),
   'https://tallchairadvisor.com/affiliate-disclosure/': new Date('2026-01-01'),
   'https://tallchairadvisor.com/author/jackson-christopher/': new Date('2026-03-08'),
+  'https://tallchairadvisor.com/review/sihoo-doro-s300/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/shoulder-pain-tall-people/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/best-office-chairs-under-500/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-3/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-4/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-5/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-6/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-7/': new Date('2026-03-17'),
 };
 
 export default defineConfig({
@@ -72,7 +80,9 @@ export default defineConfig({
           item.url.includes('/aeron-vs-') ||
           item.url.includes('/gesture-vs-') ||
           item.url === 'https://tallchairadvisor.com/pain-ergonomics/' ||
-          item.url === 'https://tallchairadvisor.com/fit-guides/'
+          item.url === 'https://tallchairadvisor.com/fit-guides/' ||
+          item.url === 'https://tallchairadvisor.com/shoulder-pain-tall-people/' ||
+          item.url === 'https://tallchairadvisor.com/best-office-chairs-under-500/'
         ) {
           item.priority = 0.8;
           item.changefreq = 'monthly';

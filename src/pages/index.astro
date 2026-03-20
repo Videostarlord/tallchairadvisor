@@ -85,6 +85,7 @@ const schema = [
   title="Expert Chair Reviews for Tall People | Tall Chair Advisor"
   description={`Expert reviews of office chairs for tall people (6'+). A 6'4" mechanical engineer tests lumbar support, seat depth, and chair fit for taller frames.`}
   schema={schema}
+  preloadImage="/images/jackson-christopher.webp"
 >
   <!-- Hero Section -->
   <section class="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-secondary/50 to-background">
@@ -128,7 +129,8 @@ const schema = [
           width="128"
           height="128"
           class="rounded-lg object-cover flex-shrink-0 w-28 h-28 sm:w-32 sm:h-32"
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
         />
         <div>
           <h2 class="font-serif text-2xl text-heading mb-3">Why This Site Exists</h2>
