@@ -1,0 +1,456 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Standing Desk Height for Tall People: The Exact Settings",
+    "description": "Exact standing desk height formula for users 6'0\"–6'7\". Elbow-height method, recommended desk ranges, and why most desks max out too low for tall people.",
+    "url": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-03-31",
+    "dateModified": "2026-03-31",
+    "wordCount": 2200,
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    },
+    "mainEntityOfPage": "https://tallchairadvisor.com/standing-desk-height-tall-people/"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides/" },
+      { "@type": "ListItem", "position": 3, "name": "Standing Desk Height for Tall People", "item": "https://tallchairadvisor.com/standing-desk-height-tall-people/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What height should a standing desk be for a 6'4\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For a 6'4\" person, the standing elbow height is approximately 45 inches from the floor. The recommended standing desk height is 2\"–4\" below that, putting the target range at 43\"–45\". The desk should be set so your elbows are at roughly 90 degrees and your wrists are neutral — not angled up or down — when your hands rest on the keyboard."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the maximum height for most standing desks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most consumer standing desks max out at 47\"–48\". Some budget models cap at 45\"–46\". For users 6'3\" and under, this is usually sufficient. For users 6'5\" and above, a 47\"–48\" ceiling is borderline or insufficient — the correct desk height for a 6'6\" person is 45\"–47\", which uses the full range of most desks, leaving no room for adjustment. Users 6'7\" and above need a desk that reaches at least 50\" to have a usable range."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate my standing desk height?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The formula is: standing desk height = standing elbow height minus 2 to 4 inches. To measure your standing elbow height: stand upright with arms relaxed at your sides, then bend both elbows to 90 degrees. Measure from the floor to the bottom of your forearm at the elbow crease. Subtract 2\"–4\" from that number to get your target desk height range. Use the lower end (minus 4\") if you prefer a slightly lower position for typing, and the higher end (minus 2\") for tasks like writing or drawing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use a regular standing desk if I'm over 6'3\"?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on the desk's maximum height. If the desk tops out at 47\"–48\", users up to about 6'4\" can get a workable (though tight) fit. Users 6'5\" and above will likely find that even at maximum height, the desk sits 1\"–3\" too low, forcing shoulder elevation and wrist extension. Before purchasing, check the manufacturer's maximum height specification and compare it against your standing elbow height minus 2 inches. If the desk maximum doesn't reach that number, it won't fit you properly."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Find the Correct Standing Desk Height for Tall People",
+    "description": "Three-step process to measure your standing elbow height and calculate the exact desk height range for users 6'0\"–6'7\".",
+    "totalTime": "PT10M",
+    "tool": [
+      { "@type": "HowToTool", "name": "Measuring tape" }
+    ],
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Measure Your Standing Elbow Height",
+        "text": "Stand upright in shoes you normally wear at your desk. Relax your arms at your sides, then bend both elbows to exactly 90 degrees. Have someone measure from the floor to the bottom of your forearm at the elbow crease. This is your standing elbow height — the anchor for all standing desk height calculations."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Calculate Your Target Desk Height Range",
+        "text": "Subtract 2 to 4 inches from your standing elbow height. The lower end of that range (elbow minus 4\") is the minimum desk height where your wrists stay neutral; the upper end (elbow minus 2\") is the maximum before your shoulders start to slightly elevate. Your optimal standing desk height sits within this 2-inch window."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Verify the Desk's Maximum Height Specification",
+        "text": "Before purchasing a standing desk, find the manufacturer's maximum height specification. It must exceed the upper end of your target range (elbow height minus 2\") to give you a usable standing position. For users 6'3\" and above, this typically means requiring a desk that reaches at least 47\". For 6'5\" and above, look for desks with a 50\"+ maximum."
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Standing Desk Height for Tall People: The Exact Settings"
+  description="Exact standing desk height formula for users 6'0\"–6'7\". Elbow-height method, recommended desk ranges, and why most desks max out too low for tall people."
+  canonical="https://tallchairadvisor.com/standing-desk-height-tall-people/"
+  ogType="article"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Standing Desk Height for Tall People: The Exact Settings</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        The elbow-height formula, height-by-height desk ranges, and why most adjustable desks still max out too low for users above 6'4"
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-03-31" updatedDate="2026-03-31" />
+
+    <!-- Quick Answer Box -->
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">Standing desk height for tall people = standing elbow height minus 2"–4". At 6'4", that's approximately 43"–45". Most consumer desks max out at 47"–48", which covers users up to about 6'4" with a tight fit. Users 6'5" and above need to specifically verify the desk's maximum height before purchasing — many popular models won't reach far enough.</p>
+    </div>
+
+    <!-- TL;DR -->
+    <div class="bg-card border border-border rounded-lg px-5 py-4 my-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">TL;DR</p>
+      <ul class="text-sm space-y-1 list-disc list-inside text-muted-foreground">
+        <li>Formula: desk height = standing elbow height − 2" to 4"</li>
+        <li>At 6'4" (Jackson's height): target range is roughly 43"–45"</li>
+        <li>Most desks cap at 47"–48" — adequate for 6'4", marginal for 6'5"+, insufficient for 6'6"+</li>
+        <li>Users 6'3" and above should require a desk with a maximum height of at least 47"</li>
+        <li>Users 6'5" and above should require 50"+ to have a comfortable working range</li>
+      </ul>
+    </div>
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>Height-by-Height Standing Desk Ranges</h2>
+        <p>
+          The table below uses the elbow-height formula with typical body proportions for each height.
+          Individual results will vary based on torso-to-leg ratio — always verify with your own measurements
+          using the method described in the next section.
+        </p>
+      </section>
+
+      <section class="my-8">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+            <thead class="bg-secondary/50">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-heading">User Height</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Standing Elbow Height</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Recommended Desk Range</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground">6'0"</td>
+                <td class="px-4 py-3 text-muted-foreground">~41"</td>
+                <td class="px-4 py-3 text-muted-foreground">39"–41"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground">6'1"</td>
+                <td class="px-4 py-3 text-muted-foreground">~42"</td>
+                <td class="px-4 py-3 text-muted-foreground">40"–42"</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground">6'2"</td>
+                <td class="px-4 py-3 text-muted-foreground">~43"</td>
+                <td class="px-4 py-3 text-muted-foreground">41"–43"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground">6'3"</td>
+                <td class="px-4 py-3 text-muted-foreground">~44"</td>
+                <td class="px-4 py-3 text-muted-foreground">42"–44"</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 font-medium text-heading">6'4"</td>
+                <td class="px-4 py-3 font-medium text-heading">~45"</td>
+                <td class="px-4 py-3 font-medium text-heading">43"–45"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground">6'5"</td>
+                <td class="px-4 py-3 text-muted-foreground">~46"</td>
+                <td class="px-4 py-3 text-muted-foreground">44"–46"</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 text-muted-foreground">6'6"</td>
+                <td class="px-4 py-3 text-muted-foreground">~47"</td>
+                <td class="px-4 py-3 text-muted-foreground">45"–47"</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 text-muted-foreground">6'7"</td>
+                <td class="px-4 py-3 text-muted-foreground">~48"</td>
+                <td class="px-4 py-3 text-muted-foreground">46"–48"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-muted-foreground mt-2">
+          Elbow heights are estimates based on typical anthropometric proportions. Measure your own as described below — individual results vary by ±1"–2" depending on torso-to-leg ratio.
+        </p>
+      </section>
+
+      <section>
+        <h2>Why Most Standing Desks Fail Tall Users</h2>
+        <p>
+          The vast majority of consumer standing desks — including well-regarded models from brands like FlexiSpot,
+          Uplift, and Fully — advertise maximum heights in the 47"–48" range. That ceiling sounds generous
+          until you work through the numbers for someone above 6'4".
+        </p>
+        <p>
+          At 6'6", the recommended desk range is 45"–47". A desk that maxes out at 47" hits the exact upper
+          limit of that range — which means you have no room to fine-tune upward. Any small variation in your
+          elbow height (longer torso, thicker shoes, a preference for slightly higher positioning) pushes you
+          past what the desk can reach. At 6'7", the optimal desk height is 46"–48", and many desks
+          marketed as "tall-friendly" still cap below 48".
+        </p>
+        <p>
+          Budget standing desk frames are worse. Many fixed-height standing desk converters top out at 15"–16"
+          above the desk surface (roughly 45"–46" from the floor on a standard 30" desk) — insufficient
+          for anyone above 6'3". Even among motorized sit-stand frames, the standard residential category
+          (non-commercial) typically uses leg stroke lengths designed around a seated-to-standing range for
+          users up to about 6'2".
+        </p>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 my-6 text-sm text-amber-900">
+          <strong>Before you buy:</strong> Find the manufacturer's maximum height specification, not the
+          range. Some brands advertise "up to 6'5" compatibility" based on seated ergonomics — verify
+          the standing height separately. The number you need is the absolute maximum height the frame
+          can reach with the tabletop installed.
+        </div>
+
+        <p>
+          The practical threshold: users 6'3" and above should require a desk with a maximum height of
+          at least 47". Users 6'5" and above should look for desks that reach 50"+ — this rules out
+          most standard consumer frames but includes commercial-grade options and some extended-leg
+          configurations from major manufacturers.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Elbow-Height Formula: Why It Works</h2>
+        <p>
+          The 2"–4" below-elbow rule isn't arbitrary — it comes from the biomechanics of neutral
+          wrist posture. When your desk is at elbow height, your forearms rest horizontally and
+          your wrists are in a neutral position (no extension or flexion). Dropping the desk 2"–4"
+          below elbow height introduces a very slight downward slope from elbow to wrist, which
+          keeps the carpal tunnel in a decompressed position and reduces sustained extensor tendon load.
+        </p>
+        <p>
+          From a mechanical engineering standpoint, the wrist is a condyloid joint with six degrees
+          of freedom constrained to two: flexion/extension and radial/ulnar deviation. Sustained
+          non-neutral wrist extension — even mild, like 10–15 degrees — increases the load on the
+          median nerve and compressive stress at the carpal tunnel. Sustained wrist flexion (desk
+          too high, forearms angled upward) loads the flexor digitorum profundus continuously,
+          which fatigues faster than the extensor group. The ergonomic sweet spot is just below
+          elbow height because it minimizes tension in both directions simultaneously.
+        </p>
+        <p>
+          The shoulder-side consequence of getting desk height wrong: if the desk is too low,
+          you compensate by elevating your shoulders to bring your hands to the correct working
+          position. That's the same trapezius-overload mechanism I've written about in the
+          <a href="/shoulder-pain-tall-people/" class="link-internal">shoulder pain guide</a> —
+          sustained sub-maximal contraction of the upper trapezius, adding up over hours of work
+          to chronic fatigue and tension. Too-low desks are one of the common sources of shoulder
+          problems for tall people even when the chair is correctly set up.
+        </p>
+
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm italic">
+          OSHA's ergonomics guidance for computer workstations specifies that the keyboard and
+          mouse should be at approximately elbow height, with elbows at 90–110 degrees. At
+          standing desk height, this translates directly to the elbow-height minus 2"–4" formula.
+          <a href="https://www.osha.gov/ergonomics" class="underline text-muted-foreground hover:text-primary" target="_blank" rel="noopener noreferrer">OSHA Ergonomics</a>
+        </p>
+      </section>
+
+      <section>
+        <h2>How to Measure Your Standing Elbow Height</h2>
+        <p>
+          Don't use the table above as your only reference — measure yourself. Anthropometric
+          proportions vary enough between individuals that table values can be off by 1"–2",
+          which matters when you're already at the edge of what a desk can reach.
+        </p>
+
+        <ol class="space-y-4 my-6">
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center justify-center">1</span>
+            <div>
+              <strong class="text-heading">Stand in your work shoes.</strong> If you wear shoes at your desk,
+              wear them for this measurement — sole height shifts elbow height by 0.5"–1" and affects
+              desk setup.
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center justify-center">2</span>
+            <div>
+              <strong class="text-heading">Relax your arms, then bend to 90 degrees.</strong> Let both arms
+              hang naturally, then bend your elbows to exactly 90 degrees with forearms parallel to the floor.
+              Don't shrug your shoulders upward — let them sit naturally.
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center justify-center">3</span>
+            <div>
+              <strong class="text-heading">Measure from floor to elbow crease.</strong> Have someone measure
+              from the floor straight up to the bottom of your forearm at the elbow crease. This is your
+              standing elbow height.
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center justify-center">4</span>
+            <div>
+              <strong class="text-heading">Subtract 2"–4" for your target range.</strong> The lower bound
+              (elbow minus 4") suits most typing tasks. The upper bound (elbow minus 2") is better for
+              tasks that involve more upward arm movement. Your actual optimal desk height will land
+              somewhere in this 2-inch window.
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>What Maximum Height to Require When Buying</h2>
+        <p>
+          Once you have your target desk range, the spec that matters most is the desk's maximum
+          height — specifically, what the frame can reach with the tabletop installed. Some manufacturers
+          list frame height separately from assembled height; the assembled number is what matters.
+        </p>
+
+        <p>
+          General thresholds for tall users:
+        </p>
+
+        <ul class="my-4 space-y-2">
+          <li>
+            <strong class="text-heading">6'0"–6'2":</strong> Most standard desks (max 45"–47") will work.
+            Verify the upper end of your target range falls within the desk's range.
+          </li>
+          <li>
+            <strong class="text-heading">6'3"–6'4":</strong> Require a desk that reaches at least 47".
+            Standard consumer frames at 47" will give you a tight but workable fit. Anything capping
+            at 45"–46" is likely to leave you 1"–2" short.
+          </li>
+          <li>
+            <strong class="text-heading">6'5"–6'6":</strong> Require a desk that reaches at least 50".
+            This rules out most standard residential frames. Look for commercial-grade sit-stand frames
+            or extended-leg configurations — some manufacturers offer these as upgrades, often at significant
+            additional cost.
+          </li>
+          <li>
+            <strong class="text-heading">6'7"+:</strong> The desk maximum needs to reach 50"+ with
+            margin to spare. At this height, very few off-the-shelf options will fit without extended
+            leg frames or custom configurations. Research carefully before committing.
+          </li>
+        </ul>
+
+        <p>
+          Monitor arm compatibility is a secondary consideration for tall users at standing height. If
+          your desk is near its maximum, a fixed-height monitor will typically sit too low for comfortable
+          eye-level viewing while standing. A monitor arm that adds 12"–18" of height adjustment resolves
+          this independently of desk height and is often the better solution than trying to compensate
+          with desk height alone.
+        </p>
+      </section>
+
+      <section>
+        <h2>Pairing Your Standing Desk With the Right Chair</h2>
+        <p>
+          Standing desk setup and seated chair setup interact — getting one right while ignoring the
+          other leaves a significant part of the ergonomic problem unsolved. If your desk is set for
+          standing at 44", your seated position at that same desk height requires your chair to put
+          your elbows at desk level, which typically means a seat height of 20"–21" for a 6'4" person.
+          Most standard chairs can't reach that height, which creates the same problem we're solving
+          on the standing side.
+        </p>
+        <p>
+          For a full breakdown of the seat height, seat depth, and back height specs that tall users
+          need from a chair, see the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a>.
+          The chair and desk measurements need to be solved together, not independently.
+        </p>
+        <p>
+          In my own setup: I run the Steelcase Gesture at near-maximum seat height (around 20"–21")
+          paired with my desk at a height that keeps my elbows at desk level when seated. When I switch
+          to standing, I raise the desk to the 44"–45" range — which matches my measured standing elbow
+          height minus about 2". The Gesture handles the seated side of that equation well because
+          its seat height range extends high enough to match the desk at the lower seated setting without
+          forcing my knees upward.
+        </p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="space-y-6 mt-6">
+          <div class="border border-border rounded-lg p-5">
+            <h3 class="text-base font-semibold text-heading mt-0 mb-2">What height should a standing desk be for a 6'4" person?</h3>
+            <p class="text-sm text-muted-foreground mb-0">
+              For a 6'4" person, the standing elbow height is approximately 45 inches from the floor.
+              The recommended standing desk height is 2"–4" below that, putting the target range at
+              43"–45". Set the desk so your elbows are at roughly 90 degrees and your wrists are neutral
+              — not angled up or down — when your hands rest on the keyboard. Measure your own elbow
+              height to confirm, as proportions vary.
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-5">
+            <h3 class="text-base font-semibold text-heading mt-0 mb-2">What is the maximum height for most standing desks?</h3>
+            <p class="text-sm text-muted-foreground mb-0">
+              Most consumer standing desks max out at 47"–48". Some budget models cap at 45"–46".
+              For users 6'3" and under, the 47"–48" range is generally sufficient. For users 6'5" and
+              above, a 47"–48" ceiling is borderline or insufficient — the correct desk height for a
+              6'6" person is 45"–47", which uses the desk's full range and leaves no room for upward
+              adjustment. Users 6'7" and above need a desk that reaches at least 50".
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-5">
+            <h3 class="text-base font-semibold text-heading mt-0 mb-2">How do I calculate my standing desk height?</h3>
+            <p class="text-sm text-muted-foreground mb-0">
+              The formula: standing desk height = standing elbow height minus 2 to 4 inches. To find
+              your standing elbow height, stand upright with arms relaxed, bend both elbows to 90
+              degrees, and measure from the floor to your forearm at the elbow crease. Subtract 2"–4"
+              from that number. Use the lower end (minus 4") for typing-heavy work; the upper end
+              (minus 2") for work that involves more arm movement.
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-5">
+            <h3 class="text-base font-semibold text-heading mt-0 mb-2">Can I use a regular standing desk if I'm over 6'3"?</h3>
+            <p class="text-sm text-muted-foreground mb-0">
+              It depends on the desk's maximum height. If the desk tops out at 47"–48", users up to
+              about 6'4" can achieve a workable (though tight) fit. Users 6'5" and above will likely
+              find that even at maximum height, the desk sits 1"–3" too low, forcing shoulder elevation
+              and wrist extension. Before purchasing, check the maximum height specification and compare
+              it against your standing elbow height minus 2 inches. If the desk maximum doesn't reach
+              that number, it won't fit you correctly.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </article>
+</Layout>

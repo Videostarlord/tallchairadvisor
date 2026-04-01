@@ -52,6 +52,7 @@ const pageLastmod = {
   'https://tallchairadvisor.com/office-chairs-for-6-foot-5/': new Date('2026-03-17'),
   'https://tallchairadvisor.com/office-chairs-for-6-foot-6/': new Date('2026-03-17'),
   'https://tallchairadvisor.com/office-chairs-for-6-foot-7/': new Date('2026-03-17'),
+  'https://tallchairadvisor.com/standing-desk-height-tall-people/': new Date('2026-03-31'),
 };
 
 export default defineConfig({
@@ -84,7 +85,8 @@ export default defineConfig({
           item.url === 'https://tallchairadvisor.com/pain-ergonomics/' ||
           item.url === 'https://tallchairadvisor.com/fit-guides/' ||
           item.url === 'https://tallchairadvisor.com/shoulder-pain-tall-people/' ||
-          item.url === 'https://tallchairadvisor.com/best-office-chairs-under-500/'
+          item.url === 'https://tallchairadvisor.com/best-office-chairs-under-500/' ||
+          item.url === 'https://tallchairadvisor.com/standing-desk-height-tall-people/'
         ) {
           item.priority = 0.8;
           item.changefreq = 'monthly';
