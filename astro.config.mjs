@@ -38,6 +38,7 @@ const pageLastmod = {
   'https://tallchairadvisor.com/chairs/steelcase-leap-plus/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/': new Date('2026-03-08'),
+  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/': new Date('2026-03-30'),
   'https://tallchairadvisor.com/about/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/contact/': new Date('2026-01-01'),
   'https://tallchairadvisor.com/privacy-policy/': new Date('2026-01-01'),
@@ -79,6 +80,7 @@ export default defineConfig({
           item.url.includes('/review/') ||
           item.url.includes('/aeron-vs-') ||
           item.url.includes('/gesture-vs-') ||
+          item.url.includes('/office-chairs-for-6-foot-') ||
           item.url === 'https://tallchairadvisor.com/pain-ergonomics/' ||
           item.url === 'https://tallchairadvisor.com/fit-guides/' ||
           item.url === 'https://tallchairadvisor.com/shoulder-pain-tall-people/' ||

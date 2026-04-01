@@ -5,54 +5,60 @@ import Byline from '../../../components/Byline.astro';
 const schema = [
   {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Steelcase Gesture",
+    "@type": "Article",
+    "name": "Steelcase Gesture for Tall People",
     "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
     "image": "https://tallchairadvisor.com/images/gesture-hero.webp",
     "description": "The Steelcase Gesture is an ergonomic office chair featuring 360-degree armrests, adjustable seat depth up to 18.75\", and a 400 lb weight capacity designed for multi-device workers.",
-    "brand": { "@type": "Brand", "name": "Steelcase" },
-    "offers": {
-      "@type": "Offer",
-      "price": "1649.00",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-            "priceValidUntil": "2027-03-01",
-      "hasMerchantReturnPolicy": {
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": "US",
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 30,
-        "returnMethod": "https://schema.org/ReturnByMail",
-        "returnFees": "https://schema.org/FreeReturn"
+    "headline": "Steelcase Gesture for Tall People — Specs, Fit Guide, and Tall-User Analysis",
+    "author": {
+      "@type": "Person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "url": "https://tallchairadvisor.com/"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Steelcase Gesture good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture fits tall users in the 6'0\"–6'4\" range well. Its seat height reaches 21\", the adjustable seat depth extends to 18.75\", and the 24\" back height provides shoulder-blade coverage for most tall torsos. The 400 lb weight capacity accommodates larger frames. Users above 6'4\" who need more seat height or seat depth should consider the Steelcase Leap Plus, which reaches 22.5\" seat height and 19.75\" seat depth."
+        }
       },
-      "shippingDetails": {
-        "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "0",
-          "currency": "USD"
-        },
-        "shippingDestination": {
-          "@type": "DefinedRegion",
-          "addressCountry": "US"
-        },
-        "deliveryTime": {
-          "@type": "ShippingDeliveryTime",
-          "handlingTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 0,
-            "maxValue": 1,
-            "unitCode": "DAY"
-          },
-          "transitTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 2,
-            "maxValue": 7,
-            "unitCode": "DAY"
-          }
+      {
+        "@type": "Question",
+        "name": "What is the seat height range of the Steelcase Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture seat height adjusts from 16\" to 21\". For tall users, the typical working range is 19\"–21\". Correct seat height positions feet flat on the floor with thighs roughly parallel to the ground and elbows at desk surface height without shoulder elevation. Tall users near 6'4\" will generally use the upper portion of the adjustment range."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What height does the Steelcase Gesture fit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Gesture is best suited for users approximately 6'0\"–6'4\" based on its seat height ceiling of 21\" and maximum seat depth of 18.75\". Users above 6'4\" — particularly those with thigh lengths (hip to knee) approaching or exceeding 19\" — may find the seat depth ceiling limiting. The Steelcase Leap Plus, with a 22.5\" seat height and 19.75\" seat depth, covers users above 6'4\" more reliably."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Steelcase Gesture compare to other ergonomic chairs for tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Among premium ergonomic chairs, the Steelcase Gesture's key differentiator for tall users is its 360-degree armrest system, which no other mainstream chair replicates. Its adjustable seat depth (15.75\"–18.75\") outperforms the Herman Miller Aeron Size C's fixed 18.5\" depth. However, the Aeron's Pellicle mesh provides superior breathability for users who run warm. The Steelcase Leap Plus offers higher dimensional ceilings (22.5\" seat height, 19.75\" seat depth, 25.5\" back height) for users above 6'4\". The Gesture is the strongest choice for multi-device workers in the 6'0\"–6'4\" range who value arm flexibility."
         }
       }
-    }
+    ]
   },
   {
     "@context": "https://schema.org",

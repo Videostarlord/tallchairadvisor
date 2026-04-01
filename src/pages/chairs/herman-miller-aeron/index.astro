@@ -4,54 +4,60 @@ import Layout from '../../../layouts/Layout.astro';
 const schema = [
   {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Herman Miller Aeron Size C",
+    "@type": "Article",
+    "name": "Herman Miller Aeron Size C for Tall People",
     "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
     "image": "https://tallchairadvisor.com/images/aeron-size-c-hero.webp",
     "description": "The Herman Miller Aeron Size C is a large-format ergonomic office chair with Pellicle mesh, PostureFit SL lumbar support, and a 350 lb weight capacity, designed for users 6'0\"–6'6\".",
-    "brand": { "@type": "Brand", "name": "Herman Miller" },
-    "offers": {
-      "@type": "Offer",
-      "price": "1795.00",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-            "priceValidUntil": "2027-03-01",
-      "hasMerchantReturnPolicy": {
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": "US",
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 30,
-        "returnMethod": "https://schema.org/ReturnByMail",
-        "returnFees": "https://schema.org/FreeReturn"
+    "headline": "Herman Miller Aeron Size C for Tall People — Specs, Fit Guide, and Tall-User Analysis",
+    "author": {
+      "@type": "Person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "url": "https://tallchairadvisor.com/"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron Size C good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C is well-suited for tall users in the 6'0\"–6'4\" range. Its seat height adjusts from 16\" to 20.5\", the 23.5\" back height reaches the shoulder blades of most tall torsos, and the 350 lb weight capacity accommodates larger frames. The key limitation is the fixed seat depth of approximately 18.5\", which does not adjust. Users above 6'4\" with longer thighs may find this depth restrictive and should verify their measured thigh length before purchasing."
+        }
       },
-      "shippingDetails": {
-        "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "0",
-          "currency": "USD"
-        },
-        "shippingDestination": {
-          "@type": "DefinedRegion",
-          "addressCountry": "US"
-        },
-        "deliveryTime": {
-          "@type": "ShippingDeliveryTime",
-          "handlingTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 0,
-            "maxValue": 1,
-            "unitCode": "DAY"
-          },
-          "transitTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 2,
-            "maxValue": 7,
-            "unitCode": "DAY"
-          }
+      {
+        "@type": "Question",
+        "name": "What is the seat height range of the Aeron Size C?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C seat height adjusts from 16\" to 20.5\". For tall users, the recommended starting point is near the maximum — typically 19\"–20.5\" for users 6'0\"–6'4\". Correct seat height places your feet flat on the floor with thighs roughly parallel to the ground and elbows at desk height without shoulder shrugging."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What height range does the Aeron Size C fit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Aeron Size C is designed for users approximately 6'0\"–6'6\" based on manufacturer specifications. In practice, the fixed 18.5\" seat depth is the binding constraint: users with thigh lengths (hip to knee) exceeding 19\" may experience pressure at the front edge of the seat. Most users in the 6'0\"–6'4\" range with average proportions fit well; users above 6'4\" should measure their seated thigh length before purchasing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Aeron Size C compare to the Steelcase Gesture for tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Aeron Size C and Steelcase Gesture target a similar height range (6'0\"–6'4\") but differ on two key dimensions. The Aeron uses Pellicle mesh for superior breathability — a significant advantage for users who run warm. The Gesture has an adjustable seat depth (15.75\"–18.75\") versus the Aeron's fixed 18.5\", giving the Gesture more fit flexibility. The Gesture's 360-degree armrests are also unique among premium ergonomic chairs. Users who prioritize breathability favor the Aeron; users who work across multiple devices or need seat depth flexibility favor the Gesture."
         }
       }
-    }
+    ]
   },
   {
     "@context": "https://schema.org",
