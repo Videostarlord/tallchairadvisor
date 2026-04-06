@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-04-06
+last_updated: 2026-04-06 (blind-spot fixes)
 ---
 
 # TCA Wiki Index
@@ -57,7 +57,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 Located in `raw/`. Organized by type:
 - `raw/gsc/` — 11 GSC data exports (Mar 7 through Apr 3)
 - `raw/audits/` — 13 audit/analysis files (Feb through Apr 3)
-- `raw/strategy/` — 11 strategy/planning files
+- `raw/strategy/` — 12 strategy/planning files (latest: 2026-04-06-blind-spot-fixes.md)
 - `raw/reddit/` — Reddit/Apify workflow docs
 - `raw/misc/` — Session context, PDF
 - `raw/assets/` — Images, XML files

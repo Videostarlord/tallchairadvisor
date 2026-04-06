@@ -27,6 +27,7 @@ interface CompetitorPage {
   wordCount: number;
   hasSchema: boolean;
   schemaTypes: string[];
+  dead: boolean;
 }
 
 async function fetchPage(url: string): Promise<{ html: string; status: number }> {
@@ -41,7 +42,7 @@ async function fetchPage(url: string): Promise<{ html: string; status: number }>
   }
 }
 
-function extract(html: string): Omit<CompetitorPage, 'name' | 'url' | 'topic' | 'fetchedAt' | 'status'> {
+function extract(html: string): Omit<CompetitorPage, 'name' | 'url' | 'topic' | 'fetchedAt' | 'status' | 'dead'> {
   const title = html.match(/<title[^>]*>(.*?)<\/title>/i)?.[1]?.trim() ?? null;
   const metaDescription = html.match(/<meta\s+name=["']description["']\s+content="(.*?)"/i)?.[1] ?? null;
   const h1 = html.match(/<h1[^>]*>(.*?)<\/h1>/i)?.[1]?.replace(/<[^>]+>/g, '').trim() ?? null;
@@ -64,10 +65,11 @@ async function main() {
   for (const comp of config.competitors) {
     console.log(`Fetching: ${comp.name} — ${comp.url}`);
     const { html, status } = await fetchPage(comp.url);
-    const extracted = html ? extract(html) : {
+    const dead = status >= 400 || status === 0;
+    const extracted = !dead ? extract(html) : {
       title: null, metaDescription: null, h1: null, h2s: [], wordCount: 0, hasSchema: false, schemaTypes: [],
     };
-    results.push({ name: comp.name, url: comp.url, topic: comp.topic, fetchedAt: new Date().toISOString(), status, ...extracted });
+    results.push({ name: comp.name, url: comp.url, topic: comp.topic, fetchedAt: new Date().toISOString(), status, dead, ...extracted });
     await new Promise(r => setTimeout(r, 2000)); // polite delay
   }
 
@@ -88,7 +90,7 @@ OUR TOP PAGES (GSC):
 ${JSON.stringify(topPages, null, 2)}
 
 COMPETITOR PAGES:
-${results.map(r => `
+${results.filter(r => !r.dead).map(r => `
 ${r.name} (${r.url}):
 - Title: ${r.title}
 - Meta: ${r.metaDescription}
@@ -97,6 +99,7 @@ ${r.name} (${r.url}):
 - Word count: ~${r.wordCount}
 - Schema types: ${r.schemaTypes.join(', ')}
 `).join('\n')}
+${results.some(r => r.dead) ? `\nSKIPPED (unreachable): ${results.filter(r => r.dead).map(r => r.name).join(', ')}` : ''}
 
 Output a brief JSON with:
 {
@@ -147,7 +150,12 @@ Output a brief JSON with:
     }
   }
 
-  appendWikiLog(ROOT, `## [${today()}] competitor-monitor | Competitor Scan\n\n- Monitored: ${results.length} pages\n- Gaps found: ${analysis.gaps?.length || 0}\n- Summary: ${analysis.summary}\n`);
+  const deadCount = results.filter(r => r.dead).length;
+  const liveCount = results.length - deadCount;
+  if (deadCount > 0) {
+    console.warn(`WARNING: ${deadCount} competitor URL(s) unreachable: ${results.filter(r => r.dead).map(r => `${r.name} (${r.url})`).join(', ')}`);
+  }
+  appendWikiLog(ROOT, `## [${today()}] competitor-monitor | Competitor Scan\n\n- Monitored: ${results.length} pages (${liveCount} live, ${deadCount} dead)\n- Gaps found: ${analysis.gaps?.length || 0}\n- Summary: ${analysis.summary}\n`);
 
   console.log(`\nDone. Monitored ${results.length} competitor pages.`);
   console.log('Analysis:', analysis.summary);

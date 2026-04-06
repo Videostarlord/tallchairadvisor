@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-06
+last_updated: 2026-04-06 (cadence policy added)
 sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-03-competitor-analysis.md, raw/strategy/2026-03-content-calendar.md]
 tags: [content-gaps, opportunities, strategy]
 ---
@@ -49,6 +49,41 @@ Queries competitors rank for where TCA could win:
 | /office-chairs-for-tall-people/ | Thin content, buried at pos 69–79 for core queries | HIGH — "best office chair for tall people" has 22 impr |
 | /leg-pain-circulation/ | Score 59, needs full rewrite | LOW |
 | Height guides (6-foot-5, 6-foot-6, 6-foot-7) | Scores 67–68 | MEDIUM |
+
+## Edit Cadence Policy
+
+Codified 2026-04-06 based on GPT analysis and thin GSC data volume (~4,100 total impressions). At low data volumes, re-editing the same page every week makes results uninterpretable. Rules:
+
+### Fix Immediately (no cooldown)
+Technical errors — always fix without waiting:
+- Broken schema / JSON-LD parse error
+- Wrong or missing canonical tag
+- `noindex` set incorrectly
+- 404 or broken internal link
+- Voice violation (wrong testing voice for non-Gesture chair)
+- Missing or incorrect affiliate tag
+
+### 14-Day Cooldown Required
+CTR and content quality changes — need enough data to measure:
+- Title tag rewrites
+- Meta description rewrites
+- Body content edits
+- Heading changes
+
+### 28–42 Days Before Judging a New Page
+New pages need indexing time. Don't optimize a page that was just published.
+
+### Impression Thresholds
+| Impressions | Action |
+|-------------|--------|
+| < 100 | Noise — do not optimize. Let it index. |
+| 100–300 | Weak signal — technical fixes only |
+| 300+ | Actionable — CTR/meta changes are worth trying |
+| 400+ at pos ≤10, 0 clicks | CRITICAL — fix immediately, ignore cooldown |
+
+**Implementation:** These rules are now enforced in two places:
+1. `strategy.ts` — injected into Claude prompt so the weekly plan respects cadence
+2. `execute-fixes.ts` — runtime cooldown guard skips non-technical fixes on recently edited files (14-day window)
 
 ## Links
 

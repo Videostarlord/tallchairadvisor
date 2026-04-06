@@ -118,6 +118,103 @@ async function checkCredentialsNotStaged(): Promise<CheckResult> {
   }
 }
 
+async function checkSchemaValidity(): Promise<CheckResult> {
+  const distDir = resolve(ROOT, 'dist');
+  if (!existsSync(distDir)) {
+    return { passed: true, name: 'Schema validity', details: 'dist/ not found — run build first to validate schema.' };
+  }
+  const htmlFiles = await new Glob('dist/**/*.html', { cwd: ROOT }).walk();
+  const violations: string[] = [];
+
+  for (const file of htmlFiles) {
+    const content = readFileSync(resolve(ROOT, file), 'utf-8');
+    const schemaMatches = [...content.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)];
+    for (const m of schemaMatches) {
+      try { JSON.parse(m[1]); } catch {
+        violations.push(`${file}: JSON-LD parse error — ${m[1].slice(0, 60).replace(/\n/g, ' ')}...`);
+      }
+    }
+  }
+
+  return {
+    passed: violations.length === 0,
+    name: 'Schema validity',
+    details: violations.length === 0 ? `All JSON-LD valid (${htmlFiles.length} pages checked)` : violations.join('\n'),
+  };
+}
+
+async function checkInternalLinks(): Promise<CheckResult> {
+  const pageFiles = await new Glob('src/pages/**/*.astro', { cwd: ROOT }).walk();
+
+  // Build set of known routes
+  const knownRoutes = new Set<string>();
+  for (const file of pageFiles) {
+    const route = file
+      .replace(/^src\/pages/, '')
+      .replace(/\.astro$/, '')
+      .replace(/\/index$/, '/');
+    knownRoutes.add(route.endsWith('/') ? route : route + '/');
+  }
+  knownRoutes.add('/');
+
+  const srcFiles = await new Glob('src/**/*.astro', { cwd: ROOT }).walk();
+  const violations: string[] = [];
+
+  for (const file of srcFiles) {
+    const content = readFileSync(resolve(ROOT, file), 'utf-8');
+    const hrefs = [...content.matchAll(/href="(\/[^"#?]+)"/g)];
+    for (const [, href] of hrefs) {
+      if (href.startsWith('/images/') || href.startsWith('/assets/')) continue;
+      const normalized = href.endsWith('/') ? href : href + '/';
+      if (!knownRoutes.has(normalized)) {
+        violations.push(`${file}: broken internal link → ${href}`);
+      }
+    }
+  }
+
+  return {
+    passed: violations.length === 0,
+    name: 'Internal links',
+    details: violations.length === 0 ? 'All internal links resolve' : violations.join('\n'),
+  };
+}
+
+async function checkContentRegression(): Promise<CheckResult> {
+  try {
+    const changed = execSync('git diff --name-only HEAD~1 -- src/pages/', { cwd: ROOT })
+      .toString().split('\n').filter(f => f.endsWith('.astro'));
+
+    if (changed.length === 0) {
+      return { passed: true, name: 'Content regression', details: 'No page files changed since last commit.' };
+    }
+
+    const violations: string[] = [];
+    for (const file of changed) {
+      const fullPath = resolve(ROOT, file);
+      if (!existsSync(fullPath)) continue;
+      const current = readFileSync(fullPath, 'utf-8').split(/\s+/).filter(w => w.length > 0).length;
+      try {
+        const previous = execSync(`git show HEAD~1:"${file}"`, { cwd: ROOT })
+          .toString().split(/\s+/).filter((w: string) => w.length > 0).length;
+        if (previous > 0 && current < previous * 0.85) {
+          const pct = Math.round((1 - current / previous) * 100);
+          violations.push(`${file}: word count dropped ${previous} → ${current} (${pct}%)`);
+        }
+      } catch { /* file didn't exist in HEAD~1 — new file, skip */ }
+    }
+
+    return {
+      passed: violations.length === 0,
+      name: 'Content regression',
+      details: violations.length === 0
+        ? `No regressions in ${changed.length} changed file(s)`
+        : violations.join('\n'),
+    };
+  } catch {
+    return { passed: true, name: 'Content regression', details: 'Could not compare git history.' };
+  }
+}
+
 async function main() {
   console.log('Running verification checks...\n');
   const checks = await Promise.all([
@@ -125,6 +222,9 @@ async function main() {
     checkAffiliateLinks(),
     checkVoice(),
     checkCredentialsNotStaged(),
+    checkSchemaValidity(),
+    checkInternalLinks(),
+    checkContentRegression(),
   ]);
 
   const allPassed = checks.every(c => c.passed);

@@ -5,6 +5,7 @@
 
 import 'dotenv/config';
 import Anthropic from '@anthropic-ai/sdk';
+import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -18,6 +19,16 @@ interface FixTask {
   description: string;
   filePath: string;
   raw: string;
+}
+
+function daysSinceLastEdit(filePath: string): number {
+  try {
+    const lastDate = execSync(
+      `git log -1 --format=%ai -- "${filePath}"`, { cwd: ROOT }
+    ).toString().trim();
+    if (!lastDate) return Infinity;
+    return Math.floor((Date.now() - new Date(lastDate).getTime()) / 86400000);
+  } catch { return Infinity; }
 }
 
 function parsePlan(plan: string): FixTask[] {
@@ -42,6 +53,19 @@ async function applyFix(task: FixTask): Promise<{ success: boolean; summary: str
   }
 
   const fileContent = readFileSync(fullPath, 'utf-8');
+  const originalWordCount = fileContent.split(/\s+/).filter(w => w.length > 0).length;
+
+  // Cooldown guard: skip non-technical fixes on recently edited files
+  const daysSince = daysSinceLastEdit(fullPath);
+  if (daysSince < 14) {
+    const isTechnical = /schema|canonical|noindex|404|broken|redirect|voice|affiliate/i.test(task.description);
+    if (!isTechnical) {
+      return {
+        success: false,
+        summary: `SKIPPED: ${task.filePath} was edited ${daysSince}d ago. Non-technical fixes require 14-day cooldown.`,
+      };
+    }
+  }
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
@@ -81,8 +105,17 @@ Output the complete updated file content only. Make ONLY the requested change.`,
     return { success: false, summary: `Empty response for ${task.filePath}` };
   }
 
+  const newWordCount = cleaned.split(/\s+/).filter(w => w.length > 0).length;
+  if (newWordCount < originalWordCount * 0.85) {
+    const pctDrop = Math.round((1 - newWordCount / originalWordCount) * 100);
+    return {
+      success: false,
+      summary: `REJECTED: Word count dropped from ${originalWordCount} to ${newWordCount} (${pctDrop}% reduction). Skipping write.`,
+    };
+  }
+
   writeFileSync(fullPath, cleaned);
-  return { success: true, summary: `Fixed: ${task.description} in ${task.filePath}` };
+  return { success: true, summary: `Fixed: ${task.description} in ${task.filePath} (words: ${originalWordCount} → ${newWordCount})` };
 }
 
 async function main() {

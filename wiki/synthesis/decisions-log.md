@@ -8,6 +8,17 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W15 (Apr 7 – Apr 13)
+
+- **Automation system hardened:** 7 blind spots identified by GPT review, all fixed in one commit
+- **Fix 1 (voice):** One remaining voice violation fixed in `/chairs/steelcase-leap-plus/index.astro` ("every other chair I tested seriously" → "every other chair evaluated for this height range"). All other author/about/llms.txt/height-guide pages were already clean.
+- **Fix 2 (competitors):** Replaced 4 competitor URLs (RTINGS, Ergonomic Trends, OfficechairPicks, Wirecutter kept) with 5 verified URLs. Added `dead: boolean` tracking through interface → output JSON → wiki log.
+- **Fix 3 (audit history):** Replaced wholesale `writeWikiPage()` overwrite of `gsc-performance.md` with read-preserve-append logic. Max 8 historical snapshots retained on each run.
+- **Fix 4 (deploy checks):** Added 3 new verify-deploy checks: `checkSchemaValidity()` (JSON-LD parse), `checkInternalLinks()` (broken hrefs), `checkContentRegression()` (>15% word count drop).
+- **Fix 5 (word count guard):** execute-fixes.ts now rejects any Claude-generated file where word count drops >15% from original.
+- **Fix 7 (edit cadence):** strategy.ts now injects recently-edited pages list (21-day window) and impression thresholds into Claude prompt. execute-fixes.ts now enforces 14-day cooldown on non-technical fixes.
+- **Decision:** Edit cadence policy codified — technical fixes anytime; CTR/meta changes require 14-day cooldown; impression thresholds: <100=noise, 100-300=technical only, 300+=CTR changes OK, 400+@pos≤10+0clicks=CRITICAL.
+
 ## 2026-W14 (Mar 31 – Apr 6)
 
 - **Audit score:** 89/100 (+3 from Mar 30)

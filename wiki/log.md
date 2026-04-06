@@ -8,6 +8,24 @@ Chronological record of wiki operations. Append new entries at the top.
 
 ---
 
+## [2026-04-06] Automation Blind Spot Fixes
+
+**Operation:** Hardened 6 automation agents against 7 GPT-identified blind spots.
+
+**Changes made:**
+- `data/competitors/config.json` — 5 new verified competitor URLs (replaced RTINGS + Ergonomic Trends + OfficechairPicks)
+- `scripts/agents/competitor-monitor.ts` — added `dead: boolean` tracking; dead URLs filtered from Claude prompt, logged in wiki
+- `scripts/agents/execute-fixes.ts` — added word count guard (reject if <85% of original) + 14-day cooldown on non-technical fixes
+- `scripts/agents/strategy.ts` — added `getRecentlyEditedPages()` and injected edit cadence rules + impression thresholds into Claude prompt
+- `scripts/agents/audit.ts` — replaced wholesale gsc-performance.md overwrite with history-preserving append (max 8 snapshots)
+- `scripts/agents/verify-deploy.ts` — added `checkSchemaValidity()`, `checkInternalLinks()`, `checkContentRegression()` to deploy gate
+- `src/pages/chairs/steelcase-leap-plus/index.astro` — fixed last voice violation ("every other chair I tested seriously")
+- Edit cadence policy documented in `wiki/pages/concepts/content-gaps.md`
+
+**Wiki pages updated:** decisions-log.md, log.md, content-gaps.md
+
+---
+
 ## [2026-04-06] agent-integration | Automation Agents Wired to Wiki
 
 **Operation:** Updated all 6 automation agents + GSC pull script to read from and write to the wiki

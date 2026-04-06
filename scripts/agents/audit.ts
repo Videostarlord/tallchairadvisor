@@ -8,7 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { archiveToRaw, appendWikiLog, readConceptContext, readSynthesisContext, writeWikiPage, today } from './wiki-utils.js';
+import { archiveToRaw, appendWikiLog, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -123,7 +123,39 @@ ${report}`;
   // Archive to wiki raw layer
   archiveToRaw(ROOT, 'audits', `${today()}-weekly-audit.md`, output);
 
-  // Update wiki GSC performance page with latest metrics
+  // Update wiki GSC performance page — preserve history, don't overwrite
+  const existingGscPage = readWikiPage(ROOT, 'pages/concepts/gsc-performance.md') || '';
+
+  // Extract and archive existing "Latest Snapshot" section as a historical entry
+  const latestMatch = existingGscPage.match(/## Latest Snapshot[^\n]*\n([\s\S]*?)(?=\n## |\n---\s*$|$)/);
+  const oldSnapshotContent = latestMatch?.[1]?.trim() ?? '';
+
+  // Extract existing historical entries
+  const historyMatch = existingGscPage.match(/## Historical Snapshots\n([\s\S]*?)(?=\n## |\n---\s*$|$)/);
+  const existingHistory = historyMatch?.[1]?.trim() ?? '';
+
+  // Split history into individual dated blocks (separated by blank lines + date heading)
+  const historyBlocks = existingHistory
+    .split(/\n(?=### )/)
+    .map(b => b.trim())
+    .filter(b => b.length > 0);
+
+  // Keep latest 7 historical entries (new one will bring total to 8)
+  const trimmedHistory = historyBlocks.slice(0, 7);
+
+  // Build new historical entry from old snapshot
+  const prevDate = existingGscPage.match(/## Latest Snapshot \(([^)]+)\)/)?.[1] ?? 'previous';
+  const newHistoryEntry = oldSnapshotContent
+    ? `### ${prevDate}\n\n${oldSnapshotContent}`
+    : '';
+
+  const historicalSection = [newHistoryEntry, ...trimmedHistory].filter(b => b.length > 0).join('\n\n');
+
+  // Build new top pages table
+  const topPagesTable = pagesToAudit.slice(0, 10)
+    .map((p: any) => `| ${p.page} | ${p.impressions} impr | pos ${p.position} | ${p.ctr}% CTR | ${p.clicks} clicks |`)
+    .join('\n');
+
   const gscWikiUpdate = `---
 type: concept
 last_updated: ${today()}
@@ -144,9 +176,13 @@ tags: [gsc, performance, metrics, tracking]
 
 ## Top Pages
 
-${pagesToAudit.slice(0, 10).map((p: any) => `| ${p.page} | ${p.impressions} impr | pos ${p.position} | ${p.ctr}% CTR | ${p.clicks} clicks |`).join('\n')}
+${topPagesTable}
 
 *Full audit report: raw/audits/${today()}-weekly-audit.md*
+
+## Historical Snapshots
+
+${historicalSection}
 `;
   writeWikiPage(ROOT, 'pages/concepts/gsc-performance.md', gscWikiUpdate);
 

@@ -5,6 +5,7 @@
 
 import 'dotenv/config';
 import Anthropic from '@anthropic-ai/sdk';
+import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -16,6 +17,17 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 function readIfExists(path: string, fallback = 'Not available.'): string {
   return existsSync(path) ? readFileSync(path, 'utf-8') : fallback;
+}
+
+function getRecentlyEditedPages(): string[] {
+  try {
+    const since = new Date(Date.now() - 21 * 86400000).toISOString().split('T')[0];
+    const output = execSync(
+      `git log --since="${since}" --name-only --pretty=format: -- src/pages/`,
+      { cwd: ROOT }
+    ).toString();
+    return [...new Set(output.split('\n').filter(f => f.endsWith('.astro')))];
+  } catch { return []; }
 }
 
 async function main() {
@@ -36,6 +48,8 @@ async function main() {
   ]);
   const decisionsLog = readWikiPage(ROOT, 'synthesis/decisions-log.md') || '';
   const thesis = readWikiPage(ROOT, 'synthesis/thesis.md') || '';
+
+  const recentlyEdited = getRecentlyEditedPages();
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
@@ -84,6 +98,18 @@ ${competitors.analysis.gaps?.map((g: any) => `- [${g.priority}] ${g.gap}: ${g.re
 
 PREVIOUS PLAN (for continuity):
 ${prevPlan.slice(0, 500)}
+
+EDIT CADENCE RULES — CRITICAL:
+- Do NOT schedule FIXES or REWRITES for pages edited in the last 14 days UNLESS the issue is technical (broken schema, bad canonical, 404 link, noindex error, voice violation, affiliate tag).
+- New content pages can be published freely every week.
+- IMPRESSION THRESHOLDS FOR ACTION:
+  - <100 impressions: noise — do not optimize, let it index
+  - 100–300 impressions: weak signal — only fix technical issues
+  - 300+ impressions: actionable signal — CTR/meta changes are worth trying
+  - 400+ impressions at pos ≤10 with 0 clicks: CRITICAL — fix regardless of cooldown
+
+RECENTLY EDITED PAGES (do not re-edit unless technical fix):
+${recentlyEdited.length > 0 ? recentlyEdited.map(f => `- ${f}`).join('\n') : '(none in last 21 days)'}
 
 Output a structured weekly plan in this EXACT format so the execution agents can parse it:
 
