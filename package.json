@@ -9,7 +9,15 @@
     "reddit:fetch": "tsx scripts/reddit-fetch.ts",
     "reddit:normalize": "tsx scripts/reddit-normalize.ts",
     "reddit:summarize": "tsx scripts/reddit-summarize.ts",
-    "reddit:all": "npm run reddit:fetch all && npm run reddit:normalize all && npm run reddit:summarize all"
+    "reddit:all": "npm run reddit:fetch all && npm run reddit:normalize all && npm run reddit:summarize all",
+    "gsc:pull": "tsx scripts/gsc-pull.ts",
+    "gsc:pull:16m": "tsx scripts/gsc-pull.ts --days=16m",
+    "agent:competitor": "tsx scripts/agents/competitor-monitor.ts",
+    "agent:audit": "tsx scripts/agents/audit.ts",
+    "agent:strategy": "tsx scripts/agents/strategy.ts",
+    "agent:fixes": "tsx scripts/agents/execute-fixes.ts",
+    "agent:content": "tsx scripts/agents/execute-content.ts",
+    "agent:verify": "tsx scripts/agents/verify-deploy.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",
@@ -20,6 +28,8 @@
     "apify-client": "^2.11.1",
     "astro": "^4.16.18",
     "dotenv": "^16.4.7",
+    "glob": "^13.0.6",
+    "googleapis": "^171.4.0",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7"
   },

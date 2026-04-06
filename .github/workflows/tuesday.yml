@@ -1,0 +1,34 @@
+name: Tuesday — Full Site Audit
+
+on:
+  schedule:
+    - cron: '0 8 * * 2' # 8:00 UTC = 1:00 AM PDT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Run audit agent
+        run: npx tsx scripts/agents/audit.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit audit report
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git add reports/audit-report.md
+          git diff --staged --quiet || git commit -m "report: Tuesday audit $(date +%Y-%m-%d)"
+          git push

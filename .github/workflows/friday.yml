@@ -1,0 +1,40 @@
+name: Friday — New Content (Conditional)
+
+on:
+  schedule:
+    - cron: '0 8 * * 5' # 8:00 UTC = 1:00 AM PDT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute-content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Run content agent
+        id: content
+        run: npx tsx scripts/agents/execute-content.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Verify build (only if content was written)
+        if: env.CONTENT_WRITTEN == 'true'
+        run: npm run build
+
+      - name: Commit new content
+        if: env.CONTENT_WRITTEN == 'true'
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git add src/ reports/content-log.md
+          git diff --staged --quiet || git commit -m "content: New pages $(date +%Y-%m-%d)"
+          git push

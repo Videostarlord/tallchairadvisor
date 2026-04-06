@@ -1,0 +1,37 @@
+name: Saturday — Verify & Deploy
+
+on:
+  schedule:
+    - cron: '0 9 * * 6' # 9:00 UTC = 2:00 AM PDT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Run verification agent
+        run: npx tsx scripts/agents/verify-deploy.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Final build verification
+        run: npm run build
+
+      - name: Commit weekly summary and push
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git add reports/weekly-summary.md
+          git diff --staged --quiet || git commit -m "deploy: Weekly cycle $(date +%Y-%m-%d)"
+          git push

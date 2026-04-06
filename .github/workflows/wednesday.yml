@@ -1,0 +1,34 @@
+name: Wednesday — Strategy & Planning
+
+on:
+  schedule:
+    - cron: '0 8 * * 3' # 8:00 UTC = 1:00 AM PDT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  strategy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Run strategy agent
+        run: npx tsx scripts/agents/strategy.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit weekly plan
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git add reports/weekly-plan.md
+          git diff --staged --quiet || git commit -m "plan: Week of $(date +%Y-%m-%d)"
+          git push
