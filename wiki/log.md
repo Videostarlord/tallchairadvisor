@@ -87,6 +87,20 @@ Chronological record of wiki operations. Append new entries at the top.
 
 ---
 
+## [2026-04-06] competitor-monitor | Competitor Scan
+
+- Monitored: 5 pages (5 live, 0 dead)
+- Gaps found: 3
+- Summary: Your site is generating meaningful impression volume across several high-intent pages but converting almost none of it into clicks, pointing to three compounding problems: under-built content on your most-searched money page, absent structured data that suppresses CTR even at solid positions, and an incomplete chair-specific sub-page architecture for the Aeron that leaves affiliate traffic on the table. The highest-ROI move this week is a combined content expansion and schema implementation sprint on /office-chairs-for-tall-people/ and /review/gesture/, as these two pages alone account for nearly 1,000 impressions with a combined 2 clicks. Closing the Aeron dimension content gap is the medium-term structural fix that will compound your topical authority and support the comparison pages already showing early ranking signals.
+
+
+## [2026-04-06] gsc-pull | GSC Data Pull
+
+- Period: 2026-01-06 → 2026-04-06 (90 days)
+- Pages: 36 | Queries: 200
+- Clicks: 10 | Impressions: 4443 | Avg pos: 14.3
+
+
 ## [2026-04-06] initial-build | Wiki Created from Existing Data
 
 **Operation:** Full wiki initialization from ~35 existing workspace files
