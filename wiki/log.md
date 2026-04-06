@@ -24,8 +24,6 @@ Chronological record of wiki operations. Append new entries at the top.
 
 **Wiki pages updated:** decisions-log.md, log.md, content-gaps.md
 
----
-
 ## [2026-04-06] agent-integration | Automation Agents Wired to Wiki
 
 **Operation:** Updated all 6 automation agents + GSC pull script to read from and write to the wiki

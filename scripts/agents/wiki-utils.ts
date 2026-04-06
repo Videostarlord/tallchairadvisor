@@ -63,7 +63,7 @@ export function appendWikiLog(repoRoot: string, entry: string): void {
   const current = readFileSync(logPath, 'utf-8');
   // Insert after the "---" separator line (after the header)
   const marker = '\n---\n';
-  const lastMarkerIdx = current.lastIndexOf(marker);
+  const lastMarkerIdx = current.indexOf(marker);
   if (lastMarkerIdx >= 0) {
     const before = current.slice(0, lastMarkerIdx + marker.length);
     const after = current.slice(lastMarkerIdx + marker.length);
