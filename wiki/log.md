@@ -8,6 +8,29 @@ Chronological record of wiki operations. Append new entries at the top.
 
 ---
 
+## 2026-04-06 — gsc-pull.ts wiki update + Claude Code hook
+
+- **`scripts/gsc-pull.ts`**: now updates `wiki/pages/concepts/gsc-performance.md` immediately after every pull (same history preservation format as `audit.ts`). Guard: skips if `last_updated` is already today — means audit already ran and is authoritative. No double-writes.
+- **`.claude/settings.json`**: created with `UserPromptSubmit` hook that injects `wiki/index.md` as `additionalContext` on every Claude Code prompt. Enforces the "read wiki index first" rule automatically.
+- **`wiki/pages/concepts/workflow-system-reference.md`**: updated `gsc-pull.ts` entry to reflect new wiki update behavior.
+
+---
+
+## 2026-04-06 — Created workflow-system-reference.md
+
+- Created `wiki/pages/concepts/workflow-system-reference.md` — operational reference for the weekly agent cycle, GitHub Actions, scripts, data flow, and Obsidian vault layout
+- Updated `wiki/index.md`: clarified `system-setup-guide` is human-only reference; added pointer to new workflow reference page
+
+---
+
+## 2026-04-06 — Ingested gsc-2026-04-06.json
+
+- Source: `raw/gsc/gsc-2026-04-06.json` (90-day window, Jan 6–Apr 6)
+- Updated: `wiki/pages/concepts/gsc-performance.md` with full page rankings, new observations
+- Key new signals: /back-pain-spine-height/ pos 9.9 (CTR target), /knee-pain-seat-depth/ +70 impr, /standing-desk-height-tall-people/ first impression
+
+---
+
 ## [2026-04-06] Automation Blind Spot Fixes
 
 **Operation:** Hardened 6 automation agents against 7 GPT-identified blind spots.
