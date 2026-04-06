@@ -26,12 +26,6 @@ jobs:
         run: |
           mkdir -p credentials
           echo "$CREDS" > credentials/gsc-service-account.json
-          echo "Secret length: ${#CREDS}"
-          echo "First 15 chars: ${CREDS:0:15}"
-          echo "Last 5 chars: ${CREDS: -5}"
-          python3 -c "import json; json.load(open('credentials/gsc-service-account.json'))" \
-            && echo "✅ JSON is valid" \
-            || { echo "❌ Not valid JSON — secret may be base64-encoded or truncated"; exit 1; }
 
       - name: Pull GSC data
         run: npm run gsc:pull
