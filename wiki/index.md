@@ -41,6 +41,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[gsc-performance]] | 4,106 impr, 12 clicks. Page-level rankings. KPI targets. |
 | [[content-gaps]] | Standing desk page, verdict table, citation capsules, depth upgrades. |
 | [[content-quality-scores]] | Blog audit Mar 19. Avg 71/100. Gate: 80+ for new content. |
+| [[system-setup-guide]] | Full step-by-step guide to replicate this system on a new site. |
 
 ## Synthesis
 
