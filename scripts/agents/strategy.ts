@@ -8,6 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -27,6 +28,15 @@ async function main() {
     ? JSON.parse(competitorData)
     : { analysis: { gaps: [], summary: '' } };
 
+  // Read compiled wiki knowledge for historical context
+  const wikiIndex = readWikiIndex(ROOT) || '';
+  const synthesisContext = readSynthesisContext(ROOT);
+  const conceptContext = readConceptContext(ROOT, [
+    'ctr-optimization', 'content-gaps', 'internal-linking', 'ai-citation-readiness',
+  ]);
+  const decisionsLog = readWikiPage(ROOT, 'synthesis/decisions-log.md') || '';
+  const thesis = readWikiPage(ROOT, 'synthesis/thesis.md') || '';
+
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
@@ -43,6 +53,23 @@ Content pillars: Chair Reviews, Height-Specific Guides, Ergonomics & Pain, Compa
     messages: [{
       role: 'user',
       content: `Create this week's execution plan based on all available data.
+
+IMPORTANT: The wiki contains compiled historical knowledge. Use it to avoid repeating failed fixes and to build on what's working. Do NOT re-suggest fixes that are already in the decisions log unless there's new evidence they should be retried.
+
+WIKI — STRATEGIC THESIS:
+${thesis.slice(0, 1500)}
+
+WIKI — WHAT WORKS (proven patterns):
+${(readWikiPage(ROOT, 'synthesis/what-works.md') || '').slice(0, 1500)}
+
+WIKI — WHAT FAILED (don't repeat):
+${(readWikiPage(ROOT, 'synthesis/what-failed.md') || '').slice(0, 1500)}
+
+WIKI — RECENT DECISIONS:
+${decisionsLog.slice(0, 1000)}
+
+WIKI — OPEN ISSUES (CTR, content gaps, internal linking):
+${conceptContext.slice(0, 2000)}
 
 GSC SUMMARY:
 - Clicks: ${gsc.totals.clicks} | Impressions: ${gsc.totals.impressions} | Avg pos: ${gsc.totals.avgPosition}
@@ -85,6 +112,12 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
   writeFileSync(resolve(ROOT, 'reports/weekly-plan.md'), output);
+
+  // Archive plan to raw layer
+  archiveToRaw(ROOT, 'strategy', `${today()}-weekly-plan.md`, output);
+
+  appendWikiLog(ROOT, `## [${today()}] strategy | Weekly Plan Generated\n\n- Plan archived to raw/strategy/${today()}-weekly-plan.md\n- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation\n`);
+
   console.log('\nStrategy complete → reports/weekly-plan.md');
   console.log(output.slice(0, 500));
 }

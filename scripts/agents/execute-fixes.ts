@@ -8,6 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { appendWikiLog, archiveToRaw, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -112,7 +113,15 @@ async function main() {
   }
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
-  writeFileSync(resolve(ROOT, 'reports/fixes-log.md'), results.join('\n'));
+  const fixesReport = results.join('\n');
+  writeFileSync(resolve(ROOT, 'reports/fixes-log.md'), fixesReport);
+
+  // Archive fixes log and update wiki
+  archiveToRaw(ROOT, 'audits', `${today()}-fixes-log.md`, fixesReport);
+
+  const fixSummaries = tasks.map(t => `- ${t.description} → ${t.filePath}`).join('\n');
+  appendWikiLog(ROOT, `## [${today()}] execute-fixes | Thursday Fixes Applied\n\n${fixSummaries}\n`);
+
   console.log(`\nFixes complete → reports/fixes-log.md`);
 }
 

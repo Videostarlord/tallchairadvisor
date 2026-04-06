@@ -8,6 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -151,8 +152,67 @@ async function main() {
   }
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
-  writeFileSync(resolve(ROOT, 'reports/content-log.md'), results.join('\n'));
+  const contentReport = results.join('\n');
+  writeFileSync(resolve(ROOT, 'reports/content-log.md'), contentReport);
   setEnv('CONTENT_WRITTEN', anySuccess ? 'true' : 'false');
+
+  // Archive and create wiki entity pages for new content
+  archiveToRaw(ROOT, 'audits', `${today()}-content-log.md`, contentReport);
+
+  for (const task of tasks) {
+    const slug = task.slug.replace(/^\/|\/$/g, '');
+    const entityName = slug.replace(/\//g, '-');
+    const wikiPage = `---
+type: entity
+entity: site-page
+url: /${slug}/
+last_updated: ${today()}
+sources: [raw/audits/${today()}-content-log.md]
+tags: [page, new-content]
+---
+
+# Page: /${slug}/
+
+**Created:** ${today()} by Friday content agent
+
+## Details
+
+- **Title:** ${task.title}
+- **Target keyword:** ${task.keyword}
+- **Content angle:** ${task.description}
+- **File:** src/pages/${slug}.astro
+
+## Performance
+
+*No GSC data yet — page was just created.*
+
+## Links
+
+*To be populated after indexing.*
+`;
+    writeWikiPage(ROOT, `pages/site-pages/${entityName}.md`, wikiPage);
+  }
+
+  // Update wiki index with new pages
+  const indexContent = readWikiPage(ROOT, 'index.md');
+  if (indexContent) {
+    const newEntries = tasks.map(t => {
+      const slug = t.slug.replace(/^\/|\/$/g, '');
+      const entityName = slug.replace(/\//g, '-');
+      return `| [[${entityName}]] | New page: ${t.title}. Created ${today()}. |`;
+    }).join('\n');
+
+    if (newEntries) {
+      const updatedIndex = indexContent.replace(
+        '## Concept Pages',
+        `${newEntries}\n\n## Concept Pages`
+      );
+      writeWikiPage(ROOT, 'index.md', updatedIndex);
+    }
+  }
+
+  appendWikiLog(ROOT, `## [${today()}] execute-content | Friday New Content\n\n- Pages created: ${tasks.length}\n${tasks.map(t => `- ${t.title} → ${t.slug}`).join('\n')}\n`);
+
   console.log(`\nContent complete → reports/content-log.md`);
 }
 

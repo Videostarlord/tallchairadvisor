@@ -11,6 +11,7 @@ import { execSync } from 'child_process';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Glob } from 'glob';
+import { appendWikiLog, writeWikiPage, readWikiPage, readSynthesisContext, currentWeek, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -172,11 +173,77 @@ ${allPassed ? '✅ All checks passed — deployed to Cloudflare Pages' : '❌ Ve
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
   writeFileSync(resolve(ROOT, 'reports/weekly-summary.md'), weeklyReport);
+
+  // === Wiki Updates ===
+
+  // 1. Write weekly summary page
+  const week = currentWeek();
+  const weeklyWikiPage = `---
+type: weekly
+week: ${week}
+last_updated: ${today()}
+deploy_status: ${allPassed ? 'deployed' : 'blocked'}
+tags: [weekly, ${allPassed ? 'deployed' : 'blocked'}]
+---
+
+# Week ${week} Summary
+
+**Deploy:** ${allPassed ? 'All checks passed — deployed' : 'BLOCKED — verification failed'}
+
+## Verification Checks
+${report}
+
+## What Happened
+${summary}
+
+## GSC Snapshot
+- Clicks: ${gsc.totals.clicks} | Impressions: ${gsc.totals.impressions} | Avg pos: ${gsc.totals.avgPosition}
+
+## Fixes Applied
+${fixesLog.slice(0, 500)}
+
+## Content Created
+${contentLog.slice(0, 500)}
+`;
+  writeWikiPage(ROOT, `weekly/${week}.md`, weeklyWikiPage);
+
+  // 2. Update decisions-log with this week's entry
+  const decisionsLog = readWikiPage(ROOT, 'synthesis/decisions-log.md') || '';
+  const newDecisionEntry = `## ${week} (${today()})
+
+- **Deploy:** ${allPassed ? 'Passed' : 'BLOCKED'}
+- **GSC:** ${gsc.totals.clicks} clicks, ${gsc.totals.impressions} impr, pos ${gsc.totals.avgPosition}
+- **Fixes:** ${fixesLog.includes('✅') ? fixesLog.match(/✅/g)?.length || 0 : 0} applied
+- **Content:** ${contentLog.includes('✅') ? contentLog.match(/✅/g)?.length || 0 : 0} new pages
+${!allPassed ? '- **BLOCKED:** ' + checks.filter(c => !c.passed).map(c => c.name).join(', ') : ''}
+`;
+
+  if (decisionsLog.includes('# Decisions Log')) {
+    // Insert new entry after the header section
+    const updatedLog = decisionsLog.replace(
+      /^(---\n[\s\S]*?---\n\n# Decisions Log[\s\S]*?---\n)/m,
+      `$1\n${newDecisionEntry}\n`
+    );
+    writeWikiPage(ROOT, 'synthesis/decisions-log.md', updatedLog);
+  }
+
+  // 3. Update wiki index with new weekly page
+  const indexContent = readWikiPage(ROOT, 'index.md');
+  if (indexContent && !indexContent.includes(`[[${week}]]`)) {
+    const updatedIndex = indexContent.replace(
+      '## Raw Sources',
+      `## Weekly Summaries\n\n| Page | Summary |\n|------|---------|\n| [[${week}]] | ${allPassed ? 'Deployed' : 'BLOCKED'}. ${gsc.totals.clicks} clicks, ${gsc.totals.impressions} impr. |\n\n## Raw Sources`
+    );
+    writeWikiPage(ROOT, 'index.md', updatedIndex);
+  }
+
+  appendWikiLog(ROOT, `## [${today()}] verify-deploy | Saturday Deploy\n\n- Status: ${allPassed ? 'DEPLOYED' : 'BLOCKED'}\n- Checks: ${checks.map(c => `${c.name}: ${c.passed ? '✅' : '❌'}`).join(', ')}\n- Weekly summary: wiki/weekly/${week}.md\n`);
+
   console.log(weeklyReport);
 
   if (!allPassed) {
     console.error('\n❌ Verification failed — blocking deploy.');
-    process.exit(1); // Non-zero exit prevents git push in workflow
+    process.exit(1);
   }
 
   console.log('\n✅ All checks passed — ready to deploy.');

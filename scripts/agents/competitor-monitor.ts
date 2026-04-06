@@ -8,6 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { archiveJsonToRaw, appendWikiLog, readWikiPage, writeWikiPage, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -122,6 +123,32 @@ Output a brief JSON with:
 
   mkdirSync(resolve(ROOT, 'data/competitors'), { recursive: true });
   writeFileSync(resolve(ROOT, 'data/competitors/latest.json'), JSON.stringify(output, null, 2));
+
+  // Archive to wiki raw layer
+  archiveJsonToRaw(ROOT, 'competitors', `competitors-${today()}.json`, output);
+
+  // Update wiki competitor-landscape page with new gaps
+  const existingPage = readWikiPage(ROOT, 'pages/concepts/competitor-landscape.md');
+  if (existingPage && analysis.gaps?.length > 0) {
+    const gapLines = analysis.gaps.map((g: any) => `| ${today()} | ${g.gap} | ${g.priority} | ${g.recommendation} |`).join('\n');
+    const updatedPage = existingPage.replace(
+      /last_updated: .*/,
+      `last_updated: ${today()}`
+    );
+    // Append new gaps to the page if there's a gap tracking section, otherwise add one
+    if (updatedPage.includes('## Recent Competitor Gaps')) {
+      writeWikiPage(ROOT, 'pages/concepts/competitor-landscape.md',
+        updatedPage.replace('## Recent Competitor Gaps', `## Recent Competitor Gaps\n\n| Date | Gap | Priority | Recommendation |\n|------|-----|----------|----------------|\n${gapLines}\n`)
+      );
+    } else {
+      writeWikiPage(ROOT, 'pages/concepts/competitor-landscape.md',
+        updatedPage + `\n\n## Recent Competitor Gaps\n\n| Date | Gap | Priority | Recommendation |\n|------|-----|----------|----------------|\n${gapLines}\n`
+      );
+    }
+  }
+
+  appendWikiLog(ROOT, `## [${today()}] competitor-monitor | Competitor Scan\n\n- Monitored: ${results.length} pages\n- Gaps found: ${analysis.gaps?.length || 0}\n- Summary: ${analysis.summary}\n`);
+
   console.log(`\nDone. Monitored ${results.length} competitor pages.`);
   console.log('Analysis:', analysis.summary);
 }

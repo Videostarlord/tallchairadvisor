@@ -12,6 +12,7 @@ import { google } from 'googleapis';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { archiveJsonToRaw, appendWikiLog, today } from './agents/wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -140,6 +141,10 @@ async function main() {
 
   mkdirSync(resolve(ROOT, 'data/gsc'), { recursive: true });
   writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
+
+  // Archive to wiki raw layer
+  archiveJsonToRaw(ROOT, 'gsc', `gsc-${today()}.json`, output);
+  appendWikiLog(ROOT, `## [${today()}] gsc-pull | GSC Data Pull\n\n- Period: ${toDateStr(startDate)} → ${toDateStr(endDate)} (${days} days)\n- Pages: ${pages.length} | Queries: ${queries.length}\n- Clicks: ${totals?.clicks} | Impressions: ${totals?.impressions} | Avg pos: ${totals?.avgPosition}\n`);
 
   console.log(`\nDone. Written to data/gsc/latest.json`);
   console.log(`  Pages: ${pages.length}`);

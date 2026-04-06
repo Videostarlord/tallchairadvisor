@@ -25,10 +25,10 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
-      - name: Commit audit report
+      - name: Commit audit report + wiki updates
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          git add reports/audit-report.md
+          git add reports/audit-report.md raw/ wiki/
           git diff --staged --quiet || git commit -m "report: Tuesday audit $(date +%Y-%m-%d)"
           git push

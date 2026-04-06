@@ -8,6 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { archiveToRaw, appendWikiLog, readConceptContext, readSynthesisContext, writeWikiPage, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -59,6 +60,10 @@ async function main() {
     await new Promise(r => setTimeout(r, 1000));
   }
 
+  // Read wiki context for historical comparison
+  const wikiContext = readConceptContext(ROOT, ['ctr-optimization', 'meta-descriptions', 'schema-markup']);
+  const synthesisContext = readSynthesisContext(ROOT);
+
   // Call Claude for analysis
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
@@ -68,7 +73,13 @@ Author: Jackson Christopher, 6'4", ME student at UC Berkeley.
 CRITICAL: Jackson has ONLY personally tested the Steelcase Gesture. All other chairs must use research-based voice, never first-person testing.
 Affiliate tag: tag=tallchairadvi-20 (must be on all Amazon links).
 Meta descriptions: 130-155 chars ideal. Titles: 50-60 chars.
-CTR leak = position ≤ 10 with 0 or very low clicks.`,
+CTR leak = position ≤ 10 with 0 or very low clicks.
+
+HISTORICAL CONTEXT FROM WIKI (compare this week against prior findings):
+${wikiContext.slice(0, 2000)}
+
+STRATEGIC CONTEXT:
+${synthesisContext.slice(0, 1500)}`,
     messages: [{
       role: 'user',
       content: `Audit these pages and identify all issues. For each issue assign severity: critical/high/medium/low.
@@ -108,7 +119,41 @@ ${report}`;
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
   writeFileSync(resolve(ROOT, 'reports/audit-report.md'), output);
+
+  // Archive to wiki raw layer
+  archiveToRaw(ROOT, 'audits', `${today()}-weekly-audit.md`, output);
+
+  // Update wiki GSC performance page with latest metrics
+  const gscWikiUpdate = `---
+type: concept
+last_updated: ${today()}
+sources: [raw/audits/${today()}-weekly-audit.md]
+tags: [gsc, performance, metrics, tracking]
+---
+
+# GSC Performance Tracking
+
+## Latest Snapshot (${today()})
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | ${gsc.totals.impressions} |
+| Total clicks | ${gsc.totals.clicks} |
+| Avg CTR | ${gsc.totals.ctr}% |
+| Avg position | ${gsc.totals.avgPosition} |
+
+## Top Pages
+
+${pagesToAudit.slice(0, 10).map((p: any) => `| ${p.page} | ${p.impressions} impr | pos ${p.position} | ${p.ctr}% CTR | ${p.clicks} clicks |`).join('\n')}
+
+*Full audit report: raw/audits/${today()}-weekly-audit.md*
+`;
+  writeWikiPage(ROOT, 'pages/concepts/gsc-performance.md', gscWikiUpdate);
+
+  appendWikiLog(ROOT, `## [${today()}] audit | Weekly Site Audit\n\n- Pages audited: ${pagesToAudit.length}\n- Clicks: ${gsc.totals.clicks} | Impressions: ${gsc.totals.impressions}\n- Full report archived to raw/audits/${today()}-weekly-audit.md\n`);
+
   console.log('\nAudit complete → reports/audit-report.md');
+  console.log('Wiki updated → wiki/pages/concepts/gsc-performance.md');
 }
 
 main().catch(err => { console.error(err.message); process.exit(1); });
