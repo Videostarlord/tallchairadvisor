@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-04-07] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 10 | Impressions: 4443
+- Full report archived to raw/audits/2026-04-07-weekly-audit.md
+
+
 # Wiki Log
 
 Chronological record of wiki operations. Append new entries at the top.
