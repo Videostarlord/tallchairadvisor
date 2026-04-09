@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-04-09] execute-fixes | Thursday Fixes Applied
+
+- /chairs/herman-miller-aeron/tall-people/ → src/pages/chairs/herman-miller-aeron/tall-people.astro
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /review/gesture/ → src/pages/review/gesture.astro
+
+
 ## [2026-04-08] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-04-08-weekly-plan.md
