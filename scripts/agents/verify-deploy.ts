@@ -121,7 +121,7 @@ async function checkCredentialsNotStaged(): Promise<CheckResult> {
 async function checkSchemaValidity(): Promise<CheckResult> {
   const distDir = resolve(ROOT, 'dist');
   if (!existsSync(distDir)) {
-    return { passed: true, name: 'Schema validity', details: 'dist/ not found — run build first to validate schema.' };
+    return { passed: false, name: 'Schema validity', details: 'FAIL: dist/ not found — build must complete before verification runs.' };
   }
   const htmlFiles = await new Glob('dist/**/*.html', { cwd: ROOT }).walk();
   const violations: string[] = [];
@@ -165,6 +165,7 @@ async function checkInternalLinks(): Promise<CheckResult> {
     const hrefs = [...content.matchAll(/href="(\/[^"#?]+)"/g)];
     for (const [, href] of hrefs) {
       if (href.startsWith('/images/') || href.startsWith('/assets/')) continue;
+      if (/\.(png|ico|svg|jpg|jpeg|webp|gif|css|js|xml|txt|json|pdf)$/i.test(href)) continue;
       const normalized = href.endsWith('/') ? href : href + '/';
       if (!knownRoutes.has(normalized)) {
         violations.push(`${file}: broken internal link → ${href}`);
