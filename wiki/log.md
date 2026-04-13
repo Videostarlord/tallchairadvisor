@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-04-13] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W16.md
+
+
 ## [2026-04-13] competitor-monitor | Competitor Scan
 
 - Monitored: 5 pages (5 live, 0 dead)

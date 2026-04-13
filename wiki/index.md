@@ -53,6 +53,12 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[thesis]] | The strategic bet: own height-specific chair ergonomics. Current priorities. |
 | [[decisions-log]] | Week-by-week record of what was done, decided, and deferred. |
 
+## Weekly Summaries
+
+| Page | Summary |
+|------|---------|
+| [[2026-W16]] | Deployed. 12 clicks, 5590 impr. |
+
 ## Raw Sources (reference only — don't edit)
 
 Located in `raw/`. Organized by type:
