@@ -28,10 +28,13 @@ jobs:
       - name: Verify build
         run: npm run build
 
+      - name: Content lint
+        run: npm run lint:content
+
       - name: Commit fixes + wiki updates
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add src/ reports/fixes-log.md raw/ wiki/
           git diff --staged --quiet || git commit -m "fix: Thursday SEO fixes $(date +%Y-%m-%d)"
-          git push
+          git push origin HEAD:staging

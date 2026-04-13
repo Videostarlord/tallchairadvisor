@@ -17,6 +17,8 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 interface FixTask {
   description: string;
+  whatToChange: string;
+  why: string;
   filePath: string;
   raw: string;
 }
@@ -38,9 +40,9 @@ function parsePlan(plan: string): FixTask[] {
 
   const allLines = [...fixSection.split('\n'), ...rewriteSection.split('\n')];
   for (const line of allLines) {
-    const match = line.match(/- \[[ x]\] (?:FIX|REWRITE): (.+?) \| .+? \| FILE: (src\/pages\/.+\.astro)/);
+    const match = line.match(/- \[[ x]\] (?:FIX|REWRITE): (.+?) \| (.+?) \| (.+?) \| FILE: (src\/pages\/.+\.astro)/);
     if (match) {
-      tasks.push({ description: match[1], filePath: match[2], raw: line });
+      tasks.push({ description: match[1], whatToChange: match[2], why: match[3], filePath: match[4], raw: line });
     }
   }
   return tasks;
@@ -82,7 +84,11 @@ CRITICAL RULES:
       role: 'user',
       content: `Apply this fix to the file:
 
-FIX REQUIRED: ${task.description}
+FIX REQUIRED:
+- Page: ${task.description}
+- What to change: ${task.whatToChange}
+- Why: ${task.why}
+- File: ${task.filePath}
 
 CURRENT FILE (${task.filePath}):
 \`\`\`astro

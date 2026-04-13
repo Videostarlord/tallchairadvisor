@@ -42,6 +42,14 @@ Chronological record of wiki operations. Append new entries at the top.
 
 ---
 
+## 2026-04-07 — Saved system architecture GPT blindspot audit
+
+- Saved external audit report to `raw/audits/2026-04-07 - system architecture GPT Blindspot findings.md`
+- Scope: site architecture, shipped content, automation workflow, deploy gate assumptions, verification gaps
+- Key outcome: identified critical mismatch between documented Saturday deploy gate and actual every-push Cloudflare deploy behavior
+
+---
+
 ## 2026-04-06 — gsc-pull.ts wiki update + Claude Code hook
 
 - **`scripts/gsc-pull.ts`**: now updates `wiki/pages/concepts/gsc-performance.md` immediately after every pull (same history preservation format as `audit.ts`). Guard: skips if `last_updated` is already today — means audit already ran and is authoritative. No double-writes.

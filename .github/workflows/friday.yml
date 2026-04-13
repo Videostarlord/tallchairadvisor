@@ -30,6 +30,10 @@ jobs:
         if: env.CONTENT_WRITTEN == 'true'
         run: npm run build
 
+      - name: Content lint
+        if: env.CONTENT_WRITTEN == 'true'
+        run: npm run lint:content
+
       - name: Commit new content + wiki updates
         if: env.CONTENT_WRITTEN == 'true'
         run: |
@@ -37,4 +41,4 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add src/ reports/content-log.md raw/ wiki/
           git diff --staged --quiet || git commit -m "content: New pages $(date +%Y-%m-%d)"
-          git push
+          git push origin HEAD:staging
