@@ -17,7 +17,8 @@
     "agent:strategy": "tsx scripts/agents/strategy.ts",
     "agent:fixes": "tsx scripts/agents/execute-fixes.ts",
     "agent:content": "tsx scripts/agents/execute-content.ts",
-    "agent:verify": "tsx scripts/agents/verify-deploy.ts"
+    "agent:verify": "tsx scripts/agents/verify-deploy.ts",
+    "lint:content": "node scripts/lint-content.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",
