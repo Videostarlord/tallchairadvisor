@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-04-13] competitor-monitor | Competitor Scan
+
+- Monitored: 5 pages (5 live, 0 dead)
+- Gaps found: 0
+- Summary: Analysis unavailable.
+
+
+## [2026-04-13] gsc-pull | GSC Data Pull
+
+- Period: 2026-01-13 → 2026-04-13 (90 days)
+- Pages: 37 | Queries: 200
+- Clicks: 12 | Impressions: 5590 | Avg pos: 13.6
+
+
 ## [2026-04-09] execute-fixes | Thursday Fixes Applied
 
 - /chairs/herman-miller-aeron/tall-people/ → src/pages/chairs/herman-miller-aeron/tall-people.astro
