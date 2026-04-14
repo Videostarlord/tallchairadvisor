@@ -49,12 +49,24 @@ A rolling record of key strategic decisions and their outcomes. The most valuabl
 
 ---
 
-## 2026-W16 (2026-04-13)
+## 2026-W16 (2026-04-13) — CI/CD repair + new content
 
-- **Deploy:** Passed
+- **Deploy:** Passed (Saturday, after multiple failures and manual repairs)
 - **GSC:** 12 clicks, 5590 impr, pos 13.6
-- **Fixes:** 0 applied
-- **Content:** 0 new pages
+- **New page created:** `/chairs/herman-miller-aeron/size-guide/` — "Aeron Size B vs Size C for tall people." Planned by Wednesday agent; Friday agent generated the file with invalid JS (`and` used as a JS operator in frontmatter), breaking the build. File was rewritten manually and committed.
+- **Root cause of Friday failure:** `execute-content.ts` wrote a Claude-generated file without validating its syntax. The esbuild error `Expected "}" but found "and"` was a bare English word in a JavaScript expression. Build failed → commit step skipped → file never pushed. System behaved correctly (no bad file shipped) but content was lost.
+- **Fixes applied to CI pipeline (all committed):**
+  1. `execute-content.ts` — added `validateAstroFile()` pre-write check (frontmatter fences, Layout wrapper, bare `and`/`or` in JS); hardened system prompt with explicit Astro syntax rules
+  2. `saturday.yml` — reordered steps: build now runs BEFORE verify-deploy (was after — caused schema check to always fail with "dist/ not found")
+  3. `saturday.yml` — added `fetch-depth: 0` so `git diff HEAD~1` works for content regression check
+  4. `saturday.yml` — final push now goes to both `staging` and `main`
+  5. `friday.yml` + `thursday.yml` — added `lint:content` step before commit
+  6. `friday.yml` + `thursday.yml` — push now goes to `staging` (not directly to `main`)
+  7. `verify-deploy.ts` — internal link checker now skips root-level static files (`.png`, `.ico`, `.svg`, etc.) — was incorrectly flagging favicons as broken links and blocking every Saturday deploy
+  8. `package.json` — added missing `lint:content` script entry
+  9. `scripts/lint-content.mjs` — committed (was untracked)
+- **Decision:** `staging` branch is now the deploy target for all weekly agents. Saturday is the only step that merges `staging → main`. This was already the intended design but wasn't enforced in the committed workflow files.
+- **Decision:** Friday agent now validates generated files before writing to disk. Invalid files are skipped with `success: false` — `CONTENT_WRITTEN` stays `false`, build is never attempted, pipeline is clean.
 
 
 

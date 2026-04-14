@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-06
+last_updated: 2026-04-13
 tags: [automation, workflow, agents, github-actions, obsidian]
 ---
 
@@ -41,18 +41,26 @@ Claude TCA Workspace/               ← Obsidian vault root
 
 ## Weekly Automated Cycle
 
-Runs via GitHub Actions. Each day's workflow commits its outputs and pushes to `main`, which triggers a Cloudflare Pages deploy (on Saturday).
+Runs via GitHub Actions. Thursday and Friday push to `staging`. Saturday verifies, then merges `staging → main`, which triggers Cloudflare Pages deploy.
 
-| Day | Workflow | Script | Reads | Writes |
-|-----|----------|--------|-------|--------|
-| Monday | monday.yml | `gsc-pull.ts` + `competitor-monitor.ts` | GSC API, competitor URLs | `data/gsc/latest.json`, `raw/gsc/gsc-YYYY-MM-DD.json`, `data/competitors/latest.json`, `wiki/log.md` |
-| Tuesday | tuesday.yml | `audit.ts` | `data/gsc/latest.json`, live site meta/schema, wiki concept pages | `reports/audit-report.md`, `raw/audits/`, `wiki/pages/concepts/gsc-performance.md` |
-| Wednesday | wednesday.yml | `strategy.ts` | Audit report, GSC data, wiki synthesis + concept pages | `reports/weekly-plan.md`, `raw/strategy/` |
-| Thursday | thursday.yml | `execute-fixes.ts` | `reports/weekly-plan.md` (FIXES section) | Modified `src/pages/*.astro` files, `reports/fixes-log.md`, wiki fix history |
-| Friday | friday.yml | `execute-content.ts` | `reports/weekly-plan.md` (NEW CONTENT section) | New `src/pages/*.astro` files, `reports/content-log.md`, new wiki entity pages |
-| Saturday | saturday.yml | `verify-deploy.ts` | All week's changes, built `dist/` | `reports/weekly-summary.md`, `wiki/weekly/YYYY-WNN.md`, final git push → Cloudflare deploy |
+| Day | Workflow | Script | Reads | Writes | Push target |
+|-----|----------|--------|-------|--------|-------------|
+| Monday | monday.yml | `gsc-pull.ts` + `competitor-monitor.ts` | GSC API, competitor URLs | `data/gsc/latest.json`, `raw/gsc/gsc-YYYY-MM-DD.json`, `data/competitors/latest.json`, `wiki/log.md` | `main` |
+| Tuesday | tuesday.yml | `audit.ts` | `data/gsc/latest.json`, live site meta/schema, wiki concept pages | `reports/audit-report.md`, `raw/audits/`, `wiki/pages/concepts/gsc-performance.md` | `main` |
+| Wednesday | wednesday.yml | `strategy.ts` | Audit report, GSC data, wiki synthesis + concept pages | `reports/weekly-plan.md`, `raw/strategy/` | `main` |
+| Thursday | thursday.yml | `execute-fixes.ts` | `reports/weekly-plan.md` (FIXES section) | Modified `src/pages/*.astro` files, `reports/fixes-log.md`, wiki fix history | `staging` |
+| Friday | friday.yml | `execute-content.ts` | `reports/weekly-plan.md` (NEW CONTENT section) | New `src/pages/*.astro` files, `reports/content-log.md`, new wiki entity pages | `staging` |
+| Saturday | saturday.yml | `verify-deploy.ts` | All week's changes, built `dist/` | `reports/weekly-summary.md`, `wiki/weekly/YYYY-WNN.md`, git push → Cloudflare deploy | `staging` + `main` |
 
-Friday skips automatically if the weekly plan has no NEW CONTENT tasks.
+Friday skips automatically if the weekly plan has no unchecked `[ ] NEW:` tasks.
+
+**Step order within Saturday workflow (critical — was wrong before Apr 13):**
+1. Checkout `staging` with `fetch-depth: 0`
+2. `npm ci`
+3. `npm run build` ← must run before verify-deploy so `dist/` exists for schema check
+4. `npm run lint:content`
+5. `npx tsx scripts/agents/verify-deploy.ts`
+6. Commit + push `staging` → `main`
 
 ---
 
@@ -91,9 +99,9 @@ wiki/weekly/  →  git push  →  Cloudflare Pages deploy
 
 **`execute-fixes.ts`** — Parses `reports/weekly-plan.md` for `FIX:` and `REWRITE:` tasks. For each task, reads the target `.astro` file, calls Claude to apply the fix, checks word count (rejects if <85% of original — truncation guard), writes the file. Has a 14-day cooldown per file (bypass for technical fixes like schema/canonical/voice).
 
-**`execute-content.ts`** — Parses `reports/weekly-plan.md` for `NEW:` tasks. For each, calls Claude to write a complete `.astro` page. Writes to `src/pages/`. Creates corresponding wiki entity page.
+**`execute-content.ts`** — Parses `reports/weekly-plan.md` for unchecked `[ ] NEW:` tasks. For each, calls Claude to write a complete `.astro` page. Runs `validateAstroFile()` on the output before writing to disk — checks frontmatter fences, Layout wrapper, and bare English operators (`and`/`or`) in JS. If validation fails, the task is marked failed and `CONTENT_WRITTEN` stays `false`. Valid files are written to `src/pages/`. Creates corresponding wiki entity pages. System prompt explicitly prohibits common LLM syntax mistakes (bare `and`/`or`, unclosed template literals, wrong quote styles around apostrophes).
 
-**`verify-deploy.ts`** — Runs safety checks: secrets in code, affiliate tag presence, voice violations (non-Gesture first-person testing language), credentials staged, schema JSON-LD validity, broken internal links, content regression (word count vs previous commit). Blocks deploy if any check fails. Writes weekly summary. Writes `wiki/weekly/YYYY-WNN.md`.
+**`verify-deploy.ts`** — Runs safety checks: secrets in code, affiliate tag presence, voice violations (non-Gesture first-person testing language), credentials staged, schema JSON-LD validity (requires `dist/` — must run after build), broken internal links (skips `/images/`, `/assets/`, and static file extensions like `.png`/`.ico`/`.svg`), content regression (word count vs previous commit — requires `fetch-depth: 0`). Blocks deploy if any check fails. Writes weekly summary. Writes `wiki/weekly/YYYY-WNN.md`.
 
 ---
 

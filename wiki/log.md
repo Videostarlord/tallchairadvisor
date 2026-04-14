@@ -2,6 +2,17 @@
 type: log
 ---
 
+## [2026-04-13] manual-session | CI Pipeline Repair + New Content
+
+- **New page:** `/chairs/herman-miller-aeron/size-guide/` created manually (Friday agent generated invalid syntax — `and` as JS operator in frontmatter)
+- **execute-content.ts:** Added `validateAstroFile()` pre-write validation + hardened system prompt
+- **saturday.yml:** Fixed step order (build before verify), fetch-depth: 0, staging→main push
+- **verify-deploy.ts:** Fixed favicon false positive in internal link check
+- **package.json + lint-content.mjs:** Committed missing lint:content script
+- **thursday.yml + friday.yml:** Added lint:content step, push to staging not main
+- **Committed stashed Thursday agent fixes:** Voice fixes across 5 height pages, Header.astro dropdown accessibility, index.astro voice fix, Aeron seat depth spec correction
+- **Wiki updated:** decisions-log.md, what-failed.md, workflow-system-reference.md, new size-guide entity page, index.md
+
 ## [2026-04-13] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED

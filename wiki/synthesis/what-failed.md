@@ -28,6 +28,27 @@ Three of the four CTR crisis pages are at positions 7.4–10.3. At these positio
 ### Expecting Fast Indexing
 The 5 height guide pages (6-foot-3 through 6-foot-7) still had zero impressions as of Apr 3, despite sitemap priority 0.8. They were confirmed indexed by Apr 5, but the 2-week+ delay suggests Google is slow to crawl new pages from a young domain. **Lesson:** Don't plan content velocity that depends on fast indexing.
 
+## Pipeline Failures
+
+### Friday Agent Generated Invalid Astro Syntax (Apr 13, 2026)
+Claude wrote `size-guide.astro` with a bare `and` keyword in a JavaScript expression inside the frontmatter (`Expected "}" but found "and"`). esbuild rejected the file, the build step failed, and the commit step was skipped — so no bad file was ever pushed. The content was simply lost that week.
+
+**Root cause:** `execute-content.ts` wrote the file to disk and set `CONTENT_WRITTEN=true` before any syntax validation. The only gate was the separate build step in the workflow.
+
+**Fix:** Added `validateAstroFile()` in `execute-content.ts` that runs before `writeFileSync`. Checks frontmatter fences, Layout wrapper, and bare English operators in JS. Also hardened the system prompt to explicitly prohibit `and`/`or` as JS operators.
+
+**Lesson:** Never trust LLM-generated code without structural validation before writing. The build step in the workflow is a safety net, not a first-line guard. The agent itself must validate before committing to disk.
+
+### Saturday Verify-Deploy Always Failing on Schema Check (Mar–Apr 2026)
+`verify-deploy.ts` ran BEFORE `npm run build` in the committed `saturday.yml`. `checkSchemaValidity()` looks for `dist/` which doesn't exist until after the build. Every Saturday deploy was blocked by this false failure.
+
+**Fix:** Reordered `saturday.yml` steps — build now runs first.
+
+### Saturday Verify-Deploy Flagging Favicons as Broken Internal Links (Apr 2026)
+`checkInternalLinks()` skipped `/images/` and `/assets/` paths but not root-level static files. Every `<link rel="icon" href="/favicon-32x32.png">` in Layout.astro was flagged as a broken internal link, blocking deploy.
+
+**Fix:** Added extension-based skip rule — any href ending in `.png`, `.ico`, `.svg`, `.jpg`, etc. is not treated as an internal page link.
+
 ## Not Yet Enough Data To Judge
 
 - Verdict-first meta descriptions (not yet implemented)
