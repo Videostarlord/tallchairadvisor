@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-04-13
-sources: [raw/gsc/gsc-2026-04-13.json]
+last_updated: 2026-04-14
+sources: [raw/audits/2026-04-14-weekly-audit.md]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-04-13)
+## Latest Snapshot (2026-04-14)
 
 | Metric | Value |
 |--------|-------|
@@ -29,9 +29,18 @@ tags: [gsc, performance, metrics, tracking]
 | /chairs/steelcase-leap-plus/seat-height/ | 230 impr | pos 9.5 | 0.43% CTR | 1 clicks |
 | /gesture-vs-leap-plus/ | 230 impr | pos 15.5 | 0.43% CTR | 1 clicks |
 
-*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+*Full audit report: raw/audits/2026-04-14-weekly-audit.md*
 
 ## Historical Snapshots
+
+### 2026-04-13
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 5590 |
+| Total clicks | 12 |
+| Avg CTR | 0.21% |
+| Avg position | 13.6 |
 
 ### 2026-04-07
 

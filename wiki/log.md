@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-04-14] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 12 | Impressions: 5590
+- Full report archived to raw/audits/2026-04-14-weekly-audit.md
+
+
 ## [2026-04-13] manual-session | CI Pipeline Repair + New Content
 
 - **New page:** `/chairs/herman-miller-aeron/size-guide/` created manually (Friday agent generated invalid syntax — `and` as JS operator in frontmatter)
