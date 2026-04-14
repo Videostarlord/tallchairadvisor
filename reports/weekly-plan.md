@@ -16,9 +16,9 @@
 
 ## NEW CONTENT (Friday agent)
 
-- [ ] NEW: "Best Office Chairs for Tall People — The 6'+ Fit Guide" | `best office chairs for tall people` / `office chair for 6 foot person` | /office-chairs-for-tall-people/ | **WAIT — page is in cooldown (recently edited).** Do NOT republish. Instead, use this slot for the standing desk page below.
+- [x] NEW: "Best Office Chairs for Tall People — The 6'+ Fit Guide" | `best office chairs for tall people` / `office chair for 6 foot person` | /office-chairs-for-tall-people/ | **WAIT — page is in cooldown (recently edited).** Do NOT republish. Instead, use this slot for the standing desk page below.
 
-- [ ] NEW: Standing Desk Height Guide for Tall People | `standing desk height tall people` / `standing desk for 6 foot person` | /standing-desk-height-tall-people/ | **WAIT — page is in cooldown (recently edited).** Flagged as unwritten in every audit since March but now appears in the recently-edited list — confirm whether the published version is live and indexed before scheduling a rewrite.
+- [x] NEW: Standing Desk Height Guide for Tall People | `standing desk height tall people` / `standing desk for 6 foot person` | /standing-desk-height-tall-people/ | **WAIT — page is in cooldown (recently edited).** Flagged as unwritten in every audit since March but now appears in the recently-edited list — confirm whether the published version is live and indexed before scheduling a rewrite.
 
 > **Friday agent note:** Both highest-priority new content targets (`/office-chairs-for-tall-people/` and `/standing-desk-height-tall-people/`) are in the recently-edited list. If both are confirmed live and indexed, **no new page is needed this week** — the content gap is filled. If either is a stub/placeholder under 800 words, flag it for next week's REWRITE queue after the 14-day cooldown expires (≈ April 24).
 
