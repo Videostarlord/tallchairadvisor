@@ -53,6 +53,25 @@ function getExamplePage(): string {
   return '';
 }
 
+function validateAstroFile(content: string): { valid: boolean; reason?: string } {
+  if (!content.startsWith('---')) {
+    return { valid: false, reason: 'Does not start with --- frontmatter fence' };
+  }
+  const frontmatterEnd = content.indexOf('\n---', 3);
+  if (frontmatterEnd === -1) {
+    return { valid: false, reason: 'Missing closing --- frontmatter fence' };
+  }
+  if (!content.includes('<Layout') || !content.includes('</Layout>')) {
+    return { valid: false, reason: 'Missing <Layout> or </Layout> wrapper' };
+  }
+  // Catch bare English operators in JS context (the specific failure mode we hit)
+  const frontmatter = content.slice(3, frontmatterEnd);
+  if (/\b(and|or)\b/.test(frontmatter.replace(/"[^"]*"/g, '').replace(/'[^']*'/g, ''))) {
+    return { valid: false, reason: 'Bare "and"/"or" keyword in frontmatter JS (use && / ||)' };
+  }
+  return { valid: true };
+}
+
 async function writeNewPage(task: ContentTask): Promise<{ success: boolean; filePath: string; summary: string }> {
   const examplePage = getExamplePage();
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
@@ -78,7 +97,14 @@ CONTENT RULES:
 - Schema: include relevant JSON-LD (BlogPosting or ItemList)
 - 1200-2000 words for blog posts, 800-1200 for spec pages
 
-OUTPUT: Complete Astro page file only. Match the structure of the example page provided.`,
+OUTPUT: Complete Astro page file only. Match the structure of the example page provided.
+
+ASTRO SYNTAX RULES — CRITICAL (esbuild will reject the file if violated):
+- The file MUST start with --- on line 1 (frontmatter fence)
+- JavaScript inside --- frontmatter must use valid JS operators: && not "and", || not "or"
+- All template literals must be properly closed: \${value} not \${value and other}
+- String values containing apostrophes (6'4") must be in double-quoted strings or escaped
+- The file MUST end with </Layout>`,
     messages: [{
       role: 'user',
       content: `Write a new page for tallchairadvisor.com.
@@ -110,6 +136,11 @@ Write the complete Astro page. Output the file content only.`,
 
   if (!cleaned || cleaned.length < 500) {
     return { success: false, filePath: '', summary: `Empty content for ${task.slug}` };
+  }
+
+  const validation = validateAstroFile(cleaned);
+  if (!validation.valid) {
+    return { success: false, filePath: '', summary: `Validation failed for ${task.slug}: ${validation.reason}` };
   }
 
   // Determine file path from slug
