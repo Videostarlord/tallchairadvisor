@@ -42,4 +42,4 @@ jobs:
           git diff --staged --quiet || git commit -m "deploy: Weekly cycle $(date +%Y-%m-%d)"
           git pull --rebase origin staging
           git push origin staging
-          git push origin HEAD:main
+          git push origin HEAD:main --force-with-lease

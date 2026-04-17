@@ -41,5 +41,4 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add src/ reports/content-log.md raw/ wiki/
           git diff --staged --quiet || git commit -m "content: New pages $(date +%Y-%m-%d)"
-          git pull --rebase origin staging
-          git push origin HEAD:staging
+          git push origin HEAD:staging --force-with-lease
