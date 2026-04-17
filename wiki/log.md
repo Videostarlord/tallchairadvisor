@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-04-17] execute-fixes | Thursday Fixes Applied
+
+- /review/aeron-size-c/ → src/pages/review/aeron-size-c.astro
+- /chairs/steelcase-gesture/ → src/pages/chairs/steelcase-gesture/index.astro
+- /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
+
+
 ## [2026-04-15] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-04-15-weekly-plan.md
