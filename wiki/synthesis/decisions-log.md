@@ -49,6 +49,15 @@ A rolling record of key strategic decisions and their outcomes. The most valuabl
 
 ---
 
+## 2026-W16 (2026-04-18)
+
+- **Deploy:** Passed
+- **GSC:** 12 clicks, 5590 impr, pos 13.6
+- **Fixes:** 0 applied
+- **Content:** 0 new pages
+
+
+
 ## 2026-W16 (2026-04-13) — CI/CD repair + new content
 
 - **Deploy:** Passed (Saturday, after multiple failures and manual repairs)
