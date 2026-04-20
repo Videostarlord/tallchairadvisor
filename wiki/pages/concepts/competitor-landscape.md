@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-06
+last_updated: 2026-04-20
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -69,6 +69,13 @@ Content formats competitors use that TCA is missing or partially has:
 
 
 ## Recent Competitor Gaps
+
+| Date | Gap | Priority | Recommendation |
+|------|-----|----------|----------------|
+| 2026-04-20 | Gesture review page (/review/gesture/) has 1,108 impressions and position 9 but only 0.18% CTR — the lowest CTR of any page with meaningful impression volume. ChairsFX's Aeron review at ~14,622 words uses rich schema (Article, Person, ImageObject, BreadcrumbList) and a benefit-framing title. Our Gesture review likely lacks compelling title/meta copy, tall-person-specific framing, and structured schema, causing it to lose clicks despite near-page-1 ranking. | high | This week: (1) Rewrite the title tag to tall-specific benefit framing, e.g. 'Steelcase Gesture Review for Tall People (6ft+): Is It Worth It in 2025?' (2) Rewrite meta description with a direct hook like 'Find out if the Gesture's seat depth, back height, and arm range actually work for taller frames — tested and reviewed.' (3) Expand content depth toward 3,000–5,000 words with tall-specific sections: seat height range, back height coverage for 6ft+, arm width for broad shoulders, and a verdict table. (4) Implement Article + BreadcrumbList + Person schema to match ChairsFX's markup footprint. This is the single fastest CTR-to-clicks lever you have this week. |
+| 2026-04-20 | /office-chairs-for-tall-people/ sits at position 31.3 with 387 impressions — it is your highest-intent head term but buried on page 3. Tall.Life ranks for this term with a 3,813-word article plus Article/WebPage schema. BTOD competes with a ~7,600-word transactional page. Your page is almost certainly thin, lacks schema, and does not satisfy the comparison + buying-guide intent that drives this query cluster. | high | This week: (1) Audit current word count — if under 2,000 words, treat this as a rebuild, not a refresh. (2) Restructure as a definitive tall-person buying guide: lead with a 'what makes a chair work for 6ft+ bodies' explainer (seat height range, seat depth, lumbar height, back height), then a ranked comparison table of 6–8 chairs with tall-specific specs pulled from your existing chair sub-pages. (3) Internally link from every chair-specific page (Aeron, Gesture, Leap Plus) back to this page using anchor text variants like 'best chairs for tall people.' (4) Add Article + ItemList + BreadcrumbList schema. Moving from position 31 to page 1 on this term alone could 10x your organic traffic. |
+| 2026-04-20 | /correct-chair-dimensions/ is at position 20.2 with 803 impressions — your highest impression count overall — but earns only 2 clicks at 0.25% CTR. This is a high-volume informational query where Wirecutter (~24,576 words) and ChairsFX dominate with deeply structured, schema-rich content. The page is likely a generic dimensions explainer that fails to connect dimensions explicitly to tall-person body measurements, making it irrelevant-looking in the SERP snippet and low-authority in Google's eyes. | medium | This week: (1) Rename and retarget: pivot the title to 'Correct Chair Dimensions for Tall People: Seat Height, Depth & Back Height Guide' to align the SERP snippet with tall-user search intent and differentiate from generic ergonomics content. (2) Add a tall-specific dimensions table: recommended ranges by height tier (6'0"–6'2", 6'3"–6'5", 6'6"+) for seat height, seat depth, lumbar position, and armrest height. (3) Embed internal links to your chair review pages as 'chairs that meet these specs.' (4) Add HowTo or Article schema plus an FAQ block targeting 'what seat height for 6 foot person' and related long-tail queries surfaced by the 803 impressions. This page has the raw impression volume to become a top-3 traffic driver with targeted intent alignment. |
+
 
 | Date | Gap | Priority | Recommendation |
 |------|-----|----------|----------------|

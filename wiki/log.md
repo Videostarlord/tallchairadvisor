@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-04-20] competitor-monitor | Competitor Scan
+
+- Monitored: 5 pages (5 live, 0 dead)
+- Gaps found: 3
+- Summary: Your core problem is a CTR and depth gap, not a crawlability or indexing issue — you have pages ranking on page 1 or near it that are failing to earn clicks because titles, meta descriptions, and content depth do not signal tall-person specificity the way competitors signal it with long-form, schema-rich, benefit-led pages. The three gaps above are ordered by combined impact potential: the Gesture review is a fast CTR fix on an already high-ranking page, the office-chairs-for-tall-people pillar page is your highest-intent head term and needs a full rebuild to escape page 3, and the dimensions page is a sleeper asset with 800+ impressions that a single reframing and schema addition could push into a top-5 informational ranking. Closing all three this week also builds internal link equity between your hub (office-chairs-for-tall-people) and your spokes (individual chair reviews), which compounds ranking benefit across the entire site.
+
+
+## [2026-04-20] gsc-pull | GSC Data Pull
+
+- Period: 2026-01-20 → 2026-04-20 (90 days)
+- Pages: 44 | Queries: 200
+- Clicks: 19 | Impressions: 7096 | Avg pos: 13.2
+
+
 ## [2026-04-18] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
