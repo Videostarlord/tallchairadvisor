@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-04-20
-sources: [raw/gsc/gsc-2026-04-20.json]
+last_updated: 2026-04-21
+sources: [raw/audits/2026-04-21-weekly-audit.md]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-04-20)
+## Latest Snapshot (2026-04-21)
 
 | Metric | Value |
 |--------|-------|
@@ -29,9 +29,18 @@ tags: [gsc, performance, metrics, tracking]
 | /aeron-vs-gesture/ | 276 impr | pos 8.2 | 0% CTR | 0 clicks |
 | /review/leap-plus/ | 265 impr | pos 10.4 | 0.38% CTR | 1 clicks |
 
-*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+*Full audit report: raw/audits/2026-04-21-weekly-audit.md*
 
 ## Historical Snapshots
+
+### 2026-04-20
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 7096 |
+| Total clicks | 19 |
+| Avg CTR | 0.27% |
+| Avg position | 13.2 |
 
 ### 2026-04-14
 
