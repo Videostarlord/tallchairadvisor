@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-04-25] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W17.md
+
+
 ## [2026-04-23] execute-fixes | Thursday Fixes Applied
 
 - /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro

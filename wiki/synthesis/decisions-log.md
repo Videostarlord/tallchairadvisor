@@ -49,6 +49,15 @@ A rolling record of key strategic decisions and their outcomes. The most valuabl
 
 ---
 
+## 2026-W17 (2026-04-25)
+
+- **Deploy:** Passed
+- **GSC:** 19 clicks, 7096 impr, pos 13.2
+- **Fixes:** 0 applied
+- **Content:** 0 new pages
+
+
+
 ## 2026-W16 (2026-04-18)
 
 - **Deploy:** Passed
