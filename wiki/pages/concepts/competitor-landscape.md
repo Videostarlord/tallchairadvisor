@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-20
+last_updated: 2026-04-27
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -69,6 +69,13 @@ Content formats competitors use that TCA is missing or partially has:
 
 
 ## Recent Competitor Gaps
+
+| Date | Gap | Priority | Recommendation |
+|------|-----|----------|----------------|
+| 2026-04-27 | Thin, low-schema /review/gesture/ page vs ChairsFX's 14,678-word Aeron review with Article + Product + BreadcrumbList schema. Our Gesture review draws 1,341 impressions (highest volume page) but converts at only 0.22% CTR sitting at position 8.7 — a clear signal that title/meta are not compelling enough to earn the click, and thin content is likely capping ranking potential. | high | Expand /review/gesture/ to 2,500–4,000 words with tall-person-specific sections (seat height range, seat depth for long legs, arm height max, cylinder upgrade options). Add 'for tall people' angle explicitly to title tag and meta description (e.g., 'Steelcase Gesture Review for Tall People (6ft+): Is It Worth It in 2025?'). Implement Article + Product + BreadcrumbList schema. A 1-position SERP gain at this impression volume has the highest traffic upside of any page this week. |
+| 2026-04-27 | /correct-chair-dimensions/ ranks at position 18.6 with 998 impressions — our second-highest impression page — but is buried on page 2 with near-zero CTR (0.20%). Tall.Life's comparable guide ranks well using an Article + CommentAction schema and targets the exact informational intent ('tall office chairs dimensions') we should own as a niche authority. No competitor owns a truly tall-person-specific chair sizing guide. | high | Rebuild /correct-chair-dimensions/ as a definitive 'Chair Dimensions Guide for Tall People (6ft, 6'2", 6'4", 6'6"+)' with a height-indexed lookup table (seat height, seat depth, back height, arm height recommendations by user height), inline visuals/diagrams, and a FAQ section targeting PAA queries like 'what seat height do I need for my height.' Add Article + HowTo or Table schema. Rewrite title to include 'tall people' + height specifics. Pushing this from position 18 to sub-15 at 998 impressions is a fast traffic unlock. |
+| 2026-04-27 | /office-chairs-for-tall-people/ is our primary category/pillar page but sits at a damaging position 30.8 (page 3) with only 0.48% CTR on 421 impressions. BTOD's big-and-tall category page runs ~7,600 words with broad product coverage; Wirecutter's best-of guide exceeds 24,000 words. Our pillar page is almost certainly under-built relative to these, and it lacks the internal link authority it needs as a hub — our sub-pages (/chairs/herman-miller-aeron/tall-people/, /chairs/steelcase-gesture/tall-people/) are not funneling authority back up effectively. | medium | Expand /office-chairs-for-tall-people/ to 3,500–5,000 words: add a comparison table of top 6–8 chairs with tall-specific specs (max seat height, seat depth, weight capacity, back height), a buying criteria section ('what to look for in a chair if you're over 6ft'), and height-bracket recommendations (6'–6'2" vs 6'3"–6'5" vs 6'6"+). Add explicit internal links from every chair sub-page and review page back to this pillar. Implement ItemList + Article schema. This page needs to become the authority hub that lifts the entire site's topical relevance for 'office chairs tall people' cluster. |
+
 
 | Date | Gap | Priority | Recommendation |
 |------|-----|----------|----------------|

@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-04-27] competitor-monitor | Competitor Scan
+
+- Monitored: 5 pages (5 live, 0 dead)
+- Gaps found: 3
+- Summary: Tallchairadvisor.com has a real visibility asset — nearly 5,000 monthly impressions spread across its top pages — but is failing to convert that exposure into clicks due to weak title/meta copy, thin content relative to competitors, and missing structured data across all high-impression pages. The single highest-leverage move this week is fixing the Gesture review and the dimensions guide, which together account for 2,339 impressions and are sitting within 3–10 positions of a page-1 breakthrough. The pillar page at position 30 is a structural problem that, once addressed, should lift rankings across the entire tall-people chair keyword cluster through improved topical authority.
+
+
+## [2026-04-27] gsc-pull | GSC Data Pull
+
+- Period: 2026-01-27 → 2026-04-27 (90 days)
+- Pages: 45 | Queries: 200
+- Clicks: 23 | Impressions: 8455 | Avg pos: 12.6
+
+
 ## [2026-04-25] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
