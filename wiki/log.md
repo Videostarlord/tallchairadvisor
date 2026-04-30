@@ -2,6 +2,14 @@
 type: log
 ---
 
+## [2026-04-30] execute-fixes | Thursday Fixes Applied
+
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
+- /chairs/steelcase-leap-plus/tall-people/ → src/pages/chairs/steelcase-leap-plus/tall-people.astro
+- /back-pain-spine-height/ → src/pages/back-pain-spine-height.astro
+
+
 ## [2026-04-29] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-04-29-weekly-plan.md
