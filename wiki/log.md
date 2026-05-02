@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-05-02] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W18.md
+
+
 ## [2026-04-30] execute-fixes | Thursday Fixes Applied
 
 - /review/leap-plus/ → src/pages/review/leap-plus.astro
