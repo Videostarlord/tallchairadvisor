@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-05-04] competitor-monitor | Competitor Scan
+
+- Monitored: 5 pages (5 live, 0 dead)
+- Gaps found: 3
+- Summary: Our core problem is a mismatch between decent ranking positions and near-zero CTR, driven by generic title tags, missing schema, and under-built content that cannot compete with ChairsFX or Wirecutter on depth. The immediate highest-ROI actions are schema + title rewrites on already-ranking pages (Gesture review, knee-pain guide) to harvest impressions we are already earning, followed by a full rebuild of the /office-chairs-for-tall-people/ cornerstone page to break out of page 2. A new /big-and-tall-office-chairs/ page captures adjacent commercial intent that BTOD owns by default, simply because we have no competing URL indexed for it.
+
+
+## [2026-05-04] gsc-pull | GSC Data Pull
+
+- Period: 2026-02-03 → 2026-05-04 (90 days)
+- Pages: 46 | Queries: 200
+- Clicks: 29 | Impressions: 12209 | Avg pos: 11.5
+
+
 ## [2026-05-02] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED

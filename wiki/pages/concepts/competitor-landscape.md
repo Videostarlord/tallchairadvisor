@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-27
+last_updated: 2026-05-04
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -69,6 +69,13 @@ Content formats competitors use that TCA is missing or partially has:
 
 
 ## Recent Competitor Gaps
+
+| Date | Gap | Priority | Recommendation |
+|------|-----|----------|----------------|
+| 2026-05-04 | Thin content and missing schema on high-impression, low-CTR pages (/review/gesture/ at 1,895 impressions and /knee-pain-seat-depth/ at 1,524 impressions). Our reviews are likely losing clicks to ChairsFX (14,678 words, full Article + Product schema) and Wirecutter (24,578 words). We have strong ranking positions (8.4, 8.8) but near-zero CTR, signaling weak title tags and no rich-result eligibility. | high | This week: (1) Rewrite title tags for /review/gesture/ and /knee-pain-seat-depth/ to include tall-person specificity and a compelling hook (e.g., 'Steelcase Gesture Review for Tall People 6ft+: Is It Worth $1,600?'). (2) Add Article + Product (for reviews) or MedicalWebPage/HowTo (for knee-pain) schema markup. (3) Expand word count to 3,000+ with tall-specific sections: seat depth for long legs, cylinder height, armrest reach for tall torsos. Target CTR lift from ~0.15% toward 0.5%+ given current strong ranking. |
+| 2026-05-04 | Our category page /office-chairs-for-tall-people/ sits at position 24.9 with 570 impressions — buried on page 2-3 — while Tall.Life ranks for the same head term with a dedicated, schema-marked Article page and BTOD dominates with 7,600 words of commercial content. We are the most niche-relevant site for this query but our page is almost certainly thin or poorly internally linked. | high | Treat /office-chairs-for-tall-people/ as the site's cornerstone page this week: (1) Expand to 2,500+ words covering seat height ranges, cylinder upgrades, seat depth minimums, and weight capacity — all framed around 6'+ users with specific measurements. (2) Implement Article + ItemList schema with each chair recommendation as a ListItem. (3) Add an internal link from every review page and the homepage to this URL with exact-match or near-match anchor text. (4) Build a clear H2 structure (e.g., 'What Chair Dimensions Matter for Tall People,' 'Best Chairs by Height Range,' 'How to Adjust Any Chair if You're Over 6'2'') to capture featured-snippet real estate. A jump from position 24.9 to page 1 is realistic given niche authority. |
+| 2026-05-04 | We have zero coverage of 'big and tall office chair' commercial intent — BTOD owns this with a dedicated category page and 7,600 words — yet our GSC data shows no impressions for this query cluster. Meanwhile, our Aeron Size C review (/review/aeron-size-c/) at position 7 with only 548 impressions suggests we are indexed for narrow long-tail variants but missing the broader 'big and tall' modifier that drives far higher search volume and affiliate conversion intent. | medium | Create a new page this week: /big-and-tall-office-chairs/ targeting 'big and tall office chair for tall people,' 'office chair for 6'4 man,' and 'heavy duty office chair tall person' keyword clusters. (1) Differentiate from BTOD by leading with height-first specs (seat height range, back height) rather than weight capacity, which is our unique editorial angle. (2) Cross-link bidirectionally with /office-chairs-for-tall-people/ and all relevant reviews. (3) Include a comparison table with schema (ItemList + Product) covering seat height max, cylinder options, and weight limit for 5–7 chairs. This fills a commercial-intent gap BTOD serves with zero tall-specific editorial depth. |
+
 
 | Date | Gap | Priority | Recommendation |
 |------|-----|----------|----------------|

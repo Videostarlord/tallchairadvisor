@@ -1,13 +1,39 @@
 ---
 type: concept
-last_updated: 2026-04-28
-sources: [raw/audits/2026-04-28-weekly-audit.md]
+last_updated: 2026-05-04
+sources: [raw/gsc/gsc-2026-05-04.json]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-04-28)
+## Latest Snapshot (2026-05-04)
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 12209 |
+| Total clicks | 29 |
+| Avg CTR | 0.24% |
+| Avg position | 11.5 |
+
+## Top Pages
+
+| /review/gesture/ | 1895 impr | pos 8.4 | 0.16% CTR | 3 clicks |
+| /knee-pain-seat-depth/ | 1524 impr | pos 8.8 | 0.13% CTR | 2 clicks |
+| /correct-chair-dimensions/ | 1422 impr | pos 16.7 | 0.14% CTR | 2 clicks |
+| /chairs/herman-miller-aeron/tall-people/ | 1175 impr | pos 7.3 | 0.26% CTR | 3 clicks |
+| /chairs/steelcase-gesture/seat-depth/ | 710 impr | pos 8.1 | 0.14% CTR | 1 clicks |
+| /best-office-chairs/ | 694 impr | pos 23.2 | 0% CTR | 0 clicks |
+| /review/leap-plus/ | 632 impr | pos 9.3 | 0.47% CTR | 3 clicks |
+| /office-chairs-for-tall-people/ | 570 impr | pos 24.9 | 0.53% CTR | 3 clicks |
+| /review/aeron-size-c/ | 548 impr | pos 7 | 0.36% CTR | 2 clicks |
+| /gesture-vs-leap-plus/ | 413 impr | pos 14 | 0.24% CTR | 1 clicks |
+
+*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+
+## Historical Snapshots
+
+### 2026-04-28
 
 | Metric | Value |
 |--------|-------|
@@ -15,23 +41,6 @@ tags: [gsc, performance, metrics, tracking]
 | Total clicks | 23 |
 | Avg CTR | 0.27% |
 | Avg position | 12.6 |
-
-## Top Pages
-
-| /review/gesture/ | 1341 impr | pos 8.7 | 0.22% CTR | 3 clicks |
-| /correct-chair-dimensions/ | 998 impr | pos 18.6 | 0.2% CTR | 2 clicks |
-| /chairs/herman-miller-aeron/tall-people/ | 865 impr | pos 7.1 | 0.23% CTR | 2 clicks |
-| /knee-pain-seat-depth/ | 662 impr | pos 8.9 | 0% CTR | 0 clicks |
-| /best-office-chairs/ | 579 impr | pos 24.9 | 0% CTR | 0 clicks |
-| /office-chairs-for-tall-people/ | 421 impr | pos 30.8 | 0.48% CTR | 2 clicks |
-| /chairs/steelcase-gesture/seat-depth/ | 401 impr | pos 8.3 | 0.25% CTR | 1 clicks |
-| /review/leap-plus/ | 377 impr | pos 10.1 | 0.8% CTR | 3 clicks |
-| /gesture-vs-leap-plus/ | 339 impr | pos 14.3 | 0.29% CTR | 1 clicks |
-| /review/aeron-size-c/ | 307 impr | pos 7.3 | 0.33% CTR | 1 clicks |
-
-*Full audit report: raw/audits/2026-04-28-weekly-audit.md*
-
-## Historical Snapshots
 
 ### 2026-04-27
 
