@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-05-05] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 29 | Impressions: 12209
+- Full report archived to raw/audits/2026-05-05-weekly-audit.md
+
+
 ## [2026-05-04] competitor-monitor | Competitor Scan
 
 - Monitored: 5 pages (5 live, 0 dead)

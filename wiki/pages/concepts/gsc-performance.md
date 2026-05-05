@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-05-04
-sources: [raw/gsc/gsc-2026-05-04.json]
+last_updated: 2026-05-05
+sources: [raw/audits/2026-05-05-weekly-audit.md]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-05-04)
+## Latest Snapshot (2026-05-05)
 
 | Metric | Value |
 |--------|-------|
@@ -29,9 +29,18 @@ tags: [gsc, performance, metrics, tracking]
 | /review/aeron-size-c/ | 548 impr | pos 7 | 0.36% CTR | 2 clicks |
 | /gesture-vs-leap-plus/ | 413 impr | pos 14 | 0.24% CTR | 1 clicks |
 
-*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+*Full audit report: raw/audits/2026-05-05-weekly-audit.md*
 
 ## Historical Snapshots
+
+### 2026-05-04
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 12209 |
+| Total clicks | 29 |
+| Avg CTR | 0.24% |
+| Avg position | 11.5 |
 
 ### 2026-04-28
 
