@@ -33,6 +33,28 @@ function daysSinceLastEdit(filePath: string): number {
   } catch { return Infinity; }
 }
 
+function getGscPageData(root: string): Map<string, { impressions: number; position: number; clicks: number }> {
+  const gscPath = resolve(root, 'data/gsc/latest.json');
+  if (!existsSync(gscPath)) return new Map();
+  try {
+    const gsc = JSON.parse(readFileSync(gscPath, 'utf-8'));
+    const map = new Map<string, { impressions: number; position: number; clicks: number }>();
+    for (const page of gsc.pages ?? []) {
+      map.set(page.page, { impressions: page.impressions ?? 0, position: page.position ?? 99, clicks: page.clicks ?? 0 });
+    }
+    return map;
+  } catch { return new Map(); }
+}
+
+// CRITICAL: 400+ impressions, pos ≤10, 0 clicks — visible but completely failing to convert
+function isCriticalPage(filePath: string, gscData: Map<string, { impressions: number; position: number; clicks: number }>): boolean {
+  const slug = '/' + filePath.replace(/^src\/pages\//, '').replace(/\.astro$/, '') + '/';
+  const fullUrl = `https://tallchairadvisor.com${slug}`;
+  const data = gscData.get(fullUrl) ?? gscData.get(slug);
+  if (!data) return false;
+  return data.impressions >= 400 && data.position <= 10 && data.clicks === 0;
+}
+
 function parsePlan(plan: string): FixTask[] {
   const tasks: FixTask[] = [];
   const fixSection = plan.match(/## FIXES[\s\S]*?(?=## NEW CONTENT|## REWRITES|## STRATEGY|$)/)?.[0] ?? '';
@@ -48,7 +70,7 @@ function parsePlan(plan: string): FixTask[] {
   return tasks;
 }
 
-async function applyFix(task: FixTask): Promise<{ success: boolean; summary: string }> {
+async function applyFix(task: FixTask, gscData: Map<string, { impressions: number; position: number; clicks: number }>): Promise<{ success: boolean; summary: string }> {
   const fullPath = resolve(ROOT, task.filePath);
   if (!existsSync(fullPath)) {
     return { success: false, summary: `File not found: ${task.filePath}` };
@@ -57,16 +79,19 @@ async function applyFix(task: FixTask): Promise<{ success: boolean; summary: str
   const fileContent = readFileSync(fullPath, 'utf-8');
   const originalWordCount = fileContent.split(/\s+/).filter(w => w.length > 0).length;
 
-  // Cooldown guard: skip non-technical fixes on recently edited files
+  // Cooldown guard: CRITICAL pages (400+ impr, pos ≤10, 0 clicks) use 7-day minimum.
+  // All others use 14-day. Technical fixes (schema/canonical/404/etc) bypass both.
   const daysSince = daysSinceLastEdit(fullPath);
-  if (daysSince < 14) {
-    const isTechnical = /schema|canonical|noindex|404|broken|redirect|voice|affiliate/i.test(task.description);
-    if (!isTechnical) {
-      return {
-        success: false,
-        summary: `SKIPPED: ${task.filePath} was edited ${daysSince}d ago. Non-technical fixes require 14-day cooldown.`,
-      };
-    }
+  const isTechnical = /schema|canonical|noindex|404|broken|redirect|voice|affiliate/i.test(task.description);
+  const critical = isCriticalPage(task.filePath, gscData);
+  const cooldownRequired = critical ? 7 : 14;
+  if (daysSince < cooldownRequired && !isTechnical) {
+    return {
+      success: false,
+      summary: critical
+        ? `SKIPPED: ${task.filePath} edited ${daysSince}d ago. CRITICAL pages require 7-day minimum (too recent).`
+        : `SKIPPED: ${task.filePath} edited ${daysSince}d ago. Non-technical fixes require 14-day cooldown.`,
+    };
   }
 
   const response = await client.messages.create({
@@ -140,12 +165,13 @@ async function main() {
     process.exit(0);
   }
 
-  console.log(`Applying ${tasks.length} fixes...`);
+  const gscData = getGscPageData(ROOT);
+  console.log(`Applying ${tasks.length} fixes... (GSC data: ${gscData.size} pages loaded)`);
   const results: string[] = [`# Fixes Log — ${new Date().toISOString().split('T')[0]}\n`];
 
   for (const task of tasks) {
     console.log(`  → ${task.description} (${task.filePath})`);
-    const result = await applyFix(task);
+    const result = await applyFix(task, gscData);
     results.push(`- [${result.success ? '✅' : '❌'}] ${result.summary}`);
     if (!result.success) console.warn(`    FAILED: ${result.summary}`);
     await new Promise(r => setTimeout(r, 1000));

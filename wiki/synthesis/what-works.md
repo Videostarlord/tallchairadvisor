@@ -15,7 +15,7 @@ Patterns and fixes that produced measurable positive outcomes. Updated as new da
 
 10. **Impression tripling in 4 weeks** — 4,443 impr (Apr 7) → 12,209 impr (May 5) on a 90-day rolling window. Position improved from 14.3 → 11.5 over the same period. This is the clearest site-level confirmation that the hub-and-spoke architecture and content strategy are working. Not a fluke — every weekly snapshot improved.
 
-11. **First affiliate commission: $18 on May 1** — Confirms the full funnel works (impression → click → purchase). Validates that the Gesture first-person review format converts. Came roughly 120 days after launch.
+11. **First affiliate commission: $18 on May 1** — Confirms the full funnel works (impression → click → purchase). **Came from /knee-pain-seat-depth/ (corrected May 6)** — not the Gesture review as initially assumed. A problem-aware visitor (knee pain query) read the seat depth guide and clicked an embedded Amazon CTA. Validates that pain-pillar educational pages with embedded CTAs convert, not just first-person reviews. Came roughly 120 days after launch.
 
 12. **New review pages index and rank fast** — `/review/aeron-size-c/` reached pos 7.0 with 548 impressions shortly after creation. Spec-driven research-voice reviews get picked up quickly even on a young domain when the content is specific enough.
 
@@ -49,7 +49,7 @@ Patterns and fixes that produced measurable positive outcomes. Updated as new da
 
 - **Spec-driven sub-pages rank fast** for long-tail queries (e.g., "steelcase gesture seat depth range inches" at pos 5.75)
 - **FAQPage schema** on content pages — correlates with better rich result eligibility
-- **First-person review format converts** — Gesture review drove first commission; research-voice pages haven't converted yet
+- **Pain-pillar pages with embedded CTAs convert** — /knee-pain-seat-depth/ drove the first commission (May 1), not the Gesture review. Problem-aware visitor → educational page → Amazon CTA flow works. Pattern: embed 2-CTA affiliate block in every pain/ergonomics page (primary + secondary chair recommendation).
 - **New page → pos 7 within weeks** — aeron-size-c proved new content indexes fast on this domain now
 
 ## What We Can't Confirm Yet
@@ -57,7 +57,7 @@ Patterns and fixes that produced measurable positive outcomes. Updated as new da
 - Whether meta description rewrites improve CTR — **first real test coming May 8** (Thursday agent finally unblocked after cooldown bug fix; 5 verdict-first rewrites queued)
 - Whether internal link changes affect ranking positions
 - Whether citation capsules would increase AI citations
-- Whether informational page impressions (knee-pain, chair-dimensions) eventually convert or remain zero-click
+- Whether /correct-chair-dimensions/ and other informational pages convert — knee-pain proved the format works, but that page has a strong "problem → solution → buy" flow. Not all informational pages have this structure.
 
 ## Important Nuance: SERP Context Matters
 

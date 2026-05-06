@@ -77,6 +77,26 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   return { valid: true };
 }
 
+async function scoreContent(content: string, keyword: string): Promise<{ score: number; feedback: string }> {
+  const response = await client.messages.create({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 200,
+    system: `Score this tallchairadvisor.com page draft on 5 criteria (20pts each, 100 total):
+1. Answer-first format — verdict or TL;DR in the first visible section (before any H2)
+2. Target keyword present in title, H1, and opening paragraph
+3. FAQPage JSON-LD schema with at least 4 questions
+4. Affiliate CTA block with Amazon links containing tag=tallchairadvi-20
+5. At least 3 internal links using class="link-internal"
+Return only JSON: {"score": <0-100>, "feedback": "<one sentence on the biggest gap if score < 80, else 'pass'>"}`,
+    messages: [{ role: 'user', content: `Keyword: "${keyword}"\n\n${content.slice(0, 5000)}` }],
+  });
+  const text = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
+  try {
+    const parsed = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
+    return { score: Number(parsed.score ?? 0), feedback: String(parsed.feedback ?? 'scoring failed') };
+  } catch { return { score: 0, feedback: 'score parse failed' }; }
+}
+
 async function writeNewPage(task: ContentTask): Promise<{ success: boolean; filePath: string; summary: string }> {
   const examplePage = getExamplePage();
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
@@ -101,6 +121,13 @@ CONTENT RULES:
 - Internal links to related pages on the site
 - Schema: include relevant JSON-LD (BlogPosting or ItemList)
 - 1200-2000 words for blog posts, 800-1200 for spec pages
+
+STRUCTURAL REQUIREMENTS — every page must include all 5:
+1. VERDICT BOX: A styled div (class="bg-card border border-border rounded-lg p-5 my-8" or similar) in the first visible section stating the direct answer in 2-3 sentences. This is the element AI Overviews cite most. Do not bury it.
+2. ANSWER-FIRST: The opening paragraph answers the query directly. No "In this guide we'll explore..." preamble. State the conclusion, then support it.
+3. CITATION CAPSULE: One standalone paragraph (3-4 sentences, fully self-contained — no pronouns that need context) that answers the core query without surrounding text. Format it so an AI can lift it verbatim.
+4. FAQ SECTION + SCHEMA: Minimum 4 FAQPage questions in JSON-LD schema AND rendered as visible H3 + paragraph pairs. Target long-tail variants of the main keyword.
+5. AFFILIATE CTA BLOCK: A 2-button block (primary chair = best fit for the problem, secondary = alternative) using the card pattern from the example page. Both links must include tag=tallchairadvi-20. Required on all pain/ergonomics pages AND all review/comparison pages.
 
 OUTPUT: Complete Astro page file only. Match the structure of the example page provided.
 
@@ -148,6 +175,13 @@ Write the complete Astro page. Output the file content only.`,
     console.warn(`    VALIDATION FAILED for ${task.slug}: ${validation.reason}`);
     console.warn(`    First 500 chars of frontmatter: ${cleaned.slice(0, 500)}`);
     return { success: false, filePath: '', summary: `Validation failed for ${task.slug}: ${validation.reason}` };
+  }
+
+  // Quality gate: score content before writing — reject if below 80/100
+  const { score, feedback } = await scoreContent(cleaned, task.keyword);
+  console.log(`    Quality score: ${score}/100`);
+  if (score < 80) {
+    return { success: false, filePath: '', summary: `QUALITY GATE FAILED (${score}/100) for ${task.slug}: ${feedback}` };
   }
 
   // Determine file path from slug
