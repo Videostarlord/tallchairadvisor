@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -42,3 +44,12 @@ jobs:
           git add src/ reports/content-log.md raw/ wiki/
           git diff --staged --quiet || git commit -m "content: New pages $(date +%Y-%m-%d)"
           git push origin HEAD:staging --force
+
+      - name: Commit content log (failures)
+        if: env.CONTENT_WRITTEN != 'true'
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git add reports/content-log.md raw/ || true
+          git diff --staged --quiet || git commit -m "content: No pages written $(date +%Y-%m-%d) — see content-log.md"
+          git push origin HEAD:main --force || true

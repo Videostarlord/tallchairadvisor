@@ -27,7 +27,12 @@ function parsePlan(plan: string): ContentTask[] {
   for (const line of section.split('\n')) {
     const match = line.match(/- \[ \] NEW: (.+?) \| (.+?) \| (.+?) \| (.+)/);
     if (match) {
-      tasks.push({ title: match[1], keyword: match[2], slug: match[3].trim(), description: match[4] });
+      tasks.push({
+        title: match[1],
+        keyword: match[2].replace(/`/g, '').trim(),
+        slug: match[3].replace(/`/g, '').trim(),
+        description: match[4],
+      });
     }
   }
   return tasks;
@@ -140,6 +145,8 @@ Write the complete Astro page. Output the file content only.`,
 
   const validation = validateAstroFile(cleaned);
   if (!validation.valid) {
+    console.warn(`    VALIDATION FAILED for ${task.slug}: ${validation.reason}`);
+    console.warn(`    First 500 chars of frontmatter: ${cleaned.slice(0, 500)}`);
     return { success: false, filePath: '', summary: `Validation failed for ${task.slug}: ${validation.reason}` };
   }
 
