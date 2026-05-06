@@ -2,6 +2,12 @@
 type: log
 ---
 
+## [2026-05-06] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-05-06-weekly-plan.md
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+
+
 ## [2026-05-05] audit | Weekly Site Audit
 
 - Pages audited: 20
