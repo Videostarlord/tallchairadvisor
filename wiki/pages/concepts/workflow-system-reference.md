@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-13
+last_updated: 2026-05-06
 tags: [automation, workflow, agents, github-actions, obsidian]
 ---
 
@@ -98,9 +98,16 @@ wiki/weekly/  →  git push  →  Cloudflare Pages deploy
 
 **`strategy.ts`** — Reads audit report + GSC data + full wiki synthesis context (thesis, what-works, what-failed, decisions-log, concept pages). Generates weekly action plan. Writes `reports/weekly-plan.md`. Archives to `raw/strategy/`.
 
-**`execute-fixes.ts`** — Parses `reports/weekly-plan.md` for `FIX:` and `REWRITE:` tasks. For each task, reads the target `.astro` file, calls Claude to apply the fix, checks word count (rejects if <85% of original — truncation guard), writes the file. Has a 14-day cooldown per file (bypass for technical fixes like schema/canonical/voice).
+**`execute-fixes.ts`** — Parses `reports/weekly-plan.md` for `FIX:` and `REWRITE:` tasks. For each task, reads the target `.astro` file, calls Claude to apply the fix, checks word count (rejects if <85% of original — truncation guard), writes the file. Cooldown logic (updated 2026-05-06):
+- Technical fixes (schema/canonical/404/redirect/voice/affiliate): no cooldown — always applied
+- CRITICAL pages (400+ impr, pos ≤10, 0 clicks — detected from `data/gsc/latest.json` at runtime): 7-day minimum cooldown
+- All other non-technical fixes: 14-day cooldown
 
-**`execute-content.ts`** — Parses `reports/weekly-plan.md` for unchecked `[ ] NEW:` tasks. For each, calls Claude to write a complete `.astro` page. Runs `validateAstroFile()` on the output before writing to disk — checks frontmatter fences, Layout wrapper, and bare English operators (`and`/`or`) in JS. If validation fails, the task is marked failed and `CONTENT_WRITTEN` stays `false`. Valid files are written to `src/pages/`. Creates corresponding wiki entity pages. System prompt explicitly prohibits common LLM syntax mistakes (bare `and`/`or`, unclosed template literals, wrong quote styles around apostrophes).
+**`execute-content.ts`** — Parses `reports/weekly-plan.md` for unchecked `[ ] NEW:` tasks. For each, calls Claude to write a complete `.astro` page. Pipeline (updated 2026-05-06):
+1. `validateAstroFile()` — frontmatter fences, Layout wrapper, bare English operators in JS
+2. `scoreContent()` — Haiku 4.5 scores 0-100 on 5 structural criteria: answer-first format, keyword placement, FAQPage schema, affiliate CTA block, internal links. Rejects if <80.
+3. Writes to `src/pages/` only if both pass. Creates wiki entity page on success.
+System prompt mandates 5 structural elements on every page: verdict box, answer-first opening, standalone citation capsule, 2-CTA affiliate block, FAQ+FAQPage schema.
 
 **`verify-deploy.ts`** — Runs safety checks: secrets in code, affiliate tag presence, voice violations (non-Gesture first-person testing language), credentials staged, schema JSON-LD validity (requires `dist/` — must run after build), broken internal links (skips `/images/`, `/assets/`, and static file extensions like `.png`/`.ico`/`.svg`), content regression (word count vs previous commit — requires `fetch-depth: 0`). Blocks deploy if any check fails. Writes weekly summary. Writes `wiki/weekly/YYYY-WNN.md`.
 

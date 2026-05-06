@@ -17,6 +17,10 @@ A rolling record of key strategic decisions and their outcomes. The most valuabl
 - **Local workspace was 12 commits behind remote** — agents had been running correctly all along. Workspace just needed `git pull`.
 - **SERP suppression conclusion reassessed:** April 22 finding (AI Overviews + carousels = root CTR cause) is still valid for specific query types. But "meta rewrites won't help" was overgeneralized. Review/comparison pages (gesture, leap-plus, aeron-size-c) are on editorial SERPs without carousels — meta rewrites are valid there. Thursday fixes now correctly target these pages.
 - **Decision:** `what-works.md` updated with post-April growth data. `thesis.md` updated with current state and revised priorities.
+- **PIPELINE IMPROVEMENT — CRITICAL threshold bypass:** `execute-fixes.ts` now loads GSC data at runtime and detects CRITICAL pages (400+ impr, pos ≤10, 0 clicks). These pages use a 7-day minimum cooldown instead of 14-day. Technical fixes still bypass both. The 14-day rule protects ranking signals — but a page with literally 0 clicks has no signal to protect, so the full wait was wasteful.
+- **PIPELINE IMPROVEMENT — Richer content prompt:** `execute-content.ts` system prompt now mandates 5 structural elements on every generated page: verdict box, answer-first opening, standalone citation capsule, 2-CTA affiliate block, FAQ section + FAQPage schema. Previous prompt specified these loosely; now they're explicit requirements.
+- **PIPELINE IMPROVEMENT — Quality gate:** `execute-content.ts` now runs a second Claude call (Haiku 4.5) after generation to score content 0-100 against the 5 structural criteria. Pages scoring below 80 are rejected before writing to disk. Enforces the 80+ gate that was only aspirational in the strategy prompt before.
+- **Decision:** These three changes do not conflict with the May 8 CTR test (meta rewrites on review pages) — the CRITICAL bypass only fires on 0-click pages, and the content changes only affect new pages.
 
 ## 2026-W15 (Apr 7 – Apr 13)
 
