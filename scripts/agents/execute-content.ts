@@ -174,6 +174,7 @@ async function main() {
   if (tasks.length === 0) {
     console.log('No new content in plan — skipping.');
     setEnv('CONTENT_WRITTEN', 'false');
+    appendWikiLog(ROOT, `## [${today()}] execute-content | Friday Content Skipped\n\n- Reason: No parseable NEW CONTENT entries found in reports/weekly-plan.md\n- Ensure plan uses 4-field format: title | keyword | /slug/ | description\n`);
     process.exit(0);
   }
 

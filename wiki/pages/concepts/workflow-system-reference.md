@@ -23,6 +23,7 @@ Claude TCA Workspace/               ← Obsidian vault root
 │   │   └── agents/
 │   │       ├── wiki-utils.ts       ← Shared library (read/write wiki, archive, log)
 │   │       ├── competitor-monitor.ts
+│   │       ├── index-monitor.ts    ← Monday: URL Inspection API for all pages, fixes + sitemap resubmit
 │   │       ├── audit.ts
 │   │       ├── strategy.ts
 │   │       ├── execute-fixes.ts
@@ -45,7 +46,7 @@ Runs via GitHub Actions. Thursday and Friday push to `staging`. Saturday verifie
 
 | Day | Workflow | Script | Reads | Writes | Push target |
 |-----|----------|--------|-------|--------|-------------|
-| Monday | monday.yml | `gsc-pull.ts` + `competitor-monitor.ts` | GSC API, competitor URLs | `data/gsc/latest.json`, `raw/gsc/gsc-YYYY-MM-DD.json`, `data/competitors/latest.json`, `wiki/log.md` | `main` |
+| Monday | monday.yml | `gsc-pull.ts` + `competitor-monitor.ts` + `index-monitor.ts` | GSC API, competitor URLs, URL Inspection API for all pages | `data/gsc/latest.json`, `raw/gsc/`, `data/competitors/latest.json`, `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, fixed `src/pages/` files (if issues found) | `main` |
 | Tuesday | tuesday.yml | `audit.ts` | `data/gsc/latest.json`, live site meta/schema, wiki concept pages | `reports/audit-report.md`, `raw/audits/`, `wiki/pages/concepts/gsc-performance.md` | `main` |
 | Wednesday | wednesday.yml | `strategy.ts` | Audit report, GSC data, wiki synthesis + concept pages | `reports/weekly-plan.md`, `raw/strategy/` | `main` |
 | Thursday | thursday.yml | `execute-fixes.ts` | `reports/weekly-plan.md` (FIXES section) | Modified `src/pages/*.astro` files, `reports/fixes-log.md`, wiki fix history | `staging` |

@@ -1,11 +1,24 @@
 ---
 type: concept
-last_updated: 2026-04-06
-sources: [raw/audits/2026-03-16-geo-analysis.md, raw/audits/2026-04-03-full-audit.md]
+last_updated: 2026-04-22
+sources: [raw/audits/2026-03-16-geo-analysis.md, raw/audits/2026-04-03-full-audit.md, raw/audits/2026-04-22-serp-analysis.md]
 tags: [geo, ai-search, citations, perplexity, chatgpt]
 ---
 
 # AI Citation Readiness (GEO)
+
+## Confirmed AI Overviews on TCA Queries (Apr 22)
+
+Incognito SERP audit confirmed Google AI Overviews on two queries where TCA ranks:
+
+| Query | TCA Position | Impressions | CTR | Status |
+|---|---|---|---|---|
+| herman miller aeron size c height range | 9.0 | 10 | 0% | AI Overview present — answers spec fully |
+| steelcase gesture 360 armrests description | 7.8 | 4 | 0% | AI Overview present |
+
+**Implication:** These rankings are real but clicks are impossible without being cited inside the AI Overview itself. GEO optimization — specifically height-bracket verdict tables and citation capsules — is the path to traffic from these queries.
+
+---
 
 ## GEO Score: 71/100 (Mar 16)
 

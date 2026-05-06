@@ -44,7 +44,7 @@ async function main() {
   const wikiIndex = readWikiIndex(ROOT) || '';
   const synthesisContext = readSynthesisContext(ROOT);
   const conceptContext = readConceptContext(ROOT, [
-    'ctr-optimization', 'content-gaps', 'internal-linking', 'ai-citation-readiness',
+    'ctr-optimization', 'content-gaps', 'internal-linking', 'ai-citation-readiness', 'indexing-health',
   ]);
   const decisionsLog = readWikiPage(ROOT, 'synthesis/decisions-log.md') || '';
   const thesis = readWikiPage(ROOT, 'synthesis/thesis.md') || '';
@@ -121,11 +121,12 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 - [ ] FIX: ...
 
 ## NEW CONTENT (Friday agent)
-<!-- Only include if there's a clear content gap worth a new page. Leave empty if no new pages needed. -->
-- [ ] NEW: [page title] | [target keyword] | [slug] | [brief description of content angle]
+<!-- ONLY for brand-new .astro pages that do not yet exist. Content additions to existing pages go in REWRITES below. The slug field is REQUIRED — Friday agent will silently skip entries without it. -->
+<!-- Format MUST be exactly 4 pipe-separated fields: title | keyword | slug | description -->
+- [ ] NEW: [page title] | [target keyword] | /slug-here/ | [brief description of content angle]
 
 ## REWRITES (Thursday agent, lower priority)
-<!-- Pages that need significant content overhaul, not just meta tweaks -->
+<!-- For significant content overhaul of existing pages AND for adding new sections to existing pages. -->
 - [ ] REWRITE: [page path] | [what to improve] | FILE: src/pages/[path].astro
 
 ## STRATEGY NOTES

@@ -37,10 +37,15 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
-      - name: Commit data files + wiki updates
+      - name: Run indexing health check
+        run: npx tsx scripts/agents/index-monitor.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit data files + wiki updates + any index fixes
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          git add data/gsc/latest.json data/competitors/latest.json raw/ wiki/
-          git diff --staged --quiet || git commit -m "data: Monday pull $(date +%Y-%m-%d)"
+          git add data/gsc/latest.json data/competitors/latest.json reports/index-monitor.md raw/ wiki/ src/
+          git diff --staged --quiet || git commit -m "data: Monday pull + index fixes $(date +%Y-%m-%d)"
           git push

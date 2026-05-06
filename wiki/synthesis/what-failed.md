@@ -1,7 +1,7 @@
 ---
 type: synthesis
-last_updated: 2026-04-06
-sources: [raw/audits/2026-04-03-full-audit.md]
+last_updated: 2026-04-22
+sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-04-22-serp-analysis.md]
 tags: [patterns, failures, lessons]
 ---
 
@@ -49,11 +49,20 @@ Claude wrote `size-guide.astro` with a bare `and` keyword in a JavaScript expres
 
 **Fix:** Added extension-based skip rule — any href ending in `.png`, `.ico`, `.svg`, `.jpg`, etc. is not treated as an internal page link.
 
+### 4. Verdict-First Meta as Primary CTR Fix — Wrong Diagnosis (Apr 22)
+
+The Apr 3 audit prescribed verdict-first meta rewrites as the primary CTR lever. The Apr 22 incognito SERP audit shows the actual cause is structural SERP suppression:
+- Spec queries where TCA ranks pos 7–10 → AI Overviews eating clicks (confirmed on 2 queries)
+- Money queries → shopping carousels above organic results, TCA buried at pos 65–79 anyway
+
+**Lesson:** Always check the actual SERP before prescribing a CTR fix. Meta quality is downstream of SERP layout. If an AI Overview is present, there is no meta description fix.
+
 ## Not Yet Enough Data To Judge
 
-- Verdict-first meta descriptions (not yet implemented)
 - Citation capsules (not yet implemented)
 - Standing desk content (not yet written)
+- PAA targeting (not yet implemented)
+- Height-specific page depth upgrades (prescribed Apr 22)
 
 ## Links
 

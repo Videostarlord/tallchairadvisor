@@ -92,12 +92,38 @@ type: log
 - Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
 
 
+## [2026-04-22] manual-session | SERP Incognito Audit + CTR Root Cause Diagnosis
+
+- **Method:** 18 incognito screenshots across zero-CTR page-1 queries and money queries from gsc-2026-04-20.json
+- **Confirmed AI Overviews:** `herman miller aeron size c height range` (pos 9) + `steelcase gesture 360 armrests description` (pos 7.8) — both 0% CTR explained
+- **Shopping carousel suppression confirmed:** All "best office chair for tall people" variants have product carousels above organic results. TCA buried at pos 65–79 with no path to clicks even if it ranked pos 5.
+- **BTOD dominates video carousels** on nearly every SERP. TCA has no video presence. (Jackson declined YouTube.)
+- **Reddit appears organically** in product SERPs (r/OfficeChairs visible on Leap Plus queries).
+- **CTR diagnosis revised:** Root cause is structural SERP suppression (AI Overviews + carousels), not meta descriptions. Verdict-first meta hypothesis was wrong as a primary fix.
+- **Priority order updated:** GEO → height-specific page depth → PAA targeting → schema fix → Reddit
+- **Raw audit saved:** `raw/audits/2026-04-22-serp-analysis.md`
+- **Wiki pages updated:** ctr-optimization.md, ai-citation-readiness.md, what-failed.md, thesis.md
+
+
 ## [2026-04-21] audit | Weekly Site Audit
 
 - Pages audited: 20
 - Clicks: 19 | Impressions: 7096
 - Full report archived to raw/audits/2026-04-21-weekly-audit.md
 
+
+## [2026-04-20] manual-session | Index Monitor Agent Added
+
+- **New script:** `scripts/agents/index-monitor.ts` — Monday indexing health check
+- **Inspects:** All pages in `src/pages/**/*.astro` via GSC URL Inspection API
+- **Diagnoses:** noindex tags, robots.txt blocks, soft-404s, thin content, not-yet-crawled pages
+- **Fixes:** Unintentional noindex, wrong canonical, schema parse errors (code-level only)
+- **Re-indexes:** Resubmits sitemap via GSC Sitemaps API after any fix (best available programmatic signal)
+- **Writes:** `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, archives to `raw/audits/`
+- **Wired into:** `monday.yml` (runs after GSC pull + competitor scan), committed with `src/` so fixes ship to main
+- **Strategy integration:** `indexing-health` concept page now included in Wednesday strategy context
+- **Also fixed:** `reports/weekly-plan.md` height-bracket table moved to REWRITES; wrist pain page re-queued with correct 4-field format in NEW CONTENT
+- **Also fixed:** `execute-content.ts` now writes wiki log even when tasks.length === 0; `strategy.ts` prompt clarifies NEW CONTENT = new .astro files only, slug required
 
 ## [2026-04-20] competitor-monitor | Competitor Scan
 
