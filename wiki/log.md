@@ -2,6 +2,15 @@
 type: log
 ---
 
+## [2026-05-06] manual-session | Pipeline Repair + Trajectory Review
+
+- **First commission logged:** $18 on May 1 from Amazon. Gesture review is the source. Full funnel confirmed.
+- **GSC synced:** Local workspace was 12 commits behind remote. Pulled all agent commits from Apr 27 – May 6. Current state: 12,209 impr, 29 clicks, pos 11.5 (90-day).
+- **Thursday cooldown bug found and fixed:** Shallow clone (`fetch-depth:1`) caused `git log -1` to always return today's date → every file permanently "edited 0d ago" → 14-day cooldown never cleared → 3 weeks of zero fixes. Fix committed: `fetch-depth: 0` added to thursday.yml.
+- **Friday silent failure diagnosed and fixed:** Markdown backticks in strategy-agent-generated slugs (e.g. `` `/slug/` ``) corrupted file paths → pages written to invalid locations → `CONTENT_WRITTEN=false` → 3 weeks of zero content. Fix: strip backticks in `parsePlan()`. Added validation logging + always-commit content-log on failure.
+- **SERP suppression conclusions reassessed:** April 22 finding still valid in scope (carousels on head terms, AI Overviews on 2 specific spec queries). But "meta rewrites won't help" was overgeneralized — does not apply to review/comparison pages on editorial SERPs. Thursday meta fixes are correct.
+- **Wiki updated:** `what-works.md` (major post-April update), `thesis.md` (current state + revised priorities), `decisions-log.md` (W19 entry).
+
 ## [2026-05-06] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-05-06-weekly-plan.md

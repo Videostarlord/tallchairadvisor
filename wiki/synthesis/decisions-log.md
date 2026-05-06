@@ -1,12 +1,22 @@
 ---
 type: synthesis
-last_updated: 2026-04-06
+last_updated: 2026-05-06
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W19 (May 6) — manual session + pipeline repair
+
+- **First commission:** $18 on May 1 from Amazon affiliate. Validated full funnel. Almost certainly from /review/gesture/ (only first-person review, highest impressions).
+- **GSC trajectory confirmed:** 4,443 → 12,209 impressions over 4 weeks (90-day rolling). Clicks 10 → 29. Position 14.3 → 11.5. Not a fluke — consistent weekly improvement.
+- **CRITICAL BUG FIXED — Thursday cooldown:** `thursday.yml` used `actions/checkout@v4` without `fetch-depth: 0` (shallow clone). `git log -1 --format=%ai` always returned today's date for every file → `daysSinceLastEdit()` always returned 0 → every page permanently locked at "edited 0d ago." 3 weeks of zero fixes directly caused by this. Fix: added `fetch-depth: 0` to thursday.yml checkout.
+- **CRITICAL BUG FIXED — Friday silent failure:** Strategy agent formats plan slugs with Markdown backticks (e.g. `` `/slug/` ``). Backticks survived into `task.slug`, corrupting file paths. Pages were written to invalid paths → `CONTENT_WRITTEN` stayed false → commit step skipped → content lost silently for 3 weeks. Fix: strip backticks from parsed slug/keyword in `execute-content.ts`. Also added: validation failure logging, always-commit content-log.md step on failure so errors are visible.
+- **Local workspace was 12 commits behind remote** — agents had been running correctly all along. Workspace just needed `git pull`.
+- **SERP suppression conclusion reassessed:** April 22 finding (AI Overviews + carousels = root CTR cause) is still valid for specific query types. But "meta rewrites won't help" was overgeneralized. Review/comparison pages (gesture, leap-plus, aeron-size-c) are on editorial SERPs without carousels — meta rewrites are valid there. Thursday fixes now correctly target these pages.
+- **Decision:** `what-works.md` updated with post-April growth data. `thesis.md` updated with current state and revised priorities.
 
 ## 2026-W15 (Apr 7 – Apr 13)
 

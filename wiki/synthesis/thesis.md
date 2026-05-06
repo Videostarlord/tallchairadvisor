@@ -19,40 +19,40 @@ TallChairAdvisor.com can become the #1 resource for height-specific office chair
 3. Spec-driven content — verifiable numbers resist AI displacement
 4. No incumbent — BTOD does weight, Tall.Life does lifestyle, nobody does height-specific chair fit
 
-## Current State (Apr 22)
+## Current State (May 6)
 
-- **Site age:** ~120 days
+- **Site age:** ~135 days
 - **SEO score:** 89/100
-- **GSC:** 7,096 impressions, 19 clicks, 0.27% CTR (90-day window)
-- **Pages:** ~44 content pages, all indexed
-- **Revenue:** $0 (no clicks converting yet)
-- **CTR root cause (confirmed Apr 22):** AI Overviews on spec queries + shopping carousels on money queries. Not a meta description problem.
+- **GSC:** 12,209 impressions, 29 clicks, 0.24% CTR (90-day window, May 5)
+- **Pages:** ~46 content pages, all indexed
+- **Revenue:** $18 first commission on May 1 — Gesture review converting
+- **CTR note (revised May 6):** April 22 SERP audit found AI Overviews + carousels as suppressors — still valid for those specific query types. But the finding was overgeneralized: review/comparison pages operate on editorial SERPs without carousels and meta rewrites are valid there. See [[what-works]] and [[ctr-optimization]].
 
-## What Needs to Happen Next (Priority Order — revised Apr 22)
+## What Needs to Happen Next (Priority Order — revised May 6)
 
-### 1. GEO Optimization (immediate)
-Apr 22 incognito audit confirmed AI Overviews eating TCA's pos 7–10 rankings on spec queries. Meta description rewrites cannot fix this. The only play is getting cited inside AI Overviews via height-bracket verdict tables and citation capsules. This is now the primary CTR lever — not meta.
+### 1. Meta Rewrites on Review/Comparison Pages (immediate — unblocked May 8)
+Thursday cooldown bug fixed May 6 (shallow clone caused every page to appear as "edited 0d ago"). 5 verdict-first meta rewrites queued for Thursday May 8. These target review pages at pos 7–10 on editorial SERPs — not suppressed by carousels. First real CTR test after 6 weeks of delay.
 
-### 2. Height-Specific Page Depth (/office-chairs-for-6-foot-[3-7]/)
-These pages show editorial organic results without shopping carousels — Google treats them as informational, not commercial. No shopping carousel competition. Current scores 67–68, target 85+. Add real spec tables (seat height range, seat depth, armrest height) per chair per height. This is TCA's most defensible ranking format.
+### 2. /office-chairs-for-tall-people/ Cornerstone Rewrite
+Currently pos 24.9 on 570 impressions — buried on page 2 for the site's most important head term. Expanding to 2,500+ words with height-bracket verdict table is the single highest-leverage ranking move on the site. Also the primary AI Overview citation target.
 
-### 3. Ranking Lift on Flagship (/review/gesture/)
-Pos 9 → pos 6 materially increases CTR even without meta changes. Internal link authority from high-impression pages is the lever.
+### 3. GEO Optimization
+AI Overviews confirmed on specific spec queries. Getting cited inside them via height-bracket verdict tables and citation capsules. Secondary priority to meta rewrites — those fix existing impression leakage faster.
 
-### 4. PAA Targeting (quick win)
-Every SERP checked had People Also Ask boxes. Adding 40–60 word direct-answer sections to existing pages costs little effort and appears in every SERP TCA cares about.
+### 4. Height-Specific Page Depth (/office-chairs-for-6-foot-[3-7]/)
+Editorial SERPs, no carousel competition. Current scores 67–68, target 85+. TCA's most defensible long-term format.
 
-### 5. Schema Fix on /best-office-chairs/
-Parse error currently blocks rich results eligibility on the money page. 30-minute fix.
+### 5. Leap Plus "Almost Bought" Reframe
+/review/leap-plus/ is at pos 9.3 with 632 impressions and no purchase-intent narrative. "I almost bought this — here's the spec analysis that drove my decision" is the right frame. High E-E-A-T, no testing claim needed.
 
 ### 6. Standing Desk Content (zero competition)
-Confirmed demand signal. Jackson has a real desk. ME background. Zero competition. This is the next content pillar.
+Confirmed demand signal. Jackson has a real desk. ME background. Zero competition. Next content pillar after review pages are converted.
 
 ## What Could Change This Thesis
 
-- **If GEO optimization doesn't generate AI Overview citations:** The spec queries may be unwinnable. In that case, double down entirely on height-specific pages and PAA.
+- **If Thursday meta rewrites don't lift CTR on review pages:** Revisit whether editorial SERP layouts are also suppressed by features not visible in Apr 22 audit.
 - **If a major competitor enters the height-specific niche:** First-mover advantage has a time limit. Speed of content publication matters.
-- **If affiliate revenue never materializes:** The "right" content may need to shift toward more transactional formats (direct product links, pricing, deals).
+- **If commission revenue stays at one-off level:** Shift content priority toward more Gesture-style first-person pages (the only format that converted so far).
 
 ## Links
 
