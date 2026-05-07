@@ -55,6 +55,19 @@ function isCriticalPage(filePath: string, gscData: Map<string, { impressions: nu
   return data.impressions >= 400 && data.position <= 10 && data.clicks === 0;
 }
 
+// Replace em dashes and curly quotes in the frontmatter JS block — esbuild rejects them as tokens.
+// HTML template section is left untouched (em dashes are fine in HTML).
+function sanitizeFrontmatter(content: string): string {
+  const match = content.match(/^(---\n)([\s\S]*?)(\n---)/);
+  if (!match) return content;
+  const sanitized = match[2]
+    .replace(/—/g, ‘\\u2014’)      // em dash
+    .replace(/–/g, ‘\\u2013’)      // en dash
+    .replace(/[‘’]/g, “’”)    // curly single quotes
+    .replace(/[“”]/g, ‘”’);   // curly double quotes
+  return match[1] + sanitized + match[3] + content.slice(match[0].length);
+}
+
 function parsePlan(plan: string): FixTask[] {
   const tasks: FixTask[] = [];
   const fixSection = plan.match(/## FIXES[\s\S]*?(?=## NEW CONTENT|## REWRITES|## STRATEGY|$)/)?.[0] ?? '';
@@ -104,6 +117,7 @@ CRITICAL RULES:
 - All Amazon links must include tag=tallchairadvi-20.
 - Meta descriptions: 130-155 chars. Titles: 50-60 chars.
 - Schema: valid JSON-LD, no duplicate @type entries.
+- FRONTMATTER ONLY: Use only ASCII characters between the --- markers. Never use em dashes (—), curly quotes, or other Unicode characters directly in the JavaScript frontmatter — use regular hyphens (-) or escape sequences instead. Em dashes in the HTML template section are fine.
 - Output the COMPLETE updated file content, nothing else. No explanations before or after.`,
     messages: [{
       role: 'user',
@@ -136,7 +150,9 @@ Output the complete updated file content only. Make ONLY the requested change.`,
     return { success: false, summary: `Empty response for ${task.filePath}` };
   }
 
-  const newWordCount = cleaned.split(/\s+/).filter(w => w.length > 0).length;
+  const sanitized = sanitizeFrontmatter(cleaned);
+
+  const newWordCount = sanitized.split(/\s+/).filter(w => w.length > 0).length;
   if (newWordCount < originalWordCount * 0.85) {
     const pctDrop = Math.round((1 - newWordCount / originalWordCount) * 100);
     return {
@@ -145,7 +161,7 @@ Output the complete updated file content only. Make ONLY the requested change.`,
     };
   }
 
-  writeFileSync(fullPath, cleaned);
+  writeFileSync(fullPath, sanitized);
   return { success: true, summary: `Fixed: ${task.description} in ${task.filePath} (words: ${originalWordCount} → ${newWordCount})` };
 }
 
