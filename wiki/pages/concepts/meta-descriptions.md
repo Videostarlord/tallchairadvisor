@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-06
+last_updated: 2026-05-07
 sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md]
 tags: [meta, seo, on-page]
 ---
@@ -34,6 +34,9 @@ See [[ctr-optimization]] for full analysis. Key principle: lead with the answer 
 |------|------|--------|-------|
 | 2026-03-30 | /review/gesture/ | Trimmed | 171→146 |
 | 2026-03-30 | /leap-plus/seat-height/ | Trimmed | 166→133 |
+| 2026-05-07 | /review/aeron-size-c/ | Verdict-first rewrite — removed "In-depth" filler, leads with fit verdict + specs | ~153 |
+| 2026-05-07 | /chairs/steelcase-gesture/ | Verdict-first rewrite — removed table-of-contents framing, leads with height fit + key specs | ~155 |
+| 2026-05-07 | /knee-pain-seat-depth/ | Title shortened 72→48 chars; meta rewritten to lead with fix/answer not the problem | ~144 |
 
 ## Links
 

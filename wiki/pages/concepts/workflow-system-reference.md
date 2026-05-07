@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-06
+last_updated: 2026-05-07
 tags: [automation, workflow, agents, github-actions, obsidian]
 ---
 
@@ -102,6 +102,10 @@ wiki/weekly/  →  git push  →  Cloudflare Pages deploy
 - Technical fixes (schema/canonical/404/redirect/voice/affiliate): no cooldown — always applied
 - CRITICAL pages (400+ impr, pos ≤10, 0 clicks — detected from `data/gsc/latest.json` at runtime): 7-day minimum cooldown
 - All other non-technical fixes: 14-day cooldown
+
+Output safety (updated 2026-05-07 — added after Thursday build failure):
+- `sanitizeFrontmatter()` runs on all Claude-generated output before writing. Replaces em dashes (`—` → `—`), en dashes (`–` → `–`), and curly quotes with ASCII equivalents in the `---...---` frontmatter JS block. HTML template section is not modified. Prevents esbuild `Unexpected "—"` parse errors.
+- System prompt explicitly instructs: use only ASCII in frontmatter; em dashes are permitted in the HTML template section only.
 
 **`execute-content.ts`** — Parses `reports/weekly-plan.md` for unchecked `[ ] NEW:` tasks. For each, calls Claude to write a complete `.astro` page. Pipeline (updated 2026-05-06):
 1. `validateAstroFile()` — frontmatter fences, Layout wrapper, bare English operators in JS

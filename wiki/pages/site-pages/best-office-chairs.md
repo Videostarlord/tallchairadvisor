@@ -2,30 +2,36 @@
 type: entity
 entity: site-page
 url: /best-office-chairs/
-last_updated: 2026-04-06
+last_updated: 2026-05-07
 sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md]
-tags: [page, money-page, schema-issue]
+tags: [page, money-page]
 ---
 
 # Page: /best-office-chairs/
 
 **Main money page. Primary revenue driver.**
 
-## Current State (Apr 3)
+## Current State (May 7)
 
 | Metric | Value |
 |--------|-------|
-| Blog audit score | 79/100 (Acceptable) |
-| Schema | **BROKEN** — JSON-LD parse error (duplicate Article @type) |
+| Blog audit score | 79/100 (Acceptable, as of Mar audit) |
+| Schema | Previously broken — duplicate Article @type now resolved |
+| Height-Bracket Verdict Table | ✅ Present, now includes Amazon affiliate links (tag=tallchairadvi-20) |
+| `dateModified` | 2026-05-07 |
+
+## Fix History
+
+| Date | Change |
+|------|--------|
+| 2026-05-07 | Added Amazon affiliate links to Height-Bracket Verdict Table (Top Pick + Runner-Up columns). Fulfills weekly plan REWRITE task. |
 
 ## Open Issues
 
-1. **Schema parse error** — duplicate `@type: "Article"` block causes JSON-LD failure. Suppresses rich result eligibility. **CRITICAL fix.**
-2. **Height-bracket verdict table missing** — highest AI Overview citation opportunity. Format: "At 6'X → min seat height ≥X, min seat depth ≥X → Passing chairs: [list]"
-3. **Verify links** to /best-office-chairs-under-500/ and /review/sihoo-doro-s300/
+1. **Re-audit content score** — score was 79/100 in March. Content has been expanded since. Re-run `/blog-analyze` to get current score.
 
 ## Links
 
-- [[schema-markup]] — JSON-LD parse error
+- [[schema-markup]] — JSON-LD history
 - [[ai-citation-readiness]] — verdict table is top AI Overview target
-- [[content-gaps]] — missing height-bracket table
+- [[content-gaps]] — check for remaining gaps

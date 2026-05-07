@@ -1,12 +1,23 @@
 ---
 type: synthesis
-last_updated: 2026-05-06
+last_updated: 2026-05-07
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W19 (May 7) — Thursday build failure recovery + weekly plan execution
+
+- **BUILD FAILURE DIAGNOSED AND FIXED:** Thursday `execute-fixes.ts` wrote a Claude-generated `.astro` file with an em dash (U+2014) in a JavaScript expression context inside the HTML template (not a string). esbuild emits `Unexpected "—"` — the character is a valid JS string value but not a valid token in expression position. Build failed; CI aborted before the commit step, so repo was clean.
+- **Root cause:** The fix prompt for `/knee-pain-seat-depth/` asked only for a title + meta change, but the agent regenerated the entire file. Claude introduced something like `{...—...}` in the template. The underlying write was not validated before esbuild ran.
+- **Fix applied to `execute-fixes.ts`:**
+  1. `sanitizeFrontmatter()` — parses the `---...---` frontmatter block, replaces `—` → `—`, `–` → `–`, curly quotes → straight quotes before writing. HTML template section is not touched. This is a safety net for the frontmatter JS block where any non-ASCII token is fatal.
+  2. System prompt rule — explicit instruction: "FRONTMATTER ONLY: Use only ASCII characters between the --- markers. Never use em dashes, curly quotes, or other Unicode characters directly in the JavaScript frontmatter."
+- **Decision:** The deeper fix (validating generated output with a syntax checker before writing) is deferred — `sanitizeFrontmatter()` covers the most common failure mode. The `validateAstroFile()` function in `execute-content.ts` already checks for "bare English operators in JS" — consider adding equivalent check to `execute-fixes.ts` in a future hardening pass.
+- **All Thursday weekly-plan tasks executed manually:** 5 FIX tasks + 1 REWRITE. See log entry 2026-05-07 for full details. Note: `/review/gesture/` and `/aeron-vs-gesture/` redirects were already live in `_redirects` — confirmed no duplicate needed.
+- **Pages updated today:** `/review/aeron-size-c/` (meta), `/chairs/steelcase-gesture/` (meta), `/knee-pain-seat-depth/` (title + meta), `/best-office-chairs/` (affiliate links in verdict table).
 
 ## 2026-W19 (May 6) — manual session + pipeline repair
 

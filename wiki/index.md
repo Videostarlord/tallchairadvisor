@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-04-13 (CI pipeline repairs + size-guide page)
+last_updated: 2026-05-07 (Thursday build failure recovery + weekly fixes execution)
 ---
 
 # TCA Wiki Index
@@ -27,7 +27,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[aeron-vs-gesture]] | Comparison. 285 combined impr, 0% CTR. URL split + meta issue. |
 | [[chairs-herman-miller-aeron-size-guide]] | NEW 2026-04-13. Size B vs C guide for tall users. No GSC data yet. |
 | [[correct-chair-dimensions]] | Educational. 510 impr, pos 24. Citation capsule candidate. |
-| [[best-office-chairs]] | Money page. Schema parse error. Needs height-bracket verdict table. |
+| [[best-office-chairs]] | Money page. Schema fixed. Height-bracket verdict table live with affiliate links. |
 
 ## Concept Pages
 

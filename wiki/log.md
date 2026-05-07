@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-05-07] manual-session | Thursday Build Failure Recovery + Weekly Plan Execution
+
+- **Root cause:** Thursday workflow's `execute-fixes.ts` wrote a Claude-generated version of `knee-pain-seat-depth.astro` containing an em dash (U+2014) in a JavaScript expression context inside the HTML template. esbuild rejected it as `Unexpected "—"` at line 103, col 245. CI failed before the commit step — repo was clean.
+- **Agent hardened:** Added `sanitizeFrontmatter()` to `execute-fixes.ts` — strips em dashes, en dashes, and curly quotes from the frontmatter JS block (replaces with `—`/`–`/ASCII) before writing. HTML template section untouched. Also added a system prompt rule explicitly prohibiting Unicode in frontmatter.
+- **All 5 weekly-plan Thursday tasks applied manually:**
+  - `/review/gesture/` redirect — already in `_redirects`, no change needed
+  - `/aeron-vs-gesture/` redirect — already in `_redirects`, no change needed
+  - `/review/aeron-size-c/` meta → verdict-first (removed "In-depth" filler)
+  - `/chairs/steelcase-gesture/` meta → verdict-first spec hook
+  - `/knee-pain-seat-depth/` title 72→48 chars, meta answer-first
+- **Rewrite task applied:** `/best-office-chairs/` Height-Bracket Verdict Table — added Amazon affiliate links (tag=tallchairadvi-20) to all chair names in Top Pick + Runner-Up columns
+- **`dateModified` + sitemap `pageLastmod`** updated to 2026-05-07 for all 4 touched pages
+- **Pushed to main:** commit `2ecc8a9`
+
 ## [2026-05-06] manual-session | Pipeline Repair + Trajectory Review
 
 - **First commission logged:** $18 on May 1 from Amazon. Gesture review is the source. Full funnel confirmed.
