@@ -17,6 +17,13 @@ jobs:
           ref: staging
           fetch-depth: 0
 
+      - name: Merge main into staging (picks up Monday GSC pull + manual fixes)
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git fetch origin main
+          git merge origin/main --no-edit -m "chore: sync main into staging before deploy"
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -40,6 +47,5 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add reports/weekly-summary.md raw/ wiki/
           git diff --staged --quiet || git commit -m "deploy: Weekly cycle $(date +%Y-%m-%d)"
-          git pull --rebase origin staging
           git push origin staging
-          git push origin HEAD:main --force-with-lease
+          git push origin HEAD:main
