@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-07
+last_updated: 2026-05-09
 tags: [automation, workflow, agents, github-actions, obsidian]
 ---
 
@@ -55,13 +55,14 @@ Runs via GitHub Actions. Thursday and Friday push to `staging`. Saturday verifie
 
 Friday skips automatically if the weekly plan has no unchecked `[ ] NEW:` tasks.
 
-**Step order within Saturday workflow (critical — was wrong before Apr 13):**
+**Step order within Saturday workflow (updated 2026-05-09):**
 1. Checkout `staging` with `fetch-depth: 0`
-2. `npm ci`
-3. `npm run build` ← must run before verify-deploy so `dist/` exists for schema check
-4. `npm run lint:content`
-5. `npx tsx scripts/agents/verify-deploy.ts`
-6. Commit + push `staging` → `main`
+2. `git fetch origin main && git merge origin/main` ← syncs Monday's GSC pull + any manual main fixes into staging *before* agents run
+3. `npm ci`
+4. `npm run build` ← must run before verify-deploy so `dist/` exists for schema check
+5. `npm run lint:content`
+6. `npx tsx scripts/agents/verify-deploy.ts`
+7. Commit + push `staging` → `main` (no force — staging is a superset of main after step 2)
 
 ---
 

@@ -2,6 +2,12 @@
 type: log
 ---
 
+## [2026-05-09] manual-session | Saturday Workflow Bug Fixes (GSC data + main overwrite)
+
+- **BUG FIXED — Saturday agent reading stale GSC data:** Saturday workflow checked out `staging`, then ran all agents (verify-deploy.ts reads `data/gsc/latest.json`). But Monday's GSC pull commits to `main`, not staging. If staging was behind main, agents ran with week-old GSC data. Fix: added a merge step immediately after checkout — `git fetch origin main && git merge origin/main` — before `npm ci`, build, or any agent runs. Agents now always get the latest GSC data.
+- **BUG FIXED — Saturday force-push overwriting manual main fixes:** Saturday used `git push origin HEAD:main --force-with-lease` to deploy staging → main. Manual fixes pushed directly to main (without going through staging) were silently overwritten on next Saturday run. Fix: removed force push. The upfront merge of origin/main into staging means staging is always a superset of main — regular push works without force.
+- **Commit pushed:** `7319a40` on `main`. Change: `.github/workflows/saturday.yml` (+8 lines, net).
+
 ## [2026-05-09] manual-session | Agent Reliability Audit + Deep Fixes
 
 - **Full audit performed:** Reviewed all 6 agent scripts, all 6 workflow files, wiki accuracy, and GSC data vs. wiki claims. Cross-referenced this week's run history (Mon–Sat) against actual outputs.

@@ -1,12 +1,18 @@
 ---
 type: synthesis
-last_updated: 2026-05-07
+last_updated: 2026-05-09
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W19 (May 9b) — Saturday workflow: stale GSC data + main overwrite
+
+- **ROOT CAUSE — Agents using stale GSC data:** Monday's `gsc-pull.ts` commits fresh `data/gsc/latest.json` to `main`. Saturday workflow checked out `staging` — which was behind main — so all agents read the previous week's GSC snapshot. Fix: merge `origin/main` into staging immediately after checkout, before any agent or build step runs.
+- **ROOT CAUSE — Manual main fixes being overwritten weekly:** Saturday used `--force-with-lease` to push staging → main. Any fix committed directly to main (not via staging) would survive until Saturday, then be silently erased. The upfront merge of main into staging eliminates this — staging is now a superset of main before the push, so a regular non-force push is safe and correct.
+- **Decision:** Saturday workflow now follows: checkout staging → merge main → npm ci → build → lint → agent → commit + push. No force on final push.
 
 ## 2026-W19 (May 9) — Agent reliability audit + deep fixes
 
