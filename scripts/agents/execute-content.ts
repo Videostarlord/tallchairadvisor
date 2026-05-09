@@ -44,18 +44,138 @@ function setEnv(key: string, value: string) {
   else console.log(`ENV: ${key}=${value}`);
 }
 
-// Read an example page to understand the Astro page structure
-function getExamplePage(): string {
-  const candidates = [
-    'src/pages/review/gesture.astro',
-    'src/pages/best-office-chairs.astro',
-    'src/pages/correct-chair-dimensions.astro',
-  ];
-  for (const c of candidates) {
-    const p = resolve(ROOT, c);
-    if (existsSync(p)) return readFileSync(p, 'utf-8').slice(0, 3000);
+// Returns how many directory levels deep the slug is (determines relative import path).
+// /wrist-pain-armrest-height/ → depth 1 → ../layouts/
+// /review/gesture/ → depth 2 → ../../layouts/
+function getImportPrefix(slug: string): string {
+  const depth = slug.replace(/^\/|\/$/g, '').split('/').length;
+  return '../'.repeat(depth);
+}
+
+// Compact structural template — shows every required element in its correct position.
+// Uses a placeholder slug so Claude always sees <Layout ...> and </Layout> regardless of
+// how long the real schema block would be in a production page.
+function buildTemplate(slug: string): string {
+  const prefix = getImportPrefix(slug);
+  return `---
+import Layout from '${prefix}layouts/Layout.astro';
+import Byline from '${prefix}components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://tallchairadvisor.com${slug.endsWith('/') ? slug : slug + '/'}#article",
+    "headline": "REPLACE WITH PAGE TITLE",
+    "url": "https://tallchairadvisor.com${slug.endsWith('/') ? slug : slug + '/'}",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "REPLACE WITH DATE",
+    "dateModified": "REPLACE WITH DATE",
+    "wordCount": 1500,
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "REPLACE: Question 1?",
+        "acceptedAnswer": { "@type": "Answer", "text": "REPLACE: Answer 1." }
+      },
+      {
+        "@type": "Question",
+        "name": "REPLACE: Question 2?",
+        "acceptedAnswer": { "@type": "Answer", "text": "REPLACE: Answer 2." }
+      },
+      {
+        "@type": "Question",
+        "name": "REPLACE: Question 3?",
+        "acceptedAnswer": { "@type": "Answer", "text": "REPLACE: Answer 3." }
+      },
+      {
+        "@type": "Question",
+        "name": "REPLACE: Question 4?",
+        "acceptedAnswer": { "@type": "Answer", "text": "REPLACE: Answer 4." }
+      }
+    ]
   }
-  return '';
+];
+---
+
+<Layout
+  title="REPLACE WITH TITLE (50-60 chars) | Tall Chair Advisor"
+  description="REPLACE WITH META DESCRIPTION (130-155 chars, verdict-first)"
+  ogType="article"
+  schema={schema}
+>
+  <!-- HEADER / HERO -->
+  <header class="py-12 md:py-16 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">REPLACE WITH H1</h1>
+      <Byline name="Jackson Christopher" credentials="6'4&quot; &bull; ME, UC Berkeley" date="REPLACE DATE" />
+    </div>
+  </header>
+
+  <main class="container-article py-10">
+
+    <!-- VERDICT BOX — required, AI Overviews cite this element most -->
+    <div class="bg-card border border-border rounded-lg p-5 my-8">
+      <p class="font-semibold text-lg mb-2">Quick Answer</p>
+      <p>REPLACE: Direct answer in 2-3 sentences. State the conclusion immediately.</p>
+    </div>
+
+    <!-- ANSWER-FIRST OPENING — no "In this guide..." preamble -->
+    <p>REPLACE: Opening paragraph that states the answer directly, then explains why.</p>
+
+    <!-- CITATION CAPSULE — standalone paragraph an AI can quote verbatim -->
+    <p class="citation-capsule">REPLACE: 3-4 self-contained sentences answering the core query. No pronouns needing context. Fully standalone.</p>
+
+    <!-- BODY SECTIONS (H2 + content) -->
+    <h2>REPLACE: Section Heading</h2>
+    <p>REPLACE: Body content...</p>
+
+    <!-- AFFILIATE CTA BLOCK — required on all pain/review/comparison pages -->
+    <div class="grid sm:grid-cols-2 gap-4 my-8 not-prose">
+      <div class="bg-card border border-border rounded-lg p-5">
+        <p class="font-semibold mb-1">REPLACE: Primary pick</p>
+        <p class="text-sm text-muted-foreground mb-3">REPLACE: 1-line reason</p>
+        <a href="AMAZON_URL?tag=tallchairadvi-20" class="btn-primary block text-center" target="_blank" rel="noopener">Check Price →</a>
+      </div>
+      <div class="bg-card border border-border rounded-lg p-5">
+        <p class="font-semibold mb-1">REPLACE: Secondary pick</p>
+        <p class="text-sm text-muted-foreground mb-3">REPLACE: 1-line reason</p>
+        <a href="AMAZON_URL?tag=tallchairadvi-20" class="btn-secondary block text-center" target="_blank" rel="noopener">Check Price →</a>
+      </div>
+    </div>
+
+    <!-- FAQ SECTION — visible H3 + paragraph pairs matching the schema above -->
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>REPLACE: Question 1?</h3>
+    <p>REPLACE: Answer 1.</p>
+
+    <h3>REPLACE: Question 2?</h3>
+    <p>REPLACE: Answer 2.</p>
+
+    <h3>REPLACE: Question 3?</h3>
+    <p>REPLACE: Answer 3.</p>
+
+    <h3>REPLACE: Question 4?</h3>
+    <p>REPLACE: Answer 4.</p>
+
+  </main>
+</Layout>`;
 }
 
 function validateAstroFile(content: string): { valid: boolean; reason?: string } {
@@ -97,14 +217,7 @@ Return only JSON: {"score": <0-100>, "feedback": "<one sentence on the biggest g
   } catch { return { score: 0, feedback: 'score parse failed' }; }
 }
 
-async function writeNewPage(task: ContentTask): Promise<{ success: boolean; filePath: string; summary: string }> {
-  const examplePage = getExamplePage();
-  const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
-
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 8000,
-    system: `You are a content writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people (6'+).
+const CONTENT_SYSTEM_PROMPT = `You are a content writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people (6'+).
 Author: Jackson Christopher, 6'4", Mechanical Engineering senior at UC Berkeley.
 
 CRITICAL VOICE RULES:
@@ -118,63 +231,86 @@ CONTENT RULES:
 - Use Jackson's ME background for spec analysis
 - Target AI Overviews: include definition boxes, numbered lists, comparison tables
 - All Amazon links: include tag=tallchairadvi-20
-- Internal links to related pages on the site
-- Schema: include relevant JSON-LD (BlogPosting or ItemList)
+- Internal links to related pages on the site using class="link-internal"
 - 1200-2000 words for blog posts, 800-1200 for spec pages
 
-STRUCTURAL REQUIREMENTS — every page must include all 5:
-1. VERDICT BOX: A styled div (class="bg-card border border-border rounded-lg p-5 my-8" or similar) in the first visible section stating the direct answer in 2-3 sentences. This is the element AI Overviews cite most. Do not bury it.
-2. ANSWER-FIRST: The opening paragraph answers the query directly. No "In this guide we'll explore..." preamble. State the conclusion, then support it.
-3. CITATION CAPSULE: One standalone paragraph (3-4 sentences, fully self-contained — no pronouns that need context) that answers the core query without surrounding text. Format it so an AI can lift it verbatim.
-4. FAQ SECTION + SCHEMA: Minimum 4 FAQPage questions in JSON-LD schema AND rendered as visible H3 + paragraph pairs. Target long-tail variants of the main keyword.
-5. AFFILIATE CTA BLOCK: A 2-button block (primary chair = best fit for the problem, secondary = alternative) using the card pattern from the example page. Both links must include tag=tallchairadvi-20. Required on all pain/ergonomics pages AND all review/comparison pages.
-
-OUTPUT: Complete Astro page file only. Match the structure of the example page provided.
+STRUCTURAL REQUIREMENTS — every page must include all 5 (they will be validated programmatically):
+1. VERDICT BOX: A styled div with class="bg-card border border-border rounded-lg p-5 my-8" in the first visible section. Direct answer in 2-3 sentences. Do not bury it.
+2. ANSWER-FIRST: Opening paragraph answers the query directly. No "In this guide we'll explore..." preamble.
+3. CITATION CAPSULE: One standalone paragraph (3-4 sentences, no pronouns needing context) that an AI can quote verbatim.
+4. FAQ SECTION + SCHEMA: Minimum 4 FAQPage questions in JSON-LD schema AND as visible H3 + paragraph pairs.
+5. AFFILIATE CTA BLOCK: 2-button grid (primary + secondary chair). Both links include tag=tallchairadvi-20.
 
 ASTRO SYNTAX RULES — CRITICAL (esbuild will reject the file if violated):
-- The file MUST start with --- on line 1 (frontmatter fence)
-- JavaScript inside --- frontmatter must use valid JS operators: && not "and", || not "or"
-- All template literals must be properly closed: \${value} not \${value and other}
-- String values containing apostrophes (6'4") must be in double-quoted strings or escaped
-- The file MUST end with </Layout>`,
-    messages: [{
-      role: 'user',
-      content: `Write a new page for tallchairadvisor.com.
+- Start with --- on line 1
+- JavaScript inside --- frontmatter: && not "and", || not "or"
+- String values with apostrophes (6'4") must be in double-quoted strings
+- The file MUST end with </Layout>
+- Import paths must match the slug depth: /page/ uses ../layouts/, /review/page/ uses ../../layouts/
+
+OUTPUT: Complete Astro page file only. No markdown fences around it. No explanation before or after.`;
+
+async function generatePage(task: ContentTask, extraInstruction?: string): Promise<string> {
+  const template = buildTemplate(task.slug);
+  const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
+
+  const messages: { role: 'user' | 'assistant'; content: string }[] = [{
+    role: 'user',
+    content: `Write a new page for tallchairadvisor.com by filling in the structural template below.
 
 PAGE DETAILS:
 - Title: ${task.title}
 - Target keyword: ${task.keyword}
 - Slug: ${task.slug}
 - Content angle: ${task.description}
+${extraInstruction ? `\nCORRECTION NEEDED: ${extraInstruction}\n` : ''}
+SITE CONTEXT — top pages for internal linking:
+${gsc.pages.slice(0, 5).map((p: any) => `- ${p.page} (${p.impressions} impr)`).join('\n')}
 
-EXAMPLE PAGE STRUCTURE (match this format):
+TEMPLATE (replace every REPLACE placeholder with real content — keep all structural elements):
 \`\`\`astro
-${examplePage}
+${template}
 \`\`\`
 
-SITE CONTEXT:
-- Top performing pages: ${gsc.pages.slice(0, 5).map((p: any) => p.page).join(', ')}
-- Affiliate tag: tag=tallchairadvi-20
+Write the complete Astro page. Output the file content only — no markdown fences, no explanation.`,
+  }];
 
-Write the complete Astro page. Output the file content only.`,
-    }],
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 8000,
+    system: CONTENT_SYSTEM_PROMPT,
+    messages,
   });
 
-  const content = response.content[0].type === 'text' ? response.content[0].text : '';
-  const cleaned = content
+  const raw = response.content[0].type === 'text' ? response.content[0].text : '';
+  return raw
     .replace(/^```(?:astro|html|jsx|tsx)?\n/, '')
     .replace(/\n```$/, '')
     .trim();
+}
+
+async function writeNewPage(task: ContentTask): Promise<{ success: boolean; filePath: string; summary: string }> {
+  // Attempt 1
+  let cleaned = await generatePage(task);
 
   if (!cleaned || cleaned.length < 500) {
     return { success: false, filePath: '', summary: `Empty content for ${task.slug}` };
   }
 
-  const validation = validateAstroFile(cleaned);
+  let validation = validateAstroFile(cleaned);
+
+  // Attempt 2 — retry with the specific failure injected as a correction
   if (!validation.valid) {
-    console.warn(`    VALIDATION FAILED for ${task.slug}: ${validation.reason}`);
-    console.warn(`    First 500 chars of frontmatter: ${cleaned.slice(0, 500)}`);
-    return { success: false, filePath: '', summary: `Validation failed for ${task.slug}: ${validation.reason}` };
+    console.warn(`    VALIDATION FAILED (attempt 1) for ${task.slug}: ${validation.reason}. Retrying...`);
+    cleaned = await generatePage(task, `The previous attempt failed validation: "${validation.reason}". Fix this specific issue in your output.`);
+    if (cleaned && cleaned.length >= 500) {
+      validation = validateAstroFile(cleaned);
+    }
+  }
+
+  if (!validation.valid) {
+    console.warn(`    VALIDATION FAILED (attempt 2) for ${task.slug}: ${validation.reason}`);
+    return { success: false, filePath: '', summary: `Validation failed after 2 attempts for ${task.slug}: ${validation.reason}` };
   }
 
   // Quality gate: score content before writing — reject if below 80/100

@@ -8,6 +8,16 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W19 (May 9) — Agent reliability audit + deep fixes
+
+- **AUDIT FINDING — execute-fixes.ts full-file rewrite was root cause:** Every meta/title fix regenerated the entire Astro file. Title and description are just string literals on the `<Layout>` tag — no full-file rewrite needed. Full-file approach introduced em-dash bleed, structural regressions, and word count drops. **Decision:** Added targeted edit mode. `classifyFix()` detects meta/title tasks and routes them to `applyTargetedFix()` which generates only the changed value and applies it via `applyLayoutPropReplace()` — a regex replacement scoped to the Layout opening tag in the HTML section. Frontmatter is never touched for these tasks.
+- **AUDIT FINDING — execute-content.ts example truncation caused missing Layout wrapper:** `getExamplePage()` read `gesture.astro` and truncated to 3000 chars. The gesture frontmatter is ~130 lines of schema JSON — 3000 chars doesn't reach `<Layout>`. Claude wrote correct frontmatter then fell back to raw HTML. **Decision:** Replaced with `buildTemplate(slug)` — a purpose-built compact template showing every structural element (verdict box, citation capsule, affiliate CTA, FAQ, `<Layout>...</Layout>`) regardless of content length. Also added `getImportPrefix(slug)` to correctly calculate `../layouts/` vs `../../layouts/` by slug depth.
+- **AUDIT FINDING — execute-content.ts had no retry:** One bad generation = zero content that week. **Decision:** Added one retry with the specific validation failure reason injected back into the prompt.
+- **AUDIT FINDING — strategy.ts REWRITE format silently broken:** Template showed 3 pipe-separated fields; parser regex requires 4. All REWRITE tasks from the strategy agent were silently dropped unless Claude happened to add a 4th field. **Decision:** Fixed template comment to show correct 4-field format.
+- **AUDIT FINDING — Thursday workflow all-or-nothing build:** One bad file blocked all fixes from committing. **Decision:** Added per-file rollback to `thursday.yml` — identifies failing `.astro` from build error output, rolls back just that file, commits the rest.
+- **AUDIT FINDING — wiki/index.md summaries were stale:** Entity row text stuck at March/April numbers. Underlying `gsc-performance.md` concept page was current (updated by Tuesday audit agent). **Decision:** Updated index summaries to current data. Index.md summary rows are now clearly labeled with dates to prevent silent staleness.
+- **Cost analysis:** Weekly API cost ~$3–5/month. Rebuilding to use Claude Code CLI or a second Claude Pro account ($20/month) is not justified — API approach is correct architecture for automation.
+
 ## 2026-W19 (May 7) — Thursday build failure recovery + weekly plan execution
 
 - **BUILD FAILURE DIAGNOSED AND FIXED:** Thursday `execute-fixes.ts` wrote a Claude-generated `.astro` file with an em dash (U+2014) in a JavaScript expression context inside the HTML template (not a string). esbuild emits `Unexpected "—"` — the character is a valid JS string value but not a valid token in expression position. Build failed; CI aborted before the commit step, so repo was clean.

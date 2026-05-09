@@ -83,6 +83,120 @@ function parsePlan(plan: string): FixTask[] {
   return tasks;
 }
 
+// ─── Targeted edit helpers ────────────────────────────────────────────────────
+// Meta/title fixes only need to change 1-2 string literals on the <Layout> tag.
+// Generating just those values (not the entire file) eliminates the main failure modes:
+// em dashes bleeding from schema JSON into frontmatter, structural elements going missing,
+// and word count regressions from Claude accidentally truncating content.
+
+type FixType = 'meta' | 'title' | 'meta+title' | 'complex';
+
+function classifyFix(whatToChange: string): FixType {
+  const hasMeta = /meta description/i.test(whatToChange);
+  const hasTitle = /title tag|shorten.*title|title.*shorten|^title\b/i.test(whatToChange);
+  if (hasMeta && hasTitle) return 'meta+title';
+  if (hasMeta) return 'meta';
+  if (hasTitle) return 'title';
+  return 'complex';
+}
+
+// Extract a Layout prop value from the HTML section of an Astro file.
+function extractLayoutProp(fileContent: string, prop: 'title' | 'description'): string {
+  const sep = fileContent.indexOf('\n---\n', 3);
+  const html = sep !== -1 ? fileContent.slice(sep) : fileContent;
+  // Find the Layout opening tag, then extract the prop within it
+  const layoutMatch = html.match(/<Layout[\s\S]*?>/);
+  if (!layoutMatch) return '';
+  return layoutMatch[0].match(new RegExp(`${prop}="([^"]*)"`)) ?.[1] ?? '';
+}
+
+// Replace a Layout prop value in-place (HTML section only — frontmatter untouched).
+function applyLayoutPropReplace(fileContent: string, prop: 'title' | 'description', newValue: string): string {
+  const sep = fileContent.indexOf('\n---\n', 3);
+  const prefix = sep !== -1 ? fileContent.slice(0, sep) : '';
+  const html = sep !== -1 ? fileContent.slice(sep) : fileContent;
+  // Find and patch only within the <Layout ...> opening tag
+  const layoutMatch = html.match(/<Layout[\s\S]*?>/);
+  if (!layoutMatch) return fileContent;
+  // Use a replacement function (not a template string) to prevent $ in newValue from being
+  // misinterpreted as a backreference pattern in the replacement string.
+  const patchedTag = layoutMatch[0].replace(
+    new RegExp(`(${prop}=")[^"]*(")`),
+    (_, open, close) => `${open}${newValue}${close}`
+  );
+  return prefix + html.replace(layoutMatch[0], patchedTag);
+}
+
+async function applyTargetedFix(task: FixTask, fileContent: string, fixType: 'meta' | 'title' | 'meta+title'): Promise<string> {
+  let result = fileContent;
+
+  if (fixType === 'meta' || fixType === 'meta+title') {
+    const current = extractLayoutProp(fileContent, 'description');
+    const res = await client.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 300,
+      system: `Write a single meta description for tallchairadvisor.com.
+RULES:
+- 130-155 characters (count carefully — this is enforced programmatically)
+- Lead with the explicit verdict, spec, or direct answer in the first 10 words
+- No filler openers: "In this guide", "Learn how", "Complete", "In-depth", "Everything you need"
+- ASCII characters only — no em dashes (—), en dashes (–), curly quotes, or any Unicode
+- If the page covers chair specs for tall people, lead with a concrete measurement
+Return ONLY the meta description text. No quotes around it. No explanation.`,
+      messages: [{
+        role: 'user',
+        content: `Page: ${task.description}
+Current meta: "${current}"
+Required change: ${task.whatToChange}
+Why: ${task.why}
+
+Write the new meta description:`,
+      }],
+    });
+    const rawMeta = (res.content[0].type === 'text' ? res.content[0].text : '').trim().replace(/^["']|["']$/g, '');
+    // Encode any literal " characters so they don't break the HTML attribute value
+    const newMeta = rawMeta.replace(/"/g, '&quot;');
+    if (newMeta.length >= 80 && newMeta.length <= 165) {
+      result = applyLayoutPropReplace(result, 'description', newMeta);
+    } else {
+      console.warn(`    Meta too short/long (${newMeta.length} chars) — skipping meta replacement`);
+    }
+  }
+
+  if (fixType === 'title' || fixType === 'meta+title') {
+    const current = extractLayoutProp(fileContent, 'title');
+    const res = await client.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 150,
+      system: `Write a title tag for tallchairadvisor.com.
+RULES:
+- 50-60 characters (count carefully — this is enforced programmatically)
+- Primary keyword near the front
+- ASCII only — no em dashes, curly quotes, Unicode, or double-quote characters
+- Avoid all-caps and clickbait
+Return ONLY the title text. No quotes. No explanation.`,
+      messages: [{
+        role: 'user',
+        content: `Page: ${task.description}
+Current title: "${current}"
+Required change: ${task.whatToChange}
+Why: ${task.why}
+
+Write the new title (50-60 chars):`,
+      }],
+    });
+    const newTitle = (res.content[0].type === 'text' ? res.content[0].text : '').trim().replace(/^["']|["']$/g, '');
+    if (newTitle.length >= 20 && newTitle.length <= 70) {
+      result = applyLayoutPropReplace(result, 'title', newTitle);
+    } else {
+      console.warn(`    Title too short/long (${newTitle.length} chars) — skipping title replacement`);
+    }
+  }
+
+  return result;
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 async function applyFix(task: FixTask, gscData: Map<string, { impressions: number; position: number; clicks: number }>): Promise<{ success: boolean; summary: string }> {
   const fullPath = resolve(ROOT, task.filePath);
   if (!existsSync(fullPath)) {
@@ -107,6 +221,23 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
     };
   }
 
+  // ── Targeted edit path (meta description / title) ──────────────────────────
+  // Ask Claude only for the changed values, apply them via regex.
+  // This eliminates file-structure regressions, word count drops, and Unicode
+  // tokens bleeding from JSON schema into frontmatter.
+  const fixType = classifyFix(task.whatToChange);
+
+  if (fixType !== 'complex') {
+    const updated = await applyTargetedFix(task, fileContent, fixType);
+    if (updated === fileContent) {
+      return { success: false, summary: `Targeted fix produced no change in ${task.filePath} — Layout prop may not be present` };
+    }
+    writeFileSync(fullPath, updated);
+    return { success: true, summary: `Fixed [${fixType}]: ${task.description} in ${task.filePath}` };
+  }
+  // ──────────────────────────────────────────────────────────────────────────
+
+  // ── Full-file path (schema changes, affiliate links, verdict tables) ────────
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 8000,
@@ -162,7 +293,7 @@ Output the complete updated file content only. Make ONLY the requested change.`,
   }
 
   writeFileSync(fullPath, sanitized);
-  return { success: true, summary: `Fixed: ${task.description} in ${task.filePath} (words: ${originalWordCount} → ${newWordCount})` };
+  return { success: true, summary: `Fixed [complex]: ${task.description} in ${task.filePath} (words: ${originalWordCount} → ${newWordCount})` };
 }
 
 async function main() {

@@ -127,7 +127,8 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 
 ## REWRITES (Thursday agent, lower priority)
 <!-- For significant content overhaul of existing pages AND for adding new sections to existing pages. -->
-- [ ] REWRITE: [page path] | [what to improve] | FILE: src/pages/[path].astro
+<!-- Format MUST be exactly 4 pipe-separated fields matching the FIX format — the parser requires this -->
+- [ ] REWRITE: [page path] | [what to add/improve] | [why — what signal justifies this] | FILE: src/pages/[path].astro
 
 ## STRATEGY NOTES
 [2-3 sentences on the week's focus and why]`,

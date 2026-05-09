@@ -2,6 +2,18 @@
 type: log
 ---
 
+## [2026-05-09] manual-session | Agent Reliability Audit + Deep Fixes
+
+- **Full audit performed:** Reviewed all 6 agent scripts, all 6 workflow files, wiki accuracy, and GSC data vs. wiki claims. Cross-referenced this week's run history (Mon–Sat) against actual outputs.
+- **Root causes identified and fixed across 5 files:**
+  1. `execute-fixes.ts` — Added targeted edit mode for meta/title changes. Now generates only the changed value (1-2 sentences) and applies it via regex to the `<Layout>` tag. Full-file rewrite path kept for complex changes (schema, affiliate links, verdict tables). This eliminates em-dash bleed, structural regressions, and word count drops for the most common fix type. Also added `&quot;` encoding for generated values.
+  2. `execute-content.ts` — Replaced truncated 3000-char example page (which cut off before `<Layout>`) with a purpose-built compact template showing all structural elements in correct position. Added `getImportPrefix()` to calculate correct `../layouts/` depth from slug. Added one retry: validation failure reason is injected back and generation retried once before giving up.
+  3. `strategy.ts` — Fixed REWRITE format template: was showing 3 pipe-separated fields, parser requires 4. All REWRITE tasks were silently dropped. Fixed template comment to show correct 4-field format.
+  4. `thursday.yml` — Added per-file build rollback: if build fails, grep the error output for the failing `.astro` file, roll back just that file to HEAD, log it in fixes-log.md, retry build. Other successful fixes still commit.
+  5. `wiki/index.md` — Updated stale entity summaries. /review/gesture/ was at "581 impr, pos 10.31" (March data) — actually 1895 impr, pos 8.4. Aeron tall-people "0% CTR crisis" — actually 3 clicks (0.26% CTR). Total impressions "4,106" — actually 12,209.
+- **What's true vs. false in wiki confirmed:** `wiki/pages/concepts/gsc-performance.md` is current (updated by Tuesday audit agent). Only `wiki/index.md` summary row text was stale — fixed.
+- **$20/month API cost question answered:** Full weekly cycle costs ~$3–5/month in API calls. Well under $20. A second Claude Pro account is a chat interface with no automation capability — GitHub Actions + API is the correct architecture.
+
 ## [2026-05-07] manual-session | Thursday Build Failure Recovery + Weekly Plan Execution
 
 - **Root cause:** Thursday workflow's `execute-fixes.ts` wrote a Claude-generated version of `knee-pain-seat-depth.astro` containing an em dash (U+2014) in a JavaScript expression context inside the HTML template. esbuild rejected it as `Unexpected "—"` at line 103, col 245. CI failed before the commit step — repo was clean.

@@ -27,8 +27,22 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
-      - name: Verify build
-        run: npm run build
+      - name: Verify build (with per-file rollback)
+        run: |
+          BUILD_OUT=$(npm run build 2>&1) && echo "$BUILD_OUT" && exit 0
+          echo "$BUILD_OUT"
+          # Extract the specific .astro file that caused the build failure
+          FAILED_FILE=$(echo "$BUILD_OUT" | grep -oE 'src/pages/[^: ]+\.astro' | head -1)
+          if [ -n "$FAILED_FILE" ] && [ -f "$FAILED_FILE" ]; then
+            echo "Build failed in $FAILED_FILE — rolling back that file and retrying"
+            git checkout HEAD -- "$FAILED_FILE" 2>/dev/null || true
+            # Record rollback in fixes log
+            echo "- [❌ ROLLED BACK] Build error in $FAILED_FILE — file restored to HEAD" >> reports/fixes-log.md
+            npm run build
+          else
+            echo "Could not identify failing file — build error is not file-specific"
+            exit 1
+          fi
 
       - name: Content lint
         run: npm run lint:content
