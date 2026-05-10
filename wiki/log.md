@@ -2,6 +2,16 @@
 type: log
 ---
 
+## [2026-05-10] seo-audit | Full SEO Audit (77/100)
+
+- **6-specialist parallel audit:** technical (84), content (74), schema (71), sitemap (83), performance (90), visual/mobile (74)
+- **New critical findings:** `itemReviewed` missing from all 4 Review schema nodes (likely blocking rich results); affiliate disclosure absent from body on 6 pages (FTC compliance); WebSite `@id` dangling reference; `/chairs/steelcase-gesture/` missing datePublished/dateModified; Gesture seat depth spec error in knee-pain FAQ (17.75"→18.75")
+- **New high findings:** Aeron vs Gesture has 0 affiliate links in first 84% of page (explains 348 impr / 0 click); H1/title mismatch on aeron-vs-gesture; Quick Answer is non-verdict; Gesture review single affiliate link at 85%; Best Office Chairs Quick Picks links to internal pages not Amazon; Product @id missing on Aeron + Leap Plus reviews
+- **New medium findings:** 5 height pages have zero images; image Cache-Control conflict (immutable + must-revalidate); 4 meta descriptions over 160 chars; standing-desk near-orphaned (1 inbound link); stale sitemap lastmod; deprecated priority/changefreq on all 40 sitemap URLs
+- **Performance is excellent:** 90/100 — CF-Cache HIT, brotli, HTTP/3, CLS ~0, LCP estimated 1.2–1.8s
+- **Raw report:** `raw/audits/2026-05-10-full-seo-audit.md`
+- **Wiki page:** `wiki/pages/concepts/audit-2026-05-10-seo.md`
+
 ## [2026-05-10] bug fix | mergeCanonicalDuplicates pageQuery key fix
 
 - **Root cause found:** `mergeCanonicalDuplicates()` keyed on `normalizeUrl(page)` for pageQuery rows, collapsing all 46 queries on `/review/gesture/` into one entry. Summed impressions (303) and min position (1) propagated to `ctrLeaks` — producing a false top leak ("steelcase gesture review", 304 impr, pos 1) when actual raw values are 12 impr, position 49.9.

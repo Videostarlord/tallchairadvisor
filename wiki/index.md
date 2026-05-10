@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-10 (mergeCanonicalDuplicates bug fix — ctrLeaks data corrected)
+last_updated: 2026-05-10 (full SEO audit — 77/100 overall)
 ---
 
 # TCA Wiki Index
@@ -44,6 +44,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
 | [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Includes bug fix history. Read when modifying the pipeline. |
 | [[audit-implementation-2026-05-10]] | **May 10 audit fix tracker.** 14 items done, 5 deferred. Read this to know what's been fixed and what's still outstanding from the COMBINED_2026-05-09_MASTER_AUDIT. |
+| [[audit-2026-05-10-seo]] | **May 10 full SEO audit.** 77/100 overall. Key new findings: itemReviewed missing from all Review schema (blocks rich results), affiliate disclosure missing from 6 pages (FTC), aeron-vs-gesture H1/title mismatch + zero affiliate links above 84%, WebSite @id dangling reference, seat depth spec error (17.75"→18.75"). |
 | [[query-clustering-system]] | How queries are grouped into semantic clusters. Intent weights, known TCA cluster families, cannibalization logic. |
 | [[opportunity-scoring-system]] | Scoring formulas for near-p1, ctr-leak, content-depth, affiliate-capture opportunity types. Priority thresholds. |
 | [[content-gap-engine]] | Internal + competitor gap detection. Current known gaps. Integration with competitor-monitor. |
@@ -75,7 +76,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 Located in `raw/`. Organized by type:
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
-- `raw/audits/` — Audit/analysis files (latest: 2026-05-09). Key file: `COMBINED_2026-05-09_MASTER_AUDIT.md` — adjudicated findings from CLAUDE-SONNET-4-6 and CODEX full-system audits, adjusted scores, priority action plan.
+- `raw/audits/` — Audit/analysis files (latest: 2026-05-10). Key files: `COMBINED_2026-05-09_MASTER_AUDIT.md` (system audit), `2026-05-10-full-seo-audit.md` (6-specialist parallel SEO audit, 77/100).
 - `raw/strategy/` — Strategy/planning files (latest: 2026-05-07)
 - `raw/reddit/` — Reddit/Apify pipeline docs
 - `raw/misc/` — Session context, PDF
