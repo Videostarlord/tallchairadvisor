@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: staging
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -27,6 +28,10 @@ jobs:
         run: npx tsx scripts/agents/execute-content.ts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Warn if no content written
+        if: env.CONTENT_WRITTEN != 'true'
+        run: echo "::warning::CONTENT_WRITTEN=false — no pages published this week. Check reports/content-log.md for reason."
 
       - name: Verify build (only if content was written)
         if: env.CONTENT_WRITTEN == 'true'

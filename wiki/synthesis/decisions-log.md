@@ -1,12 +1,42 @@
 ---
 type: synthesis
-last_updated: 2026-05-09
+last_updated: 2026-05-10 (competitor-intelligence v3 — structured extraction + finding type classification)
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W19 (May 10e) — Strategy agent autonomous enforcement hardening
+
+- **DECISION — All constraints moved from prompt to code.** The strategy agent's impression threshold, cooldown, file ref validity, conditional language detection, FIX+REWRITE overlap, and max-5-FIX cap are now enforced post-generation in `enforcePlanConstraints()`. Claude's output is corrected before saving — the agent no longer relies on Claude following its own rules correctly.
+- **Implementation:** `getPagesOnCooldown()` (14-day git-log Set) + `isTechnicalFix()` (keyword exemption) + `hasConditionalLanguage()` (unsafe-for-autonomy patterns) + `lookupImpressions()` (GSC lookup chain) + `enforcePlanConstraints()` (drop loop with reasons). Dropped tasks appended as `## DROPPED TASKS` section in archived plan for visibility.
+- **Validated:** Simulation against 2026-05-10 plan correctly drops /fit-guides/ (178 impr), /seat-depth/ (101 impr), /knee-pain/ REWRITE (conditional language + cooldown). Keeps 3 FIX + 1 NEW + 1 REWRITE.
+- **Not fixed (Finding 3):** Strategy layer over-trusting thin competitor inputs. Requires adding `competitorWordCount` to gap output — deferred.
+
+## 2026-W19 (May 10d) — Structured extraction + finding type classification (competitor-intelligence v3)
+
+- **BUILT — section manifest in `extractTcaContent()`:** Page source is now parsed into named sections (`parseSections()`). A `[SECTION MANIFEST]` listing every H1–H3 with char count and attributes (table/faq/cta) is prepended before the content budget is consumed. The manifest is always complete regardless of truncation — the model sees every section that exists and cannot infer absence from a partial excerpt. This is the structural fix for gesture's 61% coverage false-positive class (was the primary remaining gap accuracy problem after the v2 confidence filter iteration).
+- **BUILT — `FindingType` formal taxonomy:** `type FindingType = 'absence_claim' | 'structure_claim' | 'depth_claim' | 'spec_gap'`. Added to `RawGapFinding` and `GapFinding` interfaces. Two-layer classification: Claude supplies `findingType` in JSON, `classifyFindingType()` validates and corrects. Replaces the `ABSENCE_PATTERNS` regex array.
+- **UPGRADED — confidence filter uses `findingType` not regex:** `applyConfidenceFilter()` now checks `f.findingType === 'absence_claim' || f.findingType === 'spec_gap'`. `depth_claim` and `structure_claim` pass through at any coverage — they are valid from partial visibility. `spec_gap` is now also downgraded at <90% coverage (missing-table claims are absence-adjacent).
+- **Deferred backlog cleared:** Both items explicitly deferred from v2 iteration are now implemented.
+
+## 2026-W19 (May 10c) — Built competitor-intelligence.ts (I1)
+
+- **BUILT — `scripts/competitor-intelligence.ts`:** 3-stage competitor intelligence pipeline. Stage 1: SerpAPI fetches real SERP rankings for top TCA keywords (from `analysis.json`) → finds URLs actually outranking TCA, not hardcoded competitor list. Stage 2: Firecrawl crawls those URLs for full markdown content. Stage 3: Claude Haiku generates specific content gap findings per TCA page. Outputs `data/competitors/intelligence.json` + wiki competitor-landscape page.
+- **ACTIVATION REQUIRED:** Script exits cleanly if `SERP_API_KEY` or `FIRECRAWL_API_KEY` missing. Add both to `.env` and GitHub Actions secrets. Free tiers: SerpAPI 100 searches/month, Firecrawl 500 pages/month.
+- **`package.json`:** Added `competitor:intelligence` script (`npm run competitor:intelligence`).
+- **Cost controls:** Max 8 keywords/run, max 12 competitor URLs — estimated ~$1–3/month.
+- **Does NOT replace `competitor-monitor.ts`:** The old script still runs Monday for lightweight metadata checks. This runs monthly for deep content gap analysis.
+
+## 2026-W19 (May 10b) — Friday branch bug fix + weekly plan C1/C2
+
+- **CRITICAL BUG FIXED — friday.yml reads stale plan:** Added `ref: staging` to `actions/checkout@v4`. Friday was checking out `main` — every week it read the previous Saturday's plan, not Wednesday's new one. Generated page failed Layout validation → `CONTENT_WRITTEN=false` → zero pages published since at least Apr 17. Added `::warning::` step for `CONTENT_WRITTEN=false` runs — was silently green, now visible in GitHub Actions.
+
+- **WEEKLY PLAN UPDATED — 2026-05-10:** C1 (Gesture depth expansion REWRITE, 3,000+ words, first-person voice, 80+ quality gate), C2 (Leap Plus "almost bought" reframe REWRITE), and shoulder pain new content page added. These are the highest-priority deferred items from the May 9 audit.
+
+- **DEFERRED — C3 + I1:** L3/L5 differentiation (C3) queued for next weekly plan. SERP API + Firecrawl competitor intelligence (I1) queued as a separate build session.
 
 ## 2026-W19 (May 10) — Combined audit implementation (14 fixes, 5 deferred)
 

@@ -2,6 +2,132 @@
 type: log
 ---
 
+## [2026-05-10] strategy | Autonomous enforcement hardening
+
+- **Cooldown in code:** `getPagesOnCooldown()` builds a 14-day git-log Set. `enforcePlanConstraints()` drops any FIX/REWRITE for a page in that Set unless the task contains a technical keyword (schema, canonical, noindex, 404, etc.)
+- **Impression threshold in code:** Non-technical FIX tasks for pages with <300 impressions are dropped. GSC lookup via `lookupImpressions()` (analysis.json opportunities → ctrLeaks → latest.json pages).
+- **Bad file refs → hard drop:** Was `console.warn` (plan saved anyway). Now dropped in enforcement — same handling as duplicate slugs.
+- **Conditional language → hard drop:** Tasks containing "verify before executing", "only if... cooldown", "if page is still", etc. are dropped. Strategy must decide, not defer to execution.
+- **FIX+REWRITE overlap → REWRITE dropped:** If a page appears in both FIXES and REWRITES, REWRITE is dropped to prevent conflicting edits.
+- **Max 5 FIX tasks → enforced:** Tasks beyond the cap are dropped (not silently generated).
+- **DROPPED TASKS section appended to plan:** Enforcement log appears in archived plan for debugging without affecting execution.
+- **Zero-valid-tasks check moved to post-enforcement:** Previous check ran on raw Claude output; now checks after all drops — correct failure mode.
+- **Validated against current plan:** Would correctly drop 3 tasks (/fit-guides/ 178 impr, /seat-depth/ 101 impr, /knee-pain/ REWRITE with conditional language).
+
+## [2026-05-10] competitor-intelligence v3 | Structured Extraction + Finding Type Classification
+
+- **BUILT — structured section extraction:** `extractTcaContent()` now parses the page into named sections via `parseSections()` and prepends a `[SECTION MANIFEST]` listing every H1–H3 heading with its character count and attributes (table/faq/cta). The manifest is always emitted in full before the content budget is consumed — model can no longer infer "section X is absent" from a truncated excerpt. Resolves the gesture 61% coverage false-positive class structurally.
+- **BUILT — formal finding type taxonomy:** `FindingType = 'absence_claim' | 'structure_claim' | 'depth_claim' | 'spec_gap'`. Added to `RawGapFinding` + `GapFinding` interfaces. `classifyFindingType()` provides deterministic classification; Claude's JSON output is validated against it and corrected when invalid.
+- **UPGRADED — confidence filter:** `applyConfidenceFilter()` now uses `f.findingType` instead of regex ABSENCE_PATTERNS. Also downgrades `spec_gap` under low coverage (missing-table claims are absence-adjacent). `depth_claim` and `structure_claim` pass through at any coverage level.
+- **UPGRADED — analyzeGaps prompt:** Asks Claude to supply `findingType` in JSON. Claude classification is preferred if valid; deterministic fallback runs otherwise. Two-layer validation.
+
+## [2026-05-10] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-05-10-weekly-plan.md
+- 5 fixes, 1 new page, 2 rewrites
+- Intelligence source: competitor-intelligence v2 with coverage-confidence filter (trusted-only gaps)
+- Key changes vs. prior iteration: coverage-aware downgrade filter eliminated gesture warranty false positive; unknown-editorial now last-resort only; 7 high-priority trusted gaps across 8 pages
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 20 (34 cached)
+- High-priority gaps: 7 trusted (after coverage-confidence filter)
+- Coverage-confidence filter added: two-band downgrade (<70% hard, 70–90% soft) for absence claims
+- Unknown-editorial demoted to last-resort (only backfills when zero known editorial sources)
+- gesture false positive eliminated (61% coverage, hard-downgrade zone)
+
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 14 (43 cached)
+- High-priority gaps: 9
+- 8 pages analyzed × up to 3 queries each. 14 URLs crawled (43 cache hits). 9 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.
+
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 0 (45 cached)
+- High-priority gaps: 7
+- 8 pages analyzed × up to 3 queries each. 0 URLs crawled (45 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, btod.com.
+
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 0 (46 cached)
+- High-priority gaps: 7
+- 8 pages analyzed × up to 3 queries each. 0 URLs crawled (46 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, hinomi.co.
+
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 13 (33 cached)
+- High-priority gaps: 7
+- 8 pages analyzed × up to 3 queries each. 13 URLs crawled (33 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, hinomi.co.
+
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 24 | Crawls: 5 (39 cached)
+- High-priority gaps: 12
+- 8 pages analyzed × up to 3 queries each. 5 URLs crawled (39 cache hits). 12 high-priority gaps. Top editorial outrankers: forbes.com, hinomi.co, logicfox.net.
+
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 24 | Crawls: 8 (36 cached)
+- High-priority gaps: 11
+- 8 pages analyzed × up to 3 queries each. 8 URLs crawled (36 cache hits). 11 high-priority gaps. Top editorial outrankers: forbes.com, hinomi.co, logicfox.net.
+
+
+## [2026-05-10] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-05-10-weekly-plan.md
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+
+
+## [2026-05-10] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-05-10-weekly-plan.md
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+
+
+## [2026-05-10] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-05-10-weekly-plan.md
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+
+
+## [2026-05-10] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 30 | Crawls: 18 (19 cached)
+- High-priority gaps: 7
+- 8 pages analyzed × up to 3 queries each. 18 URLs crawled (19 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, hinomi.co, logicfox.net.
+
+
+## [2026-05-10] competitor-intelligence | Competitor Intelligence Run
+
+- Keywords analyzed: 8
+- Competitor URLs crawled: 12
+- High-priority gaps: 6
+- Summary: Analyzed 8 keywords. 12 competitor pages crawled. 6 high-priority gaps identified. Most frequent outrankers: wayfair.com, stackchairs4less.com, us.amazon.com.
+
+
+## [2026-05-10] session | Built competitor-intelligence.ts (I1)
+
+- New script: `scripts/competitor-intelligence.ts` — 3-stage pipeline (SerpAPI → Firecrawl → Claude Haiku)
+- `package.json`: added `competitor:intelligence` script
+- `.env`: added empty `SERP_API_KEY` and `FIRECRAWL_API_KEY` placeholders
+- Audit tracker (I1): marked BUILT — activation requires adding API keys to .env + GitHub secrets
+- Decisions log updated
+
+## [2026-05-10] session | Next-steps execution (friday.yml fix + weekly plan update)
+
+- Fixed friday.yml: added `ref: staging` to checkout step — Friday now reads current plan from staging, not stale main
+- Fixed friday.yml: added `Warn if no content written` step — `CONTENT_WRITTEN=false` now surfaces as GitHub Actions warning (was silent green)
+- Updated `reports/weekly-plan.md` for week of 2026-05-10: C1 (Gesture depth expansion REWRITE), C2 (Leap Plus reframe REWRITE), + shoulder pain new content
+- Updated `wiki/pages/concepts/audit-implementation-2026-05-10.md`: Friday branch bug marked FIXED
+- Deferred for future session: C3 L3/L5 differentiation, I1 SERP API + Firecrawl pipeline
+
 ## [2026-05-10] session | Combined Audit Implementation
 
 - Source: `raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md` (adjudicated 6/10, 21 findings)

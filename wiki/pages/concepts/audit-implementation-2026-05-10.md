@@ -115,26 +115,23 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 
 ---
 
-## URGENT — New Bug Identified by Codex (NOT from audit, NOT fixed yet)
+## URGENT — New Bug Identified by Codex
 
 ### Friday agent reads stale weekly plan + green-but-empty runs
 
+**Status: FIXED 2026-05-10**
+
 **Root cause chain (Codex, confirmed via GitHub Actions logs):**
 1. Wednesday generates a new plan and pushes to `staging`
-2. Friday checks out `main` (no `ref: staging` in friday.yml, unlike saturday.yml which explicitly checks out staging)
-3. `main` still has the previous Saturday's plan — Wednesday's new plan is only on `staging`
-4. Friday reads the stale plan, tries to generate a page from it, fails validation ("Missing `<Layout>` or `</Layout>` wrapper")
-5. `CONTENT_WRITTEN` stays `false` → commit/publish steps skipped
-6. GitHub shows the run as **green** because "no pages written" is a valid exit — no actual failure surfaced
+2. Friday checked out `main` (no `ref: staging`) — reads previous Saturday's plan, not Wednesday's new one
+3. Stale plan fails Layout validation → `CONTENT_WRITTEN=false` → publish steps skipped → silent green run
 
-**Evidence:** Every Friday run since at least Apr 17 (runs 24557293083, 24882273667, 25209586786, 25547200977) was green but skipped "Verify build", "Content lint", and "Commit new content" — meaning zero pages published for weeks.
+**Fixes applied:**
+- `friday.yml`: Added `ref: staging` to `actions/checkout@v4` step. Friday now reads from staging (same as saturday.yml line 17).
+- `friday.yml`: Added "Warn if no content written" step — `echo "::warning::CONTENT_WRITTEN=false..."` so future failures surface visibly in GitHub Actions.
+- `fetch-depth: 0` was already present; no change needed there.
 
-**Three places that need to change:**
-1. `friday.yml`: add `ref: staging` to the `actions/checkout@v4` step (same as saturday.yml line 17) so Friday reads the current plan
-2. `friday.yml`: consider adding `fetch-depth: 0` to the checkout (saturday.yml has it)
-3. `friday.yml` or `execute-content.ts`: surface `CONTENT_WRITTEN=false` as a workflow warning/failure so it doesn't silently pass as green
-
-**What our session fixed vs this:** Our force-push fix (main→staging on failure path) is unrelated. This bug is about which branch Friday *reads from*, not where it pushes to.
+**Note:** The earlier force-push fix (F1, main→staging on failure path) was unrelated — that fixed *where* Friday pushes. This fixes *which branch Friday reads from*.
 
 ---
 
@@ -160,11 +157,15 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 - Action needed: Two REWRITE tasks in a future weekly plan
 
 ### I1 — SERP API + Firecrawl competitor intelligence pipeline
-**Priority: Medium (Month 2)**
-- Replace current `competitor-monitor.ts` (metadata-only, theater output) with 3-stage pipeline: SerpAPI → Firecrawl → Claude gap analysis
-- Current competitor-monitor crawls 5 fixed URLs regardless of whether they rank. New system crawls only pages actually outranking TCA per keyword.
-- Constraint: Do not build until D1–D4 data integrity fixes are complete (they now are). Build monthly cadence, ~$1-3/month API cost.
-- Action needed: New script `scripts/competitor-intelligence.ts`, add to monthly cron or manual run
+**Status: BUILT 2026-05-10**
+- New script: `scripts/competitor-intelligence.ts`
+- Run: `npm run competitor:intelligence` (manual/monthly cadence)
+- Stage 1 — SerpAPI: for each top `near-p1`/`content-depth` keyword in `analysis.json`, fetch real SERP results and find URLs outranking TCA's actual position (not hardcoded competitors)
+- Stage 2 — Firecrawl: crawl only those outranking URLs for full content (markdown), not just HTML metadata
+- Stage 3 — Claude Haiku: generate specific gap findings per TCA page vs outrankers
+- Outputs: `data/competitors/intelligence.json`, `raw/competitors/YYYY-MM-DD-intelligence.json`, updates wiki competitor-landscape page
+- Cost controls: max 8 keywords/run, max 12 competitor URLs/run, ~$1–3/month
+- **Activation required:** Add `SERP_API_KEY` and `FIRECRAWL_API_KEY` to `.env` and GitHub Actions secrets. Both have free tiers (100 searches/month + 500 pages/month). Empty placeholders added to `.env`.
 
 ### I2 — Add pagination to gsc-pull.ts
 **Priority: Low**
