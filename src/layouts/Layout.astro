@@ -79,9 +79,99 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
         <script is:inline define:vars={{ gaMeasurementId }}>
           window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', gaMeasurementId);
+          window.gtag = function gtag(){window.dataLayer.push(arguments);}
+          window.gtag('js', new Date());
+          window.gtag('config', gaMeasurementId);
+        </script>
+        <script is:inline>
+          const AFFILIATE_TAG = 'tallchairadvi-20';
+
+          const normalizeDomain = (hostname) => hostname.replace(/^www\./, '');
+
+          const getAnchor = (target) => target instanceof Element ? target.closest('a') : null;
+
+          const isTrackedAffiliateLink = (link) => {
+            if (!(link instanceof HTMLAnchorElement)) return false;
+            if (link.dataset.affiliateCta === 'true') return true;
+
+            try {
+              const url = new URL(link.href, window.location.origin);
+              return normalizeDomain(url.hostname).endsWith('amazon.com')
+                && url.searchParams.get('tag') === AFFILIATE_TAG;
+            } catch {
+              return false;
+            }
+          };
+
+          const getAffiliateProgram = (link, url) => {
+            if (link.dataset.affiliateProgram) return link.dataset.affiliateProgram;
+            return normalizeDomain(url.hostname).endsWith('amazon.com') ? 'amazon' : 'unknown';
+          };
+
+          const getCtaLabel = (link) => {
+            const explicitLabel = link.dataset.ctaLabel || link.getAttribute('aria-label') || link.getAttribute('title');
+            if (explicitLabel) return explicitLabel.trim();
+
+            const visibleText = link.textContent?.replace(/\s+/g, ' ').trim();
+            return visibleText || 'affiliate link';
+          };
+
+          const getCtaPosition = (link) => {
+            if (link.dataset.ctaPosition) return link.dataset.ctaPosition;
+            if (link.closest('table')) return 'table';
+            if (link.closest('footer')) return 'footer';
+            if (link.closest('nav')) return 'nav';
+            if (link.closest('header')) return 'hero';
+
+            const documentHeight = Math.max(
+              document.documentElement.scrollHeight,
+              document.body.scrollHeight,
+              window.innerHeight
+            );
+            const absoluteTop = link.getBoundingClientRect().top + window.scrollY;
+            const ratio = documentHeight > 0 ? absoluteTop / documentHeight : 0;
+
+            if (ratio < 0.25) return 'hero';
+            if (ratio < 0.6) return 'mid';
+            return 'lower';
+          };
+
+          let lastTrackedKey = '';
+          let lastTrackedAt = 0;
+
+          const trackAffiliateClick = (event) => {
+            const link = getAnchor(event.target);
+            if (!link || !isTrackedAffiliateLink(link) || typeof window.gtag !== 'function') return;
+
+            let url;
+            try {
+              url = new URL(link.href, window.location.origin);
+            } catch {
+              return;
+            }
+
+            const ctaPosition = getCtaPosition(link);
+            const dedupeKey = `${event.type}:${url.href}:${ctaPosition}`;
+            const now = Date.now();
+            if (dedupeKey === lastTrackedKey && now - lastTrackedAt < 750) return;
+
+            lastTrackedKey = dedupeKey;
+            lastTrackedAt = now;
+
+            window.gtag('event', 'affiliate_click', {
+              page_path: window.location.pathname,
+              page_title: document.title,
+              destination_domain: normalizeDomain(url.hostname),
+              affiliate_program: getAffiliateProgram(link, url),
+              cta_label: getCtaLabel(link),
+              cta_position: ctaPosition,
+              link_url: url.href,
+              transport_type: 'beacon'
+            });
+          };
+
+          document.addEventListener('click', trackAffiliateClick, true);
+          document.addEventListener('auxclick', trackAffiliateClick, true);
         </script>
       </>
     )}

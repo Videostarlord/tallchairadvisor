@@ -1,6 +1,6 @@
 # Manual To-Do List — tallchairadvisor.com
-**Last updated:** March 3, 2026
-**All code changes are complete. Everything below requires your input.**
+**Last updated:** May 10, 2026
+**This file tracks remaining manual work plus a small number of pending implementation tasks that are not yet complete in code.**
 
 ---
 
@@ -234,6 +234,7 @@ Use this table to track completion:
 | 10 | Per-page OG images | Low | ⚠️ Partial — reviews done, 2 comparison pages need images |
 | 11 | Self-host Google Fonts | Low | ✅ Done — @fontsource, Google CDN removed |
 | 12 | Add llms.txt | Low | ✅ Done |
+| 13 | Add GA4 affiliate click tracking | Medium | ⚠️ Partial — event layer added in code, GA4 DebugView verification still needed |
 
 ## Remaining Manual Tasks
 
@@ -257,3 +258,43 @@ Need to create 1200×630px images for:
 - /aeron-vs-leap-plus (no image exists)
 - /gesture-vs-leap-plus (no image exists)
 Then add `ogImage="/images/..."` to each page's Layout call.
+
+### 🔲 GA4 Affiliate Click Tracking (Item 13)
+Current state:
+- GA4 pageview tracking is already loaded globally from `src/layouts/Layout.astro`
+- The GA4 measurement ID comes from `PUBLIC_GA_MEASUREMENT_ID`
+- Click-level event tracking is now implemented for tagged Amazon affiliate links
+- High-priority CTA links now carry explicit metadata for label and position reporting
+
+Implemented:
+- GA4 event name: `affiliate_click`
+- Event payload includes:
+  - `page_path`
+  - `page_title`
+  - `destination_domain`
+  - `affiliate_program`
+  - `cta_label`
+  - `cta_position`
+  - `link_url`
+- One reusable delegated listener in `src/layouts/Layout.astro`
+- Explicit `data-*` metadata added to the highest-priority money-page CTAs
+
+Still to verify manually:
+1. Open GA4 DebugView / Realtime
+2. Click an Amazon CTA on a live or preview environment
+3. Confirm `affiliate_click` appears with `page_path`, `cta_label`, and `cta_position`
+4. Build one GA4 exploration grouped by `page_path` and `cta_position`
+
+High-priority pages to instrument first:
+- `/review/gesture`
+- `/review/leap-plus`
+- `/review/aeron-size-c`
+- `/best-office-chairs`
+- `/office-chairs-for-tall-people`
+- `/best-office-chairs-under-500`
+
+Definition of done:
+- A click on any Amazon CTA sends a GA4 `affiliate_click` event
+- The event clearly identifies which page produced the click
+- The event distinguishes CTA location using `cta_position`
+- You can see top-performing pages and CTA positions inside GA4 without manual log scraping
