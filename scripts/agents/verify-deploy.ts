@@ -72,6 +72,10 @@ async function checkAffiliateLinks(): Promise<CheckResult> {
         violations.push(`${file}: Amazon link missing affiliate tag: ${link.slice(0, 80)}`);
       }
     }
+    // Catch unresolved AMAZON_URL template placeholders (affiliate link is broken)
+    if (content.includes('href="AMAZON_URL')) {
+      violations.push(`${file}: Unresolved AMAZON_URL placeholder in affiliate link — link is broken`);
+    }
   }
 
   return {
@@ -239,17 +243,35 @@ async function main() {
 
   // Ask Claude for a brief weekly summary
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
+
+  // Pull prior-week metrics for trend comparison
+  const gscHistory = readWikiPage(ROOT, 'pages/concepts/gsc-performance.md') || '';
+  const historyMatch = gscHistory.match(/### [\d-]+\n([\s\S]*?)(?=\n###|\n##|$)/);
+  const prevWeekStats = historyMatch?.[1]?.slice(0, 300) || 'No prior week data available.';
+
   const summaryResponse = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 800,
+    system: `You are the operations log writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people.
+Write in factual, terse bullet points.
+Show metric changes vs. prior week when data is available (e.g., "Impressions: 12,209 (+1,500 vs prior week)").
+State whether each metric improved or declined.
+Note which specific fixes or content changes likely drove changes.
+Be specific, not generic.`,
     messages: [{
       role: 'user',
-      content: `Write a brief weekly summary (4-6 bullet points) for tallchairadvisor.com based on this week's automation run.
+      content: `Write a brief weekly summary (4-6 bullet points) for tallchairadvisor.com.
 
-GSC: ${gsc.totals.clicks} clicks | ${gsc.totals.impressions} impressions | avg pos ${gsc.totals.avgPosition}
-Fixes applied: ${fixesLog}
-Content created: ${contentLog}
-Verification: ${allPassed ? 'All checks passed' : 'Some checks FAILED'}
+THIS WEEK:
+- Clicks: ${gsc.totals.clicks} | Impressions: ${gsc.totals.impressions} | Avg pos: ${gsc.totals.avgPosition}
+
+PRIOR WEEK (for trend comparison):
+${prevWeekStats}
+
+WHAT HAPPENED:
+- Fixes applied: ${fixesLog}
+- Content created: ${contentLog}
+- Verification: ${allPassed ? 'All checks passed' : 'Some checks FAILED'}
 
 Format as markdown bullet points. Be specific about what changed and what to watch next week.`,
     }],

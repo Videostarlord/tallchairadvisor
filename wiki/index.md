@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-09 (agent reliability audit + fixes)
+last_updated: 2026-05-09 (GSC intelligence platform redesign — gsc-analyze.ts built)
 ---
 
 # TCA Wiki Index
@@ -40,6 +40,13 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[internal-linking]] | Hub-and-spoke architecture. Verified + unverified link inventory. |
 | [[competitor-landscape]] | 5 direct competitors. TCA advantage: height specificity. |
 | [[gsc-performance]] | 12,209 impr, 29 clicks, 0.24% CTR (May 4, 90-day). Page-level rankings. KPI targets. |
+| [[gsc-analysis-strategy]] | Query-level GSC analysis. Cornell cluster (164 impr, 0 CTR). AIO pattern detection. Plan for gsc-analyze.ts. Read before any CTR fix decision. |
+| [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
+| [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Read when modifying the pipeline. |
+| [[query-clustering-system]] | How queries are grouped into semantic clusters. Intent weights, known TCA cluster families, cannibalization logic. |
+| [[opportunity-scoring-system]] | Scoring formulas for near-p1, ctr-leak, content-depth, affiliate-capture opportunity types. Priority thresholds. |
+| [[content-gap-engine]] | Internal + competitor gap detection. Current known gaps. Integration with competitor-monitor. |
+| [[market-signal-framework]] | Velocity signals, AIO suppression detection, seasonal intent emergence, impression gravity. Current market state. |
 | [[content-gaps]] | Standing desk page, verdict table, citation capsules, depth upgrades. |
 | [[content-quality-scores]] | Blog audit Mar 19. Avg 71/100. Gate: 80+ for new content. |
 | [[system-setup-guide]] | Step-by-step replication guide for Jackson (human reference only — not LLM context). Do not read for operational questions. |

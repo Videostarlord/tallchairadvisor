@@ -5,7 +5,7 @@
 
 import 'dotenv/config';
 import Anthropic from '@anthropic-ai/sdk';
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { archiveToRaw, appendWikiLog, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today } from './wiki-utils.js';
@@ -24,7 +24,7 @@ async function fetchMeta(path: string) {
     });
     const html = await res.text();
     const title = html.match(/<title[^>]*>(.*?)<\/title>/i)?.[1]?.trim() ?? null;
-    const desc = html.match(/<meta\s+name=["']description["']\s+content="(.*?)"/i)?.[1] ?? null;
+    const desc = html.match(/<meta\s+name=["']description["']\s+content="([^"]*)"/i)?.[1] ?? null;
     const canonical = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)['"]/i)?.[1] ?? null;
     const ogTitle = html.match(/<meta\s+property=["']og:title["']\s+content="(.*?)"/i)?.[1] ?? null;
     const ogDesc = html.match(/<meta\s+property=["']og:description["']\s+content="(.*?)"/i)?.[1] ?? null;
@@ -43,6 +43,8 @@ async function fetchMeta(path: string) {
 
 async function main() {
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
+  const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
+  const gscAnalysis = existsSync(analysisPath) ? JSON.parse(readFileSync(analysisPath, 'utf-8')) : null;
 
   // Focus on pages with meaningful impressions
   const pagesToAudit = gsc.pages
@@ -88,16 +90,32 @@ SITE DATA (last 90 days):
 - Total clicks: ${gsc.totals.clicks} | Impressions: ${gsc.totals.impressions} | Avg pos: ${gsc.totals.avgPosition}
 
 PAGE AUDIT RESULTS:
-${pageResults.map(r => `
-PAGE: ${r.gsc.page}
+${pageResults.map(r => {
+  const pagePath = r.gsc.page;
+  let queryContext = '';
+  if (gscAnalysis) {
+    const leaks = gscAnalysis.ctrLeaks.filter((l: any) => l.page === pagePath).slice(0, 3);
+    const opp = gscAnalysis.opportunities.find((o: any) => o.page === pagePath);
+    if (leaks.length > 0) {
+      queryContext = `QUERY LEAKS: ${leaks.map((l: any) => `"${l.query}" (${l.impressions} impr, pos ${l.position}, ${l.actualCTR}% CTR${l.aioSuspect ? ' ⚠AIO' : ''})`).join(' | ')}`;
+    } else if (opp?.topQueries?.length > 0) {
+      queryContext = `TOP QUERIES: ${opp.topQueries.join(' | ')}`;
+    }
+    if (opp && opp.opportunityType !== 'low-signal') {
+      queryContext += `\nOPPORTUNITY: [${opp.opportunityType}] ${opp.recommendation}`;
+    }
+  }
+  return `
+PAGE: ${pagePath}
 GSC: ${r.gsc.clicks} clicks | ${r.gsc.impressions} impr | pos ${r.gsc.position} | CTR ${r.gsc.ctr}%
-Title (${r.meta.titleLen || 0} chars): ${r.meta.title || 'MISSING'}
+${queryContext ? queryContext + '\n' : ''}Title (${r.meta.titleLen || 0} chars): ${r.meta.title || 'MISSING'}
 Meta desc (${r.meta.descLen || 0} chars): ${r.meta.desc || 'MISSING'}
 Canonical: ${r.meta.canonical || 'MISSING'}
 OG Title: ${r.meta.ogTitle || 'MISSING'}
 Schema: ${r.meta.hasSchema ? 'Present' : 'MISSING'}
 Schema blocks: ${r.meta.schemaBlocks?.join(' | ').slice(0, 200) || 'none'}
-`).join('\n---\n')}
+`;
+}).join('\n---\n')}
 
 Output a structured markdown audit report with:
 1. Executive summary (3-4 sentences, overall health)

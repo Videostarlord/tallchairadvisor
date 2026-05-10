@@ -1,13 +1,13 @@
 ---
 type: synthesis
-last_updated: 2026-04-22
+last_updated: 2026-05-09
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/strategy/2026-03-competitor-analysis.md, raw/audits/2026-04-03-full-audit.md]
 tags: [thesis, strategy, big-picture]
 ---
 
 # Strategic Thesis
 
-**Last revised:** 2026-04-06
+**Last revised:** 2026-05-09
 
 ## The Bet
 
@@ -28,24 +28,30 @@ TallChairAdvisor.com can become the #1 resource for height-specific office chair
 - **Revenue:** $18 first commission on May 1 — Gesture review converting
 - **CTR note (revised May 6):** April 22 SERP audit found AI Overviews + carousels as suppressors — still valid for those specific query types. But the finding was overgeneralized: review/comparison pages operate on editorial SERPs without carousels and meta rewrites are valid there. See [[what-works]] and [[ctr-optimization]].
 
-## What Needs to Happen Next (Priority Order — revised May 6)
+## What Needs to Happen Next (Priority Order — revised May 9)
 
-### 1. Meta Rewrites on Review/Comparison Pages (immediate — unblocked May 8)
-Thursday cooldown bug fixed May 6 (shallow clone caused every page to appear as "edited 0d ago"). 5 verdict-first meta rewrites queued for Thursday May 8. These target review pages at pos 7–10 on editorial SERPs — not suppressed by carousels. First real CTR test after 6 weeks of delay.
+### 0. Build gsc-analyze.ts (pipeline — before next content cycle)
+The 200 queries and 427 page+query rows pulled every Monday are read by zero agents. A `gsc-analyze.ts` step after `gsc-pull.ts` would cluster query variants by intent, identify CTR leaks with their specific query context, and flag AIO patterns — converting vague page-level impressions into specific, executable fix instructions. Expand `gsc-pull.ts` with device + date dimensions simultaneously. See [[gsc-analysis-strategy]] for full rationale and examples.
 
-### 2. /office-chairs-for-tall-people/ Cornerstone Rewrite
+### 1. Cornell Cluster Fix (immediate — confirmed by query data)
+`/knee-pain-seat-depth/` has 165 impressions at avg pos 8.9 from "cornell ergonomics chair seat depth [rule variant]" queries — all at 0 CTR. Title "Seat Depth & Knee Pain: The Fix for Tall People" mismatches: searchers want the Cornell rule, not a pain-fix framing. Adding "Cornell Ergonomics" to the title or H1 is a one-field change with the highest confirmed click yield on the site right now.
+
+### 2. Meta Rewrites on Review/Comparison Pages
+Thursday cooldown bug fixed May 6. 5 verdict-first meta rewrites queued for Thursday May 8. These target review pages at pos 7–10 on editorial SERPs — not suppressed by carousels. First real CTR test after 6 weeks of delay. Note: query-level analysis (once gsc-analyze.ts is built) will sharpen which specific keywords to target in each rewrite.
+
+### 3. /office-chairs-for-tall-people/ Cornerstone Rewrite
 Currently pos 24.9 on 570 impressions — buried on page 2 for the site's most important head term. Expanding to 2,500+ words with height-bracket verdict table is the single highest-leverage ranking move on the site. Also the primary AI Overview citation target.
 
-### 3. GEO Optimization
-AI Overviews confirmed on specific spec queries. Getting cited inside them via height-bracket verdict tables and citation capsules. Secondary priority to meta rewrites — those fix existing impression leakage faster.
+### 4. GEO Optimization
+AI Overviews confirmed on specific spec queries — including `/chairs/steelcase-gesture/seat-depth/` at pos 4.2 with 0 CTR (not a meta problem — AIO eating the traffic above organic). Restructuring these pages for AIO citation is the fix, not title rewrites.
 
-### 4. Height-Specific Page Depth (/office-chairs-for-6-foot-[3-7]/)
+### 5. Height-Specific Page Depth (/office-chairs-for-6-foot-[3-7]/)
 Editorial SERPs, no carousel competition. Current scores 67–68, target 85+. TCA's most defensible long-term format.
 
-### 5. Leap Plus "Almost Bought" Reframe
+### 6. Leap Plus "Almost Bought" Reframe
 /review/leap-plus/ is at pos 9.3 with 632 impressions and no purchase-intent narrative. "I almost bought this — here's the spec analysis that drove my decision" is the right frame. High E-E-A-T, no testing claim needed.
 
-### 6. Standing Desk Content (zero competition)
+### 7. Standing Desk Content (zero competition)
 Confirmed demand signal. Jackson has a real desk. ME background. Zero competition. Next content pillar after review pages are converted.
 
 ## What Could Change This Thesis

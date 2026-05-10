@@ -194,6 +194,9 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   if (/\b(and|or)\b/.test(frontmatter.replace(/"[^"]*"/g, '').replace(/'[^']*'/g, ''))) {
     return { valid: false, reason: 'Bare "and"/"or" keyword in frontmatter JS (use && / ||)' };
   }
+  if (content.includes('href="AMAZON_URL')) {
+    return { valid: false, reason: 'Unresolved AMAZON_URL placeholder found in href — Claude did not replace the template CTA' };
+  }
   return { valid: true };
 }
 
@@ -324,6 +327,14 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
   const slugParts = task.slug.replace(/^\/|\/$/g, '').split('/');
   const filePath = `src/pages/${slugParts.join('/')}.astro`;
   const fullPath = resolve(ROOT, filePath);
+
+  if (existsSync(fullPath)) {
+    return {
+      success: false,
+      filePath,
+      summary: `SKIPPED: ${filePath} already exists — use REWRITE in the plan to update existing pages, not NEW CONTENT`,
+    };
+  }
 
   mkdirSync(dirname(fullPath), { recursive: true });
   writeFileSync(fullPath, cleaned);

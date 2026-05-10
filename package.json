@@ -12,6 +12,8 @@
     "reddit:all": "npm run reddit:fetch all && npm run reddit:normalize all && npm run reddit:summarize all",
     "gsc:pull": "tsx scripts/gsc-pull.ts",
     "gsc:pull:16m": "tsx scripts/gsc-pull.ts --days=16m",
+    "gsc:analyze": "tsx scripts/gsc-analyze.ts",
+    "gsc:full": "npm run gsc:pull && npm run gsc:analyze",
     "agent:index-monitor": "tsx scripts/agents/index-monitor.ts",
     "agent:competitor": "tsx scripts/agents/competitor-monitor.ts",
     "agent:audit": "tsx scripts/agents/audit.ts",

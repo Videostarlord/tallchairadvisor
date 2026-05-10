@@ -138,15 +138,18 @@ Output a brief JSON with:
       /last_updated: .*/,
       `last_updated: ${today()}`
     );
-    // Append new gaps to the page if there's a gap tracking section, otherwise add one
+    // Replace entire section to prevent row duplication across weekly runs
+    const newSection = `## Recent Competitor Gaps\n\n| Date | Gap | Priority | Recommendation |\n|------|-----|----------|----------------|\n${gapLines}\n`;
     if (updatedPage.includes('## Recent Competitor Gaps')) {
-      writeWikiPage(ROOT, 'pages/concepts/competitor-landscape.md',
-        updatedPage.replace('## Recent Competitor Gaps', `## Recent Competitor Gaps\n\n| Date | Gap | Priority | Recommendation |\n|------|-----|----------|----------------|\n${gapLines}\n`)
-      );
+      const sectionStart = updatedPage.indexOf('## Recent Competitor Gaps');
+      const beforeSection = updatedPage.slice(0, sectionStart);
+      const nextSectionMatch = updatedPage.slice(sectionStart + 26).match(/\n## /);
+      const afterSection = nextSectionMatch
+        ? updatedPage.slice(sectionStart + 26 + nextSectionMatch.index)
+        : '';
+      writeWikiPage(ROOT, 'pages/concepts/competitor-landscape.md', beforeSection + newSection + afterSection);
     } else {
-      writeWikiPage(ROOT, 'pages/concepts/competitor-landscape.md',
-        updatedPage + `\n\n## Recent Competitor Gaps\n\n| Date | Gap | Priority | Recommendation |\n|------|-----|----------|----------------|\n${gapLines}\n`
-      );
+      writeWikiPage(ROOT, 'pages/concepts/competitor-landscape.md', updatedPage + '\n\n' + newSection);
     }
   }
 

@@ -2,6 +2,56 @@
 type: log
 ---
 
+## [2026-05-10] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 11 (top leak: /review/gesture/ — "steelcase knee brace review")
+- Opportunities: 23 actionable
+- AIO suspects: 2
+- Affiliate alerts: 0 high-urgency
+- Site momentum: n/a
+
+
+## [2026-05-09] manual-session | GSC Data Gap Analysis + gsc-analyze.ts Decision
+
+- **AUDIT FINDING — GSC data is severely underused:** `gsc-pull.ts` collects pages (46), queries (200), page+query combos (427), and totals. But agents only read: `pages` sorted by impressions (audit.ts), `pages.slice(0,5)` (strategy.ts), `totals` only (verify-deploy.ts). The 200 queries and 427 page+query rows are pulled every Monday and read by zero agents.
+- **AUDIT FINDING — Device dimension not collected at all:** No mobile/desktop/tablet breakdown exists in `data/gsc/latest.json`. The GSC API supports `['device']` and `['page', 'device']` dimensions but `gsc-pull.ts` doesn't request them.
+- **AUDIT FINDING — No date-dimension data:** No week-over-week trend or velocity detection. The API supports `['date']` dimension for 16+ weekly data points but it's not pulled.
+- **CONCRETE EXAMPLE — Cornell cluster invisible to all agents:** Query-level data reveals a cluster of 6 intent-identical variants of "cornell ergonomics chair seat depth [two fingers / 2-3 fingers / 2 inches] behind knees" driving 165 combined impressions at pos 8–10 on `/knee-pain-seat-depth/` with 0 CTR. No agent has ever seen this because they don't read `pageQueries`. Diagnosis: page title "Seat Depth & Knee Pain: The Fix for Tall People" misses the Cornell intent — a one-word title change (add "Cornell ergonomics") would likely unlock these clicks. Agents currently see this page as "1,524 impr, pos 8.8, 0.13% CTR" with no query context.
+- **CONCRETE EXAMPLE — AIO diagnosis from pos 4.2 with 0 CTR:** `/chairs/steelcase-gesture/seat-depth/` ranks pos 4.2 for "steelcase gesture seat depth range inches" (23 impr, 0 CTR). Title already contains the spec numbers — this is NOT a title/meta problem. Pattern = AI Overview consuming the answer above organic results. Fix is content restructuring for AIO citation, not a meta rewrite. Without query-level analysis no agent would reach this conclusion.
+- **CONCRETE EXAMPLE — Knee brace intent mismatch on /review/gesture/:** "steelcase knee brace review" drives 91 impr at pos 7.3 + "steelcase knee brace review 2026" drives 18 impr at pos 3.5, both 0 CTR. Review meta mentions "seat depth, armrests, back height" — no mention of knee support. A single meta description update would likely unlock these clicks.
+- **DECISION — Build gsc-analyze.ts:** New script to run on Monday after `gsc-pull.ts`. Groups query variants into intent clusters, identifies CTR leaks with intent context, flags device divergence, surfaces AIO patterns (high position + 0 CTR with spec queries), writes structured analysis to `wiki/pages/concepts/gsc-analysis-strategy.md` and `data/gsc/analysis.json`. Strategy agent on Wednesday auto-reads the wiki page via `readConceptContext()` — no other agent changes needed.
+- **DECISION — Expand gsc-pull.ts:** Add `['device']`, `['page', 'device']`, and `['date']` dimensions to Monday pull. Enables mobile/desktop CTR split and week-over-week velocity analysis.
+- See new concept page: `wiki/pages/concepts/gsc-analysis-strategy.md`
+
+## [2026-05-09] manual-session | Full System Audit (AUDIT/ folder)
+
+- **Full system audit performed:** Spawned comprehensive audit agent to review entire codebase, all agent scripts, wiki, strategy files, workflow files, and prompts.
+- **5 audit documents created in `/AUDIT/`:**
+  - `TCA_SYSTEM_OVERVIEW.md` — plain-English system description
+  - `TCA_BLIND_SPOTS_AND_ERRORS.md` — all discovered issues and funnel violations
+  - `TCA_AGENT_LOGIC_AUDIT.md` — agent-by-agent analysis with prompt improvements
+  - `TCA_OPTIMIZATION_PLAN.md` — 20 items prioritized Critical/High/Medium
+  - `TCA_NEXT_CLAUDE_PROMPT.md` — self-contained prompt for next implementation session
+- **Key findings from audit:** Homepage routes L0→L5 in 2 clicks (skips educational funnel). `/office-chairs-for-tall-people/` and `/best-office-chairs/` cannibalizing same head term. Friday agent could overwrite existing pages (now fixed). AMAZON_URL placeholder undetectable by affiliate checker (now fixed). `pageLastmod` in astro.config.mjs manually maintained with no agent updating it.
+
+## [2026-05-09] manual-session | Pipeline Bug Fixes (8 fixes from system audit)
+
+- **FIX 1 — audit.ts regex:** Meta description regex changed from `(.*?)` to `([^"]*)`. The lazy quantifier stopped at apostrophes in content like `6'4"`, truncating descriptions and causing false audit flags.
+- **FIX 2 — execute-content.ts overwrite guard:** `writeNewPage()` now checks `existsSync(fullPath)` before writing. If the file exists, returns a SKIPPED result instead of silently overwriting. Prevents strategy agent duplicate-slug prescriptions from destroying live pages.
+- **FIX 3 — execute-content.ts + verify-deploy.ts AMAZON_URL guard:** Added check for unresolved `href="AMAZON_URL` placeholder in both `validateAstroFile()` (execute-content.ts) and `checkAffiliateLinks()` (verify-deploy.ts). Catches cases where Claude doesn't replace the template CTA — previously these passed the affiliate link check because `AMAZON_URL` isn't an amazon.com URL.
+- **FIX 4 — competitor-monitor.ts gap deduplication:** `## Recent Competitor Gaps` section is now fully replaced on each Monday run instead of prepended to. Previous logic prepended new rows without removing old ones, causing unbounded growth and duplicate gap rows.
+- **FIX 5 — strategy.ts plan validation:** Added `countParsedItems()` after Claude call. If plan has section headers but zero parseable tasks (wrong pipe count, renamed section), a WARNING is logged with first 1000 chars of the raw plan for manual review. Silent empty plans no longer commit without warning.
+- **FIX 6 — verify-deploy.ts summary system prompt:** Saturday Claude call now has a system prompt (factual, terse, trend-aware) and passes prior-week GSC metrics from `gsc-performance.md` historical snapshots. Previous call had no system prompt and no trend context — produced generic output.
+- **FIX 7 — .claude/agents/tca-audit.md memory path:** Corrected path from `/Downloads/Claude TCA Workspace/.claude/agent-memory/tca-seo-strategist/` to `/Downloads/Claude-Projects/PROJECTS/Claude TCA Workspace/.claude/agent-memory/tca-audit/`. Old path was wrong directory AND wrong agent name.
+- **FIX 8 — .claude/agents/tca-audit.md regex syntax:** Two Python regex examples had `["\'\]` (misplaced backslash before `]`) — this made the character class unterminated, producing a runtime `re.error`. Fixed to `["\']\s+` on lines 37, 38, and 49.
+
+## [2026-05-09] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 29 | Impressions: 12209
+- Full report archived to raw/audits/2026-05-09-weekly-audit.md
+
+
 ## [2026-05-09] manual-session | Saturday Workflow Bug Fixes (GSC data + main overwrite)
 
 - **BUG FIXED — Saturday agent reading stale GSC data:** Saturday workflow checked out `staging`, then ran all agents (verify-deploy.ts reads `data/gsc/latest.json`). But Monday's GSC pull commits to `main`, not staging. If staging was behind main, agents ran with week-old GSC data. Fix: added a merge step immediately after checkout — `git fetch origin main && git merge origin/main` — before `npm ci`, build, or any agent runs. Agents now always get the latest GSC data.

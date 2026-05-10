@@ -32,6 +32,8 @@ function getRecentlyEditedPages(): string[] {
 
 async function main() {
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
+  const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
+  const gscAnalysis = existsSync(analysisPath) ? JSON.parse(readFileSync(analysisPath, 'utf-8')) : null;
   const auditReport = readIfExists(resolve(ROOT, 'reports/audit-report.md'));
   const competitorData = readIfExists(resolve(ROOT, 'data/competitors/latest.json'));
   const prevPlan = readIfExists(resolve(ROOT, 'reports/weekly-plan.md'), 'No previous plan.');
@@ -44,7 +46,7 @@ async function main() {
   const wikiIndex = readWikiIndex(ROOT) || '';
   const synthesisContext = readSynthesisContext(ROOT);
   const conceptContext = readConceptContext(ROOT, [
-    'ctr-optimization', 'content-gaps', 'internal-linking', 'ai-citation-readiness', 'indexing-health',
+    'ctr-optimization', 'content-gaps', 'internal-linking', 'ai-citation-readiness', 'indexing-health', 'gsc-intelligence',
   ]);
   const decisionsLog = readWikiPage(ROOT, 'synthesis/decisions-log.md') || '';
   const thesis = readWikiPage(ROOT, 'synthesis/thesis.md') || '';
@@ -85,9 +87,34 @@ ${decisionsLog.slice(0, 1000)}
 WIKI — OPEN ISSUES (CTR, content gaps, internal linking):
 ${conceptContext.slice(0, 2000)}
 
-GSC SUMMARY:
-- Clicks: ${gsc.totals.clicks} | Impressions: ${gsc.totals.impressions} | Avg pos: ${gsc.totals.avgPosition}
-- Top impression pages: ${gsc.pages.slice(0, 5).map((p: any) => `${p.page} (${p.impressions} impr, pos ${p.position}, ${p.clicks} clicks)`).join(', ')}
+GSC INTELLIGENCE (pre-computed, ranked by ROI — use this to drive all action decisions):
+
+SITE TOTALS: ${gsc.totals.clicks} clicks | ${gsc.totals.impressions} impr | ${gsc.totals.ctr}% CTR | pos ${gsc.totals.avgPosition}
+
+${gscAnalysis ? `MOMENTUM: ${gscAnalysis.executiveSummary.weeklyMomentum}
+
+TOP OPPORTUNITIES (by opportunity score):
+${gscAnalysis.opportunities.filter((o: any) => o.opportunityType !== 'low-signal').slice(0, 4).map((o: any) =>
+  `- [${o.opportunityType}] ${o.page} | score ${o.opportunityScore} | ${o.recommendation}`
+).join('\n')}
+
+CTR LEAKS (query-level — invisible in page-aggregate view):
+${gscAnalysis.ctrLeaks.slice(0, 6).map((l: any) =>
+  `- ${l.page} | "${l.query}" | ${l.impressions} impr, pos ${l.position} | ${l.actualCTR}% CTR (expected ${l.expectedCTR}%) | ~${l.lostClicksPerWeek} clicks/wk lost${l.aioSuspect ? ' | ⚠ AIO SUSPECT' : ''}`
+).join('\n')}
+
+AFFILIATE CAPTURE GAPS:
+${gscAnalysis.affiliateOpportunities.filter((a: any) => a.affiliateUrgency !== 'low').slice(0, 3).map((a: any) =>
+  `- [${a.affiliateUrgency}] ${a.page}: ${a.buyerIntentImpressions} buyer-intent impr | top queries: ${a.topBuyerQueries.slice(0, 2).join(', ')}`
+).join('\n') || '- None above threshold this week'}
+
+CANNIBALIZATION RISKS:
+${gscAnalysis.cannibalization.slice(0, 3).map((c: any) =>
+  `- "${c.query}" [${c.risk}]: ranking from ${c.pages.join(' and ')} simultaneously`
+).join('\n') || '- None detected'}
+
+DEVICE SPLIT: ${gscAnalysis.deviceIntelligence?.summaryLine ?? 'Device data not yet available'}` : `(analysis.json not yet available — running without query-level intelligence)
+Top pages: ${gsc.pages.slice(0, 5).map((p: any) => `${p.page} (${p.impressions} impr, pos ${p.position}, ${p.clicks} clicks)`).join(', ')}`}
 
 AUDIT REPORT:
 ${auditReport.slice(0, 3000)}
@@ -137,6 +164,25 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 
   const plan = response.content[0].type === 'text' ? response.content[0].text : '# Plan generation failed.';
   const output = plan.replace('[DATE]', new Date().toISOString().split('T')[0]);
+
+  // Validate plan has parseable tasks — warn if sections exist but no valid rows found
+  function countParsedItems(planText: string, type: 'FIX' | 'REWRITE' | 'NEW'): number {
+    const keyword = type === 'NEW' ? 'NEW:' : `${type}:`;
+    return planText.split('\n')
+      .filter(l => l.includes(`] ${keyword}`) && (l.match(/\|/g) || []).length >= 3)
+      .length;
+  }
+  const fixCount = countParsedItems(output, 'FIX');
+  const rewriteCount = countParsedItems(output, 'REWRITE');
+  const newCount = countParsedItems(output, 'NEW');
+  const hasSections = output.includes('## FIXES') || output.includes('## NEW CONTENT');
+  if (hasSections && fixCount + rewriteCount + newCount === 0) {
+    console.warn(`\nWARNING: Plan has section headers but zero parseable tasks (FIX: ${fixCount}, REWRITE: ${rewriteCount}, NEW: ${newCount})`);
+    console.warn('This may be a format error. Review the plan output:');
+    console.warn(output.slice(0, 1000));
+  } else {
+    console.log(`\nPlan validation: ${fixCount} fixes, ${rewriteCount} rewrites, ${newCount} new pages`);
+  }
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
   writeFileSync(resolve(ROOT, 'reports/weekly-plan.md'), output);

@@ -84,6 +84,28 @@ async function main() {
     },
   });
 
+  // Device split by page (mobile vs desktop CTR divergence)
+  const deviceRes = await webmasters.searchanalytics.query({
+    siteUrl: SITE_URL,
+    requestBody: {
+      startDate: toDateStr(startDate),
+      endDate: toDateStr(endDate),
+      dimensions: ['device', 'page'],
+      rowLimit: 500,
+    },
+  });
+
+  // Daily trend (enables week-over-week velocity computation)
+  const trendRes = await webmasters.searchanalytics.query({
+    siteUrl: SITE_URL,
+    requestBody: {
+      startDate: toDateStr(startDate),
+      endDate: toDateStr(endDate),
+      dimensions: ['date'],
+      rowLimit: 500,
+    },
+  });
+
   // Totals (site-wide)
   const totalsRes = await webmasters.searchanalytics.query({
     siteUrl: SITE_URL,
@@ -120,6 +142,23 @@ async function main() {
     position: r.position ? parseFloat(r.position.toFixed(1)) : null,
   }));
 
+  const deviceSplit = (deviceRes.data.rows ?? []).map(r => ({
+    device: r.keys![0],
+    page: r.keys![1].replace('https://tallchairadvisor.com', ''),
+    clicks: r.clicks,
+    impressions: r.impressions,
+    ctr: r.ctr ? parseFloat((r.ctr * 100).toFixed(2)) : 0,
+    position: r.position ? parseFloat(r.position.toFixed(1)) : null,
+  }));
+
+  const dailyTrend = (trendRes.data.rows ?? []).map(r => ({
+    date: r.keys![0],
+    clicks: r.clicks,
+    impressions: r.impressions,
+    ctr: r.ctr ? parseFloat((r.ctr * 100).toFixed(2)) : 0,
+    position: r.position ? parseFloat(r.position.toFixed(1)) : null,
+  }));
+
   const totalsRow = totalsRes.data.rows?.[0];
   const totals = totalsRow
     ? {
@@ -137,6 +176,8 @@ async function main() {
     pages,
     queries,
     pageQueries,
+    deviceSplit,
+    dailyTrend,
   };
 
   mkdirSync(resolve(ROOT, 'data/gsc'), { recursive: true });
@@ -144,7 +185,7 @@ async function main() {
 
   // Archive to wiki raw layer
   archiveJsonToRaw(ROOT, 'gsc', `gsc-${today()}.json`, output);
-  appendWikiLog(ROOT, `## [${today()}] gsc-pull | GSC Data Pull\n\n- Period: ${toDateStr(startDate)} → ${toDateStr(endDate)} (${days} days)\n- Pages: ${pages.length} | Queries: ${queries.length}\n- Clicks: ${totals?.clicks} | Impressions: ${totals?.impressions} | Avg pos: ${totals?.avgPosition}\n`);
+  appendWikiLog(ROOT, `## [${today()}] gsc-pull | GSC Data Pull\n\n- Period: ${toDateStr(startDate)} → ${toDateStr(endDate)} (${days} days)\n- Pages: ${pages.length} | Queries: ${queries.length} | PageQuery pairs: ${pageQueries.length}\n- Device rows: ${deviceSplit.length} | Daily trend rows: ${dailyTrend.length}\n- Clicks: ${totals?.clicks} | Impressions: ${totals?.impressions} | Avg pos: ${totals?.avgPosition}\n`);
 
   // Update wiki gsc-performance.md
   // Guard: skip if audit.ts already ran today — audit is more authoritative (has live meta + Claude analysis)
@@ -208,6 +249,8 @@ ${historicalSection}
   console.log(`  Pages: ${pages.length}`);
   console.log(`  Queries: ${queries.length}`);
   console.log(`  Page+Query rows: ${pageQueries.length}`);
+  console.log(`  Device rows: ${deviceSplit.length}`);
+  console.log(`  Daily trend rows: ${dailyTrend.length}`);
   if (totals) {
     console.log(`  Total clicks: ${totals.clicks} | Impressions: ${totals.impressions} | Avg pos: ${totals.avgPosition}`);
   }
