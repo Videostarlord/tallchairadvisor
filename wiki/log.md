@@ -2,6 +2,14 @@
 type: log
 ---
 
+## [2026-05-10] wiki-cleanup | Workspace Root Cleanup
+
+- Moved 5 files from `AUDIT/` → `raw/audits/` (agent-logic-audit, blind-spots-and-errors, next-claude-prompt, optimization-plan, system-overview)
+- Moved `AUTOMATION-SYSTEM.md` → `raw/strategy/2026-04-06-automation-system.md`
+- Deleted empty `Untitled.md`
+- Moved `Incognito Searches/` screenshots → `raw/assets/incognito-searches-2026-04-22/`
+- Workspace root now clean: CLAUDE.md, SCHEMA.md symlink, wiki/ symlink, raw/ symlink, tall-chair-advisor/, .claude/, .obsidian/
+
 ## [2026-05-10] gsc-analyze | GSC Intelligence Analysis
 
 - CTR leaks: 11 (top leak: /review/gesture/ — "steelcase knee brace review")
