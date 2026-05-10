@@ -19,13 +19,15 @@ Claude TCA Workspace/               ← Obsidian vault root
 ├── tall-chair-advisor/             ← Git repo (Astro site + all automation)
 │   ├── src/pages/                  ← Astro pages (.astro) — the live website
 │   ├── scripts/
-│   │   ├── gsc-pull.ts             ← Pulls GSC API → data/gsc/latest.json
+│   │   ├── gsc-pull.ts                  ← Pulls GSC API → data/gsc/latest.json
+│   │   ├── gsc-analyze.ts               ← Monday: transforms raw GSC → analysis.json + wiki digest
+│   │   ├── competitor-intelligence.ts   ← Monthly (manual): SerpAPI+Firecrawl+Claude → intelligence.json
 │   │   └── agents/
-│   │       ├── wiki-utils.ts       ← Shared library (read/write wiki, archive, log)
-│   │       ├── competitor-monitor.ts
-│   │       ├── index-monitor.ts    ← Monday: URL Inspection API for all pages, fixes + sitemap resubmit
+│   │       ├── wiki-utils.ts            ← Shared library (read/write wiki, archive, log)
+│   │       ├── competitor-monitor.ts    ← Monday: lightweight metadata scan
+│   │       ├── index-monitor.ts         ← Monday: URL Inspection API for all pages
 │   │       ├── audit.ts
-│   │       ├── strategy.ts
+│   │       ├── strategy.ts              ← Wednesday: plan generation + post-gen enforcement
 │   │       ├── execute-fixes.ts
 │   │       ├── execute-content.ts
 │   │       └── verify-deploy.ts

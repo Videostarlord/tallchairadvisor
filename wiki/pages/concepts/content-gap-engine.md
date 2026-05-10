@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-05-09
-sources: [scripts/gsc-analyze.ts, data/competitors/latest.json]
+last_updated: 2026-05-10
+sources: [scripts/competitor-intelligence.ts, scripts/gsc-analyze.ts]
 tags: [content, gaps, competitors, keywords]
 ---
 
@@ -9,30 +9,41 @@ tags: [content, gaps, competitors, keywords]
 
 ## Purpose
 
-Identifies topics/queries where competitors rank and TCA doesn't. Combines GSC `clusters` output with `data/competitors/latest.json` to find addressable traffic opportunities.
+Identifies content gaps where TCA is outranked or underperforming vs competitors. Two layers: internal (GSC-based) and external (SERP + competitor crawl).
 
-## Current Gap Detection (Phase 1 — implemented)
+## Layer 1 — Internal Gap Detection (gsc-analyze.ts)
 
-The `gsc-analyze.ts` script detects **internal** content gaps:
+Runs Monday. Detects:
+1. **Pages with buyer-intent queries but no affiliate CTAs** (`affiliateOpportunities[]`)
+2. **CTR leak clusters** — ranks well but content doesn't convert the specific query intent
+3. **Cannibalization conflicts** — same query ranking from 2+ TCA pages
 
-1. **Pages with buyer-intent queries but no affiliate CTAs** (`affiliateOpportunities[]`) — TCA ranks for commercial queries but doesn't monetize them
-2. **Query clusters with 0 CTR despite good position** — TCA has the ranking real estate but the content doesn't convert the intent
-3. **Cannibalization conflicts** — topic covered by 2 pages, neither ranks cleanly
+Output: `data/gsc/analysis.json`
 
-## Competitor Gap Detection (Phase 2 — planned)
+## Layer 2 — Competitor Gap Detection (competitor-intelligence.ts — LIVE as of May 2026)
 
-Cross-reference `gscAnalysis.clusters` against competitor content inventory:
+Runs monthly on-demand via `npm run competitor:intelligence`. Full 4-layer pipeline:
 
-```typescript
-// Pseudocode for future gsc-analyze.ts addition
-const competitorKeywords = extractKeywordsFromCompetitorPages(competitorData);
-const tca_clusters = new Set(gscAnalysis.clusters.map(c => c.representativeQuery));
+1. **Query selection** — page-role-aware triple (primary / supporting / strategic) from GSC + strategic injections
+2. **SERP fetch** — SerpAPI top-10 results, lane-classified (editorial / retailer / brand / community). 250 credits/month free tier, ~23/run.
+3. **Crawl** — Firecrawl fetches editorial competitors, 30-day cache. 500 pages/month free tier.
+4. **Gap analysis** — Claude compares TCA page content vs competitor content with role-specific prompts
 
-const gaps = competitorKeywords.filter(kw =>
-  !tca_clusters.has(kw) &&
-  estimatedSearchVolume(kw) > 100
-);
-```
+**v3 improvements (May 10):**
+- `FindingType` taxonomy: `absence_claim | structure_claim | depth_claim | spec_gap`
+- `classifyFindingType()` — deterministic fallback classifier (Claude's JSON validated against it)
+- Structured section extraction — `parseSections()` + `buildSectionManifest()` prepends full H1-H3 manifest before content budget; model cannot infer section absence from truncated excerpts
+- Coverage-confidence filter: `absence_claim` and `spec_gap` downgraded at <90% TCA coverage; `depth_claim` and `structure_claim` always trusted
+
+Output: `data/competitors/intelligence.json` — `strategy.ts` reads `synthesizedGaps` (trusted-only)
+
+## Integration with strategy.ts
+
+`strategy.ts` filters to `g.trusted !== false` and surfaces gaps per TCA page with coverage context. Drives FIX, REWRITE, and NEW CONTENT tasks in the weekly plan.
+
+## Deferred
+
+**Competitor word count floor (Codex Finding 3):** Gaps from thin competitor pages (<300 words) may be low quality. Requires adding `competitorWordCount` to `GapFinding` and a floor filter in `strategy.ts` formatter. Not yet implemented.
 
 ## Known TCA Content Gaps (as of May 2026)
 
@@ -40,20 +51,6 @@ const gaps = competitorKeywords.filter(kw =>
 |-------|----------|----------|----------|
 | Standing desk height for tall people | Missing page | High CPC, no TCA content | High |
 | Shoulder pain + ergonomic chair | Missing page | Jackson's real experience | High |
-| Best chairs under $500 | Missing affiliate page | Budget segment, no testing claim needed | High |
-| Aeron vs Gesture comparison | CTR gap | pos 5, 0 clicks | High |
+| Office chair return policy | Missing page | btod.com capturing, queued for Friday | High |
+| Gesture vs Leap Plus spec table | Depth gap | No structured comparison table, queued REWRITE | High |
 | Sihoo Doro S300 review | Missing page | Rising in AI citations | Medium |
-
-## Gap Prioritization
-
-Gaps are prioritized by the product of:
-- **Search demand estimate** (from GSC impressions for related queries)
-- **Revenue potential** (buyer intent × commission rate)
-- **Content effort** (first-person testing not required = lower barrier)
-- **Competitive difficulty** (thin competition = faster ranking)
-
-## Integration Point
-
-The content gap engine feeds `strategy.ts` via the `competitors.analysis.gaps` array (from `competitor-monitor.ts`) and the `gscAnalysis.affiliateOpportunities` array (from `gsc-analyze.ts`).
-
-When both sources point to the same gap, it's elevated to CRITICAL priority in the weekly plan.
