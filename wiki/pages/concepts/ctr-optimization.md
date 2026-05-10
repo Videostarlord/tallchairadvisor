@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-04-22
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-04-22-serp-analysis.md]
+last_updated: 2026-05-10
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-04-22-serp-analysis.md, data/gsc/latest.json]
 tags: [ctr, meta-descriptions, serp, high-priority]
 ---
 
 # CTR Optimization
 
-**The #1 bottleneck on the site.** 7,096 impressions, 19 clicks, 0.27% CTR as of Apr 20. The root cause is now diagnosed: structural SERP suppression, not meta description quality.
+**The #1 bottleneck on the site.** 14,767 impressions, 35 clicks, 0.24% CTR as of May 10 (90-day). The root cause is structural SERP suppression for head terms; on editorial/review pages verdict-first meta rewrites are likely to help.
 
 ## Revised Diagnosis (Apr 22 — Incognito SERP Audit)
 
@@ -24,22 +24,24 @@ Two distinct suppression mechanisms explain the 0% CTR:
 
 **Conclusion:** Verdict-first meta rewrites are not the primary lever. They may help marginally on queries that escape both suppressors, but they cannot fix structural SERP layout.
 
-## CTR Status by Page (Apr 20)
+## CTR Status by Page (May 10 — from latest.json)
 
 | Page | Impressions | Position | CTR | Actual Cause |
 |------|------------|----------|-----|-------------|
-| [[review-gesture]] | 1108 | 9.0 | 0.18% | Positional — needs ranking lift to pos 6–7 |
-| /correct-chair-dimensions/ | 803 | 20.2 | 0.25% | Low position |
-| [[aeron-tall-people]] | 725 | 7.3 | 0.28% | Low but not zero — some clicks landing |
-| /knee-pain-seat-depth/ | 445 | 9.4 | 0% | Likely AI Overview or SERP feature |
-| [[aeron-vs-gesture]] | 276 | 8.2 | 0% | Likely shopping/brand results dominating |
+| [[review-gesture]] | 2529 | 8.2 | 0.12% | Meta rewrite test ran May 7 — awaiting data signal |
+| /knee-pain-seat-depth/ | 1925 | 8.6 | 0.16% | Meta rewrite test ran May 7 — awaiting data signal |
+| /correct-chair-dimensions/ | 1658 | 16.1 | 0.18% | Low position — content depth is primary lever |
+| [[aeron-tall-people]] | 1353 | 7.4 | 0.30% | Some clicks landing; meta rewrite ran May 7 |
+| /review/leap-plus/ | 971 | 8.5 | 0.31% | Comparable to Gesture — editorial SERP, meta is actionable |
+| [[aeron-vs-gesture]] | 385 | 8.5 | 0% | 0-click despite solid position — meta rewrite queued W19 |
+| /best-office-chairs/ | 755 | 22.8 | 0% | Low position + shopping carousels — position is the fix |
 
 ## What Can Actually Move CTR
 
 1. **GEO optimization** — get cited inside AI Overviews on the spec queries (height-bracket tables, citation capsules). Converts an invisible pos-9 ranking into a presence inside the answer box.
 2. **PAA targeting** — every SERP has People Also Ask boxes. 40–60 word direct-answer sections on existing pages.
-3. **Ranking lift on /review/gesture/** — pos 9 → pos 6 meaningfully increases CTR even without meta changes.
-4. **Schema fix on /best-office-chairs/** — parse error blocking rich results eligibility.
+3. **Ranking lift on /review/gesture/** — pos 8.2 → pos 5 meaningfully increases CTR even without meta changes.
+4. **Verdict-first meta rewrites on editorial pages** — 5 rewrites deployed May 7 (gesture, knee-pain, aeron-size-c, gesture-hub, leap-plus-tall-people). Awaiting CTR signal (14-day window). *Note: /best-office-chairs/ schema parse error was resolved May 7 — no longer an open blocker.*
 
 ## What Verdict-First Meta Can Still Help
 

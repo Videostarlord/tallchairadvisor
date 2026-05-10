@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-09
+last_updated: 2026-05-10
 sources: [scripts/gsc-analyze.ts, scripts/gsc-pull.ts]
 tags: [gsc, intelligence, architecture, pipeline]
 ---
@@ -96,3 +96,21 @@ aioSuspect = position ≤ 6 AND actualCTR < 0.5% AND query contains spec/how-to 
 | `data/gsc/analysis.json` | Current intelligence output |
 | `data/gsc/history/` | 16-week archive of analysis.json snapshots |
 | `wiki/pages/concepts/gsc-intelligence.md` | Weekly agent-readable digest (auto-generated) |
+
+## Known Bugs / Fix History
+
+### 2026-05-10 — `mergeCanonicalDuplicates` collapsed all pageQuery rows per page
+
+**Bug:** `mergeCanonicalDuplicates()` was called on `gsc.pageQueries` using only `normalizeUrl(row.page)` as the map key. Because every page-query pair shares the same page URL, all queries on a given page were collapsed into a single row — summing their impressions and taking the minimum position across all queries. The first query encountered for that page became the surviving row's `query` field.
+
+**Symptom:** `analysis.json` showed `"steelcase gesture review"` in `ctrLeaks` with `impressions: 304` (sum of all 46 queries on `/review/gesture/`) and `position: 1` (best position across all those queries). Actual raw GSC values: 12 impressions, position 49.9. The query was below the 15-impression and ≤20-position filters and should have been absent from leaks entirely. The `leakScore` was also inflated because it multiplied the wrong impression count.
+
+**Secondary symptom:** The stored row's `page` field was set to `key` (the map key), so after adding the compound key fix, page fields in leak records contained `"page|query"` strings until corrected.
+
+**Fix (2026-05-10):**
+- Added optional `keyFn` parameter to `mergeCanonicalDuplicates<T>()`. When provided, the map key is `keyFn(row)` instead of `normalizeUrl(row.page)`.
+- The stored row's `page` field now always uses `normalizeUrl(row.page)` regardless of `keyFn`.
+- The `pageQueries` call now passes `pq => \`${normalizeUrl(pq.page)}|${pq.query}\`` as `keyFn`, so each page+query pair deduplicates independently (only trailing-slash variants of the same page+query combo merge).
+- `pages` and `deviceSplit` calls are unchanged — they correctly key on page URL only.
+
+**Downstream impact corrected:** The May 10 `decisions-log` entry "DEFERRED C1 — Gesture review highest priority — 304 impr at pos 1, 8.33% CTR vs 35% expected" was based on this corrupted data. Actual "steelcase gesture review": 12 impressions, position 49.9, 8.33% CTR (1/12 clicks = real). The Gesture review page's real GSC profile: 2,589 impressions at position 8.2, 3 clicks (0.12% CTR). Content depth expansion remains the right call, but the CTR leak framing was wrong.

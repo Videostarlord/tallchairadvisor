@@ -120,10 +120,10 @@ function normalizeUrl(url: string): string {
   return /\.[a-z]{2,4}$/.test(path) ? path : path.endsWith('/') ? path : path + '/';
 }
 
-function mergeCanonicalDuplicates<T extends { page: string; clicks: number | null; impressions: number; position: number | null }>(rows: T[]): T[] {
+function mergeCanonicalDuplicates<T extends { page: string; clicks: number | null; impressions: number; position: number | null }>(rows: T[], keyFn?: (row: T) => string): T[] {
   const map = new Map<string, T>();
   for (const row of rows) {
-    const key = normalizeUrl(row.page);
+    const key = keyFn ? keyFn(row) : normalizeUrl(row.page);
     const existing = map.get(key);
     if (existing) {
       existing.clicks = (existing.clicks ?? 0) + (row.clicks ?? 0);
@@ -132,7 +132,7 @@ function mergeCanonicalDuplicates<T extends { page: string; clicks: number | nul
         existing.position = Math.min(existing.position, row.position);
       }
     } else {
-      map.set(key, { ...row, page: key });
+      map.set(key, { ...row, page: normalizeUrl(row.page) });
     }
   }
   return Array.from(map.values());
@@ -1050,7 +1050,7 @@ async function main() {
 
   // Normalize URLs to enforce trailing slash and merge canonical duplicates
   gsc.pages = mergeCanonicalDuplicates(gsc.pages);
-  gsc.pageQueries = mergeCanonicalDuplicates(gsc.pageQueries);
+  gsc.pageQueries = mergeCanonicalDuplicates(gsc.pageQueries, pq => `${normalizeUrl(pq.page)}|${pq.query}`);
   if (gsc.deviceSplit) gsc.deviceSplit = mergeCanonicalDuplicates(gsc.deviceSplit);
 
   console.log(`  ${gsc.pages.length} pages | ${gsc.queries.length} queries | ${gsc.pageQueries.length} page-query pairs`);

@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-22
+last_updated: 2026-05-10
 sources: [raw/audits/2026-03-16-geo-analysis.md, raw/audits/2026-04-03-full-audit.md, raw/audits/2026-04-22-serp-analysis.md]
 tags: [geo, ai-search, citations, perplexity, chatgpt]
 ---
@@ -46,9 +46,9 @@ Incognito SERP audit confirmed Google AI Overviews on two queries where TCA rank
 - ✅ Comparison tables on key pages
 - ✅ TL;DR / Quick Answer blocks on top pages
 
-## What's Missing (Apr 3)
+## What's Missing
 
-1. **Height-bracket verdict table on /best-office-chairs/** — Highest AI Overview citation opportunity. Format: "At 6'X → min seat height, min seat depth → passing chairs." No competitor has this.
+1. **Height-bracket verdict table on /best-office-chairs/** — ✅ DONE (2026-05-07). Added with Amazon affiliate links. Now the site's highest AI Overview citation target.
 2. **Citation capsules site-wide** — 40–60 word self-contained summaries. None present on any page. /correct-chair-dimensions/ is best first candidate.
 3. **Author ME credentials in body text** — Author bio references ME background in schema but not always in visible page content.
 

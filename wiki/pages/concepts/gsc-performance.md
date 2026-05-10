@@ -7,6 +7,8 @@ tags: [gsc, performance, metrics, tracking]
 
 # GSC Performance Tracking
 
+> **All numbers are 90-day aggregates.** The pipeline always pulls `--days=90`. If comparing against the GSC UI, set the GSC date range to match — a 7-day or 28-day view will show significantly lower impressions and different positions.
+
 ## Latest Snapshot (2026-05-10)
 
 | Metric | Value |

@@ -57,7 +57,7 @@ Queued in `reports/weekly-plan.md` after enforcement:
 Next run will benefit from v3 improvements (section manifest, FindingType tags). Schedule for ~June 10.
 
 ### 3. Content depth on Gesture review
-304 impr at pos 1, 8.33% CTR vs 35% expected. C1 from audit — REWRITE queued for a future week after cooldown clears.
+Page-level (May 10): 2,529 impr, pos 8.2, 3 clicks, 0.12% CTR. Query-level signal: the specific query "steelcase gesture review" drives 304 impr at pos 1 with 8.33% actual CTR vs 35% expected — 6.3 lost clicks/wk on that query alone. C1 from audit — REWRITE queued for a future week after cooldown clears.
 
 ### 4. Leap Plus "almost bought" reframe
 /review/leap-plus/ at pos 9.3 with 632 impressions. C2 from audit. "I almost bought this — here's the spec analysis" narrative. Future week.

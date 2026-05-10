@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-09
+last_updated: 2026-05-10
 tags: [automation, workflow, agents, github-actions, obsidian]
 ---
 
@@ -48,7 +48,7 @@ Runs via GitHub Actions. Thursday and Friday push to `staging`. Saturday verifie
 
 | Day | Workflow | Script | Reads | Writes | Push target |
 |-----|----------|--------|-------|--------|-------------|
-| Monday | monday.yml | `gsc-pull.ts` + `competitor-monitor.ts` + `index-monitor.ts` | GSC API, competitor URLs, URL Inspection API for all pages | `data/gsc/latest.json`, `raw/gsc/`, `data/competitors/latest.json`, `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, fixed `src/pages/` files (if issues found) | `main` |
+| Monday | monday.yml | `gsc-pull.ts` → `gsc-analyze.ts` → `competitor-monitor.ts` + `index-monitor.ts` | GSC API, competitor URLs, URL Inspection API for all pages | `data/gsc/latest.json`, `data/gsc/analysis.json`, `raw/gsc/`, `data/competitors/latest.json`, `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, `wiki/pages/concepts/gsc-intelligence.md`, fixed `src/pages/` files (if issues found) | `main` |
 | Tuesday | tuesday.yml | `audit.ts` | `data/gsc/latest.json`, live site meta/schema, wiki concept pages | `reports/audit-report.md`, `raw/audits/`, `wiki/pages/concepts/gsc-performance.md` | `main` |
 | Wednesday | wednesday.yml | `strategy.ts` | Audit report, GSC data, wiki synthesis + concept pages | `reports/weekly-plan.md`, `raw/strategy/` | `main` |
 | Thursday | thursday.yml | `execute-fixes.ts` | `reports/weekly-plan.md` (FIXES section) | Modified `src/pages/*.astro` files, `reports/fixes-log.md`, wiki fix history | `staging` |
@@ -75,6 +75,8 @@ GSC API
   ↓ (Monday: gsc-pull.ts)
 data/gsc/latest.json  +  raw/gsc/gsc-YYYY-MM-DD.json (archive)
   +  wiki/pages/concepts/gsc-performance.md (raw snapshot, no Claude analysis)
+  ↓ (Monday: gsc-analyze.ts — runs immediately after pull in same workflow)
+data/gsc/analysis.json  +  wiki/pages/concepts/gsc-intelligence.md (structured opportunities, CTR leaks, affiliate alerts)
   ↓ (Tuesday: audit.ts)
 reports/audit-report.md  +  wiki/pages/concepts/gsc-performance.md (richer update: live meta/schema + Claude analysis; archives Monday's snapshot to history)
   ↓ (Wednesday: strategy.ts)
@@ -95,11 +97,13 @@ wiki/weekly/  →  git push  →  Cloudflare Pages deploy
 
 **`gsc-pull.ts`** — Data collection + immediate wiki update. Pulls page-level + query-level GSC data via the Google Search Console API. Writes `data/gsc/latest.json`. Archives raw JSON to `raw/gsc/`. Updates `wiki/pages/concepts/gsc-performance.md` with a new snapshot (same history preservation format as `audit.ts`). Guard: skips wiki update if `last_updated` is already today — means `audit.ts` already ran that day and is authoritative. Appends to `wiki/log.md`. Does not call Claude API.
 
+**`gsc-analyze.ts`** — Transforms `data/gsc/latest.json` into structured intelligence. Runs Monday immediately after `gsc-pull.ts` in the same workflow. Outputs `data/gsc/analysis.json` (scored opportunities: near-p1, ctr-leak, content-depth, affiliate-capture) and updates `wiki/pages/concepts/gsc-intelligence.md`. Includes URL canonical normalization (merges trailing-slash duplicates before scoring), freshness warning (warns if latest.json >72h old), and junk query filter (suppresses entity-mismatched queries from CTR leak scoring). Does not call Claude API.
+
 **`competitor-monitor.ts`** — Fetches configured competitor URLs, extracts content, sends to Claude for analysis. Writes `data/competitors/latest.json`. Dead URLs (HTTP 400+) are flagged and excluded from analysis. Config lives in `data/competitors/config.json`.
 
 **`audit.ts`** — Reads `data/gsc/latest.json` + fetches live meta/schema from the site. Sends to Claude with wiki context for historical comparison. Writes audit report to `reports/` and archives to `raw/audits/`. Updates `wiki/pages/concepts/gsc-performance.md` (preserves up to 8 weeks of historical snapshots).
 
-**`strategy.ts`** — Reads audit report + GSC data + full wiki synthesis context (thesis, what-works, what-failed, decisions-log, concept pages). Generates weekly action plan. Writes `reports/weekly-plan.md`. Archives to `raw/strategy/`.
+**`strategy.ts`** — Reads audit report + GSC data + full wiki synthesis context (thesis, what-works, what-failed, decisions-log, concept pages). Generates weekly action plan. Writes `reports/weekly-plan.md`. Archives to `raw/strategy/`. Post-generation, `enforcePlanConstraints()` automatically drops tasks that violate: pages <300 impressions (non-technical), pages on 14-day cooldown (git-log Set), conditional language ("verify before executing", "only if..."), FIX+REWRITE overlap on same page, and >5 FIX cap. Dropped tasks are appended as a `## DROPPED TASKS` section in the archived plan for debugging. Hard error if zero valid tasks remain after enforcement — weekly-plan.md is never written in a broken state.
 
 **`execute-fixes.ts`** — Parses `reports/weekly-plan.md` for `FIX:` and `REWRITE:` tasks. For each task, reads the target `.astro` file, calls Claude to apply the fix, checks word count (rejects if <85% of original — truncation guard), writes the file. Cooldown logic (updated 2026-05-06):
 - Technical fixes (schema/canonical/404/redirect/voice/affiliate): no cooldown — always applied
@@ -133,10 +137,12 @@ CSV and JSON files in `raw/` are NOT markdown and do NOT appear in the Obsidian 
 
 ## GitHub Secrets Required
 
-| Secret | Value |
-|--------|-------|
-| `ANTHROPIC_API_KEY` | Anthropic API key |
-| `GSC_SERVICE_ACCOUNT_JSON` | Base64-encoded GSC service account JSON |
+| Secret | Value | Required |
+|--------|-------|----------|
+| `ANTHROPIC_API_KEY` | Anthropic API key | Yes |
+| `GSC_SERVICE_ACCOUNT_JSON` | Base64-encoded GSC service account JSON | Yes |
+| `SERP_API_KEY` | SerpAPI key — 250 credits/month free tier (~23/run = ~9% per run) | Configured — competitor-intelligence.ts |
+| `FIRECRAWL_API_KEY` | Firecrawl API key — 500 pages/month free tier (mostly cache hits after first run) | Configured — competitor-intelligence.ts |
 
 ---
 
@@ -145,12 +151,18 @@ CSV and JSON files in `raw/` are NOT markdown and do NOT appear in the Obsidian 
 ```bash
 cd tall-chair-advisor
 
-npm run gsc:pull                    # Monday step only
-npx tsx scripts/agents/audit.ts     # Tuesday
-npx tsx scripts/agents/strategy.ts  # Wednesday
-npx tsx scripts/agents/execute-fixes.ts   # Thursday
-npx tsx scripts/agents/execute-content.ts # Friday
-npx tsx scripts/agents/verify-deploy.ts   # Saturday
+npm run gsc:pull                               # Monday step 1: pull GSC data
+npm run gsc:analyze                            # Monday step 2: build analysis.json + gsc-intelligence wiki page
+npx tsx scripts/agents/competitor-monitor.ts   # Monday step 3: lightweight competitor metadata
+npx tsx scripts/agents/index-monitor.ts        # Monday step 4: URL Inspection API
+npx tsx scripts/agents/audit.ts                # Tuesday
+npx tsx scripts/agents/strategy.ts             # Wednesday
+npx tsx scripts/agents/execute-fixes.ts        # Thursday
+npx tsx scripts/agents/execute-content.ts      # Friday
+npx tsx scripts/agents/verify-deploy.ts        # Saturday
+
+# Monthly (manual): full competitor intelligence pipeline
+npm run competitor:intelligence                 # Requires SERP_API_KEY + FIRECRAWL_API_KEY in .env
 ```
 
 Requires `.env` with `ANTHROPIC_API_KEY` and `credentials/gsc-service-account.json`.

@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-04-06 (cadence policy added)
+last_updated: 2026-05-10
 sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-03-competitor-analysis.md, raw/strategy/2026-03-content-calendar.md]
 tags: [content-gaps, opportunities, strategy]
 ---
@@ -15,11 +15,10 @@ tags: [content-gaps, opportunities, strategy]
 - **Competition:** Zero. Flagged in every audit since March.
 - **Status:** Still unwritten as of Apr 6.
 
-### 2. Height-Bracket Verdict Table on /best-office-chairs/
-- Not a new page, but a critical content addition to the money page
-- Format: "At 6'X → min seat height ≥X, min seat depth ≥X → Passing chairs: [list]"
-- Highest AI Overview citation probability on the site
-- No competitor has this
+### 2. Height-Bracket Verdict Table on /best-office-chairs/ — ✅ DONE (2026-05-07)
+- Added with Amazon affiliate links (tag=tallchairadvi-20) on Top Pick + Runner-Up columns
+- Format: height-bracket rows with passing chairs
+- Confirmed live: see [[best-office-chairs]] entity page
 
 ## Content Format Gaps
 

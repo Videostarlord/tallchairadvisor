@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-09 (GSC intelligence platform redesign — gsc-analyze.ts built)
+last_updated: 2026-05-10 (mergeCanonicalDuplicates bug fix — ctrLeaks data corrected)
 ---
 
 # TCA Wiki Index
@@ -22,12 +22,12 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 | Page | Summary |
 |------|---------|
-| [[review-gesture]] | Flagship review. Score 88. 1895 impr, pos 8.4, 3 clicks (0.16% CTR). Meta rewrite shipped May 7. |
-| [[aeron-tall-people]] | 1175 impr, pos 7.3, 3 clicks (0.26% CTR). No longer 0% CTR. Monitor for improvement. |
-| [[aeron-vs-gesture]] | Comparison. Trailing-slash redirect confirmed in _redirects. Low CTR. |
+| [[review-gesture]] | Flagship review. Score 88. 2,529 impr, pos 8.2, 3 clicks (0.12% CTR). May 10. |
+| [[aeron-tall-people]] | 1,353 impr, pos 7.4, 4 clicks (0.30% CTR). May 10. |
+| [[aeron-vs-gesture]] | 385 impr, pos 8.5, 0 clicks (0% CTR). Comparison. May 10. |
 | [[chairs-herman-miller-aeron-size-guide]] | NEW 2026-04-13. Size B vs C guide for tall users. No GSC data yet. |
-| [[correct-chair-dimensions]] | Educational. 1422 impr, pos 16.7. Citation capsule candidate. |
-| [[best-office-chairs]] | Money page. Height-bracket verdict table + affiliate links live as of May 7. |
+| [[correct-chair-dimensions]] | Educational. 1,658 impr, pos 16.1, 3 clicks (0.18% CTR). Citation capsule candidate. May 10. |
+| [[best-office-chairs]] | Money page. 755 impr, pos 22.8, 0 clicks. Verdict table + affiliate links live May 7. May 10. |
 
 ## Concept Pages
 
@@ -42,7 +42,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[gsc-performance]] | 12,209 impr, 29 clicks, 0.24% CTR (May 4, 90-day). Page-level rankings. KPI targets. |
 | [[gsc-analysis-strategy]] | Query-level GSC analysis. Cornell cluster (164 impr, 0 CTR). AIO pattern detection. Plan for gsc-analyze.ts. Read before any CTR fix decision. |
 | [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
-| [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Read when modifying the pipeline. |
+| [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Includes bug fix history. Read when modifying the pipeline. |
 | [[audit-implementation-2026-05-10]] | **May 10 audit fix tracker.** 14 items done, 5 deferred. Read this to know what's been fixed and what's still outstanding from the COMBINED_2026-05-09_MASTER_AUDIT. |
 | [[query-clustering-system]] | How queries are grouped into semantic clusters. Intent weights, known TCA cluster families, cannibalization logic. |
 | [[opportunity-scoring-system]] | Scoring formulas for near-p1, ctr-leak, content-depth, affiliate-capture opportunity types. Priority thresholds. |

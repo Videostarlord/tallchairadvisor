@@ -1,12 +1,21 @@
 ---
 type: synthesis
-last_updated: 2026-05-10 (competitor-intelligence v3 — structured extraction + finding type classification)
+last_updated: 2026-05-10 (mergeCanonicalDuplicates bug fix — corrects corrupted ctrLeaks data)
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W19 (May 10f) — `mergeCanonicalDuplicates` pageQuery bug fix
+
+- **BUG FIXED — `gsc-analyze.ts` `mergeCanonicalDuplicates` keyed on page only for pageQuery rows.** All 46 queries on `/review/gesture/` were collapsed into a single leak row, summing impressions (303) and taking the best position (1) across all queries. "steelcase gesture review" was the first query in the raw array for that page, so it became the representative — with completely wrong metrics.
+- **Actual data for "steelcase gesture review":** 12 impressions, position 49.9, 1 click, 8.33% CTR. Below the 15-impression and ≤20-position thresholds — correctly absent from `ctrLeaks` after fix.
+- **Fix:** `mergeCanonicalDuplicates<T>()` now accepts an optional `keyFn` parameter. `pageQueries` call uses `` pq => `${normalizeUrl(pq.page)}|${pq.query}` `` so each page+query pair deduplicates independently. The stored row's `page` field always uses `normalizeUrl(row.page)` regardless of key strategy.
+- **Data corrected:** Re-ran `npm run gsc:analyze`. New top leaks are all real: `/chairs/steelcase-gesture/seat-depth/` AIO suspects (Cornell seat-depth cluster queries, 34–64 impr, pos 4–10, 0% CTR).
+- **CORRECTION to prior entry:** The May 10 deferred item "Gesture review is highest priority — 304 impr at pos 1, 8.33% CTR vs 35% expected" was based on corrupted data. Actual Gesture review profile: 2,589 impr, pos 8.2, 3 clicks, 0.12% CTR. Content depth expansion remains the right call for C1, but the CTR-leak framing was invalid.
+- **Architecture note:** See `gsc-intelligence-system.md` → "Known Bugs / Fix History" for full technical writeup.
 
 ## 2026-W19 (May 10e) — Strategy agent autonomous enforcement hardening
 
@@ -25,7 +34,7 @@ A rolling record of key strategic decisions and their outcomes. The most valuabl
 ## 2026-W19 (May 10c) — Built competitor-intelligence.ts (I1)
 
 - **BUILT — `scripts/competitor-intelligence.ts`:** 3-stage competitor intelligence pipeline. Stage 1: SerpAPI fetches real SERP rankings for top TCA keywords (from `analysis.json`) → finds URLs actually outranking TCA, not hardcoded competitor list. Stage 2: Firecrawl crawls those URLs for full markdown content. Stage 3: Claude Haiku generates specific content gap findings per TCA page. Outputs `data/competitors/intelligence.json` + wiki competitor-landscape page.
-- **ACTIVATION REQUIRED:** Script exits cleanly if `SERP_API_KEY` or `FIRECRAWL_API_KEY` missing. Add both to `.env` and GitHub Actions secrets. Free tiers: SerpAPI 100 searches/month, Firecrawl 500 pages/month.
+- **ACTIVATED:** `SERP_API_KEY` and `FIRECRAWL_API_KEY` configured in `.env` and GitHub Actions secrets. Free tiers: SerpAPI 250 credits/month (~23/run), Firecrawl 500 pages/month.
 - **`package.json`:** Added `competitor:intelligence` script (`npm run competitor:intelligence`).
 - **Cost controls:** Max 8 keywords/run, max 12 competitor URLs — estimated ~$1–3/month.
 - **Does NOT replace `competitor-monitor.ts`:** The old script still runs Monday for lightweight metadata checks. This runs monthly for deep content gap analysis.
@@ -70,7 +79,7 @@ A rolling record of key strategic decisions and their outcomes. The most valuabl
 
 - **DECISION — F2 smart quotes confirmed non-issue:** Codex flagged execute-fixes.ts lines 64-67. Inspection confirmed these are intentional: they are the search patterns inside regex character classes that match and replace curly quotes. No change needed.
 
-- **DEFERRED — Content investment (C1-C3):** Gesture review depth expansion, Leap Plus reframe, L3/L5 role differentiation. All require agent REWRITE tasks in upcoming weekly plans. Gesture review is highest priority — 304 impr at pos 1, 8.33% CTR vs 35% expected.
+- **DEFERRED — Content investment (C1-C3):** Gesture review depth expansion, Leap Plus reframe, L3/L5 role differentiation. All require agent REWRITE tasks in upcoming weekly plans. Gesture review is highest priority — 2,589 impr at pos 8.2, 3 clicks, 0.12% CTR. *(The "304 impr at pos 1, 8.33% CTR" figure was a data corruption artifact from the mergeCanonicalDuplicates bug — corrected 2026-05-10.)*
 
 - **DEFERRED — SERP API + Firecrawl pipeline (I1):** Data integrity fixes are now complete (prerequisite met). Pipeline can be built next. Monthly cadence, ~$1-3/month API cost.
 

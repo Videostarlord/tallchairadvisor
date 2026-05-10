@@ -2,6 +2,67 @@
 type: log
 ---
 
+## [2026-05-10] bug fix | mergeCanonicalDuplicates pageQuery key fix
+
+- **Root cause found:** `mergeCanonicalDuplicates()` keyed on `normalizeUrl(page)` for pageQuery rows, collapsing all 46 queries on `/review/gesture/` into one entry. Summed impressions (303) and min position (1) propagated to `ctrLeaks` — producing a false top leak ("steelcase gesture review", 304 impr, pos 1) when actual raw values are 12 impr, position 49.9.
+- **Fix:** Added `keyFn` param to `mergeCanonicalDuplicates`. `pageQueries` call now keys on `page|query`. `page` field preserved as `normalizeUrl(row.page)` regardless of key strategy.
+- **Re-ran:** `npm run gsc:analyze` — output clean. "steelcase gesture review" absent from ctrLeaks (correctly filtered). Top leaks now reflect real data: Cornell seat-depth queries on `/knee-pain-seat-depth/` and AIO suspects on `/chairs/steelcase-gesture/seat-depth/`.
+- **Wiki updated:** `gsc-intelligence-system.md` (bug history section), `decisions-log.md` (new entry + corrected stale data reference).
+
+## [2026-05-10] gsc-analyze | GSC Intelligence Analysis (post-fix)
+
+- CTR leaks: 18 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches", AIO suspect)
+- Opportunities: 33 actionable
+- AIO suspects: 2
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions up 29.1% WoW (3582 vs 2774), clicks up 125% (9 vs 4), avg position stable
+- Cannibalization: 18 conflicts
+- AIO recommendations: 2
+- Page velocity: n/a (insufficient history)
+
+
+## [2026-05-10] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 12 (top leak: /chairs/steelcase-gesture/seat-depth/|steelcase gesture seat depth range inches — "steelcase gesture seat depth range inches")
+- Opportunities: 23 actionable
+- AIO suspects: 2
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions up 29.1% WoW (3582 vs 2774), clicks up 125% (9 vs 4), avg position stable
+- Query entropy: 0 fragmented pages
+- Hub candidates: 0
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: n/a (insufficient history)
+
+
+## [2026-05-10] wiki | Continuity sweep — contradictions resolved + log deduped
+
+- **thesis.md:** Clarified "304 impr at pos 1, 8.33% CTR" as query-level data for "steelcase gesture review" query — not page-level (page is 2,529 impr, pos 8.2, 0.12% CTR)
+- **ctr-optimization.md:** Updated site-wide numbers to May 10 (14,767 impr, 35 clicks), refreshed per-page CTR table, removed stale /best-office-chairs/ schema error claim (resolved May 7), noted meta rewrites ran May 7 (awaiting signal)
+- **content-gaps.md:** Marked height-bracket verdict table as DONE (added May 7 with affiliate links)
+- **ai-citation-readiness.md:** Marked height-bracket verdict table as DONE; updated last_updated
+- **what-works.md:** Updated gesture review (1,895 → 2,529 impr), gesture/seat-depth (710 → 905 impr), updated meta test status from "coming May 8" → "deployed May 7, awaiting signal"
+- **what-failed.md:** Updated "Not Yet Enough Data" section — verdict table shipped, meta test ran, C1/C2 queued for upcoming weeks
+- **log.md:** Removed 11 duplicate test-run entries from May 10 (5 strategy plans + 6 competitor-intelligence v2 runs that were dev iterations)
+- **MEMORY.md:** Confirmed stale `currentDate: 2026-05-10` entry already absent from disk
+- **One potential data flag to investigate:** gsc-intelligence.md CTR leak table shows "steelcase gesture review" at 304 impr × 8.33% CTR ≈ 25 clicks, but page-level shows 3 total clicks. May be GSC sampling divergence between page+query dimension vs page dimension. Worth checking analysis.json directly.
+
+## [2026-05-10] wiki | Data corrections — gesture GSC numbers + competitor-intelligence activation
+
+- Corrected /review/gesture/ data across audit-implementation C1, review-gesture entity page, and wiki index. The figure "304 impr at pos 1 / 8.33% CTR" was unverified narrative from the audit doc — actual latest.json: 2,529 impr, pos 8.2, 3 clicks, 0.12% CTR
+- Updated wiki index with current numbers for all site-page entries (from latest.json, May 10)
+- Corrected SerpAPI free tier: 250 credits/month (not 100) across workflow-system-reference, audit-implementation, decisions-log
+- Updated competitor-intelligence I1 status from "ACTIVATION REQUIRED" to "ACTIVATED" — SERP_API_KEY + FIRECRAWL_API_KEY confirmed in .env and GitHub secrets
+
+## [2026-05-10] wiki | workflow-system-reference updated
+
+- Added `gsc-analyze.ts` to Monday's workflow step (was missing — monday.yml runs it immediately after gsc-pull.ts)
+- Updated Data Flow diagram to show Monday: pull → analyze → intelligence
+- Added `gsc-analyze.ts` agent description to "What Each Agent Does"
+- Updated `strategy.ts` description to document `enforcePlanConstraints()` post-generation enforcement
+- Updated GitHub Secrets table to add optional `SERP_API_KEY` + `FIRECRAWL_API_KEY` for competitor-intelligence.ts
+- Updated manual running commands to include all Monday steps + monthly competitor intelligence
+
 ## [2026-05-10] strategy | Autonomous enforcement hardening
 
 - **Cooldown in code:** `getPagesOnCooldown()` builds a 14-day git-log Set. `enforcePlanConstraints()` drops any FIX/REWRITE for a page in that Set unless the task contains a technical keyword (schema, canonical, noindex, 404, etc.)
@@ -35,81 +96,6 @@ type: log
 - Coverage-confidence filter added: two-band downgrade (<70% hard, 70–90% soft) for absence claims
 - Unknown-editorial demoted to last-resort (only backfills when zero known editorial sources)
 - gesture false positive eliminated (61% coverage, hard-downgrade zone)
-
-
-## [2026-05-10] competitor-intelligence v2 | Strategic Run
-
-- Pages: 8 | Queries: 23 | Crawls: 14 (43 cached)
-- High-priority gaps: 9
-- 8 pages analyzed × up to 3 queries each. 14 URLs crawled (43 cache hits). 9 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.
-
-
-## [2026-05-10] competitor-intelligence v2 | Strategic Run
-
-- Pages: 8 | Queries: 23 | Crawls: 0 (45 cached)
-- High-priority gaps: 7
-- 8 pages analyzed × up to 3 queries each. 0 URLs crawled (45 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, btod.com.
-
-
-## [2026-05-10] competitor-intelligence v2 | Strategic Run
-
-- Pages: 8 | Queries: 23 | Crawls: 0 (46 cached)
-- High-priority gaps: 7
-- 8 pages analyzed × up to 3 queries each. 0 URLs crawled (46 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, hinomi.co.
-
-
-## [2026-05-10] competitor-intelligence v2 | Strategic Run
-
-- Pages: 8 | Queries: 23 | Crawls: 13 (33 cached)
-- High-priority gaps: 7
-- 8 pages analyzed × up to 3 queries each. 13 URLs crawled (33 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, hinomi.co.
-
-
-## [2026-05-10] competitor-intelligence v2 | Strategic Run
-
-- Pages: 8 | Queries: 24 | Crawls: 5 (39 cached)
-- High-priority gaps: 12
-- 8 pages analyzed × up to 3 queries each. 5 URLs crawled (39 cache hits). 12 high-priority gaps. Top editorial outrankers: forbes.com, hinomi.co, logicfox.net.
-
-
-## [2026-05-10] competitor-intelligence v2 | Strategic Run
-
-- Pages: 8 | Queries: 24 | Crawls: 8 (36 cached)
-- High-priority gaps: 11
-- 8 pages analyzed × up to 3 queries each. 8 URLs crawled (36 cache hits). 11 high-priority gaps. Top editorial outrankers: forbes.com, hinomi.co, logicfox.net.
-
-
-## [2026-05-10] strategy | Weekly Plan Generated
-
-- Plan archived to raw/strategy/2026-05-10-weekly-plan.md
-- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
-
-
-## [2026-05-10] strategy | Weekly Plan Generated
-
-- Plan archived to raw/strategy/2026-05-10-weekly-plan.md
-- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
-
-
-## [2026-05-10] strategy | Weekly Plan Generated
-
-- Plan archived to raw/strategy/2026-05-10-weekly-plan.md
-- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
-
-
-## [2026-05-10] competitor-intelligence v2 | Strategic Run
-
-- Pages: 8 | Queries: 30 | Crawls: 18 (19 cached)
-- High-priority gaps: 7
-- 8 pages analyzed × up to 3 queries each. 18 URLs crawled (19 cache hits). 7 high-priority gaps. Top editorial outrankers: forbes.com, hinomi.co, logicfox.net.
-
-
-## [2026-05-10] competitor-intelligence | Competitor Intelligence Run
-
-- Keywords analyzed: 8
-- Competitor URLs crawled: 12
-- High-priority gaps: 6
-- Summary: Analyzed 8 keywords. 12 competitor pages crawled. 6 high-priority gaps identified. Most frequent outrankers: wayfair.com, stackchairs4less.com, us.amazon.com.
 
 
 ## [2026-05-10] session | Built competitor-intelligence.ts (I1)

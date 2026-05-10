@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-04-22
+last_updated: 2026-05-10
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-04-22-serp-analysis.md]
 tags: [patterns, failures, lessons]
 ---
@@ -59,10 +59,12 @@ The Apr 3 audit prescribed verdict-first meta rewrites as the primary CTR lever.
 
 ## Not Yet Enough Data To Judge
 
-- Citation capsules (not yet implemented)
+- **Meta description verdict-first rewrites** — 5 deployed May 7. Awaiting CTR signal (~14 days needed).
+- **Height-bracket verdict table on /best-office-chairs/** — ✅ SHIPPED May 7. No AI citation data yet.
+- Citation capsules (not yet implemented on any page)
 - Standing desk content (not yet written)
 - PAA targeting (not yet implemented)
-- Height-specific page depth upgrades (prescribed Apr 22)
+- Height-specific page depth upgrades (C1 Gesture REWRITE + C2 Leap Plus reframe queued for upcoming weeks)
 
 ## Links
 

@@ -139,7 +139,7 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 
 ### C1 — /review/gesture/ depth expansion
 **Priority: HIGHEST content investment**
-- Audit finding: Only first-person authority page on the site. Currently thin. 304 impressions at pos 1 for "steelcase gesture review" with only 8.33% CTR (expected 35% at pos 1) — biggest click leak on the site.
+- Audit finding: Only first-person authority page on the site. Currently thin. Per latest.json (May 2026): 2,529 impressions, pos 8.2, 3 clicks, 0.12% CTR. Note: prior "304 impr at pos 1 / 8.33% CTR" figure in the original audit doc was unverified — does not match GSC data.
 - Required: 3,000+ words, first-person Gesture voice, exact 6'4" measurements (lumbar placement, armrest height, seat depth experience), before/after back/shoulder pain data
 - Constraint: Must be agent-produced via execute-content.ts REWRITE task. Quality gate must evaluate substance not just structure for this specific page.
 - Action needed: Add as REWRITE task in next weekly plan with expanded quality gate instructions.
@@ -157,7 +157,7 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 - Action needed: Two REWRITE tasks in a future weekly plan
 
 ### I1 — SERP API + Firecrawl competitor intelligence pipeline
-**Status: BUILT 2026-05-10**
+**Status: BUILT + ACTIVATED 2026-05-10**
 - New script: `scripts/competitor-intelligence.ts`
 - Run: `npm run competitor:intelligence` (manual/monthly cadence)
 - Stage 1 — SerpAPI: for each top `near-p1`/`content-depth` keyword in `analysis.json`, fetch real SERP results and find URLs outranking TCA's actual position (not hardcoded competitors)
@@ -165,7 +165,7 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 - Stage 3 — Claude Haiku: generate specific gap findings per TCA page vs outrankers
 - Outputs: `data/competitors/intelligence.json`, `raw/competitors/YYYY-MM-DD-intelligence.json`, updates wiki competitor-landscape page
 - Cost controls: max 8 keywords/run, max 12 competitor URLs/run, ~$1–3/month
-- **Activation required:** Add `SERP_API_KEY` and `FIRECRAWL_API_KEY` to `.env` and GitHub Actions secrets. Both have free tiers (100 searches/month + 500 pages/month). Empty placeholders added to `.env`.
+- **Activated:** `SERP_API_KEY` and `FIRECRAWL_API_KEY` configured in `.env` and GitHub Actions secrets. SerpAPI: 250 credits/month free tier (~23/run). Firecrawl: 500 pages/month free tier.
 
 ### I2 — Add pagination to gsc-pull.ts
 **Priority: Low**

@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-06
+last_updated: 2026-05-10
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-30-audit-summary.md, raw/audits/2026-05-05-weekly-audit.md]
 tags: [patterns, wins, strategy]
 ---
@@ -19,7 +19,7 @@ Patterns and fixes that produced measurable positive outcomes. Updated as new da
 
 12. **New review pages index and rank fast** — `/review/aeron-size-c/` reached pos 7.0 with 548 impressions shortly after creation. Spec-driven research-voice reviews get picked up quickly even on a young domain when the content is specific enough.
 
-13. **Review pages growing impression share** — `/review/gesture/` grew from 490 impr (Mar) → 581 (Apr) → 1,895 (May) while position improved from pos 10.31 → 8.4. `/review/leap-plus/` grew from 265 → 632 impr. These are commercial-intent pages on editorial SERPs — the format Google rewards on review queries.
+13. **Review pages growing impression share** — `/review/gesture/` grew from 490 impr (Mar) → 581 (Apr) → 2,529 (May 10) while position improved from pos 10.31 → 8.2. `/review/leap-plus/` grew from 265 → 971 impr. These are commercial-intent pages on editorial SERPs — the format Google rewards on review queries.
 
 14. **Informational pages driving volume** — `/knee-pain-seat-depth/` emerged as the #2 impression page at 1,524 impr, pos 8.8. `/correct-chair-dimensions/` grew from 532 → 1,422 impr. These aren't converting to clicks at high rates but they build topical authority and attract backlinks over time.
 
@@ -41,7 +41,7 @@ Patterns and fixes that produced measurable positive outcomes. Updated as new da
 
 ### Structural Decisions That Paid Off
 
-7. **Hub-and-spoke clusters confirmed at scale** — chair sub-pages (seat-height, seat-depth, tall-people) rank independently. `/chairs/steelcase-gesture/seat-depth/` at pos 8.1 with 710 impr; `/chairs/herman-miller-aeron/tall-people/` at pos 7.3 with 1,175 impr. Both generate clicks without cannibalizing the review page.
+7. **Hub-and-spoke clusters confirmed at scale** — chair sub-pages (seat-height, seat-depth, tall-people) rank independently. `/chairs/steelcase-gesture/seat-depth/` at pos 8.2 with 905 impr; `/chairs/herman-miller-aeron/tall-people/` at pos 7.4 with 1,353 impr. Both generate clicks without cannibalizing the review page.
 
 8. **llms.txt + AI bot access** — PerplexityBot and GPTBot allowed. Sihoo review noted as "rising in AI citations."
 
@@ -54,7 +54,7 @@ Patterns and fixes that produced measurable positive outcomes. Updated as new da
 
 ## What We Can't Confirm Yet
 
-- Whether meta description rewrites improve CTR — **first real test coming May 8** (Thursday agent finally unblocked after cooldown bug fix; 5 verdict-first rewrites queued)
+- Whether meta description rewrites improve CTR — **5 verdict-first rewrites deployed May 7** (gesture, knee-pain, aeron-size-c, gesture-hub, leap-plus-tall-people). Awaiting CTR signal — requires ~14 days of impressions to interpret.
 - Whether internal link changes affect ranking positions
 - Whether citation capsules would increase AI citations
 - Whether /correct-chair-dimensions/ and other informational pages convert — knee-pain proved the format works, but that page has a strong "problem → solution → buy" flow. Not all informational pages have this structure.
