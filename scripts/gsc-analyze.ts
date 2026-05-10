@@ -112,6 +112,37 @@ function normalizeQuery(query: string): string {
     .join(' ');
 }
 
+// ─── URL Normalization ────────────────────────────────────────────────────────
+
+function normalizeUrl(url: string): string {
+  const path = url.replace(/^https?:\/\/[^/]+/, '');
+  // Enforce trailing slash unless URL has a file extension
+  return /\.[a-z]{2,4}$/.test(path) ? path : path.endsWith('/') ? path : path + '/';
+}
+
+function mergeCanonicalDuplicates<T extends { page: string; clicks: number | null; impressions: number; position: number | null }>(rows: T[]): T[] {
+  const map = new Map<string, T>();
+  for (const row of rows) {
+    const key = normalizeUrl(row.page);
+    const existing = map.get(key);
+    if (existing) {
+      existing.clicks = (existing.clicks ?? 0) + (row.clicks ?? 0);
+      existing.impressions += row.impressions;
+      if (row.position !== null && existing.position !== null) {
+        existing.position = Math.min(existing.position, row.position);
+      }
+    } else {
+      map.set(key, { ...row, page: key });
+    }
+  }
+  return Array.from(map.values());
+}
+
+// ─── Junk Query Filter ────────────────────────────────────────────────────────
+
+const JUNK_PATTERNS = [/knee brace/i, /wheelchair/i, /standing desk mat/i, /neck brace/i];
+const isJunkQuery = (query: string) => JUNK_PATTERNS.some(p => p.test(query));
+
 // ─── Module 1: CTR Leak Detector ─────────────────────────────────────────────
 
 export interface CTRLeak {
@@ -130,7 +161,7 @@ export interface CTRLeak {
 
 function detectCTRLeaks(pageQueries: PageQueryRow[], days: number): CTRLeak[] {
   return pageQueries
-    .filter(pq => pq.impressions >= 15 && pq.position !== null && pq.position <= 20)
+    .filter(pq => pq.impressions >= 15 && pq.position !== null && pq.position <= 20 && !isJunkQuery(pq.query))
     .map(pq => {
       const pos = pq.position!;
       const eCTR = expectedCTR(pos);
@@ -365,7 +396,7 @@ export interface SiteTrend {
 }
 
 function computeTrend(dailyTrend: DailyRow[]): SiteTrend | null {
-  if (!dailyTrend || dailyTrend.length < 14) return null;
+  if (!dailyTrend || dailyTrend.length < 7) return null;
 
   const sorted = [...dailyTrend].sort((a, b) => a.date.localeCompare(b.date));
   const recent7 = sorted.slice(-7);
@@ -1009,6 +1040,18 @@ async function main() {
 
   console.log('Reading data/gsc/latest.json...');
   const gsc: GSCData = JSON.parse(readFileSync(latestPath, 'utf-8'));
+
+  // Warn if input data is stale
+  const pulledAt = new Date(gsc.pulledAt ?? 0);
+  const ageHours = (Date.now() - pulledAt.getTime()) / 3600000;
+  if (ageHours > 72) {
+    console.warn(`[gsc-analyze] WARNING: latest.json is ${ageHours.toFixed(0)}h old — run gsc:pull for fresh data`);
+  }
+
+  // Normalize URLs to enforce trailing slash and merge canonical duplicates
+  gsc.pages = mergeCanonicalDuplicates(gsc.pages);
+  gsc.pageQueries = mergeCanonicalDuplicates(gsc.pageQueries);
+  if (gsc.deviceSplit) gsc.deviceSplit = mergeCanonicalDuplicates(gsc.deviceSplit);
 
   console.log(`  ${gsc.pages.length} pages | ${gsc.queries.length} queries | ${gsc.pageQueries.length} page-query pairs`);
   console.log(`  Device rows: ${gsc.deviceSplit?.length ?? 0} | Daily trend rows: ${gsc.dailyTrend?.length ?? 0}`);

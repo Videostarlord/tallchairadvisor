@@ -43,6 +43,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[gsc-analysis-strategy]] | Query-level GSC analysis. Cornell cluster (164 impr, 0 CTR). AIO pattern detection. Plan for gsc-analyze.ts. Read before any CTR fix decision. |
 | [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
 | [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Read when modifying the pipeline. |
+| [[audit-implementation-2026-05-10]] | **May 10 audit fix tracker.** 14 items done, 5 deferred. Read this to know what's been fixed and what's still outstanding from the COMBINED_2026-05-09_MASTER_AUDIT. |
 | [[query-clustering-system]] | How queries are grouped into semantic clusters. Intent weights, known TCA cluster families, cannibalization logic. |
 | [[opportunity-scoring-system]] | Scoring formulas for near-p1, ctr-leak, content-depth, affiliate-capture opportunity types. Priority thresholds. |
 | [[content-gap-engine]] | Internal + competitor gap detection. Current known gaps. Integration with competitor-monitor. |
@@ -74,7 +75,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 Located in `raw/`. Organized by type:
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
-- `raw/audits/` — Audit/analysis files (latest: 2026-05-07)
+- `raw/audits/` — Audit/analysis files (latest: 2026-05-09). Key file: `COMBINED_2026-05-09_MASTER_AUDIT.md` — adjudicated findings from CLAUDE-SONNET-4-6 and CODEX full-system audits, adjusted scores, priority action plan.
 - `raw/strategy/` — Strategy/planning files (latest: 2026-05-07)
 - `raw/reddit/` — Reddit/Apify pipeline docs
 - `raw/misc/` — Session context, PDF

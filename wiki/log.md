@@ -2,6 +2,40 @@
 type: log
 ---
 
+## [2026-05-10] session | Combined Audit Implementation
+
+- Source: `raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md` (adjudicated 6/10, 21 findings)
+- Full status: `wiki/pages/concepts/audit-implementation-2026-05-10.md`
+- Bugs fixed: friday.yml force-push (main→staging), strategy.ts hard error on malformed plan
+- Data restored: gsc:pull --force → deviceSplit (53 rows) + dailyTrend (88 rows); siteTrend + deviceIntelligence non-null
+- Data integrity: URL canonical normalization, freshness guards, junk query filter in CTR leak detector
+- Agent safety: voice check in index-monitor.ts before write, 6-pattern voice detection (was 3), failed draft archival
+- SEO: author page removed from sitemap + canonical fixed; best-office-chairs.astro dates aligned; knee-pain-seat-depth Cornell title + verdict box; size-guide de-orphaned (2 inbound links)
+- Build: 45 pages, zero errors. Commit pushed to main.
+- Deferred: C1 Gesture depth, C2 Leap Plus reframe, C3 L3/L5 differentiation, I1 SERP API pipeline
+
+## [2026-05-10] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 18 (top leak: /review/gesture/ — "steelcase gesture review")
+- Opportunities: 23 actionable
+- AIO suspects: 2
+- Affiliate alerts: 2 high-urgency
+- Site momentum: Impressions up 29.1% WoW (3582 vs 2774), clicks up 125% (9 vs 4), avg position stable
+- Query entropy: 0 fragmented pages
+- Hub candidates: 0
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: n/a (insufficient history)
+
+
+## [2026-05-10] gsc-pull | GSC Data Pull
+
+- Period: 2026-02-09 → 2026-05-10 (90 days)
+- Pages: 46 | Queries: 200 | PageQuery pairs: 465
+- Device rows: 53 | Daily trend rows: 88
+- Clicks: 35 | Impressions: 14767 | Avg pos: 11.1
+
+
 ## [2026-05-10] wiki-cleanup | Workspace Root Cleanup
 
 - Moved 5 files from `AUDIT/` → `raw/audits/` (agent-logic-audit, blind-spots-and-errors, next-claude-prompt, optimization-plan, system-overview)
@@ -487,3 +521,11 @@ Chronological record of wiki operations. Append new entries at the top.
 
 **Pages created:** 22 wiki pages total
 **Next:** Configure Obsidian, then begin weekly ingest cycle
+
+## [2026-05-09] wiki-cleanup | Audit Files Relocated to Correct Position
+
+- Moved 24 files from workspace-root `AUDIT/` → `raw/audits/` (correct location per CLAUDE.md rules)
+- Files moved: 11 CLAUDE-SONNET-4-6 audit files, 12 CODEX audit files, 1 COMBINED master audit
+- Removed now-empty `AUDIT/` directory from workspace root
+- Workspace root is now clean of audit artifacts
+- Master audit: `raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md` — adjudicated findings from both models, adjusted scores, SERP API + Firecrawl competitor intelligence architecture documented

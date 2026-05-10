@@ -6,6 +6,7 @@ const sitemapExcludedPaths = new Set([
   '/contact/',
   '/privacy-policy/',
   '/affiliate-disclosure/',
+  '/author/jackson-christopher/',
 ]);
 
 // Per-page lastmod dates — update when a page is significantly revised

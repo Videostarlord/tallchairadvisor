@@ -177,12 +177,13 @@ Output a structured weekly plan in this EXACT format so the execution agents can
   const newCount = countParsedItems(output, 'NEW');
   const hasSections = output.includes('## FIXES') || output.includes('## NEW CONTENT');
   if (hasSections && fixCount + rewriteCount + newCount === 0) {
-    console.warn(`\nWARNING: Plan has section headers but zero parseable tasks (FIX: ${fixCount}, REWRITE: ${rewriteCount}, NEW: ${newCount})`);
-    console.warn('This may be a format error. Review the plan output:');
-    console.warn(output.slice(0, 1000));
-  } else {
-    console.log(`\nPlan validation: ${fixCount} fixes, ${rewriteCount} rewrites, ${newCount} new pages`);
+    mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
+    writeFileSync(resolve(ROOT, 'reports/plan-debug-malformed.md'), output);
+    appendWikiLog(ROOT, `## [${today()}] strategy | MALFORMED PLAN — NOT SAVED\n\n- Plan had section headers but zero parseable tasks\n- Debug output written to reports/plan-debug-malformed.md\n`);
+    throw new Error(`Plan format error: sections exist but zero parseable tasks (FIX:${fixCount} REWRITE:${rewriteCount} NEW:${newCount}). Debug written to reports/plan-debug-malformed.md`);
   }
+
+  console.log(`\nPlan validation: ${fixCount} fixes, ${rewriteCount} rewrites, ${newCount} new pages`);
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
   writeFileSync(resolve(ROOT, 'reports/weekly-plan.md'), output);

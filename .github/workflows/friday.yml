@@ -52,4 +52,4 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add reports/content-log.md raw/ || true
           git diff --staged --quiet || git commit -m "content: No pages written $(date +%Y-%m-%d) — see content-log.md"
-          git push origin HEAD:main --force || true
+          git push origin HEAD:staging --force || true

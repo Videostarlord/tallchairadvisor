@@ -1,109 +1,235 @@
 {
-  "generatedAt": "2026-05-10T00:59:37.875Z",
+  "generatedAt": "2026-05-10T04:53:13.997Z",
   "dateRange": {
-    "start": "2026-02-03",
-    "end": "2026-05-04",
+    "start": "2026-02-09",
+    "end": "2026-05-10",
     "days": 90
   },
-  "siteTrend": null,
-  "deviceIntelligence": null,
+  "siteTrend": {
+    "currentWeekImpressions": 3582,
+    "previousWeekImpressions": 2774,
+    "impressionVelocity": 29.1,
+    "currentWeekClicks": 9,
+    "previousWeekClicks": 4,
+    "clickVelocity": 125,
+    "positionTrend": "stable",
+    "currentAvgPosition": 9.1,
+    "previousAvgPosition": 9.3,
+    "positionDelta": -0.2,
+    "summaryLine": "Impressions up 29.1% WoW (3582 vs 2774), clicks up 125% (9 vs 4), avg position stable"
+  },
+  "deviceIntelligence": {
+    "mobileImpressions": 197,
+    "desktopImpressions": 1736,
+    "tabletImpressions": 0,
+    "mobileShare": 10.2,
+    "mobileCTR": 0.51,
+    "desktopCTR": 0.23,
+    "ctrGap": -0.28,
+    "mobileUnderperformingPages": [],
+    "summaryLine": "Mobile: 10% of impressions | Mobile CTR 0.51% vs Desktop 0.23% (gap: -0.28pp)"
+  },
   "ctrLeaks": [
     {
       "page": "/review/gesture/",
-      "query": "steelcase knee brace review",
-      "impressions": 91,
-      "position": 7.3,
-      "actualCTR": 0,
-      "expectedCTR": 3,
-      "ctrGap": 3,
-      "lostClicksPerWeek": 0.21,
-      "leakScore": 8.2,
+      "query": "steelcase gesture review",
+      "impressions": 304,
+      "position": 1,
+      "actualCTR": 8.33,
+      "expectedCTR": 35,
+      "ctrGap": 26.67,
+      "lostClicksPerWeek": 6.31,
+      "leakScore": 243.2,
       "aioSuspect": false,
       "intentType": "buyer"
     },
     {
-      "page": "/review/gesture/",
-      "query": "steelcase knee brace review 2026",
-      "impressions": 18,
-      "position": 3.5,
+      "page": "/aeron-vs-gesture/",
+      "query": "aeron vs gesture",
+      "impressions": 53,
+      "position": 2.1,
       "actualCTR": 0,
-      "expectedCTR": 12,
-      "ctrGap": 12,
-      "lostClicksPerWeek": 0.17,
-      "leakScore": 6.5,
+      "expectedCTR": 18,
+      "ctrGap": 18,
+      "lostClicksPerWeek": 0.74,
+      "leakScore": 28.6,
       "aioSuspect": false,
       "intentType": "buyer"
     },
     {
-      "page": "/chairs/steelcase-gesture/seat-depth/",
-      "query": "steelcase gesture seat depth range inches",
-      "impressions": 23,
-      "position": 4.2,
+      "page": "/chairs/herman-miller-aeron/",
+      "query": "aeron c size",
+      "impressions": 76,
+      "position": 2,
       "actualCTR": 0,
-      "expectedCTR": 8,
-      "ctrGap": 8,
-      "lostClicksPerWeek": 0.14,
-      "leakScore": 3.7,
-      "aioSuspect": true,
-      "intentType": "brand"
-    },
-    {
-      "page": "/chairs/steelcase-gesture/seat-depth/",
-      "query": "steelcase gesture seat depth adjustment range inches",
-      "impressions": 31,
-      "position": 6,
-      "actualCTR": 0,
-      "expectedCTR": 4,
-      "ctrGap": 4,
-      "lostClicksPerWeek": 0.1,
-      "leakScore": 2.5,
-      "aioSuspect": true,
+      "expectedCTR": 18,
+      "ctrGap": 18,
+      "lostClicksPerWeek": 1.06,
+      "leakScore": 27.4,
+      "aioSuspect": false,
       "intentType": "brand"
     },
     {
       "page": "/knee-pain-seat-depth/",
-      "query": "cornell ergonomics chair seat depth two fingers behind knee",
-      "impressions": 55,
+      "query": "best office chair for back and leg pain",
+      "impressions": 221,
+      "position": 7.8,
+      "actualCTR": 0,
+      "expectedCTR": 3,
+      "ctrGap": 3,
+      "lostClicksPerWeek": 0.52,
+      "leakScore": 19.9,
+      "aioSuspect": false,
+      "intentType": "buyer"
+    },
+    {
+      "page": "/chairs/steelcase-gesture/seat-depth/",
+      "query": "steelcase gesture adjustment guide",
+      "impressions": 101,
+      "position": 4.1,
+      "actualCTR": 0,
+      "expectedCTR": 8,
+      "ctrGap": 8,
+      "lostClicksPerWeek": 0.63,
+      "leakScore": 16.2,
+      "aioSuspect": false,
+      "intentType": "brand"
+    },
+    {
+      "page": "/best-office-chairs/",
+      "query": "top rated big and tall office chairs",
+      "impressions": 174,
+      "position": 9,
+      "actualCTR": 0,
+      "expectedCTR": 2.2,
+      "ctrGap": 2.2,
+      "lostClicksPerWeek": 0.3,
+      "leakScore": 11.5,
+      "aioSuspect": false,
+      "intentType": "buyer"
+    },
+    {
+      "page": "/correct-chair-dimensions/",
+      "query": "21 inch seat height armchair",
+      "impressions": 229,
+      "position": 7,
+      "actualCTR": 0,
+      "expectedCTR": 3,
+      "ctrGap": 3,
+      "lostClicksPerWeek": 0.53,
+      "leakScore": 10.3,
+      "aioSuspect": false,
+      "intentType": "spec"
+    },
+    {
+      "page": "/gesture-vs-leap-plus/",
+      "query": "gesture vs leap",
+      "impressions": 89,
       "position": 8,
       "actualCTR": 0,
       "expectedCTR": 2.5,
       "ctrGap": 2.5,
-      "lostClicksPerWeek": 0.11,
-      "leakScore": 2.1,
-      "aioSuspect": false,
-      "intentType": "spec"
-    },
-    {
-      "page": "/knee-pain-seat-depth/",
-      "query": "cornell ergonomics chair seat depth two fingers behind knees",
-      "impressions": 53,
-      "position": 8.3,
-      "actualCTR": 0,
-      "expectedCTR": 2.5,
-      "ctrGap": 2.5,
-      "lostClicksPerWeek": 0.1,
-      "leakScore": 2,
-      "aioSuspect": false,
-      "intentType": "spec"
-    },
-    {
-      "page": "/review/aeron-size-c/",
-      "query": "herman miller aeron size c reviews",
-      "impressions": 15,
-      "position": 8.8,
-      "actualCTR": 0,
-      "expectedCTR": 2.5,
-      "ctrGap": 2.5,
-      "lostClicksPerWeek": 0.03,
-      "leakScore": 1.1,
+      "lostClicksPerWeek": 0.17,
+      "leakScore": 6.7,
       "aioSuspect": false,
       "intentType": "buyer"
     },
     {
-      "page": "/knee-pain-seat-depth/",
-      "query": "cornell ergonomics chair seat depth 2 inches behind knees",
-      "impressions": 28,
-      "position": 10.2,
+      "page": "/review/aeron-size-c/",
+      "query": "aeron chair sizes how to tell",
+      "impressions": 40,
+      "position": 5,
+      "actualCTR": 0,
+      "expectedCTR": 6,
+      "ctrGap": 6,
+      "lostClicksPerWeek": 0.19,
+      "leakScore": 4.8,
+      "aioSuspect": true,
+      "intentType": "brand"
+    },
+    {
+      "page": "/chairs/herman-miller-aeron/tall-people/",
+      "query": "aeron chair sizes how to tell",
+      "impressions": 41,
+      "position": 6,
+      "actualCTR": 0,
+      "expectedCTR": 4,
+      "ctrGap": 4,
+      "lostClicksPerWeek": 0.13,
+      "leakScore": 3.3,
+      "aioSuspect": true,
+      "intentType": "brand"
+    },
+    {
+      "page": "/best-office-chairs-under-500/",
+      "query": "best computer chair for tall people",
+      "impressions": 31,
+      "position": 9.8,
+      "actualCTR": 0,
+      "expectedCTR": 2.2,
+      "ctrGap": 2.2,
+      "lostClicksPerWeek": 0.05,
+      "leakScore": 2,
+      "aioSuspect": false,
+      "intentType": "buyer"
+    },
+    {
+      "page": "/chairs/steelcase-gesture/",
+      "query": "steelcase gesture 4d armrests description",
+      "impressions": 34,
+      "position": 7,
+      "actualCTR": 0,
+      "expectedCTR": 3,
+      "ctrGap": 3,
+      "lostClicksPerWeek": 0.08,
+      "leakScore": 2,
+      "aioSuspect": false,
+      "intentType": "brand"
+    },
+    {
+      "page": "/chairs/steelcase-leap-plus/tall-people/",
+      "query": "leap plus",
+      "impressions": 17,
+      "position": 5,
+      "actualCTR": 0,
+      "expectedCTR": 6,
+      "ctrGap": 6,
+      "lostClicksPerWeek": 0.08,
+      "leakScore": 2,
+      "aioSuspect": false,
+      "intentType": "brand"
+    },
+    {
+      "page": "/aeron-vs-leap-plus/",
+      "query": "aeron plus",
+      "impressions": 16,
+      "position": 8,
+      "actualCTR": 0,
+      "expectedCTR": 2.5,
+      "ctrGap": 2.5,
+      "lostClicksPerWeek": 0.03,
+      "leakScore": 0.8,
+      "aioSuspect": false,
+      "intentType": "brand"
+    },
+    {
+      "page": "/chairs/steelcase-leap-plus/",
+      "query": "leap plus chair",
+      "impressions": 19,
+      "position": 10,
+      "actualCTR": 0,
+      "expectedCTR": 2,
+      "ctrGap": 2,
+      "lostClicksPerWeek": 0.03,
+      "leakScore": 0.8,
+      "aioSuspect": false,
+      "intentType": "brand"
+    },
+    {
+      "page": "/standing-desk-height-tall-people/",
+      "query": "desk height for tall people",
+      "impressions": 26,
+      "position": 20,
       "actualCTR": 0,
       "expectedCTR": 2,
       "ctrGap": 2,
@@ -113,41 +239,28 @@
       "intentType": "spec"
     },
     {
-      "page": "/review/gesture/",
-      "query": "steelcase gesture height range tall users",
-      "impressions": 16,
-      "position": 8.3,
-      "actualCTR": 0,
-      "expectedCTR": 2.5,
-      "ctrGap": 2.5,
-      "lostClicksPerWeek": 0.03,
-      "leakScore": 0.8,
-      "aioSuspect": false,
-      "intentType": "brand"
-    },
-    {
-      "page": "/best-office-chairs-under-500/",
-      "query": "which leading ergonomic office chairs under 500 euros have deep seat depth for long legs and an adjustable headrest that works?",
-      "impressions": 15,
-      "position": 9.3,
+      "page": "/chairs/steelcase-gesture/seat-height/",
+      "query": "steelcase gesture adjustment guide",
+      "impressions": 17,
+      "position": 9,
       "actualCTR": 0,
       "expectedCTR": 2.2,
       "ctrGap": 2.2,
       "lostClicksPerWeek": 0.03,
-      "leakScore": 0.5,
+      "leakScore": 0.7,
       "aioSuspect": false,
-      "intentType": "spec"
+      "intentType": "brand"
     },
     {
-      "page": "/knee-pain-seat-depth/",
-      "query": "cornell ergonomics chair seat depth 2-3 fingers behind knees",
-      "impressions": 15,
-      "position": 10.9,
+      "page": "/back-pain-spine-height/",
+      "query": "back height",
+      "impressions": 18,
+      "position": 10,
       "actualCTR": 0,
       "expectedCTR": 2,
       "ctrGap": 2,
-      "lostClicksPerWeek": 0.02,
-      "leakScore": 0.4,
+      "lostClicksPerWeek": 0.03,
+      "leakScore": 0.5,
       "aioSuspect": false,
       "intentType": "spec"
     }
@@ -155,302 +268,267 @@
   "opportunities": [
     {
       "page": "/correct-chair-dimensions/",
-      "impressions": 1422,
-      "position": 16.7,
-      "clicks": 2,
-      "ctr": 0.14,
-      "opportunityScore": 711,
+      "impressions": 1658,
+      "position": 16.1,
+      "clicks": 3,
+      "ctr": 0.18,
+      "opportunityScore": 829,
       "opportunityType": "content-depth",
       "topQueries": [
-        "average dimensions of person sitting",
-        "office chair dimensions",
-        "chair size"
+        "21 inch seat height armchair"
       ],
       "buyerIntentImpressions": 0,
-      "recommendation": "pos 16.7 with 1422 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade"
+      "recommendation": "pos 16.1 with 1658 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade"
     },
     {
       "page": "/review/gesture/",
-      "impressions": 1895,
-      "position": 8.4,
+      "impressions": 2589,
+      "position": 8.2,
       "clicks": 3,
-      "ctr": 0.16,
-      "opportunityScore": 451.2,
+      "ctr": 0.12,
+      "opportunityScore": 631.5,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase knee brace review",
-        "steelcase knee brace review 2026",
-        "steelcase gesture height range tall users"
+        "steelcase gesture review"
       ],
-      "buyerIntentImpressions": 182,
-      "recommendation": "pos 8.4 with 1895 impr — expand content depth + internal links to push into top 5"
-    },
-    {
-      "page": "/best-office-chairs/",
-      "impressions": 694,
-      "position": 23.2,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 347,
-      "opportunityType": "content-depth",
-      "topQueries": [
-        "best office chairs for tall people",
-        "best office chair for tall person",
-        "best office chair tall person"
-      ],
-      "buyerIntentImpressions": 113,
-      "recommendation": "pos 23.2 with 694 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade"
+      "buyerIntentImpressions": 304,
+      "recommendation": "pos 8.2 with 2589 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/knee-pain-seat-depth/",
-      "impressions": 1524,
-      "position": 8.8,
-      "clicks": 2,
-      "ctr": 0.13,
-      "opportunityScore": 346.4,
+      "impressions": 1925,
+      "position": 8.6,
+      "clicks": 3,
+      "ctr": 0.16,
+      "opportunityScore": 447.7,
       "opportunityType": "near-p1",
       "topQueries": [
-        "cornell ergonomics chair seat depth two fingers behind knee",
-        "cornell ergonomics chair seat depth two fingers behind knees",
-        "cornell ergonomics chair seat depth 2 inches behind knees"
+        "best office chair for back and leg pain"
       ],
-      "buyerIntentImpressions": 5,
-      "recommendation": "pos 8.8 with 1524 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 221,
+      "recommendation": "pos 8.6 with 1925 impr — expand content depth + internal links to push into top 5"
+    },
+    {
+      "page": "/best-office-chairs/",
+      "impressions": 756,
+      "position": 22.8,
+      "clicks": 0,
+      "ctr": 0,
+      "opportunityScore": 378,
+      "opportunityType": "content-depth",
+      "topQueries": [
+        "top rated big and tall office chairs"
+      ],
+      "buyerIntentImpressions": 174,
+      "recommendation": "pos 22.8 with 756 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade"
     },
     {
       "page": "/chairs/herman-miller-aeron/tall-people/",
-      "impressions": 1175,
-      "position": 7.3,
-      "clicks": 3,
-      "ctr": 0.26,
-      "opportunityScore": 321.9,
+      "impressions": 1353,
+      "position": 7.4,
+      "clicks": 4,
+      "ctr": 0.3,
+      "opportunityScore": 365.7,
       "opportunityType": "near-p1",
       "topQueries": [
-        "herman miller aeron size c height range",
-        "herman miller aeron size c seat height range",
-        "herman miller aeron tall"
+        "aeron chair sizes how to tell"
       ],
       "buyerIntentImpressions": 0,
-      "recommendation": "pos 7.3 with 1175 impr — expand content depth + internal links to push into top 5"
+      "recommendation": "pos 7.4 with 1353 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/office-chairs-for-tall-people/",
-      "impressions": 570,
-      "position": 24.9,
+      "impressions": 670,
+      "position": 22.6,
       "clicks": 3,
-      "ctr": 0.53,
-      "opportunityScore": 285,
+      "ctr": 0.45,
+      "opportunityScore": 335,
       "opportunityType": "content-depth",
       "topQueries": [
-        "best office chair for tall people",
-        "office chair for tall person",
-        "best office chair for tall person"
-      ],
-      "buyerIntentImpressions": 75,
-      "recommendation": "pos 24.9 with 570 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade"
-    },
-    {
-      "page": "/chairs/steelcase-gesture/seat-depth/",
-      "impressions": 710,
-      "position": 8.1,
-      "clicks": 1,
-      "ctr": 0.14,
-      "opportunityScore": 175.3,
-      "opportunityType": "near-p1",
-      "topQueries": [
-        "steelcase gesture seat depth adjustment range inches",
-        "steelcase gesture seat depth range inches",
-        "steelcase gesture seat height range"
+        "steelcase leap v2 tall person"
       ],
       "buyerIntentImpressions": 0,
-      "recommendation": "pos 8.1 with 710 impr — expand content depth + internal links to push into top 5"
-    },
-    {
-      "page": "/review/aeron-size-c/",
-      "impressions": 548,
-      "position": 7,
-      "clicks": 2,
-      "ctr": 0.36,
-      "opportunityScore": 156.6,
-      "opportunityType": "near-p1",
-      "topQueries": [
-        "herman miller aeron size c reviews",
-        "herman miller aeron size c () reviews",
-        "herman miller aeron size c review"
-      ],
-      "buyerIntentImpressions": 26,
-      "recommendation": "pos 7.0 with 548 impr — expand content depth + internal links to push into top 5"
+      "recommendation": "pos 22.6 with 670 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade"
     },
     {
       "page": "/review/leap-plus/",
-      "impressions": 632,
-      "position": 9.3,
+      "impressions": 971,
+      "position": 8.5,
       "clicks": 3,
-      "ctr": 0.47,
-      "opportunityScore": 135.9,
+      "ctr": 0.31,
+      "opportunityScore": 228.5,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase leap plus",
-        "steelcase leap plus weight capacity official",
-        "steelcase leap plus weight capacity 500 lbs"
+        "steelcase leap plus"
       ],
-      "buyerIntentImpressions": 14,
-      "recommendation": "pos 9.3 with 632 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 8.5 with 971 impr — expand content depth + internal links to push into top 5"
     },
     {
-      "page": "/chairs/steelcase-gesture/",
-      "impressions": 384,
-      "position": 9.3,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 82.6,
+      "page": "/chairs/steelcase-gesture/seat-depth/",
+      "impressions": 905,
+      "position": 8.2,
+      "clicks": 1,
+      "ctr": 0.11,
+      "opportunityScore": 220.7,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase gesture height range tall users",
-        "steelcase gesture weight capacity big and tall",
-        "steelcase gesture for tall people"
+        "steelcase gesture adjustment guide"
       ],
-      "buyerIntentImpressions": 2,
-      "recommendation": "pos 9.3 with 384 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 8.2 with 905 impr — expand content depth + internal links to push into top 5"
+    },
+    {
+      "page": "/review/aeron-size-c/",
+      "impressions": 690,
+      "position": 7,
+      "clicks": 3,
+      "ctr": 0.43,
+      "opportunityScore": 197.1,
+      "opportunityType": "near-p1",
+      "topQueries": [
+        "aeron chair sizes how to tell"
+      ],
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 7.0 with 690 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/aeron-vs-gesture/",
-      "impressions": 348,
-      "position": 8.5,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 81.9,
+      "impressions": 499,
+      "position": 8.4,
+      "clicks": 1,
+      "ctr": 0.88,
+      "opportunityScore": 118.8,
       "opportunityType": "near-p1",
       "topQueries": [
-        "gesture vs aeron",
-        "aeron vs gesture",
-        "steelcase gesture vs herman miller aeron for tall people"
+        "aeron vs gesture"
       ],
-      "buyerIntentImpressions": 27,
-      "recommendation": "pos 8.5 with 348 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 53,
+      "recommendation": "pos 8.4 with 499 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/chairs/steelcase-leap-plus/tall-people/",
-      "impressions": 324,
-      "position": 8.8,
+      "impressions": 472,
+      "position": 8.5,
       "clicks": 0,
       "ctr": 0,
-      "opportunityScore": 73.6,
+      "opportunityScore": 111.1,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase leap plus",
-        "steelcase leap tall",
         "leap plus"
       ],
       "buyerIntentImpressions": 0,
-      "recommendation": "pos 8.8 with 324 impr — expand content depth + internal links to push into top 5"
+      "recommendation": "pos 8.5 with 472 impr — expand content depth + internal links to push into top 5"
+    },
+    {
+      "page": "/chairs/steelcase-gesture/",
+      "impressions": 426,
+      "position": 9.1,
+      "clicks": 0,
+      "ctr": 0,
+      "opportunityScore": 93.6,
+      "opportunityType": "near-p1",
+      "topQueries": [
+        "steelcase gesture 4d armrests description"
+      ],
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 9.1 with 426 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/chairs/steelcase-leap-plus/seat-height/",
-      "impressions": 323,
-      "position": 9.7,
+      "impressions": 377,
+      "position": 9.1,
       "clicks": 1,
-      "ctr": 0.31,
-      "opportunityScore": 66.6,
+      "ctr": 0.27,
+      "opportunityScore": 82.9,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase leap seat height range 15.5 20.5",
-        "steelcase leap plus",
-        "steelcase leap seat height 15.5 20.5"
+        "steelcase leap plus"
       ],
       "buyerIntentImpressions": 0,
-      "recommendation": "pos 9.7 with 323 impr — expand content depth + internal links to push into top 5"
+      "recommendation": "pos 9.1 with 377 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/gesture-vs-leap-plus/",
-      "impressions": 413,
-      "position": 14,
+      "impressions": 454,
+      "position": 13.7,
       "clicks": 1,
-      "ctr": 0.24,
-      "opportunityScore": 59,
+      "ctr": 0.22,
+      "opportunityScore": 66.3,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase gesture vs leap",
-        "steelcase leap vs gesture",
-        "leap vs gesture"
+        "gesture vs leap"
       ],
-      "buyerIntentImpressions": 75,
-      "recommendation": "pos 14.0 with 413 impr — expand content depth + internal links to push into top 5"
-    },
-    {
-      "page": "/chairs/herman-miller-aeron/",
-      "impressions": 297,
-      "position": 13.8,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 43,
-      "opportunityType": "near-p1",
-      "topQueries": [
-        "aeron chair size c",
-        "aeron size c",
-        "herman miller aeron size c height range"
-      ],
-      "buyerIntentImpressions": 0,
-      "recommendation": "pos 13.8 with 297 impr — expand content depth + internal links to push into top 5"
-    },
-    {
-      "page": "/back-pain-spine-height/",
-      "impressions": 188,
-      "position": 8.8,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 42.7,
-      "opportunityType": "near-p1",
-      "topQueries": [
-        "correct lumbar support height",
-        "lumbar support height",
-        "back height"
-      ],
-      "buyerIntentImpressions": 0,
-      "recommendation": "pos 8.8 with 188 impr — expand content depth + internal links to push into top 5"
-    },
-    {
-      "page": "/fit-guides/",
-      "impressions": 178,
-      "position": 8.6,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 41.4,
-      "opportunityType": "near-p1",
-      "topQueries": [
-        "correct lumbar support height",
-        "ergonomics for tall people"
-      ],
-      "buyerIntentImpressions": 0,
-      "recommendation": "pos 8.6 with 178 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 89,
+      "recommendation": "pos 13.7 with 454 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/office-chairs-for-6-foot-4/",
-      "impressions": 101,
-      "position": 6.1,
+      "impressions": 148,
+      "position": 5.3,
       "clicks": 0,
       "ctr": 0,
-      "opportunityScore": 33.1,
+      "opportunityScore": 55.8,
       "opportunityType": "near-p1",
       "topQueries": [],
       "buyerIntentImpressions": 0,
-      "recommendation": "pos 6.1 with 101 impr — expand content depth + internal links to push into top 5"
+      "recommendation": "pos 5.3 with 148 impr — expand content depth + internal links to push into top 5"
+    },
+    {
+      "page": "/fit-guides/",
+      "impressions": 195,
+      "position": 8.4,
+      "clicks": 0,
+      "ctr": 0,
+      "opportunityScore": 46.4,
+      "opportunityType": "near-p1",
+      "topQueries": [
+        "correct lumbar support height"
+      ],
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 8.4 with 195 impr — expand content depth + internal links to push into top 5"
+    },
+    {
+      "page": "/chairs/herman-miller-aeron/",
+      "impressions": 317,
+      "position": 13.8,
+      "clicks": 0,
+      "ctr": 0,
+      "opportunityScore": 45.9,
+      "opportunityType": "near-p1",
+      "topQueries": [
+        "aeron c size"
+      ],
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 13.8 with 317 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/best-office-chairs-under-500/",
-      "impressions": 188,
-      "position": 11.9,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 31.6,
+      "impressions": 254,
+      "position": 11.5,
+      "clicks": 3,
+      "ctr": 1.18,
+      "opportunityScore": 44.2,
       "opportunityType": "near-p1",
       "topQueries": [
-        "which leading ergonomic office chairs under 500 euros have deep seat depth for long legs and an adjustable headrest that works?",
-        "best office chairs under $500",
-        "best office chairs under 500"
+        "best computer chair for tall people"
       ],
-      "buyerIntentImpressions": 11,
-      "recommendation": "pos 11.9 with 188 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 31,
+      "recommendation": "pos 11.5 with 254 impr — expand content depth + internal links to push into top 5"
+    },
+    {
+      "page": "/back-pain-spine-height/",
+      "impressions": 211,
+      "position": 10.3,
+      "clicks": 0,
+      "ctr": 0,
+      "opportunityScore": 41,
+      "opportunityType": "near-p1",
+      "topQueries": [
+        "back height"
+      ],
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 10.3 with 211 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/chairs/steelcase-gesture/tall-people/",
@@ -461,44 +539,38 @@
       "opportunityScore": 29.1,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase gesture for tall people",
-        "steelcase gesture height range tall users",
-        "steelcase gesture weight limit"
+        "steelcase gesture for tall people"
       ],
       "buyerIntentImpressions": 0,
       "recommendation": "pos 8.6 with 125 impr — expand content depth + internal links to push into top 5"
     },
     {
-      "page": "/aeron-vs-gesture",
+      "page": "/pain-ergonomics/",
       "impressions": 114,
-      "position": 8.4,
-      "clicks": 1,
-      "ctr": 0.88,
-      "opportunityScore": 27.1,
+      "position": 8,
+      "clicks": 0,
+      "ctr": 0,
+      "opportunityScore": 28.5,
       "opportunityType": "near-p1",
       "topQueries": [
-        "gesture vs aeron",
-        "aeron vs gesture",
-        "herman miller aeron vs steelcase gesture comparison"
+        "best office chair for chronic pain"
       ],
-      "buyerIntentImpressions": 15,
-      "recommendation": "pos 8.4 with 114 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 28,
+      "recommendation": "pos 8.0 with 114 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/aeron-vs-leap-plus/",
-      "impressions": 119,
-      "position": 10.4,
+      "impressions": 126,
+      "position": 10.5,
       "clicks": 2,
-      "ctr": 1.68,
-      "opportunityScore": 22.9,
+      "ctr": 1.59,
+      "opportunityScore": 24,
       "opportunityType": "near-p1",
       "topQueries": [
-        "aeron plus",
-        "steelcase leap vs herman miller aeron",
-        "aeron vs leap"
+        "aeron plus"
       ],
-      "buyerIntentImpressions": 9,
-      "recommendation": "pos 10.4 with 119 impr — expand content depth + internal links to push into top 5"
+      "buyerIntentImpressions": 0,
+      "recommendation": "pos 10.5 with 126 impr — expand content depth + internal links to push into top 5"
     },
     {
       "page": "/chairs/steelcase-gesture/seat-height/",
@@ -509,31 +581,17 @@
       "opportunityScore": 22.3,
       "opportunityType": "near-p1",
       "topQueries": [
-        "steelcase gesture seat height range",
-        "steelcase gesture seat height",
-        "steelcase gesture controls"
+        "steelcase gesture adjustment guide"
       ],
       "buyerIntentImpressions": 0,
       "recommendation": "pos 12.3 with 137 impr — expand content depth + internal links to push into top 5"
     },
     {
-      "page": "/",
-      "impressions": 46,
-      "position": 5.5,
-      "clicks": 1,
-      "ctr": 2.17,
-      "opportunityScore": 0,
-      "opportunityType": "low-signal",
-      "topQueries": [],
-      "buyerIntentImpressions": 0,
-      "recommendation": "insufficient signal — monitor for 2+ weeks before acting"
-    },
-    {
       "page": "/office-chairs-for-6-foot-5/",
-      "impressions": 56,
-      "position": 8.6,
+      "impressions": 98,
+      "position": 8.2,
       "clicks": 1,
-      "ctr": 1.79,
+      "ctr": 1.02,
       "opportunityScore": 0,
       "opportunityType": "low-signal",
       "topQueries": [],
@@ -542,10 +600,10 @@
     },
     {
       "page": "/office-chairs-for-6-foot-7/",
-      "impressions": 42,
-      "position": 7.6,
+      "impressions": 47,
+      "position": 7.4,
       "clicks": 1,
-      "ctr": 2.38,
+      "ctr": 2.13,
       "opportunityScore": 0,
       "opportunityType": "low-signal",
       "topQueries": [],
@@ -554,10 +612,22 @@
     },
     {
       "page": "/why-standard-chairs-dont-fit/",
-      "impressions": 77,
-      "position": 7.8,
+      "impressions": 91,
+      "position": 7.5,
       "clicks": 1,
-      "ctr": 1.3,
+      "ctr": 1.12,
+      "opportunityScore": 0,
+      "opportunityType": "low-signal",
+      "topQueries": [],
+      "buyerIntentImpressions": 0,
+      "recommendation": "insufficient signal — monitor for 2+ weeks before acting"
+    },
+    {
+      "page": "/",
+      "impressions": 61,
+      "position": 5.3,
+      "clicks": 0,
+      "ctr": 0,
       "opportunityScore": 0,
       "opportunityType": "low-signal",
       "topQueries": [],
@@ -566,15 +636,13 @@
     },
     {
       "page": "/chairs/steelcase-leap-plus/",
-      "impressions": 85,
+      "impressions": 100,
       "position": 17.3,
       "clicks": 0,
       "ctr": 0,
       "opportunityScore": 0,
       "opportunityType": "low-signal",
       "topQueries": [
-        "steelcase leap plus",
-        "steelcase leap plus chair",
         "leap plus chair"
       ],
       "buyerIntentImpressions": 0,
@@ -582,24 +650,22 @@
     },
     {
       "page": "/how-to-adjust-chair/",
-      "impressions": 53,
-      "position": 35.4,
+      "impressions": 59,
+      "position": 35.3,
       "clicks": 0,
       "ctr": 0,
       "opportunityScore": 0,
       "opportunityType": "low-signal",
       "topQueries": [
-        "chair height adjustment",
-        "how to adjust tilt on office chair",
-        "how to raise a chair height"
+        "chair height adjustment"
       ],
       "buyerIntentImpressions": 0,
       "recommendation": "insufficient signal — monitor for 2+ weeks before acting"
     },
     {
       "page": "/office-chairs-for-6-foot-3/",
-      "impressions": 69,
-      "position": 8.2,
+      "impressions": 84,
+      "position": 8,
       "clicks": 0,
       "ctr": 0,
       "opportunityScore": 0,
@@ -610,7 +676,7 @@
     },
     {
       "page": "/office-chairs-for-6-foot-6/",
-      "impressions": 55,
+      "impressions": 63,
       "position": 9.7,
       "clicks": 0,
       "ctr": 0,
@@ -621,62 +687,28 @@
       "recommendation": "insufficient signal — monitor for 2+ weeks before acting"
     },
     {
-      "page": "/pain-ergonomics/",
-      "impressions": 95,
-      "position": 23.9,
+      "page": "/review/sihoo-doro-s300/",
+      "impressions": 60,
+      "position": 7.2,
       "clicks": 0,
       "ctr": 0,
       "opportunityScore": 0,
       "opportunityType": "low-signal",
       "topQueries": [
-        "best office chair for tall person with back pain",
-        "can my office chair cause leg pain",
-        "office chair for leg pain"
-      ],
-      "buyerIntentImpressions": 12,
-      "recommendation": "insufficient signal — monitor for 2+ weeks before acting"
-    },
-    {
-      "page": "/review/gesture",
-      "impressions": 79,
-      "position": 9.4,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 0,
-      "opportunityType": "low-signal",
-      "topQueries": [
-        "steelcase gesture for tall people",
-        "steelcase gesture seat depth range inches"
+        "cornell ergonomics chair seat depth 2-3 fingers behind knees"
       ],
       "buyerIntentImpressions": 0,
       "recommendation": "insufficient signal — monitor for 2+ weeks before acting"
     },
     {
-      "page": "/review/sihoo-doro-s300/",
-      "impressions": 41,
-      "position": 7.5,
-      "clicks": 0,
-      "ctr": 0,
-      "opportunityScore": 0,
-      "opportunityType": "low-signal",
-      "topQueries": [
-        "cornell ergonomics chair seat depth 2-3 fingers behind knees",
-        "sihoo doro s300 review"
-      ],
-      "buyerIntentImpressions": 2,
-      "recommendation": "insufficient signal — monitor for 2+ weeks before acting"
-    },
-    {
       "page": "/standing-desk-height-tall-people/",
-      "impressions": 63,
-      "position": 19.9,
+      "impressions": 84,
+      "position": 17.8,
       "clicks": 0,
       "ctr": 0,
       "opportunityScore": 0,
       "opportunityType": "low-signal",
       "topQueries": [
-        "standing desk maximum height requirements for tall office workers",
-        "ergonomic desk height for 6 foot tall person",
         "desk height for tall people"
       ],
       "buyerIntentImpressions": 0,
@@ -685,985 +717,124 @@
   ],
   "clusters": [
     {
-      "fingerprint": "brace-knee-steelcase",
-      "representativeQuery": "steelcase knee brace review",
+      "fingerprint": "gesture-review-steelcase",
+      "representativeQuery": "steelcase gesture review",
       "queries": [
-        "steelcase knee brace review",
-        "steelcase knee brace review 2024",
-        "steelcase knee brace review 2025",
-        "steelcase knee brace review 2026"
+        "steelcase gesture review"
       ],
       "pages": [
         "/review/gesture/"
       ],
-      "totalImpressions": 115,
+      "totalImpressions": 304,
+      "totalClicks": 1,
+      "avgPosition": 1,
+      "clusterCTR": 0.33,
+      "intentType": "buyer",
+      "cannibalized": false,
+      "opportunityScore": 912
+    },
+    {
+      "fingerprint": "aeron-size",
+      "representativeQuery": "aeron c size",
+      "queries": [
+        "aeron c size"
+      ],
+      "pages": [
+        "/chairs/herman-miller-aeron/"
+      ],
+      "totalImpressions": 76,
       "totalClicks": 0,
-      "avgPosition": 6.3,
+      "avgPosition": 2,
+      "clusterCTR": 0,
+      "intentType": "brand",
+      "cannibalized": false,
+      "opportunityScore": 76
+    },
+    {
+      "fingerprint": "aeron-gesture",
+      "representativeQuery": "aeron vs gesture",
+      "queries": [
+        "aeron vs gesture"
+      ],
+      "pages": [
+        "/aeron-vs-gesture/"
+      ],
+      "totalImpressions": 53,
+      "totalClicks": 0,
+      "avgPosition": 2.1,
       "clusterCTR": 0,
       "intentType": "buyer",
       "cannibalized": false,
-      "opportunityScore": 55
+      "opportunityScore": 75.7
     },
     {
-      "fingerprint": "chair-cornell-ergonomics",
-      "representativeQuery": "cornell ergonomics chair seat depth two fingers behind knee",
+      "fingerprint": "big-rated-top",
+      "representativeQuery": "top rated big and tall office chairs",
       "queries": [
-        "cornell ergonomics chair seat height feet flat",
-        "cornell ergonomics chair seat depth 2 inches behind knees",
-        "cornell ergonomics chair seat depth 2-3 fingers behind knee",
-        "cornell ergonomics chair seat depth 2-3 fingers behind knees",
-        "cornell ergonomics chair seat depth two fingers behind knee",
-        "cornell ergonomics chair seat depth two fingers behind knees",
-        "cornell ergonomics chair seat pan depth 2-3 fingers behind knees"
+        "top rated big and tall office chairs"
       ],
       "pages": [
-        "/correct-chair-dimensions/",
-        "/knee-pain-seat-depth/",
-        "/review/sihoo-doro-s300/"
+        "/best-office-chairs/"
       ],
-      "totalImpressions": 165,
+      "totalImpressions": 174,
       "totalClicks": 0,
-      "avgPosition": 10.2,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": true,
-      "opportunityScore": 24.3
-    },
-    {
-      "fingerprint": "aeron-herman-miller",
-      "representativeQuery": "herman miller aeron size c reviews",
-      "queries": [
-        "herman miller aeron vs steelcase gesture comparison",
-        "herman miller aeron vs steelcase gesture",
-        "herman miller aeron vs steelcase leap",
-        "herman miller aeron c",
-        "herman miller aeron chair size c",
-        "herman miller aeron height range",
-        "herman miller aeron size c",
-        "herman miller aeron size c dimensions",
-        "herman miller aeron size c height range",
-        "herman miller aeron size c seat depth",
-        "herman miller aeron size c weight capacity",
-        "herman miller aeron size c weight limit",
-        "herman miller aeron tall",
-        "herman miller aeron tall person",
-        "herman miller aeron weight capacity size c",
-        "herman miller aeron size c for tall people",
-        "herman miller aeron size c recommended height",
-        "herman miller aeron size c recommended height range",
-        "herman miller aeron size c seat height range",
-        "herman miller aeron size c tall person",
-        "herman miller aeron (size c) () reviews",
-        "herman miller aeron chair size c () reviews",
-        "herman miller aeron size c () reviews",
-        "herman miller aeron size c review",
-        "herman miller aeron size c reviews"
-      ],
-      "pages": [
-        "/aeron-vs-gesture",
-        "/aeron-vs-gesture/",
-        "/aeron-vs-leap-plus/",
-        "/chairs/herman-miller-aeron/",
-        "/chairs/herman-miller-aeron/tall-people/",
-        "/review/aeron-size-c/"
-      ],
-      "totalImpressions": 88,
-      "totalClicks": 0,
-      "avgPosition": 17.8,
+      "avgPosition": 9,
       "clusterCTR": 0,
       "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 14.9
-    },
-    {
-      "fingerprint": "gesture-seat-steelcase",
-      "representativeQuery": "steelcase gesture seat depth adjustment range inches",
-      "queries": [
-        "steelcase gesture seat height",
-        "steelcase gesture seat height range",
-        "steelcase gesture seat height range cm",
-        "steelcase gesture seat depth",
-        "steelcase gesture seat depth adjustment range",
-        "steelcase gesture seat depth adjustment range inches",
-        "steelcase gesture seat depth range inches",
-        "steelcase gesture seat height range inches",
-        "steelcase gesture seat width depth dimensions"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/chairs/steelcase-gesture/seat-depth/",
-        "/chairs/steelcase-gesture/seat-height/",
-        "/review/gesture",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 109,
-      "totalClicks": 0,
-      "avgPosition": 15.1,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 14.4
+      "cannibalized": false,
+      "opportunityScore": 58
     },
     {
       "fingerprint": "leap-plus-steelcase",
       "representativeQuery": "steelcase leap plus",
       "queries": [
-        "steelcase leap plus",
-        "leap plus steelcase",
-        "steelcase leap plus chair",
-        "steelcase leap plus office chair",
-        "steelcase leap plus weight capacity 500 lbs",
-        "steelcase leap plus weight limit",
-        "steelcase leap plus big and tall",
-        "steelcase leap plus weight capacity",
-        "steelcase leap plus weight capacity seat width",
-        "steelcase leap plus review",
-        "steelcase leap plus reviews",
-        "steelcase leap plus weight capacity official"
+        "steelcase leap plus"
       ],
       "pages": [
         "/review/leap-plus/",
-        "/chairs/steelcase-leap-plus/seat-height/",
-        "/chairs/steelcase-leap-plus/",
-        "/chairs/steelcase-leap-plus/tall-people/"
+        "/chairs/steelcase-leap-plus/seat-height/"
       ],
-      "totalImpressions": 110,
+      "totalImpressions": 169,
       "totalClicks": 3,
-      "avgPosition": 22.1,
-      "clusterCTR": 2.73,
+      "avgPosition": 6,
+      "clusterCTR": 1.78,
       "intentType": "brand",
       "cannibalized": true,
-      "opportunityScore": 10
-    },
-    {
-      "fingerprint": "gesture-leap-steelcase",
-      "representativeQuery": "steelcase gesture vs leap",
-      "queries": [
-        "steelcase gesture or leap",
-        "steelcase gesture vs leap",
-        "steelcase gesture vs leap v2",
-        "steelcase leap gesture",
-        "steelcase leap or gesture",
-        "steelcase leap v2 vs gesture",
-        "steelcase leap vs gesture",
-        "steelcase leap vs gesture comparison"
-      ],
-      "pages": [
-        "/gesture-vs-leap-plus/"
-      ],
-      "totalImpressions": 69,
-      "totalClicks": 0,
-      "avgPosition": 33.8,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": false,
-      "opportunityScore": 6.1
-    },
-    {
-      "fingerprint": "best-chair-office",
-      "representativeQuery": "best office chair for tall person",
-      "queries": [
-        "best office chair for under 500",
-        "best office chair under $500",
-        "best office chair under 500",
-        "best office chair for tall",
-        "best office chair for tall men",
-        "best office chair for tall people",
-        "best office chair for tall person",
-        "best office chair tall",
-        "best office chair tall person",
-        "best office chair for back and leg pain",
-        "best office chair for knee pain",
-        "best office chair for leg swelling",
-        "best office chair for people over 6 feet",
-        "best office chair for chronic pain",
-        "best office chair for leg pain",
-        "best office chair for tall person with back pain"
-      ],
-      "pages": [
-        "/best-office-chairs-under-500/",
-        "/best-office-chairs/",
-        "/knee-pain-seat-depth/",
-        "/office-chairs-for-tall-people/",
-        "/pain-ergonomics/"
-      ],
-      "totalImpressions": 126,
-      "totalClicks": 0,
-      "avgPosition": 77.4,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 4.9
-    },
-    {
-      "fingerprint": "gesture-height-steelcase",
-      "representativeQuery": "steelcase gesture height range tall users",
-      "queries": [
-        "steelcase gesture height range",
-        "steelcase gesture height range tall users"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/chairs/steelcase-gesture/tall-people/",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 25,
-      "totalClicks": 0,
-      "avgPosition": 10.7,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 4.7
-    },
-    {
-      "fingerprint": "knee-pads-steelcase",
-      "representativeQuery": "steelcase knee pads review",
-      "queries": [
-        "steelcase knee pads review",
-        "steelcase knee pads review 2025"
-      ],
-      "pages": [
-        "/review/gesture/",
-        "/review/leap-plus/"
-      ],
-      "totalImpressions": 12,
-      "totalClicks": 0,
-      "avgPosition": 8.1,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 4.5
-    },
-    {
-      "fingerprint": "aeron-gesture",
-      "representativeQuery": "gesture vs aeron",
-      "queries": [
-        "aeron vs gesture",
-        "gesture vs aeron"
-      ],
-      "pages": [
-        "/aeron-vs-gesture",
-        "/aeron-vs-gesture/"
-      ],
-      "totalImpressions": 21,
-      "totalClicks": 0,
-      "avgPosition": 15.1,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 4.2
-    },
-    {
-      "fingerprint": "leap-seat-steelcase",
-      "representativeQuery": "steelcase leap seat height range 15.5 20.5",
-      "queries": [
-        "steelcase leap seat height 15.5 20.5",
-        "steelcase leap seat height range 15.5 20.5",
-        "steelcase leap seat height range inches",
-        "steelcase leap seat height range official",
-        "steelcase leap seat depth"
-      ],
-      "pages": [
-        "/chairs/steelcase-leap-plus/seat-height/",
-        "/chairs/steelcase-leap-plus/tall-people/"
-      ],
-      "totalImpressions": 19,
-      "totalClicks": 0,
-      "avgPosition": 12.7,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 3
-    },
-    {
-      "fingerprint": "gesture-herman-steelcase",
-      "representativeQuery": "steelcase gesture vs herman miller aeron for tall people",
-      "queries": [
-        "steelcase gesture vs herman miller aeron",
-        "steelcase gesture vs herman miller aeron for tall people"
-      ],
-      "pages": [
-        "/aeron-vs-gesture",
-        "/aeron-vs-gesture/",
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 17,
-      "totalClicks": 0,
-      "avgPosition": 17.3,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 2.9
-    },
-    {
-      "fingerprint": "chairs-office-steelcase",
-      "representativeQuery": "steelcase office chairs review evaluation 2025 2026",
-      "queries": [
-        "steelcase office chairs review evaluation 2025 2026"
-      ],
-      "pages": [
-        "/review/gesture/",
-        "/review/leap-plus/"
-      ],
-      "totalImpressions": 11,
-      "totalClicks": 0,
-      "avgPosition": 13.6,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 2.4
+      "opportunityScore": 56.3
     },
     {
       "fingerprint": "leap-steelcase-tall",
-      "representativeQuery": "steelcase leap v2 for tall people",
+      "representativeQuery": "steelcase leap v2 tall person",
       "queries": [
-        "steelcase leap v2 tall person",
-        "steelcase leap tall",
-        "steelcase leap v2 for tall people"
+        "steelcase leap v2 tall person"
       ],
       "pages": [
-        "/office-chairs-for-tall-people/",
-        "/chairs/steelcase-leap-plus/tall-people/",
-        "/review/leap-plus/"
+        "/office-chairs-for-tall-people/"
       ],
-      "totalImpressions": 16,
+      "totalImpressions": 197,
       "totalClicks": 1,
-      "avgPosition": 15.9,
-      "clusterCTR": 6.25,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 2
-    },
-    {
-      "fingerprint": "best-chairs-office",
-      "representativeQuery": "best office chairs for tall people",
-      "queries": [
-        "best office chairs under $500",
-        "best office chairs under 500",
-        "best office chairs for tall man",
-        "best office chairs for tall people"
-      ],
-      "pages": [
-        "/best-office-chairs-under-500/",
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 49,
-      "totalClicks": 0,
-      "avgPosition": 73.6,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 2
-    },
-    {
-      "fingerprint": "best-duty-heavy",
-      "representativeQuery": "best heavy duty ergonomic office chairs for tall people 192 cm 135 kg taller backrest",
-      "queries": [
-        "best heavy duty ergonomic office chairs for tall people 192 cm 135 kg taller backrest",
-        "best heavy duty ergonomic office chairs for tall users 192 cm 135 kg taller backrest"
-      ],
-      "pages": [
-        "/best-office-chairs/"
-      ],
-      "totalImpressions": 9,
-      "totalClicks": 0,
-      "avgPosition": 13.8,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": false,
-      "opportunityScore": 1.9
-    },
-    {
-      "fingerprint": "gesture-recommended-steelcase",
-      "representativeQuery": "steelcase gesture recommended user height range",
-      "queries": [
-        "steelcase gesture recommended user height range"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/seat-height/",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 8,
-      "totalClicks": 0,
-      "avgPosition": 8.7,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 1.8
-    },
-    {
-      "fingerprint": "360-gesture-steelcase",
-      "representativeQuery": "steelcase gesture 360 armrests description",
-      "queries": [
-        "steelcase gesture 360 armrests description",
-        "steelcase gesture 360 arms description"
-      ],
-      "pages": [
-        "/review/gesture/"
-      ],
-      "totalImpressions": 7,
-      "totalClicks": 0,
-      "avgPosition": 8.1,
-      "clusterCTR": 0,
+      "avgPosition": 7.5,
+      "clusterCTR": 0.51,
       "intentType": "brand",
       "cannibalized": false,
-      "opportunityScore": 1.7
+      "opportunityScore": 52.5
     },
     {
-      "fingerprint": "gesture-leap",
-      "representativeQuery": "leap vs gesture",
+      "fingerprint": "height-inch-seat",
+      "representativeQuery": "21 inch seat height armchair",
       "queries": [
-        "gesture vs leap",
-        "leap gesture",
-        "leap v2 vs gesture",
-        "leap vs gesture"
-      ],
-      "pages": [
-        "/gesture-vs-leap-plus/"
-      ],
-      "totalImpressions": 14,
-      "totalClicks": 0,
-      "avgPosition": 27.6,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": false,
-      "opportunityScore": 1.5
-    },
-    {
-      "fingerprint": "gesture-review-steelcase",
-      "representativeQuery": "steelcase gesture review",
-      "queries": [
-        "steelcase gesture review",
-        "gesture steelcase review",
-        "steelcase gesture review 2026",
-        "steelcase gesture review independent"
-      ],
-      "pages": [
-        "/review/gesture/",
-        "/chairs/steelcase-gesture/"
-      ],
-      "totalImpressions": 17,
-      "totalClicks": 1,
-      "avgPosition": 35.4,
-      "clusterCTR": 5.88,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 1.4
-    },
-    {
-      "fingerprint": "dimensions-gesture-steelcase",
-      "representativeQuery": "steelcase gesture dimensions seat depth official",
-      "queries": [
-        "steelcase gesture dimensions",
-        "steelcase gesture dimensions seat depth official"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/chairs/steelcase-gesture/seat-depth/",
-        "/chairs/steelcase-gesture/seat-height/",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 9,
-      "totalClicks": 0,
-      "avgPosition": 14.4,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 1.3
-    },
-    {
-      "fingerprint": "gesture-steelcase-tall",
-      "representativeQuery": "steelcase gesture for tall people",
-      "queries": [
-        "steelcase gesture for tall people"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/chairs/steelcase-gesture/tall-people/",
-        "/review/gesture"
-      ],
-      "totalImpressions": 7,
-      "totalClicks": 0,
-      "avgPosition": 10.5,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 1.3
-    },
-    {
-      "fingerprint": "aeron-chair-size",
-      "representativeQuery": "aeron chair size c",
-      "queries": [
-        "aeron chair size c",
-        "aeron chair size c dimensions",
-        "what size aeron chair should i get"
-      ],
-      "pages": [
-        "/chairs/herman-miller-aeron/",
-        "/chairs/herman-miller-aeron/tall-people/",
-        "/review/aeron-size-c/"
-      ],
-      "totalImpressions": 25,
-      "totalClicks": 0,
-      "avgPosition": 52,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 1
-    },
-    {
-      "fingerprint": "gesture-steelcase-weight",
-      "representativeQuery": "steelcase gesture weight capacity big and tall",
-      "queries": [
-        "steelcase gesture weight",
-        "steelcase gesture weight capacity big and tall",
-        "steelcase gesture weight limit",
-        "steelcase gesture weight capacity official"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/chairs/steelcase-gesture/seat-height/",
-        "/chairs/steelcase-gesture/tall-people/",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 13,
-      "totalClicks": 0,
-      "avgPosition": 28.9,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 0.9
-    },
-    {
-      "fingerprint": "average-dimensions-person",
-      "representativeQuery": "average dimensions of person sitting",
-      "queries": [
-        "average dimensions of person sitting"
+        "21 inch seat height armchair"
       ],
       "pages": [
         "/correct-chair-dimensions/"
       ],
-      "totalImpressions": 37,
+      "totalImpressions": 229,
       "totalClicks": 0,
-      "avgPosition": 59.7,
+      "avgPosition": 7,
       "clusterCTR": 0,
       "intentType": "spec",
       "cannibalized": false,
-      "opportunityScore": 0.9
-    },
-    {
-      "fingerprint": "chair-dimensions-office",
-      "representativeQuery": "office chair dimensions",
-      "queries": [
-        "dimensions of an office chair",
-        "dimensions of office chair",
-        "dimensions office chair",
-        "office chair dimensions",
-        "office chair dimensions in inches",
-        "office chair dimensions in meters",
-        "office chair dimensions in mm"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 34,
-      "totalClicks": 0,
-      "avgPosition": 53.9,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": false,
-      "opportunityScore": 0.9
-    },
-    {
-      "fingerprint": "chair-gesture-steelcase",
-      "representativeQuery": "steelcase gesture chair review",
-      "queries": [
-        "steelcase gesture chair vs herman miller aeron",
-        "steelcase gesture chair review"
-      ],
-      "pages": [
-        "/aeron-vs-gesture",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 9,
-      "totalClicks": 0,
-      "avgPosition": 40.5,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.7
-    },
-    {
-      "fingerprint": "aeron-size",
-      "representativeQuery": "aeron size c",
-      "queries": [
-        "aeron c size",
-        "aeron size c",
-        "size c aeron"
-      ],
-      "pages": [
-        "/chairs/herman-miller-aeron/",
-        "/review/aeron-size-c/"
-      ],
-      "totalImpressions": 13,
-      "totalClicks": 0,
-      "avgPosition": 38.4,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 0.7
-    },
-    {
-      "fingerprint": "armrests-gesture-steelcase",
-      "representativeQuery": "steelcase gesture 4d armrests description",
-      "queries": [
-        "steelcase gesture 4d armrests description",
-        "steelcase gesture armrests 4d",
-        "steelcase gesture armrests 360 degrees"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 8.3,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 0.7
-    },
-    {
-      "fingerprint": "chair-leap-steelcase",
-      "representativeQuery": "steelcase leap chair plus",
-      "queries": [
-        "steelcase leap chair plus",
-        "steelcase leap chair seat height range 15.5 20.5",
-        "steelcase leap chair seat height range official",
-        "steelcase leap chair weight limit"
-      ],
-      "pages": [
-        "/chairs/steelcase-leap-plus/",
-        "/chairs/steelcase-leap-plus/seat-height/",
-        "/review/leap-plus/"
-      ],
-      "totalImpressions": 8,
-      "totalClicks": 0,
-      "avgPosition": 24.3,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 0.7
-    },
-    {
-      "fingerprint": "chair-office-tall",
-      "representativeQuery": "office chair for tall person",
-      "queries": [
-        "office chair for tall",
-        "office chair for tall person",
-        "office chair tall",
-        "office chair tall people",
-        "office chair for tall man",
-        "office chair for tall men",
-        "office chair for tall people",
-        "office chair tall person"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 37,
-      "totalClicks": 0,
-      "avgPosition": 64.3,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.6
-    },
-    {
-      "fingerprint": "chairs-office-tall",
-      "representativeQuery": "office chairs for tall people",
-      "queries": [
-        "office chairs for tall",
-        "office chairs for tall people",
-        "office chairs tall people"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 38,
-      "totalClicks": 0,
-      "avgPosition": 68.1,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.6
-    },
-    {
-      "fingerprint": "best-office-tall",
-      "representativeQuery": "best tall office chair",
-      "queries": [
-        "best tall office chair",
-        "best tall office chairs"
-      ],
-      "pages": [
-        "/best-office-chairs/"
-      ],
-      "totalImpressions": 10,
-      "totalClicks": 0,
-      "avgPosition": 64.6,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": false,
-      "opportunityScore": 0.5
-    },
-    {
-      "fingerprint": "gesture-reviews-steelcase",
-      "representativeQuery": "steelcase gesture reviews",
-      "queries": [
-        "steelcase gesture reviews"
-      ],
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 8,
-      "totalClicks": 0,
-      "avgPosition": 46,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.5
-    },
-    {
-      "fingerprint": "chair-leap-plus",
-      "representativeQuery": "leap plus chair",
-      "queries": [
-        "leap plus chair"
-      ],
-      "pages": [
-        "/chairs/steelcase-leap-plus/",
-        "/review/leap-plus/"
-      ],
-      "totalImpressions": 7,
-      "totalClicks": 0,
-      "avgPosition": 29.5,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 0.5
-    },
-    {
-      "fingerprint": "leap-plus",
-      "representativeQuery": "leap plus",
-      "queries": [
-        "leap plus"
-      ],
-      "pages": [
-        "/chairs/steelcase-leap-plus/seat-height/",
-        "/chairs/steelcase-leap-plus/tall-people/",
-        "/gesture-vs-leap-plus/",
-        "/review/leap-plus/"
-      ],
-      "totalImpressions": 8,
-      "totalClicks": 0,
-      "avgPosition": 30.9,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 0.5
-    },
-    {
-      "fingerprint": "leap-leap-steelcase",
-      "representativeQuery": "steelcase leap vs leap plus",
-      "queries": [
-        "steelcase leap vs leap plus"
-      ],
-      "pages": [
-        "/gesture-vs-leap-plus/",
-        "/review/leap-plus/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 18.3,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.5
-    },
-    {
-      "fingerprint": "best-ergonomic-office",
-      "representativeQuery": "best ergonomic office chair for tall person",
-      "queries": [
-        "best ergonomic office chairs 2025 herman miller aeron steelcase gesture review",
-        "best ergonomic office chairs under $500",
-        "best ergonomic office chair for tall person",
-        "best ergonomic office chairs for tall people",
-        "best ergonomic office chair for tall people"
-      ],
-      "pages": [
-        "/aeron-vs-gesture/",
-        "/best-office-chairs-under-500/",
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 7,
-      "totalClicks": 0,
-      "avgPosition": 56.7,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.4
-    },
-    {
-      "fingerprint": "budget-ergonomic-friendly",
-      "representativeQuery": "budget friendly ergonomic office chair suitable for tall people",
-      "queries": [
-        "budget friendly ergonomic office chair suitable for tall people"
-      ],
-      "pages": [
-        "/best-office-chairs-under-500/",
-        "/best-office-chairs/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 34,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.3
-    },
-    {
-      "fingerprint": "chair-desk-tall",
-      "representativeQuery": "desk chair for tall person",
-      "queries": [
-        "desk chair for tall person"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 22,
-      "totalClicks": 0,
-      "avgPosition": 87.3,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.3
-    },
-    {
-      "fingerprint": "aeron-dimensions-size",
-      "representativeQuery": "aeron size c dimensions",
-      "queries": [
-        "aeron size c dimensions"
-      ],
-      "pages": [
-        "/chairs/herman-miller-aeron/",
-        "/review/aeron-size-c/"
-      ],
-      "totalImpressions": 5,
-      "totalClicks": 0,
-      "avgPosition": 34.6,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": true,
-      "opportunityScore": 0.3
-    },
-    {
-      "fingerprint": "chair-dimensions",
-      "representativeQuery": "chair dimensions",
-      "queries": [
-        "chair dimensions",
-        "dimensions for a chair",
-        "dimensions of a chair",
-        "dimensions of chair"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 13,
-      "totalClicks": 0,
-      "avgPosition": 58.3,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": false,
-      "opportunityScore": 0.3
-    },
-    {
-      "fingerprint": "equipment-research-user",
-      "representativeQuery": "user research equipment for tall people",
-      "queries": [
-        "user research equipment for tall people"
-      ],
-      "pages": [
-        "/office-chairs-for-tall-people",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 8,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.3
-    },
-    {
-      "fingerprint": "best-conference-room",
-      "representativeQuery": "what are the best conference room chairs for comfort and style?",
-      "queries": [
-        "what are the best conference room chairs for comfort and style?"
-      ],
-      "pages": [
-        "/aeron-vs-gesture/",
-        "/images/aeron-vs-gesture-comparison.webp"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 28,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.2
-    },
-    {
-      "fingerprint": "aeron-steelcase",
-      "representativeQuery": "aeron vs steelcase",
-      "queries": [
-        "aeron vs steelcase",
-        "steelcase vs aeron"
-      ],
-      "pages": [
-        "/aeron-vs-leap-plus/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 39,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": false,
-      "opportunityScore": 0.2
-    },
-    {
-      "fingerprint": "correct-lumbar-support",
-      "representativeQuery": "correct lumbar support height",
-      "queries": [
-        "correct lumbar support height"
-      ],
-      "pages": [
-        "/back-pain-spine-height/",
-        "/fit-guides/"
-      ],
-      "totalImpressions": 9,
-      "totalClicks": 0,
-      "avgPosition": 55.8,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": true,
-      "opportunityScore": 0.2
+      "opportunityScore": 49.1
     },
     {
       "fingerprint": "adjustment-gesture-steelcase",
@@ -1675,274 +846,30 @@
         "/chairs/steelcase-gesture/seat-depth/",
         "/chairs/steelcase-gesture/seat-height/"
       ],
-      "totalImpressions": 3,
+      "totalImpressions": 118,
       "totalClicks": 0,
-      "avgPosition": 38.8,
+      "avgPosition": 6.5,
       "clusterCTR": 0,
       "intentType": "brand",
       "cannibalized": true,
-      "opportunityScore": 0.2
+      "opportunityScore": 36
     },
     {
-      "fingerprint": "chair-dimension",
-      "representativeQuery": "dimension chair",
+      "fingerprint": "gesture-leap",
+      "representativeQuery": "gesture vs leap",
       "queries": [
-        "chair dimension",
-        "dimension chair"
+        "gesture vs leap"
       ],
       "pages": [
-        "/correct-chair-dimensions/"
+        "/gesture-vs-leap-plus/"
       ],
-      "totalImpressions": 7,
+      "totalImpressions": 89,
       "totalClicks": 0,
-      "avgPosition": 42.4,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0.2
-    },
-    {
-      "fingerprint": "chair-size",
-      "representativeQuery": "chair size",
-      "queries": [
-        "chair size",
-        "size of a chair",
-        "size of chair"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 15,
-      "totalClicks": 0,
-      "avgPosition": 70.5,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0.2
-    },
-    {
-      "fingerprint": "chair-dimension-office",
-      "representativeQuery": "office chair dimension",
-      "queries": [
-        "dimension of office chair",
-        "office chair dimension"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 11,
-      "totalClicks": 0,
-      "avgPosition": 52.5,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0.2
-    },
-    {
-      "fingerprint": "chair-office-standard",
-      "representativeQuery": "standard office chair dimensions",
-      "queries": [
-        "office chair standard size",
-        "standard office chair dimensions",
-        "standard office chair height cm",
-        "standard office chair seat height",
-        "standard office chair size",
-        "standard office chair width"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 10,
-      "totalClicks": 0,
-      "avgPosition": 66,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": false,
-      "opportunityScore": 0.2
-    },
-    {
-      "fingerprint": "gesture-office-steelcase",
-      "representativeQuery": "steelcase gesture office chair review",
-      "queries": [
-        "steelcase gesture office chair review",
-        "steelcase gesture office chair reviews"
-      ],
-      "pages": [
-        "/review/gesture/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 43.8,
+      "avgPosition": 8,
       "clusterCTR": 0,
       "intentType": "buyer",
       "cannibalized": false,
-      "opportunityScore": 0.2
-    },
-    {
-      "fingerprint": "ergon-escritorio-sillas",
-      "representativeQuery": "sillas de escritorio ergonómicas",
-      "queries": [
-        "sillas de escritorio ergonómicas"
-      ],
-      "pages": [
-        "/aeron-vs-gesture/",
-        "/images/aeron-vs-gesture-comparison.webp"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 18,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "bureau-ergonomique",
-      "representativeQuery": "siège ergonomique bureau",
-      "queries": [
-        "siège ergonomique bureau"
-      ],
-      "pages": [
-        "/aeron-vs-gesture/",
-        "/images/aeron-vs-gesture-comparison.webp"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 21,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "gesture-steelcase",
-      "representativeQuery": "steelcase gesture vs",
-      "queries": [
-        "steelcase gesture vs",
-        "gesture by steelcase"
-      ],
-      "pages": [
-        "/aeron-vs-gesture/",
-        "/review/gesture/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 40.5,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "aeron-leap",
-      "representativeQuery": "aeron vs leap",
-      "queries": [
-        "aeron vs leap",
-        "leap v2 vs aeron"
-      ],
-      "pages": [
-        "/aeron-vs-leap-plus/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 41.5,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "best-chairs-tall",
-      "representativeQuery": "best chairs for tall people",
-      "queries": [
-        "best chairs for tall people"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 85.3,
-      "clusterCTR": 0,
-      "intentType": "buyer",
-      "cannibalized": true,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-people-tall",
-      "representativeQuery": "chair for tall people",
-      "queries": [
-        "chair for tall people",
-        "tall people chair"
-      ],
-      "pages": [
-        "/best-office-chairs/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 44,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-person-tall",
-      "representativeQuery": "chair for tall person",
-      "queries": [
-        "chair for tall person",
-        "tall person chair"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 7,
-      "totalClicks": 0,
-      "avgPosition": 68,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chairs-people-tall",
-      "representativeQuery": "chairs for tall people",
-      "queries": [
-        "chairs for tall people",
-        "tall people chairs"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 7,
-      "totalClicks": 0,
-      "avgPosition": 63.9,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-ergonomic-tall",
-      "representativeQuery": "ergonomic chair for tall people",
-      "queries": [
-        "ergonomic chair for tall people",
-        "ergonomic chair tall person"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 4,
-      "totalClicks": 0,
-      "avgPosition": 79,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0.1
+      "opportunityScore": 33.4
     },
     {
       "fingerprint": "aeron-chair-sizes",
@@ -1954,971 +881,342 @@
         "/chairs/herman-miller-aeron/tall-people/",
         "/review/aeron-size-c/"
       ],
-      "totalImpressions": 2,
+      "totalImpressions": 81,
       "totalClicks": 0,
-      "avgPosition": 70.5,
+      "avgPosition": 5.5,
       "clusterCTR": 0,
       "intentType": "brand",
       "cannibalized": true,
-      "opportunityScore": 0.1
+      "opportunityScore": 29.5
     },
     {
-      "fingerprint": "height-leap-steelcase",
-      "representativeQuery": "steelcase leap height",
+      "fingerprint": "best-chair-office",
+      "representativeQuery": "best office chair for back and leg pain",
       "queries": [
-        "steelcase leap height",
-        "steelcase leap v2 height range"
-      ],
-      "pages": [
-        "/chairs/steelcase-leap-plus/seat-height/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 43,
-      "clusterCTR": 0,
-      "intentType": "brand",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "height-inch-seat",
-      "representativeQuery": "21 inch seat height chair",
-      "queries": [
-        "21 inch seat height armchair",
-        "21 inch seat height chair"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 64.8,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-dimensions-standard",
-      "representativeQuery": "chair dimensions standard",
-      "queries": [
-        "chair dimensions standard",
-        "standard chair dimensions in inches"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 59.5,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-measurement",
-      "representativeQuery": "measurement of a chair",
-      "queries": [
-        "chair measurement",
-        "measurement of a chair"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 4,
-      "totalClicks": 0,
-      "avgPosition": 73.7,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chairs-dimensions",
-      "representativeQuery": "dimensions for chairs",
-      "queries": [
-        "chairs dimensions",
-        "dimensions for chairs"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 4,
-      "totalClicks": 0,
-      "avgPosition": 50,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-office-seat",
-      "representativeQuery": "office chair seat dimensions",
-      "queries": [
-        "office chair seat dimensions",
-        "office chair with seat depth adjustment"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/",
-        "/how-to-adjust-chair/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 45,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": true,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-office-size",
-      "representativeQuery": "office chair size",
-      "queries": [
-        "office chair size",
-        "office chair size chart"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 5,
-      "totalClicks": 0,
-      "avgPosition": 52,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "chair-height-raise",
-      "representativeQuery": "how to raise a chair height",
-      "queries": [
-        "how to raise a chair height",
-        "how to raise chair height",
-        "how to raise height of chair"
-      ],
-      "pages": [
-        "/how-to-adjust-chair/"
-      ],
-      "totalImpressions": 4,
-      "totalClicks": 0,
-      "avgPosition": 69.8,
-      "clusterCTR": 0,
-      "intentType": "spec",
-      "cannibalized": false,
-      "opportunityScore": 0.1
-    },
-    {
-      "fingerprint": "cause-chair-office",
-      "representativeQuery": "can my office chair cause leg pain",
-      "queries": [
-        "can my office chair cause leg pain"
+        "best office chair for back and leg pain",
+        "best office chair for chronic pain"
       ],
       "pages": [
         "/knee-pain-seat-depth/",
         "/pain-ergonomics/"
       ],
-      "totalImpressions": 4,
+      "totalImpressions": 249,
       "totalClicks": 0,
-      "avgPosition": 70,
+      "avgPosition": 31.3,
       "clusterCTR": 0,
-      "intentType": "informational",
+      "intentType": "buyer",
       "cannibalized": true,
-      "opportunityScore": 0.1
+      "opportunityScore": 23.8
     },
     {
-      "fingerprint": "height-standing",
-      "representativeQuery": "height standing",
+      "fingerprint": "armrests-gesture-steelcase",
+      "representativeQuery": "steelcase gesture 4d armrests description",
       "queries": [
-        "height standing",
-        "standing height"
+        "steelcase gesture 4d armrests description"
       ],
       "pages": [
-        "/standing-desk-height-tall-people/"
+        "/chairs/steelcase-gesture/"
       ],
-      "totalImpressions": 2,
+      "totalImpressions": 34,
       "totalClicks": 0,
-      "avgPosition": 53.5,
+      "avgPosition": 7,
       "clusterCTR": 0,
-      "intentType": "spec",
+      "intentType": "brand",
       "cannibalized": false,
-      "opportunityScore": 0.1
+      "opportunityScore": 9.7
     },
     {
-      "fingerprint": "chairs-ergonomic-tall",
-      "representativeQuery": "ergonomic chairs for tall people",
+      "fingerprint": "best-chair-computer",
+      "representativeQuery": "best computer chair for tall people",
       "queries": [
-        "ergonomic chairs for tall people"
+        "best computer chair for tall people"
       ],
       "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
+        "/best-office-chairs-under-500/"
       ],
-      "totalImpressions": 2,
+      "totalImpressions": 31,
       "totalClicks": 0,
-      "avgPosition": 86,
+      "avgPosition": 9.8,
       "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0
-    },
-    {
-      "fingerprint": "chair-good-office",
-      "representativeQuery": "good office chair for tall person",
-      "queries": [
-        "good office chair for tall person"
-      ],
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 75,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0
-    },
-    {
-      "fingerprint": "chair-size-standard",
-      "representativeQuery": "chair standard size in feet",
-      "queries": [
-        "chair standard size in feet",
-        "standard chair size",
-        "standard size of a chair"
-      ],
-      "pages": [
-        "/correct-chair-dimensions/"
-      ],
-      "totalImpressions": 3,
-      "totalClicks": 0,
-      "avgPosition": 79,
-      "clusterCTR": 0,
-      "intentType": "informational",
+      "intentType": "buyer",
       "cannibalized": false,
-      "opportunityScore": 0
-    },
-    {
-      "fingerprint": "adjust-chair-office",
-      "representativeQuery": "how to adjust my office chair",
-      "queries": [
-        "how to adjust my office chair",
-        "how to adjust office chair height"
-      ],
-      "pages": [
-        "/how-to-adjust-chair/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 84,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0
-    },
-    {
-      "fingerprint": "chair-knee-office",
-      "representativeQuery": "office chair for knee pain",
-      "queries": [
-        "office chair for knee pain",
-        "office chair knee pain"
-      ],
-      "pages": [
-        "/knee-pain-seat-depth/"
-      ],
-      "totalImpressions": 2,
-      "totalClicks": 0,
-      "avgPosition": 59.5,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": false,
-      "opportunityScore": 0
-    },
-    {
-      "fingerprint": "chair-leg-office",
-      "representativeQuery": "office chair for leg pain",
-      "queries": [
-        "office chair for leg pain"
-      ],
-      "pages": [
-        "/knee-pain-seat-depth/",
-        "/pain-ergonomics/"
-      ],
-      "totalImpressions": 4,
-      "totalClicks": 0,
-      "avgPosition": 89.3,
-      "clusterCTR": 0,
-      "intentType": "informational",
-      "cannibalized": true,
-      "opportunityScore": 0
+      "opportunityScore": 9.5
     }
   ],
   "cannibalization": [
     {
-      "query": "best office chair for tall person",
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "positions": [
-        81.3,
-        63.7
-      ],
-      "impressions": 65,
-      "risk": "medium"
-    },
-    {
       "query": "steelcase leap plus",
       "pages": [
         "/review/leap-plus/",
-        "/chairs/steelcase-leap-plus/seat-height/",
-        "/chairs/steelcase-leap-plus/",
-        "/chairs/steelcase-leap-plus/tall-people/"
+        "/chairs/steelcase-leap-plus/seat-height/"
       ],
       "positions": [
-        20,
-        58.3,
-        45.7,
-        44
+        6,
+        6
       ],
-      "impressions": 52,
-      "risk": "medium"
-    },
-    {
-      "query": "best office chairs for tall people",
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "positions": [
-        79.4,
-        63.7
-      ],
-      "impressions": 37,
-      "risk": "medium"
-    },
-    {
-      "query": "steelcase gesture seat height range",
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/chairs/steelcase-gesture/seat-depth/",
-        "/chairs/steelcase-gesture/seat-height/",
-        "/review/gesture/"
-      ],
-      "positions": [
-        41.7,
-        8.4,
-        11,
-        8
-      ],
-      "impressions": 34,
-      "risk": "medium"
-    },
-    {
-      "query": "best office chair for tall people",
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "positions": [
-        81,
-        61.5
-      ],
-      "impressions": 33,
-      "risk": "medium"
-    },
-    {
-      "query": "office chairs for tall people",
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "positions": [
-        74,
-        80.4
-      ],
-      "impressions": 26,
-      "risk": "medium"
-    },
-    {
-      "query": "steelcase gesture height range tall users",
-      "pages": [
-        "/chairs/steelcase-gesture/",
-        "/chairs/steelcase-gesture/tall-people/",
-        "/review/gesture/"
-      ],
-      "positions": [
-        11.6,
-        12,
-        8.3
-      ],
-      "impressions": 24,
+      "impressions": 169,
       "risk": "high"
     },
     {
-      "query": "steelcase gesture seat depth range inches",
+      "query": "steelcase gesture adjustment guide",
       "pages": [
         "/chairs/steelcase-gesture/seat-depth/",
-        "/review/gesture"
+        "/chairs/steelcase-gesture/seat-height/"
       ],
       "positions": [
-        4.2,
+        4.1,
         9
       ],
-      "impressions": 24,
+      "impressions": 118,
       "risk": "high"
     },
     {
-      "query": "desk chair for tall person",
+      "query": "aeron chair sizes how to tell",
       "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people",
-        "/office-chairs-for-tall-people/"
+        "/chairs/herman-miller-aeron/tall-people/",
+        "/review/aeron-size-c/"
       ],
       "positions": [
-        97,
-        92.1,
-        72.9
+        6,
+        5
       ],
-      "impressions": 22,
-      "risk": "medium"
-    },
-    {
-      "query": "office chair for tall person",
-      "pages": [
-        "/best-office-chairs/",
-        "/office-chairs-for-tall-people/"
-      ],
-      "positions": [
-        60,
-        73.6
-      ],
-      "impressions": 20,
-      "risk": "medium"
-    },
-    {
-      "query": "herman miller aeron size c height range",
-      "pages": [
-        "/chairs/herman-miller-aeron/",
-        "/chairs/herman-miller-aeron/tall-people/"
-      ],
-      "positions": [
-        8.8,
-        9.3
-      ],
-      "impressions": 18,
-      "risk": "high"
-    },
-    {
-      "query": "cornell ergonomics chair seat depth 2-3 fingers behind knees",
-      "pages": [
-        "/knee-pain-seat-depth/",
-        "/review/sihoo-doro-s300/"
-      ],
-      "positions": [
-        10.9,
-        12
-      ],
-      "impressions": 17,
+      "impressions": 81,
       "risk": "high"
     }
   ],
   "affiliateOpportunities": [
     {
       "page": "/review/gesture/",
-      "buyerIntentImpressions": 182,
+      "buyerIntentImpressions": 304,
       "topBuyerQueries": [
-        "steelcase knee brace review",
-        "steelcase knee brace review 2026",
         "steelcase gesture review"
       ],
-      "affiliateUrgency": "medium"
+      "affiliateUrgency": "high"
+    },
+    {
+      "page": "/knee-pain-seat-depth/",
+      "buyerIntentImpressions": 221,
+      "topBuyerQueries": [
+        "best office chair for back and leg pain"
+      ],
+      "affiliateUrgency": "high"
     },
     {
       "page": "/best-office-chairs/",
-      "buyerIntentImpressions": 113,
+      "buyerIntentImpressions": 174,
       "topBuyerQueries": [
-        "best office chairs for tall people",
-        "best office chair for tall person",
-        "best office chair tall person"
-      ],
-      "affiliateUrgency": "medium"
-    },
-    {
-      "page": "/office-chairs-for-tall-people/",
-      "buyerIntentImpressions": 75,
-      "topBuyerQueries": [
-        "best office chair for tall people",
-        "best office chair for tall person",
-        "best office chairs for tall people"
+        "top rated big and tall office chairs"
       ],
       "affiliateUrgency": "medium"
     },
     {
       "page": "/gesture-vs-leap-plus/",
-      "buyerIntentImpressions": 75,
+      "buyerIntentImpressions": 89,
       "topBuyerQueries": [
-        "steelcase gesture vs leap",
-        "steelcase leap vs gesture",
-        "leap vs gesture"
+        "gesture vs leap"
       ],
       "affiliateUrgency": "medium"
     },
     {
       "page": "/aeron-vs-gesture/",
-      "buyerIntentImpressions": 27,
+      "buyerIntentImpressions": 53,
       "topBuyerQueries": [
-        "gesture vs aeron",
-        "aeron vs gesture",
-        "steelcase gesture vs herman miller aeron for tall people"
+        "aeron vs gesture"
+      ],
+      "affiliateUrgency": "medium"
+    },
+    {
+      "page": "/best-office-chairs-under-500/",
+      "buyerIntentImpressions": 31,
+      "topBuyerQueries": [
+        "best computer chair for tall people"
       ],
       "affiliateUrgency": "low"
     },
     {
-      "page": "/review/aeron-size-c/",
-      "buyerIntentImpressions": 26,
+      "page": "/pain-ergonomics/",
+      "buyerIntentImpressions": 28,
       "topBuyerQueries": [
-        "herman miller aeron size c reviews",
-        "herman miller aeron size c () reviews",
-        "herman miller aeron size c review"
+        "best office chair for chronic pain"
       ],
       "affiliateUrgency": "low"
     }
   ],
   "executiveSummary": {
-    "weeklyMomentum": "Trend data unavailable (requires 14+ daily data points)",
-    "topOpportunity": "/correct-chair-dimensions/: content-depth (score 711) — pos 16.7 with 1422 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade",
-    "biggestLeak": "/review/gesture/ | \"steelcase knee brace review\" | 91 impr, pos 7.3, 0% CTR (expected 3%) | ~0.21 clicks/wk lost",
-    "affiliateAlert": null,
-    "cannibalizationAlert": "\"steelcase gesture height range tall users\" ranking from 3 pages: /chairs/steelcase-gesture/, /chairs/steelcase-gesture/tall-people/, /review/gesture/",
+    "weeklyMomentum": "Impressions up 29.1% WoW (3582 vs 2774), clicks up 125% (9 vs 4), avg position stable",
+    "topOpportunity": "/correct-chair-dimensions/: content-depth (score 829) — pos 16.1 with 1658 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade",
+    "biggestLeak": "/review/gesture/ | \"steelcase gesture review\" | 304 impr, pos 1, 8.33% CTR (expected 35%) | ~6.31 clicks/wk lost",
+    "affiliateAlert": "/review/gesture/: 304 buyer-intent impr | queries: steelcase gesture review",
+    "cannibalizationAlert": "\"steelcase leap plus\" ranking from 2 pages: /review/leap-plus/, /chairs/steelcase-leap-plus/seat-height/",
     "aioSuspects": 2
   },
-  "queryEntropy": [
-    {
-      "page": "/correct-chair-dimensions/",
-      "entropy": 4.436,
-      "queryCount": 48,
-      "regime": "fragmented"
-    },
-    {
-      "page": "/office-chairs-for-tall-people/",
-      "entropy": 3.299,
-      "queryCount": 23,
-      "regime": "balanced"
-    },
-    {
-      "page": "/how-to-adjust-chair/",
-      "entropy": 3.239,
-      "queryCount": 11,
-      "regime": "balanced"
-    },
-    {
-      "page": "/best-office-chairs/",
-      "entropy": 3.191,
-      "queryCount": 20,
-      "regime": "balanced"
-    },
-    {
-      "page": "/aeron-vs-gesture/",
-      "entropy": 3.17,
-      "queryCount": 16,
-      "regime": "balanced"
-    },
-    {
-      "page": "/review/gesture/",
-      "entropy": 3.041,
-      "queryCount": 24,
-      "regime": "balanced"
-    },
-    {
-      "page": "/chairs/herman-miller-aeron/",
-      "entropy": 2.551,
-      "queryCount": 11,
-      "regime": "balanced"
-    },
-    {
-      "page": "/chairs/steelcase-gesture/",
-      "entropy": 2.516,
-      "queryCount": 8,
-      "regime": "balanced"
-    },
-    {
-      "page": "/aeron-vs-leap-plus/",
-      "entropy": 2.397,
-      "queryCount": 7,
-      "regime": "balanced"
-    },
-    {
-      "page": "/standing-desk-height-tall-people/",
-      "entropy": 2.39,
-      "queryCount": 9,
-      "regime": "balanced"
-    },
-    {
-      "page": "/chairs/steelcase-gesture/seat-height/",
-      "entropy": 1.898,
-      "queryCount": 6,
-      "regime": "balanced"
-    },
-    {
-      "page": "/best-office-chairs-under-500/",
-      "entropy": 1.879,
-      "queryCount": 6,
-      "regime": "balanced"
-    },
-    {
-      "page": "/chairs/steelcase-leap-plus/tall-people/",
-      "entropy": 1.736,
-      "queryCount": 5,
-      "regime": "balanced"
-    },
-    {
-      "page": "/chairs/steelcase-leap-plus/seat-height/",
-      "entropy": 1.6,
-      "queryCount": 5,
-      "regime": "balanced"
-    },
-    {
-      "page": "/images/aeron-vs-gesture-comparison.webp",
-      "entropy": 1.585,
-      "queryCount": 3,
-      "regime": "balanced"
-    },
-    {
-      "page": "/back-pain-spine-height/",
-      "entropy": 1.522,
-      "queryCount": 4,
-      "regime": "balanced"
-    },
-    {
-      "page": "/aeron-vs-gesture",
-      "entropy": 1.426,
-      "queryCount": 4,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/chairs/steelcase-gesture/tall-people/",
-      "entropy": 1.371,
-      "queryCount": 3,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/review/aeron-size-c/",
-      "entropy": 1.322,
-      "queryCount": 6,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/review/leap-plus/",
-      "entropy": 1.313,
-      "queryCount": 9,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/pain-ergonomics/",
-      "entropy": 1.252,
-      "queryCount": 3,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/chairs/herman-miller-aeron/tall-people/",
-      "entropy": 1.06,
-      "queryCount": 6,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/fit-guides/",
-      "entropy": 1,
-      "queryCount": 2,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/review/gesture",
-      "entropy": 1,
-      "queryCount": 2,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/review/sihoo-doro-s300/",
-      "entropy": 1,
-      "queryCount": 2,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/chairs/steelcase-leap-plus/",
-      "entropy": 0.834,
-      "queryCount": 3,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/gesture-vs-leap-plus/",
-      "entropy": 0.824,
-      "queryCount": 4,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/office-chairs-for-tall-people",
-      "entropy": 0.544,
-      "queryCount": 2,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/knee-pain-seat-depth/",
-      "entropy": 0.52,
-      "queryCount": 7,
-      "regime": "concentrated"
-    },
-    {
-      "page": "/chairs/steelcase-gesture/seat-depth/",
-      "entropy": 0.425,
-      "queryCount": 3,
-      "regime": "concentrated"
-    }
-  ],
+  "queryEntropy": [],
   "impressionGravity": [
     {
       "page": "/review/gesture/",
-      "clusterCount": 15,
-      "totalImpressions": 1895,
-      "gravityScore": 113.2,
-      "hubCandidate": true
-    },
-    {
-      "page": "/best-office-chairs/",
-      "clusterCount": 17,
-      "totalImpressions": 694,
-      "gravityScore": 111.22,
-      "hubCandidate": true
-    },
-    {
-      "page": "/correct-chair-dimensions/",
-      "clusterCount": 15,
-      "totalImpressions": 1422,
-      "gravityScore": 108.9,
-      "hubCandidate": true
-    },
-    {
-      "page": "/office-chairs-for-tall-people/",
-      "clusterCount": 15,
-      "totalImpressions": 570,
-      "gravityScore": 95.18,
-      "hubCandidate": true
-    },
-    {
-      "page": "/review/leap-plus/",
-      "clusterCount": 8,
-      "totalImpressions": 632,
-      "gravityScore": 51.59,
-      "hubCandidate": true
-    },
-    {
-      "page": "/chairs/steelcase-gesture/",
-      "clusterCount": 8,
-      "totalImpressions": 384,
-      "gravityScore": 47.61,
-      "hubCandidate": true
-    },
-    {
-      "page": "/aeron-vs-gesture/",
-      "clusterCount": 8,
-      "totalImpressions": 348,
-      "gravityScore": 46.82,
-      "hubCandidate": true
+      "clusterCount": 1,
+      "totalImpressions": 2589,
+      "gravityScore": 7.86,
+      "hubCandidate": false
     },
     {
       "page": "/knee-pain-seat-depth/",
-      "clusterCount": 5,
-      "totalImpressions": 1524,
-      "gravityScore": 36.65,
+      "clusterCount": 1,
+      "totalImpressions": 1925,
+      "gravityScore": 7.56,
       "hubCandidate": false
     },
     {
-      "page": "/review/aeron-size-c/",
-      "clusterCount": 5,
-      "totalImpressions": 548,
-      "gravityScore": 31.53,
-      "hubCandidate": false
-    },
-    {
-      "page": "/chairs/steelcase-leap-plus/seat-height/",
-      "clusterCount": 5,
-      "totalImpressions": 323,
-      "gravityScore": 28.89,
-      "hubCandidate": false
-    },
-    {
-      "page": "/chairs/steelcase-gesture/seat-height/",
-      "clusterCount": 5,
-      "totalImpressions": 137,
-      "gravityScore": 24.6,
-      "hubCandidate": false
-    },
-    {
-      "page": "/gesture-vs-leap-plus/",
-      "clusterCount": 4,
-      "totalImpressions": 413,
-      "gravityScore": 24.09,
-      "hubCandidate": false
-    },
-    {
-      "page": "/chairs/steelcase-leap-plus/tall-people/",
-      "clusterCount": 4,
-      "totalImpressions": 324,
-      "gravityScore": 23.12,
-      "hubCandidate": false
-    },
-    {
-      "page": "/chairs/herman-miller-aeron/",
-      "clusterCount": 4,
-      "totalImpressions": 297,
-      "gravityScore": 22.77,
+      "page": "/correct-chair-dimensions/",
+      "clusterCount": 1,
+      "totalImpressions": 1658,
+      "gravityScore": 7.41,
       "hubCandidate": false
     },
     {
       "page": "/chairs/herman-miller-aeron/tall-people/",
-      "clusterCount": 3,
-      "totalImpressions": 1175,
-      "gravityScore": 21.21,
+      "clusterCount": 1,
+      "totalImpressions": 1353,
+      "gravityScore": 7.21,
       "hubCandidate": false
     },
     {
-      "page": "/best-office-chairs-under-500/",
-      "clusterCount": 4,
-      "totalImpressions": 188,
-      "gravityScore": 20.95,
+      "page": "/review/leap-plus/",
+      "clusterCount": 1,
+      "totalImpressions": 971,
+      "gravityScore": 6.88,
       "hubCandidate": false
     },
     {
       "page": "/chairs/steelcase-gesture/seat-depth/",
-      "clusterCount": 3,
-      "totalImpressions": 710,
-      "gravityScore": 19.7,
+      "clusterCount": 1,
+      "totalImpressions": 905,
+      "gravityScore": 6.81,
       "hubCandidate": false
     },
     {
-      "page": "/aeron-vs-gesture",
-      "clusterCount": 4,
-      "totalImpressions": 114,
-      "gravityScore": 18.94,
+      "page": "/best-office-chairs/",
+      "clusterCount": 1,
+      "totalImpressions": 756,
+      "gravityScore": 6.63,
       "hubCandidate": false
     },
     {
-      "page": "/chairs/steelcase-gesture/tall-people/",
-      "clusterCount": 3,
-      "totalImpressions": 125,
-      "gravityScore": 14.48,
+      "page": "/review/aeron-size-c/",
+      "clusterCount": 1,
+      "totalImpressions": 690,
+      "gravityScore": 6.54,
       "hubCandidate": false
     },
     {
-      "page": "/aeron-vs-leap-plus/",
-      "clusterCount": 3,
-      "totalImpressions": 119,
-      "gravityScore": 14.34,
+      "page": "/office-chairs-for-tall-people/",
+      "clusterCount": 1,
+      "totalImpressions": 670,
+      "gravityScore": 6.51,
+      "hubCandidate": false
+    },
+    {
+      "page": "/aeron-vs-gesture/",
+      "clusterCount": 1,
+      "totalImpressions": 499,
+      "gravityScore": 6.21,
+      "hubCandidate": false
+    },
+    {
+      "page": "/gesture-vs-leap-plus/",
+      "clusterCount": 1,
+      "totalImpressions": 454,
+      "gravityScore": 6.12,
+      "hubCandidate": false
+    },
+    {
+      "page": "/chairs/steelcase-gesture/",
+      "clusterCount": 1,
+      "totalImpressions": 426,
+      "gravityScore": 6.05,
+      "hubCandidate": false
+    },
+    {
+      "page": "/chairs/steelcase-leap-plus/seat-height/",
+      "clusterCount": 1,
+      "totalImpressions": 377,
+      "gravityScore": 5.93,
+      "hubCandidate": false
+    },
+    {
+      "page": "/chairs/herman-miller-aeron/",
+      "clusterCount": 1,
+      "totalImpressions": 317,
+      "gravityScore": 5.76,
+      "hubCandidate": false
+    },
+    {
+      "page": "/best-office-chairs-under-500/",
+      "clusterCount": 1,
+      "totalImpressions": 254,
+      "gravityScore": 5.54,
+      "hubCandidate": false
+    },
+    {
+      "page": "/chairs/steelcase-gesture/seat-height/",
+      "clusterCount": 1,
+      "totalImpressions": 137,
+      "gravityScore": 4.92,
       "hubCandidate": false
     },
     {
       "page": "/pain-ergonomics/",
-      "clusterCount": 3,
-      "totalImpressions": 95,
-      "gravityScore": 13.66,
-      "hubCandidate": false
-    },
-    {
-      "page": "/chairs/steelcase-leap-plus/",
-      "clusterCount": 3,
-      "totalImpressions": 85,
-      "gravityScore": 13.33,
-      "hubCandidate": false
-    },
-    {
-      "page": "/how-to-adjust-chair/",
-      "clusterCount": 3,
-      "totalImpressions": 53,
-      "gravityScore": 11.91,
-      "hubCandidate": false
-    },
-    {
-      "page": "/review/gesture",
-      "clusterCount": 2,
-      "totalImpressions": 79,
-      "gravityScore": 8.74,
-      "hubCandidate": false
-    },
-    {
-      "page": "/images/aeron-vs-gesture-comparison.webp",
-      "clusterCount": 3,
-      "totalImpressions": 15,
-      "gravityScore": 8.12,
-      "hubCandidate": false
-    },
-    {
-      "page": "/back-pain-spine-height/",
       "clusterCount": 1,
-      "totalImpressions": 188,
-      "gravityScore": 5.24,
+      "totalImpressions": 114,
+      "gravityScore": 4.74,
       "hubCandidate": false
     },
     {
-      "page": "/fit-guides/",
-      "clusterCount": 1,
-      "totalImpressions": 178,
-      "gravityScore": 5.18,
-      "hubCandidate": false
-    },
-    {
-      "page": "/office-chairs-for-tall-people",
-      "clusterCount": 2,
-      "totalImpressions": 11,
-      "gravityScore": 4.8,
-      "hubCandidate": false
-    },
-    {
-      "page": "/standing-desk-height-tall-people/",
-      "clusterCount": 1,
-      "totalImpressions": 63,
-      "gravityScore": 4.14,
-      "hubCandidate": false
-    },
-    {
-      "page": "/review/sihoo-doro-s300/",
-      "clusterCount": 1,
-      "totalImpressions": 41,
-      "gravityScore": 3.71,
-      "hubCandidate": false
-    },
-    {
-      "page": "/",
+      "page": "/aeron-vs-leap-plus/",
       "clusterCount": 0,
-      "totalImpressions": 46,
+      "totalImpressions": 126,
+      "gravityScore": 0,
+      "hubCandidate": false
+    },
+    {
+      "page": "/chairs/steelcase-gesture/tall-people/",
+      "clusterCount": 0,
+      "totalImpressions": 125,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
       "page": "/office-chairs-for-6-foot-5/",
       "clusterCount": 0,
-      "totalImpressions": 56,
+      "totalImpressions": 98,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
       "page": "/office-chairs-for-6-foot-7/",
       "clusterCount": 0,
-      "totalImpressions": 42,
+      "totalImpressions": 47,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
       "page": "/why-standard-chairs-dont-fit/",
       "clusterCount": 0,
-      "totalImpressions": 77,
+      "totalImpressions": 91,
+      "gravityScore": 0,
+      "hubCandidate": false
+    },
+    {
+      "page": "/",
+      "clusterCount": 0,
+      "totalImpressions": 61,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
       "page": "/about/",
       "clusterCount": 0,
-      "totalImpressions": 8,
+      "totalImpressions": 11,
       "gravityScore": 0,
       "hubCandidate": false
     },
@@ -2930,16 +1228,37 @@
       "hubCandidate": false
     },
     {
-      "page": "/back-pain-spine-height",
+      "page": "/back-pain-spine-height/",
       "clusterCount": 0,
-      "totalImpressions": 7,
+      "totalImpressions": 211,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
-      "page": "/best-office-chairs",
+      "page": "/chairs/steelcase-leap-plus/",
       "clusterCount": 0,
-      "totalImpressions": 1,
+      "totalImpressions": 100,
+      "gravityScore": 0,
+      "hubCandidate": false
+    },
+    {
+      "page": "/chairs/steelcase-leap-plus/tall-people/",
+      "clusterCount": 0,
+      "totalImpressions": 472,
+      "gravityScore": 0,
+      "hubCandidate": false
+    },
+    {
+      "page": "/fit-guides/",
+      "clusterCount": 0,
+      "totalImpressions": 195,
+      "gravityScore": 0,
+      "hubCandidate": false
+    },
+    {
+      "page": "/how-to-adjust-chair/",
+      "clusterCount": 0,
+      "totalImpressions": 59,
       "gravityScore": 0,
       "hubCandidate": false
     },
@@ -2947,6 +1266,13 @@
       "page": "/images/aeron-size-c-hero.webp",
       "clusterCount": 0,
       "totalImpressions": 1,
+      "gravityScore": 0,
+      "hubCandidate": false
+    },
+    {
+      "page": "/images/aeron-vs-gesture-comparison.webp",
+      "clusterCount": 0,
+      "totalImpressions": 15,
       "gravityScore": 0,
       "hubCandidate": false
     },
@@ -2960,42 +1286,42 @@
     {
       "page": "/office-chairs-for-6-foot-3/",
       "clusterCount": 0,
-      "totalImpressions": 69,
+      "totalImpressions": 84,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
       "page": "/office-chairs-for-6-foot-4/",
       "clusterCount": 0,
-      "totalImpressions": 101,
+      "totalImpressions": 148,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
       "page": "/office-chairs-for-6-foot-6/",
       "clusterCount": 0,
-      "totalImpressions": 55,
+      "totalImpressions": 63,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
-      "page": "/pain-ergonomics",
+      "page": "/review/sihoo-doro-s300/",
       "clusterCount": 0,
-      "totalImpressions": 4,
+      "totalImpressions": 60,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
       "page": "/shoulder-pain-tall-people/",
       "clusterCount": 0,
-      "totalImpressions": 19,
+      "totalImpressions": 22,
       "gravityScore": 0,
       "hubCandidate": false
     },
     {
-      "page": "/why-standard-chairs-dont-fit",
+      "page": "/standing-desk-height-tall-people/",
       "clusterCount": 0,
-      "totalImpressions": 2,
+      "totalImpressions": 84,
       "gravityScore": 0,
       "hubCandidate": false
     }
@@ -3004,89 +1330,68 @@
     {
       "page": "/review/gesture/",
       "infoImpressions": 0,
-      "commercialImpressions": 182,
-      "transitionOpportunity": false,
-      "recommendation": "No conversion gap detected"
-    },
-    {
-      "page": "/best-office-chairs/",
-      "infoImpressions": 6,
-      "commercialImpressions": 113,
-      "transitionOpportunity": false,
-      "recommendation": "No conversion gap detected"
-    },
-    {
-      "page": "/office-chairs-for-tall-people/",
-      "infoImpressions": 0,
-      "commercialImpressions": 75,
-      "transitionOpportunity": false,
-      "recommendation": "No conversion gap detected"
-    },
-    {
-      "page": "/gesture-vs-leap-plus/",
-      "infoImpressions": 0,
-      "commercialImpressions": 75,
-      "transitionOpportunity": false,
-      "recommendation": "No conversion gap detected"
-    },
-    {
-      "page": "/aeron-vs-gesture/",
-      "infoImpressions": 1,
-      "commercialImpressions": 27,
-      "transitionOpportunity": false,
-      "recommendation": "No conversion gap detected"
-    },
-    {
-      "page": "/review/aeron-size-c/",
-      "infoImpressions": 4,
-      "commercialImpressions": 26,
-      "transitionOpportunity": false,
-      "recommendation": "No conversion gap detected"
-    },
-    {
-      "page": "/review/leap-plus/",
-      "infoImpressions": 0,
-      "commercialImpressions": 14,
+      "commercialImpressions": 304,
       "transitionOpportunity": false,
       "recommendation": "No conversion gap detected"
     },
     {
       "page": "/knee-pain-seat-depth/",
       "infoImpressions": 0,
-      "commercialImpressions": 5,
+      "commercialImpressions": 221,
       "transitionOpportunity": false,
       "recommendation": "No conversion gap detected"
     },
     {
-      "page": "/chairs/steelcase-gesture/",
+      "page": "/best-office-chairs/",
       "infoImpressions": 0,
-      "commercialImpressions": 2,
+      "commercialImpressions": 174,
+      "transitionOpportunity": false,
+      "recommendation": "No conversion gap detected"
+    },
+    {
+      "page": "/gesture-vs-leap-plus/",
+      "infoImpressions": 0,
+      "commercialImpressions": 89,
+      "transitionOpportunity": false,
+      "recommendation": "No conversion gap detected"
+    },
+    {
+      "page": "/aeron-vs-gesture/",
+      "infoImpressions": 0,
+      "commercialImpressions": 53,
+      "transitionOpportunity": false,
+      "recommendation": "No conversion gap detected"
+    },
+    {
+      "page": "/best-office-chairs-under-500/",
+      "infoImpressions": 0,
+      "commercialImpressions": 31,
       "transitionOpportunity": false,
       "recommendation": "No conversion gap detected"
     }
   ],
   "aioRecommendations": [
     {
-      "page": "/chairs/steelcase-gesture/seat-depth/",
-      "query": "steelcase gesture seat depth adjustment range inches",
-      "impressions": 31,
+      "page": "/chairs/herman-miller-aeron/tall-people/",
+      "query": "aeron chair sizes how to tell",
+      "impressions": 41,
       "position": 6,
       "recommendedStructure": [
-        "Put the specific number/spec at the top of the page in a prominent answer box",
-        "Add a definition callout box answering the spec directly",
-        "Add a citation capsule: 3 sentences, no pronouns, standalone"
+        "Add a numbered step answer immediately below the H1",
+        "Add FAQ entry with direct answer",
+        "Add citation capsule"
       ],
       "priority": "medium"
     },
     {
-      "page": "/chairs/steelcase-gesture/seat-depth/",
-      "query": "steelcase gesture seat depth range inches",
-      "impressions": 23,
-      "position": 4.2,
+      "page": "/review/aeron-size-c/",
+      "query": "aeron chair sizes how to tell",
+      "impressions": 40,
+      "position": 5,
       "recommendedStructure": [
-        "Put the specific number/spec at the top of the page in a prominent answer box",
-        "Add a definition callout box answering the spec directly",
-        "Add a citation capsule: 3 sentences, no pronouns, standalone"
+        "Add a numbered step answer immediately below the H1",
+        "Add FAQ entry with direct answer",
+        "Add citation capsule"
       ],
       "priority": "medium"
     }

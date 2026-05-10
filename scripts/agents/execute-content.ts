@@ -320,6 +320,8 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
   const { score, feedback } = await scoreContent(cleaned, task.keyword);
   console.log(`    Quality score: ${score}/100`);
   if (score < 80) {
+    const rejectSlug = task.slug.replace(/^\/|\/$/g, '').replace(/\//g, '-');
+    archiveToRaw(ROOT, 'content-rejected', `${today()}-${rejectSlug}.md`, cleaned);
     return { success: false, filePath: '', summary: `QUALITY GATE FAILED (${score}/100) for ${task.slug}: ${feedback}` };
   }
 

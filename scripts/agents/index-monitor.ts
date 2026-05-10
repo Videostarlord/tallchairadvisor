@@ -232,6 +232,24 @@ Output the complete fixed file.`,
     return { fixed: false, summary: `Fix for ${filePath} rejected: word count dropped ${origWords} → ${fixedWords} (>20% loss)` };
   }
 
+  // Voice guard: non-Gesture pages must not contain first-person testing voice
+  const isGesturePage = filePath.includes('gesture');
+  if (!isGesturePage) {
+    const VOICE_PATTERNS = [
+      /I (tested|sat in|tried|used|reviewed|tested out|tried out) the? (aeron|leap|sihoo|doro)/i,
+      /after (sitting|using|trying) (in |out )?(the )?(aeron|leap|sihoo|doro)/i,
+      /in my experience.{0,100}(aeron|leap|sihoo|doro)/i,
+      /I (found|discovered|noticed|felt).{0,60}(aeron|leap|sihoo|doro)/i,
+      /during (my|the) (review|testing|test).{0,60}(aeron|leap|sihoo|doro)/i,
+      /I (tried|tested) (it|them|this chair)/i,
+    ];
+    for (const pattern of VOICE_PATTERNS) {
+      if (pattern.test(fixed)) {
+        return { fixed: false, summary: `Fix for ${filePath} rejected: voice violation detected` };
+      }
+    }
+  }
+
   writeFileSync(fullPath, fixed);
   return { fixed: true, summary: `Fixed ${inspection.fixType} issue in ${filePath}` };
 }

@@ -34,9 +34,12 @@ const SECRET_PATTERNS = [
 
 // Non-Gesture pages — these should never have first-person testing voice
 const NON_GESTURE_VOICE_PATTERNS = [
-  /I (tested|sat in|tried|used|reviewed) the (aeron|leap|sihoo|doro)/i,
-  /after sitting in the (aeron|leap|sihoo)/i,
-  /in my experience.{0,50}(aeron|leap|sihoo)/i,
+  /I (tested|sat in|tried|used|reviewed|tested out|tried out) the? (aeron|leap|sihoo|doro)/i,
+  /after (sitting|using|trying) (in |out )?(the )?(aeron|leap|sihoo|doro)/i,
+  /in my experience.{0,100}(aeron|leap|sihoo|doro)/i,
+  /I (found|discovered|noticed|felt).{0,60}(aeron|leap|sihoo|doro)/i,
+  /during (my|the) (review|testing|test).{0,60}(aeron|leap|sihoo|doro)/i,
+  /I (tried|tested) (it|them|this chair)/i,
 ];
 
 async function checkSecrets(): Promise<CheckResult> {

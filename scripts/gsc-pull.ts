@@ -9,7 +9,7 @@
  */
 
 import { google } from 'googleapis';
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { archiveJsonToRaw, appendWikiLog, readWikiPage, writeWikiPage, today } from './agents/wiki-utils.js';
@@ -48,6 +48,18 @@ async function main() {
   });
 
   const webmasters = google.webmasters({ version: 'v3', auth });
+
+  // Skip if latest.json was pulled within the last 72 hours (prevents redundant API calls)
+  // Override with --force flag when a fresh pull is needed despite recency
+  const forceFlag = process.argv.includes('--force');
+  if (!forceFlag && existsSync(OUTPUT_PATH)) {
+    const stat = statSync(OUTPUT_PATH);
+    const ageHours = (Date.now() - stat.mtimeMs) / 3600000;
+    if (ageHours < 72) {
+      console.log(`[gsc-pull] latest.json is ${ageHours.toFixed(1)}h old — skipping redundant pull (use --force to override)`);
+      process.exit(0);
+    }
+  }
 
   console.log(`Pulling GSC data: ${toDateStr(startDate)} → ${toDateStr(endDate)} (${days} days)`);
 

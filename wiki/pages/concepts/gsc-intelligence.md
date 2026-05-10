@@ -13,7 +13,7 @@ tags: [gsc, intelligence, opportunities, ctr, weekly]
 
 ## Momentum
 
-Trend data unavailable (requires 14+ daily data points)
+Impressions up 29.1% WoW (3582 vs 2774), clicks up 125% (9 vs 4), avg position stable
 
 ---
 
@@ -21,11 +21,11 @@ Trend data unavailable (requires 14+ daily data points)
 
 | Page | Type | Impressions | Position | Action |
 |------|------|-------------|----------|--------|
-| /correct-chair-dimensions/ | content-depth | 1422 impr | pos 16.7 | pos 16.7 with 1422 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
-| /review/gesture/ | near-p1 | 1895 impr | pos 8.4 | pos 8.4 with 1895 impr — expand content depth + internal links to push into top 5 |
-| /best-office-chairs/ | content-depth | 694 impr | pos 23.2 | pos 23.2 with 694 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
-| /knee-pain-seat-depth/ | near-p1 | 1524 impr | pos 8.8 | pos 8.8 with 1524 impr — expand content depth + internal links to push into top 5 |
-| /chairs/herman-miller-aeron/tall-people/ | near-p1 | 1175 impr | pos 7.3 | pos 7.3 with 1175 impr — expand content depth + internal links to push into top 5 |
+| /correct-chair-dimensions/ | content-depth | 1658 impr | pos 16.1 | pos 16.1 with 1658 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
+| /review/gesture/ | near-p1 | 2589 impr | pos 8.2 | pos 8.2 with 2589 impr — expand content depth + internal links to push into top 5 |
+| /knee-pain-seat-depth/ | near-p1 | 1925 impr | pos 8.6 | pos 8.6 with 1925 impr — expand content depth + internal links to push into top 5 |
+| /best-office-chairs/ | content-depth | 756 impr | pos 22.8 | pos 22.8 with 756 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
+| /chairs/herman-miller-aeron/tall-people/ | near-p1 | 1353 impr | pos 7.4 | pos 7.4 with 1353 impr — expand content depth + internal links to push into top 5 |
 
 ---
 
@@ -33,11 +33,11 @@ Trend data unavailable (requires 14+ daily data points)
 
 | Page | Query | Impr | Position | CTR (exp) | Lost clicks/wk |
 |------|-------|------|----------|-----------|----------------|
-| /review/gesture/ | "steelcase knee brace review" | 91 impr | pos 7.3 | 0% (exp 3%) | ~0.21/wk |
-| /review/gesture/ | "steelcase knee brace review 2026" | 18 impr | pos 3.5 | 0% (exp 12%) | ~0.17/wk |
-| /chairs/steelcase-gesture/seat-depth/ | "steelcase gesture seat depth range inches" | 23 impr | pos 4.2 | 0% (exp 8%) | ~0.14/wk ⚠ AIO |
-| /chairs/steelcase-gesture/seat-depth/ | "steelcase gesture seat depth adjustment range inches" | 31 impr | pos 6 | 0% (exp 4%) | ~0.1/wk ⚠ AIO |
-| /knee-pain-seat-depth/ | "cornell ergonomics chair seat depth two fingers behind knee" | 55 impr | pos 8 | 0% (exp 2.5%) | ~0.11/wk |
+| /review/gesture/ | "steelcase gesture review" | 304 impr | pos 1 | 8.33% (exp 35%) | ~6.31/wk |
+| /aeron-vs-gesture/ | "aeron vs gesture" | 53 impr | pos 2.1 | 0% (exp 18%) | ~0.74/wk |
+| /chairs/herman-miller-aeron/ | "aeron c size" | 76 impr | pos 2 | 0% (exp 18%) | ~1.06/wk |
+| /knee-pain-seat-depth/ | "best office chair for back and leg pain" | 221 impr | pos 7.8 | 0% (exp 3%) | ~0.52/wk |
+| /chairs/steelcase-gesture/seat-depth/ | "steelcase gesture adjustment guide" | 101 impr | pos 4.1 | 0% (exp 8%) | ~0.63/wk |
 
 **2 AIO suspects detected** — these positions rank well but earn zero clicks, likely due to AI Overviews capturing the SERP.
 
@@ -45,53 +45,35 @@ Trend data unavailable (requires 14+ daily data points)
 
 ## Affiliate Alerts
 
-- **/review/gesture/** [medium]: 182 buyer-intent impr | queries: steelcase knee brace review, steelcase knee brace review 2026
-- **/best-office-chairs/** [medium]: 113 buyer-intent impr | queries: best office chairs for tall people, best office chair for tall person
-- **/office-chairs-for-tall-people/** [medium]: 75 buyer-intent impr | queries: best office chair for tall people, best office chair for tall person
+- **/review/gesture/** [high]: 304 buyer-intent impr | queries: steelcase gesture review
+- **/knee-pain-seat-depth/** [high]: 221 buyer-intent impr | queries: best office chair for back and leg pain
+- **/best-office-chairs/** [medium]: 174 buyer-intent impr | queries: top rated big and tall office chairs
 
 ---
 
 ## Cannibalization Risks
 
-- **"best office chair for tall person"** [medium risk]: /best-office-chairs/ vs /office-chairs-for-tall-people/ (65 impr)
-- **"steelcase leap plus"** [medium risk]: /review/leap-plus/ vs /chairs/steelcase-leap-plus/seat-height/ vs /chairs/steelcase-leap-plus/ vs /chairs/steelcase-leap-plus/tall-people/ (52 impr)
-- **"best office chairs for tall people"** [medium risk]: /best-office-chairs/ vs /office-chairs-for-tall-people/ (37 impr)
+- **"steelcase leap plus"** [high risk]: /review/leap-plus/ vs /chairs/steelcase-leap-plus/seat-height/ (169 impr)
+- **"steelcase gesture adjustment guide"** [high risk]: /chairs/steelcase-gesture/seat-depth/ vs /chairs/steelcase-gesture/seat-height/ (118 impr)
+- **"aeron chair sizes how to tell"** [high risk]: /chairs/herman-miller-aeron/tall-people/ vs /review/aeron-size-c/ (81 impr)
 
 ---
 
 ## Device Split
 
-_Device data unavailable — requires new gsc-pull run_
+Mobile: 10% of impressions | Mobile CTR 0.51% vs Desktop 0.23% (gap: -0.28pp)
 
 ---
 
 ## Query Entropy
 
-**Most fragmented pages** (topic generalists, low per-cluster authority):
-| Page | Entropy | Clusters | Regime |
-|------|---------|----------|--------|
-| /correct-chair-dimensions/ | 4.436 | 48 | fragmented |
-
-
-**Most concentrated pages** (single-keyword risk):
-| Page | Entropy | Clusters | Regime |
-|------|---------|----------|--------|
-| /chairs/steelcase-gesture/seat-depth/ | 0.425 | 3 | concentrated |
-| /knee-pain-seat-depth/ | 0.52 | 7 | concentrated |
-| /office-chairs-for-tall-people | 0.544 | 2 | concentrated |
-
+_Insufficient query data_
 
 ---
 
 ## Impression Gravity (Hub Candidates)
 
-- **/review/gesture/**: 15 clusters, gravity score 113.2
-- **/best-office-chairs/**: 17 clusters, gravity score 111.22
-- **/correct-chair-dimensions/**: 15 clusters, gravity score 108.9
-- **/office-chairs-for-tall-people/**: 15 clusters, gravity score 95.18
-- **/review/leap-plus/**: 8 clusters, gravity score 51.59
-- **/chairs/steelcase-gesture/**: 8 clusters, gravity score 47.61
-- **/aeron-vs-gesture/**: 8 clusters, gravity score 46.82
+_No hub candidates (none with ≥8 distinct clusters)_
 
 ---
 
@@ -103,15 +85,15 @@ _No transition opportunities detected_
 
 ## AIO Action Items
 
-**/chairs/steelcase-gesture/seat-depth/** — "steelcase gesture seat depth adjustment range inches" [medium] (31 impr, pos 6)
-  - Put the specific number/spec at the top of the page in a prominent answer box
-  - Add a definition callout box answering the spec directly
-  - Add a citation capsule: 3 sentences, no pronouns, standalone
+**/chairs/herman-miller-aeron/tall-people/** — "aeron chair sizes how to tell" [medium] (41 impr, pos 6)
+  - Add a numbered step answer immediately below the H1
+  - Add FAQ entry with direct answer
+  - Add citation capsule
 
-**/chairs/steelcase-gesture/seat-depth/** — "steelcase gesture seat depth range inches" [medium] (23 impr, pos 4.2)
-  - Put the specific number/spec at the top of the page in a prominent answer box
-  - Add a definition callout box answering the spec directly
-  - Add a citation capsule: 3 sentences, no pronouns, standalone
+**/review/aeron-size-c/** — "aeron chair sizes how to tell" [medium] (40 impr, pos 5)
+  - Add a numbered step answer immediately below the H1
+  - Add FAQ entry with direct answer
+  - Add citation capsule
 
 ---
 

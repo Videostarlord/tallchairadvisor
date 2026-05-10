@@ -8,6 +8,46 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W19 (May 10) — Combined audit implementation (14 fixes, 5 deferred)
+
+- **CONTEXT:** Two-auditor forensic audit (CLAUDE-SONNET-4-6 + CODEX) completed 2026-05-09. Adjudicated score 6/10. 21 findings across workflow bugs, data integrity, agent safety, SEO, and content. Full implementation status in `wiki/pages/concepts/audit-implementation-2026-05-10.md`.
+
+- **CRITICAL FIX — friday.yml force-push:** `CONTENT_WRITTEN != 'true'` failure path was pushing to `main --force`. Changed to `staging --force`. This ran every Friday content generation failed — how long this was live is unknown. Now fixed.
+
+- **DATA INTEGRITY RESTORED — deviceSplit + dailyTrend:** `latest.json` was missing both keys (partial previous pull). Re-ran `gsc:pull --force`. Both modules now non-null in analysis.json: `siteTrend` = impressions up 29.1% WoW, `deviceIntelligence` = non-null.
+
+- **DATA INTEGRITY — URL canonical normalization:** `gsc-analyze.ts` now normalizes all URLs to trailing-slash form and merges duplicate entries (e.g. `/gesture/` + `/gesture`) before scoring. Was creating phantom cannibalization and split opportunity scores.
+
+- **DATA INTEGRITY — Freshness guards:** `gsc-pull.ts` now skips redundant pulls if `latest.json` < 72h old (with `--force` override). `gsc-analyze.ts` now warns if `latest.json` > 72h old before generating analysis.
+
+- **DATA INTEGRITY — Junk query filter:** `detectCTRLeaks()` now suppresses entity-mismatched queries (knee brace, wheelchair, etc.) before scoring. "Steelcase knee brace review" was inflating CTR leak scores.
+
+- **AGENT SAFETY — Voice check in index-monitor.ts:** `fixPage()` now rejects generated fixes containing first-person testing voice on non-Gesture pages before writing. Previously, a bad fix could ship and not be caught until Saturday verify-deploy.
+
+- **AGENT SAFETY — Voice patterns expanded:** `verify-deploy.ts` NON_GESTURE_VOICE_PATTERNS expanded from 3 to 6. Now catches "I found/discovered/noticed", "during my review/testing", generic "I tested it".
+
+- **AGENT SAFETY — Failed draft archival:** `execute-content.ts` now saves quality-gate rejections to `raw/content-rejected/` before discarding. Previously lost with no inspection path.
+
+- **STRATEGY HARDENING — Plan validation upgraded:** `strategy.ts` now throws a hard error (writes `reports/plan-debug-malformed.md`, logs to wiki) when zero parseable tasks found. Was a `console.warn()` that still wrote the broken plan to disk.
+
+- **SEO — Author page:** Removed from sitemap (`astro.config.mjs`). Removed relative `canonical="/about/"` prop (Layout.astro now derives correct absolute canonical). Was simultaneously noindex + canonicalized to /about/ + in sitemap — three contradictory signals.
+
+- **SEO — Freshness drift:** `best-office-chairs.astro` visible date + Byline `updatedDate` aligned to 2026-05-07, matching schema `dateModified` and sitemap `lastmod`. Was 4-way inconsistency.
+
+- **SEO — Cornell cluster fix:** `knee-pain-seat-depth.astro` title + H1 now include "Cornell Ergonomics Rule". Added verdict box with the rule definition. 165 impressions at pos 8, 0% CTR on cornell queries — was mismatching searcher intent.
+
+- **SEO — size-guide orphan resolved:** `/chairs/herman-miller-aeron/size-guide/` now linked from both the aeron hub page (Detailed Guides grid) and the aeron-size-c review page. Was completely orphaned.
+
+- **DECISION — F2 smart quotes confirmed non-issue:** Codex flagged execute-fixes.ts lines 64-67. Inspection confirmed these are intentional: they are the search patterns inside regex character classes that match and replace curly quotes. No change needed.
+
+- **DEFERRED — Content investment (C1-C3):** Gesture review depth expansion, Leap Plus reframe, L3/L5 role differentiation. All require agent REWRITE tasks in upcoming weekly plans. Gesture review is highest priority — 304 impr at pos 1, 8.33% CTR vs 35% expected.
+
+- **DEFERRED — SERP API + Firecrawl pipeline (I1):** Data integrity fixes are now complete (prerequisite met). Pipeline can be built next. Monthly cadence, ~$1-3/month API cost.
+
+- **DEFERRED — Reddit pipeline injection into strategy.ts:** User confirmed current March 2026 Reddit data is still valid. Deferred indefinitely until data needs refreshing.
+
+- **NOT IMPLEMENTED — GSC pagination (I2), GA4 affiliate tracking (I3), wiki concept page consolidation (I4):** Low priority, no urgency.
+
 ## 2026-W19 (May 9d) — GSC data gap audit + gsc-analyze.ts architecture decision
 
 - **FINDING — Queries and pageQueries data is never read:** `gsc-pull.ts` collects 200 queries and 427 page+query combos every Monday. Every agent ignores them entirely. Strategy agent only reads `pages.slice(0,5)`. Audit agent only reads `pages` sorted by impressions. This means the richest signal in the data (query intent, query-to-page mapping, CTR per query) never reaches Claude.
