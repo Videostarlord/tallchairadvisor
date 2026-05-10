@@ -91,6 +91,7 @@ const BUYER_INTENT_TERMS = ['best', 'buy', 'vs', 'review', 'alternative', 'worth
 const SPEC_TERMS = ['height', 'seat', 'depth', 'width', 'weight limit', 'dimensions', 'inches', 'cm', 'lbs', 'adjustable', 'recline', 'lumbar'];
 const BRAND_TERMS = ['steelcase', 'herman miller', 'gesture', 'aeron', 'leap', 'sihoo', 'doro', 'haworth', 'humanscale'];
 const AIO_INDICATOR_TERMS = [...SPEC_TERMS, 'how to', 'what is', 'definition', 'rule', 'formula', 'standard'];
+const INFO_TERMS = ['how', 'why', 'what', 'guide', 'does', 'difference', 'explain'];
 const STOPWORDS = new Set(['for', 'the', 'a', 'an', 'to', 'of', 'in', 'is', 'are', 'with', 'and', 'or', 'on', 'at', 'my', 'me', 'i', 'do', 'does', 'can', 'will', 'how', 'what', 'why', 'when', 'which']);
 
 type IntentType = 'buyer' | 'brand' | 'spec' | 'informational';
@@ -472,6 +473,273 @@ function analyzeDeviceSplit(deviceSplit: DeviceRow[]): DeviceIntelligence | null
   };
 }
 
+// ─── Phase 2 Module 1: Query Entropy Analysis ─────────────────────────────────
+
+export interface QueryEntropyEntry {
+  page: string;
+  entropy: number;
+  queryCount: number;
+  regime: 'concentrated' | 'balanced' | 'fragmented';
+}
+
+function computeQueryEntropy(pageQueries: PageQueryRow[]): QueryEntropyEntry[] {
+  const byPage = new Map<string, PageQueryRow[]>();
+  for (const pq of pageQueries) {
+    const existing = byPage.get(pq.page) ?? [];
+    existing.push(pq);
+    byPage.set(pq.page, existing);
+  }
+
+  const results: QueryEntropyEntry[] = [];
+  for (const [page, rows] of byPage.entries()) {
+    if (rows.length < 2) continue;
+
+    const clusterImpressions = new Map<string, number>();
+    let totalImpressions = 0;
+    for (const pq of rows) {
+      const normalized = normalizeQuery(pq.query);
+      const words = normalized.split(' ').filter(w => w).slice(0, 3).sort();
+      const fingerprint = words.join('-');
+      if (!fingerprint) continue;
+      clusterImpressions.set(fingerprint, (clusterImpressions.get(fingerprint) ?? 0) + pq.impressions);
+      totalImpressions += pq.impressions;
+    }
+
+    if (totalImpressions === 0 || clusterImpressions.size < 2) continue;
+
+    let entropy = 0;
+    for (const impr of clusterImpressions.values()) {
+      const p = impr / totalImpressions;
+      if (p > 0) entropy -= p * Math.log2(p);
+    }
+
+    const regime: QueryEntropyEntry['regime'] = entropy > 3.5 ? 'fragmented' : entropy < 1.5 ? 'concentrated' : 'balanced';
+    results.push({
+      page,
+      entropy: parseFloat(entropy.toFixed(3)),
+      queryCount: clusterImpressions.size,
+      regime,
+    });
+  }
+
+  return results.sort((a, b) => b.entropy - a.entropy);
+}
+
+// ─── Phase 2 Module 2: Impression Gravity Scoring ────────────────────────────
+
+export interface ImpressionGravityEntry {
+  page: string;
+  clusterCount: number;
+  totalImpressions: number;
+  gravityScore: number;
+  hubCandidate: boolean;
+}
+
+function computeImpressionGravity(clusters: QueryCluster[], pages: PageRow[]): ImpressionGravityEntry[] {
+  const pageClusterCount = new Map<string, number>();
+  for (const cluster of clusters) {
+    for (const page of cluster.pages) {
+      pageClusterCount.set(page, (pageClusterCount.get(page) ?? 0) + 1);
+    }
+  }
+
+  return pages
+    .filter(p => p.impressions > 0)
+    .map(p => {
+      const clusterCount = pageClusterCount.get(p.page) ?? 0;
+      const gravityScore = parseFloat((clusterCount * Math.log(Math.max(p.impressions, 1))).toFixed(2));
+      return {
+        page: p.page,
+        clusterCount,
+        totalImpressions: p.impressions,
+        gravityScore,
+        hubCandidate: clusterCount >= 8,
+      };
+    })
+    .sort((a, b) => b.gravityScore - a.gravityScore);
+}
+
+// ─── Phase 2 Module 3: Informational → Commercial Progression Mapper ──────────
+
+export interface IntentTransition {
+  page: string;
+  infoImpressions: number;
+  commercialImpressions: number;
+  transitionOpportunity: boolean;
+  recommendation: string;
+}
+
+function detectIntentTransitions(pageQueries: PageQueryRow[]): IntentTransition[] {
+  const byPage = new Map<string, PageQueryRow[]>();
+  for (const pq of pageQueries) {
+    const existing = byPage.get(pq.page) ?? [];
+    existing.push(pq);
+    byPage.set(pq.page, existing);
+  }
+
+  const results: IntentTransition[] = [];
+  for (const [page, rows] of byPage.entries()) {
+    const totalImpr = rows.reduce((s, r) => s + r.impressions, 0);
+    if (totalImpr < 30) continue;
+
+    const infoRows = rows.filter(r => INFO_TERMS.some(t => r.query.toLowerCase().includes(t)));
+    const infoImpr = infoRows.reduce((s, r) => s + r.impressions, 0);
+
+    const commercialRows = rows.filter(r => classifyIntent(r.query).type === 'buyer');
+    const commercialImpr = commercialRows.reduce((s, r) => s + r.impressions, 0);
+    const commercialClicks = commercialRows.reduce((s, r) => s + (r.clicks ?? 0), 0);
+
+    const infoShare = totalImpr > 0 ? infoImpr / totalImpr : 0;
+    const transitionOpportunity = infoShare > 0.6 && commercialImpr >= 20 && commercialClicks === 0;
+
+    const topCommercialQueries = [...commercialRows]
+      .sort((a, b) => b.impressions - a.impressions)
+      .slice(0, 2)
+      .map(r => r.query);
+
+    const recommendation = transitionOpportunity
+      ? `Add verdict/recommendation section — this page attracts researchers who are ready to evaluate. Target commercial queries: ${topCommercialQueries.join(', ')}`
+      : 'No conversion gap detected';
+
+    if (commercialImpr > 0) {
+      results.push({ page, infoImpressions: infoImpr, commercialImpressions: commercialImpr, transitionOpportunity, recommendation });
+    }
+  }
+
+  return results.sort((a, b) => b.commercialImpressions - a.commercialImpressions);
+}
+
+// ─── Phase 2 Module 4: AIO Content Recommendations ────────────────────────────
+
+export interface AIORecommendation {
+  page: string;
+  query: string;
+  impressions: number;
+  position: number;
+  recommendedStructure: string[];
+  priority: 'high' | 'medium';
+}
+
+function buildAIORecommendations(ctrLeaks: CTRLeak[]): AIORecommendation[] {
+  return ctrLeaks
+    .filter(l => l.aioSuspect)
+    .map(l => {
+      const q = l.query.toLowerCase();
+      let recommendedStructure: string[];
+
+      if (SPEC_TERMS.some(t => q.includes(t))) {
+        recommendedStructure = [
+          'Put the specific number/spec at the top of the page in a prominent answer box',
+          'Add a definition callout box answering the spec directly',
+          'Add a citation capsule: 3 sentences, no pronouns, standalone',
+        ];
+      } else if (q.includes('how') || q.includes('step') || q.includes('adjust')) {
+        recommendedStructure = [
+          'Add a numbered step answer immediately below the H1',
+          'Add FAQ entry with direct answer',
+          'Add citation capsule',
+        ];
+      } else {
+        recommendedStructure = [
+          'Add a direct definition in the opening paragraph',
+          'Add FAQ entry',
+          'Add citation capsule',
+        ];
+      }
+
+      return {
+        page: l.page,
+        query: l.query,
+        impressions: l.impressions,
+        position: l.position,
+        recommendedStructure,
+        priority: l.impressions >= 100 ? 'high' : 'medium',
+      };
+    })
+    .sort((a, b) => b.impressions - a.impressions);
+}
+
+// ─── Phase 2 Module 5: History-Based Page Velocity ───────────────────────────
+
+export interface PageVelocityEntry {
+  page: string;
+  currentPosition: number;
+  previousPosition: number;
+  positionDelta: number;
+  currentImpressions: number;
+  previousImpressions: number;
+  impressionDelta: number;
+  trend: 'rising' | 'stable' | 'falling';
+}
+
+function computePageVelocity(): PageVelocityEntry[] | null {
+  const histDir = resolve(ROOT, 'data/gsc/history');
+  if (!existsSync(histDir)) return null;
+
+  const files = readdirSync(histDir).filter(f => f.endsWith('.json')).sort();
+  // Need at least 2 snapshots to compare; current run's file is written after buildAnalysis()
+  if (files.length < 2) return null;
+
+  type PageEntry = { page: string; position: number; impressions: number };
+  const loadPages = (filename: string): PageEntry[] => {
+    try {
+      const data = JSON.parse(readFileSync(resolve(histDir, filename), 'utf-8'));
+      return (data.opportunities ?? []) as PageEntry[];
+    } catch {
+      return [];
+    }
+  };
+
+  const currentPages = loadPages(files[files.length - 1]);
+  const previousPages = loadPages(files[files.length - 2]);
+
+  if (currentPages.length === 0 || previousPages.length === 0) return null;
+
+  const previousMap = new Map(previousPages.map(p => [p.page, p]));
+
+  const results: PageVelocityEntry[] = [];
+  for (const curr of currentPages) {
+    const prev = previousMap.get(curr.page);
+    if (!prev) continue;
+
+    const positionDelta = parseFloat((curr.position - prev.position).toFixed(1));
+    const impressionDelta = curr.impressions - prev.impressions;
+    const impressionPct = prev.impressions > 0 ? impressionDelta / prev.impressions : 0;
+
+    let trend: PageVelocityEntry['trend'];
+    if (impressionPct > 0.1 && positionDelta < 0) {
+      trend = 'rising';
+    } else if (impressionPct < -0.1 || positionDelta > 2) {
+      trend = 'falling';
+    } else {
+      trend = 'stable';
+    }
+
+    results.push({
+      page: curr.page,
+      currentPosition: curr.position,
+      previousPosition: prev.position,
+      positionDelta,
+      currentImpressions: curr.impressions,
+      previousImpressions: prev.impressions,
+      impressionDelta,
+      trend,
+    });
+  }
+
+  return results.length > 0
+    ? results.sort((a, b) => Math.abs(b.positionDelta) - Math.abs(a.positionDelta))
+    : null;
+}
+
+// ─── Phase 2 Module 6: Content Gap vs Competitors ────────────────────────────
+// NOTE: data/competitors/latest.json contains page-level metadata only (title, h2s, wordCount,
+// schemaTypes) — not keyword rankings or topic keyword lists. There is no structured keyword
+// array to cross-reference against GSC clusters. To enable this module, competitor data would
+// need a `keywords: string[]` or `rankingKeywords: { keyword: string; position: number }[]`
+// field per competitor, populated by a keyword-ranking API (e.g. Ahrefs, SEMrush, DataForSEO).
+// This module is intentionally omitted from output.
+
 // ─── Executive Summary Builder ────────────────────────────────────────────────
 
 function buildExecutiveSummary(params: {
@@ -511,7 +779,11 @@ function buildExecutiveSummary(params: {
 // ─── Wiki Intelligence Digest Writer ─────────────────────────────────────────
 
 function writeIntelligenceDigest(ROOT: string, analysis: ReturnType<typeof buildAnalysis>) {
-  const { executiveSummary, ctrLeaks, opportunities, affiliateOpportunities, cannibalization, deviceIntelligence } = analysis;
+  const {
+    executiveSummary, ctrLeaks, opportunities, affiliateOpportunities, cannibalization,
+    deviceIntelligence, queryEntropy, impressionGravity, intentTransitions,
+    aioRecommendations, pageVelocity,
+  } = analysis;
 
   const leakRows = ctrLeaks.slice(0, 5).map(l =>
     `| ${l.page} | "${l.query}" | ${l.impressions} impr | pos ${l.position} | ${l.actualCTR}% (exp ${l.expectedCTR}%) | ~${l.lostClicksPerWeek}/wk${l.aioSuspect ? ' ⚠ AIO' : ''} |`
@@ -534,6 +806,64 @@ function writeIntelligenceDigest(ROOT: string, analysis: ReturnType<typeof build
         ? `\n\nMobile underperforming pages: ${deviceIntelligence.mobileUnderperformingPages.join(', ')}`
         : '')
     : '_Device data unavailable — requires new gsc-pull run_';
+
+  // Query Entropy section
+  const fragmented = queryEntropy.filter(e => e.regime === 'fragmented').slice(0, 5);
+  const concentrated = [...queryEntropy].sort((a, b) => a.entropy - b.entropy).filter(e => e.regime === 'concentrated').slice(0, 3);
+  const entropySection = queryEntropy.length === 0
+    ? '_Insufficient query data_'
+    : [
+        '**Most fragmented pages** (topic generalists, low per-cluster authority):',
+        '| Page | Entropy | Clusters | Regime |',
+        '|------|---------|----------|--------|',
+        ...fragmented.map(e => `| ${e.page} | ${e.entropy} | ${e.queryCount} | ${e.regime} |`),
+        fragmented.length === 0 ? '| _None above fragmentation threshold_ | | | |' : '',
+        '',
+        '**Most concentrated pages** (single-keyword risk):',
+        '| Page | Entropy | Clusters | Regime |',
+        '|------|---------|----------|--------|',
+        ...concentrated.map(e => `| ${e.page} | ${e.entropy} | ${e.queryCount} | ${e.regime} |`),
+        concentrated.length === 0 ? '| _None below concentration threshold_ | | | |' : '',
+      ].filter(l => l !== undefined).join('\n');
+
+  // Impression Gravity section
+  const hubs = impressionGravity.filter(g => g.hubCandidate);
+  const gravitySection = impressionGravity.length === 0
+    ? '_No pages with sufficient cluster coverage_'
+    : hubs.length > 0
+      ? hubs.map(g => `- **${g.page}**: ${g.clusterCount} clusters, gravity score ${g.gravityScore}`).join('\n')
+      : '_No hub candidates (none with ≥8 distinct clusters)_';
+
+  // Intent Transitions section
+  const transitionPages = intentTransitions.filter(t => t.transitionOpportunity);
+  const transitionSection = intentTransitions.length === 0
+    ? '_Insufficient data_'
+    : transitionPages.length > 0
+      ? transitionPages.map(t =>
+          `- **${t.page}**: ${t.infoImpressions} info impr / ${t.commercialImpressions} commercial impr | ${t.recommendation}`
+        ).join('\n')
+      : '_No transition opportunities detected_';
+
+  // AIO Recommendations section
+  const aioSection = aioRecommendations.length === 0
+    ? '_No AIO suspects in current CTR leak set_'
+    : aioRecommendations.map(r =>
+        [
+          `**${r.page}** — "${r.query}" [${r.priority}] (${r.impressions} impr, pos ${r.position})`,
+          ...r.recommendedStructure.map(s => `  - ${s}`),
+        ].join('\n')
+      ).join('\n\n');
+
+  // Page Velocity section
+  const velocitySection = pageVelocity === null
+    ? '_Insufficient history — activates after 2+ Monday runs_'
+    : pageVelocity.slice(0, 5).map(v =>
+        `| ${v.page} | ${v.currentPosition} | ${v.previousPosition} | ${v.positionDelta > 0 ? '+' : ''}${v.positionDelta} | ${v.impressionDelta > 0 ? '+' : ''}${v.impressionDelta} | ${v.trend} |`
+      ).join('\n');
+
+  const velocityTable = pageVelocity !== null
+    ? `| Page | Cur Pos | Prev Pos | Pos Δ | Impr Δ | Trend |\n|------|---------|----------|-------|--------|-------|\n${velocitySection}`
+    : velocitySection;
 
   const digest = `---
 type: concept
@@ -590,6 +920,36 @@ ${deviceSection}
 
 ---
 
+## Query Entropy
+
+${entropySection}
+
+---
+
+## Impression Gravity (Hub Candidates)
+
+${gravitySection}
+
+---
+
+## Informational → Commercial Transition Gaps
+
+${transitionSection}
+
+---
+
+## AIO Action Items
+
+${aioSection}
+
+---
+
+## Page Velocity
+
+${velocityTable}
+
+---
+
 ## Raw Intelligence File
 
 Full structured data (ranked queues, all clusters): \`data/gsc/analysis.json\`
@@ -612,6 +972,13 @@ function buildAnalysis(gsc: GSCData) {
   const deviceIntelligence = gsc.deviceSplit ? analyzeDeviceSplit(gsc.deviceSplit) : null;
   const executiveSummary = buildExecutiveSummary({ siteTrend, opportunities, ctrLeaks, affiliateOpportunities, cannibalization, clusters });
 
+  // Phase 2 modules
+  const queryEntropy = computeQueryEntropy(gsc.pageQueries);
+  const impressionGravity = computeImpressionGravity(clusters, gsc.pages);
+  const intentTransitions = detectIntentTransitions(gsc.pageQueries);
+  const aioRecommendations = buildAIORecommendations(ctrLeaks);
+  const pageVelocity = computePageVelocity();
+
   return {
     generatedAt: new Date().toISOString(),
     dateRange: gsc.dateRange,
@@ -623,6 +990,11 @@ function buildAnalysis(gsc: GSCData) {
     cannibalization,
     affiliateOpportunities,
     executiveSummary,
+    queryEntropy,
+    impressionGravity,
+    intentTransitions,
+    aioRecommendations,
+    pageVelocity,
   };
 }
 
@@ -650,6 +1022,11 @@ async function main() {
   console.log(`  Cannibalization conflicts: ${analysis.cannibalization.length}`);
   console.log(`  Affiliate opportunities: ${analysis.affiliateOpportunities.length}`);
   console.log(`  AIO suspects: ${analysis.executiveSummary.aioSuspects}`);
+  console.log(`  Query entropy pages: ${analysis.queryEntropy.length}`);
+  console.log(`  Impression gravity hub candidates: ${analysis.impressionGravity.filter(g => g.hubCandidate).length}`);
+  console.log(`  Intent transition opportunities: ${analysis.intentTransitions.filter(t => t.transitionOpportunity).length}`);
+  console.log(`  AIO recommendations: ${analysis.aioRecommendations.length}`);
+  console.log(`  Page velocity: ${analysis.pageVelocity === null ? 'null (insufficient history)' : `${analysis.pageVelocity.length} pages tracked`}`);
 
   // Write analysis.json
   const analysisDir = resolve(ROOT, 'data/gsc');
@@ -674,7 +1051,7 @@ async function main() {
   writeIntelligenceDigest(ROOT, analysis);
 
   // Append to wiki log
-  appendWikiLog(ROOT, `## [${today()}] gsc-analyze | GSC Intelligence Analysis\n\n- CTR leaks: ${analysis.ctrLeaks.length} (top leak: ${analysis.ctrLeaks[0]?.page ?? 'none'} — "${analysis.ctrLeaks[0]?.query ?? ''}")\n- Opportunities: ${analysis.opportunities.filter(o => o.opportunityType !== 'low-signal').length} actionable\n- AIO suspects: ${analysis.executiveSummary.aioSuspects}\n- Affiliate alerts: ${analysis.affiliateOpportunities.filter(a => a.affiliateUrgency === 'high').length} high-urgency\n- Site momentum: ${analysis.siteTrend?.summaryLine ?? 'n/a'}\n`);
+  appendWikiLog(ROOT, `## [${today()}] gsc-analyze | GSC Intelligence Analysis\n\n- CTR leaks: ${analysis.ctrLeaks.length} (top leak: ${analysis.ctrLeaks[0]?.page ?? 'none'} — "${analysis.ctrLeaks[0]?.query ?? ''}")\n- Opportunities: ${analysis.opportunities.filter(o => o.opportunityType !== 'low-signal').length} actionable\n- AIO suspects: ${analysis.executiveSummary.aioSuspects}\n- Affiliate alerts: ${analysis.affiliateOpportunities.filter(a => a.affiliateUrgency === 'high').length} high-urgency\n- Site momentum: ${analysis.siteTrend?.summaryLine ?? 'n/a'}\n- Query entropy: ${analysis.queryEntropy.filter(e => e.regime === 'fragmented').length} fragmented pages\n- Hub candidates: ${analysis.impressionGravity.filter(g => g.hubCandidate).length}\n- Transition opportunities: ${analysis.intentTransitions.filter(t => t.transitionOpportunity).length}\n- AIO recommendations: ${analysis.aioRecommendations.length}\n- Page velocity: ${analysis.pageVelocity === null ? 'n/a (insufficient history)' : `${analysis.pageVelocity.length} pages`}\n`);
 
   console.log('\nExecutive Summary:');
   console.log(`  Momentum: ${analysis.executiveSummary.weeklyMomentum}`);

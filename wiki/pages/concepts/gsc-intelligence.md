@@ -65,6 +65,62 @@ _Device data unavailable — requires new gsc-pull run_
 
 ---
 
+## Query Entropy
+
+**Most fragmented pages** (topic generalists, low per-cluster authority):
+| Page | Entropy | Clusters | Regime |
+|------|---------|----------|--------|
+| /correct-chair-dimensions/ | 4.436 | 48 | fragmented |
+
+
+**Most concentrated pages** (single-keyword risk):
+| Page | Entropy | Clusters | Regime |
+|------|---------|----------|--------|
+| /chairs/steelcase-gesture/seat-depth/ | 0.425 | 3 | concentrated |
+| /knee-pain-seat-depth/ | 0.52 | 7 | concentrated |
+| /office-chairs-for-tall-people | 0.544 | 2 | concentrated |
+
+
+---
+
+## Impression Gravity (Hub Candidates)
+
+- **/review/gesture/**: 15 clusters, gravity score 113.2
+- **/best-office-chairs/**: 17 clusters, gravity score 111.22
+- **/correct-chair-dimensions/**: 15 clusters, gravity score 108.9
+- **/office-chairs-for-tall-people/**: 15 clusters, gravity score 95.18
+- **/review/leap-plus/**: 8 clusters, gravity score 51.59
+- **/chairs/steelcase-gesture/**: 8 clusters, gravity score 47.61
+- **/aeron-vs-gesture/**: 8 clusters, gravity score 46.82
+
+---
+
+## Informational → Commercial Transition Gaps
+
+_No transition opportunities detected_
+
+---
+
+## AIO Action Items
+
+**/chairs/steelcase-gesture/seat-depth/** — "steelcase gesture seat depth adjustment range inches" [medium] (31 impr, pos 6)
+  - Put the specific number/spec at the top of the page in a prominent answer box
+  - Add a definition callout box answering the spec directly
+  - Add a citation capsule: 3 sentences, no pronouns, standalone
+
+**/chairs/steelcase-gesture/seat-depth/** — "steelcase gesture seat depth range inches" [medium] (23 impr, pos 4.2)
+  - Put the specific number/spec at the top of the page in a prominent answer box
+  - Add a definition callout box answering the spec directly
+  - Add a citation capsule: 3 sentences, no pronouns, standalone
+
+---
+
+## Page Velocity
+
+_Insufficient history — activates after 2+ Monday runs_
+
+---
+
 ## Raw Intelligence File
 
 Full structured data (ranked queues, all clusters): `data/gsc/analysis.json`

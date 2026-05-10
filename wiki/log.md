@@ -9,6 +9,20 @@ type: log
 - AIO suspects: 2
 - Affiliate alerts: 0 high-urgency
 - Site momentum: n/a
+- Query entropy: 1 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: n/a (insufficient history)
+
+
+## [2026-05-10] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 11 (top leak: /review/gesture/ — "steelcase knee brace review")
+- Opportunities: 23 actionable
+- AIO suspects: 2
+- Affiliate alerts: 0 high-urgency
+- Site momentum: n/a
 
 
 ## [2026-05-09] manual-session | GSC Data Gap Analysis + gsc-analyze.ts Decision
