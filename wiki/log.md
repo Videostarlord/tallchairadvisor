@@ -100,7 +100,7 @@ type: log
 
 ## [2026-05-10] session | Built competitor-intelligence.ts (I1)
 
-- New script: `scripts/competitor-intelligence.ts` — 3-stage pipeline (SerpAPI → Firecrawl → Claude Haiku)
+- New script: `scripts/competitor-intelligence.ts` — 3-stage pipeline (SerpAPI → Firecrawl → Claude Sonnet)
 - `package.json`: added `competitor:intelligence` script
 - `.env`: added empty `SERP_API_KEY` and `FIRECRAWL_API_KEY` placeholders
 - Audit tracker (I1): marked BUILT — activation requires adding API keys to .env + GitHub secrets

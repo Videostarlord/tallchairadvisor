@@ -33,7 +33,7 @@ A rolling record of key strategic decisions and their outcomes. The most valuabl
 
 ## 2026-W19 (May 10c) — Built competitor-intelligence.ts (I1)
 
-- **BUILT — `scripts/competitor-intelligence.ts`:** 3-stage competitor intelligence pipeline. Stage 1: SerpAPI fetches real SERP rankings for top TCA keywords (from `analysis.json`) → finds URLs actually outranking TCA, not hardcoded competitor list. Stage 2: Firecrawl crawls those URLs for full markdown content. Stage 3: Claude Haiku generates specific content gap findings per TCA page. Outputs `data/competitors/intelligence.json` + wiki competitor-landscape page.
+- **BUILT — `scripts/competitor-intelligence.ts`:** 3-stage competitor intelligence pipeline. Stage 1: SerpAPI fetches real SERP rankings for top TCA keywords (from `analysis.json`) → finds URLs actually outranking TCA, not hardcoded competitor list. Stage 2: Firecrawl crawls those URLs for full markdown content. Stage 3: Claude Sonnet generates specific content gap findings per TCA page. Outputs `data/competitors/intelligence.json` + wiki competitor-landscape page.
 - **ACTIVATED:** `SERP_API_KEY` and `FIRECRAWL_API_KEY` configured in `.env` and GitHub Actions secrets. Free tiers: SerpAPI 250 credits/month (~23/run), Firecrawl 500 pages/month.
 - **`package.json`:** Added `competitor:intelligence` script (`npm run competitor:intelligence`).
 - **Cost controls:** Max 8 keywords/run, max 12 competitor URLs — estimated ~$1–3/month.

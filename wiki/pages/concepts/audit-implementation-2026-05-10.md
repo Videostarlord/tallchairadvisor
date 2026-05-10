@@ -162,7 +162,7 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 - Run: `npm run competitor:intelligence` (manual/monthly cadence)
 - Stage 1 — SerpAPI: for each top `near-p1`/`content-depth` keyword in `analysis.json`, fetch real SERP results and find URLs outranking TCA's actual position (not hardcoded competitors)
 - Stage 2 — Firecrawl: crawl only those outranking URLs for full content (markdown), not just HTML metadata
-- Stage 3 — Claude Haiku: generate specific gap findings per TCA page vs outrankers
+- Stage 3 — Claude Sonnet: generate specific gap findings per TCA page vs outrankers
 - Outputs: `data/competitors/intelligence.json`, `raw/competitors/YYYY-MM-DD-intelligence.json`, updates wiki competitor-landscape page
 - Cost controls: max 8 keywords/run, max 12 competitor URLs/run, ~$1–3/month
 - **Activated:** `SERP_API_KEY` and `FIRECRAWL_API_KEY` configured in `.env` and GitHub Actions secrets. SerpAPI: 250 credits/month free tier (~23/run). Firecrawl: 500 pages/month free tier.
