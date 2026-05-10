@@ -115,6 +115,29 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 
 ---
 
+## URGENT — New Bug Identified by Codex (NOT from audit, NOT fixed yet)
+
+### Friday agent reads stale weekly plan + green-but-empty runs
+
+**Root cause chain (Codex, confirmed via GitHub Actions logs):**
+1. Wednesday generates a new plan and pushes to `staging`
+2. Friday checks out `main` (no `ref: staging` in friday.yml, unlike saturday.yml which explicitly checks out staging)
+3. `main` still has the previous Saturday's plan — Wednesday's new plan is only on `staging`
+4. Friday reads the stale plan, tries to generate a page from it, fails validation ("Missing `<Layout>` or `</Layout>` wrapper")
+5. `CONTENT_WRITTEN` stays `false` → commit/publish steps skipped
+6. GitHub shows the run as **green** because "no pages written" is a valid exit — no actual failure surfaced
+
+**Evidence:** Every Friday run since at least Apr 17 (runs 24557293083, 24882273667, 25209586786, 25547200977) was green but skipped "Verify build", "Content lint", and "Commit new content" — meaning zero pages published for weeks.
+
+**Three places that need to change:**
+1. `friday.yml`: add `ref: staging` to the `actions/checkout@v4` step (same as saturday.yml line 17) so Friday reads the current plan
+2. `friday.yml`: consider adding `fetch-depth: 0` to the checkout (saturday.yml has it)
+3. `friday.yml` or `execute-content.ts`: surface `CONTENT_WRITTEN=false` as a workflow warning/failure so it doesn't silently pass as green
+
+**What our session fixed vs this:** Our force-push fix (main→staging on failure path) is unrelated. This bug is about which branch Friday *reads from*, not where it pushes to.
+
+---
+
 ## NOT YET IMPLEMENTED — Remaining from Combined Audit
 
 ### C1 — /review/gesture/ depth expansion
