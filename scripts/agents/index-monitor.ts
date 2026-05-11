@@ -158,9 +158,10 @@ function classifyIssue(result: any): Pick<PageInspection, 'fixable' | 'fixType' 
   };
 }
 
-async function inspectPage(webmasters: any, url: string): Promise<any> {
+// URL Inspection requires searchconsole v1, not webmasters v3
+async function inspectPage(sc: any, url: string): Promise<any> {
   try {
-    const res = await webmasters.urlInspection.index.inspect({
+    const res = await sc.urlInspection.index.inspect({
       requestBody: {
         inspectionUrl: url,
         siteUrl: SITE_URL,
@@ -276,7 +277,8 @@ async function main() {
     scopes: ['https://www.googleapis.com/auth/webmasters'],
   });
 
-  const webmasters = google.webmasters({ version: 'v3', auth });
+  const webmasters = google.webmasters({ version: 'v3', auth }); // for sitemap submission
+  const sc = google.searchconsole({ version: 'v1', auth });      // for URL Inspection API
 
   const allFiles = getAllAstroFiles();
   console.log(`Found ${allFiles.length} pages to inspect.`);
@@ -287,7 +289,7 @@ async function main() {
     const url = fileToUrl(filePath);
     process.stdout.write(`  Inspecting ${url} ... `);
 
-    const result = await inspectPage(webmasters, url);
+    const result = await inspectPage(sc, url);
 
     const verdict = result.verdict ?? 'VERDICT_UNSPECIFIED';
     const classification = classifyIssue(result);

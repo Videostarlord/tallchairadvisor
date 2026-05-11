@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-10 (full SEO audit — 77/100 overall)
+last_updated: 2026-05-10 (RunPod migration proposal added — under consideration)
 ---
 
 # TCA Wiki Index
@@ -54,6 +54,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[system-setup-guide]] | Step-by-step replication guide for Jackson (human reference only — not LLM context). Do not read for operational questions. |
 | [[workflow-system-reference]] | Current operational setup: weekly agent cycle, GitHub Actions, scripts, Obsidian vault, data flow. Read this for any question about how the automation works. |
 | [[indexing-health]] | Per-page GSC indexing status. Updated every Monday by index-monitor agent. Shows which pages are indexed, excluded, or waiting. |
+| [[runpod-migration-proposal]] | 🟡 UNDER CONSIDERATION. Research proposal to replace Claude API calls with open-source local models on RunPod serverless GPUs. Includes full benchmark table, GPU pricing, cost comparison, and model recommendations. Not approved — Jackson reviewing with other LLMs. |
 
 ## Synthesis
 

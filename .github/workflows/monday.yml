@@ -38,9 +38,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Run competitor intelligence
-        run: npx tsx scripts/agents/competitor-monitor.ts
+        run: npx tsx scripts/competitor-intelligence.ts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SERP_API_KEY: ${{ secrets.SERP_API_KEY }}
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
 
       - name: Run indexing health check
         run: npx tsx scripts/agents/index-monitor.ts
@@ -51,6 +53,6 @@ jobs:
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          git add data/gsc/latest.json data/gsc/analysis.json data/gsc/history/ data/competitors/latest.json reports/index-monitor.md raw/ wiki/ src/
+          git add data/gsc/latest.json data/gsc/analysis.json data/gsc/history/ data/competitors/ reports/index-monitor.md raw/ wiki/ src/
           git diff --staged --quiet || git commit -m "data: Monday pull + index fixes $(date +%Y-%m-%d)"
           git push

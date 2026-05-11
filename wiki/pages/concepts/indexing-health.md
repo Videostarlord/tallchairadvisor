@@ -7,7 +7,7 @@ tags: [indexing, gsc, coverage, technical-seo]
 
 # Indexing Health
 
-Last checked: **2026-05-11**
+Last checked: **2026-05-11** ⚠ DATA INVALID — index-monitor used wrong API client (webmasters v3 instead of searchconsole v1). All 45 results were API errors, not real index status. Fixed 2026-05-11. Will refresh next Monday.
 
 ## Current Status
 

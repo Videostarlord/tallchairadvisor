@@ -51,7 +51,8 @@ async function main() {
 
   // Skip if latest.json was pulled within the last 72 hours (prevents redundant API calls)
   // Override with --force flag when a fresh pull is needed despite recency
-  const forceFlag = process.argv.includes('--force');
+  // Always pull on CI — checkout resets mtime so the age check is meaningless there
+  const forceFlag = process.argv.includes('--force') || !!process.env.CI;
   if (!forceFlag && existsSync(OUTPUT_PATH)) {
     const stat = statSync(OUTPUT_PATH);
     const ageHours = (Date.now() - stat.mtimeMs) / 3600000;

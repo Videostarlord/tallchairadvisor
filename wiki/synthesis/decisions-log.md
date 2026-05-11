@@ -1,12 +1,23 @@
 ---
 type: synthesis
-last_updated: 2026-05-10 (mergeCanonicalDuplicates bug fix — corrects corrupted ctrLeaks data)
+last_updated: 2026-05-10 (RunPod migration proposal — under consideration, not decided)
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W19 (May 10g) — RunPod + Local Model Migration — Under Consideration
+
+- **STATUS: NOT DECIDED.** This is a possible future architectural change that Jackson is evaluating with multiple LLMs. No action should be taken by any agent based on this entry.
+- **Context:** A manual `/seo-audit` skill run revealed issues the automated weekly workflow missed (security headers, robots.txt, sitemap gaps, schema structural validation, Core Web Vitals). Prompted a broader evaluation of whether the automation intelligence layer can be expanded cheaply.
+- **Claude API cost baseline confirmed:** $85–136/year across the full Mon–Sat cycle. execute-fixes.ts (3 calls/fix × 3–5 fixes) and execute-content.ts (2 calls/page) are the dominant costs, not the intelligence agents.
+- **Proposal:** Replace Claude API in intelligence agents (audit, strategy, competitor-monitor, index-monitor, verify-deploy, execute-fixes) with Gemma 4 31B (GPQA Diamond 84.3% — exceeds Sonnet's 75.4%) on RunPod 24GB serverless at $0.00019/s. Retain Claude API only for execute-content.ts (Astro page writing).
+- **Cost if approved:** ~$35–55/year vs. current $85–136/year. Gemma 4 31B on 24GB is $0.68/hr → $35.57/year at 1hr/week.
+- **New capabilities identified:** GSC query semantic clustering via free embedding model, semantic competitor gap analysis on 20–30 competitors vs. current 5, full-site quality matrix on all 50 pages, Reddit automation reconnected to strategy agent, content brief pre-generation for Friday agent.
+- **Key open question before any decision:** Does Gemma 4 31B produce acceptable TCA-voice output for non-Gesture pages? Needs test prompt comparison vs. Claude Sonnet.
+- **Full research:** `raw/strategy/2026-05-10-runpod-migration-proposal.md`
 
 ## 2026-W19 (May 10f) — `mergeCanonicalDuplicates` pageQuery bug fix
 

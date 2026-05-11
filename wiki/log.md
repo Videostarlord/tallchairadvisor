@@ -5,19 +5,18 @@ type: log
 ## [2026-05-11] index-monitor | Indexing Health Check
 
 - Pages inspected: 45
-- Indexed: 0 | Issues: 45 | Fixed: 0
+- Indexed: 0 | Issues: 45 | Fixed: 0 — NOTE: all failures were API errors (wrong API client bug, now fixed)
 - Sitemap resubmitted: false
-- Issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/about/ (wait), https://tallchairadvisor.com/aeron-vs-gesture/ (wait), https://tallchairadvisor.com/aeron-vs-leap-plus/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/back-pain-spine-height/ (wait), https://tallchairadvisor.com/best-office-chairs-under-500/ (wait), https://tallchairadvisor.com/best-office-chairs/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/correct-chair-dimensions/ (wait), https://tallchairadvisor.com/fit-guides/ (wait), https://tallchairadvisor.com/gesture-vs-leap-plus/ (wait), https://tallchairadvisor.com/how-to-adjust-chair/ (wait), https://tallchairadvisor.com/ (wait), https://tallchairadvisor.com/knee-pain-seat-depth/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-3/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-4/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-5/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-6/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-7/ (wait), https://tallchairadvisor.com/office-chairs-for-tall-people/ (wait), https://tallchairadvisor.com/pain-ergonomics/ (wait), https://tallchairadvisor.com/privacy-policy/ (wait), https://tallchairadvisor.com/shoulder-pain-tall-people/ (wait), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/why-standard-chairs-dont-fit/ (wait), https://tallchairadvisor.com/review/aeron-size-c/ (wait), https://tallchairadvisor.com/review/gesture/ (wait), https://tallchairadvisor.com/review/leap-plus/ (wait), https://tallchairadvisor.com/review/sihoo-doro-s300/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ (wait)
 
 
-## [2026-05-11] competitor-monitor | Competitor Scan
+## [2026-05-11] competitor-monitor | Competitor Scan (old script — replaced by competitor-intelligence.ts)
 
 - Monitored: 5 pages (5 live, 0 dead)
 - Gaps found: 3
-- Summary: Our core problem is a mismatch between impression volume and earned clicks: we have three pages sitting near page 1 with a combined 5,807 impressions generating almost no traffic, because our titles lack the tall-specific hook that would make a 6'4" person choose us over Wirecutter or ChairsFX. The immediate priority is CTR surgery on /review/gesture/ and /chairs/herman-miller-aeron/tall-people/ via differentiated title tags, followed by a full rebuild of /office-chairs-for-tall-people/ as the authoritative pillar page no competitor has actually built for this specific audience. Closing these three gaps addresses both the quick wins (title/meta rewrites that can move within 2–4 weeks) and the durable moat (depth + schema that compounds over 60–90 days).
+- Note: This was the legacy competitor-monitor.ts. monday.yml now wired to competitor-intelligence.ts.
 
 
-## [2026-05-11] gsc-analyze | GSC Intelligence Analysis
+## [2026-05-11] gsc-analyze | GSC Intelligence Analysis (ran on stale May 10 data — gsc:pull skipped bug, now fixed)
 
 - CTR leaks: 12 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
 - Opportunities: 23 actionable
@@ -30,6 +29,18 @@ type: log
 - AIO recommendations: 2
 - Page velocity: n/a (insufficient history)
 
+## [2026-05-10] research | RunPod + Local Model Migration Proposal
+
+- **Status:** 🟡 UNDER CONSIDERATION — not approved, not implemented. Jackson reviewing with other LLMs before any decision.
+- **Trigger:** Manual `/seo-audit` run on 2026-05-09 revealed issues the automated weekly workflow never caught (security headers, robots.txt, sitemap gaps, schema structure errors). Prompted evaluation of whether the automation intelligence layer can be improved and/or made cheaper.
+- **Claude API baseline established:** $85–136/year across full weekly cycle (execute-fixes.ts 3 calls/fix × 3–5 fixes/week is the dominant cost, not the intelligence agents).
+- **Core proposal:** Replace intelligence agent Claude calls with Gemma 4 31B (GPQA 84.3%, exceeds Sonnet 75.4%) on RunPod 24GB serverless ($35.57/yr at 1hr/wk). Keep Claude API for execute-content.ts (page writing).
+- **New architecture explored:** "Sunday Intelligence Pod" — single weekly pod run loads model once, runs all intelligence agents sequentially (no repeated cold starts), commits output to git. Mon–Fri workflows become dumb executors reading pre-computed intelligence.
+- **New capabilities identified:** GSC query embedding/clustering, semantic competitor gap analysis (vs. current structural-only), full-site quality matrix (all 50 pages, not top 20), Reddit automation reconnected to strategy, content brief pre-generation.
+- **Models benchmarked:** Qwen3 series, DeepSeek-R1/V3 series, Gemma 4 series, Kimi K2 series, Llama 3.1/3.3, Phi-4, Mistral Small 3.1. Full table in raw document.
+- **Not viable for single GPU:** Kimi K2 (1T params), DeepSeek-R1 full (671B), Llama 3.1 405B — all require 370–550GB VRAM.
+- **Raw document:** `raw/strategy/2026-05-10-runpod-migration-proposal.md`
+- **Wiki page:** `wiki/pages/concepts/runpod-migration-proposal.md`
 
 ## [2026-05-10] seo-audit | Full SEO Audit (77/100)
 
