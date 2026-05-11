@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-05-10
+last_updated: 2026-05-11
 sources: [data/gsc/analysis.json]
 tags: [gsc, intelligence, opportunities, ctr, weekly]
 ---
 
 # GSC Weekly Intelligence Digest
 
-**Generated 2026-05-10 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
+**Generated 2026-05-11 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
 
 ---
 

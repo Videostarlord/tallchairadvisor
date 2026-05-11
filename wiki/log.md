@@ -2,6 +2,35 @@
 type: log
 ---
 
+## [2026-05-11] index-monitor | Indexing Health Check
+
+- Pages inspected: 45
+- Indexed: 0 | Issues: 45 | Fixed: 0
+- Sitemap resubmitted: false
+- Issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/about/ (wait), https://tallchairadvisor.com/aeron-vs-gesture/ (wait), https://tallchairadvisor.com/aeron-vs-leap-plus/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/back-pain-spine-height/ (wait), https://tallchairadvisor.com/best-office-chairs-under-500/ (wait), https://tallchairadvisor.com/best-office-chairs/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/correct-chair-dimensions/ (wait), https://tallchairadvisor.com/fit-guides/ (wait), https://tallchairadvisor.com/gesture-vs-leap-plus/ (wait), https://tallchairadvisor.com/how-to-adjust-chair/ (wait), https://tallchairadvisor.com/ (wait), https://tallchairadvisor.com/knee-pain-seat-depth/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-3/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-4/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-5/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-6/ (wait), https://tallchairadvisor.com/office-chairs-for-6-foot-7/ (wait), https://tallchairadvisor.com/office-chairs-for-tall-people/ (wait), https://tallchairadvisor.com/pain-ergonomics/ (wait), https://tallchairadvisor.com/privacy-policy/ (wait), https://tallchairadvisor.com/shoulder-pain-tall-people/ (wait), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/why-standard-chairs-dont-fit/ (wait), https://tallchairadvisor.com/review/aeron-size-c/ (wait), https://tallchairadvisor.com/review/gesture/ (wait), https://tallchairadvisor.com/review/leap-plus/ (wait), https://tallchairadvisor.com/review/sihoo-doro-s300/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ (wait)
+
+
+## [2026-05-11] competitor-monitor | Competitor Scan
+
+- Monitored: 5 pages (5 live, 0 dead)
+- Gaps found: 3
+- Summary: Our core problem is a mismatch between impression volume and earned clicks: we have three pages sitting near page 1 with a combined 5,807 impressions generating almost no traffic, because our titles lack the tall-specific hook that would make a 6'4" person choose us over Wirecutter or ChairsFX. The immediate priority is CTR surgery on /review/gesture/ and /chairs/herman-miller-aeron/tall-people/ via differentiated title tags, followed by a full rebuild of /office-chairs-for-tall-people/ as the authoritative pillar page no competitor has actually built for this specific audience. Closing these three gaps addresses both the quick wins (title/meta rewrites that can move within 2–4 weeks) and the durable moat (depth + schema that compounds over 60–90 days).
+
+
+## [2026-05-11] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 12 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 23 actionable
+- AIO suspects: 2
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions up 29.1% WoW (3582 vs 2774), clicks up 125% (9 vs 4), avg position stable
+- Query entropy: 1 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: n/a (insufficient history)
+
+
 ## [2026-05-10] seo-audit | Full SEO Audit (77/100)
 
 - **6-specialist parallel audit:** technical (84), content (74), schema (71), sitemap (83), performance (90), visual/mobile (74)

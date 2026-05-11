@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-10
+last_updated: 2026-05-11
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,15 +70,8 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-10. 8 pages analyzed × up to 3 queries each. 20 URLs crawled (34 cache hits). 7 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
-
-| Date | Gap | Priority | Queries | Competitor |
-|------|-----|----------|---------|------------|
-| 2026-05-10 | No complete multi-dimension spec table covering all adjustable dimensions of the | high | 3q | thehumansolution.com |
-| 2026-05-10 | The 'Common Mistakes' section frames all five mistakes generically without any n | high | 2q | forbes.com |
-| 2026-05-10 | Anthropometric data framework with height-to-popliteal-length derivation is abse | high | 2q | eurekaergonomic.com |
-| 2026-05-10 | No chair category differentiation by use case — all three chairs are evaluated a | high | 2q | btod.com |
-| 2026-05-10 | Dedicated head-to-head comparison section rendered as a structured spec table, n | high | 2q | btod.com |
-| 2026-05-10 | Current return policy details — specifically the shift from 30-day to 14-day ret | high | 2q | btod.com |
-| 2026-05-10 | Two-finger rule is described qualitatively but the competitor explicitly disting | high | 1q | eurekaergonomic.com |
-| 2026-05-10 | No AIO-citation-formatted passage-level answer sentences for individual spec dim | medium | 1q | forbes.com |
+| Date | Gap | Priority | Recommendation |
+|------|-----|----------|----------------|
+| 2026-05-11 | Thin, low-authority Aeron content vs. ChairsFX's 14,684-word deep-dive with full schema markup. Our /chairs/herman-miller-aeron/tall-people/ page sits at position 7.4 with 1,353 impressions but only 0.3% CTR — a clear signal that the title/meta aren't compelling enough to earn the click, and that on-page depth likely can't justify a top-3 ranking push. | high | Expand /chairs/herman-miller-aeron/tall-people/ to 3,000–5,000 words with tall-specific content competitors ignore: seat pan depth for 6'+ inseams, cylinder upgrade options, Size C vs. B comparison for tall frames, and a 'Is the Aeron right for tall people?' verdict section. Rewrite the title tag to something like 'Herman Miller Aeron for Tall People (6'+): Size C Review & Honest Verdict' to improve CTR. Implement Article + Product + BreadcrumbList schema. This page has the highest impression volume of any page with a near-page-1 position — fixing CTR and depth here is the single highest-leverage move. |
+| 2026-05-11 | Our /office-chairs-for-tall-people/ hub page sits at position 22.6 with 660 impressions — essentially invisible — while Tall.Life ranks for the same query with a 3,808-word article and BTOD competes with 7,603 words. This is our most important commercial keyword and we have no real competitive asset for it. | high | Treat /office-chairs-for-tall-people/ as the site's flagship pillar page and rebuild it to 4,000+ words. Structure it around tall-specific buying criteria competitors gloss over: minimum seat height (floor to pan), seat depth ≥18", back height for torsos above 20", weight capacity, and adjustable armrest height range. Include a comparison table of top 5–7 chairs with tall-friendly specs called out explicitly. Add internal links from all chair review pages back to this hub. Implement Article + ItemList + BreadcrumbList schema. Moving from position 22.6 to page 1 on this query is the highest traffic ceiling opportunity on the site. |
+| 2026-05-11 | Our /review/gesture/ page has the second-highest impression count on the site (2,529) at a strong position 8.2, but converts only 0.12% CTR — the worst ratio of any near-page-1 page. Wirecutter's 24,578-word guide and TheHumanSolution's product page dominate trust signals around this query. We have no tall-specific angle in our Gesture review that differentiates us in the SERP. | high | Rewrite the /review/gesture/ title tag and meta to lead with the tall-person angle, e.g. 'Steelcase Gesture Review for Tall People: Does It Fit If You're 6'+?' — this is a differentiated hook neither Wirecutter nor TheHumanSolution uses, and it matches our audience's actual intent. On-page, add a dedicated 'Gesture for Tall People' section covering max seat height, back height coverage for long torsos, and armrest range at full extension. Add a direct comparison snippet vs. Leap Plus (we already rank for that comparison) to capture mid-funnel decision traffic. Implement Product + Review + BreadcrumbList schema. A 0.12% CTR at position 8.2 with 2,529 impressions represents ~3 lost clicks per day — a title tag fix alone could 3–5x that within weeks. |
