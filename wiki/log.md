@@ -5,6 +5,43 @@ type: log
 ## [2026-05-11] index-monitor | Indexing Health Check
 
 - Pages inspected: 45
+- Indexed: 33 | Issues: 12 | Fixed: 0
+- Sitemap resubmitted: false
+- Issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ (wait)
+
+
+## [2026-05-11] competitor-intelligence v2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 23 (23 cached)
+- High-priority gaps: 0
+- 8 pages analyzed × up to 3 queries each. 23 URLs crawled (23 cache hits). 0 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.
+
+
+## [2026-05-11] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 13 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 24 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 1.2% WoW (3231 vs 3271), clicks up 16.7% (7 vs 6), avg position stable
+- Query entropy: 1 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 33 pages
+
+
+## [2026-05-11] gsc-pull | GSC Data Pull
+
+- Period: 2026-02-10 → 2026-05-11 (90 days)
+- Pages: 46 | Queries: 200 | PageQuery pairs: 475
+- Device rows: 55 | Daily trend rows: 89
+- Clicks: 35 | Impressions: 15417 | Avg pos: 11
+
+
+## [2026-05-11] index-monitor | Indexing Health Check
+
+- Pages inspected: 45
 - Indexed: 0 | Issues: 45 | Fixed: 0 — NOTE: all failures were API errors (wrong API client bug, now fixed)
 - Sitemap resubmitted: false
 
