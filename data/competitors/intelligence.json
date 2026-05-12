@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-05-12T03:45:26.898Z",
+  "generatedAt": "2026-05-12T05:55:48.626Z",
   "pagesAnalyzed": 8,
   "queriesRun": 23,
-  "urlsCrawled": 0,
-  "cacheHits": 45,
+  "urlsCrawled": 5,
+  "cacheHits": 40,
   "pages": [
     {
       "tcaPage": "/correct-chair-dimensions/",
@@ -107,48 +107,7 @@
             }
           ],
           "gateStatus": "passed",
-          "rawGaps": [
-            {
-              "gap": "Price and return policy comparison table is absent — TCA's chair fit table covers dimensions and fit verdicts but includes no pricing tiers, refurbished availability, or return window data for the three chairs (Gesture, Leap Plus, Aeron C)",
-              "priority": "medium",
-              "recommendation": "Add a secondary comparison row or callout block beneath the 'Chair Model Fit by Height' table that includes current price range (new and refurbished), return policy length, and trial period for each of the three chairs. This serves users in the evaluation-to-purchase stage and matches the decision-layer data btod.com surfaces in its quick comparison table. Keep it subordinate to the dimensional fit data since that is TCA's primary differentiator.",
-              "competitor": "btod.com",
-              "sourceQuery": "best office chairs for tall people",
-              "findingType": "absence_claim"
-            },
-            {
-              "gap": "No budget-tiered or category-segmented chair verdicts — the page covers only three premium chairs (Gesture, Leap Plus, Aeron C) with no acknowledgment of sub-$500 or budget alternatives for tall users, leaving a segment of the audience without a verdict",
-              "priority": "medium",
-              "recommendation": "Within the 'Chair Model Fit by Height' section or the 'Next Steps' section, add a brief callout (2–3 sentences, not a full review) naming whether any sub-$500 chair clears the dimensional minimums for 6'0\"–6'2\" users. If no budget chair clears the thresholds, state that explicitly with a one-line dimensional reason. This closes the gap btod.com exploits by anchoring at $299 and laddering up, and it also strengthens the internal link to the existing 'best tall office chairs under $500' page already referenced in TCA's content.",
-              "competitor": "btod.com",
-              "sourceQuery": "best office chairs for tall people",
-              "findingType": "depth_claim"
-            },
-            {
-              "gap": "Methodology section for chair selection and data sourcing is absent from the manifest — the page cites Cornell Ergonomics Lab and OSHA but does not contain a discrete methodology section explaining how the three chair models were selected, what spec sources were used, or how fit verdicts were assigned",
-              "priority": "high",
-              "recommendation": "Add a 'How We Selected These Chairs' or 'Methodology' subsection (150–200 words) near the top of the page, before the dimensional tables. Explicitly state: (1) the dimensional thresholds used as pass/fail criteria, (2) that specs were sourced directly from manufacturer spec sheets plus first-person measurement on the Gesture, (3) that chair selection was limited to models with published specs meeting all three minimums at 6'0\"+. This directly strengthens AI Overview citation eligibility and E-E-A-T signaling, an area btod.com addresses by citing '200+ chairs tested since 2018' in its lede.",
-              "competitor": "btod.com",
-              "sourceQuery": "best office chairs for tall people",
-              "findingType": "absence_claim"
-            },
-            {
-              "gap": "The height-bracket verdict table (Dimensional Requirements by Height / Exact Dimensions by Height sections) contains no visible 'No Chair Clears This Height' or 'gap zone' row for users at 6'6\"+ where even the Leap Plus may fall short — leaving the tallest segment of the target audience without a verdict",
-              "priority": "high",
-              "recommendation": "In the 'Exact Dimensions by Height: Single-Inch Breakdown' table, add explicit 'fit verdict' columns for each of the three chairs at each height increment, and for height rows at 6'6\"+ where no chair achieves full fit, add a highlighted 'No standard fit — extended cylinder + model X required' verdict cell. This makes the table a genuine decision tool rather than a reference table, and it is the primary structural differentiator TCA is positioned to own that btod.com entirely lacks.",
-              "competitor": "btod.com",
-              "sourceQuery": "best office chairs for tall people",
-              "findingType": "spec_gap"
-            },
-            {
-              "gap": "No first-person or quantified testing credential is surfaced in the page lede or intro section — Jackson's 6'4\" height and Gesture ownership are referenced inline later but the opening paragraph leads with generic dimensional specs rather than the author's direct-experience credibility hook",
-              "priority": "low",
-              "recommendation": "Revise the opening paragraph to surface Jackson's credentials and ownership in the first 2–3 sentences before presenting the dimensional minimums — e.g., 'As a 6'4\" Steelcase Gesture owner, I've verified these measurements against my own body and three chairs.' This mirrors btod.com's effective lede structure ('I'm Greg Knighton… I've personally tested over 200 office chairs since 2018') which anchors authority before any recommendations. The dimensional summary that currently opens the page can immediately follow.",
-              "competitor": "btod.com",
-              "sourceQuery": "best office chairs for tall people",
-              "findingType": "structure_claim"
-            }
-          ]
+          "rawGaps": []
         },
         {
           "query": "office chairs for tall people",
@@ -198,55 +157,8 @@
           "rawGaps": []
         }
       ],
-      "synthesizedGaps": [
-        {
-          "gap": "Methodology section for chair selection and data sourcing is absent from the manifest — the page cites Cornell Ergonomics Lab and OSHA but does not contain a discrete methodology section explaining how the three chair models were selected, what spec sources were used, or how fit verdicts were assigned",
-          "priority": "medium",
-          "rawPriority": "high",
-          "recommendation": "Add a 'How We Selected These Chairs' or 'Methodology' subsection (150–200 words) near the top of the page, before the dimensional tables. Explicitly state: (1) the dimensional thresholds used as pass/fail criteria, (2) that specs were sourced directly from manufacturer spec sheets plus first-person measurement on the Gesture, (3) that chair selection was limited to models with published specs meeting all three minimums at 6'0\"+. This directly strengthens AI Overview citation eligibility and E-E-A-T signaling, an area btod.com addresses by citing '200+ chairs tested since 2018' in its lede.",
-          "competitor": "btod.com",
-          "appearsInQueries": 1,
-          "trusted": false,
-          "coverageAtAnalysis": 0.7084243461833638,
-          "findingType": "absence_claim",
-          "downgradedReason": "soft downgrade: coverage 71% in 70–90% range, absence_claim"
-        },
-        {
-          "gap": "No first-person or quantified testing credential is surfaced in the page lede or intro section — Jackson's 6'4\" height and Gesture ownership are referenced inline later but the opening paragraph leads with generic dimensional specs rather than the author's direct-experience credibility hook",
-          "priority": "low",
-          "rawPriority": "low",
-          "recommendation": "Revise the opening paragraph to surface Jackson's credentials and ownership in the first 2–3 sentences before presenting the dimensional minimums — e.g., 'As a 6'4\" Steelcase Gesture owner, I've verified these measurements against my own body and three chairs.' This mirrors btod.com's effective lede structure ('I'm Greg Knighton… I've personally tested over 200 office chairs since 2018') which anchors authority before any recommendations. The dimensional summary that currently opens the page can immediately follow.",
-          "competitor": "btod.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 0.7084243461833638,
-          "findingType": "structure_claim"
-        }
-      ],
-      "allSynthesizedGaps": [
-        {
-          "gap": "Methodology section for chair selection and data sourcing is absent from the manifest — the page cites Cornell Ergonomics Lab and OSHA but does not contain a discrete methodology section explaining how the three chair models were selected, what spec sources were used, or how fit verdicts were assigned",
-          "priority": "high",
-          "rawPriority": "high",
-          "recommendation": "Add a 'How We Selected These Chairs' or 'Methodology' subsection (150–200 words) near the top of the page, before the dimensional tables. Explicitly state: (1) the dimensional thresholds used as pass/fail criteria, (2) that specs were sourced directly from manufacturer spec sheets plus first-person measurement on the Gesture, (3) that chair selection was limited to models with published specs meeting all three minimums at 6'0\"+. This directly strengthens AI Overview citation eligibility and E-E-A-T signaling, an area btod.com addresses by citing '200+ chairs tested since 2018' in its lede.",
-          "competitor": "btod.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 0.7084243461833638,
-          "findingType": "absence_claim"
-        },
-        {
-          "gap": "No first-person or quantified testing credential is surfaced in the page lede or intro section — Jackson's 6'4\" height and Gesture ownership are referenced inline later but the opening paragraph leads with generic dimensional specs rather than the author's direct-experience credibility hook",
-          "priority": "low",
-          "rawPriority": "low",
-          "recommendation": "Revise the opening paragraph to surface Jackson's credentials and ownership in the first 2–3 sentences before presenting the dimensional minimums — e.g., 'As a 6'4\" Steelcase Gesture owner, I've verified these measurements against my own body and three chairs.' This mirrors btod.com's effective lede structure ('I'm Greg Knighton… I've personally tested over 200 office chairs since 2018') which anchors authority before any recommendations. The dimensional summary that currently opens the page can immediately follow.",
-          "competitor": "btod.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 0.7084243461833638,
-          "findingType": "structure_claim"
-        }
-      ],
+      "synthesizedGaps": [],
+      "allSynthesizedGaps": [],
       "tcaContentSample": "[PAGE INVENTORY — content below is raw source; rendered output may include more]\nComponents in use: Layout, Byline\nSchema @types already present: Article, Person, Organization, ImageObject, BreadcrumbList, ListItem, FAQPage, Question, Answer, HowTo, HowToTool, HowToStep\nAffiliate CTA: present\n\n[SECT"
     },
     {
@@ -455,60 +367,60 @@
           "editorialTargets": [
             {
               "position": 1,
-              "link": "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-adjustment-lower-back-relief?srsltid=AfmBOordLrU4SLBBYMKYyWvxqq7BrS5KxnrzgrB4V3HQLuyh9G8QIx1W",
-              "title": "Seat Depth Adjustment: Your Guide to Lower Back Relief",
-              "snippet": "Follow the \"20-8-2\" rule recommended by Cornell University Ergonomics: sit for 20 minutes, stand for 8 minutes, and move/stretch for 2 minutes.",
-              "lane": "unknown-editorial",
-              "domain": "eurekaergonomic.com"
-            },
-            {
-              "position": 2,
-              "link": "https://ergo.human.cornell.edu/ErgoTools/CornellErgonomicWorkstationAdvisor2018.pdf",
-              "title": "CORNELL ERGONOMIC WORKSTATION ADVISOR",
-              "snippet": "If you can't adjust the seat pan depth sit forwards on the seat pan to give you back of the knee clearance and put a cushion or lumbar support behind your lower ...",
+              "link": "https://ergo.human.cornell.edu/DEA3250Flipbook/DEA3250notes/sitting.html",
+              "title": "Ergonomics of sitting",
+              "snippet": "Seat Depth - recommended is 16.5\" for fixed seats and 14-18.5\" for adjustable seats. · Seat Pan Contours - Half body weight is supported by an 8% area under the ...",
               "lane": "unknown-editorial",
               "domain": "ergo.human.cornell.edu"
             },
             {
-              "position": 3,
-              "link": "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-leg-length-ergonomic-guide?srsltid=AfmBOoprYGIXCIEVAhfT9odP7J0LdYJ6hUYcTBLx1vmX4f_uxeg74E_8",
-              "title": "What Is Seat Depth? How to Set It for Leg Length",
-              "snippet": "Sit in a chair with your feet flat on the floor and knees at a 90-degree angle. · Measure from the back of your buttocks to the crease behind ...",
+              "position": 2,
+              "link": "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-guide-lower-body-health?srsltid=AfmBOoq8L9EuLQ4eqK74lk_jeseF2inlgDow9ssnSfSC-mbA7y_I-lTF",
+              "title": "Seat Depth Guide: Critical for Lower Body Health",
+              "snippet": "The Thigh Gap: Why Seat Depth is Critical for Lower Body Health · Ideal: A gap of roughly 2 to 3 fingers (approximately 1.5 to 2 inches). · The \" ...",
               "lane": "unknown-editorial",
               "domain": "eurekaergonomic.com"
+            },
+            {
+              "position": 4,
+              "link": "https://ergo.human.cornell.edu/AHTutorials/chairch.html",
+              "title": "CUergo: Choosing an ergonomic chair",
+              "snippet": "You should be able to adjust the height of the seat pan so that the front of your knees is level or slightly below level and your feet are firmly on the ground.",
+              "lane": "unknown-editorial",
+              "domain": "ergo.human.cornell.edu"
             }
           ],
           "brandTargets": [],
           "crawledContent": [
             {
-              "url": "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-adjustment-lower-back-relief?srsltid=AfmBOordLrU4SLBBYMKYyWvxqq7BrS5KxnrzgrB4V3HQLuyh9G8QIx1W",
-              "domain": "eurekaergonomic.com",
-              "title": "eurekaergonomic.com",
-              "markdown": "[My Wishlist](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-adjustment-lower-back-relief#swym-wishlist) 0\n\n[Skip to content](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-adjustment-lower-back-relief#MainContent)\n\n- Free Shipping to the Lower 48 States\n\n\n- [Twitter](https://twitter.com/eurekaergonomic)\n- [Facebook](https://www.facebook.com/EurekaErgonomic)",
-              "wordCount": 895,
-              "fetchedAt": "2026-05-12T02:07:11.250Z",
-              "lane": "unknown-editorial",
-              "fromCache": true
-            },
-            {
-              "url": "https://ergo.human.cornell.edu/ErgoTools/CornellErgonomicWorkstationAdvisor2018.pdf",
+              "url": "https://ergo.human.cornell.edu/DEA3250Flipbook/DEA3250notes/sitting.html",
               "domain": "ergo.human.cornell.edu",
               "title": "ergo.human.cornell.edu",
-              "markdown": "CORNELL ERGONOMIC WORKSTATION ADVISOR\n\n| A. OFFICE CHAIR SELF-CHECK |  | Yes | No or Not applicable | If‘No’Recommended Action |\n| --- | --- | --- | --- | --- |\n| 1 | Seat Height:Can you sit comfortably with no compression of your thighs and with your feet supported on a stable surface? | ☐ | ☐ | Adjust your seat height so you can sit comfortably with your upper legs roughly parallel to the floor ",
-              "wordCount": 1036,
-              "fetchedAt": "2026-05-10T07:15:20.933Z",
+              "markdown": "**![](http://ergo.human.cornell.edu/CUErgoivy.gif)**\n\n**Cornell University Ergonomics Web**\n\n**DEA 3250/6510 CLASS NOTES**\n\n**Sitting and Chair Design**\n\n**1\\. Introduction -** An\nestimated 50% of people in the industrialized world suffer some form of\nback complaint and many of these are related to poor seat design. How we\nsit and what we sit on affects the health of the spine. The lumbar region\ni",
+              "wordCount": 982,
+              "fetchedAt": "2026-05-10T05:59:03.902Z",
               "lane": "unknown-editorial",
               "fromCache": true
             },
             {
-              "url": "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-leg-length-ergonomic-guide?srsltid=AfmBOoprYGIXCIEVAhfT9odP7J0LdYJ6hUYcTBLx1vmX4f_uxeg74E_8",
+              "url": "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-guide-lower-body-health?srsltid=AfmBOoq8L9EuLQ4eqK74lk_jeseF2inlgDow9ssnSfSC-mbA7y_I-lTF",
               "domain": "eurekaergonomic.com",
               "title": "eurekaergonomic.com",
-              "markdown": "[My Wishlist](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-leg-length-ergonomic-guide#swym-wishlist) 0\n\n[Skip to content](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-leg-length-ergonomic-guide#MainContent)\n\n- Free Shipping to the Lower 48 States\n\n\n- [Twitter](https://twitter.com/eurekaergonomic)\n- [Facebook](https://www.facebook.com/EurekaErgonomic)\n- [",
-              "wordCount": 862,
-              "fetchedAt": "2026-05-12T02:07:18.419Z",
+              "markdown": "[My Wishlist](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-guide-lower-body-health#swym-wishlist) 0\n\n[Skip to content](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-guide-lower-body-health#MainContent)\n\n- Free Shipping to the Lower 48 States\n\n\n- [Twitter](https://twitter.com/eurekaergonomic)\n- [Facebook](https://www.facebook.com/EurekaErgonomic)\n- [Pinter",
+              "wordCount": 869,
+              "fetchedAt": "2026-05-12T05:47:08.936Z",
               "lane": "unknown-editorial",
-              "fromCache": true
+              "fromCache": false
+            },
+            {
+              "url": "https://ergo.human.cornell.edu/AHTutorials/chairch.html",
+              "domain": "ergo.human.cornell.edu",
+              "title": "ergo.human.cornell.edu",
+              "markdown": "[![](https://ergo.human.cornell.edu/CUErgoivy.gif)](https://ergo.human.cornell.edu/default.htm)\n\n**Cornell University Ergonomics Web**\n\nHow to choose an ergonomic chair.\n\nTo help you to choose an ergonomic chair you can complete the\n[Ergonomic\\\\\nSeating Evaluation Form,](https://ergo.human.cornell.edu/ahSEATING.htm). You should also check whether the chair will meet at least the following criteria",
+              "wordCount": 775,
+              "fetchedAt": "2026-05-12T05:47:14.761Z",
+              "lane": "unknown-editorial",
+              "fromCache": false
             }
           ],
           "gateStatus": "passed",
@@ -541,40 +453,7 @@
             }
           ],
           "gateStatus": "passed",
-          "rawGaps": [
-            {
-              "gap": "No FAQ section despite FAQPage schema being declared — the schema type is present but no visible FAQ content (Q&A pairs) appears in the section manifest or page content",
-              "priority": "high",
-              "recommendation": "Add a rendered FAQ section with at least 4–5 Q&A pairs targeting pain-specific sub-questions. Suggested questions: (1) 'Why do my knees hurt after sitting in my office chair?' — answer linking to popliteal compression and seat depth mismatch; (2) 'How do I measure my seat depth requirement at home?' — answer referencing the wall-measurement method already described in the page; (3) 'Is 17 inches of seat depth enough for a 6-foot person?' — answer with the height-range table already present; (4) 'What is the Cornell Ergonomics 2–3 finger rule for seat depth?' — direct answer naming the rule explicitly; (5) 'Can I fix seat depth without buying a new chair?' — answer covering seat cushion workarounds and their limitations. FAQPage schema is already declared, so the structured data cost is already paid — the rendered content just needs to match it.",
-              "competitor": "boulies.com",
-              "sourceQuery": "cornell ergonomics office chair seat depth 2 inches behind knees",
-              "findingType": "absence_claim"
-            },
-            {
-              "gap": "No quick-reference comparison table for seat depth specs across the three recommended chairs (Steelcase Leap Plus, Steelcase Gesture, Herman Miller Aeron Size C) — specs are buried in prose sub-sections rather than a scannable table",
-              "priority": "medium",
-              "recommendation": "Add a 4-column comparison table under 'Chairs With Adequate Seat Depth for Tall Users' with columns: Chair | Seat Depth Range | Adjustment Type | Best-Fit Height Range. Populate with data already present in the page (Leap Plus: 15.75\"–19.75\", adjustable, up to ~6'6\"; Gesture: 15.75\"–18.75\", adjustable, up to 6'4\"; Aeron C: 18.5\" fixed, 6'0\"–6'2\"). Boulies uses this table pattern for its dimensions chart — a scannable table improves both UX for comparison shoppers and the chance of ranking for '[chair] seat depth' spec queries. The data is already in TCA's page; it just needs to be structured.",
-              "competitor": "boulies.com",
-              "sourceQuery": "cornell ergonomics office chair seat depth 2 inches behind knees",
-              "findingType": "structure_claim"
-            },
-            {
-              "gap": "The Cornell Ergonomics Rule is named and cited in the intro and body, but the citation never includes a direct link or URL to the Cornell Ergonomics Lab source — it is referenced as 'Cornell University Ergonomics Lab guidance on seated workstation setup' with what appears to be an unresolved anchor, not a live external citation",
-              "priority": "medium",
-              "recommendation": "Resolve the Cornell Ergonomics Lab citation to a live, named external URL (e.g., ergo.human.cornell.edu or the specific seated workstation checklist page). Display it as a named authority link — 'Cornell University Ergonomics Lab: Seated Workstation Guidelines' — rather than generic anchor text. This directly supports the target query 'cornell ergonomics office chair seat depth 2 inches behind knees': the page needs to demonstrably link to Cornell to be treated as a credible pass-through for that branded authority query. Similarly, the PubMed citation in the Popliteal Pressure section should resolve to a specific study (author, year, PMID) rather than a generic 'PubMed studies on seated pressure distribution' anchor.",
-              "competitor": "boulies.com",
-              "sourceQuery": "cornell ergonomics office chair seat depth 2 inches behind knees",
-              "findingType": "depth_claim"
-            },
-            {
-              "gap": "No symptom-onset timeline or severity progression content — the page explains the mechanism of popliteal compression but does not address how quickly symptoms develop (e.g., tingling within 1–2 hours, chronic damage over weeks/months), which is a common sub-question for pain-problem pages",
-              "priority": "low",
-              "recommendation": "Add 2–3 sentences to the 'Popliteal Pressure Problem' section describing symptom progression: acute tingling/numbness appearing within 60–90 minutes of sustained compression, progressing to chronic discomfort and potential nerve sensitivity over weeks of repeated exposure. This targets informational searchers arriving via pain-symptom queries ('why do my legs go numb sitting at desk') and supports the problem-to-solution structure by making the urgency of the fix explicit before the measurement and product sections appear.",
-              "competitor": "boulies.com",
-              "sourceQuery": "cornell ergonomics office chair seat depth 2 inches behind knees",
-              "findingType": "depth_claim"
-            }
-          ]
+          "rawGaps": []
         },
         {
           "query": "cornell ergonomics seat depth rule",
@@ -642,76 +521,8 @@
           "rawGaps": []
         }
       ],
-      "synthesizedGaps": [
-        {
-          "gap": "No FAQ section despite FAQPage schema being declared — the schema type is present but no visible FAQ content (Q&A pairs) appears in the section manifest or page content",
-          "priority": "high",
-          "rawPriority": "high",
-          "recommendation": "Add a rendered FAQ section with at least 4–5 Q&A pairs targeting pain-specific sub-questions. Suggested questions: (1) 'Why do my knees hurt after sitting in my office chair?' — answer linking to popliteal compression and seat depth mismatch; (2) 'How do I measure my seat depth requirement at home?' — answer referencing the wall-measurement method already described in the page; (3) 'Is 17 inches of seat depth enough for a 6-foot person?' — answer with the height-range table already present; (4) 'What is the Cornell Ergonomics 2–3 finger rule for seat depth?' — direct answer naming the rule explicitly; (5) 'Can I fix seat depth without buying a new chair?' — answer covering seat cushion workarounds and their limitations. FAQPage schema is already declared, so the structured data cost is already paid — the rendered content just needs to match it.",
-          "competitor": "boulies.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 1,
-          "findingType": "absence_claim"
-        },
-        {
-          "gap": "No quick-reference comparison table for seat depth specs across the three recommended chairs (Steelcase Leap Plus, Steelcase Gesture, Herman Miller Aeron Size C) — specs are buried in prose sub-sections rather than a scannable table",
-          "priority": "medium",
-          "rawPriority": "medium",
-          "recommendation": "Add a 4-column comparison table under 'Chairs With Adequate Seat Depth for Tall Users' with columns: Chair | Seat Depth Range | Adjustment Type | Best-Fit Height Range. Populate with data already present in the page (Leap Plus: 15.75\"–19.75\", adjustable, up to ~6'6\"; Gesture: 15.75\"–18.75\", adjustable, up to 6'4\"; Aeron C: 18.5\" fixed, 6'0\"–6'2\"). Boulies uses this table pattern for its dimensions chart — a scannable table improves both UX for comparison shoppers and the chance of ranking for '[chair] seat depth' spec queries. The data is already in TCA's page; it just needs to be structured.",
-          "competitor": "boulies.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 1,
-          "findingType": "structure_claim"
-        },
-        {
-          "gap": "The Cornell Ergonomics Rule is named and cited in the intro and body, but the citation never includes a direct link or URL to the Cornell Ergonomics Lab source — it is referenced as 'Cornell University Ergonomics Lab guidance on seated workstation setup' with what appears to be an unresolved anchor, not a live external citation",
-          "priority": "medium",
-          "rawPriority": "medium",
-          "recommendation": "Resolve the Cornell Ergonomics Lab citation to a live, named external URL (e.g., ergo.human.cornell.edu or the specific seated workstation checklist page). Display it as a named authority link — 'Cornell University Ergonomics Lab: Seated Workstation Guidelines' — rather than generic anchor text. This directly supports the target query 'cornell ergonomics office chair seat depth 2 inches behind knees': the page needs to demonstrably link to Cornell to be treated as a credible pass-through for that branded authority query. Similarly, the PubMed citation in the Popliteal Pressure section should resolve to a specific study (author, year, PMID) rather than a generic 'PubMed studies on seated pressure distribution' anchor.",
-          "competitor": "boulies.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 1,
-          "findingType": "depth_claim"
-        }
-      ],
-      "allSynthesizedGaps": [
-        {
-          "gap": "No FAQ section despite FAQPage schema being declared — the schema type is present but no visible FAQ content (Q&A pairs) appears in the section manifest or page content",
-          "priority": "high",
-          "rawPriority": "high",
-          "recommendation": "Add a rendered FAQ section with at least 4–5 Q&A pairs targeting pain-specific sub-questions. Suggested questions: (1) 'Why do my knees hurt after sitting in my office chair?' — answer linking to popliteal compression and seat depth mismatch; (2) 'How do I measure my seat depth requirement at home?' — answer referencing the wall-measurement method already described in the page; (3) 'Is 17 inches of seat depth enough for a 6-foot person?' — answer with the height-range table already present; (4) 'What is the Cornell Ergonomics 2–3 finger rule for seat depth?' — direct answer naming the rule explicitly; (5) 'Can I fix seat depth without buying a new chair?' — answer covering seat cushion workarounds and their limitations. FAQPage schema is already declared, so the structured data cost is already paid — the rendered content just needs to match it.",
-          "competitor": "boulies.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 1,
-          "findingType": "absence_claim"
-        },
-        {
-          "gap": "No quick-reference comparison table for seat depth specs across the three recommended chairs (Steelcase Leap Plus, Steelcase Gesture, Herman Miller Aeron Size C) — specs are buried in prose sub-sections rather than a scannable table",
-          "priority": "medium",
-          "rawPriority": "medium",
-          "recommendation": "Add a 4-column comparison table under 'Chairs With Adequate Seat Depth for Tall Users' with columns: Chair | Seat Depth Range | Adjustment Type | Best-Fit Height Range. Populate with data already present in the page (Leap Plus: 15.75\"–19.75\", adjustable, up to ~6'6\"; Gesture: 15.75\"–18.75\", adjustable, up to 6'4\"; Aeron C: 18.5\" fixed, 6'0\"–6'2\"). Boulies uses this table pattern for its dimensions chart — a scannable table improves both UX for comparison shoppers and the chance of ranking for '[chair] seat depth' spec queries. The data is already in TCA's page; it just needs to be structured.",
-          "competitor": "boulies.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 1,
-          "findingType": "structure_claim"
-        },
-        {
-          "gap": "The Cornell Ergonomics Rule is named and cited in the intro and body, but the citation never includes a direct link or URL to the Cornell Ergonomics Lab source — it is referenced as 'Cornell University Ergonomics Lab guidance on seated workstation setup' with what appears to be an unresolved anchor, not a live external citation",
-          "priority": "medium",
-          "rawPriority": "medium",
-          "recommendation": "Resolve the Cornell Ergonomics Lab citation to a live, named external URL (e.g., ergo.human.cornell.edu or the specific seated workstation checklist page). Display it as a named authority link — 'Cornell University Ergonomics Lab: Seated Workstation Guidelines' — rather than generic anchor text. This directly supports the target query 'cornell ergonomics office chair seat depth 2 inches behind knees': the page needs to demonstrably link to Cornell to be treated as a credible pass-through for that branded authority query. Similarly, the PubMed citation in the Popliteal Pressure section should resolve to a specific study (author, year, PMID) rather than a generic 'PubMed studies on seated pressure distribution' anchor.",
-          "competitor": "boulies.com",
-          "appearsInQueries": 1,
-          "trusted": true,
-          "coverageAtAnalysis": 1,
-          "findingType": "depth_claim"
-        }
-      ],
+      "synthesizedGaps": [],
+      "allSynthesizedGaps": [],
       "tcaContentSample": "[PAGE INVENTORY — content below is raw source; rendered output may include more]\nComponents in use: Layout, Byline\nSchema @types already present: Article, Person, Organization, ImageObject, BreadcrumbList, ListItem, FAQPage, Question, Answer\nAffiliate CTA: present\n\n[SECTION MANIFEST — 13 sections fo"
     },
     {
@@ -820,8 +631,8 @@
           "queryType": "primary",
           "editorialTargets": [
             {
-              "position": 8,
-              "link": "https://www.btod.com/blog/herman-miller-aeron-review/?srsltid=AfmBOoqiDzhm6brif5w4iL9Zo-1n2r9JXcGWquNdc61b_c9N0cnTHgs6",
+              "position": 10,
+              "link": "https://www.btod.com/blog/herman-miller-aeron-review/?srsltid=AfmBOoruLkI1JeNgJYlpFijzoEOHh6YRAlemCLkJ5asS03KxSDBqeu2z",
               "title": "Herman Miller Aeron Mesh Office Chair 2026 Review",
               "snippet": "Size C fits 5'3″-6'7″ weighing 180-350 lbs. If you're between sizes, generally go smaller – the Aeron tends to feel better with a snug fit ...",
               "lane": "editorial",
@@ -838,7 +649,7 @@
               "domain": "hermanmiller.com"
             },
             {
-              "position": 3,
+              "position": 2,
               "link": "https://www.hermanmiller.com/content/dam/hermanmiller/documents/product_literature/other/ap_sizefitref_classic_aeron_chairs.pdf",
               "title": "Classic Aeron Chairs Size-Fit Reference",
               "snippet": "This reference helps people select A-, B-, or C-size chairs when the three sizes are not available for actual test sitting. Height and weight are key.",
@@ -848,14 +659,14 @@
           ],
           "crawledContent": [
             {
-              "url": "https://www.btod.com/blog/herman-miller-aeron-review/?srsltid=AfmBOoqiDzhm6brif5w4iL9Zo-1n2r9JXcGWquNdc61b_c9N0cnTHgs6",
+              "url": "https://www.btod.com/blog/herman-miller-aeron-review/?srsltid=AfmBOoruLkI1JeNgJYlpFijzoEOHh6YRAlemCLkJ5asS03KxSDBqeu2z",
               "domain": "btod.com",
               "title": "Herman Miller Aeron Mesh Office Chair 2026 Review",
               "markdown": "# Herman Miller Aeron Mesh Office Chair 2026 Review\n\n[Ryan Bald](https://www.btod.com/blog/author/ryan/)\n04 May 2026 [Product Reviews](https://www.btod.com/blog/category/product-reviews/)[9 Comments](https://www.btod.com/blog/herman-miller-aeron-review/#comments)\n\nAffiliate Disclaimer: We independently review everything we recommend. When you buy through our links, we may earn a commission.\n\nToday",
               "wordCount": 805,
-              "fetchedAt": "2026-05-12T02:10:16.654Z",
+              "fetchedAt": "2026-05-12T05:49:48.179Z",
               "lane": "editorial",
-              "fromCache": true
+              "fromCache": false
             }
           ],
           "gateStatus": "passed",
@@ -1062,7 +873,40 @@
             }
           ],
           "gateStatus": "passed",
-          "rawGaps": []
+          "rawGaps": [
+            {
+              "gap": "Height-bracket verdict table lacks explicit per-bracket chair recommendations — the table provides minimum spec thresholds by height range but does not map each bracket to a specific chair pick (e.g., '6'0\"–6'2\": Aeron Size C; 6'2\"–6'4\": Gesture or Leap Plus; 6'4\"+: Leap Plus'). The competitor BTOD uses a quick-summary verdict list at the top that maps each use case to a named chair instantly.",
+              "priority": "high",
+              "recommendation": "Extend the 'Recommended Specs by Height Bracket' table to add a 'Best Chair Match' column that names the specific reviewed chair(s) for each bracket (e.g., 6'0\"–6'2\", 6'2\"–6'4\", 6'4\"–6'6\", 6'6\"+). For the 6'6\"+ row, note if none of the three chairs fully satisfy the spec and link to a sub-page. This turns the table from a passive reference into an active decision tool and creates the primary differentiator the page manifest identifies as a structural opportunity.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "depth_claim"
+            },
+            {
+              "gap": "No budget-tier framing in the chair-by-chair coverage section. The three chairs reviewed (Aeron Size C ~$1,400 new, Gesture ~$1,100 new, Leap Plus ~$1,200 new) all sit in the same price band. There is no sub-$700 or refurbished-tier recommendation for tall users who cannot spend over $1,000. BTOD explicitly segments picks from $299 to $1,950 and calls out refurbished Steelcase Leap V2 as a distinct entry point.",
+              "priority": "medium",
+              "recommendation": "Add a brief 'Budget Consideration' subsection within 'Chair-by-Chair Coverage' or inside 'Next Steps' that acknowledges the refurbished market for the three reviewed chairs (noting the existing mention of 40–60% savings is present but buried below the CTA) and, if coverage expands, flags whether any sub-$700 chair meets tall-user dimensional minimums. This does not require a new full review — a 100–150 word framing note with a link to a future or existing refurbished-chair sub-page would close the gap.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "absence_claim"
+            },
+            {
+              "gap": "Return policy and trial period data is absent from the side-by-side comparison table and the chair entries. BTOD's quick-comparison table includes a 'Return Policy' column for every chair (e.g., '60 day free returns'), which is a direct purchase-confidence signal. TCA's comparison table contains dimensional specs but no return or trial information for any of the three chairs.",
+              "priority": "medium",
+              "recommendation": "Add a 'Trial / Return Policy' row to the existing side-by-side comparison table. Populate it with current data: Herman Miller Aeron (30-day trial via HM direct; varies by retailer), Steelcase Gesture (30-day trial via Steelcase.com; dealer policies vary), Steelcase Leap Plus (same Steelcase policy). Flag that Amazon third-party and refurbished-reseller policies differ. This row costs one table row and meaningfully increases purchase confidence for a high-consideration buy.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "spec_gap"
+            },
+            {
+              "gap": "The author's first-person credential and testing methodology are not surfaced in a scannable, structured block near the top of the page. BTOD leads with 'I've personally tested over 200 office chairs since 2018' in the opening paragraph, immediately establishing review authority. TCA's byline component and Jackson Christopher's credentials (6'4\", Mechanical Engineering, UC Berkeley, owns the Gesture) exist in the page but are embedded in schema and byline rather than in a visible, prose-level authority statement that a reader or AI crawler can extract from the body text.",
+              "priority": "medium",
+              "recommendation": "Add a 2–3 sentence authority statement in the opening section ('The Problem With Standard Office Chairs') or immediately after the intro paragraph that names the author, his height, his engineering background, and explicitly distinguishes which chair is first-person reviewed versus research-based. Example: 'This guide is written by Jackson Christopher, a 6'4\" Mechanical Engineering student at UC Berkeley. The Steelcase Gesture assessment is based on 18+ months of personal daily use; all other chairs are evaluated from manufacturer specs, anthropometric data, and published user research.' This surfaces credential signals for both readers and AI Overview extraction.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "structure_claim"
+            }
+          ]
         },
         {
           "query": "office chairs for tall people",
@@ -1112,8 +956,32 @@
           "rawGaps": []
         }
       ],
-      "synthesizedGaps": [],
-      "allSynthesizedGaps": [],
+      "synthesizedGaps": [
+        {
+          "gap": "The author's first-person credential and testing methodology are not surfaced in a scannable, structured block near the top of the page. BTOD leads with 'I've personally tested over 200 office chairs since 2018' in the opening paragraph, immediately establishing review authority. TCA's byline component and Jackson Christopher's credentials (6'4\", Mechanical Engineering, UC Berkeley, owns the Gesture) exist in the page but are embedded in schema and byline rather than in a visible, prose-level authority statement that a reader or AI crawler can extract from the body text.",
+          "priority": "medium",
+          "rawPriority": "medium",
+          "recommendation": "Add a 2–3 sentence authority statement in the opening section ('The Problem With Standard Office Chairs') or immediately after the intro paragraph that names the author, his height, his engineering background, and explicitly distinguishes which chair is first-person reviewed versus research-based. Example: 'This guide is written by Jackson Christopher, a 6'4\" Mechanical Engineering student at UC Berkeley. The Steelcase Gesture assessment is based on 18+ months of personal daily use; all other chairs are evaluated from manufacturer specs, anthropometric data, and published user research.' This surfaces credential signals for both readers and AI Overview extraction.",
+          "competitor": "btod.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 0.7352040191153045,
+          "findingType": "structure_claim"
+        }
+      ],
+      "allSynthesizedGaps": [
+        {
+          "gap": "The author's first-person credential and testing methodology are not surfaced in a scannable, structured block near the top of the page. BTOD leads with 'I've personally tested over 200 office chairs since 2018' in the opening paragraph, immediately establishing review authority. TCA's byline component and Jackson Christopher's credentials (6'4\", Mechanical Engineering, UC Berkeley, owns the Gesture) exist in the page but are embedded in schema and byline rather than in a visible, prose-level authority statement that a reader or AI crawler can extract from the body text.",
+          "priority": "medium",
+          "rawPriority": "medium",
+          "recommendation": "Add a 2–3 sentence authority statement in the opening section ('The Problem With Standard Office Chairs') or immediately after the intro paragraph that names the author, his height, his engineering background, and explicitly distinguishes which chair is first-person reviewed versus research-based. Example: 'This guide is written by Jackson Christopher, a 6'4\" Mechanical Engineering student at UC Berkeley. The Steelcase Gesture assessment is based on 18+ months of personal daily use; all other chairs are evaluated from manufacturer specs, anthropometric data, and published user research.' This surfaces credential signals for both readers and AI Overview extraction.",
+          "competitor": "btod.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 0.7352040191153045,
+          "findingType": "structure_claim"
+        }
+      ],
       "tcaContentSample": "[PAGE INVENTORY — content below is raw source; rendered output may include more]\nComponents in use: Layout, Byline\nSchema @types already present: Article, Person, Organization, ImageObject, BreadcrumbList, ListItem, FAQPage, Question, Answer\nAffiliate CTA: present\n\n[SECTION MANIFEST — 27 sections fo"
     },
     {
@@ -1236,7 +1104,40 @@
             }
           ],
           "gateStatus": "passed",
-          "rawGaps": []
+          "rawGaps": [
+            {
+              "gap": "Tall-user specs table with measurements annotated by user height (6'0\"–6'6\") is absent — the Height Fit Guide exists as prose but no structured table maps seat height, seat depth, back height, and armrest height to specific user heights in the 6'0\"–6'6\" range",
+              "priority": "high",
+              "recommendation": "Add a formatted table inside or immediately after the 'Height Fit Guide' section with columns: User Height | Recommended Seat Height | Recommended Seat Depth | Back Height Coverage | Armrest Height Range | Fit Verdict. Populate for 6'0\", 6'2\", 6'4\", 6'6\" as row anchors. This converts existing prose fit analysis into a scannable, indexable spec artifact that directly satisfies the query 'steelcase leap plus for tall people' and supports the fit-range verdict with numeric backing.",
+              "competitor": "thehumansolution.com",
+              "sourceQuery": "steelcase leap plus for tall people",
+              "findingType": "spec_gap"
+            },
+            {
+              "gap": "Explicit fit-range verdict with labeled tiers (e.g., 'Best fit: 6'0\"–6'3\" / Marginal: 6'4\"–6'6\" / Not recommended: 6'7\"+') backed by measurements is absent — the page uses narrative height buckets but never uses the tiered verdict label format that functions as a scannable decision signal",
+              "priority": "high",
+              "recommendation": "Add a labeled fit-tier block (visually distinct callout or table row) inside the Verdict section or at the top of the Height Fit Guide, using explicit tier labels: Best Fit / Marginal / Not Recommended, each tied to a height range and the specific spec that determines the tier boundary (e.g., 'Marginal: 6'4\"–6'6\" — 25\" back height approaches upper limit for torsos above ~20\"'). This pattern is a strong featured-snippet candidate for the target query and removes ambiguity for purchase-ready tall users.",
+              "competitor": "thehumansolution.com",
+              "sourceQuery": "steelcase leap plus for tall people",
+              "findingType": "structure_claim"
+            },
+            {
+              "gap": "Return policy detail is shallow — the page mentions the 12-year warranty in Pros but does not specify the 30-day free return / free shipping trial window that thehumansolution.com explicitly calls out as a purchase-anxiety reducer for a $1,000+ chair",
+              "priority": "medium",
+              "recommendation": "In the 'Where to Buy' section or a dedicated 'Warranty & Returns' callout near the CTA, add: (1) Steelcase's 30-day free return and free-ship policy by retailer (note it is retailer-dependent and flag Steelcase-authorized dealers who honor it), (2) clarify that the 12-year warranty covers parts at rated capacity (already in Pros), and (3) note the refurbished-unit return window if applicable. The refurbished path is already mentioned in Value Assessment — linking return policy context there reinforces the decision for budget-conscious buyers at this price point.",
+              "competitor": "thehumansolution.com",
+              "sourceQuery": "steelcase leap plus for tall people",
+              "findingType": "depth_claim"
+            },
+            {
+              "gap": "Head-to-head comparison section against a single direct alternative chair is absent as a structured component — the page contains inline comparisons to the Gesture and Aeron throughout prose sections, and a 'Compare With' section exists in the manifest, but no dedicated side-by-side table or structured head-to-head block isolates the Leap Plus against its closest tall-user alternative with spec-level row comparisons",
+              "priority": "medium",
+              "recommendation": "Expand the 'Compare With' section into a structured head-to-head block comparing Leap Plus vs. Steelcase Gesture (the natural alternative given Jackson's ownership narrative). Use a comparison table with rows for: Seat Height Max, Seat Depth Max, Back Height, Armrest Type, Weight Capacity, Price (new/refurbished), Mesh Option, Warranty. Add a one-paragraph verdict beneath the table explicitly stating which user profile should choose each chair. This consolidates the scattered inline comparisons into an indexable, scannable decision tool that directly serves the target query's purchase-intent stage.",
+              "competitor": "thehumansolution.com",
+              "sourceQuery": "steelcase leap plus for tall people",
+              "findingType": "structure_claim"
+            }
+          ]
         },
         {
           "query": "best office chairs for tall people",
@@ -1268,8 +1169,54 @@
           "rawGaps": []
         }
       ],
-      "synthesizedGaps": [],
-      "allSynthesizedGaps": [],
+      "synthesizedGaps": [
+        {
+          "gap": "Head-to-head comparison section against a single direct alternative chair is absent as a structured component — the page contains inline comparisons to the Gesture and Aeron throughout prose sections, and a 'Compare With' section exists in the manifest, but no dedicated side-by-side table or structured head-to-head block isolates the Leap Plus against its closest tall-user alternative with spec-level row comparisons",
+          "priority": "medium",
+          "rawPriority": "medium",
+          "recommendation": "Expand the 'Compare With' section into a structured head-to-head block comparing Leap Plus vs. Steelcase Gesture (the natural alternative given Jackson's ownership narrative). Use a comparison table with rows for: Seat Height Max, Seat Depth Max, Back Height, Armrest Type, Weight Capacity, Price (new/refurbished), Mesh Option, Warranty. Add a one-paragraph verdict beneath the table explicitly stating which user profile should choose each chair. This consolidates the scattered inline comparisons into an indexable, scannable decision tool that directly serves the target query's purchase-intent stage.",
+          "competitor": "thehumansolution.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 0.8885597926693817,
+          "findingType": "structure_claim"
+        },
+        {
+          "gap": "Return policy detail is shallow — the page mentions the 12-year warranty in Pros but does not specify the 30-day free return / free shipping trial window that thehumansolution.com explicitly calls out as a purchase-anxiety reducer for a $1,000+ chair",
+          "priority": "medium",
+          "rawPriority": "medium",
+          "recommendation": "In the 'Where to Buy' section or a dedicated 'Warranty & Returns' callout near the CTA, add: (1) Steelcase's 30-day free return and free-ship policy by retailer (note it is retailer-dependent and flag Steelcase-authorized dealers who honor it), (2) clarify that the 12-year warranty covers parts at rated capacity (already in Pros), and (3) note the refurbished-unit return window if applicable. The refurbished path is already mentioned in Value Assessment — linking return policy context there reinforces the decision for budget-conscious buyers at this price point.",
+          "competitor": "thehumansolution.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 0.8885597926693817,
+          "findingType": "depth_claim"
+        }
+      ],
+      "allSynthesizedGaps": [
+        {
+          "gap": "Head-to-head comparison section against a single direct alternative chair is absent as a structured component — the page contains inline comparisons to the Gesture and Aeron throughout prose sections, and a 'Compare With' section exists in the manifest, but no dedicated side-by-side table or structured head-to-head block isolates the Leap Plus against its closest tall-user alternative with spec-level row comparisons",
+          "priority": "medium",
+          "rawPriority": "medium",
+          "recommendation": "Expand the 'Compare With' section into a structured head-to-head block comparing Leap Plus vs. Steelcase Gesture (the natural alternative given Jackson's ownership narrative). Use a comparison table with rows for: Seat Height Max, Seat Depth Max, Back Height, Armrest Type, Weight Capacity, Price (new/refurbished), Mesh Option, Warranty. Add a one-paragraph verdict beneath the table explicitly stating which user profile should choose each chair. This consolidates the scattered inline comparisons into an indexable, scannable decision tool that directly serves the target query's purchase-intent stage.",
+          "competitor": "thehumansolution.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 0.8885597926693817,
+          "findingType": "structure_claim"
+        },
+        {
+          "gap": "Return policy detail is shallow — the page mentions the 12-year warranty in Pros but does not specify the 30-day free return / free shipping trial window that thehumansolution.com explicitly calls out as a purchase-anxiety reducer for a $1,000+ chair",
+          "priority": "medium",
+          "rawPriority": "medium",
+          "recommendation": "In the 'Where to Buy' section or a dedicated 'Warranty & Returns' callout near the CTA, add: (1) Steelcase's 30-day free return and free-ship policy by retailer (note it is retailer-dependent and flag Steelcase-authorized dealers who honor it), (2) clarify that the 12-year warranty covers parts at rated capacity (already in Pros), and (3) note the refurbished-unit return window if applicable. The refurbished path is already mentioned in Value Assessment — linking return policy context there reinforces the decision for budget-conscious buyers at this price point.",
+          "competitor": "thehumansolution.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 0.8885597926693817,
+          "findingType": "depth_claim"
+        }
+      ],
       "tcaContentSample": "[PAGE INVENTORY — content below is raw source; rendered output may include more]\nComponents in use: Layout, Byline, RedditInsights, path\nSchema @types already present: Product, Brand, Review, Rating, Person, Offer, MerchantReturnPolicy, OfferShippingDetails, MonetaryAmount, DefinedRegion, ShippingDe"
     },
     {
@@ -1288,19 +1235,19 @@
           "editorialTargets": [
             {
               "position": 4,
-              "link": "https://www.thehumansolution.com/steelcase-gesture-chair-with-headrest.html?srsltid=AfmBOooZrS7vOMjV-1VLFBtVQP_FSR1qenFKzE4sidpht1YZ8T6KvWyg",
-              "title": "Steelcase Gesture Chair with Headrest",
-              "snippet": "Seat dimensions, 20\" W x 15.75\" - 18.5\" D ; Back height from seat, 23.25\" H ; Seat height, 16\" H - 21\" H ; Back width, 16.25\" W ; Arm width, 10.25\" W - 22.5\" W.",
-              "lane": "editorial",
-              "domain": "thehumansolution.com"
-            },
-            {
-              "position": 5,
-              "link": "https://www.btod.com/blog/steelcase-gesture-chair-review/?srsltid=AfmBOorhtVy8cY0a2wSw8mOs9LRK6DWTD9sbBdg-obp0tk96NsaTkmGQ",
+              "link": "https://www.btod.com/blog/steelcase-gesture-chair-review/?srsltid=AfmBOoqRLX7bHiLrsreJ4QJXkCeL5mudlCeR0hOzSAHoonlcoiF-k09C",
               "title": "Steelcase Gesture Office Chair Review for 2025",
               "snippet": "The real difference is how widely adjustable they are. There is a staggering 10.25” of width adjustment, providing support from 10.25” to 22.5” wide (inside).",
               "lane": "editorial",
               "domain": "btod.com"
+            },
+            {
+              "position": 5,
+              "link": "https://www.thehumansolution.com/steelcase-gesture-chair-with-headrest.html?srsltid=AfmBOoo5P9-PoGq8ctp2Bk9rgQiQckzROoPC1Mxe_g8aCxYhtxdALQ_0",
+              "title": "Steelcase Gesture Chair with Headrest",
+              "snippet": "Seat dimensions, 20\" W x 15.75\" - 18.5\" D ; Back height from seat, 23.25\" H ; Seat height, 16\" H - 21\" H ; Back width, 16.25\" W ; Arm width, 10.25\" W - 22.5\" W.",
+              "lane": "editorial",
+              "domain": "thehumansolution.com"
             },
             {
               "position": 9,
@@ -1313,42 +1260,42 @@
           ],
           "brandTargets": [
             {
-              "position": 1,
-              "link": "https://store.steelcase.com/seating/ergonomic-chairs/gesture?srsltid=AfmBOorZNK0W9eUC4sYeujYA82aS99nqSLUOodrg2qTeNgdkTlQgvtFR",
+              "position": 2,
+              "link": "https://store.steelcase.com/seating/ergonomic-chairs/gesture?srsltid=AfmBOooEegN7rZzSqTkxW-yp-b6YeElQWc3YruXo9_JGC8_gZsYPBNUj",
               "title": "Gesture Ergonomic Office Chair",
               "snippet": "Gesture supports the widest range of people and postures. Its 360-degree ... Depth, 21\" - 23.625\". Seat Height, 16\" - 21\". Weight, 58 lbs. Weight Limit, 400 ...",
               "lane": "brand",
               "domain": "store.steelcase.com"
             },
             {
-              "position": 2,
-              "link": "https://www.steelcase.com/products/office-chairs/gesture/",
-              "title": "Gesture Ergonomic Office & Desk Chair",
-              "snippet": "The front knob controls the seat height and depth, while the back knob controls tension and variable back stop. Open image tooltip. Most Adjustable Arms. Adjust ...",
+              "position": 6,
+              "link": "https://www.steelcase.com/content/uploads/2015/01/gesture_brochure.pdf",
+              "title": "Gesture",
+              "snippet": "The Gesture seat brings comfort all the way to the edges. It is flexible ... Seat depth. 18¼\". 18¼\". Functional seat depth. 15¾\" to 18½\". 15¾\" to 18½\". Seat ...",
               "lane": "brand",
               "domain": "steelcase.com"
             }
           ],
           "crawledContent": [
             {
-              "url": "https://www.thehumansolution.com/steelcase-gesture-chair-with-headrest.html?srsltid=AfmBOooZrS7vOMjV-1VLFBtVQP_FSR1qenFKzE4sidpht1YZ8T6KvWyg",
-              "domain": "thehumansolution.com",
-              "title": "Steelcase Gesture Chair with Headrest",
-              "markdown": "### Loading...\n\n![](https://cdn11.bigcommerce.com/s-492apnl0xy/stencil/3a0f3ec0-b6a9-013e-ce9d-72f2f212e1bf/e/0ef17500-9152-013c-4b76-326b12c3dc07/img/loading.svg)\n\n# Steelcase Gesture Chair with Headrest\n\nSKU:\n\nSTC268\n\n## \\|  [Shop all\\   products](https://www.thehumansolution.com/steelcase-gesture-chair-with-headrest.html)\n\n\\|\n[Learn how to use this builder](https://www.thehumansolution.com/stee",
-              "wordCount": 643,
-              "fetchedAt": "2026-05-12T02:14:51.157Z",
-              "lane": "editorial",
-              "fromCache": true
-            },
-            {
-              "url": "https://www.btod.com/blog/steelcase-gesture-chair-review/?srsltid=AfmBOorhtVy8cY0a2wSw8mOs9LRK6DWTD9sbBdg-obp0tk96NsaTkmGQ",
+              "url": "https://www.btod.com/blog/steelcase-gesture-chair-review/?srsltid=AfmBOoqRLX7bHiLrsreJ4QJXkCeL5mudlCeR0hOzSAHoonlcoiF-k09C",
               "domain": "btod.com",
               "title": "Steelcase Gesture Office Chair Review for 2025",
               "markdown": "# Steelcase Gesture Office Chair Review for 2025\n\n[Greg Knighton](https://www.btod.com/blog/author/greg/)\n24 Nov 2025 [Product Reviews](https://www.btod.com/blog/category/product-reviews/)[4 Comments](https://www.btod.com/blog/steelcase-gesture-chair-review/#comments)\n\nAffiliate Disclaimer: We independently review everything we recommend. When you buy through our links, we may earn a commission.\n\n",
               "wordCount": 823,
-              "fetchedAt": "2026-05-12T02:14:56.702Z",
+              "fetchedAt": "2026-05-12T05:54:17.946Z",
               "lane": "editorial",
-              "fromCache": true
+              "fromCache": false
+            },
+            {
+              "url": "https://www.thehumansolution.com/steelcase-gesture-chair-with-headrest.html?srsltid=AfmBOoo5P9-PoGq8ctp2Bk9rgQiQckzROoPC1Mxe_g8aCxYhtxdALQ_0",
+              "domain": "thehumansolution.com",
+              "title": "Steelcase Gesture Chair with Headrest",
+              "markdown": "### Loading...\n\n![](https://cdn11.bigcommerce.com/s-492apnl0xy/stencil/3a0f3ec0-b6a9-013e-ce9d-72f2f212e1bf/e/0ef17500-9152-013c-4b76-326b12c3dc07/img/loading.svg)\n\n# Steelcase Gesture Chair with Headrest\n\nSKU:\n\nSTC268\n\n## \\|  [Shop all\\   products](https://www.thehumansolution.com/steelcase-gesture-chair-with-headrest.html)\n\n\\|\n[Learn how to use this builder](https://www.thehumansolution.com/stee",
+              "wordCount": 585,
+              "fetchedAt": "2026-05-12T05:54:22.650Z",
+              "lane": "editorial",
+              "fromCache": false
             },
             {
               "url": "https://www.thebackstore.com/office-chairs/steelcase-gesture-office-chair.html",
@@ -1391,7 +1338,40 @@
             }
           ],
           "gateStatus": "passed",
-          "rawGaps": []
+          "rawGaps": [
+            {
+              "gap": "No actual data table rendering the 'Recommended Seat Depth by Height' section — the section header exists (154 chars) but contains no visible tabular data with height ranges and corresponding seat depth targets",
+              "priority": "high",
+              "recommendation": "Build a proper HTML table under '## Recommended Seat Depth by Height' with columns: Height Range | Typical Thigh Length | Recommended Seat Depth Setting | Gesture Coverage (Yes/Borderline/No). Populate with at least five rows: 6'0\", 6'1\", 6'2\", 6'3\", 6'4\", 6'5\"+. The FAQ already states approximate thigh lengths (6'0\"=17\"–18\", 6'2\"=18\"–19\", 6'4\"=19\"–20\") — pull those into the table and add a 'Gesture max covers this height?' column. This directly satisfies the user-height-to-setting mapping requirement and creates a standalone passage Google can cite in an answer box.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "spec_gap"
+            },
+            {
+              "gap": "No AIO-citation-optimized passage explicitly stating the full spec in a single declarative sentence at or near the top of the page body — the lede summarizes specs but splits them across a bullet block rather than a single indexable sentence",
+              "priority": "high",
+              "recommendation": "Add a bolded, standalone one-sentence answer box immediately below the H1 or as the opening sentence of the first body section: 'The Steelcase Gesture seat depth adjusts from 15.75 inches to 18.75 inches via a continuous lever under the seat pan, providing 3 inches of total travel.' This mirrors the AIO passage-level citation format and gives Google a clean extractable answer for 'Steelcase Gesture seat depth' queries without requiring inference from a bullet list. Keep it as its own paragraph, not embedded mid-sentence inside a larger block.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "structure_claim"
+            },
+            {
+              "gap": "Competitor comparison table covers only three chairs (Gesture, Aeron Size C, Leap Plus) with no seat depth data for other commonly-compared tall-user chairs — notably absent are the Herman Miller Embody, Humanscale Freedom XL, and Haworth Fern, all of which appear in competitor roundups targeting the same 'best office chairs for tall people' query",
+              "priority": "medium",
+              "recommendation": "Expand the competitor comparison table in '## How Gesture Seat Depth Compares to Competitors' to include at least five chairs. Add columns for: Chair Name | Seat Depth Min | Seat Depth Max | Adjustable? | Suitable Height Range. Suggested additions: Herman Miller Embody (~16.75\" fixed or narrow range), Humanscale Freedom XL (if adjustable range is documented), and one budget option. This increases topical authority on the benchmark query 'best office chairs for tall people' and gives the page comparative signal beyond a three-row list.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "depth_claim"
+            },
+            {
+              "gap": "No explicit mention of seat depth in the context of seat width — tall users frequently have wider hips in addition to longer femurs, and the interaction between seat depth and seat width (i.e., whether the seat pan is proportionally sized) is absent from the page entirely",
+              "priority": "low",
+              "recommendation": "Add a short subsection or a paragraph within '## How to Know if 18.75\" Is Enough for You' noting the Gesture's seat width spec (approximately 20\" wide) and whether it accommodates tall users who are also broader-framed. One to two sentences is sufficient: state the width, confirm it's adequate for most tall male users, and flag the Leap Plus as the alternative if both depth and width are limiting factors. This completes the seat pan dimension picture without requiring a new section.",
+              "competitor": "btod.com",
+              "sourceQuery": "best office chairs for tall people",
+              "findingType": "absence_claim"
+            }
+          ]
         },
         {
           "query": "office chair for tall person",
@@ -1459,43 +1439,111 @@
           "rawGaps": []
         }
       ],
-      "synthesizedGaps": [],
-      "allSynthesizedGaps": [],
+      "synthesizedGaps": [
+        {
+          "gap": "No actual data table rendering the 'Recommended Seat Depth by Height' section — the section header exists (154 chars) but contains no visible tabular data with height ranges and corresponding seat depth targets",
+          "priority": "high",
+          "rawPriority": "high",
+          "recommendation": "Build a proper HTML table under '## Recommended Seat Depth by Height' with columns: Height Range | Typical Thigh Length | Recommended Seat Depth Setting | Gesture Coverage (Yes/Borderline/No). Populate with at least five rows: 6'0\", 6'1\", 6'2\", 6'3\", 6'4\", 6'5\"+. The FAQ already states approximate thigh lengths (6'0\"=17\"–18\", 6'2\"=18\"–19\", 6'4\"=19\"–20\") — pull those into the table and add a 'Gesture max covers this height?' column. This directly satisfies the user-height-to-setting mapping requirement and creates a standalone passage Google can cite in an answer box.",
+          "competitor": "btod.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 1,
+          "findingType": "spec_gap"
+        },
+        {
+          "gap": "No AIO-citation-optimized passage explicitly stating the full spec in a single declarative sentence at or near the top of the page body — the lede summarizes specs but splits them across a bullet block rather than a single indexable sentence",
+          "priority": "high",
+          "rawPriority": "high",
+          "recommendation": "Add a bolded, standalone one-sentence answer box immediately below the H1 or as the opening sentence of the first body section: 'The Steelcase Gesture seat depth adjusts from 15.75 inches to 18.75 inches via a continuous lever under the seat pan, providing 3 inches of total travel.' This mirrors the AIO passage-level citation format and gives Google a clean extractable answer for 'Steelcase Gesture seat depth' queries without requiring inference from a bullet list. Keep it as its own paragraph, not embedded mid-sentence inside a larger block.",
+          "competitor": "btod.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 1,
+          "findingType": "structure_claim"
+        }
+      ],
+      "allSynthesizedGaps": [
+        {
+          "gap": "No actual data table rendering the 'Recommended Seat Depth by Height' section — the section header exists (154 chars) but contains no visible tabular data with height ranges and corresponding seat depth targets",
+          "priority": "high",
+          "rawPriority": "high",
+          "recommendation": "Build a proper HTML table under '## Recommended Seat Depth by Height' with columns: Height Range | Typical Thigh Length | Recommended Seat Depth Setting | Gesture Coverage (Yes/Borderline/No). Populate with at least five rows: 6'0\", 6'1\", 6'2\", 6'3\", 6'4\", 6'5\"+. The FAQ already states approximate thigh lengths (6'0\"=17\"–18\", 6'2\"=18\"–19\", 6'4\"=19\"–20\") — pull those into the table and add a 'Gesture max covers this height?' column. This directly satisfies the user-height-to-setting mapping requirement and creates a standalone passage Google can cite in an answer box.",
+          "competitor": "btod.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 1,
+          "findingType": "spec_gap"
+        },
+        {
+          "gap": "No AIO-citation-optimized passage explicitly stating the full spec in a single declarative sentence at or near the top of the page body — the lede summarizes specs but splits them across a bullet block rather than a single indexable sentence",
+          "priority": "high",
+          "rawPriority": "high",
+          "recommendation": "Add a bolded, standalone one-sentence answer box immediately below the H1 or as the opening sentence of the first body section: 'The Steelcase Gesture seat depth adjusts from 15.75 inches to 18.75 inches via a continuous lever under the seat pan, providing 3 inches of total travel.' This mirrors the AIO passage-level citation format and gives Google a clean extractable answer for 'Steelcase Gesture seat depth' queries without requiring inference from a bullet list. Keep it as its own paragraph, not embedded mid-sentence inside a larger block.",
+          "competitor": "btod.com",
+          "appearsInQueries": 1,
+          "trusted": true,
+          "coverageAtAnalysis": 1,
+          "findingType": "structure_claim"
+        }
+      ],
       "tcaContentSample": "[PAGE INVENTORY — content below is raw source; rendered output may include more]\nComponents in use: Layout, Byline\nSchema @types already present: Article, Person, Organization, ImageObject, FAQPage, Question, Answer, BreadcrumbList, ListItem\nAffiliate CTA: present\n\n[SECTION MANIFEST — 14 sections fo"
     }
   ],
   "topGaps": [
     {
-      "gap": "No FAQ section despite FAQPage schema being declared — the schema type is present but no visible FAQ content (Q&A pairs) appears in the section manifest or page content",
+      "gap": "No actual data table rendering the 'Recommended Seat Depth by Height' section — the section header exists (154 chars) but contains no visible tabular data with height ranges and corresponding seat depth targets",
       "priority": "high",
       "rawPriority": "high",
-      "recommendation": "Add a rendered FAQ section with at least 4–5 Q&A pairs targeting pain-specific sub-questions. Suggested questions: (1) 'Why do my knees hurt after sitting in my office chair?' — answer linking to popliteal compression and seat depth mismatch; (2) 'How do I measure my seat depth requirement at home?' — answer referencing the wall-measurement method already described in the page; (3) 'Is 17 inches of seat depth enough for a 6-foot person?' — answer with the height-range table already present; (4) 'What is the Cornell Ergonomics 2–3 finger rule for seat depth?' — direct answer naming the rule explicitly; (5) 'Can I fix seat depth without buying a new chair?' — answer covering seat cushion workarounds and their limitations. FAQPage schema is already declared, so the structured data cost is already paid — the rendered content just needs to match it.",
-      "competitor": "boulies.com",
+      "recommendation": "Build a proper HTML table under '## Recommended Seat Depth by Height' with columns: Height Range | Typical Thigh Length | Recommended Seat Depth Setting | Gesture Coverage (Yes/Borderline/No). Populate with at least five rows: 6'0\", 6'1\", 6'2\", 6'3\", 6'4\", 6'5\"+. The FAQ already states approximate thigh lengths (6'0\"=17\"–18\", 6'2\"=18\"–19\", 6'4\"=19\"–20\") — pull those into the table and add a 'Gesture max covers this height?' column. This directly satisfies the user-height-to-setting mapping requirement and creates a standalone passage Google can cite in an answer box.",
+      "competitor": "btod.com",
       "appearsInQueries": 1,
       "trusted": true,
       "coverageAtAnalysis": 1,
-      "findingType": "absence_claim"
+      "findingType": "spec_gap"
     },
     {
-      "gap": "No quick-reference comparison table for seat depth specs across the three recommended chairs (Steelcase Leap Plus, Steelcase Gesture, Herman Miller Aeron Size C) — specs are buried in prose sub-sections rather than a scannable table",
-      "priority": "medium",
-      "rawPriority": "medium",
-      "recommendation": "Add a 4-column comparison table under 'Chairs With Adequate Seat Depth for Tall Users' with columns: Chair | Seat Depth Range | Adjustment Type | Best-Fit Height Range. Populate with data already present in the page (Leap Plus: 15.75\"–19.75\", adjustable, up to ~6'6\"; Gesture: 15.75\"–18.75\", adjustable, up to 6'4\"; Aeron C: 18.5\" fixed, 6'0\"–6'2\"). Boulies uses this table pattern for its dimensions chart — a scannable table improves both UX for comparison shoppers and the chance of ranking for '[chair] seat depth' spec queries. The data is already in TCA's page; it just needs to be structured.",
-      "competitor": "boulies.com",
+      "gap": "No AIO-citation-optimized passage explicitly stating the full spec in a single declarative sentence at or near the top of the page body — the lede summarizes specs but splits them across a bullet block rather than a single indexable sentence",
+      "priority": "high",
+      "rawPriority": "high",
+      "recommendation": "Add a bolded, standalone one-sentence answer box immediately below the H1 or as the opening sentence of the first body section: 'The Steelcase Gesture seat depth adjusts from 15.75 inches to 18.75 inches via a continuous lever under the seat pan, providing 3 inches of total travel.' This mirrors the AIO passage-level citation format and gives Google a clean extractable answer for 'Steelcase Gesture seat depth' queries without requiring inference from a bullet list. Keep it as its own paragraph, not embedded mid-sentence inside a larger block.",
+      "competitor": "btod.com",
       "appearsInQueries": 1,
       "trusted": true,
       "coverageAtAnalysis": 1,
       "findingType": "structure_claim"
     },
     {
-      "gap": "The Cornell Ergonomics Rule is named and cited in the intro and body, but the citation never includes a direct link or URL to the Cornell Ergonomics Lab source — it is referenced as 'Cornell University Ergonomics Lab guidance on seated workstation setup' with what appears to be an unresolved anchor, not a live external citation",
+      "gap": "The author's first-person credential and testing methodology are not surfaced in a scannable, structured block near the top of the page. BTOD leads with 'I've personally tested over 200 office chairs since 2018' in the opening paragraph, immediately establishing review authority. TCA's byline component and Jackson Christopher's credentials (6'4\", Mechanical Engineering, UC Berkeley, owns the Gesture) exist in the page but are embedded in schema and byline rather than in a visible, prose-level authority statement that a reader or AI crawler can extract from the body text.",
       "priority": "medium",
       "rawPriority": "medium",
-      "recommendation": "Resolve the Cornell Ergonomics Lab citation to a live, named external URL (e.g., ergo.human.cornell.edu or the specific seated workstation checklist page). Display it as a named authority link — 'Cornell University Ergonomics Lab: Seated Workstation Guidelines' — rather than generic anchor text. This directly supports the target query 'cornell ergonomics office chair seat depth 2 inches behind knees': the page needs to demonstrably link to Cornell to be treated as a credible pass-through for that branded authority query. Similarly, the PubMed citation in the Popliteal Pressure section should resolve to a specific study (author, year, PMID) rather than a generic 'PubMed studies on seated pressure distribution' anchor.",
-      "competitor": "boulies.com",
+      "recommendation": "Add a 2–3 sentence authority statement in the opening section ('The Problem With Standard Office Chairs') or immediately after the intro paragraph that names the author, his height, his engineering background, and explicitly distinguishes which chair is first-person reviewed versus research-based. Example: 'This guide is written by Jackson Christopher, a 6'4\" Mechanical Engineering student at UC Berkeley. The Steelcase Gesture assessment is based on 18+ months of personal daily use; all other chairs are evaluated from manufacturer specs, anthropometric data, and published user research.' This surfaces credential signals for both readers and AI Overview extraction.",
+      "competitor": "btod.com",
       "appearsInQueries": 1,
       "trusted": true,
-      "coverageAtAnalysis": 1,
+      "coverageAtAnalysis": 0.7352040191153045,
+      "findingType": "structure_claim"
+    },
+    {
+      "gap": "Head-to-head comparison section against a single direct alternative chair is absent as a structured component — the page contains inline comparisons to the Gesture and Aeron throughout prose sections, and a 'Compare With' section exists in the manifest, but no dedicated side-by-side table or structured head-to-head block isolates the Leap Plus against its closest tall-user alternative with spec-level row comparisons",
+      "priority": "medium",
+      "rawPriority": "medium",
+      "recommendation": "Expand the 'Compare With' section into a structured head-to-head block comparing Leap Plus vs. Steelcase Gesture (the natural alternative given Jackson's ownership narrative). Use a comparison table with rows for: Seat Height Max, Seat Depth Max, Back Height, Armrest Type, Weight Capacity, Price (new/refurbished), Mesh Option, Warranty. Add a one-paragraph verdict beneath the table explicitly stating which user profile should choose each chair. This consolidates the scattered inline comparisons into an indexable, scannable decision tool that directly serves the target query's purchase-intent stage.",
+      "competitor": "thehumansolution.com",
+      "appearsInQueries": 1,
+      "trusted": true,
+      "coverageAtAnalysis": 0.8885597926693817,
+      "findingType": "structure_claim"
+    },
+    {
+      "gap": "Return policy detail is shallow — the page mentions the 12-year warranty in Pros but does not specify the 30-day free return / free shipping trial window that thehumansolution.com explicitly calls out as a purchase-anxiety reducer for a $1,000+ chair",
+      "priority": "medium",
+      "rawPriority": "medium",
+      "recommendation": "In the 'Where to Buy' section or a dedicated 'Warranty & Returns' callout near the CTA, add: (1) Steelcase's 30-day free return and free-ship policy by retailer (note it is retailer-dependent and flag Steelcase-authorized dealers who honor it), (2) clarify that the 12-year warranty covers parts at rated capacity (already in Pros), and (3) note the refurbished-unit return window if applicable. The refurbished path is already mentioned in Value Assessment — linking return policy context there reinforces the decision for budget-conscious buyers at this price point.",
+      "competitor": "thehumansolution.com",
+      "appearsInQueries": 1,
+      "trusted": true,
+      "coverageAtAnalysis": 0.8885597926693817,
       "findingType": "depth_claim"
     }
   ],
@@ -1508,8 +1556,8 @@
     "creativebloq.com": 1,
     "chairsfx.com": 1,
     "crandalloffice.com": 1,
-    "eurekaergonomic.com": 3,
-    "ergo.human.cornell.edu": 3,
+    "ergo.human.cornell.edu": 4,
+    "eurekaergonomic.com": 2,
     "boulies.com": 1,
     "thebackstore.com": 2
   },
@@ -1536,20 +1584,31 @@
         "https://www.youtube.com/watch?v=KR-LvYRTJQo"
       ],
       "citedUrlsReliable": true,
-      "citationCapsule": "The Steelcase Gesture offers an 18.75-inch seat depth and highly adjustable 360-degree armrests, making it a strong fit for users up to 6 feet 3 inches tall. Those at 6 feet 4 inches and above should verify proportions carefully, as the Leap Plus may be the more accommodating long-term investment.",
-      "insertAfterHeading": "Height Fit Guide: 6'1\" to 6'7\"",
-      "status": "applied"
+      "citationCapsule": "The Steelcase Gesture's 18.75-inch seat depth suits most users but warrants close evaluation for those 6'3\" and above, where proportions vary significantly. Its 360-degree armrests and strong lumbar support make it a compelling all-day chair, though taller users above 6'4\" may find the Leap Plus a more accommodating alternative.",
+      "insertAfterHeading": "Seat Depth: Does 18.75\" Actually Fit Tall Users?",
+      "status": "already-applied"
     },
     {
       "page": "/knee-pain-seat-depth/",
       "query": "cornell ergonomics chair seat depth two fingers behind knee",
       "aioFormat": "prose",
-      "aioPassage": "",
-      "aioCitedUrls": [],
-      "citedUrlsReliable": false,
-      "citationCapsule": null,
-      "insertAfterHeading": "",
-      "status": "pending-passage-text"
+      "aioPassage": "To ensure proper ergonomic seat depth, you should sit with your back against the backrest and maintain a gap of roughly two to three fingers' width—approximately 1.5 to 2 inches—between the front edge of the seat pan and the back of your knees. This ensures that your back is fully supported, the thi",
+      "aioCitedUrls": [
+        "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-leg-length-ergonomic-guide",
+        "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/seat-depth-guide-lower-body-health?srsltid=AfmBOoqzkq33G4e45yxEkGZQMjdJBGS7dciqnEEIiDsan2Bkl_dUh46b",
+        "https://ergo.human.cornell.edu/studentdownloads/DEA3250pdfs/ErgoChair.pdf",
+        "https://www.cuh.nhs.uk/patient-information/seating-and-ergonomics/",
+        "https://sihoooffice.com/blogs/insights/how-deep-should-i-sit-in-an-ergonomic-chair",
+        "https://www.reddit.com/r/OfficeChairs/comments/1k8yd1h/how_deep_should_i_sit_into_an_ergonomic_chair/",
+        "https://ergo.human.cornell.edu/DEA3250Flipbook/DEA3250notes/sitting.html",
+        "https://www.autonomous.ai/ourblog/how-to-determine-correct-chair-seat-depth",
+        "https://www.posturite.co.uk/help-and-advice/why-ergonomic-chair-adjustments-matter?srsltid=AfmBOooB1UnuYLZtmNRRODtUugtd1UGJaIpddEWTkZw1VYOoB0VnPMrG",
+        "https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/executive-chair-adjustment-ergonomics?srsltid=AfmBOoqlEDZRQo5ej1qptY2RDeyGZmo_eQ29ihq3y35GFTrDzcexEKZV"
+      ],
+      "citedUrlsReliable": true,
+      "citationCapsule": "Cornell ergonomics research specifies leaving 2–3 finger-widths—roughly 1.5 to 2 inches—between the seat front edge and the back of your knees. For users 6'3\" and taller, this typically requires a seat depth of 18–20 inches minimum, as standard office chairs top out at 17 inches, creating popliteal pressure and circulation problems.",
+      "insertAfterHeading": "The Popliteal Pressure Problem",
+      "status": "already-applied"
     },
     {
       "page": "/best-office-chairs/",
@@ -1571,7 +1630,7 @@
         "https://sihoo.com.au/blogs/all-about-ergonomic-chair/ergonomic-chair-for-tall-people"
       ],
       "citedUrlsReliable": true,
-      "citationCapsule": "For tall users 6'3\" and above, top-rated office chairs include the Herman Miller Aeron Size C, offering seat heights up to 20.5 inches and extended lumbar support, and the Steelcase Leap Plus, which accommodates frames requiring deeper seats and higher back clearance for genuine ergonomic fit.",
+      "citationCapsule": "For tall users 6'3\" and above, top-rated office chairs include the Herman Miller Aeron Size C, which offers a seat height range reaching 21 inches, the Steelcase Leap Plus for extended lumbar support, and the Steelcase Gesture for broader fit accommodating frames requiring seat depths and widths scaled beyond standard dimensions.",
       "insertAfterHeading": "Which Chair Is Best at Your Height?",
       "status": "already-applied"
     },
@@ -1579,12 +1638,22 @@
       "page": "/chairs/herman-miller-aeron/tall-people/",
       "query": "herman miller aeron size c recommended height range 6'4",
       "aioFormat": "prose",
-      "aioPassage": "",
-      "aioCitedUrls": [],
-      "citedUrlsReliable": false,
-      "citationCapsule": null,
-      "insertAfterHeading": "",
-      "status": "pending-passage-text"
+      "aioPassage": "The Herman Miller Aeron Size C (Large) is the ideal choice for a 6'4\" user, as it is officially recommended for heights $5\\text{'}10\\text{''}$. This size provides the necessary taller backrest and wider seat for individuals up to $350\\text{ lbs}$ (or $159\\text{ kg}$). Key Considerations for 6'4\" Use",
+      "aioCitedUrls": [
+        "https://www.youtube.com/watch?t=5&v=1qiSyX6_JZE",
+        "https://store.hermanmiller.com/features-buying-guides-aeron-chair.html?lang=en_US",
+        "https://www.pureworkplace.com/the-pure-workplace-guide-to-herman-miller-chair-sizes/",
+        "https://www.officelogixshop.com/blogs/news/whats-the-best-herman-miller-aeron-chair-size-for-me?srsltid=AfmBOormL4EGvktE9DHJnx7bRYwkXHxzVzAXG1zNpXhm7aWhmzuWB5Fe",
+        "https://www.youtube.com/watch?v=piYionGnATU",
+        "https://www.youtube.com/watch?v=1qiSyX6_JZE&t=5",
+        "https://www.google.com/search?q=product&prds=pvt:hg,productid:8714141309845107048,catalogid:6439570079316758834,gpcid:13007852262511206390,mid:576462492398406605&ibp=oshop",
+        "https://www.google.com/search?q=product&prds=pvt:hg,productid:3756237233081547802,catalogid:5401691734075830273,gpcid:8196665567687460583&ibp=oshop",
+        "https://www.reddit.com/r/hermanmiller/comments/ntvd94/got_a_remastered_size_c_aeron_for_450_but_i_have/"
+      ],
+      "citedUrlsReliable": true,
+      "citationCapsule": "The Herman Miller Aeron Size C suits most users up to 6'3\"–6'4\", with a seat height reaching 20.5\" and a back height of approximately 23.5\". The critical limitation for 6'3\"+ users is the fixed seat depth of approximately 18.5\", which has no adjustment — verifying thigh length before purchasing is strongly recommended.",
+      "insertAfterHeading": "6'2\" – 6'4\": Good fit, verify seat depth",
+      "status": "already-applied"
     },
     {
       "page": "/review/leap-plus/",
@@ -1609,22 +1678,32 @@
         "https://www.officelogixshop.com/blogs/news/top-3-office-chairs-for-heavy-people"
       ],
       "citedUrlsReliable": true,
-      "citationCapsule": "The Steelcase Leap Plus suits tall users 6ft 3in and above, offering a 19.75-inch adjustable seat depth, 22.5-inch seat height ceiling, and 25.5-inch back height alongside a 500 lb weight capacity. Its wider 22.75-inch seat and reinforced LiveBack construction make it a top-tier ergonomic option for larger frames requiring durable, long-term support.",
-      "insertAfterHeading": "Who This Is For",
-      "status": "applied"
+      "citationCapsule": "The Steelcase Leap Plus suits tall users 6 feet 3 inches and above, offering a 19.75-inch adjustable seat depth, 22.5-inch seat height ceiling, and 25.5-inch back height. Built for larger frames with a 500 lb capacity and 22.75-inch wide seat, it delivers exceptional lumbar support and ergonomic adjustability for extended sitting sessions.",
+      "insertAfterHeading": "Key Specifications",
+      "status": "already-applied"
     },
     {
       "page": "/chairs/steelcase-gesture/seat-depth/",
       "query": "steelcase gesture seat depth range inches",
       "aioFormat": "prose",
-      "aioPassage": "",
-      "aioCitedUrls": [],
-      "citedUrlsReliable": false,
-      "citationCapsule": null,
-      "insertAfterHeading": "",
-      "status": "pending-passage-text"
+      "aioPassage": "The Steelcase Gesture chair offers an adjustable seat depth range of 15.75 to 18.5 inches (15¾\" – 18½\"). This adjustability ensures the seat fits various leg lengths, with the seat pan designed to move as a synchronized system to provide continuous support. Functional Seat Depth: 15.75\" – 18.5\" The ",
+      "aioCitedUrls": [
+        "https://store.steelcase.com/seating/ergonomic-chairs/gesture?srsltid=AfmBOorW3giBCj3GWP2PPWFoCgBKUFRw3Si3jB7LmZ0Lf907YqS6X70f",
+        "https://www.thehumansolution.com/steelcase-gesture-chair-with-headrest.html?srsltid=AfmBOoohHiuOEOuxZdLG353brykIoz8W-OaJXSqLMUFKIamgAoCG5TZF",
+        "https://www.steelcase.com/content/uploads/2015/01/gesture_brochure.pdf",
+        "https://www.google.com/search?q=product&prds=pvt:hg,productid:17321207520388567475&ibp=oshop",
+        "https://www.steelcase.com/content/uploads/2024/02/Series-1-Spec-Guide.pdf",
+        "https://www.ohrhomeofficesolutions.com/products/steelcase-gesture",
+        "https://officesnapshots.com/2013/02/27/steelcases-gesture-chair-designed-to-support-todays-technologies/",
+        "https://www.thehumansolution.com/steelcase-gesture-drafting-stool.html",
+        "https://www.liberia.ubuy.com/product/Q9R9ZBXS-steelcase-gesture-office-chair-cogent-connect-licorice-fabric-medium-seat-height-shell-back-dark-on"
+      ],
+      "citedUrlsReliable": true,
+      "citationCapsule": "The Steelcase Gesture offers an adjustable seat depth range of 15.75 to 18.75 inches, providing 3 inches of total travel via a lever under the seat pan. For tall users up to 6'4\", the 18.75\" maximum accommodates most thigh lengths, though users above 6'4\" may find the Steelcase Leap Plus a better fit.",
+      "insertAfterHeading": "What Is the Steelcase Gesture Seat Depth?",
+      "status": "already-applied"
     }
   ],
   "aioTasksRejected": [],
-  "summary": "8 pages analyzed × up to 3 queries each. 0 URLs crawled (45 cache hits). 1 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com."
+  "summary": "8 pages analyzed × up to 3 queries each. 5 URLs crawled (40 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com."
 }

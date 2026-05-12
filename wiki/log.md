@@ -2,6 +2,29 @@
 type: log
 ---
 
+## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 5 (40 cached)
+- High-priority gaps: 2
+- AIO tasks: 6 generated | 0 applied to src/pages/ | 0 rejected (spec mismatch) | 0 pending passage text
+- 8 pages analyzed × up to 3 queries each. 5 URLs crawled (40 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.
+
+
+## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 0 (45 cached)
+- High-priority gaps: 2
+- AIO tasks: 6 generated | 0 applied to src/pages/ | 0 rejected (spec mismatch) | 3 pending passage text
+- 8 pages analyzed × up to 3 queries each. 0 URLs crawled (45 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.
+
+
+## [2026-05-12] competitor-monitor | Competitor Scan
+
+- Monitored: 5 pages (5 live, 0 dead)
+- Gaps found: 3
+- Summary: Our core problem is a mismatch between impression volume and content quality: we're visible enough to earn thousands of impressions on review and informational pages but too thin and schema-poor to convert them into clicks or rankings that matter. The single highest-leverage move this week is expanding the Gesture review — 2,672 impressions at position 8.2 with 0.11% CTR is a near-miss screaming for richer content and structured data. In parallel, rescuing /office-chairs-for-tall-people/ from page 2 with a depth-and-schema overhaul secures our flagship keyword before a competitor like Tall.Life decides to do the same job better.
+
+
 ## [2026-05-12] index-monitor | Indexing Health Check
 
 - Pages inspected: 45
