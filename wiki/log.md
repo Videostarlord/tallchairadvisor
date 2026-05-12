@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-05-12] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 35 | Impressions: 15417
+- Full report archived to raw/audits/2026-05-12-weekly-audit.md
+
+
 ## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
 
 - Pages: 8 | Queries: 23 | Crawls: 5 (40 cached)
