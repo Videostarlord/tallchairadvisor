@@ -2,8 +2,8 @@
 type: entity
 entity: site-page
 url: /best-office-chairs/
-last_updated: 2026-05-07
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md]
+last_updated: 2026-05-11
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json]
 tags: [page, money-page]
 ---
 
@@ -11,27 +11,36 @@ tags: [page, money-page]
 
 **Main money page. Primary revenue driver.**
 
-## Current State (May 7)
+## Current State (May 11 — GSC + full SEO audit)
 
 | Metric | Value |
 |--------|-------|
-| Blog audit score | 79/100 (Acceptable, as of Mar audit) |
-| Schema | Previously broken — duplicate Article @type now resolved |
-| Height-Bracket Verdict Table | ✅ Present, now includes Amazon affiliate links (tag=tallchairadvi-20) |
-| `dateModified` | 2026-05-07 |
+| Blog audit score | 79/100 (Acceptable, as of Mar audit — re-audit needed) |
+| Impressions | 776 |
+| Position | 22.5 |
+| CTR | 0% (0 clicks) |
+| Schema | JSON-LD parse error resolved ✅ |
+| Height-Bracket Verdict Table | ✅ Present, includes Amazon affiliate links |
+| `dateModified` | 2026-05-07 ✅ aligned |
+
+## Open Issues (May 10 — from full SEO audit)
+
+1. **Quick Picks links go to internal pages, not Amazon** — revenue leak. Quick Picks section links to `/review/` pages rather than Amazon affiliate links. Fix: each Quick Pick should have a direct Amazon CTA with `tag=tallchairadvi-20`.
+2. **FTC affiliate disclosure absent from body** — footer link only. Fix: add inline disclosure near top of page. See [[affiliate-compliance]].
+3. **Low position (22.5)** — shopping carousels suppress this query type. Position improvement requires topical authority growth, not meta rewrites.
+4. **Re-audit content score** — score was 79/100 in March, content expanded since. Run `/blog-analyze` to confirm current score.
 
 ## Fix History
 
 | Date | Change |
 |------|--------|
-| 2026-05-07 | Added Amazon affiliate links to Height-Bracket Verdict Table (Top Pick + Runner-Up columns). Fulfills weekly plan REWRITE task. |
-
-## Open Issues
-
-1. **Re-audit content score** — score was 79/100 in March. Content has been expanded since. Re-run `/blog-analyze` to get current score.
+| 2026-04-03 | JSON-LD parse error fixed (duplicate Article @type) |
+| 2026-05-07 | Height-Bracket Verdict Table: Amazon affiliate links added to Top Pick + Runner-Up columns |
+| 2026-05-07 | Freshness signals aligned: visible date, Byline updatedDate, schema dateModified, sitemap lastmod all set to 2026-05-07 |
 
 ## Links
 
 - [[schema-markup]] — JSON-LD history
 - [[ai-citation-readiness]] — verdict table is top AI Overview target
+- [[affiliate-compliance]] — Quick Picks CTA + body disclosure
 - [[content-gaps]] — check for remaining gaps

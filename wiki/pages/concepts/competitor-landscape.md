@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-11
+last_updated: 2026-05-12
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,9 +70,10 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-11. 8 pages analyzed × up to 3 queries each. 23 URLs crawled (23 cache hits). 0 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
+*v2 run 2026-05-12. 8 pages analyzed × up to 3 queries each. 15 URLs crawled (30 cache hits). 0 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-05-11 | Head-to-head comparison section against Leap Plus lacks a structured comparison  | medium | 1q | crandalloffice.com |
-| 2026-05-11 | Methodology / testing credentials block is absent as a standalone named section  | medium | 1q | btod.com |
+| 2026-05-12 | OSHA guidelines are not cited anywhere on the page — the page names the Cornell  | medium | 1q | boulies.com |
+| 2026-05-12 | No scannable comparison table for seat depth specs across the three recommended  | medium | 1q | boulies.com |
+| 2026-05-12 | Author byline and methodology credentialing are listed as present via the Byline | medium | 1q | btod.com |

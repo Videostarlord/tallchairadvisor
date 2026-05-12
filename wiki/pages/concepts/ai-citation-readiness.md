@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-10
+last_updated: 2026-05-11
 sources: [raw/audits/2026-03-16-geo-analysis.md, raw/audits/2026-04-03-full-audit.md, raw/audits/2026-04-22-serp-analysis.md]
 tags: [geo, ai-search, citations, perplexity, chatgpt]
 ---
@@ -20,7 +20,7 @@ Incognito SERP audit confirmed Google AI Overviews on two queries where TCA rank
 
 ---
 
-## GEO Score: 71/100 (Mar 16)
+## GEO Score: 76/100 (May 10 — updated from 71/100 Mar 16)
 
 | Category | Score |
 |----------|-------|
@@ -49,8 +49,10 @@ Incognito SERP audit confirmed Google AI Overviews on two queries where TCA rank
 ## What's Missing
 
 1. **Height-bracket verdict table on /best-office-chairs/** — ✅ DONE (2026-05-07). Added with Amazon affiliate links. Now the site's highest AI Overview citation target.
-2. **Citation capsules site-wide** — 40–60 word self-contained summaries. None present on any page. /correct-chair-dimensions/ is best first candidate.
+2. **Citation capsules site-wide** — 40–60 word self-contained summaries. None present on any page. /correct-chair-dimensions/ is best first candidate. See [[correct-chair-dimensions]] for prescribed text.
 3. **Author ME credentials in body text** — Author bio references ME background in schema but not always in visible page content.
+4. **Passage-anchor sentences on /chairs/herman-miller-aeron/tall-people/** — AIO citation format absent. Competitor intelligence flagged this gap. Thursday W20 queues fix: prepend each spec section with bolded extractable sentence. See [[aeron-tall-people]].
+5. **AIO suspect: /chairs/steelcase-gesture/seat-depth/** — pos 4.1 on "steelcase gesture seat depth range inches" (23 impr, 0 CTR). Title already has spec numbers — pattern indicates AI Overview consuming the answer. Fix: restructure content for AIO citation, not title rewrite. Thursday W20 addresses meta; AIO restructure is a separate deeper fix.
 
 ## Why This Matters
 

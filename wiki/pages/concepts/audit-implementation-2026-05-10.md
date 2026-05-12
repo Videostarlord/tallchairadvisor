@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-10
+last_updated: 2026-05-11
 sources: [raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [audit, fixes, backlog, status]
 ---
@@ -174,11 +174,12 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 - Action needed: Add token-based continuation loop to each API call when `rowLimit` rows returned exactly
 
 ### I3 — Affiliate click tracking in GA4
-**Priority: Low**
-- No per-page, per-CTA click attribution currently
-- Cannot determine which CTAs on which pages drive affiliate clicks
-- First commission was reverse-engineered from GSC data, not direct tracking
-- Action needed: Add `gtag('event', 'click', {...})` outbound click events to affiliate link components
+**Status: ALREADY IMPLEMENTED — confirmed 2026-05-11 codebase audit**
+- `src/layouts/Layout.astro` contains a full `gtag('event', 'affiliate_click', {...})` implementation in the site-wide script block
+- Fires on every click/auxclick on links with `data-affiliate-cta="true"` attribute (deduped within 750ms)
+- Fields tracked: `page_path`, `page_title`, `destination_domain`, `affiliate_program`, `cta_label`, `cta_position`, `link_url`
+- All affiliate CTAs in `src/pages/` carry `data-affiliate-cta="true"` and `data-cta-position` attributes
+- This was NOT listed in the original audit. The audit assumed it was absent. The code was already there, predating the audit.
 
 ### I4 — GSC wiki concept page consolidation
 **Priority: Low (Month 2)**
@@ -186,8 +187,10 @@ Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings.
 - Action: Merge into `gsc-current.md` (auto-updated) + `gsc-architecture.md` (static). Delete redundant pages.
 
 ### I5 — Strategy.ts: inject Reddit data into agent context
-**Note: Deferred by user decision — current Reddit data (March 2026) is still considered valid**
-- If Reddit pipeline is refreshed in the future, inject published JSON from `data/reddit/published/` into strategy.ts agent prompt
+**Status: CLOSED — do not revisit unless Jackson explicitly asks**
+- The Reddit pipeline (`npm run reddit:all`) is a one-time/annual operation, not part of the weekly automation cycle. It was run once; raw data is archived in `data/reddit/` and `raw/reddit/`. A consolidated report already exists from that run.
+- Reddit owner data does not change frequently enough to warrant re-running. The pipeline will not be re-run on any schedule and will not be connected to `strategy.ts`.
+- Do not surface this as a gap, a deferred item, or a recommendation in any future audit or strategy session.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-10 (RunPod migration proposal added — under consideration)
+last_updated: 2026-05-11 (CTR root cause analysis — geo-optimize-plan added, ctr-optimization updated with build priorities)
 ---
 
 # TCA Wiki Index
@@ -33,7 +33,8 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 | Page | Summary |
 |------|---------|
-| [[ctr-optimization]] | #1 site bottleneck. 0.24% CTR on 12,209 impr (May 2026). Verdict-first meta pattern. |
+| [[ctr-optimization]] | #1 site bottleneck. 0.23% CTR (May 2026). Cause A: AIO suppression (80%). Cause B: carousels. Build geo-optimize.ts to fix. |
+| [[geo-optimize-plan]] | **INTEGRATED into competitor-intelligence.ts v2.1.** AIO detection + capsule generation now runs inside the monthly competitor-intelligence run. Output: reports/geo-optimize-tasks.md. |
 | [[meta-descriptions]] | Length constraints, regex bug, current status per page. |
 | [[schema-markup]] | Types in use, JSON-LD parse error on money page, aggregateRating issues. |
 | [[ai-citation-readiness]] | GEO score 71/100. Missing: citation capsules, verdict table. |
@@ -44,17 +45,19 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
 | [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Includes bug fix history. Read when modifying the pipeline. |
 | [[audit-implementation-2026-05-10]] | **May 10 audit fix tracker.** 14 items done, 5 deferred. Read this to know what's been fixed and what's still outstanding from the COMBINED_2026-05-09_MASTER_AUDIT. |
-| [[audit-2026-05-10-seo]] | **May 10 full SEO audit.** 77/100 overall. Key new findings: itemReviewed missing from all Review schema (blocks rich results), affiliate disclosure missing from 6 pages (FTC), aeron-vs-gesture H1/title mismatch + zero affiliate links above 84%, WebSite @id dangling reference, seat depth spec error (17.75"→18.75"). |
+| [[audit-2026-05-10-seo]] | **May 10 full SEO audit. SNAPSHOT ONLY — findings now ingested into entity pages.** 77/100 overall. Read [[schema-markup]], [[affiliate-compliance]], [[meta-descriptions]], entity pages for current status. |
 | [[query-clustering-system]] | How queries are grouped into semantic clusters. Intent weights, known TCA cluster families, cannibalization logic. |
 | [[opportunity-scoring-system]] | Scoring formulas for near-p1, ctr-leak, content-depth, affiliate-capture opportunity types. Priority thresholds. |
 | [[content-gap-engine]] | Internal + competitor gap detection. Current known gaps. Integration with competitor-monitor. |
 | [[market-signal-framework]] | Velocity signals, AIO suppression detection, seasonal intent emergence, impression gravity. Current market state. |
+| [[niche-validation-framework]] | How to tell "dead niche" vs distribution lag. Separates demand, ranking, and monetization validation. TCA verdict: not dead; expand adjacently first. |
 | [[content-gaps]] | Standing desk page, verdict table, citation capsules, depth upgrades. |
 | [[content-quality-scores]] | Blog audit Mar 19. Avg 71/100. Gate: 80+ for new content. |
 | [[system-setup-guide]] | Step-by-step replication guide for Jackson (human reference only — not LLM context). Do not read for operational questions. |
 | [[workflow-system-reference]] | Current operational setup: weekly agent cycle, GitHub Actions, scripts, Obsidian vault, data flow. Read this for any question about how the automation works. |
 | [[indexing-health]] | Per-page GSC indexing status. Updated every Monday by index-monitor agent. Shows which pages are indexed, excluded, or waiting. |
-| [[runpod-migration-proposal]] | 🟡 UNDER CONSIDERATION. Research proposal to replace Claude API calls with open-source local models on RunPod serverless GPUs. Includes full benchmark table, GPU pricing, cost comparison, and model recommendations. Not approved — Jackson reviewing with other LLMs. |
+| [[affiliate-compliance]] | **NEW 2026-05-11.** FTC body disclosure missing on 6 pages. Revenue leaks: aeron-vs-gesture (0 CTAs in 84%), gesture review (CTA at 85%), best-office-chairs (Quick Picks → internal not Amazon). |
+| [[runpod-migration-proposal]] | 🔴 BACKLOG / soft rejected. Broad RunPod migration for TCA deferred; Anthropic Batch research is now the preferred low-friction cost path. Raw proposal remains as historical research only. |
 
 ## Synthesis
 

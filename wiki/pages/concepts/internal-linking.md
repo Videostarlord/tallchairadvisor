@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-04-06
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-03-site-structure.md]
+last_updated: 2026-05-11
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-03-site-structure.md, raw/audits/2026-05-10-full-seo-audit.md]
 tags: [internal-links, site-architecture]
 ---
 
@@ -11,7 +11,7 @@ tags: [internal-links, site-architecture]
 
 Hub-and-spoke clusters. Each chair brand gets a hub + micro-pages. All pages reachable within 3 clicks from home. Every page should have at least 3 internal links.
 
-## Verified Links (Apr 3)
+## Verified Links (May 10)
 
 | From | To | Status |
 |------|-----|--------|
@@ -22,8 +22,10 @@ Hub-and-spoke clusters. Each chair brand gets a hub + micro-pages. All pages rea
 | /review/gesture/ | /correct-chair-dimensions/ | ✅ |
 | /aeron/tall-people/ | /review/aeron-size-c/ | ✅ |
 | /aeron/tall-people/ | /correct-chair-dimensions/ | ✅ |
+| /chairs/herman-miller-aeron/ | /chairs/herman-miller-aeron/size-guide/ | ✅ FIXED 2026-05-10 |
+| /review/aeron-size-c/ | /chairs/herman-miller-aeron/size-guide/ | ✅ FIXED 2026-05-10 |
 
-## Unverified Links (Apr 3)
+## Unverified / Open (May 10)
 
 | From | To | Priority |
 |------|-----|----------|
@@ -33,12 +35,24 @@ Hub-and-spoke clusters. Each chair brand gets a hub + micro-pages. All pages rea
 | /aeron-vs-gesture/ | /review/aeron-size-c/ | MEDIUM |
 | /correct-chair-dimensions/ | /review/gesture/ | MEDIUM |
 
+## Open Issues (May 10 — from full SEO audit)
+
+1. **`/standing-desk-height-tall-people/` near-orphaned** — only 1 inbound link despite priority 0.8 in sitemap. Needs links from at least 2 relevant pages (e.g. /review/gesture/, /best-office-chairs/).
+2. **Aeron vs Gesture: no affiliate links in first 84% of page** — both Amazon links are at 85-86% into the HTML. Not a linking architecture issue, but a CTA placement issue. See [[aeron-vs-gesture]].
+
 ## Strategic Links Needed
 
-- /correct-chair-dimensions/ (510 impr) → /review/gesture/ — passes authority to flagship
-- /aeron/tall-people/ (406 impr) → /review/gesture/ — same rationale
+- /correct-chair-dimensions/ (1,766 impr May 11) → /review/gesture/ — high-impression informational page passing authority to flagship
+- /chairs/herman-miller-aeron/tall-people/ (1,379 impr) → /review/gesture/ — same rationale
+
+## Fix History
+
+| Date | Fix |
+|------|-----|
+| 2026-05-10 | /chairs/herman-miller-aeron/size-guide/ orphan resolved — inbound links added from hub + aeron-size-c review |
 
 ## Links
 
 - [[review-gesture]] — needs inbound authority
 - [[ctr-optimization]] — internal links affect ranking which affects CTR
+- [[aeron-vs-gesture]] — CTA placement open issue

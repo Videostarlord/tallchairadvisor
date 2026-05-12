@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-10
+last_updated: 2026-05-11
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -27,6 +27,7 @@ TallChairAdvisor.com can become the #1 resource for height-specific office chair
 - **Automation:** Full weekly cycle live (Mon–Sat). All agents committed to main.
 - **Intelligence pipeline:** `competitor-intelligence.ts` v3 live — structured extraction, FindingType taxonomy, confidence-aware gap filtering. Monthly cadence.
 - **Strategy enforcement:** All plan constraints in code — cooldown, impression threshold, file ref validity, conditional language, FIX+REWRITE overlap, max-5-FIX cap.
+- **LLM infrastructure direction:** Broad RunPod migration deferred. If cost optimization is needed, Anthropic Batch is the first path to investigate for non-urgent read-only jobs.
 
 ## Infrastructure Status (as of May 10)
 
@@ -43,7 +44,12 @@ TallChairAdvisor.com can become the #1 resource for height-specific office chair
 
 **Infrastructure work is complete. Focus shifts entirely to content.**
 
-## What Needs to Happen Next (Priority Order — May 10)
+The only approved infra follow-up is lightweight **Anthropic Batch** research for non-urgent analysis steps. A broader RunPod migration is backlog-only until it beats Batch on real TCA prompt packs without adding meaningful ops burden.
+
+## What Needs to Happen Next (Priority Order — May 11)
+
+### 0. Build `geo-optimize.ts` — AIO suppression fix (3–5 hours, <$2/month)
+CTR is stuck at 0.23% primarily because of AI Overview suppression (80% of the problem). Meta rewrites can't fix this — only getting cited inside the AI Overview can. This script detects AIO-suppressed pages, fetches the live AI Overview via SerpAPI, and rewrites the page section as a citation capsule matching the format Google is pulling from competitors. Full spec: `wiki/pages/concepts/geo-optimize-plan.md`. Secondary build: SERP-aware title comparison in `audit.ts` (2–3 hours).
 
 ### 1. Execute this week's plan (Thu/Fri/Sat)
 Queued in `reports/weekly-plan.md` after enforcement:

@@ -1,5 +1,5 @@
 /**
- * competitor-intelligence.ts — v2
+ * competitor-intelligence.ts — v2.3
  * Strategic competitor gap analysis with four layers:
  *   Layer 1: Page-role-aware query cluster selection (primary + supporting + strategic)
  *   Layer 2: SERP lane classification (editorial / retailer / brand / community / video)
@@ -9,10 +9,12 @@
  * Reads:  data/gsc/analysis.json (opportunities + opportunityType)
  *         data/gsc/latest.json (full pageQueries pool)
  *         data/competitors/config.json (targetQueries)
- *         data/competitors/crawl-cache.json (persistent cache)
+ *         data/competitors/crawl-cache.json (persistent crawl cache)
+ *         data/competitors/serp-cache.json (persistent SERP/AIO cache, 72h TTL)
  *         src/pages/**\/*.astro (real TCA page content)
  * Writes: data/competitors/intelligence.json
  *         data/competitors/crawl-cache.json
+ *         data/competitors/serp-cache.json
  *         wiki/pages/concepts/competitor-landscape.md
  *         raw/competitors/YYYY-MM-DD-intelligence.json
  *
@@ -150,6 +152,26 @@ interface PageAnalysis {
   tcaContentSample: string; // first 300 chars of extracted content (for audit trail)
 }
 
+interface AIOData {
+  hasAIO: boolean;
+  citedUrls: string[];
+  passageText: string;
+  passageFormat: 'list' | 'prose' | 'table';
+  wordCount: number;
+}
+
+interface AIOTask {
+  page: string;
+  query: string;
+  aioFormat: string;
+  aioPassage: string;
+  aioCitedUrls: string[];
+  citedUrlsReliable: boolean;
+  citationCapsule: string | null;
+  insertAfterHeading: string;
+  status: 'generated' | 'applied' | 'already-applied' | 'heading-not-found' | 'pending-passage-text';
+}
+
 interface IntelligenceOutput {
   generatedAt: string;
   pagesAnalyzed: number;
@@ -159,6 +181,8 @@ interface IntelligenceOutput {
   pages: PageAnalysis[];
   topGaps: GapFinding[];
   editorialOutrankers: Record<string, number>; // domain → count of pages they outrank TCA on
+  aioTasks: AIOTask[];
+  aioTasksRejected: (AIOTask & { rejectionReason: string })[];
   summary: string;
 }
 
@@ -553,9 +577,132 @@ function selectQueryTriple(
   return { primary, supporting, strategic };
 }
 
+// ─── AIO Utilities ────────────────────────────────────────────────────────────
+
+// SerpAPI ai_overview schema varies by query type:
+// - text_blocks + references: content in response (most common — fix was: we were checking 'blocks' not 'text_blocks')
+// - blocks + references: alternate field name, same structure
+// - page_token + serpapi_link: content requires separate API fetch (marked pending-passage-text)
+// Recursively finds the first string value ≥ minLen chars — used as last-resort AIO text extraction.
+// Skips URL-like strings and very short values. Breadth-first so top-level fields win.
+function findFirstLongString(obj: any, minLen = 40, _depth = 0): string {
+  if (_depth > 5) return '';
+  if (typeof obj === 'string') {
+    const t = obj.trim();
+    return (t.length >= minLen && !t.startsWith('http')) ? t : '';
+  }
+  if (Array.isArray(obj)) {
+    for (const item of obj) { const r = findFirstLongString(item, minLen, _depth + 1); if (r) return r; }
+  } else if (obj && typeof obj === 'object') {
+    // Try known text-bearing keys first
+    for (const key of ['snippet', 'text', 'body', 'content', 'answer', 'description']) {
+      if (typeof obj[key] === 'string') { const r = findFirstLongString(obj[key], minLen, _depth + 1); if (r) return r; }
+    }
+    for (const val of Object.values(obj)) { const r = findFirstLongString(val, minLen, _depth + 1); if (r) return r; }
+  }
+  return '';
+}
+
+function extractAioText(ov: any): string {
+  if (ov.answer && typeof ov.answer === 'string' && ov.answer.trim()) return ov.answer.trim();
+  if (ov.snippet && typeof ov.snippet === 'string' && ov.snippet.trim()) return ov.snippet.trim();
+  if (ov.text && typeof ov.text === 'string' && ov.text.trim()) return ov.text.trim();
+  // SerpAPI uses 'text_blocks' OR 'blocks' depending on query — check text_blocks first
+  const blocks: any[] = ov.text_blocks ?? ov.blocks ?? [];
+  const parts: string[] = [];
+  for (const block of blocks) {
+    if (block.type === 'paragraph' && block.body) parts.push(String(block.body));
+    else if (block.type === 'list' && Array.isArray(block.list?.items)) {
+      parts.push(block.list.items.map((i: any) => String(i.text ?? i.snippet ?? i.body ?? '')).filter(Boolean).join(' '));
+    } else if (block.snippet) parts.push(String(block.snippet));
+    else if (block.text) parts.push(String(block.text));
+    else if (block.body) parts.push(String(block.body));
+    else if (block.content) parts.push(String(block.content));
+    else {
+      // Unknown block structure — try recursive search
+      const found = findFirstLongString(block, 30);
+      if (found) parts.push(found);
+    }
+  }
+  const result = parts.filter(Boolean).join(' ').trim();
+  // Last resort: recursive search of the whole ov object
+  if (!result && blocks.length > 0) {
+    if (process.env.AIO_DEBUG) console.log('  [AIO_DEBUG] block extraction failed — falling back to recursive search');
+    return findFirstLongString(ov, 40);
+  }
+  return result;
+}
+
+// After capsule generation: verify every measurement in the capsule exists in the raw .astro source.
+// Prevents fabricated or hallucinated specs from being published.
+function validateCapsuleSpecs(capsule: string, rawAstroSource: string): { valid: boolean; mismatches: string[] } {
+  const nums = [...capsule.matchAll(/(\d+(?:\.\d+)?)\s*(?:inch(?:es)?|in\b|")/gi)].map(m => m[1]);
+  const mismatches = nums.filter(n => !rawAstroSource.includes(n));
+  return { valid: mismatches.length === 0, mismatches };
+}
+
+// Insert capsule paragraph immediately after a heading in a .astro page.
+function applyCapsuleToPage(root: string, page: string, insertAfterHeading: string, capsule: string): AIOTask['status'] {
+  const slug = page.replace(/^\//, '').replace(/\/$/, '');
+  const candidates = [
+    resolve(root, `src/pages/${slug}.astro`),
+    resolve(root, `src/pages/${slug}/index.astro`),
+  ];
+  let filePath = '';
+  let source = '';
+  for (const c of candidates) {
+    if (existsSync(c)) { filePath = c; source = readFileSync(c, 'utf-8'); break; }
+  }
+  if (!filePath) return 'heading-not-found';
+  if (source.includes(capsule.slice(0, 40))) return 'already-applied';
+
+  // Strip ## markers and normalize
+  const headingText = insertAfterHeading.replace(/^#+\s*/, '').trim();
+  const lines = source.split('\n');
+
+  let headingLineIdx = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (!/<h[1-6]/i.test(lines[i])) continue;
+    const stripped = lines[i].replace(/<[^>]+>/g, '').trim();
+    if (stripped === headingText || stripped.includes(headingText) || headingText.includes(stripped) && stripped.length > 10) {
+      headingLineIdx = i;
+      break;
+    }
+  }
+  if (headingLineIdx === -1) return 'heading-not-found';
+
+  const indent = lines[headingLineIdx].match(/^(\s*)/)?.[1] ?? '        ';
+  lines.splice(headingLineIdx + 1, 0, `${indent}<p>${capsule}</p>`);
+  writeFileSync(filePath, lines.join('\n'));
+  return 'applied';
+}
+
 // ─── Layer 2: SERP Fetching + Lane Classification ─────────────────────────────
 
-async function fetchSerp(keyword: string, apiKey: string): Promise<SerpResult[]> {
+function parseAioFromRaw(ov: any): AIOData | null {
+  if (!ov) return null;
+  const topRefs: any[] = ov.references ?? ov.sources ?? [];
+  const blockRefs: any[] = (ov.blocks ?? ov.text_blocks ?? []).flatMap((b: any) => b.references ?? b.sources ?? []);
+  const allRefs = [...topRefs, ...blockRefs];
+  const citedUrls: string[] = [...new Set(allRefs.map((r: any) => r.link ?? r.url ?? '').filter(Boolean))];
+  const passageText: string = extractAioText(ov);
+  const passageFormat: 'list' | 'prose' | 'table' =
+    /^\s*[-*•]|\n[-*•]/m.test(passageText) ? 'list'
+    : /\|\s/.test(passageText) ? 'table'
+    : 'prose';
+  return { hasAIO: true, citedUrls, passageText, passageFormat, wordCount: passageText.split(/\s+/).filter(Boolean).length };
+}
+
+async function fetchSerp(keyword: string, apiKey: string, serpCache?: Map<string, SerpCacheEntry>): Promise<{ results: SerpResult[]; aio: AIOData | null }> {
+  // Return from SERP cache if fresh (saves API credits on debug reruns)
+  if (serpCache) {
+    const cached = serpCache.get(keyword);
+    if (cached && isSerpCacheFresh(cached)) {
+      console.log(`    [serp-cache] hit for "${keyword}"`);
+      return { results: cached.results, aio: parseAioFromRaw(cached.aiOverview) };
+    }
+  }
+
   const url = new URL('https://serpapi.com/search.json');
   url.searchParams.set('q', keyword);
   url.searchParams.set('api_key', apiKey);
@@ -565,9 +712,9 @@ async function fetchSerp(keyword: string, apiKey: string): Promise<SerpResult[]>
 
   try {
     const res = await fetch(url.toString(), { signal: AbortSignal.timeout(15000) });
-    if (!res.ok) { console.warn(`  SerpAPI ${res.status} for "${keyword}"`); return []; }
+    if (!res.ok) { console.warn(`  SerpAPI ${res.status} for "${keyword}"`); return { results: [], aio: null }; }
     const data = await res.json() as any;
-    return (data.organic_results ?? []).map((r: any) => {
+    const results: SerpResult[] = (data.organic_results ?? []).map((r: any) => {
       const link = r.link ?? '';
       return {
         position: r.position ?? 0,
@@ -578,9 +725,35 @@ async function fetchSerp(keyword: string, apiKey: string): Promise<SerpResult[]>
         domain: (() => { try { return new URL(link).hostname.replace('www.', ''); } catch { return ''; } })(),
       };
     }).filter((r: SerpResult) => !r.link.includes(TCA_DOMAIN));
+
+    // Parse AIO block — already in the response, no extra credits consumed.
+    // SerpAPI schema varies: text may be in answer, snippet, text, or nested blocks[].
+    // Citations may be in references, sources, or blocks[].references.
+    let aio: AIOData | null = null;
+    if (data.ai_overview) {
+      const ov = data.ai_overview;
+      if (process.env.AIO_DEBUG) {
+        console.log('  [AIO_DEBUG] ai_overview keys:', JSON.stringify(Object.keys(ov)));
+        if (ov.text_blocks?.length) {
+          console.log('  [AIO_DEBUG] text_blocks[0]:', JSON.stringify(ov.text_blocks[0]));
+        }
+        if (ov.blocks?.length) {
+          console.log('  [AIO_DEBUG] blocks[0]:', JSON.stringify(ov.blocks[0]));
+        }
+        if (!ov.text_blocks?.length && !ov.blocks?.length) {
+          console.log('  [AIO_DEBUG] no blocks found — full ai_overview:', JSON.stringify(ov).slice(0, 500));
+        }
+      }
+      aio = parseAioFromRaw(ov);
+    }
+
+    // Save to SERP cache for free debug reruns
+    if (serpCache) serpCache.set(keyword, { aiOverview: data.ai_overview ?? null, results, timestamp: Date.now() });
+
+    return { results, aio };
   } catch (e: any) {
     console.warn(`  SerpAPI error: ${e.message}`);
-    return [];
+    return { results: [], aio: null };
   }
 }
 
@@ -608,6 +781,35 @@ function isCacheFresh(entry: CacheEntry): boolean {
   const days = CACHE_FRESHNESS_DAYS[entry.lane] ?? 30;
   const ageMs = Date.now() - new Date(entry.fetchedAt).getTime();
   return ageMs < days * 24 * 60 * 60 * 1000;
+}
+
+// ─── SERP Cache ────────────────────────────────────────────────────────────────
+// Caches raw ai_overview objects keyed by query string (72h TTL).
+// Allows AIO_DEBUG runs without spending API credits.
+
+const SERP_CACHE_PATH = 'data/competitors/serp-cache.json';
+const SERP_CACHE_TTL_MS = 72 * 60 * 60 * 1000;
+
+type SerpCacheEntry = { aiOverview: any | null; results: SerpResult[]; timestamp: number };
+
+function loadSerpCache(root: string): Map<string, SerpCacheEntry> {
+  const path = resolve(root, SERP_CACHE_PATH);
+  if (!existsSync(path)) return new Map();
+  try {
+    const raw = JSON.parse(readFileSync(path, 'utf-8'));
+    return new Map(Object.entries(raw) as [string, SerpCacheEntry][]);
+  } catch { return new Map(); }
+}
+
+function saveSerpCache(root: string, cache: Map<string, SerpCacheEntry>): void {
+  mkdirSync(resolve(root, 'data/competitors'), { recursive: true });
+  const obj: Record<string, SerpCacheEntry> = {};
+  for (const [k, v] of cache) obj[k] = v;
+  writeFileSync(resolve(root, SERP_CACHE_PATH), JSON.stringify(obj, null, 2));
+}
+
+function isSerpCacheFresh(entry: SerpCacheEntry): boolean {
+  return (Date.now() - entry.timestamp) < SERP_CACHE_TTL_MS;
 }
 
 // ─── Layer 3: Firecrawl ────────────────────────────────────────────────────────
@@ -977,10 +1179,13 @@ async function main() {
   }
 
   const crawlCache = loadCrawlCache(ROOT);
+  const serpCache = loadSerpCache(ROOT);
   let totalCrawls = 0;
   let cacheHits = 0;
   const editorialOutrankerCounts: Record<string, number> = {};
   const pageAnalyses: PageAnalysis[] = [];
+  const aioTasks: AIOTask[] = [];
+  const aioTasksRejected: (AIOTask & { rejectionReason: string })[] = [];
 
   console.log(`\nAnalyzing ${opportunities.length} pages × up to 3 queries each...\n`);
 
@@ -1006,8 +1211,69 @@ async function main() {
     for (const { query, type } of queryTriple) {
       console.log(`  [${type}] "${query}"`);
 
-      const serpResults = await fetchSerp(query, serpApiKey);
+      const { results: serpResults, aio } = await fetchSerp(query, serpApiKey, serpCache);
       await new Promise(r => setTimeout(r, 1200));
+
+      // AIO suppression check — only for primary query to control Claude API cost
+      if (type === 'primary' && aio?.hasAIO && !aio.citedUrls.some(u => u.includes(TCA_DOMAIN))) {
+        const citedUrlsReliable = aio.citedUrls.length > 0;
+        console.log(`    AIO detected — TCA not cited. passage: ${aio.passageText.length} chars, citedUrls: ${aio.citedUrls.length} (reliable: ${citedUrlsReliable})`);
+
+        if (aio.passageText.length < 50) {
+          // AIO exists but text extraction failed — record suppression, skip capsule generation
+          console.log(`    Passage too short for capsule — marking pending-passage-text`);
+          aioTasks.push({
+            page: opp.page, query, aioFormat: aio.passageFormat,
+            aioPassage: '', aioCitedUrls: aio.citedUrls, citedUrlsReliable,
+            citationCapsule: null, insertAfterHeading: '',
+            status: 'pending-passage-text',
+          });
+        } else {
+          try {
+            const capsuleMsg = await client.messages.create({
+              model: 'claude-sonnet-4-6',
+              max_tokens: 512,
+              messages: [{
+                role: 'user',
+                content: `The Google AI Overview for "${query}" uses ${aio.passageFormat} format (${aio.wordCount} words).\nAIO sample: "${aio.passageText.slice(0, 400)}"\nTCA page content (${opp.page}):\n${tcaExtracted.content.slice(0, 2000)}\n\nWrite a 40-60 word standalone citation capsule in ${aio.passageFormat} format for TCA's page on "${query}".\nRules: include specific measurements in inches, include height context (6ft 3in+ users), be self-contained (readable without surrounding context), match the AIO tone exactly.\nReturn your answer using exactly these XML tags and nothing else:\n<capsule>your 40-60 word capsule here</capsule>\n<heading>closest matching H2 or H3 heading from the page</heading>`,
+              }],
+            });
+            const rawText: string = (capsuleMsg.content[0] as any).text ?? '';
+            const capsule = rawText.match(/<capsule>([\s\S]*?)<\/capsule>/)?.[1]?.trim();
+            const heading = rawText.match(/<heading>([\s\S]*?)<\/heading>/)?.[1]?.trim();
+            if (!capsule) throw new Error('no <capsule> tag in response');
+
+            // Spec validation: all measurements in capsule must exist in raw page source
+            const rawPagePath = (() => {
+              const slug = opp.page.replace(/^\//, '').replace(/\/$/, '');
+              for (const c of [`src/pages/${slug}.astro`, `src/pages/${slug}/index.astro`]) {
+                const p = resolve(ROOT, c); if (existsSync(p)) return p;
+              }
+              return '';
+            })();
+            const rawPageSource = rawPagePath ? readFileSync(rawPagePath, 'utf-8') : '';
+            const specCheck = rawPageSource ? validateCapsuleSpecs(capsule, rawPageSource) : { valid: true, mismatches: [] };
+
+            if (!specCheck.valid) {
+              console.warn(`    Capsule rejected — spec mismatch: ${specCheck.mismatches.join(', ')} not in page source`);
+              aioTasksRejected.push({
+                page: opp.page, query, aioFormat: aio.passageFormat,
+                aioPassage: aio.passageText.slice(0, 300), aioCitedUrls: aio.citedUrls, citedUrlsReliable,
+                citationCapsule: capsule, insertAfterHeading: heading ?? '',
+                status: 'generated', rejectionReason: `spec mismatch: ${specCheck.mismatches.join(', ')}`,
+              });
+            } else {
+              aioTasks.push({
+                page: opp.page, query, aioFormat: aio.passageFormat,
+                aioPassage: aio.passageText.slice(0, 300), aioCitedUrls: aio.citedUrls, citedUrlsReliable,
+                citationCapsule: capsule, insertAfterHeading: heading ?? '',
+                status: 'generated',
+              });
+              console.log(`    AIO capsule written (spec validated)`);
+            }
+          } catch (e: any) { console.warn(`    AIO capsule parse failed: ${e.message}`); }
+        }
+      }
 
       // Use verified editorial first; only backfill with unknown-editorial if short of MIN_EDITORIAL_FOR_ANALYSIS
       const knownEditorial = serpResults.filter(r => r.lane === 'editorial');
@@ -1100,8 +1366,41 @@ async function main() {
     });
   }
 
-  // Save cache before writing output (even if later steps fail)
+  // Save caches before writing output (even if later steps fail)
   saveCrawlCache(ROOT, crawlCache);
+  saveSerpCache(ROOT, serpCache);
+
+  // Write GEO capsule tasks report
+  if (aioTasks.length > 0) {
+    const taskMd = [
+      `## GEO Optimize Tasks — ${today()}\n`,
+      ...aioTasks.map(t => [
+        `### ${t.page}`,
+        `- Query: "${t.query}"`,
+        `- AIO format: ${t.aioFormat}, cited: ${t.aioCitedUrls.slice(0, 2).join(', ')}`,
+        `- Insert after: "${t.insertAfterHeading}"`,
+        `- Citation capsule:\n  > ${t.citationCapsule}`,
+        '',
+      ].join('\n')),
+    ].join('\n');
+    mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
+    writeFileSync(resolve(ROOT, 'reports/geo-optimize-tasks.md'), taskMd);
+    console.log(`  GEO tasks: ${aioTasks.length} → reports/geo-optimize-tasks.md`);
+  }
+
+  // Apply validated capsules directly to .astro pages
+  const pendingCount = aioTasks.filter(t => t.status === 'pending-passage-text').length;
+  const toApply = aioTasks.filter(t => t.status === 'generated' && t.citationCapsule);
+  if (toApply.length > 0) {
+    console.log(`\nApplying ${toApply.length} capsule(s) to src/pages/...`);
+    for (const task of toApply) {
+      const result = applyCapsuleToPage(ROOT, task.page, task.insertAfterHeading, task.citationCapsule!);
+      task.status = result;
+      console.log(`  ${task.page} → ${result}`);
+    }
+  }
+  if (pendingCount > 0) console.log(`  ${pendingCount} task(s) pending passage text — will auto-resolve when SerpAPI returns AIO text`);
+  if (aioTasksRejected.length > 0) console.log(`  ${aioTasksRejected.length} capsule(s) rejected (spec mismatch) — see aioTasksRejected in intelligence.json`);
 
   // Top gaps across all pages, weighted by appearsInQueries
   const topGaps: GapFinding[] = pageAnalyses
@@ -1119,6 +1418,7 @@ async function main() {
 
   const summary = `${pageAnalyses.length} pages analyzed × up to 3 queries each. ${totalCrawls} URLs crawled (${cacheHits} cache hits). ${highCount} high-priority gaps. Top editorial outrankers: ${topOutrankers.join(', ')}.`;
 
+  const appliedCount = aioTasks.filter(t => t.status === 'applied').length;
   const output: IntelligenceOutput = {
     generatedAt: new Date().toISOString(),
     pagesAnalyzed: pageAnalyses.length,
@@ -1128,6 +1428,8 @@ async function main() {
     pages: pageAnalyses,
     topGaps,
     editorialOutrankers: editorialOutrankerCounts,
+    aioTasks,
+    aioTasksRejected,
     summary,
   };
 
@@ -1135,11 +1437,13 @@ async function main() {
   writeFileSync(resolve(ROOT, 'data/competitors/intelligence.json'), JSON.stringify(output, null, 2));
   archiveJsonToRaw(ROOT, 'competitors', `${today()}-intelligence.json`, output);
   updateCompetitorLandscape(output);
-  appendWikiLog(ROOT, `## [${today()}] competitor-intelligence v2 | Strategic Run\n\n- Pages: ${output.pagesAnalyzed} | Queries: ${output.queriesRun} | Crawls: ${output.urlsCrawled} (${output.cacheHits} cached)\n- High-priority gaps: ${highCount}\n- ${summary}\n`);
+  const pendingPassage = aioTasks.filter(t => t.status === 'pending-passage-text').length;
+  appendWikiLog(ROOT, `## [${today()}] competitor-intelligence v2.2 | Strategic Run\n\n- Pages: ${output.pagesAnalyzed} | Queries: ${output.queriesRun} | Crawls: ${output.urlsCrawled} (${output.cacheHits} cached)\n- High-priority gaps: ${highCount}\n- AIO tasks: ${aioTasks.length} generated | ${appliedCount} applied to src/pages/ | ${aioTasksRejected.length} rejected (spec mismatch) | ${pendingPassage} pending passage text\n- ${summary}\n`);
 
   console.log(`Done.`);
   console.log(`  Pages: ${output.pagesAnalyzed} | Queries run: ${output.queriesRun} | URLs crawled: ${output.urlsCrawled} (${cacheHits} cached)`);
   console.log(`  High-priority gaps: ${highCount}`);
+  console.log(`  AIO tasks: ${aioTasks.length} | applied: ${appliedCount} | rejected: ${aioTasksRejected.length} | pending-passage: ${aioTasks.filter(t => t.status === 'pending-passage-text').length}`);
   console.log(`  Output: data/competitors/intelligence.json`);
 }
 

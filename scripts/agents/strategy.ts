@@ -206,6 +206,7 @@ async function main() {
   const legacyPath = resolve(ROOT, 'data/competitors/latest.json');
   let competitorSummary = 'Not available.';
   let competitorGapLines = '';
+  let aioSuppressionLines = '';
   if (existsSync(intelligencePath)) {
     const intel = JSON.parse(readFileSync(intelligencePath, 'utf-8'));
     competitorSummary = intel.summary ?? '';
@@ -224,6 +225,27 @@ async function main() {
       return `${p.tcaPage} [${p.pageRole}]${coveragePct ? ` (${coveragePct})` : ''}:\n${gapLines}`;
     }).join('\n\n');
     competitorGapLines = pageGapSections;
+
+    // Format AIO suppression data for strategic reasoning
+    const aioTasks: any[] = (intel.aioTasks ?? []).filter((t: any) => t.citationCapsule !== null);
+    const aioPending: any[] = (intel.aioTasks ?? []).filter((t: any) => t.status === 'pending-passage-text');
+    const aioRejected: any[] = intel.aioTasksRejected ?? [];
+    if (aioTasks.length > 0 || aioPending.length > 0) {
+      const taskLines = aioTasks.map((t: any) => {
+        const applied = t.status === 'applied' ? ' [CAPSULE ALREADY APPLIED]' : '';
+        const passage = t.aioPassage ? `\n    AIO passage: "${t.aioPassage.slice(0, 200)}"` : '';
+        const cited = t.aioCitedUrls.length > 0 ? `\n    Cited by AIO: ${t.aioCitedUrls.slice(0, 3).join(', ')}` : '';
+        const capsule = t.citationCapsule ? `\n    Capsule inserted: "${t.citationCapsule}"` : '';
+        return `  ${t.page} | query: "${t.query}" | format: ${t.aioFormat}${applied}${passage}${cited}${capsule}`;
+      }).join('\n\n');
+      const pendingNote = aioPending.length > 0
+        ? `\n${aioPending.length} page(s) have AIO suppression detected but passage text unavailable — capsule generation pending next run: ${aioPending.map((t: any) => t.page).join(', ')}`
+        : '';
+      const rejectedNote = aioRejected.length > 0
+        ? `\n${aioRejected.length} capsule(s) rejected at spec validation: ${aioRejected.map((t: any) => `${t.page} (${t.rejectionReason})`).join(', ')}`
+        : '';
+      aioSuppressionLines = `${taskLines}${pendingNote}${rejectedNote}`;
+    }
   } else if (existsSync(legacyPath)) {
     const legacy = JSON.parse(readFileSync(legacyPath, 'utf-8'));
     competitorSummary = legacy.analysis?.summary ?? '';
@@ -317,6 +339,10 @@ COMPETITOR GAPS (v2 intelligence — attributed per TCA page, SERP-grounded; use
 ${competitorSummary}
 
 ${competitorGapLines || '(none)'}
+
+AIO SUPPRESSION — GOOGLE AI OVERVIEW DATA (TCA not cited; capsules may already be applied to pages):
+Context: When Google shows an AI Overview for a query and TCA is not cited, clicks go to zero regardless of ranking position. This is the primary CTR suppressor on this site. The passage text below is what Google is actually surfacing. Use this to reason about whether the page needs structural changes beyond the capsule already inserted — answer-first reformat, FAQ schema aligned to the AIO question, or a new section that directly addresses the AIO topic.
+${aioSuppressionLines || '(none — no AIO suppression detected this cycle)'}
 
 PREVIOUS PLAN (for continuity):
 ${prevPlan.slice(0, 500)}

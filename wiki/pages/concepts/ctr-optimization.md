@@ -38,10 +38,18 @@ Two distinct suppression mechanisms explain the 0% CTR:
 
 ## What Can Actually Move CTR
 
-1. **GEO optimization** — get cited inside AI Overviews on the spec queries (height-bracket tables, citation capsules). Converts an invisible pos-9 ranking into a presence inside the answer box.
-2. **PAA targeting** — every SERP has People Also Ask boxes. 40–60 word direct-answer sections on existing pages.
-3. **Ranking lift on /review/gesture/** — pos 8.2 → pos 5 meaningfully increases CTR even without meta changes.
-4. **Verdict-first meta rewrites on editorial pages** — 5 rewrites deployed May 7 (gesture, knee-pain, aeron-size-c, gesture-hub, leap-plus-tall-people). Awaiting CTR signal (14-day window). *Note: /best-office-chairs/ schema parse error was resolved May 7 — no longer an open blocker.*
+1. **GEO optimization** — the #1 lever. Now integrated into `competitor-intelligence.ts` v2.1. Detects AIO suppression per page, generates citation capsules, writes to `reports/geo-optimize-tasks.md`. **See: [[geo-optimize-plan]].**
+2. **SERP-aware title comparison** (upgrade to `audit.ts`) — before writing a meta rewrite, pull top-5 competitor titles on that SERP and match the winning pattern. Replaces generic verdict-first with SERP-specific optimization. Build time: 2–3 hours.
+3. **PAA targeting** — every SERP has People Also Ask boxes. 40–60 word direct-answer sections on existing pages.
+4. **Ranking lift on /review/gesture/** — pos 8.2 → pos 5 meaningfully increases CTR even without meta changes.
+5. **Verdict-first meta rewrites on editorial pages** — 5 rewrites deployed May 7 (gesture, knee-pain, aeron-size-c, gesture-hub, leap-plus-tall-people). Awaiting CTR signal (14-day window). *Note: /best-office-chairs/ schema parse error was resolved May 7 — no longer an open blocker.*
+
+## What NOT to Buy
+
+No SEO agency or service fixes the AIO/carousel CTR problem cheaply:
+- **Link building agencies**: Quality links cost $100–400 each, need 10–20 = $1,000–8,000 minimum. 12–18 month play, not 2026.
+- **Fiverr SEO gigs**: No service can insert content into a Google AI Overview — that's purely a content structure problem.
+- **Meta optimization services**: The workflow already does this; no agency outperforms what's built.
 
 ## What Verdict-First Meta Can Still Help
 
@@ -49,7 +57,9 @@ On queries that aren't suppressed by AI Overviews or shopping carousels (mostly 
 
 ## Links
 
+- [[geo-optimize-plan]] — full build spec for AIO suppression fix (Priority 1)
 - [[meta-descriptions]] — implementation patterns
 - [[aeron-tall-people]] — highest-impression page
-- [[ai-citation-readiness]] — GEO fixes for AI Overview suppression
+- [[ai-citation-readiness]] — GEO score 76/100, citation capsules missing site-wide
 - raw/audits/2026-04-22-serp-analysis.md — full incognito SERP audit
+- raw/strategy/2026-05-11-ctr-revenue-analysis.md — revenue projection + CTR root cause analysis

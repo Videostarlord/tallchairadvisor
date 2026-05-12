@@ -2,41 +2,39 @@
 type: entity
 entity: site-page
 url: /chairs/herman-miller-aeron/tall-people/
-last_updated: 2026-04-06
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md]
-tags: [page, aeron, ctr-crisis, high-priority]
+last_updated: 2026-05-11
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json]
+tags: [page, aeron, ctr-improving, aio-suspect]
 ---
 
 # Page: /chairs/herman-miller-aeron/tall-people/
 
-**#1 missed revenue opportunity on the site.**
-
-## Current State (Apr 3)
+## Current State (May 11 — GSC + full SEO audit)
 
 | Metric | Value |
 |--------|-------|
-| Impressions | 406 |
+| Impressions | 1,379 |
 | Position | 7.4 |
-| CTR | **0%** (0 clicks on 406 impressions) |
-| Meta description | 149 chars |
+| CTR | 0.29% (4 clicks) |
+| Meta description | ~149 chars (verdict-first rewrite ran May 7) |
 
-## The Problem
+## Status
 
-406 people saw this in search results and none clicked. The meta description doesn't lead with a verdict. A tall person scanning SERPs needs to see immediately: does the Aeron fit at 6'4" or not?
+CTR improved from 0% (Apr 3, 406 impr) to 0.29% (May 11, 1,379 impr) — meta rewrite May 7 likely contributed alongside impression growth. No longer the #1 CTR crisis page. 4 actual clicks now.
 
-**Current meta:** "At 6'0–6'6, the Aeron's fixed 18.25" seat depth is the key trade-off. Height-by-height verdict: who the Aeron fits and who it doesn't."
-
-**Prescribed fix:** "Aeron Size C fits most 6'0–6'3 users; the 18.25" fixed seat depth is a problem at 6'4+. Full height-by-height breakdown with specs." (140 chars)
+**Open issue — AIO citation gap:** Competitor intelligence flagged missing passage-anchor sentences for spec sections. AIO pattern detected on related queries. **Thursday W20 plan queues this fix**: prepend each major spec section with bolded extractable sentence ("The Herman Miller Aeron Size C seat height is 16–20.5".")
 
 ## Fix History
 
 | Date | Fix | Result |
 |------|-----|--------|
 | 2026-03-30 | Comparison table added | ✅ Table present |
-| 2026-04-03 | Meta rewrite prescribed | **NOT YET DONE** |
+| 2026-05-07 | Meta rewritten — verdict-first, height bracket | CTR improved 0%→0.29% |
+| 2026-05-[Thu] | Passage-anchor sentences + canonical check — queued Thursday W20 | Pending |
 
 ## Links
 
 - [[herman-miller-aeron]] — chair entity
-- [[ctr-optimization]] — primary CTR crisis case
-- [[meta-descriptions]] — verdict-first pattern needed
+- [[ctr-optimization]] — CTR recovery case
+- [[meta-descriptions]] — verdict-first pattern
+- [[ai-citation-readiness]] — AIO passage-anchor gap

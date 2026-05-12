@@ -9,11 +9,16 @@ tags: [content-gaps, opportunities, strategy]
 
 ## Unwritten Pages (confirmed opportunities)
 
-### 1. /standing-desk-height-tall-people/ — HIGH PRIORITY
-- **Signal:** "steelcase standing desk review 2026" at 4 impr, pos 9.75 — direct demand
-- **Angle:** Jackson has a real standing desk setup. First-person + ME background.
-- **Competition:** Zero. Flagged in every audit since March.
-- **Status:** Still unwritten as of Apr 6.
+### 1. /office-chair-return-policy/ — IN THIS WEEK'S PLAN (Friday W20)
+- **Signal:** btod.com captures "office chair return policy steelcase herman miller" — TCA has no answer
+- **Angle:** Research-voice. Covers Steelcase.com 14-day window, authorized dealer alternatives, refurbished unit policy
+- **Links to:** /review/leap-plus/, /review/gesture/
+- **Status:** NEW task queued in weekly-plan 2026-05-10 — Friday agent to generate
+
+### 2. /standing-desk-height-tall-people/ — EXISTS, NEAR-ORPHANED
+- **Signal:** Exists and is indexed. 1 inbound link. Priority 0.8 in sitemap.
+- **Issue:** Near-orphaned. Needs links from at least 2 pages (/review/gesture/, /best-office-chairs/). See [[internal-linking]].
+- **Status:** Written but under-linked as of May 10 audit.
 
 ### 2. Height-Bracket Verdict Table on /best-office-chairs/ — ✅ DONE (2026-05-07)
 - Added with Amazon affiliate links (tag=tallchairadvi-20) on Top Pick + Runner-Up columns

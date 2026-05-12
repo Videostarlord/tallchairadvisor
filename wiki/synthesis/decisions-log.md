@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-10 (RunPod migration proposal — under consideration, not decided)
+last_updated: 2026-05-11 (CTR root cause analysis + geo-optimize.ts queued)
 tags: [decisions, history]
 ---
 
@@ -8,9 +8,34 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W20 (May 11) — CTR root cause analysis + next automation priority set
+
+- **ANALYSIS COMPLETE — Revenue projection (automation-only):** $100–250 cumulative through end of 2026. Monthly run rate: $20–30/month by Dec 2026 base case. Current run rate: ~$6/month. Full analysis: `raw/strategy/2026-05-11-ctr-revenue-analysis.md`.
+- **ROOT CAUSE — CTR problem has two distinct causes:**
+  - Cause A (~80%): AI Overview suppression. Pages at pos 5–15 with >30 impr and <0.3% CTR are getting answered inline by Google. Confirmed on: /chairs/steelcase-gesture/seat-depth/, /chairs/herman-miller-aeron/tall-people/, and likely 3–5 more pages. Meta rewrites cannot fix this.
+  - Cause B (~15%): Shopping carousel burial. TCA at pos 22–25 on commercial terms is below fold. Requires domain authority lift over 12–18 months.
+  - Cause C (~5%): Editorial pages (Gesture, Leap Plus, aeron-vs-gesture) on clean editorial SERPs. Meta rewrites DO help here. May 7 rewrites awaiting signal.
+- **DECISION — Next automation build: `geo-optimize.ts`** — monthly script that detects AIO-suppressed pages, fetches the actual AI Overview content via SerpAPI, and rewrites the target page section to add a citation capsule in the format Google is currently pulling from competitors. Cost: <$2/month, within existing API quotas. Full spec: `wiki/pages/concepts/geo-optimize-plan.md`.
+- **DECISION — Secondary build: SERP-aware title comparison in `audit.ts`** — before flagging a meta rewrite, pull top-5 competitor titles on that SERP and match the winning click pattern. Upgrades current generic verdict-first approach.
+- **DECISION — No external services** for CTR. No SEO agency fixes AIO/carousel suppression. Link building ($1k–8k minimum for meaningful impact) is a 2027 play, not 2026. Workflow already outperforms any meta optimization service.
+
+## 2026-W20 (May 11) — Reddit pipeline permanently closed
+
+- **STATUS: CLOSED.** The Reddit/Apify pipeline (`npm run reddit:all`) is a one-time operation, not a recurring workflow. It was run once; all raw data is archived in `data/reddit/` and `raw/reddit/`, and a consolidated report was produced from that run.
+- Reddit owner data does not update frequently enough to warrant re-running on any schedule. The pipeline will not be connected to `strategy.ts` or any other agent.
+- **Do not surface Reddit pipeline injection (I5), Reddit data freshness, or Reddit automation as a gap or recommendation in any future audit, strategy, or planning session unless Jackson explicitly asks.**
+
+## 2026-W20 (May 11) — RunPod migration moved to backlog / soft reject
+
+- **STATUS: BACKLOG / SOFT REJECT.** Do not implement a broad RunPod migration in the TCA automation stack.
+- **Why the decision changed:** Follow-up Qwen3-32B-AWQ benchmarks on 24GB vs 48GB GPUs showed the larger tier is not economical for the same model. 48GB was only ~7-19% faster while costing ~50-67% more per call, and its cold provisioning was less reliable.
+- **Important limitation:** Those benchmarks were synthetic throughput tests, not real TCA prompt packs. They are useful for infrastructure sizing, but they do not prove that an open model can match Claude on `audit.ts`, `strategy.ts`, `execute-fixes.ts`, `index-monitor.ts`, or `execute-content.ts`.
+- **New default cost-reduction path:** Research **Anthropic Batch** first. Batch keeps the current Anthropic integration, preserves model quality, and is operationally far simpler than adding RunPod, provider abstraction, fallback routing, and model-quality validation.
+- **Scope boundary:** If RunPod is ever used later, limit it to read-only, highly input-heavy, concise-output jobs after shadow-testing real TCA prompts. Do not move write-capable or file-rewriting agents based on synthetic token benchmarks.
+
 ## 2026-W19 (May 10g) — RunPod + Local Model Migration — Under Consideration
 
-- **STATUS: NOT DECIDED.** This is a possible future architectural change that Jackson is evaluating with multiple LLMs. No action should be taken by any agent based on this entry.
+- **STATUS: NOT DECIDED.** This was the initial review state before the May 11 soft-reject decision above. No action should be taken from this entry alone.
 - **Context:** A manual `/seo-audit` skill run revealed issues the automated weekly workflow missed (security headers, robots.txt, sitemap gaps, schema structural validation, Core Web Vitals). Prompted a broader evaluation of whether the automation intelligence layer can be expanded cheaply.
 - **Claude API cost baseline confirmed:** $85–136/year across the full Mon–Sat cycle. execute-fixes.ts (3 calls/fix × 3–5 fixes) and execute-content.ts (2 calls/page) are the dominant costs, not the intelligence agents.
 - **Proposal:** Replace Claude API in intelligence agents (audit, strategy, competitor-monitor, index-monitor, verify-deploy, execute-fixes) with Gemma 4 31B (GPQA Diamond 84.3% — exceeds Sonnet's 75.4%) on RunPod 24GB serverless at $0.00019/s. Retain Claude API only for execute-content.ts (Astro page writing).

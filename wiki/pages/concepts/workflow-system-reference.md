@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-10
+last_updated: 2026-05-11
 tags: [automation, workflow, agents, github-actions, obsidian]
 ---
 
@@ -21,7 +21,7 @@ Claude TCA Workspace/               ← Obsidian vault root
 │   ├── scripts/
 │   │   ├── gsc-pull.ts                  ← Pulls GSC API → data/gsc/latest.json
 │   │   ├── gsc-analyze.ts               ← Monday: transforms raw GSC → analysis.json + wiki digest
-│   │   ├── competitor-intelligence.ts   ← Monthly (manual): SerpAPI+Firecrawl+Claude → intelligence.json
+│   │   ├── competitor-intelligence.ts   ← Monday (automated): SerpAPI+Firecrawl+Claude → intelligence.json
 │   │   └── agents/
 │   │       ├── wiki-utils.ts            ← Shared library (read/write wiki, archive, log)
 │   │       ├── competitor-monitor.ts    ← Monday: lightweight metadata scan
@@ -48,7 +48,7 @@ Runs via GitHub Actions. Thursday and Friday push to `staging`. Saturday verifie
 
 | Day | Workflow | Script | Reads | Writes | Push target |
 |-----|----------|--------|-------|--------|-------------|
-| Monday | monday.yml | `gsc-pull.ts` → `gsc-analyze.ts` → `competitor-monitor.ts` + `index-monitor.ts` | GSC API, competitor URLs, URL Inspection API for all pages | `data/gsc/latest.json`, `data/gsc/analysis.json`, `raw/gsc/`, `data/competitors/latest.json`, `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, `wiki/pages/concepts/gsc-intelligence.md`, fixed `src/pages/` files (if issues found) | `main` |
+| Monday | monday.yml | `gsc-pull.ts` → `gsc-analyze.ts` → `competitor-intelligence.ts` → `index-monitor.ts` | GSC API, SerpAPI, Firecrawl, competitor URLs, URL Inspection API for all pages | `data/gsc/latest.json`, `data/gsc/analysis.json`, `data/gsc/history/`, `raw/gsc/`, `data/competitors/intelligence.json`, `data/competitors/crawl-cache.json`, `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, `wiki/pages/concepts/gsc-intelligence.md`, `wiki/pages/concepts/competitor-landscape.md`, fixed `src/pages/` files (if issues found) | `main` |
 | Tuesday | tuesday.yml | `audit.ts` | `data/gsc/latest.json`, live site meta/schema, wiki concept pages | `reports/audit-report.md`, `raw/audits/`, `wiki/pages/concepts/gsc-performance.md` | `main` |
 | Wednesday | wednesday.yml | `strategy.ts` | Audit report, GSC data, wiki synthesis + concept pages | `reports/weekly-plan.md`, `raw/strategy/` | `main` |
 | Thursday | thursday.yml | `execute-fixes.ts` | `reports/weekly-plan.md` (FIXES section) | Modified `src/pages/*.astro` files, `reports/fixes-log.md`, wiki fix history | `staging` |
@@ -97,9 +97,11 @@ wiki/weekly/  →  git push  →  Cloudflare Pages deploy
 
 **`gsc-pull.ts`** — Data collection + immediate wiki update. Pulls page-level + query-level GSC data via the Google Search Console API. Writes `data/gsc/latest.json`. Archives raw JSON to `raw/gsc/`. Updates `wiki/pages/concepts/gsc-performance.md` with a new snapshot (same history preservation format as `audit.ts`). Guard: skips wiki update if `last_updated` is already today — means `audit.ts` already ran that day and is authoritative. Appends to `wiki/log.md`. Does not call Claude API.
 
-**`gsc-analyze.ts`** — Transforms `data/gsc/latest.json` into structured intelligence. Runs Monday immediately after `gsc-pull.ts` in the same workflow. Outputs `data/gsc/analysis.json` (scored opportunities: near-p1, ctr-leak, content-depth, affiliate-capture) and updates `wiki/pages/concepts/gsc-intelligence.md`. Includes URL canonical normalization (merges trailing-slash duplicates before scoring), freshness warning (warns if latest.json >72h old), and junk query filter (suppresses entity-mismatched queries from CTR leak scoring). Does not call Claude API.
+**`gsc-analyze.ts`** — Transforms `data/gsc/latest.json` into structured intelligence. Runs Monday immediately after `gsc-pull.ts` in the same workflow. Outputs `data/gsc/analysis.json` (scored opportunities: near-p1, ctr-leak, content-depth, affiliate-capture) and updates `wiki/pages/concepts/gsc-intelligence.md`. Phase 1 modules: CTR leak detector, query intent clusterer, opportunity scorer, cannibalization detector, affiliate opportunity detector, site trend / velocity. Phase 2 modules (added 2026-05-10): query entropy (fragmented/concentrated/balanced), impression gravity (hub candidate detection), informational→commercial intent transition mapper, AIO content structure recommendations, page velocity (history-based, activates after 2+ Monday runs). Includes URL canonical normalization (merges trailing-slash duplicates before scoring, uses composite `page|query` key for pageQuery rows), freshness warning (warns if latest.json >72h old), and junk query filter. Does not call Claude API. Archives to `data/gsc/history/YYYY-MM-DD.json` (16 weeks retained).
 
-**`competitor-monitor.ts`** — Fetches configured competitor URLs, extracts content, sends to Claude for analysis. Writes `data/competitors/latest.json`. Dead URLs (HTTP 400+) are flagged and excluded from analysis. Config lives in `data/competitors/config.json`.
+**`competitor-intelligence.ts`** (scripts/ root, not agents/) — v2 competitor gap analysis. 4 layers: (1) page-role-aware query selection (primary/supporting/strategic triple per TCA page), (2) SERP lane classification (editorial/retailer/brand/community/video), (3) persistent crawl cache with lane-aware freshness windows (editorial: 30d, brand: 14d, community: 7d), (4) role-specific Claude gap analysis comparing TCA page content against real crawled competitors. Selects top 8 pages from `analysis.json` (near-p1 + content-depth opportunities). Outputs `data/competitors/intelligence.json` (per-page gap findings with confidence filter) and `raw/competitors/YYYY-MM-DD-intelligence.json`. Updates wiki `competitor-landscape.md`. **This is the active Monday agent in monday.yml.** Cost: ~$1–5/month (SerpAPI 250 credits/month, Firecrawl 500 pages/month, mostly cache hits after first run). API keys: `SERP_API_KEY` + `FIRECRAWL_API_KEY` required.
+
+**`competitor-monitor.ts`** — LEGACY: Fetches configured competitor URLs (from `data/competitors/config.json`), extracts metadata, sends to Claude for analysis. Writes `data/competitors/latest.json`. Dead URLs (HTTP 400+) are flagged. **NOTE:** This script is no longer in monday.yml. The Monday workflow now runs `competitor-intelligence.ts` (SERP+Firecrawl+Claude v2) instead. `competitor-monitor.ts` can still be run manually (`npm run agent:competitor`) but is NOT part of the automated weekly cycle. `strategy.ts` prefers `data/competitors/intelligence.json` over `data/competitors/latest.json` when both exist.
 
 **`audit.ts`** — Reads `data/gsc/latest.json` + fetches live meta/schema from the site. Sends to Claude with wiki context for historical comparison. Writes audit report to `reports/` and archives to `raw/audits/`. Updates `wiki/pages/concepts/gsc-performance.md` (preserves up to 8 weeks of historical snapshots).
 
@@ -115,9 +117,9 @@ Output safety (updated 2026-05-07 — added after Thursday build failure):
 - System prompt explicitly instructs: use only ASCII in frontmatter; em dashes are permitted in the HTML template section only.
 
 **`execute-content.ts`** — Parses `reports/weekly-plan.md` for unchecked `[ ] NEW:` tasks. For each, calls Claude to write a complete `.astro` page. Pipeline (updated 2026-05-06):
-1. `validateAstroFile()` — frontmatter fences, Layout wrapper, bare English operators in JS
-2. `scoreContent()` — Haiku 4.5 scores 0-100 on 5 structural criteria: answer-first format, keyword placement, FAQPage schema, affiliate CTA block, internal links. Rejects if <80.
-3. Writes to `src/pages/` only if both pass. Creates wiki entity page on success.
+1. `validateAstroFile()` — frontmatter fences, Layout wrapper, bare English operators in JS, rejects unresolved `AMAZON_URL` placeholders. Retries once with failure message injected as correction instruction.
+2. `scoreContent()` — Haiku 4.5 scores 0-100 on 5 structural criteria: answer-first format, keyword placement, FAQPage schema, affiliate CTA block, internal links. Rejects if <80. Failed drafts archived to `raw/content-rejected/` (not discarded silently).
+3. Writes to `src/pages/` only if both pass. Creates wiki entity page on success. Updates wiki `index.md` with new page entry.
 System prompt mandates 5 structural elements on every page: verdict box, answer-first opening, standalone citation capsule, 2-CTA affiliate block, FAQ+FAQPage schema.
 
 **`verify-deploy.ts`** — Runs safety checks: secrets in code, affiliate tag presence, voice violations (non-Gesture first-person testing language), credentials staged, schema JSON-LD validity (requires `dist/` — must run after build), broken internal links (skips `/images/`, `/assets/`, and static file extensions like `.png`/`.ico`/`.svg`), content regression (word count vs previous commit — requires `fetch-depth: 0`). Blocks deploy if any check fails. Writes weekly summary. Writes `wiki/weekly/YYYY-WNN.md`.
@@ -153,8 +155,9 @@ cd tall-chair-advisor
 
 npm run gsc:pull                               # Monday step 1: pull GSC data
 npm run gsc:analyze                            # Monday step 2: build analysis.json + gsc-intelligence wiki page
-npx tsx scripts/agents/competitor-monitor.ts   # Monday step 3: lightweight competitor metadata
+npm run competitor:intelligence                # Monday step 3: SerpAPI+Firecrawl+Claude competitor gaps (requires SERP_API_KEY + FIRECRAWL_API_KEY)
 npx tsx scripts/agents/index-monitor.ts        # Monday step 4: URL Inspection API
+# npx tsx scripts/agents/competitor-monitor.ts  ← LEGACY only (not in monday.yml)
 npx tsx scripts/agents/audit.ts                # Tuesday
 npx tsx scripts/agents/strategy.ts             # Wednesday
 npx tsx scripts/agents/execute-fixes.ts        # Thursday

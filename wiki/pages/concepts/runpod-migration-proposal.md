@@ -1,20 +1,44 @@
 ---
 type: concept
-last_updated: 2026-05-10
-status: UNDER CONSIDERATION — not approved, not implemented
+last_updated: 2026-05-11
+status: BACKLOG — soft rejected for TCA automation
 sources: [raw/strategy/2026-05-10-runpod-migration-proposal.md]
 tags: [infrastructure, automation, llm, cost, runpod, local-models]
 ---
 
-# RunPod + Local Model Migration — Proposal
+# RunPod + Local Model Migration — Proposal Review
 
-**Status: 🟡 UNDER CONSIDERATION.** Jackson is reviewing this with other LLMs before any decision. Nothing in this page reflects an approved change to the system. Do not act on this proposal unless status changes to APPROVED.
+**Status: 🔴 BACKLOG / SOFT REJECTED for TCA.** Do not implement a broad RunPod migration in the Tall Chair Advisor automation stack. The raw proposal remains useful as historical research, but it is no longer the recommended near-term path.
 
 Full research document: `raw/strategy/2026-05-10-runpod-migration-proposal.md`
 
 ---
 
-## Problem
+## 2026-05-11 Decision Update
+
+### Final call
+
+The proposal is moved from "under consideration" to **backlog / soft reject**.
+
+### Why it was deferred
+
+1. **The same-model GPU benchmark did not justify the bigger tier.** Qwen3-32B-AWQ on 48GB was only about 7-19% faster than 24GB, while costing about 50-67% more per call. That makes 48GB the wrong cost tier for the current 32B AWQ experiment.
+
+2. **The benchmark was synthetic, not TCA-shaped.** The current RunPod benchmark harness measures token throughput and cost using generic filler-text prompts. That is useful for infrastructure sizing, but it does not prove that an open model can safely replace Claude on `audit.ts`, `strategy.ts`, `execute-fixes.ts`, `index-monitor.ts`, or `execute-content.ts`.
+
+3. **Claude Batch is now the better next step to investigate.** Batch preserves the existing Anthropic integration and model quality while reducing cost by 50% for non-urgent jobs. That is a much simpler experiment than adding a second inference provider, model-hosting layer, retries, fallback logic, and quality benchmarking across all agents.
+
+4. **TCA has several output-heavy or write-capable agents.** RunPod only looked attractive on very input-heavy, concise-output workloads. TCA includes multiple large-output jobs and source-writing agents where cheap GPU time does not matter if quality or reliability drops.
+
+### What this means operationally
+
+- **Do not migrate the stack broadly to RunPod.**
+- **Research Anthropic Batch first** for read-only, non-urgent jobs like Tuesday/Wednesday analysis and monthly intelligence work.
+- **If RunPod is revisited later**, limit it to read-only, long-context, concise-output experiments after running real TCA prompt packs in shadow mode.
+
+---
+
+## Original Proposal Context
 
 1. The automated weekly workflow (Mon–Sat GitHub Actions) misses a class of technical SEO issues that only surfaced when a manual `/seo-audit` run was triggered on 2026-05-09. The gap: the automated `audit.ts` makes one Claude call on top-20 GSC pages. The manual audit spawns 6 specialist subagents covering robots.txt, security headers, sitemap, schema validation, Core Web Vitals, and mobile rendering.
 
@@ -22,7 +46,7 @@ Full research document: `raw/strategy/2026-05-10-runpod-migration-proposal.md`
 
 ---
 
-## Proposed Approach
+## Proposed Approach (Historical)
 
 Replace Anthropic API calls in intelligence and fix-execution agents with open-source reasoning models served via **RunPod serverless GPU endpoints**. Retain Claude API only for execute-content.ts (Astro page writing) where output quality matters most.
 
@@ -30,7 +54,7 @@ The API integration change is minimal — RunPod vLLM serves an OpenAI-compatibl
 
 ---
 
-## Key Cost Data
+## Key Cost Data (Historical)
 
 ### RunPod pricing (per hour)
 
@@ -50,9 +74,11 @@ The API integration change is minimal — RunPod vLLM serves an OpenAI-compatibl
 | RunPod 24GB + Claude for content only | ~$36–55/yr |
 | Full RunPod 24GB migration | ~$36/yr |
 
+**Important correction after review:** the real production comparison is **Anthropic Batch**, not only standard API pricing. Batch is simpler to integrate and materially narrows or eliminates the savings on many TCA-shaped jobs.
+
 ---
 
-## Best Candidate Models (HuggingFace)
+## Best Candidate Models (HuggingFace, Historical Research)
 
 Models verified as available on HuggingFace with benchmark scores exceeding or matching Claude Sonnet 4 (GPQA Diamond baseline: 75.4%):
 
@@ -65,13 +91,13 @@ Models verified as available on HuggingFace with benchmark scores exceeding or m
 | QwQ-32B | `Qwen/QwQ-32B` | 62.1% | ⚡ −13.3pt | 24GB | $35.57 |
 | DeepSeek-R1-Distill-32B | `deepseek-ai/DeepSeek-R1-Distill-Qwen-32B` | ~62% | ⚡ −13.3pt | 24GB | $35.57 |
 
-**Sweet spot: Gemma 4 31B on 24GB tier.** Exceeds Sonnet's GPQA by 8.9 points at the cheapest viable GPU tier. $35.57/year vs. $85–136/year current spend.
+**Original "sweet spot" claim is not approved.** Benchmark and architecture review were not sufficient to justify a production migration on benchmark scores alone.
 
 *Kimi K2 series and DeepSeek-R1 full are not single-GPU viable (require 370–550GB VRAM).*
 
 ---
 
-## New Capabilities Unlocked (not currently possible)
+## New Capabilities Unlocked (Potential, Not Approved)
 
 If implemented, cheap inference unlocks:
 
@@ -91,7 +117,7 @@ If implemented, cheap inference unlocks:
 
 ---
 
-## Open Questions (must answer before deciding)
+## Open Questions If This Ever Returns From Backlog
 
 1. Does Gemma 4 31B produce acceptable output for TCA voice on non-Gesture pages?
 2. What are actual token counts per agent run? (validate cost baseline from API logs)
@@ -101,6 +127,12 @@ If implemented, cheap inference unlocks:
 
 ---
 
+## Current Recommendation
+
+1. Investigate **Anthropic Batch pricing and constraints** for `audit.ts`, `strategy.ts`, `competitor-intelligence.ts`, and any other non-urgent read-only jobs.
+2. Keep **Claude Sonnet / Haiku** on all write-capable or quality-sensitive agents unless a future shadow test proves otherwise.
+3. Treat RunPod as a **separate experimentation track**, not a current TCA architecture project.
+
 ## Fix History
 
-*No changes implemented — proposal only.*
+*2026-05-11: proposal status changed from UNDER CONSIDERATION to BACKLOG / soft rejected for TCA automation. Raw research document preserved as historical context.*

@@ -2,6 +2,136 @@
 type: log
 ---
 
+## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 15 (30 cached)
+- High-priority gaps: 0
+- AIO tasks: 6 generated | 3 applied to src/pages/ | 0 rejected (spec mismatch) | 3 pending passage text
+- 8 pages analyzed × up to 3 queries each. 15 URLs crawled (30 cache hits). 0 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.
+
+
+## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 5 (44 cached)
+- High-priority gaps: 0
+- AIO tasks: 6 generated | 0 applied to src/pages/ | 0 rejected (spec mismatch) | 6 pending passage text
+- 8 pages analyzed × up to 3 queries each. 5 URLs crawled (44 cache hits). 0 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, ergo.human.cornell.edu.
+
+
+## [2026-05-12] competitor-intelligence v2.1 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 0 (49 cached)
+- High-priority gaps: 2
+- AIO capsule tasks: 4 → reports/geo-optimize-tasks.md
+- 8 pages analyzed × up to 3 queries each. 0 URLs crawled (49 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, ergo.human.cornell.edu.
+
+
+## [2026-05-12] competitor-intelligence v2.1 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 22 (27 cached)
+- High-priority gaps: 2
+- AIO capsule tasks: 0 → reports/geo-optimize-tasks.md
+- 8 pages analyzed × up to 3 queries each. 22 URLs crawled (27 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, ergo.human.cornell.edu.
+
+
+## [2026-05-11] strategy | Niche validation framework evaluation filed
+
+Manual strategy note added for the "is this niche dead / how do I test niches faster?" question. Conclusion: the common mistake is treating early revenue as the validation signal on young domains. The durable model separates demand validation, distribution validation, and monetization validation. TCA is **not dead**: 15,417 impressions, 35 clicks, avg position 11, first commission already recorded. Faster expansion path is adjacent tall-workstation revenue streams on the current audience graph, not more fresh domains yet. Added raw source: `raw/strategy/2026-05-11-niche-validation-evaluation.md`. Added concept page: `wiki/pages/concepts/niche-validation-framework.md`. Updated `wiki/index.md`.
+
+## [2026-05-11] analysis | CTR root cause + revenue projection + next build queued
+
+Revenue projection (automation-only, no manual changes): $100–250 cumulative through end of 2026, ~$20–30/month run rate by Dec. CTR problem diagnosed as 80% AI Overview suppression (structural, meta rewrites don't fix it), 15% carousel burial (requires link building), 5% editorial page meta (already being fixed). Next automation build queued: `geo-optimize.ts` — monthly script that fetches live AI Overview content via SerpAPI and rewrites target page sections as citation capsules to get TCA cited inside the AIO. Full spec: `wiki/pages/concepts/geo-optimize-plan.md`. Secondary build: SERP-aware title comparison in `audit.ts`. No external service buys fix this.
+
+## [2026-05-11] decision | Reddit pipeline permanently closed
+
+Reddit/Apify pipeline marked CLOSED by Jackson. It was a one-time run; data is archived in `data/reddit/` and `raw/reddit/`. No schedule, no strategy.ts integration, no future mention unless explicitly requested.
+
+## [2026-05-11] codebase-audit | Full automation codebase audit — truth vs wiki
+
+Comprehensive read of every automation script, GitHub Actions workflow, and current reports to verify wiki accuracy.
+
+**KEY FINDING: I3 (GA4 affiliate click tracking) is ALREADY IMPLEMENTED — wiki was wrong**
+- `src/layouts/Layout.astro` contains a full `gtag('event', 'affiliate_click', {...})` implementation
+- Fires on click/auxclick on any element with `data-affiliate-cta="true"`; deduped within 750ms
+- All affiliate CTAs in src/pages/ carry `data-affiliate-cta`, `data-affiliate-program`, `data-cta-position` attributes
+- The May 10 audit listed this as "NOT YET IMPLEMENTED" — that was incorrect. Code predated the audit.
+- Updated: `wiki/pages/concepts/audit-implementation-2026-05-10.md` (I3 section now shows ALREADY IMPLEMENTED)
+
+**KEY FINDING: affiliate-compliance.md disclosure status was overstated**
+- May 10 audit claimed "6 pages missing FTC body disclosure" and wiki repeated this without verification
+- Source-file check of 4 named pages found all 4 have inline `<strong>Disclosure:</strong>` blocks in page body
+- `/review/gesture/` (line 184), `/aeron-vs-gesture/` (line 110), `/best-office-chairs/` (line 124), `/review/leap-plus/` (line 170)
+- Remaining 2 pages (/, /knee-pain-seat-depth/, etc.) were NOT checked — status is now "unverified" not "missing"
+- Updated: `wiki/pages/concepts/affiliate-compliance.md` with corrected per-page status table
+
+**CONFIRMED: Items genuinely not implemented**
+- I2 — GSC pagination: `gsc-pull.ts` uses fixed `rowLimit` with no token-based continuation loop. Confirmed absent.
+- I4 — GSC wiki concept page consolidation: gsc-performance, gsc-intelligence, gsc-intelligence-system, gsc-analysis-strategy all exist as separate pages. Confirmed not consolidated.
+- C1 — /review/gesture/ depth expansion: no REWRITE task in current weekly plan. Confirmed deferred.
+- C2 — /review/leap-plus/ reframe: not in current weekly plan. Confirmed deferred.
+- C3 — role differentiation office-chairs-for-tall-people vs best-office-chairs: confirmed deferred.
+- Anthropic Batch: no usage anywhere in scripts/. Confirmed not implemented. Still on research backlog.
+
+**CONFIRMED: competitor-intelligence.ts fully activated in monday.yml**
+- monday.yml step 3 is `npx tsx scripts/competitor-intelligence.ts` (not competitor-monitor.ts)
+- competitor-monitor.ts still exists but is NOT in monday.yml — it runs as manual only
+- competitor-intelligence.ts is the active Monday agent for competitor analysis
+- Updated: `wiki/pages/concepts/workflow-system-reference.md` Monday row corrected
+
+**CONFIRMED: Phase 2 modules live in gsc-analyze.ts**
+- Query entropy, impression gravity, intent transitions, AIO recommendations, page velocity all implemented
+- These were absent from workflow-system-reference.md description
+- Updated: `wiki/pages/concepts/workflow-system-reference.md` gsc-analyze description expanded
+
+**Current cycle state (from reports/)**
+- Last weekly-plan.md: 2026-05-10, 5 FIX + 1 NEW + 2 REWRITE tasks
+- Last audit-report.md: generated 2026-05-09T23:52Z (data range through 2026-05-04)
+- Last fixes-log.md: 2026-05-07 (9 successful fixes)
+- Last weekly-summary.md: 2026-05-02 (Week of April 30 summary — no content published that week)
+- index-monitor.md: 2026-05-11, 33/45 pages indexed, 12 with issues (all NEUTRAL/wait or noindex on intentional pages)
+- GSC latest.json: 2026-05-11, 35 clicks, 15,417 impr, pos 11 (90-day)
+- analysis.json: 2026-05-11, 24 actionable opportunities, 13 CTR leaks, site momentum flat
+
+**wiki/index.md**: updated last_updated field
+
+## [2026-05-11] wiki-maintenance | Full wiki ingest — May 10 SEO audit findings
+
+Ingested all outstanding findings from the 2026-05-10 full SEO audit into living entity and concept pages. Previous state: audit snapshot pages existed but entity/concept pages had not been updated since Apr 6.
+
+**Pages updated:**
+- `wiki/pages/concepts/schema-markup.md` — added 7 critical open issues (itemReviewed ×4, WebSite @id, Article @id, Product @id ×2, gesture hub missing dates, spec error 17.75→18.75, publisher logo). Marked best-office-chairs JSON-LD fix as resolved.
+- `wiki/pages/concepts/internal-linking.md` — marked size-guide orphan as fixed (May 10), added standing-desk near-orphan as open issue.
+- `wiki/pages/concepts/meta-descriptions.md` — added 4 over-limit metas (aeron-size-c 166, leap-plus 170, gesture-vs-leap-plus 165, standing-desk 161). Added H1/title mismatch for aeron-vs-gesture.
+- `wiki/pages/concepts/ai-citation-readiness.md` — updated GEO score 71→76/100, added AIO passage-anchor gap (tall-people), AIO suspect (seat-depth), AIO restructure needed.
+- `wiki/pages/concepts/content-gaps.md` — added /office-chair-return-policy/ (Friday W20 plan). Corrected standing desk status: exists but near-orphaned, not unwritten.
+- `wiki/pages/concepts/affiliate-compliance.md` — **NEW PAGE**. FTC body disclosure missing on 6 pages. Revenue leak CTA issues on 3 pages.
+- `wiki/pages/site-pages/aeron-vs-gesture.md` — updated to May 11 metrics (348 impr, 8.5, 0%), H1/title mismatch, Quick Answer non-verdict, 0 CTAs in 84%.
+- `wiki/pages/site-pages/aeron-tall-people.md` — updated to May 11 metrics (1,379 impr, 7.4, 0.29%), Meta fix logged (May 7), passage-anchor fix queued.
+- `wiki/pages/site-pages/review-gesture.md` — updated to May 11 metrics (2,672 impr, 8.2, 0.11%), added schema/CTA/disclosure open issues.
+- `wiki/pages/site-pages/best-office-chairs.md` — updated to May 11 metrics (776 impr, 22.5, 0%), Quick Picks CTA issue, FTC gap.
+- `wiki/pages/site-pages/correct-chair-dimensions.md` — updated to May 11 metrics (1,766 impr, 15.8, 0.17%), restructure queued, spec error check needed.
+- `wiki/pages/chairs/steelcase-gesture.md` — updated all GSC numbers, added schema issues, C1 status.
+- `wiki/pages/chairs/herman-miller-aeron.md` — updated all GSC numbers, meta fix history, schema issues.
+- `wiki/pages/chairs/steelcase-leap-plus.md` — updated all GSC numbers, schema issues, CRITICAL threshold on /tall-people/.
+- `wiki/index.md` — added affiliate-compliance page.
+
+**Root cause of staleness:** Audit snapshot files (audit-implementation-2026-05-10.md, audit-2026-05-10-seo.md) were written correctly but findings were never pushed back into the living entity/concept pages. Going forward: every audit ingest must update the affected entity/concept pages, not just write a snapshot file.
+
+## [2026-05-11] decision | RunPod migration moved to backlog / soft reject
+
+- Updated `wiki/pages/concepts/runpod-migration-proposal.md` status from UNDER CONSIDERATION to BACKLOG / soft rejected for TCA automation
+- Reason: follow-up 24GB vs 48GB Qwen3-32B-AWQ benchmarks showed 48GB is not economical for the same model, and the benchmark harness was synthetic rather than TCA-shaped
+- New default research path: investigate Anthropic Batch for non-urgent read-only jobs before considering any second inference provider
+- Updated `wiki/index.md`, `wiki/synthesis/decisions-log.md`, and `wiki/synthesis/thesis.md` to reflect the decision
+
+## [2026-05-11] manual note | Indexing Submission Gap Identified
+
+- Gap: `verify-deploy.ts` has no URL submission step after Cloudflare deploy
+- New pages are found passively via sitemap — can take days to weeks for Google to discover
+- Likely contributing to 11 "URL is unknown to Google" entries in indexing-health
+- Fix needed: add GSC Indexing API call in `verify-deploy.ts` post-deploy, targeting URLs written by `execute-content.ts`
+- Logged in `wiki/pages/concepts/indexing-health.md` under Known Gap
+
 ## [2026-05-11] index-monitor | Indexing Health Check
 
 - Pages inspected: 45

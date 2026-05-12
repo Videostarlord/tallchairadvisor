@@ -46,6 +46,14 @@ Last checked: **2026-05-11**
 - https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ — URL is unknown to Google
 - https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ — URL is unknown to Google
 
+## Known Gap — No Automatic URL Submission on Deploy
+
+`verify-deploy.ts` does not submit new URLs to Google after a Cloudflare Pages deploy. New pages are discovered passively via sitemap crawl, which can take days to weeks. This is the likely cause of the 11 "URL is unknown to Google" entries above — pages that have been live but never actively submitted.
+
+**What needs to be added:** After a successful deploy in `verify-deploy.ts`, call the GSC Indexing API (or URL Inspection API's `runInspection` endpoint) to submit each newly created page URL. Newly written pages from `execute-content.ts` are the primary target — they should be submitted immediately after Saturday's deploy.
+
+**Priority:** Medium. Not blocking, but slows the feedback loop between publishing and getting GSC data back.
+
 ## Fix History
 
 | Date | Page | Fix Type | Result |
