@@ -582,7 +582,7 @@ function selectQueryTriple(
 // SerpAPI ai_overview schema varies by query type:
 // - text_blocks + references: content in response (most common — fix was: we were checking 'blocks' not 'text_blocks')
 // - blocks + references: alternate field name, same structure
-// - page_token + serpapi_link: content requires separate API fetch (marked pending-passage-text)
+// - page_token: secondary fetch to engine=google_ai_overview resolves text_blocks[].snippet
 // Recursively finds the first string value ≥ minLen chars — used as last-resort AIO text extraction.
 // Skips URL-like strings and very short values. Breadth-first so top-level fields win.
 function findFirstLongString(obj: any, minLen = 40, _depth = 0): string {
@@ -731,6 +731,7 @@ async function fetchSerp(keyword: string, apiKey: string, serpCache?: Map<string
     // SerpAPI schema varies: text may be in answer, snippet, text, or nested blocks[].
     // Citations may be in references, sources, or blocks[].references.
     let aio: AIOData | null = null;
+    let resolvedAiOverview: any = data.ai_overview ?? null;
     if (data.ai_overview) {
       const ov = data.ai_overview;
       if (process.env.AIO_DEBUG) {
@@ -746,10 +747,36 @@ async function fetchSerp(keyword: string, apiKey: string, serpCache?: Map<string
         }
       }
       aio = parseAioFromRaw(ov);
+
+      // page_token case: SerpAPI deferred the AIO text — make secondary fetch to resolve it.
+      // The google_ai_overview engine returns text_blocks[].snippet with the actual content.
+      if (ov.page_token && (!aio || aio.passageText.length < 50)) {
+        console.log(`  [AIO] page_token detected — fetching secondary response`);
+        const tokenUrl = new URL('https://serpapi.com/search.json');
+        tokenUrl.searchParams.set('engine', 'google_ai_overview');
+        tokenUrl.searchParams.set('page_token', ov.page_token);
+        tokenUrl.searchParams.set('api_key', apiKey);
+        try {
+          const tokenRes = await fetch(tokenUrl.toString(), { signal: AbortSignal.timeout(15000) });
+          if (tokenRes.ok) {
+            const tokenData = await tokenRes.json() as any;
+            const secondary = tokenData.google_ai_overview ?? tokenData.ai_overview;
+            if (secondary) {
+              aio = parseAioFromRaw(secondary);
+              resolvedAiOverview = secondary;
+              if (process.env.AIO_DEBUG) console.log(`  [AIO_DEBUG] page_token resolved: ${aio?.passageText?.length ?? 0} chars`);
+            }
+          } else {
+            console.warn(`  SerpAPI page_token fetch: ${tokenRes.status}`);
+          }
+        } catch (e: any) {
+          console.warn(`  SerpAPI page_token fetch error: ${e.message}`);
+        }
+      }
     }
 
-    // Save to SERP cache for free debug reruns
-    if (serpCache) serpCache.set(keyword, { aiOverview: data.ai_overview ?? null, results, timestamp: Date.now() });
+    // Save resolved content to SERP cache — stores secondary-fetch result so reruns don't re-fetch
+    if (serpCache) serpCache.set(keyword, { aiOverview: resolvedAiOverview, results, timestamp: Date.now() });
 
     return { results, aio };
   } catch (e: any) {
