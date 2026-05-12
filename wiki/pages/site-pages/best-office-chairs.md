@@ -2,8 +2,8 @@
 type: entity
 entity: site-page
 url: /best-office-chairs/
-last_updated: 2026-05-11
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json]
+last_updated: 2026-05-12
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json, data/competitors/intelligence.json]
 tags: [page, money-page]
 ---
 
@@ -30,6 +30,14 @@ tags: [page, money-page]
 3. **Low position (22.5)** — shopping carousels suppress this query type. Position improvement requires topical authority growth, not meta rewrites.
 4. **Re-audit content score** — score was 79/100 in March, content expanded since. Run `/blog-analyze` to confirm current score.
 
+## AIO Suppression Status (May 12 — competitor:intelligence v2.3)
+
+- **Query:** "best office chairs for tall people"
+- **AIO detected:** Yes — TCA not cited. 12 cited URLs, 741-char passage.
+- **Capsule:** Applied ✅ — after H2 "Which Chair Is Best at Your Height?" (spec-validated: 21" Aeron seat height)
+- **Sentinel:** `<!-- tca-aio-capsule -->` present — future runs will not re-apply.
+- **Source of truth:** `data/competitors/intelligence.json` (2026-05-12 run)
+
 ## Fix History
 
 | Date | Change |
@@ -37,6 +45,7 @@ tags: [page, money-page]
 | 2026-04-03 | JSON-LD parse error fixed (duplicate Article @type) |
 | 2026-05-07 | Height-Bracket Verdict Table: Amazon affiliate links added to Top Pick + Runner-Up columns |
 | 2026-05-07 | Freshness signals aligned: visible date, Byline updatedDate, schema dateModified, sitemap lastmod all set to 2026-05-07 |
+| 2026-05-12 | AIO citation capsule inserted after "Which Chair Is Best at Your Height?" H2 | Spec-validated (21" seat height) |
 
 ## Links
 

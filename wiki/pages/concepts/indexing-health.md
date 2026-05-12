@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-05-11
-sources: [raw/audits/2026-05-11-index-monitor.md]
+last_updated: 2026-05-12
+sources: [raw/audits/2026-05-12-index-monitor.md]
 tags: [indexing, gsc, coverage, technical-seo]
 ---
 
 # Indexing Health
 
-Last checked: **2026-05-11**
+Last checked: **2026-05-12**
 
 ## Current Status
 
@@ -29,8 +29,8 @@ Last checked: **2026-05-11**
 - **https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
 - **https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/** — wait — Non-critical or unknown issue. Coverage: "Crawled - currently not indexed", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "SUCCESSFUL".
 - **https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/** — wait — Non-critical or unknown issue. Coverage: "Crawled - currently not indexed", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "SUCCESSFUL".
-- **https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
-- **https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
+- **https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
+- **https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
 
 ## Not Yet Indexed (waiting)
 
@@ -43,19 +43,11 @@ Last checked: **2026-05-11**
 - https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ — URL is unknown to Google
 - https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ — Crawled - currently not indexed
 - https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ — Crawled - currently not indexed
-- https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ — URL is unknown to Google
-- https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ — URL is unknown to Google
-
-## Known Gap — No Automatic URL Submission on Deploy
-
-`verify-deploy.ts` does not submit new URLs to Google after a Cloudflare Pages deploy. New pages are discovered passively via sitemap crawl, which can take days to weeks. This is the likely cause of the 11 "URL is unknown to Google" entries above — pages that have been live but never actively submitted.
-
-**What needs to be added:** After a successful deploy in `verify-deploy.ts`, call the GSC Indexing API (or URL Inspection API's `runInspection` endpoint) to submit each newly created page URL. Newly written pages from `execute-content.ts` are the primary target — they should be submitted immediately after Saturday's deploy.
-
-**Priority:** Medium. Not blocking, but slows the feedback loop between publishing and getting GSC data back.
+- https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ — Discovered - currently not indexed
+- https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ — Discovered - currently not indexed
 
 ## Fix History
 
 | Date | Page | Fix Type | Result |
 |------|------|----------|--------|
-| 2026-05-11 | — | — | No fixes needed |
+| 2026-05-12 | — | — | No fixes needed |

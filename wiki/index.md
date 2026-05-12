@@ -22,19 +22,20 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 | Page | Summary |
 |------|---------|
-| [[review-gesture]] | Flagship review. Score 88. 2,529 impr, pos 8.2, 3 clicks (0.12% CTR). May 10. |
+| [[review-gesture]] | Flagship review. Score 88. 2,529 impr, pos 8.2. AIO capsule applied May 12 (18.75" seat depth). |
+| [[review-leap-plus]] | Research-based "almost bought" review. AIO capsule applied May 12 (19.75"/22.5"/500lb specs). |
 | [[aeron-tall-people]] | 1,353 impr, pos 7.4, 4 clicks (0.30% CTR). May 10. |
 | [[aeron-vs-gesture]] | 385 impr, pos 8.5, 0 clicks (0% CTR). Comparison. May 10. |
 | [[chairs-herman-miller-aeron-size-guide]] | NEW 2026-04-13. Size B vs C guide for tall users. No GSC data yet. |
-| [[correct-chair-dimensions]] | Educational. 1,658 impr, pos 16.1, 3 clicks (0.18% CTR). Citation capsule candidate. May 10. |
-| [[best-office-chairs]] | Money page. 755 impr, pos 22.8, 0 clicks. Verdict table + affiliate links live May 7. May 10. |
+| [[correct-chair-dimensions]] | Educational. 1,766 impr, pos 15.8. Top GSC opportunity (content-depth, score 883). May 12. |
+| [[best-office-chairs]] | Money page. 776 impr, pos 22.5, 0 clicks. AIO capsule applied May 12 (21" Aeron seat height). |
 
 ## Concept Pages
 
 | Page | Summary |
 |------|---------|
 | [[ctr-optimization]] | #1 site bottleneck. 0.23% CTR (May 2026). Cause A: AIO suppression (80%). Cause B: carousels. Build geo-optimize.ts to fix. |
-| [[geo-optimize-plan]] | **INTEGRATED into competitor-intelligence.ts v2.1.** AIO detection + capsule generation now runs inside the monthly competitor-intelligence run. Output: reports/geo-optimize-tasks.md. |
+| [[geo-optimize-plan]] | **v2.3 (May 12).** AIO capsules applied to 3 pages. SERP cache live (72h). Sentinel prevents re-insertion. 3 pages pending (page_token type). |
 | [[meta-descriptions]] | Length constraints, regex bug, current status per page. |
 | [[schema-markup]] | Types in use, JSON-LD parse error on money page, aggregateRating issues. |
 | [[ai-citation-readiness]] | GEO score 71/100. Missing: citation capsules, verdict table. |

@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-05-11
+last_updated: 2026-05-12
 sources: [data/gsc/analysis.json]
 tags: [gsc, intelligence, opportunities, ctr, weekly]
 ---
 
 # GSC Weekly Intelligence Digest
 
-**Generated 2026-05-11 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
+**Generated 2026-05-12 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
 
 ---
 
@@ -114,11 +114,11 @@ _No transition opportunities detected_
 
 | Page | Cur Pos | Prev Pos | Pos Δ | Impr Δ | Trend |
 |------|---------|----------|-------|--------|-------|
-| /correct-chair-dimensions/ | 16.1 | 16.1 | 0 | 0 | stable |
-| /review/gesture/ | 8.2 | 8.2 | 0 | 0 | stable |
-| /knee-pain-seat-depth/ | 8.6 | 8.6 | 0 | 0 | stable |
-| /best-office-chairs/ | 22.8 | 22.8 | 0 | 0 | stable |
-| /chairs/herman-miller-aeron/tall-people/ | 7.4 | 7.4 | 0 | 0 | stable |
+| /standing-desk-height-tall-people/ | 16.9 | 17.8 | -0.9 | +12 | rising |
+| /how-to-adjust-chair/ | 34.7 | 35.3 | -0.6 | +4 | stable |
+| /best-office-chairs-under-500/ | 11 | 11.5 | -0.5 | +36 | rising |
+| /correct-chair-dimensions/ | 15.8 | 16.1 | -0.3 | +108 | stable |
+| /best-office-chairs/ | 22.5 | 22.8 | -0.3 | +21 | stable |
 
 ---
 

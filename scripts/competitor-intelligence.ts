@@ -654,7 +654,8 @@ function applyCapsuleToPage(root: string, page: string, insertAfterHeading: stri
     if (existsSync(c)) { filePath = c; source = readFileSync(c, 'utf-8'); break; }
   }
   if (!filePath) return 'heading-not-found';
-  if (source.includes(capsule.slice(0, 40))) return 'already-applied';
+  // Sentinel detects any prior capsule insertion regardless of text content
+  if (source.includes('<!-- tca-aio-capsule -->')) return 'already-applied';
 
   // Strip ## markers and normalize
   const headingText = insertAfterHeading.replace(/^#+\s*/, '').trim();
@@ -672,7 +673,7 @@ function applyCapsuleToPage(root: string, page: string, insertAfterHeading: stri
   if (headingLineIdx === -1) return 'heading-not-found';
 
   const indent = lines[headingLineIdx].match(/^(\s*)/)?.[1] ?? '        ';
-  lines.splice(headingLineIdx + 1, 0, `${indent}<p>${capsule}</p>`);
+  lines.splice(headingLineIdx + 1, 0, `${indent}<!-- tca-aio-capsule -->\n${indent}<p>${capsule}</p>`);
   writeFileSync(filePath, lines.join('\n'));
   return 'applied';
 }

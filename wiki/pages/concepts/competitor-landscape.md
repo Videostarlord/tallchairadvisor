@@ -70,10 +70,10 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-12. 8 pages analyzed × up to 3 queries each. 15 URLs crawled (30 cache hits). 0 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
+*v2 run 2026-05-12. 8 pages analyzed × up to 3 queries each. 0 URLs crawled (45 cache hits). 1 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-05-12 | OSHA guidelines are not cited anywhere on the page — the page names the Cornell  | medium | 1q | boulies.com |
-| 2026-05-12 | No scannable comparison table for seat depth specs across the three recommended  | medium | 1q | boulies.com |
-| 2026-05-12 | Author byline and methodology credentialing are listed as present via the Byline | medium | 1q | btod.com |
+| 2026-05-12 | No FAQ section despite FAQPage schema being declared — the schema type is presen | high | 1q | boulies.com |
+| 2026-05-12 | No quick-reference comparison table for seat depth specs across the three recomm | medium | 1q | boulies.com |
+| 2026-05-12 | The Cornell Ergonomics Rule is named and cited in the intro and body, but the ci | medium | 1q | boulies.com |

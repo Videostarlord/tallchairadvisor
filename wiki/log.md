@@ -2,6 +2,36 @@
 type: log
 ---
 
+## [2026-05-12] index-monitor | Indexing Health Check
+
+- Pages inspected: 45
+- Indexed: 33 | Issues: 12 | Fixed: 0
+- Sitemap resubmitted: true
+- Issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ (wait)
+
+
+## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 0 (45 cached)
+- High-priority gaps: 1
+- AIO tasks: 6 generated | 2 applied to src/pages/ | 0 rejected (spec mismatch) | 3 pending passage text
+- 8 pages analyzed × up to 3 queries each. 0 URLs crawled (45 cache hits). 1 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.
+
+
+## [2026-05-12] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 13 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 24 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 1.2% WoW (3231 vs 3271), clicks up 16.7% (7 vs 6), avg position stable
+- Query entropy: 1 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 33 pages
+
+
 ## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
 
 - Pages: 8 | Queries: 23 | Crawls: 15 (30 cached)
