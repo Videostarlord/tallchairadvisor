@@ -8,7 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today } from './wiki-utils.js';
+import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today, logCacheUsage, readSynthesisContext } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -256,6 +256,7 @@ OUTPUT: Complete Astro page file only. No markdown fences around it. No explanat
 async function generatePage(task: ContentTask, extraInstruction?: string): Promise<string> {
   const template = buildTemplate(task.slug);
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
+  const synthesisContext = readSynthesisContext(ROOT);
 
   const messages: { role: 'user' | 'assistant'; content: string }[] = [{
     role: 'user',
@@ -281,9 +282,16 @@ Write the complete Astro page. Output the file content only — no markdown fenc
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 8000,
-    system: CONTENT_SYSTEM_PROMPT,
+    system: [
+      {
+        type: 'text',
+        text: `${CONTENT_SYSTEM_PROMPT}\n\nHISTORICAL CONTEXT — WHAT WORKS:\n${synthesisContext}`,
+        cache_control: { type: 'ephemeral' },
+      },
+    ],
     messages,
   });
+  logCacheUsage('execute-content', response.usage, ROOT);
 
   const raw = response.content[0].type === 'text' ? response.content[0].text : '';
   return raw
