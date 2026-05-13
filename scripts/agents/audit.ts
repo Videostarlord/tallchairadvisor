@@ -8,7 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { archiveToRaw, appendWikiLog, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today } from './wiki-utils.js';
+import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -70,7 +70,10 @@ async function main() {
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
-    system: `You are an SEO auditor for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people (6'+).
+    system: [
+      {
+        type: 'text',
+        text: `You are an SEO auditor for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people (6'+).
 Author: Jackson Christopher, 6'4", ME student at UC Berkeley.
 CRITICAL: Jackson has ONLY personally tested the Steelcase Gesture. All other chairs must use research-based voice, never first-person testing.
 Affiliate tag: tag=tallchairadvi-20 (must be on all Amazon links).
@@ -82,6 +85,9 @@ ${wikiContext.slice(0, 2000)}
 
 STRATEGIC CONTEXT:
 ${synthesisContext.slice(0, 1500)}`,
+        cache_control: { type: 'ephemeral' },
+      },
+    ],
     messages: [{
       role: 'user',
       content: `Audit these pages and identify all issues. For each issue assign severity: critical/high/medium/low.
@@ -127,6 +133,8 @@ Output a structured markdown audit report with:
 Be specific: include exact meta descriptions to rewrite, exact schema errors to fix, etc.`,
     }],
   });
+
+  logCacheUsage('audit', response.usage, ROOT);
 
   const report = response.content[0].type === 'text' ? response.content[0].text : 'Audit failed.';
   const output = `# TCA Weekly Audit Report
