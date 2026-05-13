@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-11
+last_updated: 2026-05-11 (geo-optimize marked complete)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -48,8 +48,10 @@ The only approved infra follow-up is lightweight **Anthropic Batch** research fo
 
 ## What Needs to Happen Next (Priority Order — May 11)
 
-### 0. Build `geo-optimize.ts` — AIO suppression fix (3–5 hours, <$2/month)
-CTR is stuck at 0.23% primarily because of AI Overview suppression (80% of the problem). Meta rewrites can't fix this — only getting cited inside the AI Overview can. This script detects AIO-suppressed pages, fetches the live AI Overview via SerpAPI, and rewrites the page section as a citation capsule matching the format Google is pulling from competitors. Full spec: `wiki/pages/concepts/geo-optimize-plan.md`. Secondary build: SERP-aware title comparison in `audit.ts` (2–3 hours).
+### 0. ~~Build `geo-optimize.ts`~~ — DONE (2026-05-11)
+AIO suppression logic is integrated into `competitor-intelligence.ts` v2.3. SERP cache live. 3 capsules applied to src/pages/ (/review/gesture/, /best-office-chairs/, /review/leap-plus/). 3 pages remain pending (page_token type — unfixable without extra API credits). strategy.ts now reads AIO context. See [[geo-optimize-plan]].
+
+Secondary build still open: **SERP-aware title comparison in `audit.ts`** (2–3 hours).
 
 ### 1. Execute this week's plan (Thu/Fri/Sat)
 Queued in `reports/weekly-plan.md` after enforcement:

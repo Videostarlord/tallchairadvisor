@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-11
+last_updated: 2026-05-11 (workflow evaluation — known issues table added)
 tags: [automation, workflow, agents, github-actions, obsidian]
 ---
 
@@ -134,6 +134,36 @@ The workspace root (`Claude TCA Workspace/`) is the Obsidian vault. Symlinks at 
 - `raw/` → `tall-chair-advisor/raw/` — Archived sources (CSV, JSON, MD files — visible in file explorer but not graph view)
 
 CSV and JSON files in `raw/` are NOT markdown and do NOT appear in the Obsidian graph view. Only `.md` files connect in the graph. The wiki pages (`.md`) are the browsable, linked knowledge layer.
+
+---
+
+## Known Issues & Tech Debt
+
+Evaluated 2026-05-11. Source: `raw/audits/2026-05-11-workflow-evaluation.md`.
+
+### High Priority
+
+| ID | Issue | Location | Fix |
+|----|-------|----------|-----|
+| H1 | No API retry logic — transient 529/5xx on Saturday blocks deploy | `verify-deploy.ts` Claude summary call | 3-attempt exponential backoff loop around `client.messages.create()` |
+| H2 | Wiki entity pages created for failed content tasks | `execute-content.ts:384` | Add `if (result.success)` guard before entity creation loop |
+| H3 | No human review gate — plan executes autonomously Thu after Wed generation | Thursday workflow trigger | Check for `reports/weekly-plan.approved` marker; block execution if absent |
+
+### Medium Priority
+
+| ID | Issue | Location | Fix |
+|----|-------|----------|-----|
+| M1 | No prompt caching — wiki context + system prompt re-sent every run | `strategy.ts`, `execute-content.ts` | Add `anthropic-beta: prompt-caching-2024-07-31` + `cache_control` on static sections |
+| M2 | Thursday force-push doesn't gate on build result before staging push | `thursday.yml` | Ensure `git push --force` only runs after build passes |
+| M3 | No failure notifications beyond GH Actions email | All workflows | Add `curl` POST to webhook in `if: failure()` step on each workflow |
+| M4 | `execute-content.ts` wiki index update hardcoded to `## Concept Pages` heading | `execute-content.ts` | Use flexible insertion pattern; place new entries in Site Page Entities section |
+
+### Low Priority
+
+| ID | Issue | Location | Fix |
+|----|-------|----------|-----|
+| L1 | SerpAPI budget (250/mo) has no usage tracking | `competitor-intelligence.ts` | Surface credit estimate in weekly summary |
+| L2 | Voice check patterns only cover named chairs | `verify-deploy.ts` `checkVoice()` | Update pattern list when new chairs are added |
 
 ---
 

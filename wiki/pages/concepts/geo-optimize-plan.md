@@ -1,15 +1,17 @@
 ---
 type: concept
-last_updated: 2026-05-11
+last_updated: 2026-05-11 (marked complete — v2.3 capsules applied)
 sources: [raw/strategy/2026-05-11-ctr-revenue-analysis.md]
 tags: [geo, aio, automation, ctr, build-plan]
 ---
 
 # geo-optimize.ts — Build Plan
 
-**Status: INTEGRATED — runs inside `competitor-intelligence.ts` v2.1**  
+**Status: COMPLETE — integrated into `competitor-intelligence.ts` v2.3**  
 **Output: `reports/geo-optimize-tasks.md` + `data/competitors/intelligence.json` (`aioTasks` field)**  
-**Priority: #1 CTR fix (implemented)**
+**Capsules applied (2026-05-11):** `/review/gesture/`, `/best-office-chairs/`, `/review/leap-plus/`  
+**Pending (page_token — unfixable):** `/knee-pain-seat-depth/`, `/chairs/herman-miller-aeron/tall-people/`, `/chairs/steelcase-gesture/seat-depth/`  
+**SERP cache:** `data/competitors/serp-cache.json` (72h TTL, populated for all 23 queries)
 
 ---
 

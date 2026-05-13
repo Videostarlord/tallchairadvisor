@@ -15,6 +15,22 @@ type: log
 - Clicks: 35 | Impressions: 15417
 - Full report archived to raw/audits/2026-05-12-weekly-audit.md
 
+## [2026-05-11] workflow evaluation | Manual pipeline audit
+
+- Raw output: `raw/audits/2026-05-11-workflow-evaluation.md`
+- Overall: 7.5/10
+- 3 high issues: no API retry (H1), wiki entities created for failed content tasks (H2), no human review gate (H3)
+- 4 medium issues: no prompt caching (M1), Thursday force-push race condition (M2), no failure notifications (M3), fragile wiki index update (M4)
+- 2 low issues: SerpAPI budget tracking (L1), voice check pattern maintenance (L2)
+- Quick wins: H2 fix (execute-content.ts:384), H1 retry in verify-deploy.ts, M1 prompt caching in strategy.ts
+- Findings ingested into `wiki/pages/concepts/workflow-system-reference.md` — Known Issues table added
+
+## [2026-05-11] Wiki sync — geo-optimize marked complete
+
+- `thesis.md` Priority 0 updated: "Build geo-optimize.ts" → DONE. v2.3 integrated into competitor-intelligence.ts.
+- `wiki/index.md` geo-optimize-plan row updated to reflect completion state.
+- `geo-optimize-plan.md` status block updated: 3 capsules applied, 3 pending (page_token), SERP cache live.
+- No code changes. Wiki-only sync to align recorded state with actual codebase.
 
 ## [2026-05-12] competitor-intelligence v2.2 | Strategic Run
 

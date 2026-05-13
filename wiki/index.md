@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-11 (CTR root cause analysis — geo-optimize-plan added, ctr-optimization updated with build priorities)
+last_updated: 2026-05-11 (geo-optimize marked complete — 3 capsules applied, integrated into competitor-intelligence.ts v2.3)
 ---
 
 # TCA Wiki Index
@@ -35,7 +35,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | Page | Summary |
 |------|---------|
 | [[ctr-optimization]] | #1 site bottleneck. 0.23% CTR (May 2026). Cause A: AIO suppression (80%). Cause B: carousels. Build geo-optimize.ts to fix. |
-| [[geo-optimize-plan]] | **v2.3 (May 12).** AIO capsules applied to 3 pages. SERP cache live (72h). Sentinel prevents re-insertion. 3 pages pending (page_token type). |
+| [[geo-optimize-plan]] | **COMPLETE (May 11).** Integrated into competitor-intelligence.ts v2.3. 3 capsules applied (gesture, best-office-chairs, leap-plus). SERP cache live (72h). 3 pages pending (page_token — unfixable). Strategy.ts reads AIO context. |
 | [[meta-descriptions]] | Length constraints, regex bug, current status per page. |
 | [[schema-markup]] | Types in use, JSON-LD parse error on money page, aggregateRating issues. |
 | [[ai-citation-readiness]] | GEO score 71/100. Missing: citation capsules, verdict table. |

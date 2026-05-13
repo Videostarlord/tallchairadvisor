@@ -7,7 +7,7 @@
  * Astro only builds from src/ so wiki/ and raw/ don't interfere with the site build.
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, appendFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 
 // tall-chair-advisor/ repo root
@@ -119,4 +119,28 @@ export function readConceptContext(repoRoot: string, concepts: string[]): string
   return Object.entries(pages)
     .map(([path, content]) => `--- ${path} ---\n${content.slice(0, 1000)}`)
     .join('\n\n');
+}
+
+/** Append a token-usage entry to data/token-log.jsonl */
+export function logCacheUsage(
+  agent: string,
+  usage: {
+    input_tokens: number;
+    output_tokens: number;
+    cache_creation_input_tokens: number | null | undefined;
+    cache_read_input_tokens: number | null | undefined;
+  },
+  root: string
+): void {
+  const dir = resolve(root, 'data');
+  mkdirSync(dir, { recursive: true });
+  const entry = JSON.stringify({
+    ts: new Date().toISOString(),
+    agent,
+    input_tokens: usage.input_tokens,
+    output_tokens: usage.output_tokens,
+    cache_creation: usage.cache_creation_input_tokens ?? 0,
+    cache_read: usage.cache_read_input_tokens ?? 0,
+  });
+  appendFileSync(resolve(dir, 'token-log.jsonl'), entry + '\n');
 }
