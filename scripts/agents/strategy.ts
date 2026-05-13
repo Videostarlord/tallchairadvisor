@@ -9,7 +9,7 @@ import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, today } from './wiki-utils.js';
+import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -272,7 +272,10 @@ async function main() {
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
-    system: `You are the SEO strategy agent for tallchairadvisor.com.
+    system: [
+      {
+        type: 'text',
+        text: `You are the SEO strategy agent for tallchairadvisor.com.
 Site: niche affiliate, ergonomic chairs for tall people (6'+).
 Author: Jackson Christopher, 6'4", ME senior at UC Berkeley.
 CRITICAL RULES:
@@ -281,12 +284,7 @@ CRITICAL RULES:
 - All Amazon links must include tag=tallchairadvi-20.
 - Before publishing any new blog post, it must score 80+ on /blog-analyze criteria.
 - New content should target AI Overview citations (answer-first, structured, citable).
-Content pillars: Chair Reviews, Height-Specific Guides, Ergonomics & Pain, Comparisons, Workstation Setup.`,
-    messages: [{
-      role: 'user',
-      content: `Create this week's execution plan based on all available data.
-
-IMPORTANT: The wiki contains compiled historical knowledge. Use it to avoid repeating failed fixes and to build on what's working. Do NOT re-suggest fixes that are already in the decisions log unless there's new evidence they should be retried.
+Content pillars: Chair Reviews, Height-Specific Guides, Ergonomics & Pain, Comparisons, Workstation Setup.
 
 WIKI — STRATEGIC THESIS:
 ${thesis.slice(0, 1500)}
@@ -301,7 +299,15 @@ WIKI — RECENT DECISIONS:
 ${decisionsLog.slice(0, 1000)}
 
 WIKI — OPEN ISSUES (CTR, content gaps, internal linking):
-${conceptContext.slice(0, 2000)}
+${conceptContext.slice(0, 2000)}`,
+        cache_control: { type: 'ephemeral' },
+      },
+    ],
+    messages: [{
+      role: 'user',
+      content: `Create this week's execution plan based on all available data.
+
+IMPORTANT: The wiki contains compiled historical knowledge (loaded in the system prompt). Use it to avoid repeating failed fixes and to build on what's working. Do NOT re-suggest fixes that are already in the decisions log unless there's new evidence they should be retried.
 
 GSC INTELLIGENCE (pre-computed, ranked by ROI — use this to drive all action decisions):
 
@@ -387,6 +393,8 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 [2-3 sentences on the week's focus and why]`,
     }],
   });
+
+  logCacheUsage('strategy', response.usage, ROOT);
 
   const plan = response.content[0].type === 'text' ? response.content[0].text : '# Plan generation failed.';
   const todayStr = new Date().toISOString().split('T')[0];
