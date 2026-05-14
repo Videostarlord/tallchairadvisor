@@ -9,7 +9,7 @@ import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { appendWikiLog, archiveToRaw, today } from './wiki-utils.js';
+import { appendWikiLog, archiveToRaw, today, appendIntervention } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -89,7 +89,7 @@ function parsePlan(plan: string): FixTask[] {
 // em dashes bleeding from schema JSON into frontmatter, structural elements going missing,
 // and word count regressions from Claude accidentally truncating content.
 
-type FixType = 'meta' | 'title' | 'meta+title' | 'complex';
+type FixType = 'meta' | 'title' | 'meta+title' | 'complex' | 'rewrite';
 
 function classifyFix(whatToChange: string): FixType {
   const hasMeta = /meta description/i.test(whatToChange);
@@ -227,7 +227,7 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
   // tokens bleeding from JSON schema into frontmatter.
   const fixType = classifyFix(task.whatToChange);
 
-  if (fixType !== 'complex') {
+  if (fixType === 'meta' || fixType === 'title' || fixType === 'meta+title') {
     const updated = await applyTargetedFix(task, fileContent, fixType);
     if (updated === fileContent) {
       return { success: false, summary: `Targeted fix produced no change in ${task.filePath} — Layout prop may not be present` };
@@ -320,6 +320,31 @@ async function main() {
     console.log(`  → ${task.description} (${task.filePath})`);
     const result = await applyFix(task, gscData);
     results.push(`- [${result.success ? '✅' : '❌'}] ${result.summary}`);
+    if (result.success) {
+      const slug = '/' + task.filePath.replace(/^src\/pages\//, '').replace(/\.astro$/, '') + '/';
+      const fullUrl = 'https://tallchairadvisor.com' + slug;
+      const gscRow = gscData.get(fullUrl) ?? gscData.get(slug);
+      const fixType = classifyFix(task.whatToChange);  // pure function — safe to call again
+      const targetMetric: 'ctr' | 'position' | 'impressions' =
+        fixType === 'rewrite' ? 'impressions' :
+        (fixType === 'meta' || fixType === 'title' || fixType === 'meta+title') ? 'ctr' : 'position';
+      const beforeMetric =
+        targetMetric === 'impressions' ? (gscRow?.impressions ?? 0) :
+        targetMetric === 'position' ? (gscRow?.position ?? 99) :
+        // targetMetric === 'ctr': compute from clicks/impressions
+        gscRow && gscRow.impressions > 0
+          ? Math.round((gscRow.clicks / gscRow.impressions) * 10000) / 100
+          : 0;
+      appendIntervention(ROOT, {
+        interventionType: fixType,
+        page: task.filePath,
+        slug,
+        appliedDate: today(),
+        targetMetric,
+        beforeMetric,
+        description: task.description,
+      });
+    }
     if (!result.success) console.warn(`    FAILED: ${result.summary}`);
     await new Promise(r => setTimeout(r, 1000));
   }
