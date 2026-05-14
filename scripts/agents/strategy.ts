@@ -9,7 +9,7 @@ import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today } from './wiki-utils.js';
+import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -269,6 +269,8 @@ async function main() {
   const existingFilePathSet = new Set(existingPages.map(p => p.filePath));
   const fileToSlug = new Map(existingPages.map(p => [p.filePath, p.slug]));
 
+  const recentOutcomes = loadRecentOutcomes(ROOT).slice(-20);  // last 90 days, max 20 entries
+
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
@@ -294,6 +296,18 @@ ${(readWikiPage(ROOT, 'synthesis/what-works.md') || '').slice(0, 1500)}
 
 WIKI — WHAT FAILED (don't repeat):
 ${(readWikiPage(ROOT, 'synthesis/what-failed.md') || '').slice(0, 1500)}
+
+INTERVENTION OUTCOMES (structured — use this instead of what-works.md for outcome reasoning):
+${formatOutcomesForPrompt(recentOutcomes)}
+
+READING GUIDE FOR OUTCOMES:
+- confidence=high: 28+ days post-fix, >20% delta — treat as causal evidence
+- confidence=medium: 28+ days, 5-20% delta — treat as preliminary signal
+- confidence=low: <28 days or <5% delta — early signal only
+- confidence=none: <14 days — do not draw conclusions
+- Positive deltaPercent on CTR = improvement. Negative deltaPercent on position = improvement (lower is better).
+- Positive deltaPercent on impressions = improvement.
+- Rows with 'pending' delta have no afterMetric yet — note the fix date and wait for reconciliation.
 
 WIKI — RECENT DECISIONS:
 ${decisionsLog.slice(0, 1000)}
