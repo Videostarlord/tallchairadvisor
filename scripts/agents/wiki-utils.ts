@@ -7,7 +7,7 @@
  * Astro only builds from src/ so wiki/ and raw/ don't interfere with the site build.
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, appendFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, appendFileSync, readdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 
 // tall-chair-advisor/ repo root
@@ -178,4 +178,122 @@ export function appendIntervention(
     reconciledAt: null,
   };
   appendFileSync(resolve(dir, 'interventions.jsonl'), JSON.stringify(full) + '\n');
+}
+
+// ─── Reconciliation & outcome loading ────────────────────────────────────────
+
+/** Deterministic confidence scorer — no LLM, pure arithmetic */
+function assignConfidence(
+  daysSinceApplied: number,
+  deltaPercent: number | null,
+  beforeMetric: number
+): InterventionEntry['confidenceLevel'] {
+  if (daysSinceApplied < 14) return 'none';
+  if (daysSinceApplied < 28) return 'low';
+  if (beforeMetric === 0) return 'low';
+  const absDelta = Math.abs(deltaPercent ?? 0);
+  if (absDelta < 5) return 'low';
+  if (absDelta >= 20) return 'high';
+  return 'medium';
+}
+
+/**
+ * Reconcile unresolved intervention entries against GSC history snapshots.
+ * Reads data/interventions.jsonl, enriches entries older than 14 days that
+ * have reconciledAt=null, and rewrites the file.
+ * IMMUTABILITY: entries where reconciledAt !== null are NEVER modified.
+ */
+export function reconcileInterventions(repoRoot: string): void {
+  const filePath = resolve(repoRoot, 'data/interventions.jsonl');
+  if (!existsSync(filePath)) return;
+
+  const historyDir = resolve(repoRoot, 'data/gsc/history');
+  const historyFiles = existsSync(historyDir)
+    ? readdirSync(historyDir).filter(f => f.endsWith('.json')).sort()
+    : [];
+
+  const lines = readFileSync(filePath, 'utf-8').split('\n').filter(Boolean);
+  const updated = lines.map(line => {
+    const entry: InterventionEntry = JSON.parse(line);
+    // IMMUTABILITY: already reconciled entries are NEVER touched
+    if (entry.reconciledAt !== null) return line;
+
+    const daysSince = Math.floor(
+      (Date.now() - new Date(entry.appliedDate).getTime()) / 86400000
+    );
+    if (daysSince < 14) return line;  // too early
+
+    // Find the history snapshot closest to (appliedDate + 14 days)
+    const targetDate = new Date(new Date(entry.appliedDate).getTime() + 14 * 86400000)
+      .toISOString().split('T')[0];
+    const candidate = historyFiles.find(f => f.replace('.json', '') >= targetDate)
+      ?? historyFiles[historyFiles.length - 1];
+    if (!candidate) return line;
+
+    let snapshot: Map<string, { ctr: number; position: number; impressions: number }>;
+    try {
+      const raw = JSON.parse(readFileSync(resolve(historyDir, candidate), 'utf-8'));
+      snapshot = new Map((raw.pages ?? []).map((p: any) => [
+        p.page,
+        { ctr: p.ctr ?? 0, position: p.position ?? 99, impressions: p.impressions ?? 0 }
+      ]));
+    } catch {
+      return line;
+    }
+
+    // Dual-key lookup: try slug, then full URL
+    const fullUrl = 'https://tallchairadvisor.com' + entry.slug;
+    const snap = snapshot.get(entry.slug) ?? snapshot.get(fullUrl);
+    if (!snap) return line;
+
+    const afterMetric =
+      entry.targetMetric === 'ctr' ? snap.ctr :
+      entry.targetMetric === 'impressions' ? snap.impressions :
+      snap.position;
+
+    const deltaPercent = entry.beforeMetric === 0
+      ? null
+      : Math.round(((afterMetric - entry.beforeMetric) / Math.abs(entry.beforeMetric)) * 1000) / 10;
+
+    const enriched: InterventionEntry = {
+      ...entry,
+      afterMetric,
+      deltaPercent,
+      confidenceLevel: assignConfidence(daysSince, deltaPercent, entry.beforeMetric),
+      reconciledAt: today(),
+    };
+    return JSON.stringify(enriched);
+  });
+
+  writeFileSync(filePath, updated.join('\n') + '\n');
+}
+
+/**
+ * Load intervention entries applied within the last `lookbackDays` days.
+ * Returns [] if interventions.jsonl does not exist (no throw).
+ */
+export function loadRecentOutcomes(repoRoot: string, lookbackDays = 90): InterventionEntry[] {
+  const filePath = resolve(repoRoot, 'data/interventions.jsonl');
+  if (!existsSync(filePath)) return [];
+  const cutoff = Date.now() - lookbackDays * 86400000;
+  return readFileSync(filePath, 'utf-8')
+    .split('\n')
+    .filter(Boolean)
+    .map(l => JSON.parse(l) as InterventionEntry)
+    .filter(e => new Date(e.appliedDate).getTime() >= cutoff);
+}
+
+/**
+ * Format reconciled intervention entries as a structured table for LLM prompts.
+ * Sign convention: negative deltaPercent on position = improvement (lower is better).
+ */
+export function formatOutcomesForPrompt(entries: InterventionEntry[]): string {
+  if (entries.length === 0) return '(no outcome data yet)';
+  return entries.map(e => {
+    const delta = e.deltaPercent !== null
+      ? `${e.deltaPercent > 0 ? '+' : ''}${e.deltaPercent}%`
+      : 'pending';
+    const after = e.afterMetric !== null ? e.afterMetric : '?';
+    return `${e.appliedDate} | ${e.interventionType} | ${e.slug} | ${e.targetMetric}: ${e.beforeMetric} → ${after} (${delta}) | confidence: ${e.confidenceLevel}`;
+  }).join('\n');
 }
