@@ -8,6 +8,21 @@ type: log
 - 2 fixes, 1 rewrites, 2 new pages (3 tasks dropped by enforcement)
 - Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
 
+## [2026-05-13] audit | Systems-Level Architecture Audit
+
+- Raw snapshot: `raw/audits/2026-05-13-systems-architecture-audit.md`
+- Wiki concept page: `wiki/pages/concepts/systems-architecture-audit-2026-05-13.md`
+- Overall score: 5.5/10 (code 8/10, strategic intelligence 4/10, business viability 3/10)
+- Core finding: sound engineering, wrong data scale — statistical signals meaningless at 7 clicks/week
+- Top 5 priorities: (1) keyword research pipeline, (2) fix attribution tracker, (3) content-roadmap.json for manual queue, (4) prompt caching (-40% cost), (5) decouple data/code commits
+- Estimated API cost: $20-60/month vs cents/week revenue — unsustainable until traffic grows
+
+## [2026-05-13] tracking | Microsoft Clarity added
+
+- Script injected into `src/layouts/Layout.astro` `<head>` (tag ID: `wqec7ap5fe`)
+- Uses `is:inline` to pass through Astro's bundler untouched
+- Build verified clean (45 pages, 0 errors). Cache purged from Cloudflare dashboard. Network tab confirmed `clarity.ms/tag/wqec7ap5fe` loads on page visit.
+- Wiki updated: `workflow-system-reference.md` — Site Analytics & Tracking table added
 
 ## [2026-05-12] audit | Weekly Site Audit
 

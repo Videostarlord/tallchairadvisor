@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-05-11 (workflow evaluation — known issues table added)
-tags: [automation, workflow, agents, github-actions, obsidian]
+last_updated: 2026-05-13 (Microsoft Clarity added to site)
+tags: [automation, workflow, agents, github-actions, obsidian, analytics]
 ---
 
 # Workflow & System Reference
@@ -175,6 +175,17 @@ Evaluated 2026-05-11. Source: `raw/audits/2026-05-11-workflow-evaluation.md`.
 | `GSC_SERVICE_ACCOUNT_JSON` | Base64-encoded GSC service account JSON | Yes |
 | `SERP_API_KEY` | SerpAPI key — 250 credits/month free tier (~23/run = ~9% per run) | Configured — competitor-intelligence.ts |
 | `FIRECRAWL_API_KEY` | Firecrawl API key — 500 pages/month free tier (mostly cache hits after first run) | Configured — competitor-intelligence.ts |
+
+---
+
+## Site Analytics & Tracking
+
+| Tool | Purpose | Installation | Status |
+|------|---------|--------------|--------|
+| Google Analytics 4 | Page views, sessions, affiliate click events | `PUBLIC_GA_MEASUREMENT_ID` env var → Layout.astro | Active |
+| Microsoft Clarity | Heatmaps, session recordings, scroll depth | Inline script in `src/layouts/Layout.astro` `<head>` (tag ID: `wqec7ap5fe`) | Active — added 2026-05-13 |
+
+Clarity script is unconditional (no env gate) — it loads on every page. GA4 is gated on `PUBLIC_GA_MEASUREMENT_ID` being set.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-11 (geo-optimize marked complete — 3 capsules applied, integrated into competitor-intelligence.ts v2.3)
+last_updated: 2026-05-13 (Microsoft Clarity tracking added to Layout.astro)
 ---
 
 # TCA Wiki Index
@@ -45,6 +45,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[gsc-analysis-strategy]] | Query-level GSC analysis. Cornell cluster (164 impr, 0 CTR). AIO pattern detection. Plan for gsc-analyze.ts. Read before any CTR fix decision. |
 | [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
 | [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Includes bug fix history. Read when modifying the pipeline. |
+| [[systems-architecture-audit-2026-05-13]] | **May 13 systems-level architecture audit. 5.5/10.** Top gaps: no keyword research, no fix attribution, no prompt caching. $20-60/month API cost risk. Read before any pipeline changes. |
 | [[audit-implementation-2026-05-10]] | **May 10 audit fix tracker.** 14 items done, 5 deferred. Read this to know what's been fixed and what's still outstanding from the COMBINED_2026-05-09_MASTER_AUDIT. |
 | [[audit-2026-05-10-seo]] | **May 10 full SEO audit. SNAPSHOT ONLY — findings now ingested into entity pages.** 77/100 overall. Read [[schema-markup]], [[affiliate-compliance]], [[meta-descriptions]], entity pages for current status. |
 | [[query-clustering-system]] | How queries are grouped into semantic clusters. Intent weights, known TCA cluster families, cannibalization logic. |
