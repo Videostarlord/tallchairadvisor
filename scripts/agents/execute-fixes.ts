@@ -61,10 +61,10 @@ function sanitizeFrontmatter(content: string): string {
   const match = content.match(/^(---\n)([\s\S]*?)(\n---)/);
   if (!match) return content;
   const sanitized = match[2]
-    .replace(/—/g, ‘\\u2014’)      // em dash
-    .replace(/–/g, ‘\\u2013’)      // en dash
-    .replace(/[‘’]/g, “’”)    // curly single quotes
-    .replace(/[“”]/g, ‘”’);   // curly double quotes
+    .replace(/\u2014/g, '\\u2014')      // em dash
+    .replace(/\u2013/g, '\\u2013')      // en dash
+    .replace(/[\u2018\u2019]/g, "'")    // curly single quotes
+    .replace(/[\u201C\u201D]/g, '"');   // curly double quotes
   return match[1] + sanitized + match[3] + content.slice(match[0].length);
 }
 

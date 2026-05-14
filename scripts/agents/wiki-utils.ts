@@ -144,3 +144,38 @@ export function logCacheUsage(
   });
   appendFileSync(resolve(dir, 'token-log.jsonl'), entry + '\n');
 }
+
+// ─── Attribution logging ──────────────────────────────────────────────────────
+
+export type FixType = 'meta' | 'title' | 'meta+title' | 'complex' | 'rewrite';
+
+export interface InterventionEntry {
+  interventionType: FixType;
+  page: string;          // e.g. "src/pages/review/gesture.astro"
+  slug: string;          // e.g. "/review/gesture/"
+  appliedDate: string;   // ISO date "2026-05-15"
+  targetMetric: 'ctr' | 'position' | 'impressions';
+  beforeMetric: number;
+  afterMetric: number | null;
+  deltaPercent: number | null;
+  confidenceLevel: 'none' | 'low' | 'medium' | 'high';
+  description: string;
+  reconciledAt: string | null;
+}
+
+/** Append one intervention entry to data/interventions.jsonl (append-only, never overwritten) */
+export function appendIntervention(
+  repoRoot: string,
+  entry: Omit<InterventionEntry, 'afterMetric' | 'deltaPercent' | 'confidenceLevel' | 'reconciledAt'>
+): void {
+  const dir = resolve(repoRoot, 'data');
+  mkdirSync(dir, { recursive: true });
+  const full: InterventionEntry = {
+    ...entry,
+    afterMetric: null,
+    deltaPercent: null,
+    confidenceLevel: 'none',
+    reconciledAt: null,
+  };
+  appendFileSync(resolve(dir, 'interventions.jsonl'), JSON.stringify(full) + '\n');
+}
