@@ -187,13 +187,57 @@ async function checkInternalLinks(): Promise<CheckResult> {
   };
 }
 
-async function checkContentRegression(): Promise<CheckResult> {
+// NOTE: "last monday" via git approxidate is reliable Mon–Sat.
+// If saturday.yml is manually re-run on a Sunday, "last monday" returns
+// the Monday of the prior week (8 days ago). This is an acceptable edge case —
+// document it but do not add complex date workarounds.
+function getWeekStartBaseline(root: string): string | null {
   try {
-    const changed = execSync('git diff --name-only HEAD~1 -- src/pages/', { cwd: ROOT })
+    // Find all commits since last Monday (git approxidate handles "last monday" naturally)
+    const weekCommitsRaw = execSync(
+      'git log --since="last monday" --format=%H',
+      { cwd: root }
+    ).toString().trim();
+
+    const weekCommits = weekCommitsRaw.split('\n').filter(Boolean);
+
+    if (weekCommits.length === 0) {
+      // No commits since last Monday — HEAD is already the pre-week baseline
+      // (nothing changed this week, so no regression is possible)
+      return 'HEAD';
+    }
+
+    // git log is newest-first; the last entry is the oldest commit this week
+    const oldestThisWeek = weekCommits[weekCommits.length - 1];
+
+    // Get the parent of the oldest this-week commit = the pre-week baseline
+    const baseline = execSync(
+      `git log ${oldestThisWeek}^1 --format=%H -1`,
+      { cwd: root }
+    ).toString().trim();
+
+    return baseline || null;
+  } catch {
+    // History unavailable (shallow clone, git error, etc.) — degrade gracefully
+    return null;
+  }
+}
+
+async function checkContentRegression(): Promise<CheckResult> {
+  const baseline = getWeekStartBaseline(ROOT);
+  if (!baseline) {
+    return { passed: true, name: 'Content regression', details: 'Could not determine week-start baseline — skipping.' };
+  }
+  if (baseline === 'HEAD') {
+    return { passed: true, name: 'Content regression', details: 'No commits since last Monday — no regression possible.' };
+  }
+
+  try {
+    const changed = execSync(`git diff --name-only ${baseline} -- src/pages/`, { cwd: ROOT })
       .toString().split('\n').filter(f => f.endsWith('.astro'));
 
     if (changed.length === 0) {
-      return { passed: true, name: 'Content regression', details: 'No page files changed since last commit.' };
+      return { passed: true, name: 'Content regression', details: 'No page files changed since week-start baseline.' };
     }
 
     const violations: string[] = [];
@@ -202,20 +246,20 @@ async function checkContentRegression(): Promise<CheckResult> {
       if (!existsSync(fullPath)) continue;
       const current = readFileSync(fullPath, 'utf-8').split(/\s+/).filter(w => w.length > 0).length;
       try {
-        const previous = execSync(`git show HEAD~1:"${file}"`, { cwd: ROOT })
+        const previous = execSync(`git show ${baseline}:"${file}"`, { cwd: ROOT })
           .toString().split(/\s+/).filter((w: string) => w.length > 0).length;
         if (previous > 0 && current < previous * 0.85) {
           const pct = Math.round((1 - current / previous) * 100);
           violations.push(`${file}: word count dropped ${previous} → ${current} (${pct}%)`);
         }
-      } catch { /* file didn't exist in HEAD~1 — new file, skip */ }
+      } catch { /* file didn't exist at baseline — new file, skip */ }
     }
 
     return {
       passed: violations.length === 0,
       name: 'Content regression',
       details: violations.length === 0
-        ? `No regressions in ${changed.length} changed file(s)`
+        ? `No regressions in ${changed.length} changed file(s) vs week-start baseline`
         : violations.join('\n'),
     };
   } catch {
