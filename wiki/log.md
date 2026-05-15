@@ -2,6 +2,14 @@
 type: log
 ---
 
+## [2026-05-14] audit | Microsoft Clarity diagnosis
+
+- Raw snapshot: `raw/audits/2026-05-14-clarity-diagnosis.md`
+- GitHub `main` verified: Clarity snippet present in `src/layouts/Layout.astro`; `_headers` includes `www.clarity.ms` but not `scripts.clarity.ms`
+- Live production issue: homepage `/` serves stale CSP without Clarity hosts, while sampled content pages serve a newer CSP variant
+- Bootstrap check: `https://www.clarity.ms/tag/wqec7ap5fe` loads a second-stage script from `https://scripts.clarity.ms/0.8.64/clarity.js` and pings `https://c.clarity.ms/c.gif`
+- Conclusion: Clarity failure is caused by CSP/header mismatch, not by the project ID or missing snippet
+
 ## [2026-05-13] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-05-13-weekly-plan.md
