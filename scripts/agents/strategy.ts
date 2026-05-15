@@ -210,6 +210,19 @@ async function main() {
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
   const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
   const gscAnalysis = existsSync(analysisPath) ? JSON.parse(readFileSync(analysisPath, 'utf-8')) : null;
+
+  // CONT-01: Content roadmap — human-editable priority topic list
+  const roadmapPath = resolve(ROOT, 'data/content-roadmap.json');
+  const contentRoadmap: Array<{
+    title: string; keyword: string; slug: string;
+    priority: number; status: string; notes: string;
+  }> = existsSync(roadmapPath)
+    ? (JSON.parse(readFileSync(roadmapPath, 'utf-8')) as any[])
+        .filter((t: any) => t.status === 'pending' || t.status === 'in-progress')
+        .sort((a: any, b: any) => a.priority - b.priority)
+    : [];
+  const topRoadmapTopics = contentRoadmap.slice(0, 2);
+
   const auditReport = readIfExists(resolve(ROOT, 'reports/audit-report.md'));
   const prevPlan = readIfExists(resolve(ROOT, 'reports/weekly-plan.md'), 'No previous plan.');
 
@@ -383,6 +396,11 @@ ${aioSuppressionLines || '(none — no AIO suppression detected this cycle)'}
 
 PREVIOUS PLAN (for continuity):
 ${prevPlan.slice(0, 500)}
+
+CONTENT ROADMAP (priority topics Jackson has queued — suggest 1-2 per week as NEW entries even if they have zero GSC impressions):
+${topRoadmapTopics.length > 0
+  ? topRoadmapTopics.map(t => `- [priority ${t.priority}] "${t.title}" | keyword: ${t.keyword} | slug: ${t.slug} | notes: ${t.notes}`).join('\n')
+  : '(no pending roadmap topics — roadmap may be empty or all published)'}
 
 EDIT CADENCE RULES — CRITICAL:
 - Do NOT schedule FIXES or REWRITES for pages edited in the last 14 days UNLESS the issue is technical (broken schema, bad canonical, 404 link, noindex error, voice violation, affiliate tag).
