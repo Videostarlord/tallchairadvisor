@@ -196,6 +196,15 @@ Raw audit: `raw/audits/2026-05-14-clarity-diagnosis.md`
 - Sampled content pages are serving a newer CSP variant, but the tracked `_headers` file only allows `https://www.clarity.ms`.
 - The fetched Clarity bootstrap script immediately loads `https://scripts.clarity.ms/0.8.64/clarity.js` and pings `https://c.clarity.ms/c.gif`, so the current `script-src` allowlist is still incomplete even on pages with the newer CSP.
 
+### Cloudflare Cache Investigation — 2026-05-14
+
+Raw audit: `raw/audits/2026-05-14-cloudflare-cache-investigation.md`
+
+- Pages origin and deployment URLs serve the expected `_headers` output: `Cache-Control: public, max-age=300, must-revalidate` and the wildcard Clarity CSP.
+- The custom domain `tallchairadvisor.com` serves a different HTML cache profile: `CF-Cache-Status: HIT` and `Cache-Control: public, max-age=3600, must-revalidate`.
+- Fresh query-string variants immediately pull the new deployment and then become cached on repeat requests, proving the custom-domain zone is caching full HTML by URL key.
+- Result: old per-path HTML objects can survive on the custom domain even after a new Pages deployment is live.
+
 ---
 
 ## Running Manually (local)
