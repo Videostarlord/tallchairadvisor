@@ -61,18 +61,21 @@ interface GscData {
   [key: string]: unknown;
 }
 
-interface DataForSEOResponse {
-  status_code: number;
-  result: Array<{
-    items_count: number;
-    items: Array<{
-      keyword: string;
-      keyword_info: {
-        search_volume: number;
-        cpc: number;
-      };
-    }>;
-  }>;
+// DataForSEO Labs keyword_overview/live — verified field paths (Phase 7)
+// CRITICAL: keyword_difficulty is in keyword_properties, NOT keyword_info
+// CRITICAL: intent is in search_intent_info, NOT keyword_info
+interface DataForSEOItem {
+  keyword: string;
+  keyword_info: {
+    search_volume: number | null;
+    cpc: number | null;
+  };
+  keyword_properties: {
+    keyword_difficulty: number | null;  // 0-100 scale
+  };
+  search_intent_info: {
+    main_intent: 'informational' | 'navigational' | 'commercial' | 'transactional' | null;
+  };
 }
 
 // ─── 5. Normalization function ────────────────────────────────────────────────
@@ -204,14 +207,90 @@ const keywordsReturned = json.reduce((acc, t: any) =>
 console.log('[keyword-discovery] Structural validation passed — sandbox returning valid dummy data');
 console.log(`[keyword-discovery] Keywords returned: ${keywordsReturned}`);
 
-// ─── 12. Wiki log entry ───────────────────────────────────────────────────────
+// ─── 12. Flatten response items ───────────────────────────────────────────────
+
+const allItems: DataForSEOItem[] = [];
+for (const task of json as any[]) {
+  for (const resultRow of (task.result ?? [])) {
+    for (const item of (resultRow.items ?? [])) {
+      allItems.push(item as DataForSEOItem);
+    }
+  }
+}
+console.log(`[keyword-discovery] Total enriched keywords: ${allItems.length}`);
+
+// Warn if KD or intent fields are null (sandbox may return incomplete dummy data)
+const nullKdCount = allItems.filter((i) => i.keyword_properties?.keyword_difficulty == null).length;
+const nullIntentCount = allItems.filter((i) => i.search_intent_info?.main_intent == null).length;
+if (nullKdCount > 0) console.warn(`[keyword-discovery] WARNING: ${nullKdCount} items have null keyword_difficulty — treated as KD=0`);
+if (nullIntentCount > 0) console.warn(`[keyword-discovery] WARNING: ${nullIntentCount} items have null main_intent — treated as non-navigational`);
+
+// ─── 13. Filter (KWORD-04) ────────────────────────────────────────────────────
+
+const filtered = allItems.filter((item) => {
+  const kd = item.keyword_properties?.keyword_difficulty ?? 0;
+  const vol = item.keyword_info?.search_volume ?? 0;
+  const intent = item.search_intent_info?.main_intent;
+  if (kd > 35) return false;
+  if (vol < 50) return false;
+  if (intent === 'navigational') return false;
+  return true;
+});
+console.log(`[keyword-discovery] After filter: ${filtered.length} of ${allItems.length} keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)`);
+
+// ─── 14. Score (KWORD-04) ─────────────────────────────────────────────────────
+
+// Height/size modifiers — checked against original keyword (pre-normalization preserves apostrophes)
+const HEIGHT_MODIFIERS = ['tall', "6'", 'big and tall', 'large frame'];
+
+interface ScoredItem {
+  item: DataForSEOItem;
+  score: number;
+}
+
+function scoreKeyword(item: DataForSEOItem): number {
+  const intent = item.search_intent_info?.main_intent;
+  const kd = item.keyword_properties?.keyword_difficulty ?? 0;
+  const vol = item.keyword_info?.search_volume ?? 0;
+
+  // Intent match (35%) — commercial/transactional=1.0, informational=0.5, other=0.0
+  const intentScore = (intent === 'commercial' || intent === 'transactional') ? 1.0
+    : intent === 'informational' ? 0.5
+    : 0.0;
+
+  // Feasibility (25%) — inverse KD on 0-35 scale
+  const feasScore = (35 - kd) / 35;
+
+  // Volume (25%) — log scale, capped at vol=10000 → score=1.0
+  const volScore = Math.min(Math.log10(Math.max(vol, 1)) / Math.log10(10000), 1.0);
+
+  // Audience qualifier (15%) — height/size modifier present in original keyword
+  const kwOrig = item.keyword.toLowerCase();
+  const qualScore = HEIGHT_MODIFIERS.some((m) => kwOrig.includes(m)) ? 1.0 : 0.0;
+
+  return (intentScore * 0.35) + (feasScore * 0.25) + (volScore * 0.25) + (qualScore * 0.15);
+}
+
+const scored: ScoredItem[] = filtered
+  .map((item) => ({ item, score: scoreKeyword(item) }))
+  .sort((a, b) => b.score - a.score);
+
+const top20 = scored.slice(0, 20);
+console.log(`[keyword-discovery] Scored ${filtered.length} keywords — top ${top20.length} selected`);
+if (top20.length > 0) {
+  console.log(`[keyword-discovery] Top score: ${top20[0].score.toFixed(3)}, bottom of top-20: ${top20[top20.length - 1]?.score.toFixed(3)}`);
+}
+
+// ─── 15. Wiki log entry ───────────────────────────────────────────────────────
 
 appendWikiLog(ROOT, [
   `### ${today()} — keyword-discovery.ts run`,
   `- Seeds: GSC=${gscSeeds.length}, Competitor=${competitorSeeds.length}, Deduped=${seeds.length}`,
   `- Estimated cost: $${estimated.toFixed(4)} (${taskCount} task${taskCount !== 1 ? 's' : ''})`,
   `- Keywords returned from DataForSEO: ${keywordsReturned}`,
+  `- After filter: ${filtered.length} keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)`,
+  `- Top-20 selected from ${scored.length} scored keywords`,
   `- Mode: ${process.env.DATAFORSEO_SANDBOX !== 'false' ? 'sandbox' : 'production'}`,
 ].join('\n'));
 
-console.log('[keyword-discovery] Done — wiki log updated. Phase 7 will add filter/score/output pipeline.');
+console.log('[keyword-discovery] Done — filter/score pipeline complete. Plan 02 will add classification and output.');
