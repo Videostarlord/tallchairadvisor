@@ -179,6 +179,15 @@ if (!res.ok) {
 const body = (await res.json()) as any;
 const json: unknown[] = Array.isArray(body) ? body : (body?.tasks ?? []);
 
+// ─── 10.5. Save raw response ──────────────────────────────────────────────────
+
+const rawDir = resolve(ROOT, 'data/keywords/raw');
+mkdirSync(rawDir, { recursive: true });
+const rawFilename = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19) + '.json';
+const rawPath = resolve(rawDir, rawFilename);
+writeFileSync(rawPath, JSON.stringify(body, null, 2));
+console.log(`[keyword-discovery] Saved raw response to data/keywords/raw/${rawFilename}`);
+
 // ─── 11. Structural validation ────────────────────────────────────────────────
 
 function validateResponse(data: unknown[]): boolean {
