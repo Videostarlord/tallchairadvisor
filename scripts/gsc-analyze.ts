@@ -763,13 +763,59 @@ function computePageVelocity(): PageVelocityEntry[] | null {
     : null;
 }
 
-// ─── Phase 2 Module 6: Content Gap vs Competitors ────────────────────────────
-// NOTE: data/competitors/latest.json contains page-level metadata only (title, h2s, wordCount,
-// schemaTypes) — not keyword rankings or topic keyword lists. There is no structured keyword
-// array to cross-reference against GSC clusters. To enable this module, competitor data would
-// need a `keywords: string[]` or `rankingKeywords: { keyword: string; position: number }[]`
-// field per competitor, populated by a keyword-ranking API (e.g. Ahrefs, SEMrush, DataForSEO).
-// This module is intentionally omitted from output.
+// ─── Module 6: Content Gap vs Competitors ────────────────────────────────────
+
+export interface ContentGap {
+  query: string;
+  tcaPage: string;
+  tcaPosition: number;
+  competitorDomain: string;
+  competitorPosition: number;
+  impressions: number;
+  gapSeverity: 'high' | 'medium' | 'low';
+}
+
+export function detectContentGaps(
+  pageQueries: PageQueryRow[],
+  intelligencePath: string
+): ContentGap[] {
+  if (!existsSync(intelligencePath)) return [];
+  let competitorKeywords: { query: string; competitorDomain: string; competitorPosition: number }[];
+  try {
+    const intel = JSON.parse(readFileSync(intelligencePath, 'utf-8'));
+    competitorKeywords = intel.competitorKeywords ?? [];
+  } catch { return []; }
+  if (competitorKeywords.length === 0) return [];
+
+  const gscByQuery = new Map<string, PageQueryRow[]>();
+  for (const pq of pageQueries) {
+    const key = pq.query.toLowerCase();
+    const existing = gscByQuery.get(key) ?? [];
+    existing.push(pq);
+    gscByQuery.set(key, existing);
+  }
+
+  const gaps: ContentGap[] = [];
+  for (const ck of competitorKeywords) {
+    const rows = gscByQuery.get(ck.query.toLowerCase()) ?? [];
+    for (const row of rows) {
+      if (row.position === null || row.position < 10 || row.position > 50) continue;
+      if (row.impressions < 10) continue;
+      const severity: ContentGap['gapSeverity'] =
+        row.position >= 20 ? 'high' : row.position >= 15 ? 'medium' : 'low';
+      gaps.push({
+        query: ck.query,
+        tcaPage: row.page,
+        tcaPosition: parseFloat(row.position.toFixed(1)),
+        competitorDomain: ck.competitorDomain,
+        competitorPosition: ck.competitorPosition,
+        impressions: row.impressions,
+        gapSeverity: severity,
+      });
+    }
+  }
+  return gaps.sort((a, b) => b.impressions - a.impressions);
+}
 
 // ─── Executive Summary Builder ────────────────────────────────────────────────
 
@@ -1010,6 +1056,10 @@ function buildAnalysis(gsc: GSCData) {
   const aioRecommendations = buildAIORecommendations(ctrLeaks);
   const pageVelocity = computePageVelocity();
 
+  // Module 6: Content Gap vs Competitors
+  const intelligencePath = resolve(ROOT, 'data/competitors/intelligence.json');
+  const contentGap = detectContentGaps(gsc.pageQueries, intelligencePath);
+
   return {
     generatedAt: new Date().toISOString(),
     dateRange: gsc.dateRange,
@@ -1026,6 +1076,7 @@ function buildAnalysis(gsc: GSCData) {
     intentTransitions,
     aioRecommendations,
     pageVelocity,
+    contentGap,
   };
 }
 
@@ -1070,6 +1121,7 @@ async function main() {
   console.log(`  Intent transition opportunities: ${analysis.intentTransitions.filter(t => t.transitionOpportunity).length}`);
   console.log(`  AIO recommendations: ${analysis.aioRecommendations.length}`);
   console.log(`  Page velocity: ${analysis.pageVelocity === null ? 'null (insufficient history)' : `${analysis.pageVelocity.length} pages tracked`}`);
+  console.log(`  Content gaps: ${analysis.contentGap.length} (${analysis.contentGap.filter(g => g.gapSeverity === 'high').length} high severity)`);
 
   // Write analysis.json
   const analysisDir = resolve(ROOT, 'data/gsc');
