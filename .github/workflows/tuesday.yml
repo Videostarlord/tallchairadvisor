@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: false
+
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -19,6 +23,20 @@ jobs:
           node-version: '20'
 
       - run: npm ci
+
+      - name: Check upstream pipeline status
+        run: |
+          if [ ! -f data/pipeline-status.json ]; then
+            echo "::warning::pipeline-status.json not found — Monday may not have run yet, proceeding"
+            exit 0
+          fi
+          STATUS=$(node -p "JSON.parse(require('fs').readFileSync('data/pipeline-status.json','utf-8')).status")
+          REASON=$(node -p "JSON.parse(require('fs').readFileSync('data/pipeline-status.json','utf-8')).reason")
+          if [ "$STATUS" != "success" ]; then
+            echo "::error::Skipped — upstream Monday failure: $REASON"
+            exit 1
+          fi
+          echo "Upstream status: success — proceeding"
 
       - name: Run audit agent
         run: npx tsx scripts/agents/audit.ts
