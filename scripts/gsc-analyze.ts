@@ -817,6 +817,101 @@ export function detectContentGaps(
   return gaps.sort((a, b) => b.impressions - a.impressions);
 }
 
+// ─── Module 7: Decay Detection ────────────────────────────────────────────────
+
+export interface DecayAlert {
+  page: string;
+  consecutiveWeeksDeclined: number;    // 8+ to qualify
+  positionAtStart: number;             // position N weeks ago (start of declining run)
+  positionNow: number;                 // current position
+  totalPositionLoss: number;           // positionNow - positionAtStart (positive = worse ranking)
+  impressions: number;                 // current week impressions from latest snapshot
+  cooldownBypass: true;                // always true — signals enforcePlanConstraints bypass
+}
+
+/** Detect pages whose ranking has declined for 8+ consecutive weeks.
+ *
+ *  NOTE: GSC positions are 90-day rolling averages, so weekly position deltas
+ *  are naturally dampened. A per-week delta > 3 positions over 8 consecutive
+ *  weeks represents a significant structural decline even accounting for this lag.
+ *
+ *  Guard: requires 9+ history snapshots (8 adjacent pairs). Returns [] until
+ *  ~July 2026 when enough weekly snapshots have accumulated.
+ */
+export function detectDecayingPages(): DecayAlert[] {
+  const histDir = resolve(ROOT, 'data/gsc/history');
+  if (!existsSync(histDir)) return [];
+
+  const files = readdirSync(histDir).filter(f => f.endsWith('.json')).sort();
+  // Need 9 snapshots to detect 8 consecutive weekly declines (8 pairs of adjacent weeks)
+  // Until ~July 2026 (only 4 history files exist), this function always returns [].
+  if (files.length < 9) return [];
+
+  type PageEntry = { page: string; position: number; impressions: number };
+  const loadPages = (f: string): PageEntry[] => {
+    try {
+      return (JSON.parse(readFileSync(resolve(histDir, f), 'utf-8')).opportunities ?? []) as PageEntry[];
+    } catch { return []; }
+  };
+
+  // Build per-page position series across all history files (index = file order = week order)
+  const pagePositions = new Map<string, (number | null)[]>();
+  for (let i = 0; i < files.length; i++) {
+    const pages = loadPages(files[i]);
+    for (const p of pages) {
+      if (!pagePositions.has(p.page)) {
+        // Fill prior weeks with null if page didn't appear in earlier snapshots
+        pagePositions.set(p.page, new Array(i).fill(null));
+      }
+      pagePositions.get(p.page)!.push(p.position);
+    }
+    // Pages not seen in this week get null appended
+    for (const [, series] of pagePositions) {
+      if (series.length === i) series.push(null);
+    }
+  }
+
+  const latestPages = loadPages(files[files.length - 1]);
+  const latestMap = new Map(latestPages.map(p => [p.page, p]));
+
+  const alerts: DecayAlert[] = [];
+  for (const [page, positions] of pagePositions.entries()) {
+    if (positions.length < 9) continue;
+
+    // Count trailing consecutive weeks where position worsened by more than 3 vs prior week
+    // "more than 3 positions" = per-week delta > 3 (higher number = worse ranking)
+    let consecutive = 0;
+    for (let i = positions.length - 1; i > 0; i--) {
+      const curr = positions[i];
+      const prev = positions[i - 1];
+      if (curr === null || prev === null) break;
+      if (curr - prev > 3) {
+        consecutive++;
+      } else {
+        break;
+      }
+    }
+    if (consecutive < 8) continue;
+
+    const latest = latestMap.get(page);
+    if (!latest) continue;
+
+    const startIdx = positions.length - 1 - consecutive;
+    const positionAtStart = positions[startIdx] ?? latest.position;
+
+    alerts.push({
+      page,
+      consecutiveWeeksDeclined: consecutive,
+      positionAtStart,
+      positionNow: positions[positions.length - 1] ?? latest.position,
+      totalPositionLoss: (positions[positions.length - 1] ?? latest.position) - positionAtStart,
+      impressions: latest.impressions,
+      cooldownBypass: true,
+    });
+  }
+  return alerts.sort((a, b) => b.consecutiveWeeksDeclined - a.consecutiveWeeksDeclined);
+}
+
 // ─── Executive Summary Builder ────────────────────────────────────────────────
 
 function buildExecutiveSummary(params: {
@@ -1077,6 +1172,9 @@ function buildAnalysis(gsc: GSCData) {
   const intelligencePath = resolve(ROOT, 'data/competitors/intelligence.json');
   const contentGap = detectContentGaps(gsc.pageQueries, intelligencePath);
 
+  // Module 7: Decay Detection (CONT-02)
+  const decayAlerts = detectDecayingPages();
+
   return {
     generatedAt: new Date().toISOString(),
     dateRange: gsc.dateRange,
@@ -1094,6 +1192,7 @@ function buildAnalysis(gsc: GSCData) {
     aioRecommendations,
     pageVelocity,
     contentGap,
+    decayAlerts,  // CONT-02: empty array until 9+ history snapshots exist (~July 2026)
   };
 }
 
@@ -1139,6 +1238,7 @@ async function main() {
   console.log(`  AIO recommendations: ${analysis.aioRecommendations.length}`);
   console.log(`  Page velocity: ${analysis.pageVelocity === null ? 'null (insufficient history)' : `${analysis.pageVelocity.length} pages tracked`}`);
   console.log(`  Content gaps: ${analysis.contentGap.length} (${analysis.contentGap.filter(g => g.gapSeverity === 'high').length} high severity)`);
+  console.log(`  Decay alerts: ${analysis.decayAlerts.length} (requires 9+ snapshots — ${analysis.decayAlerts.length === 0 ? 'none detected' : 'BYPASS COOLDOWN'})`);
 
   // Write analysis.json
   const analysisDir = resolve(ROOT, 'data/gsc');
