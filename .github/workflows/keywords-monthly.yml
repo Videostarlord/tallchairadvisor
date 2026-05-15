@@ -1,0 +1,46 @@
+name: Keywords — Monthly Discovery
+
+on:
+  schedule:
+    - cron: '0 8 1 * *'  # 1st of each month, 08:00 UTC
+  workflow_dispatch:
+    inputs:
+      sandbox:
+        description: 'Use DataForSEO sandbox (true = free, false = production)'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write
+
+jobs:
+  keyword-discovery:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run keyword discovery (scheduled = production, dispatch = sandbox by default)
+        run: npm run keyword:discovery
+        env:
+          DATAFORSEO_USERNAME: ${{ secrets.DATAFORSEO_USERNAME }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+          # Scheduled runs use production API; workflow_dispatch defaults to sandbox.
+          # Override: trigger workflow_dispatch with sandbox=false to test production manually.
+          DATAFORSEO_SANDBOX: ${{ github.event_name == 'schedule' && 'false' || inputs.sandbox || 'true' }}
+
+      - name: Commit keyword data
+        if: success()
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git add data/keywords/
+          git diff --staged --quiet || git commit -m "data: monthly keyword discovery $(date +%Y-%m-%d)"
+          git push
