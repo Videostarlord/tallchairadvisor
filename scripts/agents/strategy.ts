@@ -195,6 +195,18 @@ function enforcePlanConstraints(
 }
 
 async function main() {
+  // AGENT-02: Prevent overwrite on duplicate workflow dispatch
+  const planPath = resolve(ROOT, 'reports/weekly-plan.md');
+  if (existsSync(planPath)) {
+    const content = readFileSync(planPath, 'utf-8');
+    const todayStr = today();
+    if (content.includes(todayStr)) {
+      console.log(`[strategy] Weekly plan for ${todayStr} already exists — exiting to prevent overwrite.`);
+      appendWikiLog(ROOT, `## [${todayStr}] strategy | SKIPPED\n\n- Reason: duplicate dispatch detected — plan already existed\n`);
+      process.exit(0);
+    }
+  }
+
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
   const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
   const gscAnalysis = existsSync(analysisPath) ? JSON.parse(readFileSync(analysisPath, 'utf-8')) : null;

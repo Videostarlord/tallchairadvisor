@@ -42,6 +42,18 @@ async function fetchMeta(path: string) {
 }
 
 async function main() {
+  // AGENT-02: Prevent overwrite on duplicate workflow dispatch
+  const reportPath = resolve(ROOT, 'reports/audit-report.md');
+  if (existsSync(reportPath)) {
+    const content = readFileSync(reportPath, 'utf-8');
+    const todayStr = today();
+    if (content.includes(todayStr)) {
+      console.log(`[audit] Report for ${todayStr} already exists — exiting to prevent overwrite.`);
+      appendWikiLog(ROOT, `## [${todayStr}] audit | SKIPPED\n\n- Reason: duplicate dispatch detected — report already existed\n`);
+      process.exit(0);
+    }
+  }
+
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
   const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
   const gscAnalysis = existsSync(analysisPath) ? JSON.parse(readFileSync(analysisPath, 'utf-8')) : null;
