@@ -641,6 +641,24 @@ function validateCapsuleSpecs(capsule: string, rawAstroSource: string): { valid:
   return { valid: mismatches.length === 0, mismatches };
 }
 
+// Decode HTML entities in a string — used to normalize headings before comparison.
+// Covers named entities (&amp; &lt; &gt; &quot; &apos; &ndash; &mdash;),
+// numeric decimal (&#decimal;), hex (&#xhex;), and curly quotes/dashes.
+function decodeHtmlEntities(s: string): string {
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&ndash;/g, '–')
+    .replace(/&mdash;/g, '—')
+    .replace(/['']/g, "'")
+    .replace(/[""]/g, '"');
+}
+
 // Insert capsule paragraph immediately after a heading in a .astro page.
 function applyCapsuleToPage(root: string, page: string, insertAfterHeading: string, capsule: string): AIOTask['status'] {
   const slug = page.replace(/^\//, '').replace(/\/$/, '');
@@ -657,20 +675,30 @@ function applyCapsuleToPage(root: string, page: string, insertAfterHeading: stri
   // Sentinel detects any prior capsule insertion regardless of text content
   if (source.includes('<!-- tca-aio-capsule -->')) return 'already-applied';
 
-  // Strip ## markers and normalize
-  const headingText = insertAfterHeading.replace(/^#+\s*/, '').trim();
+  // Strip ## markers and normalize, then decode HTML entities on both sides for comparison
+  const headingText = decodeHtmlEntities(insertAfterHeading.replace(/^#+\s*/, '').trim());
   const lines = source.split('\n');
 
   let headingLineIdx = -1;
   for (let i = 0; i < lines.length; i++) {
     if (!/<h[1-6]/i.test(lines[i])) continue;
-    const stripped = lines[i].replace(/<[^>]+>/g, '').trim();
+    const stripped = decodeHtmlEntities(lines[i].replace(/<[^>]+>/g, '').trim());
     if (stripped === headingText || stripped.includes(headingText) || headingText.includes(stripped) && stripped.length > 10) {
       headingLineIdx = i;
       break;
     }
   }
-  if (headingLineIdx === -1) return 'heading-not-found';
+  if (headingLineIdx === -1) {
+    // First-h2 fallback: when target heading is component-rendered (not raw HTML),
+    // insert after the first h2 in the file instead of returning heading-not-found.
+    const firstH2 = lines.findIndex(l => /<h2/i.test(l));
+    if (firstH2 !== -1) {
+      headingLineIdx = firstH2;
+      console.warn(`  [applyCapsule] heading "${headingText}" not found — using first h2 fallback`);
+    } else {
+      return 'heading-not-found';
+    }
+  }
 
   const indent = lines[headingLineIdx].match(/^(\s*)/)?.[1] ?? '        ';
   lines.splice(headingLineIdx + 1, 0, `${indent}<!-- tca-aio-capsule -->\n${indent}<p>${capsule}</p>`);
