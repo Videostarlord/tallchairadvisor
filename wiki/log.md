@@ -2,6 +2,128 @@
 type: log
 ---
 
+### 2026-05-15 — keywords-push run
+- Approved+unpushed: 1, deduplicated out: 0
+- Pushed to content-roadmap.json: 1
+- Keywords pushed: desk chair for tall person
+
+### 2026-05-15 — keywords-push run
+- Approved+unpushed: 1, deduplicated out: 0
+- Pushed to content-roadmap.json: 1
+- Keywords pushed: desk chair for tall person
+
+## [2026-05-15] wiki | DataForSEO reference ingested
+
+- Added raw source snapshot: `raw/misc/2026-05-15-dataforseo-v3-reference.md`
+- Added concept page: `wiki/pages/concepts/dataforseo-reference.md`
+- Captured official DataForSEO V3 auth model, TCA-priority API families, and the current `keyword-discovery.ts` contract
+- Indexed the new page in `wiki/index.md` so future agents can find it before modifying any DataForSEO integration
+
+### 2026-05-15 — keyword-discovery.ts run
+- Seeds: GSC=9, Competitor=0, Deduped=9
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 7
+- After filter: 7 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 7 (gap=0, targeting=0, ranking=7)
+- Mode: production
+
+### 2026-05-15 — keyword-discovery.ts run
+- Seeds: GSC=9, Competitor=0, Deduped=9
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 2
+- After filter: 0 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 0 (gap=0, targeting=0, ranking=0)
+- Mode: sandbox
+
+### 2026-05-15 — keyword-discovery.ts run
+- Seeds: GSC=9, Competitor=0, Deduped=9
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 7
+- After filter: 7 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 7 (gap=0, targeting=0, ranking=7)
+- Mode: production
+
+### 2026-05-15 — keyword-discovery.ts run
+- Seeds: GSC=9, Competitor=0, Deduped=9
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 2
+- After filter: 0 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 0 (gap=0, targeting=0, ranking=0)
+- Mode: sandbox
+
+### 2026-05-15 — keyword-discovery.ts run
+- Seeds: GSC=9, Competitor=0, Deduped=9
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 2
+- After filter: 0 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 0 (gap=0, targeting=0, ranking=0)
+- Mode: sandbox
+
+### 2026-05-15 — keyword-discovery.ts run
+- Seeds: GSC=9, Competitor=0, Deduped=9
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 2
+- After filter: 0 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 0 (gap=0, targeting=0, ranking=0)
+- Mode: sandbox
+
+### 2026-05-15 — keyword-discovery.ts run
+- Seeds: GSC=9, Competitor=0, Deduped=9
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 2
+- Mode: sandbox
+
+## [2026-05-15] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 13 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 24 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 1.2% WoW (3231 vs 3271), clicks up 16.7% (7 vs 6), avg position stable
+- Query entropy: 1 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 33 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-05-15] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 13 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 24 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 1.2% WoW (3231 vs 3271), clicks up 16.7% (7 vs 6), avg position stable
+- Query entropy: 1 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 33 pages
+
+
+## [2026-05-15] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 13 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 24 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 1.2% WoW (3231 vs 3271), clicks up 16.7% (7 vs 6), avg position stable
+- Query entropy: 1 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 33 pages
+
+
+## [2026-05-14] audit | Cloudflare custom-domain cache investigation
+
+- Raw snapshot: `raw/audits/2026-05-14-cloudflare-cache-investigation.md`
+- Pages origin verified clean: deployment URLs serve `Cache-Control: public, max-age=300, must-revalidate` and the wildcard Clarity CSP
+- Custom domain verified divergent: `tallchairadvisor.com` serves cached HTML with `CF-Cache-Status: HIT` and `Cache-Control: public, max-age=3600, must-revalidate`
+- Fresh query-string variants fetch the newest deployment immediately, then become cached on repeat request
+- Conclusion: stale HTML/CSP is persisting at the Cloudflare custom-domain zone cache layer, not in Pages origin
+
 ## [2026-05-14] audit | Microsoft Clarity diagnosis
 
 - Raw snapshot: `raw/audits/2026-05-14-clarity-diagnosis.md`
