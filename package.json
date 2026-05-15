@@ -23,7 +23,8 @@
     "agent:verify": "tsx scripts/agents/verify-deploy.ts",
     "lint:content": "node scripts/lint-content.mjs",
     "competitor:intelligence": "tsx scripts/competitor-intelligence.ts",
-    "keyword:discovery": "tsx scripts/keyword-discovery.ts"
+    "keyword:discovery": "tsx scripts/keyword-discovery.ts",
+    "keywords:push": "tsx scripts/keywords-push.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",
