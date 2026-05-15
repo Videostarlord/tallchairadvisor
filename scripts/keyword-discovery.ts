@@ -64,17 +64,14 @@ interface GscData {
 interface DataForSEOResponse {
   status_code: number;
   result: Array<{
-    keyword: string;
-    keyword_data: {
+    items_count: number;
+    items: Array<{
+      keyword: string;
       keyword_info: {
         search_volume: number;
         cpc: number;
-        keyword_difficulty: number;
       };
-      search_intent_info: {
-        main_intent: string;
-      };
-    };
+    }>;
   }>;
 }
 
@@ -175,19 +172,23 @@ if (!res.ok) {
   process.exit(1);
 }
 
-const json = (await res.json()) as unknown[];
+const body = (await res.json()) as any;
+const json: unknown[] = Array.isArray(body) ? body : (body?.tasks ?? []);
 
 // ─── 11. Structural validation ────────────────────────────────────────────────
 
 function validateResponse(data: unknown[]): boolean {
-  if (!Array.isArray(data)) return false;
+  if (!Array.isArray(data) || data.length === 0) return false;
   for (const task of data) {
     const t = task as any;
     if (typeof t.status_code !== 'number') return false;
     if (!Array.isArray(t.result)) return false;
-    for (const item of t.result) {
-      if (typeof item.keyword !== 'string') return false;
-      if (!item.keyword_data?.keyword_info) return false;
+    for (const resultRow of t.result) {
+      if (!Array.isArray(resultRow.items)) return false;
+      for (const item of resultRow.items) {
+        if (typeof item.keyword !== 'string') return false;
+        if (!item.keyword_info) return false;
+      }
     }
   }
   return true;
@@ -198,7 +199,8 @@ if (!validateResponse(json)) {
   process.exit(1);
 }
 
-const keywordsReturned = json.reduce((acc, t: any) => acc + (t.result?.length ?? 0), 0);
+const keywordsReturned = json.reduce((acc, t: any) =>
+  acc + (t.result ?? []).reduce((a: number, r: any) => a + (r.items?.length ?? 0), 0), 0);
 console.log('[keyword-discovery] Structural validation passed — sandbox returning valid dummy data');
 console.log(`[keyword-discovery] Keywords returned: ${keywordsReturned}`);
 
