@@ -859,7 +859,7 @@ function writeIntelligenceDigest(ROOT: string, analysis: ReturnType<typeof build
   const {
     executiveSummary, ctrLeaks, opportunities, affiliateOpportunities, cannibalization,
     deviceIntelligence, queryEntropy, impressionGravity, intentTransitions,
-    aioRecommendations, pageVelocity,
+    aioRecommendations, pageVelocity, contentGap,
   } = analysis;
 
   const leakRows = ctrLeaks.slice(0, 5).map(l =>
@@ -941,6 +941,17 @@ function writeIntelligenceDigest(ROOT: string, analysis: ReturnType<typeof build
   const velocityTable = pageVelocity !== null
     ? `| Page | Cur Pos | Prev Pos | Pos Δ | Impr Δ | Trend |\n|------|---------|----------|-------|--------|-------|\n${velocitySection}`
     : velocitySection;
+
+  // Content Gap vs Competitors section
+  const gapSection = !contentGap || contentGap.length === 0
+    ? '_No content gaps detected — either intelligence.json has no competitorKeywords yet, or all competitor top-3 queries are ranked outside TCA position 10-50_'
+    : contentGap.slice(0, 8).map(g =>
+        `| ${g.tcaPage} | "${g.query}" | pos ${g.tcaPosition} | ${g.competitorDomain} pos ${g.competitorPosition} | ${g.impressions} impr | ${g.gapSeverity} |`
+      ).join('\n');
+
+  const gapTable = contentGap && contentGap.length > 0
+    ? `| TCA Page | Query | TCA Position | Competitor | Impressions | Severity |\n|----------|-------|-------------|------------|-------------|----------|\n${gapSection}`
+    : gapSection;
 
   const digest = `---
 type: concept
@@ -1024,6 +1035,12 @@ ${aioSection}
 ## Page Velocity
 
 ${velocityTable}
+
+---
+
+## Content Gap vs Competitors
+
+${gapTable}
 
 ---
 
