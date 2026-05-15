@@ -184,6 +184,13 @@ interface IntelligenceOutput {
   aioTasks: AIOTask[];
   aioTasksRejected: (AIOTask & { rejectionReason: string })[];
   summary: string;
+  competitorKeywords: CompetitorKeyword[];
+}
+
+interface CompetitorKeyword {
+  query: string;
+  competitorDomain: string;
+  competitorPosition: number;  // 1-3 (why this query was flagged)
 }
 
 // ─── Domain Lane Tables ───────────────────────────────────────────────────────
@@ -1428,6 +1435,27 @@ async function main() {
     });
   }
 
+  // Extract competitor keywords: queries where any editorial competitor ranks top-3
+  const competitorKeywords: CompetitorKeyword[] = [];
+  const seenKeys = new Set<string>();
+  for (const page of pageAnalyses) {
+    for (const qa of page.queryAnalyses) {
+      for (const target of qa.editorialTargets) {
+        if (target.position <= 3) {
+          const key = `${qa.query.toLowerCase()}|${target.domain}`;
+          if (!seenKeys.has(key)) {
+            seenKeys.add(key);
+            competitorKeywords.push({
+              query: qa.query,
+              competitorDomain: target.domain,
+              competitorPosition: target.position,
+            });
+          }
+        }
+      }
+    }
+  }
+
   // Save caches before writing output (even if later steps fail)
   saveCrawlCache(ROOT, crawlCache);
   saveSerpCache(ROOT, serpCache);
@@ -1493,6 +1521,7 @@ async function main() {
     aioTasks,
     aioTasksRejected,
     summary,
+    competitorKeywords,
   };
 
   mkdirSync(resolve(ROOT, 'data/competitors'), { recursive: true });
