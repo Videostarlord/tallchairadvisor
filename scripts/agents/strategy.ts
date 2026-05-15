@@ -361,7 +361,12 @@ ${gscAnalysis.cannibalization.slice(0, 3).map((c: any) =>
   `- "${c.query}" [${c.risk}]: ranking from ${c.pages.join(' and ')} simultaneously`
 ).join('\n') || '- None detected'}
 
-DEVICE SPLIT: ${gscAnalysis.deviceIntelligence?.summaryLine ?? 'Device data not yet available'}` : `(analysis.json not yet available — running without query-level intelligence)
+DEVICE SPLIT: ${gscAnalysis.deviceIntelligence?.summaryLine ?? 'Device data not yet available'}
+
+CONTENT GAPS VS COMPETITORS (TCA ranks 10-50, competitor ranks top-3):
+${(gscAnalysis.contentGap ?? []).slice(0, 6).map((g: any) =>
+  `- [${g.gapSeverity}] "${g.query}" — TCA: ${g.tcaPage} pos ${g.tcaPosition}, ${g.competitorDomain} pos ${g.competitorPosition} | ${g.impressions} impr`
+).join('\n') || '- No content gaps detected this week'}` : `(analysis.json not yet available — running without query-level intelligence)
 Top pages: ${gsc.pages.slice(0, 5).map((p: any) => `${p.page} (${p.impressions} impr, pos ${p.position}, ${p.clicks} clicks)`).join(', ')}`}
 
 AUDIT REPORT:
