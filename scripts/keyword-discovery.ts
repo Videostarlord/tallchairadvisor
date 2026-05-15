@@ -16,7 +16,7 @@ import 'dotenv/config';
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { appendWikiLog, today } from './agents/wiki-utils.js';
+import { appendWikiLog, writeWikiPage, readWikiPage, today } from './agents/wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');  // scripts/ → tall-chair-advisor/ (one level up)
@@ -58,6 +58,7 @@ interface QueryRow {
 
 interface GscData {
   queries: QueryRow[];
+  pageQueries: Array<{ query: string; page: string; clicks?: number; impressions?: number; ctr?: number; position?: number }>;
   [key: string]: unknown;
 }
 
@@ -281,7 +282,180 @@ if (top20.length > 0) {
   console.log(`[keyword-discovery] Top score: ${top20[0].score.toFixed(3)}, bottom of top-20: ${top20[top20.length - 1]?.score.toFixed(3)}`);
 }
 
-// ─── 15. Wiki log entry ───────────────────────────────────────────────────────
+// ─── 15. Load reference data for tca_status classification (KWORD-05) ──────
+
+const gscLatest = JSON.parse(
+  readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8')
+) as GscData;
+
+// Build normalized lookup sets from GSC queries array
+const gscQuerySet = new Set(
+  (gscLatest.queries ?? []).map((q) => normalizeKeyword(q.query))
+);
+
+// Build query → page mapping from pageQueries for target_slug on ranking keywords
+const pageQueryMap = new Map<string, string>();
+for (const pq of (gscLatest.pageQueries ?? [])) {
+  pageQueryMap.set(normalizeKeyword(pq.query), pq.page);
+}
+
+// Build normalized keyword → slug mapping from content-roadmap.json
+interface RoadmapEntry {
+  keyword: string;
+  slug: string;
+  [key: string]: unknown;
+}
+const roadmap = JSON.parse(
+  readFileSync(resolve(ROOT, 'data/content-roadmap.json'), 'utf-8')
+) as RoadmapEntry[];
+
+const roadmapKeywordMap = new Map<string, string>();
+for (const entry of roadmap) {
+  roadmapKeywordMap.set(normalizeKeyword(entry.keyword), entry.slug);
+}
+
+console.log(`[keyword-discovery] Reference data loaded — GSC queries: ${gscQuerySet.size}, roadmap entries: ${roadmap.length}`);
+
+// ─── 16. Classify tca_status and build opportunities (KWORD-05, KWORD-06) ──
+
+function classifyStatus(kw: string): { tca_status: 'ranking' | 'targeting' | 'gap'; target_slug: string } {
+  const normalized = normalizeKeyword(kw);
+  if (gscQuerySet.has(normalized)) {
+    return {
+      tca_status: 'ranking',
+      target_slug: pageQueryMap.get(normalized) ?? '/unknown/',
+    };
+  }
+  if (roadmapKeywordMap.has(normalized)) {
+    return {
+      tca_status: 'targeting',
+      target_slug: roadmapKeywordMap.get(normalized)!,
+    };
+  }
+  // Gap — derive suggested slug from normalized keyword
+  const slug = '/' + normalized.replace(/\s+/g, '-') + '/';
+  return { tca_status: 'gap', target_slug: slug };
+}
+
+function buildReason(item: DataForSEOItem, _score: number, status: string): string {
+  const intent = item.search_intent_info?.main_intent ?? 'unknown';
+  const kd = item.keyword_properties?.keyword_difficulty ?? 0;
+  const vol = item.keyword_info?.search_volume ?? 0;
+  const kwOrig = item.keyword.toLowerCase();
+  const hasQ = HEIGHT_MODIFIERS.some((m) => kwOrig.includes(m));
+  return [
+    `${intent} intent, KD ${kd}, ${vol}/mo volume`,
+    hasQ ? 'height modifier present (+15%)' : null,
+    status === 'gap' ? 'no TCA page exists'
+      : status === 'targeting' ? 'in content roadmap'
+      : 'TCA currently ranking',
+  ].filter(Boolean).join('; ');
+}
+
+interface KeywordOpportunity {
+  keyword: string;
+  search_volume: number;
+  keyword_difficulty: number;
+  cpc: number;
+  intent: string;
+  tca_status: 'gap' | 'targeting' | 'ranking';
+  target_slug: string;
+  reason: string;
+  score: number;
+  approved: false;
+}
+
+const opportunities: KeywordOpportunity[] = top20.map(({ item, score }) => {
+  const { tca_status, target_slug } = classifyStatus(item.keyword);
+  return {
+    keyword: item.keyword,
+    search_volume: item.keyword_info?.search_volume ?? 0,
+    keyword_difficulty: item.keyword_properties?.keyword_difficulty ?? 0,
+    cpc: item.keyword_info?.cpc ?? 0,
+    intent: item.search_intent_info?.main_intent ?? 'unknown',
+    tca_status,
+    target_slug,
+    reason: buildReason(item, score, tca_status),
+    score: Math.round(score * 1000) / 1000,
+    approved: false,
+  };
+});
+
+const statusCounts = {
+  gap: opportunities.filter((o) => o.tca_status === 'gap').length,
+  targeting: opportunities.filter((o) => o.tca_status === 'targeting').length,
+  ranking: opportunities.filter((o) => o.tca_status === 'ranking').length,
+};
+console.log(`[keyword-discovery] Classification: gap=${statusCounts.gap}, targeting=${statusCounts.targeting}, ranking=${statusCounts.ranking}`);
+
+// ─── 17. Write opportunities.json (KWORD-06) ─────────────────────────────────
+
+const outputDir = resolve(ROOT, 'data/keywords');
+mkdirSync(outputDir, { recursive: true });
+
+writeFileSync(
+  resolve(outputDir, 'opportunities.json'),
+  JSON.stringify(opportunities, null, 2),
+);
+console.log(`[keyword-discovery] Wrote ${opportunities.length} opportunities to data/keywords/opportunities.json`);
+
+// ─── 18. Write wiki report and update wiki index (KWORD-07) ──────────────────
+
+const wikiReport = `---
+type: concept
+last_updated: ${today()}
+sources: [data/keywords/opportunities.json]
+tags: [keywords, discovery, opportunities, monthly]
+---
+
+# Keyword Opportunities
+
+**Last run:** ${today()}
+**Opportunities surfaced:** ${opportunities.length}
+
+## Top ${opportunities.length} Opportunities
+
+| # | Keyword | Volume | KD | CPC | Intent | Status | Score |
+|---|---------|--------|-----|-----|--------|--------|-------|
+${opportunities.map((o, i) =>
+  `| ${i + 1} | ${o.keyword} | ${o.search_volume} | ${o.keyword_difficulty} | $${o.cpc.toFixed(2)} | ${o.intent} | ${o.tca_status} | ${o.score.toFixed(3)} |`
+).join('\n')}
+
+## Summary
+
+- **Gaps** (no TCA page): ${statusCounts.gap}
+- **Targeting** (in roadmap): ${statusCounts.targeting}
+- **Ranking** (in GSC): ${statusCounts.ranking}
+
+Review \`data/keywords/opportunities.json\` and set \`"approved": true\` for entries to push to content roadmap.
+Run \`npm run keywords:push\` after approving.
+`;
+
+writeWikiPage(ROOT, 'pages/concepts/keyword-opportunities.md', wikiReport);
+console.log('[keyword-discovery] Wrote wiki/pages/concepts/keyword-opportunities.md');
+
+// Update wiki/index.md — add [[keyword-opportunities]] to Concept Pages table if not present
+const currentIndex = readWikiPage(ROOT, 'index.md');
+if (currentIndex && !currentIndex.includes('[[keyword-opportunities]]')) {
+  // Insert row into Concept Pages table after the [[gsc-performance]] row
+  const newRow = `| [[keyword-opportunities]] | Monthly keyword discovery results. Top-20 scored gaps for Jackson to review and approve. |`;
+  const updatedIndex = currentIndex.replace(
+    /(\|\s*\[\[gsc-performance\]\].*\|)/,
+    `$1\n${newRow}`
+  );
+  if (updatedIndex !== currentIndex) {
+    writeWikiPage(ROOT, 'index.md', updatedIndex);
+    console.log('[keyword-discovery] Updated wiki/index.md with [[keyword-opportunities]] entry');
+  } else {
+    // Fallback: log warning and append after last concept row
+    console.warn('[keyword-discovery] WARNING: Could not find gsc-performance anchor in wiki/index.md — appending keyword-opportunities row manually');
+    writeWikiPage(ROOT, 'index.md', currentIndex + `\n${newRow}\n`);
+  }
+} else if (currentIndex && currentIndex.includes('[[keyword-opportunities]]')) {
+  console.log('[keyword-discovery] wiki/index.md already contains [[keyword-opportunities]] — no update needed');
+}
+
+// ─── 19. Wiki log entry ───────────────────────────────────────────────────────
 
 appendWikiLog(ROOT, [
   `### ${today()} — keyword-discovery.ts run`,
@@ -289,8 +463,8 @@ appendWikiLog(ROOT, [
   `- Estimated cost: $${estimated.toFixed(4)} (${taskCount} task${taskCount !== 1 ? 's' : ''})`,
   `- Keywords returned from DataForSEO: ${keywordsReturned}`,
   `- After filter: ${filtered.length} keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)`,
-  `- Top-20 selected from ${scored.length} scored keywords`,
+  `- Opportunities written: ${opportunities.length} (gap=${statusCounts.gap}, targeting=${statusCounts.targeting}, ranking=${statusCounts.ranking})`,
   `- Mode: ${process.env.DATAFORSEO_SANDBOX !== 'false' ? 'sandbox' : 'production'}`,
 ].join('\n'));
 
-console.log('[keyword-discovery] Done — filter/score pipeline complete. Plan 02 will add classification and output.');
+console.log('[keyword-discovery] Complete — opportunities.json and wiki report written.');
