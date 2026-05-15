@@ -11,8 +11,8 @@
  * Runs Monday after gsc-pull.ts in the weekly workflow.
  */
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync, statSync } from 'fs';
+import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, writeWikiPage, today } from './agents/wiki-utils.js';
 
@@ -912,6 +912,68 @@ export function detectDecayingPages(): DecayAlert[] {
   return alerts.sort((a, b) => b.consecutiveWeeksDeclined - a.consecutiveWeeksDeclined);
 }
 
+// ─── Module 8: Internal Link Rebalancing ─────────────────────────────────────
+
+export interface InternalLinkGap {
+  page: string;            // URL slug e.g. "/review/gesture/"
+  impressions: number;     // 90-day GSC impressions — why this page needs links
+  inboundLinkCount: number; // current count from source file scan
+  threshold: number;       // 3 (site policy from wiki/pages/concepts/internal-linking.md)
+}
+
+/** Scan all .astro source files and count inbound links to each slug.
+ *  Adapted from verify-deploy.ts href scanning pattern (lines 167-181).
+ *  Uses synchronous readdirSync walk — gsc-analyze.ts has no async context here.
+ *
+ *  Self-link guard: hrefs in file X that point to X's own slug are excluded.
+ *  This prevents breadcrumbs/canonicals in a page from inflating its own inbound count.
+ */
+export function computeInboundLinkMap(root: string): Map<string, number> {
+  const pagesDir = resolve(root, 'src/pages');
+  if (!existsSync(pagesDir)) return new Map();
+
+  const inboundCount = new Map<string, number>();
+
+  function walk(dir: string): string[] {
+    const entries: string[] = [];
+    for (const entry of readdirSync(dir)) {
+      const full = join(dir, entry);
+      if (statSync(full).isDirectory()) {
+        entries.push(...walk(full));
+      } else if (entry.endsWith('.astro')) {
+        entries.push(full);
+      }
+    }
+    return entries;
+  }
+
+  const files = walk(pagesDir);
+
+  for (const file of files) {
+    // Derive this file's own slug for self-link exclusion
+    const rel = file.slice(pagesDir.length + 1); // e.g. "review/gesture.astro"
+    const ownSlug = '/' + rel
+      .replace(/\.astro$/, '')
+      .replace(/\/index$/, '')
+      .replace(/^index$/, '') + '/';
+
+    const content = readFileSync(file, 'utf-8');
+    const hrefs = [...content.matchAll(/href="(\/[^"#?]+)"/g)];
+    for (const [, href] of hrefs) {
+      // Skip asset hrefs
+      if (href.startsWith('/images/') || href.startsWith('/assets/')) continue;
+      if (/\.(png|ico|svg|jpg|jpeg|webp|gif|css|js|xml|txt|json|pdf)$/i.test(href)) continue;
+      // Normalize to trailing slash
+      const normalized = href.endsWith('/') ? href : href + '/';
+      // Self-link guard: skip if this href points to this file's own slug
+      if (normalized === ownSlug) continue;
+      inboundCount.set(normalized, (inboundCount.get(normalized) ?? 0) + 1);
+    }
+  }
+
+  return inboundCount;
+}
+
 // ─── Executive Summary Builder ────────────────────────────────────────────────
 
 function buildExecutiveSummary(params: {
@@ -1262,8 +1324,35 @@ async function main() {
   // Write wiki intelligence digest
   writeIntelligenceDigest(ROOT, analysis);
 
+  // CONT-03: Internal link gap audit — write data/gsc/link-audit.json
+  const IMPRESSIONS_THRESHOLD = 500;  // 90-day impressions to qualify as "high-impression"
+  const LINK_THRESHOLD = 3;           // min inbound links per wiki/pages/concepts/internal-linking.md
+  const inboundMap = computeInboundLinkMap(ROOT);
+  const linkGaps: InternalLinkGap[] = (gsc.pages ?? [])
+    .filter((p: any) => (p.impressions ?? 0) >= IMPRESSIONS_THRESHOLD)
+    .map((p: any) => {
+      const slug = p.page.replace(/^https?:\/\/[^/]+/, ''); // "/review/gesture/"
+      return {
+        page: p.page,
+        impressions: p.impressions ?? 0,
+        inboundLinkCount: inboundMap.get(slug) ?? 0,
+        threshold: LINK_THRESHOLD,
+      };
+    })
+    .filter((g: InternalLinkGap) => g.inboundLinkCount < g.threshold)
+    .sort((a: InternalLinkGap, b: InternalLinkGap) => b.impressions - a.impressions);
+
+  const linkAuditPath = resolve(ROOT, 'data/gsc/link-audit.json');
+  writeFileSync(linkAuditPath, JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    impressionsThreshold: IMPRESSIONS_THRESHOLD,
+    linkThreshold: LINK_THRESHOLD,
+    gaps: linkGaps,
+  }, null, 2));
+  console.log(`  Link audit → data/gsc/link-audit.json (${linkGaps.length} high-impression underlinked pages)`);
+
   // Append to wiki log
-  appendWikiLog(ROOT, `## [${today()}] gsc-analyze | GSC Intelligence Analysis\n\n- CTR leaks: ${analysis.ctrLeaks.length} (top leak: ${analysis.ctrLeaks[0]?.page ?? 'none'} — "${analysis.ctrLeaks[0]?.query ?? ''}")\n- Opportunities: ${analysis.opportunities.filter(o => o.opportunityType !== 'low-signal').length} actionable\n- AIO suspects: ${analysis.executiveSummary.aioSuspects}\n- Affiliate alerts: ${analysis.affiliateOpportunities.filter(a => a.affiliateUrgency === 'high').length} high-urgency\n- Site momentum: ${analysis.siteTrend?.summaryLine ?? 'n/a'}\n- Query entropy: ${analysis.queryEntropy.filter(e => e.regime === 'fragmented').length} fragmented pages\n- Hub candidates: ${analysis.impressionGravity.filter(g => g.hubCandidate).length}\n- Transition opportunities: ${analysis.intentTransitions.filter(t => t.transitionOpportunity).length}\n- AIO recommendations: ${analysis.aioRecommendations.length}\n- Page velocity: ${analysis.pageVelocity === null ? 'n/a (insufficient history)' : `${analysis.pageVelocity.length} pages`}\n`);
+  appendWikiLog(ROOT, `## [${today()}] gsc-analyze | GSC Intelligence Analysis\n\n- CTR leaks: ${analysis.ctrLeaks.length} (top leak: ${analysis.ctrLeaks[0]?.page ?? 'none'} — "${analysis.ctrLeaks[0]?.query ?? ''}")\n- Opportunities: ${analysis.opportunities.filter(o => o.opportunityType !== 'low-signal').length} actionable\n- AIO suspects: ${analysis.executiveSummary.aioSuspects}\n- Affiliate alerts: ${analysis.affiliateOpportunities.filter(a => a.affiliateUrgency === 'high').length} high-urgency\n- Site momentum: ${analysis.siteTrend?.summaryLine ?? 'n/a'}\n- Query entropy: ${analysis.queryEntropy.filter(e => e.regime === 'fragmented').length} fragmented pages\n- Hub candidates: ${analysis.impressionGravity.filter(g => g.hubCandidate).length}\n- Transition opportunities: ${analysis.intentTransitions.filter(t => t.transitionOpportunity).length}\n- AIO recommendations: ${analysis.aioRecommendations.length}\n- Page velocity: ${analysis.pageVelocity === null ? 'n/a (insufficient history)' : `${analysis.pageVelocity.length} pages`}\n- Link audit: ${linkGaps.length} high-impression pages with < ${LINK_THRESHOLD} inbound links\n`);
 
   console.log('\nExecutive Summary:');
   console.log(`  Momentum: ${analysis.executiveSummary.weeklyMomentum}`);
