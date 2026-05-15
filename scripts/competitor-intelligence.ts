@@ -803,8 +803,14 @@ async function fetchSerp(keyword: string, apiKey: string, serpCache?: Map<string
       }
     }
 
-    // Save resolved content to SERP cache — stores secondary-fetch result so reruns don't re-fetch
-    if (serpCache) serpCache.set(keyword, { aiOverview: resolvedAiOverview, results, timestamp: Date.now() });
+    // Save resolved content to SERP cache — only cache resolved AIO text.
+    // Unresolved page_token stored as null so next run re-fetches after TTL expiry.
+    const aioTextResolved = aio !== null && aio.passageText.length >= 50;
+    if (serpCache) serpCache.set(keyword, {
+      aiOverview: aioTextResolved ? resolvedAiOverview : null,
+      results,
+      timestamp: Date.now(),
+    });
 
     return { results, aio };
   } catch (e: any) {
