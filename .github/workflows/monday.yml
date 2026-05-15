@@ -37,6 +37,20 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
+      - name: Validate GSC data output
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = 'data/gsc/latest.json';
+            if (!fs.existsSync(p)) { console.error('latest.json not found'); process.exit(1); }
+            const data = JSON.parse(fs.readFileSync(p, 'utf-8'));
+            if (!data.pages || data.pages.length === 0) {
+              console.error('GSC pull returned empty pages array — marking pipeline as failed');
+              process.exit(1);
+            }
+            console.log('Data validated: ' + data.pages.length + ' pages');
+          "
+
       - name: Run competitor intelligence
         run: npx tsx scripts/competitor-intelligence.ts
         env:
@@ -49,10 +63,31 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
+      - name: Record pipeline success
+        if: success()
+        run: |
+          node -e "require('fs').writeFileSync('data/pipeline-status.json', JSON.stringify({
+            status: 'success',
+            runId: '${{ github.run_id }}',
+            reason: '',
+            updatedAt: new Date().toISOString()
+          }, null, 2))"
+
+      - name: Record pipeline failure
+        if: failure()
+        run: |
+          node -e "require('fs').writeFileSync('data/pipeline-status.json', JSON.stringify({
+            status: 'failure',
+            runId: '${{ github.run_id }}',
+            reason: 'Monday data pull failed. Check Actions run ${{ github.run_id }}',
+            updatedAt: new Date().toISOString()
+          }, null, 2))"
+
       - name: Commit data files + wiki updates + any index fixes
+        if: always()
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          git add data/gsc/latest.json data/gsc/analysis.json data/gsc/history/ data/competitors/ reports/index-monitor.md raw/ wiki/ src/
+          git add data/pipeline-status.json data/gsc/latest.json data/gsc/analysis.json data/gsc/history/ data/competitors/ reports/index-monitor.md raw/ wiki/ src/
           git diff --staged --quiet || git commit -m "data: Monday pull + index fixes $(date +%Y-%m-%d)"
           git push
