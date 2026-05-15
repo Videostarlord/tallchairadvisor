@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-13 (Microsoft Clarity added to site)
+last_updated: 2026-05-14 (Clarity diagnosis: live CSP inconsistency + incomplete host allowlist)
 tags: [automation, workflow, agents, github-actions, obsidian, analytics]
 ---
 
@@ -183,9 +183,18 @@ Evaluated 2026-05-11. Source: `raw/audits/2026-05-11-workflow-evaluation.md`.
 | Tool | Purpose | Installation | Status |
 |------|---------|--------------|--------|
 | Google Analytics 4 | Page views, sessions, affiliate click events | `PUBLIC_GA_MEASUREMENT_ID` env var → Layout.astro | Active |
-| Microsoft Clarity | Heatmaps, session recordings, scroll depth | Inline script in `src/layouts/Layout.astro` `<head>` (tag ID: `wqec7ap5fe`) | Active — added 2026-05-13 |
+| Microsoft Clarity | Heatmaps, session recordings, scroll depth | Inline script in `src/layouts/Layout.astro` `<head>` (tag ID: `wqec7ap5fe`) | Partially blocked on live site — diagnosed 2026-05-14 |
 
-Clarity script is unconditional (no env gate) — it loads on every page. GA4 is gated on `PUBLIC_GA_MEASUREMENT_ID` being set.
+Clarity script is unconditional (no env gate) — it is emitted on every page. GA4 is gated on `PUBLIC_GA_MEASUREMENT_ID` being set.
+
+### Clarity Diagnosis — 2026-05-14
+
+Raw audit: `raw/audits/2026-05-14-clarity-diagnosis.md`
+
+- GitHub `main` and the local repo both contain the Clarity snippet in `src/layouts/Layout.astro`.
+- Live homepage `/` is still serving a stale CSP variant that omits Clarity domains entirely, so the browser blocks the loader even though the HTML contains the snippet.
+- Sampled content pages are serving a newer CSP variant, but the tracked `_headers` file only allows `https://www.clarity.ms`.
+- The fetched Clarity bootstrap script immediately loads `https://scripts.clarity.ms/0.8.64/clarity.js` and pings `https://c.clarity.ms/c.gif`, so the current `script-src` allowlist is still incomplete even on pages with the newer CSP.
 
 ---
 
