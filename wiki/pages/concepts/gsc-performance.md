@@ -1,7 +1,7 @@
 ---
 type: concept
 last_updated: 2026-05-16
-sources: [raw/gsc/gsc-2026-05-16.json]
+sources: [raw/audits/2026-05-16-weekly-audit.md]
 tags: [gsc, performance, metrics, tracking]
 ---
 
@@ -29,9 +29,18 @@ tags: [gsc, performance, metrics, tracking]
 | /office-chairs-for-tall-people/ | 811 impr | pos 20.1 | 0.62% CTR | 5 clicks |
 | /chairs/steelcase-leap-plus/tall-people/ | 567 impr | pos 8.5 | 0% CTR | 0 clicks |
 
-*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+*Full audit report: raw/audits/2026-05-16-weekly-audit.md*
 
 ## Historical Snapshots
+
+### 2026-05-16
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 17877 |
+| Total clicks | 41 |
+| Avg CTR | 0.23% |
+| Avg position | 10.7 |
 
 ### 2026-05-12
 
@@ -88,15 +97,6 @@ tags: [gsc, performance, metrics, tracking]
 | Avg position | 11.5 |
 
 ### 2026-04-28
-
-| Metric | Value |
-|--------|-------|
-| Total impressions | 8455 |
-| Total clicks | 23 |
-| Avg CTR | 0.27% |
-| Avg position | 12.6 |
-
-### 2026-04-27
 
 | Metric | Value |
 |--------|-------|
