@@ -487,27 +487,27 @@ Output a structured weekly plan in this EXACT format so the execution agents can
     .replace('[DATE]', todayStr)
     .replace(/^(#\s*Weekly Plan\s*[—–-]\s*)\d{4}-\d{2}-\d{2}/m, `$1${todayStr}`);
 
-  // ── Duplicate NEW slug check (hard error — execution agent can't resolve this) ──
+  // ── Duplicate NEW slug check — auto-convert to REWRITE instead of hard-erroring ──
+  let corrected = output;
   const newSlugWarnings: string[] = [];
   for (const line of output.split('\n')) {
-    const newMatch = line.match(/\] NEW:.*\|\s*(\/[^\|]+\/)/);
+    const newMatch = line.match(/(\] NEW:)(.*\|\s*)(\/[^\|]+\/)/);
     if (newMatch) {
-      const slug = newMatch[1].trim();
+      const slug = newMatch[3].trim();
       if (existingSlugs.has(slug)) {
-        newSlugWarnings.push(`  DUPLICATE SLUG: "${slug}" — page already exists, move to REWRITE`);
+        newSlugWarnings.push(`  AUTO-CORRECTED: "${slug}" NEW→REWRITE (page already exists)`);
+        corrected = corrected.replace(line, line.replace('] NEW:', '] REWRITE:'));
       }
     }
   }
   if (newSlugWarnings.length > 0) {
-    const msg = '\nERROR — plan marks existing pages as NEW:\n' + newSlugWarnings.join('\n');
-    mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
-    writeFileSync(resolve(ROOT, 'reports/plan-debug-duplicate-slugs.md'), output);
-    throw new Error(msg.trim());
+    console.warn('\nWARN — duplicate NEW slugs auto-converted to REWRITE:\n' + newSlugWarnings.join('\n'));
   }
+  const output2 = corrected;
 
   // ── Post-generation enforcement: drop tasks that violate hard constraints ──
   const { plan: enforced, dropped } = enforcePlanConstraints(
-    output, pagesOnCooldown, existingFilePathSet, fileToSlug, gscAnalysis, gsc,
+    output2, pagesOnCooldown, existingFilePathSet, fileToSlug, gscAnalysis, gsc,
   );
 
   // Append enforcement log to plan so it's visible in the archive
