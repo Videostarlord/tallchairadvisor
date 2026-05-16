@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-15
+last_updated: 2026-05-16
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,8 +70,16 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-15. 8 pages analyzed × up to 3 queries each. 22 URLs crawled (37 cache hits). 1 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
+*v2 run 2026-05-16. 8 pages analyzed × up to 3 queries each. 2 URLs crawled (54 cache hits). 3 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-05-15 | Head-to-head comparison section against the Leap Plus lacks a structured spec-de | high | 1q | crandalloffice.com |
+| 2026-05-16 | No methodology or data-sourcing statement explains how the single-inch breakdown | high | 3q | forbes.com |
+| 2026-05-16 | Explicit fit-range verdict with labeled tiers ('Best fit / Marginal / Not recomm | high | 1q | thehumansolution.com |
+| 2026-05-16 | No AIO-optimized passage explicitly maps a specific height to a specific slider  | high | 1q | forbes.com |
+| 2026-05-16 | The Cornell Ergonomics Rule is introduced in the H1 and repeated in the Poplitea | medium | 1q | ergo.human.cornell.edu |
+| 2026-05-16 | Pressure magnitude data is absent — eurekaergonomic.com cites a 60–100 mmHg pres | medium | 1q | eurekaergonomic.com |
+| 2026-05-16 | Author byline and methodology credentialing are not visibly surfaced near the to | medium | 1q | forbes.com |
+| 2026-05-16 | AggregateRating schema is absent — the schema block lists Article, Person, Organ | medium | 1q | btod.com |
+| 2026-05-16 | No weight capacity dimension integrated into the height-bracket framework — weig | medium | 1q | forbes.com |
+| 2026-05-16 | No named external expert or cited data source (e.g., anthropometric study, ergon | medium | 1q | forbes.com |

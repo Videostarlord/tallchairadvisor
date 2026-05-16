@@ -116,11 +116,11 @@ _No transition opportunities detected_
 
 | Page | Cur Pos | Prev Pos | Pos Δ | Impr Δ | Trend |
 |------|---------|----------|-------|--------|-------|
-| /correct-chair-dimensions/ | 15.8 | 15.8 | 0 | 0 | stable |
-| /review/gesture/ | 8.2 | 8.2 | 0 | 0 | stable |
-| /knee-pain-seat-depth/ | 8.6 | 8.6 | 0 | 0 | stable |
-| /best-office-chairs/ | 22.5 | 22.5 | 0 | 0 | stable |
-| /chairs/herman-miller-aeron/tall-people/ | 7.4 | 7.4 | 0 | 0 | stable |
+| /office-chairs-for-tall-people/ | 20.1 | 22.3 | -2.2 | +123 | rising |
+| /how-to-adjust-chair/ | 32.8 | 34.7 | -1.9 | +8 | rising |
+| /chairs/steelcase-leap-plus/ | 16 | 17.3 | -1.3 | +28 | rising |
+| /back-pain-spine-height/ | 11.5 | 10.3 | +1.2 | +21 | stable |
+| /office-chairs-for-6-foot-5/ | 7.7 | 8.4 | -0.7 | +33 | rising |
 
 ---
 

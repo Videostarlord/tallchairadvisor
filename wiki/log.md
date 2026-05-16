@@ -2,6 +2,45 @@
 type: log
 ---
 
+## [2026-05-16] index-monitor | Indexing Health Check
+
+- Pages inspected: 46
+- Indexed: 33 | Issues: 13 | Fixed: 0
+- Sitemap resubmitted: true
+- Issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/office-chair-return-policy/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ (wait)
+
+
+## [2026-05-16] competitor-intelligence v2.5 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 2 (54 cached)
+- High-priority gaps: 3
+- AIO tasks: 4 generated | 1 applied to src/pages/ (1 fallback) | 0 rejected (spec mismatch) | 0 pending passage text
+- 8 pages analyzed × up to 3 queries each. 2 URLs crawled (54 cache hits). 3 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.
+
+
+## [2026-05-16] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 14 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 25 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 1.3% WoW (3605 vs 3654), clicks down 11.1% (8 vs 9), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 33 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-05-16] gsc-pull | GSC Data Pull
+
+- Period: 2026-02-15 → 2026-05-16 (90 days)
+- Pages: 46 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 55 | Daily trend rows: 88
+- Clicks: 41 | Impressions: 17877 | Avg pos: 10.7
+
+
 ## [2026-05-16] gsc-analyze | GSC Intelligence Analysis
 
 - CTR leaks: 14 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
