@@ -1,5 +1,3 @@
 # Fixes Log — 2026-05-16
 
-- [❌] SKIPPED: src/pages/office-chairs-for-tall-people.astro edited 5d ago. Non-technical fixes require 14-day cooldown.
-- [❌] SKIPPED: src/pages/review/leap-plus.astro edited 3d ago. Non-technical fixes require 14-day cooldown.
-- [❌] REJECTED: Word count dropped from 4311 to 2709 (37% reduction). Skipping write.
+- [❌] SKIPPED: src/pages/best-office-chairs.astro edited 3d ago. Non-technical fixes require 14-day cooldown.
