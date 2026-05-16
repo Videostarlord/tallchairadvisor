@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-05-16] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W20.md
+
+
 ## [2026-05-16] execute-fixes | Thursday Fixes Applied
 
 - /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
