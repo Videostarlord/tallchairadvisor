@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-05-16] execute-fixes | Thursday Fixes Applied
+
+- /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+
+
 ## [2026-05-15] systems-architecture-audit | 7 open items implemented
 
 Phase 1 (quick wins):
