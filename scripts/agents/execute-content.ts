@@ -178,6 +178,31 @@ const schema = [
 </Layout>`;
 }
 
+// Sanitize frontmatter JS block — esbuild rejects curly quotes, em dashes, and unescaped apostrophes.
+// HTML template section (after the closing ---) is left untouched.
+function sanitizeFrontmatter(content: string): string {
+  const fenceEnd = content.indexOf('\n---', 3);
+  if (!content.startsWith('---') || fenceEnd === -1) return content;
+
+  let fm = content.slice(3, fenceEnd);
+
+  // Replace curly/typographic characters with ASCII equivalents
+  fm = fm
+    .replace(/[‘’]/g, "'")   // curly single quotes → straight
+    .replace(/[“”]/g, '"')   // curly double quotes → straight
+    .replace(/—/g, '-')           // em dash → hyphen
+    .replace(/–/g, '-');          // en dash → hyphen
+
+  // Convert single-quoted JS strings that contain an apostrophe to double-quoted.
+  // Matches 'any text' and, if the inner text contains a bare ', converts wrapper to ".
+  fm = fm.replace(/'((?:[^'\\\n]|\\.)*)'/g, (match, inner) => {
+    if (inner.includes("'") && !inner.includes('"')) return `"${inner}"`;
+    return match;
+  });
+
+  return '---' + fm + content.slice(fenceEnd);
+}
+
 function validateAstroFile(content: string): { valid: boolean; reason?: string } {
   if (!content.startsWith('---')) {
     return { valid: false, reason: 'Does not start with --- frontmatter fence' };
@@ -189,13 +214,18 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   if (!content.includes('<Layout') || !content.includes('</Layout>')) {
     return { valid: false, reason: 'Missing <Layout> or </Layout> wrapper' };
   }
-  // Catch bare English operators in JS context (the specific failure mode we hit)
   const frontmatter = content.slice(3, frontmatterEnd);
+  // Catch bare English operators in JS context (the specific failure mode we hit)
   if (/\b(and|or)\b/.test(frontmatter.replace(/"[^"]*"/g, '').replace(/'[^']*'/g, ''))) {
     return { valid: false, reason: 'Bare "and"/"or" keyword in frontmatter JS (use && / ||)' };
   }
   if (content.includes('href="AMAZON_URL')) {
     return { valid: false, reason: 'Unresolved AMAZON_URL placeholder found in href — Claude did not replace the template CTA' };
+  }
+  // Detect apostrophes inside single-quoted strings (causes esbuild parse failure)
+  // Look for any single-quoted string containing a bare apostrophe
+  if (/'[^'\n]*'[^'\n]*'/.test(frontmatter)) {
+    return { valid: false, reason: "Apostrophe inside single-quoted string in frontmatter — use double quotes for strings containing apostrophes (e.g. \"6'4\\\")\")" };
   }
   return { valid: true };
 }
@@ -441,6 +471,7 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
     return { success: false, filePath: '', summary: `Empty content for ${task.slug}` };
   }
 
+  cleaned = sanitizeFrontmatter(cleaned);
   let validation = validateAstroFile(cleaned);
 
   // Attempt 2 — retry with the specific failure injected as a correction
@@ -448,6 +479,7 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
     console.warn(`    VALIDATION FAILED (attempt 1) for ${task.slug}: ${validation.reason}. Retrying...`);
     cleaned = await generatePage(task, `The previous attempt failed validation: "${validation.reason}". Fix this specific issue in your output.`);
     if (cleaned && cleaned.length >= 500) {
+      cleaned = sanitizeFrontmatter(cleaned);
       validation = validateAstroFile(cleaned);
     }
   }
@@ -475,7 +507,8 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
     const gapList = depth.missingSections.map(s => `- ${s}`).join('\n');
     const rerollInstruction = `Competitive depth score was ${depth.ratio}/100 — too low to publish. Add these sections that the top competitor has but TCA's draft is missing:\n${gapList}\nKeep all existing content. Only add the missing sections.`;
     console.log(`    Re-rolling with ${depth.missingSections.length} missing sections...`);
-    const rerolled = await generatePage(task, rerollInstruction);
+    const rerolledRaw = await generatePage(task, rerollInstruction);
+    const rerolled = rerolledRaw ? sanitizeFrontmatter(rerolledRaw) : rerolledRaw;
     if (rerolled && rerolled.length >= 500) {
       const rerollValidation = validateAstroFile(rerolled);
       if (rerollValidation.valid) {
