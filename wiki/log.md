@@ -2,6 +2,29 @@
 type: log
 ---
 
+## [2026-05-16] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 14 (top leak: /chairs/steelcase-gesture/seat-depth/ — "steelcase gesture seat depth range inches")
+- Opportunities: 25 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 1.3% WoW (3605 vs 3654), clicks down 11.1% (8 vs 9), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 7
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 33 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-05-16] gsc-pull | GSC Data Pull
+
+- Period: 2026-02-15 → 2026-05-16 (90 days)
+- Pages: 46 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 55 | Daily trend rows: 88
+- Clicks: 41 | Impressions: 17877 | Avg pos: 10.7
+
+
 ## [2026-05-16] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
