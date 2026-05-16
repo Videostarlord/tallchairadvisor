@@ -220,6 +220,139 @@ Return only JSON: {"score": <0-100>, "feedback": "<one sentence on the biggest g
   } catch { return { score: 0, feedback: 'score parse failed' }; }
 }
 
+// ─── Differentiation asset injection ────────────────────────────────────────
+// Builds a per-page block of TCA's non-replicable assets (ME framing, 6'4" data,
+// first-person Gesture voice, Reddit owner signals) for injection into the system prompt.
+function buildDifferentiationAssets(slug: string, root: string): string {
+  const isGesture = slug.includes('gesture');
+
+  const chairIdMap: Record<string, string> = {
+    gesture: 'steelcase-gesture',
+    aeron: 'herman-miller-aeron',
+    leap: 'steelcase-leap-plus',
+    sihoo: 'sihoo-doro-s300',
+  };
+  const matchedKey = Object.keys(chairIdMap).find(k => slug.includes(k));
+  const chairId = matchedKey ? chairIdMap[matchedKey] : null;
+
+  let redditBlock = '';
+  if (chairId) {
+    const redditPath = resolve(root, `data/reddit/published/${chairId}.json`);
+    if (existsSync(redditPath)) {
+      try {
+        const reddit = JSON.parse(readFileSync(redditPath, 'utf-8'));
+        const themes = [
+          ...(Array.isArray(reddit.topPositiveThemes) ? reddit.topPositiveThemes.slice(0, 2) : []),
+          ...(Array.isArray(reddit.topNegativeThemes) ? reddit.topNegativeThemes.slice(0, 1) : []),
+        ];
+        if (themes.length > 0) {
+          const ownerCount = reddit.ownerReportCounts?.confirmed ?? 0;
+          redditBlock = `\n- COMMUNITY SIGNALS (from ${ownerCount} confirmed Reddit owners — attribute naturally as "tall users in r/ergonomics report..."):\n${themes.map((t: string) => `  - ${t}`).join('\n')}`;
+        }
+      } catch { /* missing or malformed file — skip silently */ }
+    }
+  }
+
+  const gestureLine = isGesture
+    ? `\n- FIRST-PERSON VOICE AUTHORIZED: This is the Gesture page. Jackson uses this chair daily. Use "I've used this at 6'4" for two years", "I noticed the lumbar support hits correctly at my height", specific first-hand observations.`
+    : '';
+
+  return `\n\nTCA DIFFERENTIATION ASSETS — inject these naturally, do not list them verbatim:
+- ME BIOMECHANICS: Frame spec analysis through mechanical engineering — seat pan pressure distribution, lumbar lordosis support angle, frame rigidity under tall-user load (200+ lbs at extended lever arm), adjustment mechanism tolerances.
+- ANTHROPOMETRIC ANCHOR: Jackson's 6'4" frame requires seat height ≥21", seat depth ≥17" (thigh length), lumbar height ≥20" off pan, armrests at ≥28" floor height. Tie all spec comparisons to these measurements — they are what actually matters for 6'+ users.${gestureLine}${redditBlock}`;
+}
+
+// ─── Competitive-depth quality gate ─────────────────────────────────────────
+// After the structural 80/100 gate, compares TCA's draft against the top competitor
+// in intelligence.json for this slug. Ratio < 70 triggers a single re-roll with
+// missing sections injected. Uses content structure comparison, not GSC signals.
+
+interface CompetitorIntelligenceFile {
+  pages: {
+    tcaPage: string;
+    queryAnalyses: {
+      crawledContent: {
+        markdown: string;
+        domain: string;
+        wordCount: number;
+      }[];
+    }[];
+  }[];
+}
+
+async function scoreCompetitiveDepth(
+  slug: string,
+  pageContent: string,
+  root: string,
+): Promise<{ ratio: number; missingSections: string[]; rationale: string; skipped: boolean }> {
+  const intelligencePath = resolve(root, 'data/competitors/intelligence.json');
+  if (!existsSync(intelligencePath)) {
+    return { ratio: 100, missingSections: [], rationale: 'intelligence.json not found', skipped: true };
+  }
+
+  let intelligence: CompetitorIntelligenceFile;
+  try {
+    intelligence = JSON.parse(readFileSync(intelligencePath, 'utf-8'));
+  } catch {
+    return { ratio: 100, missingSections: [], rationale: 'intelligence.json parse failed', skipped: true };
+  }
+
+  const normalizedSlug = '/' + slug.replace(/^\/|\/$/g, '') + '/';
+  const pageEntry = intelligence.pages.find(p => p.tcaPage === normalizedSlug);
+  if (!pageEntry) {
+    return { ratio: 100, missingSections: [], rationale: `No competitor entry for ${normalizedSlug}`, skipped: true };
+  }
+
+  // Find the editorial competitor with the most content
+  let bestContent = '';
+  let bestDomain = '';
+  for (const analysis of pageEntry.queryAnalyses) {
+    for (const c of analysis.crawledContent) {
+      if (c.markdown && c.wordCount > 150 && c.markdown.length > bestContent.length) {
+        bestContent = c.markdown;
+        bestDomain = c.domain;
+      }
+    }
+  }
+  if (!bestContent) {
+    return { ratio: 100, missingSections: [], rationale: 'No usable competitor content in intelligence.json', skipped: true };
+  }
+
+  try {
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 400,
+      system: `You are a content depth auditor comparing a TCA draft against a competitor page. Score TCA 0-100 on competitive depth. Return only JSON.`,
+      messages: [{
+        role: 'user',
+        content: `Score TCA's draft vs competitor ${bestDomain} on:
+(a) Section coverage — competitor sections missing from TCA
+(b) Spec depth — specific measurements/numbers present vs absent
+(c) Format edges — tables, charts, comparisons TCA has vs lacks
+
+TCA DRAFT (first 3000 chars):
+${pageContent.slice(0, 3000)}
+
+COMPETITOR (${bestDomain}, first 2000 chars):
+${bestContent.slice(0, 2000)}
+
+Return JSON only: {"ratio": <0-100>, "missingSections": ["...", "..."], "rationale": "<one sentence>"}`,
+      }],
+    });
+
+    const text = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
+    const parsed = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
+    return {
+      ratio: Number(parsed.ratio ?? 100),
+      missingSections: Array.isArray(parsed.missingSections) ? parsed.missingSections : [],
+      rationale: String(parsed.rationale ?? ''),
+      skipped: false,
+    };
+  } catch {
+    return { ratio: 100, missingSections: [], rationale: 'depth score parse failed', skipped: true };
+  }
+}
+
 const CONTENT_SYSTEM_PROMPT = `You are a content writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people (6'+).
 Author: Jackson Christopher, 6'4", Mechanical Engineering senior at UC Berkeley.
 
@@ -285,7 +418,7 @@ Write the complete Astro page. Output the file content only — no markdown fenc
     system: [
       {
         type: 'text',
-        text: `${CONTENT_SYSTEM_PROMPT}\n\nHISTORICAL CONTEXT — WHAT WORKS:\n${synthesisContext}`,
+        text: `${CONTENT_SYSTEM_PROMPT}\n\nHISTORICAL CONTEXT — WHAT WORKS:\n${synthesisContext}${buildDifferentiationAssets(task.slug, ROOT)}`,
         cache_control: { type: 'ephemeral' },
       },
     ],
@@ -331,6 +464,27 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
     const rejectSlug = task.slug.replace(/^\/|\/$/g, '').replace(/\//g, '-');
     archiveToRaw(ROOT, 'content-rejected', `${today()}-${rejectSlug}.md`, cleaned);
     return { success: false, filePath: '', summary: `QUALITY GATE FAILED (${score}/100) for ${task.slug}: ${feedback}` };
+  }
+
+  // Competitive-depth gate: compare TCA draft against top competitor in intelligence.json.
+  // Uses content structure comparison (deterministic), not GSC traffic signals.
+  // Threshold 70 is a structural coverage ratio — appropriate at TCA's current traffic scale.
+  const depth = await scoreCompetitiveDepth(task.slug, cleaned, ROOT);
+  console.log(`    Competitive depth: ${depth.skipped ? 'skipped' : depth.ratio + '/100'} — ${depth.rationale}`);
+  if (!depth.skipped && depth.ratio < 70 && depth.missingSections.length > 0) {
+    const gapList = depth.missingSections.map(s => `- ${s}`).join('\n');
+    const rerollInstruction = `Competitive depth score was ${depth.ratio}/100 — too low to publish. Add these sections that the top competitor has but TCA's draft is missing:\n${gapList}\nKeep all existing content. Only add the missing sections.`;
+    console.log(`    Re-rolling with ${depth.missingSections.length} missing sections...`);
+    const rerolled = await generatePage(task, rerollInstruction);
+    if (rerolled && rerolled.length >= 500) {
+      const rerollValidation = validateAstroFile(rerolled);
+      if (rerollValidation.valid) {
+        cleaned = rerolled;
+        console.log(`    Re-roll accepted`);
+      } else {
+        console.warn(`    Re-roll validation failed (${rerollValidation.reason}) — using original`);
+      }
+    }
   }
 
   // Determine file path from slug

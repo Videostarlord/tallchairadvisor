@@ -14,7 +14,8 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync, statSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { appendWikiLog, writeWikiPage, today } from './agents/wiki-utils.js';
+import { appendWikiLog, writeWikiPage, today, computeIntentWeightAdjustments } from './agents/wiki-utils.js';
+import type { IntentType } from './agents/wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -94,14 +95,16 @@ const AIO_INDICATOR_TERMS = [...SPEC_TERMS, 'how to', 'what is', 'definition', '
 const INFO_TERMS = ['how', 'why', 'what', 'guide', 'does', 'difference', 'explain'];
 const STOPWORDS = new Set(['for', 'the', 'a', 'an', 'to', 'of', 'in', 'is', 'are', 'with', 'and', 'or', 'on', 'at', 'my', 'me', 'i', 'do', 'does', 'can', 'will', 'how', 'what', 'why', 'when', 'which']);
 
-type IntentType = 'buyer' | 'brand' | 'spec' | 'informational';
+// Loaded once at startup — adjusts base weights from observed intervention outcomes
+let _intentWeightAdjustments: Record<IntentType, number> = { buyer: 1.0, brand: 1.0, spec: 1.0, informational: 1.0 };
 
 function classifyIntent(query: string): { type: IntentType; value: number } {
   const q = query.toLowerCase();
-  if (BUYER_INTENT_TERMS.some(t => q.includes(t))) return { type: 'buyer', value: 3.0 };
-  if (BRAND_TERMS.some(t => q.includes(t))) return { type: 'brand', value: 2.0 };
-  if (SPEC_TERMS.some(t => q.includes(t))) return { type: 'spec', value: 1.5 };
-  return { type: 'informational', value: 1.0 };
+  const a = _intentWeightAdjustments;
+  if (BUYER_INTENT_TERMS.some(t => q.includes(t))) return { type: 'buyer', value: 3.0 * a.buyer };
+  if (BRAND_TERMS.some(t => q.includes(t))) return { type: 'brand', value: 2.0 * a.brand };
+  if (SPEC_TERMS.some(t => q.includes(t))) return { type: 'spec', value: 1.5 * a.spec };
+  return { type: 'informational', value: 1.0 * a.informational };
 }
 
 function normalizeQuery(query: string): string {
@@ -1276,6 +1279,11 @@ async function main() {
   if (ageHours > 72) {
     console.warn(`[gsc-analyze] WARNING: latest.json is ${ageHours.toFixed(0)}h old — run gsc:pull for fresh data`);
   }
+
+  // Load intent weight adjustments from reconciled intervention outcomes (no-op if no data yet)
+  _intentWeightAdjustments = computeIntentWeightAdjustments(ROOT);
+  const adjustedTypes = Object.entries(_intentWeightAdjustments).filter(([, v]) => v !== 1.0).map(([k, v]) => `${k}:${v}x`);
+  if (adjustedTypes.length > 0) console.log(`[gsc-analyze] Intent weight adjustments from outcomes: ${adjustedTypes.join(', ')}`);
 
   // Normalize URLs to enforce trailing slash and merge canonical duplicates
   gsc.pages = mergeCanonicalDuplicates(gsc.pages);

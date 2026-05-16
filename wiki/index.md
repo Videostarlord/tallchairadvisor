@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-15 (DataForSEO reference page added)
+last_updated: 2026-05-15 (architecture audit implementation status verified; statistical confidence policy added; old audit pages archived)
 ---
 
 # TCA Wiki Index
@@ -43,18 +43,21 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[competitor-landscape]] | 5 direct competitors. TCA advantage: height specificity. |
 | [[gsc-performance]] | 12,209 impr, 29 clicks, 0.24% CTR (May 4, 90-day). Page-level rankings. KPI targets. |
 | [[keyword-opportunities]] | Monthly keyword discovery results. Top-20 scored gaps for Jackson to review and approve. |
+| [[true-keyword-gaps]] | Monthly DataForSEO competitor-gap analysis. 225 grouped non-ranking keywords after GSC subtraction; main lane is big-and-tall / wide / heavy-user adjacency. |
 | [[dataforseo-reference]] | Official DataForSEO V3 reference for TCA. Auth model, priority endpoints, and current repo integration. Read before any DataForSEO work. |
 | [[gsc-analysis-strategy]] | Query-level GSC analysis. Cornell cluster (164 impr, 0 CTR). AIO pattern detection. Plan for gsc-analyze.ts. Read before any CTR fix decision. |
 | [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
 | [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Includes bug fix history. Read when modifying the pipeline. |
-| [[systems-architecture-audit-2026-05-13]] | **May 13 systems-level architecture audit. 5.5/10.** Top gaps: no keyword research, no fix attribution, no prompt caching. $20-60/month API cost risk. Read before any pipeline changes. |
-| [[audit-implementation-2026-05-10]] | **May 10 audit fix tracker.** 14 items done, 5 deferred. Read this to know what's been fixed and what's still outstanding from the COMBINED_2026-05-09_MASTER_AUDIT. |
-| [[audit-2026-05-10-seo]] | **May 10 full SEO audit. SNAPSHOT ONLY — findings now ingested into entity pages.** 77/100 overall. Read [[schema-markup]], [[affiliate-compliance]], [[meta-descriptions]], entity pages for current status. |
+| [[statistical-confidence-policy]] | Guardrail for low-volume GSC interpretation. Use query clusters and reversible tests; avoid overconfident causal claims from thin data. |
+| [[systems-architecture-audit-2026-05-13]] | **SOURCE OF TRUTH — system architecture status. Verified 2026-05-15.** 5/10 audit items fixed (keyword scripts, attribution tracker, content roadmap, decay detection, link audit, caching partial). 5 open: CI wiring, execute-fixes caching, DAG enforcement, commit decoupling, voice regex. Read before any pipeline changes. |
+| [[audit-implementation-2026-05-10]] | **ARCHIVED 2026-05-15.** May 10 combined audit tracker (CLAUDE+CODEX, 21 findings). Superseded by [[systems-architecture-audit-2026-05-13]]. C1/C2/C3 content items still valid, in data/content-roadmap.json. |
+| [[audit-2026-05-10-seo]] | **ARCHIVED SNAPSHOT — 2026-05-15.** May 10 full SEO audit (77/100). Findings ingested into entity pages. Read [[schema-markup]], [[affiliate-compliance]], [[meta-descriptions]] for current state. |
 | [[query-clustering-system]] | How queries are grouped into semantic clusters. Intent weights, known TCA cluster families, cannibalization logic. |
 | [[opportunity-scoring-system]] | Scoring formulas for near-p1, ctr-leak, content-depth, affiliate-capture opportunity types. Priority thresholds. |
 | [[content-gap-engine]] | Internal + competitor gap detection. Current known gaps. Integration with competitor-monitor. |
 | [[market-signal-framework]] | Velocity signals, AIO suppression detection, seasonal intent emergence, impression gravity. Current market state. |
 | [[niche-validation-framework]] | How to tell "dead niche" vs distribution lag. Separates demand, ranking, and monetization validation. TCA verdict: not dead; expand adjacently first. |
+| [[niche-incubator-system]] | Adjacent-project architecture for multi-niche go/no-go scoring before site launch. Verdicts: reject / hold / existing-site expansion / new-site MVP. Separate repo recommended. |
 | [[content-gaps]] | Standing desk page, verdict table, citation capsules, depth upgrades. |
 | [[content-quality-scores]] | Blog audit Mar 19. Avg 71/100. Gate: 80+ for new content. |
 | [[system-setup-guide]] | Step-by-step replication guide for Jackson (human reference only — not LLM context). Do not read for operational questions. |
@@ -80,12 +83,12 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[2026-W17]] | Deployed. 19 clicks, 7096 impr. |
 | [[2026-W18]] | Deployed. 23 clicks, 8455 impr. |
 
-## Raw Sources (reference only — don't edit)
+## Raw Sources (reference only — do not edit)
 
 Located in `raw/`. Organized by type:
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
-- `raw/audits/` — Audit/analysis files (latest: 2026-05-10). Key files: `COMBINED_2026-05-09_MASTER_AUDIT.md` (system audit), `2026-05-10-full-seo-audit.md` (6-specialist parallel SEO audit, 77/100).
-- `raw/strategy/` — Strategy/planning files (latest: 2026-05-07)
+- `raw/audits/` — Audit/analysis files (latest: 2026-05-14). Key files: `2026-05-13-systems-architecture-audit.md` (current systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (6-specialist SEO audit, 77/100, archived).
+- `raw/strategy/` — Strategy/planning files (latest: 2026-05-15). Key files: `2026-05-15-niche-incubator-plan.md` (adjacent-project architecture for niche go/no-go scoring), `2026-05-11-niche-validation-evaluation.md` (core validation framework), `2026-05-10-runpod-migration-proposal.md` (historical cost research, backlog only).
 - `raw/reddit/` — Reddit/Apify pipeline docs
 - `raw/misc/` — Session context, PDF
 - `raw/assets/` — Images, XML files

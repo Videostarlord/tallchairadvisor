@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-12
+last_updated: 2026-05-15
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,12 +70,8 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-12. 8 pages analyzed × up to 3 queries each. 5 URLs crawled (40 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
+*v2 run 2026-05-15. 8 pages analyzed × up to 3 queries each. 22 URLs crawled (37 cache hits). 1 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-05-12 | No actual data table rendering the 'Recommended Seat Depth by Height' section —  | high | 1q | btod.com |
-| 2026-05-12 | No AIO-citation-optimized passage explicitly stating the full spec in a single d | high | 1q | btod.com |
-| 2026-05-12 | The author's first-person credential and testing methodology are not surfaced in | medium | 1q | btod.com |
-| 2026-05-12 | Head-to-head comparison section against a single direct alternative chair is abs | medium | 1q | thehumansolution.com |
-| 2026-05-12 | Return policy detail is shallow — the page mentions the 12-year warranty in Pros | medium | 1q | thehumansolution.com |
+| 2026-05-15 | Head-to-head comparison section against the Leap Plus lacks a structured spec-de | high | 1q | crandalloffice.com |

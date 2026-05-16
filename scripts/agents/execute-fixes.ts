@@ -10,10 +10,38 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, archiveToRaw, today, appendIntervention } from './wiki-utils.js';
+import type { IntentType } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+// Mirrors classifyIntent in gsc-analyze.ts — kept in sync manually
+const BUYER_TERMS = ['best', 'buy', 'vs', 'review', 'alternative', 'worth', 'price', 'cheap', 'under $', 'affordable', 'budget', 'top'];
+const BRAND_TERMS = ['steelcase', 'herman miller', 'gesture', 'aeron', 'leap', 'sihoo', 'doro', 'haworth', 'humanscale'];
+const SPEC_TERMS  = ['height', 'seat', 'depth', 'width', 'weight limit', 'dimensions', 'inches', 'cm', 'lbs', 'adjustable', 'recline', 'lumbar'];
+
+function classifyIntentForQuery(query: string): IntentType {
+  const q = query.toLowerCase();
+  if (BUYER_TERMS.some(t => q.includes(t))) return 'buyer';
+  if (BRAND_TERMS.some(t => q.includes(t))) return 'brand';
+  if (SPEC_TERMS.some(t => q.includes(t))) return 'spec';
+  return 'informational';
+}
+
+function getSlugIntentMap(root: string): Map<string, IntentType> {
+  const latestPath = resolve(root, 'data/gsc/latest.json');
+  if (!existsSync(latestPath)) return new Map();
+  try {
+    const gsc = JSON.parse(readFileSync(latestPath, 'utf-8'));
+    const map = new Map<string, IntentType>();
+    // pageQueries are sorted by impressions desc — first entry per slug is the primary query
+    for (const pq of (gsc.pageQueries ?? [])) {
+      if (!map.has(pq.page)) map.set(pq.page, classifyIntentForQuery(pq.query));
+    }
+    return map;
+  } catch { return new Map(); }
+}
 
 interface FixTask {
   description: string;
@@ -135,14 +163,14 @@ async function applyTargetedFix(task: FixTask, fileContent: string, fixType: 'me
     const res = await client.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 300,
-      system: `Write a single meta description for tallchairadvisor.com.
+      system: [{ type: 'text', text: `Write a single meta description for tallchairadvisor.com.
 RULES:
 - 130-155 characters (count carefully — this is enforced programmatically)
 - Lead with the explicit verdict, spec, or direct answer in the first 10 words
 - No filler openers: "In this guide", "Learn how", "Complete", "In-depth", "Everything you need"
 - ASCII characters only — no em dashes (—), en dashes (–), curly quotes, or any Unicode
 - If the page covers chair specs for tall people, lead with a concrete measurement
-Return ONLY the meta description text. No quotes around it. No explanation.`,
+Return ONLY the meta description text. No quotes around it. No explanation.`, cache_control: { type: 'ephemeral' } }],
       messages: [{
         role: 'user',
         content: `Page: ${task.description}
@@ -168,13 +196,13 @@ Write the new meta description:`,
     const res = await client.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 150,
-      system: `Write a title tag for tallchairadvisor.com.
+      system: [{ type: 'text', text: `Write a title tag for tallchairadvisor.com.
 RULES:
 - 50-60 characters (count carefully — this is enforced programmatically)
 - Primary keyword near the front
 - ASCII only — no em dashes, curly quotes, Unicode, or double-quote characters
 - Avoid all-caps and clickbait
-Return ONLY the title text. No quotes. No explanation.`,
+Return ONLY the title text. No quotes. No explanation.`, cache_control: { type: 'ephemeral' } }],
       messages: [{
         role: 'user',
         content: `Page: ${task.description}
@@ -241,7 +269,7 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 8000,
-    system: `You are an SEO implementation agent for tallchairadvisor.com (Astro SSG site).
+    system: [{ type: 'text', text: `You are an SEO implementation agent for tallchairadvisor.com (Astro SSG site).
 Apply ONLY the requested fix — do not refactor, rename, or change anything else.
 CRITICAL RULES:
 - Jackson ONLY personally tested the Steelcase Gesture. Never add first-person testing voice for other chairs.
@@ -249,7 +277,7 @@ CRITICAL RULES:
 - Meta descriptions: 130-155 chars. Titles: 50-60 chars.
 - Schema: valid JSON-LD, no duplicate @type entries.
 - FRONTMATTER ONLY: Use only ASCII characters between the --- markers. Never use em dashes (—), curly quotes, or other Unicode characters directly in the JavaScript frontmatter — use regular hyphens (-) or escape sequences instead. Em dashes in the HTML template section are fine.
-- Output the COMPLETE updated file content, nothing else. No explanations before or after.`,
+- Output the COMPLETE updated file content, nothing else. No explanations before or after.`, cache_control: { type: 'ephemeral' } }],
     messages: [{
       role: 'user',
       content: `Apply this fix to the file:
@@ -313,6 +341,7 @@ async function main() {
   }
 
   const gscData = getGscPageData(ROOT);
+  const slugIntentMap = getSlugIntentMap(ROOT);
   console.log(`Applying ${tasks.length} fixes... (GSC data: ${gscData.size} pages loaded)`);
   const results: string[] = [`# Fixes Log — ${new Date().toISOString().split('T')[0]}\n`];
 
@@ -343,6 +372,7 @@ async function main() {
         targetMetric,
         beforeMetric,
         description: task.description,
+        intentType: slugIntentMap.get(slug) ?? slugIntentMap.get(fullUrl),
       });
     }
     if (!result.success) console.warn(`    FAILED: ${result.summary}`);

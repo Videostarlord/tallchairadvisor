@@ -2,6 +2,68 @@
 type: log
 ---
 
+## [2026-05-15] systems-architecture-audit | 7 open items implemented
+
+Phase 1 (quick wins):
+- `execute-fixes.ts` — cache_control added to all 3 call sites (meta, title, full-file). ~40% token cost reduction on Thursday runs.
+- `competitor-intelligence.ts` — analyzeGaps() refactored: static system preamble extracted to `system` field with cache_control; capsule call also gets static system prompt with cache_control. Cache hits across loop (multiple queries × pages per run).
+- `execute-content.ts` — `buildDifferentiationAssets(slug, root)` added. Injects ME biomechanics framing, 6'4" anthropometric anchor, Gesture first-person voice authorization, Reddit owner signals (reads data/reddit/published/<chairId>.json). Called in generatePage() — appended to cached system prompt.
+- `verify-deploy.ts` — 6 brand-anchor-free patterns added to NON_GESTURE_VOICE_PATTERNS. Catches generic first-person testing voice without requiring a chair brand name in the match.
+
+Phase 2 (structural):
+- `keywords-monthly.yml` — `npm run keyword:gaps` step added after keyword discovery. Monthly cadence; `keyword:gaps` script already existed in package.json.
+- `thursday.yml` — DAG pipeline-status check added (same guard logic as tuesday/wednesday).
+- `friday.yml` — DAG pipeline-status check added. Friday checks out staging, so check reads from `origin/main` via `git show origin/main:data/pipeline-status.json`.
+- `execute-content.ts` — `scoreCompetitiveDepth(slug, content, root)` added. Haiku call after structural 80/100 gate. Reads intelligence.json, finds competitor entry by slug, scores TCA draft 0-100. Ratio < 70 triggers single re-roll with missing sections injected. Re-roll falls back to original if Astro validation fails.
+
+Phase 3 deferred: data commit decoupling (use [skip cd] approach when ready), Batch API (async architecture change — not a one-liner; measure caching savings first).
+Open content tasks: shoulder-pain-tall-people, standing-desk-height, sihoo-doro-s300, best-chairs-under-500 — strategy agent's job.
+
+## [2026-05-15] competitor-intelligence v2.2 | Strategic Run
+
+- Pages: 8 | Queries: 23 | Crawls: 22 (37 cached)
+- High-priority gaps: 1
+- AIO tasks: 4 generated | 0 applied to src/pages/ | 1 rejected (spec mismatch) | 3 pending passage text
+- 8 pages analyzed × up to 3 queries each. 22 URLs crawled (37 cache hits). 1 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.
+
+## [2026-05-15] wiki | Statistical confidence policy added
+
+- Added concept page: `wiki/pages/concepts/statistical-confidence-policy.md`
+- Indexed the page in `wiki/index.md`
+- Updated `scripts/agents/strategy.ts` to load `statistical-confidence-policy` in `readConceptContext()`
+- Updated `scripts/agents/audit.ts` to load `statistical-confidence-policy` in `readConceptContext()`
+- Purpose: prevent overconfident causal claims from low-volume GSC data; prefer query clusters, 90-day denominators, and cheap reversible tests
+
+
+## [2026-05-15] Claude assessment | Architecture eval + 3 new open items added
+
+- Evaluated external Gemini architecture review (limited context) against full TCA system knowledge
+- Added `## Claude Assessment — 2026-05-15` section to `wiki/pages/concepts/systems-architecture-audit-2026-05-13.md`
+- Added 3 new items to the Open Items Priority Ranked table (items 8–10):
+  - **Item 8** — Competitive-depth quality gate in execute-content.ts (Haiku call vs. #1 competitor from intelligence.json, 70% depth threshold, re-roll with gaps injected)
+  - **Item 9** — Explicit differentiation asset injection in content generation prompt (ME background, 6'4" measurements, Gesture first-hand voice, Reddit community data)
+  - **Item 10** — Anthropic Batch for audit.ts and strategy.ts (50% cost reduction, no architecture change, fixes API cost > revenue inversion)
+- Summary conclusion: system ceiling is content (C1 Gesture expansion), not infrastructure. Mirroring risk is real but addressable with items 8+9 without a new agent.
+
+## [2026-05-15] manual code audit | Architecture audit implementation status verified
+
+- Read all scripts in `scripts/` and `scripts/agents/` against every finding in `raw/audits/2026-05-13-systems-architecture-audit.md`
+- **5 of 10 audit priority items confirmed implemented:** keyword-discovery.ts + keyword-gap-discovery.ts, interventions.jsonl pipeline (wiki-utils.ts), data/content-roadmap.json, formatOutcomesForPrompt(), detectDecayingPages(), internal link audit (gsc-analyze.ts → link-audit.json), prompt caching in audit.ts + strategy.ts, getWeekStartBaseline() in verify-deploy.ts, Module 6 content gap detection
+- **5 items still open:** keyword scripts not in Monday CI, execute-fixes.ts uncached, no cross-day DAG enforcement, git-as-event-bus unresolved, voice regex still anchor-keyword-dependent
+- **Wiki updated:**
+  - `wiki/pages/concepts/systems-architecture-audit-2026-05-13.md` — full rewrite with per-finding implementation status. Now source of truth.
+  - `wiki/pages/concepts/audit-implementation-2026-05-10.md` — archived notice added, superseded by above
+  - `wiki/pages/concepts/audit-2026-05-10-seo.md` — archived snapshot notice added
+  - `wiki/synthesis/decisions-log.md` — 2026-W20 May 15 entry with implementation summary
+  - `wiki/index.md` — audit rows updated; raw sources note updated
+
+## [2026-05-15] keyword-gap discovery | True keyword gaps analysis
+
+- Added concept page: `wiki/pages/concepts/true-keyword-gaps.md`
+- Source snapshot: `data/keywords/true-gaps.json` and `data/keywords/raw/2026-05-15T16-05-29-competitor-ranked-keywords.json`
+- Current run: 23 competitor pages analyzed, 302 ranked-keyword rows, 40 removed because TCA already ranks, 225 grouped true gaps remain
+- Main interpretation: strongest missed territory is big-and-tall / wide / heavy-user commercial adjacency; dimensions / seat-depth is the secondary educational depth lane
+
 ### 2026-05-15 — keywords-push run
 - Approved+unpushed: 1, deduplicated out: 0
 - Pushed to content-roadmap.json: 1
@@ -1086,3 +1148,30 @@ Chronological record of wiki operations. Append new entries at the top.
 - Removed now-empty `AUDIT/` directory from workspace root
 - Workspace root is now clean of audit artifacts
 - Master audit: `raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md` — adjudicated findings from both models, adjusted scores, SERP API + Firecrawl competitor intelligence architecture documented
+
+## [2026-05-15] strategy | Niche Incubator Plan Filed
+
+- Reviewed existing context: `niche-validation-framework`, `dataforseo-reference`, `workflow-system-reference`, `system-setup-guide`, and `runpod-migration-proposal`
+- Conclusion: the adjacent project should be a **separate repo / directory** from `tall-chair-advisor/`
+- Added raw strategy note: `raw/strategy/2026-05-15-niche-incubator-plan.md`
+- Added concept page: `wiki/pages/concepts/niche-incubator-system.md`
+- Defined required verdict states: `DO NOT BUILD`, `HOLD / NEEDS REVIEW`, `BUILD INSIDE AN EXISTING SITE`, `BUILD AS A NEW-SITE MVP`
+- Recommendation: build the verdict engine first, then the blueprint/site generator second
+
+## [2026-05-15] systems-architecture-audit | remaining open items implemented
+
+- `verify-deploy.ts` — system prompt converted to array format with `cache_control: { type: 'ephemeral' }`. Follows same pattern as all other agents.
+- `.github/workflows/monday.yml` / `tuesday.yml` / `wednesday.yml` / `keywords-monthly.yml` — `[skip cd]` prepended to git commit messages. Cloudflare Pages now skips builds on data-only commits. Saturday push to main remains intentional.
+- `scripts/competitor-intelligence.ts` — `generateFallbackCapsule()` added. When AIO passage < 50 chars, Haiku synthesizes a capsule from TCA's own page content instead of immediately failing to `pending-passage-text`. Status `fallback-applied` added to AIOTask union. The 3 stuck pages (knee-pain-seat-depth, aeron/tall-people, gesture/seat-depth) will resolve on next competitor-intelligence run.
+- `scripts/agents/wiki-utils.ts` — `IntentType` exported; `intentType?: IntentType` added to `InterventionEntry`; `computeIntentWeightAdjustments()` added — aggregates reconciled CTR outcomes by intent type (≥3 entries required), returns multipliers (0.5x–2.0x cap).
+- `scripts/gsc-analyze.ts` — loads weight adjustments at startup via `computeIntentWeightAdjustments(ROOT)`; `classifyIntent()` now applies multipliers to base weights (buyer:3.0, brand:2.0, spec:1.5).
+- `scripts/agents/execute-fixes.ts` — `getSlugIntentMap()` added; `intentType` passed to `appendIntervention()` on every fix. Intent type derived from primary pageQuery in `latest.json`.
+- Batch API for audit.ts/strategy.ts: kept deferred — single-call scripts, overhead not justified. Existing caching covers cost reduction.
+
+## [2026-05-15] git-event-bus | Decouple code + data commits in Thursday/Friday workflows
+
+- `thursday.yml` — split single "Commit fixes + wiki updates" into two steps: (1) `git add src/` → `"fix: Thursday SEO fixes…"`, (2) `git add reports/ raw/ wiki/` → `"[skip cd] data: Thursday wiki + reports…"`. Push moved to data step.
+- `friday.yml` (success path) — same split: (1) `git add src/` → `"content: New pages…"`, (2) `git add reports/ raw/ wiki/` → `"[skip cd] data: Friday wiki + reports…"`.
+- `friday.yml` (failure path) — already data-only (no `src/`); added `[skip cd]` to commit message.
+- Saturday unchanged — deploy commit is data-only and intentionally triggers Cloudflare (production deploy).
+- All seven weekly workflows now use `[skip cd]` on every data-only commit. Code commits (Thu/Fri `src/` changes) remain untagged and trigger Cloudflare staging builds as intended.

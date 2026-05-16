@@ -1,12 +1,46 @@
 ---
 type: synthesis
-last_updated: 2026-05-11 (CTR root cause analysis + geo-optimize.ts queued)
+last_updated: 2026-05-15
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W20 (May 15) — Architecture audit implementation status verified; wiki updated
+
+**DECISION — [[systems-architecture-audit-2026-05-13]] is the authoritative source of truth for system architecture status.** Code audit performed 2026-05-15 against all scripts in `scripts/` and `scripts/agents/`. Every finding from the 2026-05-13 audit verified against actual code.
+
+**5 of 10 priority recommendations implemented since audit:**
+- ✅ **Keyword research pipeline** — `keyword-discovery.ts` + `keyword-gap-discovery.ts` (DataForSEO Labs). Top-20 opportunities scored and written to `data/keywords/opportunities.json`. Writes wiki page. **Gap: not yet in Monday CI.**
+- ✅ **Fix attribution tracker** — `interventions.jsonl` infrastructure in `wiki-utils.ts`. `appendIntervention()` called from execute-fixes.ts; `reconcileInterventions()` called from audit.ts. `data/interventions.jsonl` will be created on next fix run.
+- ✅ **Content roadmap** — `data/content-roadmap.json` with 4 priority topics (shoulder-pain, standing-desk, sihoo-doro, budget-500). Strategy.ts injects top-2 pending topics as NEW CONTENT each week.
+- ✅ **Structured outcome tracking** — `formatOutcomesForPrompt()` feeds structured before/after data to strategy. Replaces prose synthesis as primary signal.
+- ✅ **Content decay detection** — `detectDecayingPages()` in gsc-analyze.ts (8+ consecutive-week decline). Injected into strategy; cooldown bypass for flagged pages. Activates ~July 2026.
+- ✅ **Internal link audit** — `gsc-analyze.ts` writes `data/gsc/link-audit.json`. Strategy.ts injects underlinked high-impression pages as FIX targets.
+- ✅ **Prompt caching** — `audit.ts` + `strategy.ts` now have `cache_control: { type: 'ephemeral' }`. execute-fixes.ts and competitor-intelligence.ts still uncached.
+- ✅ **Saturday regression baseline** — `getWeekStartBaseline()` in verify-deploy.ts uses oldest commit since last Monday, not HEAD~1.
+- ✅ **Module 6 (Content Gap)** — implemented in gsc-analyze.ts; no longer dead code.
+- ✅ **AIO capsule first-H2 fallback** — competitor-intelligence.ts now falls back to first `<h2>` for component-rendered headings.
+
+**7 items implemented 2026-05-15** (see log entry + [[systems-architecture-audit-2026-05-13]] for detail):
+- ✅ Keyword gap discovery wired into `keywords-monthly.yml` (`npm run keyword:gaps` step added)
+- ✅ Prompt caching in `execute-fixes.ts` (3 call sites) and `competitor-intelligence.ts` (2 call sites, analyzeGaps refactored)
+- ✅ DAG enforcement — pipeline-status check added to `thursday.yml` and `friday.yml`
+- ✅ Voice regex expanded — 6 brand-anchor-free patterns added to `verify-deploy.ts`
+- ✅ Competitive-depth quality gate — `scoreCompetitiveDepth()` in `execute-content.ts`; Haiku call post-80/100 structural gate; ratio < 70 triggers re-roll with competitor gaps injected
+- ✅ Differentiation asset injection — `buildDifferentiationAssets()` in `execute-content.ts`; ME framing, 6'4" anchor, Gesture voice, Reddit owner signals per page
+- ✅ Competitive-depth gate decision: threshold 70 is structural content comparison (not GSC signals) — appropriate at current 7 clicks/week scale per [[statistical-confidence-policy]]
+
+**2 items deferred (Phase 3):**
+- ❌ Decouple data commits from code commits — recommended approach: `[skip cd]` in data-only commit messages + Cloudflare Pages config. Deferred until frequency of bad wiki writes justifies the change.
+- ❌ Anthropic Batch API for audit.ts and strategy.ts — audit called it a "one-line change" but Batch is async (submit + poll); requires workflow split. Deferred until prompt caching savings are measured and cost still exceeds $60/month.
+
+**Content tasks (not code — strategy agent's job):**
+- 4 content-roadmap.json entries still pending: shoulder-pain-tall-people (priority 1), standing-desk-height (priority 2), sihoo-doro-s300 (priority 3), best-chairs-under-500 (priority 4)
+
+**ARCHIVED:** `[[audit-implementation-2026-05-10]]` and `[[audit-2026-05-10-seo]]` marked as archived. Read entity pages and `[[systems-architecture-audit-2026-05-13]]` for current state.
 
 ## 2026-W20 (May 11) — CTR root cause analysis + next automation priority set
 

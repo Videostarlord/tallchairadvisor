@@ -10,6 +10,8 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, appendFileSync, readdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 
+export type IntentType = 'buyer' | 'brand' | 'spec' | 'informational';
+
 // tall-chair-advisor/ repo root
 export function getRepoRoot(metaUrl: string): string {
   const __dirname = dirname(new URL(metaUrl).pathname);
@@ -161,6 +163,7 @@ export interface InterventionEntry {
   confidenceLevel: 'none' | 'low' | 'medium' | 'high';
   description: string;
   reconciledAt: string | null;
+  intentType?: IntentType; // GSC query intent type for the primary query on this page
 }
 
 /** Append one intervention entry to data/interventions.jsonl (append-only, never overwritten) */
@@ -296,4 +299,45 @@ export function formatOutcomesForPrompt(entries: InterventionEntry[]): string {
     const after = e.afterMetric !== null ? e.afterMetric : '?';
     return `${e.appliedDate} | ${e.interventionType} | ${e.slug} | ${e.targetMetric}: ${e.beforeMetric} → ${after} (${delta}) | confidence: ${e.confidenceLevel}`;
   }).join('\n');
+}
+
+/**
+ * Derive scoring weight multipliers from reconciled intervention outcomes, grouped by intent type.
+ * Requires ≥3 reconciled CTR entries per intent type with medium/high confidence before adjusting.
+ * Returns multipliers relative to baseline weights (1.0 = no adjustment).
+ * Applied on top of the hardcoded base weights (buyer: 3.0, brand: 2.0, spec: 1.5).
+ */
+export function computeIntentWeightAdjustments(repoRoot: string): Record<IntentType, number> {
+  const defaults: Record<IntentType, number> = { buyer: 1.0, brand: 1.0, spec: 1.0, informational: 1.0 };
+  const filePath = resolve(repoRoot, 'data/interventions.jsonl');
+  if (!existsSync(filePath)) return defaults;
+
+  const entries: InterventionEntry[] = readFileSync(filePath, 'utf-8')
+    .split('\n').filter(Boolean)
+    .map(l => JSON.parse(l) as InterventionEntry)
+    .filter(e =>
+      e.reconciledAt !== null &&
+      (e.confidenceLevel === 'medium' || e.confidenceLevel === 'high') &&
+      e.targetMetric === 'ctr' &&
+      e.intentType !== undefined &&
+      e.deltaPercent !== null
+    );
+
+  const grouped: Partial<Record<IntentType, number[]>> = {};
+  for (const e of entries) {
+    const t = e.intentType!;
+    if (!grouped[t]) grouped[t] = [];
+    grouped[t]!.push(e.deltaPercent!);
+  }
+
+  const MIN_ENTRIES = 3;
+  const result = { ...defaults };
+  for (const [intentType, deltas] of Object.entries(grouped) as [IntentType, number[]][]) {
+    if (deltas.length < MIN_ENTRIES) continue;
+    const avg = deltas.reduce((s, d) => s + d, 0) / deltas.length;
+    // Scale: +30% avg delta → 1.15x multiplier, -30% → 0.85x. Cap 0.5x–2.0x.
+    const multiplier = Math.min(2.0, Math.max(0.5, 1.0 + (avg / 100) * 0.5));
+    result[intentType] = Math.round(multiplier * 100) / 100;
+  }
+  return result;
 }
