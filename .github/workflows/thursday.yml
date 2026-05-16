@@ -22,6 +22,20 @@ jobs:
 
       - run: npm ci
 
+      - name: Check upstream pipeline status
+        run: |
+          if [ ! -f data/pipeline-status.json ]; then
+            echo "::warning::pipeline-status.json not found — Monday may not have run yet, proceeding"
+            exit 0
+          fi
+          STATUS=$(node -p "JSON.parse(require('fs').readFileSync('data/pipeline-status.json','utf-8')).status")
+          REASON=$(node -p "JSON.parse(require('fs').readFileSync('data/pipeline-status.json','utf-8')).reason")
+          if [ "$STATUS" != "success" ]; then
+            echo "::error::Skipped — upstream Monday failure: $REASON"
+            exit 1
+          fi
+          echo "Upstream status: success — proceeding"
+
       - name: Run fixes agent
         run: npx tsx scripts/agents/execute-fixes.ts
         env:
@@ -47,10 +61,15 @@ jobs:
       - name: Content lint
         run: npm run lint:content
 
-      - name: Commit fixes + wiki updates
+      - name: Commit code fixes
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          git add src/ reports/fixes-log.md raw/ wiki/
+          git add src/
           git diff --staged --quiet || git commit -m "fix: Thursday SEO fixes $(date +%Y-%m-%d)"
+
+      - name: Commit data + wiki updates
+        run: |
+          git add reports/fixes-log.md raw/ wiki/
+          git diff --staged --quiet || git commit -m "[skip cd] data: Thursday wiki + reports $(date +%Y-%m-%d)"
           git push origin HEAD:staging --force

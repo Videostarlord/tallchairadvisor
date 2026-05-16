@@ -1,11 +1,18 @@
 ---
 type: concept
-last_updated: 2026-05-11
+last_updated: 2026-05-15
 sources: [raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
-tags: [audit, fixes, backlog, status]
+tags: [audit, fixes, backlog, status, archived]
+archived: true
+superseded_by: systems-architecture-audit-2026-05-13
 ---
 
-# Audit Implementation Status — May 10, 2026
+> **ARCHIVED — 2026-05-15**
+> This page tracked the May 10, 2026 combined audit (CLAUDE-SONNET-4-6 + CODEX, 21 findings).
+> For current system architecture status — what's implemented, what's open, and what's still needed — read **[[systems-architecture-audit-2026-05-13]]** instead. That page was verified against actual code on 2026-05-15 and is the authoritative source of truth.
+> Content below is preserved for historical reference. The C1/C2/C3 content items (Gesture expansion, Leap Plus reframe, role differentiation) remain valid open tasks tracked in `data/content-roadmap.json`.
+
+# Audit Implementation Status — May 10, 2026 [ARCHIVED]
 
 Source audit: `raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md`
 Adjudicated 6/10 overall. Two auditors (CLAUDE-SONNET-4-6 + CODEX), 21 findings. This page tracks implementation status of every action item.

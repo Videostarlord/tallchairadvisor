@@ -23,6 +23,23 @@ jobs:
 
       - run: npm ci
 
+      - name: Check upstream pipeline status
+        run: |
+          # Friday runs from staging — fetch pipeline-status.json from main where Monday writes it
+          git fetch origin main --depth=1 2>/dev/null || true
+          git show origin/main:data/pipeline-status.json > /tmp/pipeline-status.json 2>/dev/null || true
+          if [ ! -s /tmp/pipeline-status.json ]; then
+            echo "::warning::pipeline-status.json not found on main — Monday may not have run yet, proceeding"
+            exit 0
+          fi
+          STATUS=$(node -p "JSON.parse(require('fs').readFileSync('/tmp/pipeline-status.json','utf-8')).status")
+          REASON=$(node -p "JSON.parse(require('fs').readFileSync('/tmp/pipeline-status.json','utf-8')).reason")
+          if [ "$STATUS" != "success" ]; then
+            echo "::error::Skipped — upstream Monday failure: $REASON"
+            exit 1
+          fi
+          echo "Upstream status: success — proceeding"
+
       - name: Run content agent
         id: content
         run: npx tsx scripts/agents/execute-content.ts
@@ -41,13 +58,19 @@ jobs:
         if: env.CONTENT_WRITTEN == 'true'
         run: npm run lint:content
 
-      - name: Commit new content + wiki updates
+      - name: Commit new content
         if: env.CONTENT_WRITTEN == 'true'
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          git add src/ reports/content-log.md raw/ wiki/
+          git add src/
           git diff --staged --quiet || git commit -m "content: New pages $(date +%Y-%m-%d)"
+
+      - name: Commit wiki + log updates
+        if: env.CONTENT_WRITTEN == 'true'
+        run: |
+          git add reports/content-log.md raw/ wiki/
+          git diff --staged --quiet || git commit -m "[skip cd] data: Friday wiki + reports $(date +%Y-%m-%d)"
           git push origin HEAD:staging --force
 
       - name: Commit content log (failures)
@@ -56,5 +79,5 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/content-log.md raw/ || true
-          git diff --staged --quiet || git commit -m "content: No pages written $(date +%Y-%m-%d) — see content-log.md"
+          git diff --staged --quiet || git commit -m "[skip cd] data: No pages written $(date +%Y-%m-%d) — see content-log.md"
           git push origin HEAD:staging --force || true

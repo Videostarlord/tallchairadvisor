@@ -78,7 +78,7 @@ async function main() {
   }
 
   // Read wiki context for historical comparison
-  const wikiContext = readConceptContext(ROOT, ['ctr-optimization', 'meta-descriptions', 'schema-markup']);
+  const wikiContext = readConceptContext(ROOT, ['ctr-optimization', 'statistical-confidence-policy', 'meta-descriptions', 'schema-markup']);
   const synthesisContext = readSynthesisContext(ROOT);
 
   // Call Claude for analysis

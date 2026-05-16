@@ -89,5 +89,5 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add data/pipeline-status.json data/gsc/latest.json data/gsc/analysis.json data/gsc/history/ data/competitors/ reports/index-monitor.md raw/ wiki/ src/
-          git diff --staged --quiet || git commit -m "data: Monday pull + index fixes $(date +%Y-%m-%d)"
+          git diff --staged --quiet || git commit -m "[skip cd] data: Monday pull + index fixes $(date +%Y-%m-%d)"
           git push

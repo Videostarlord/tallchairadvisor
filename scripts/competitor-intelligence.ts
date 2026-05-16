@@ -1,5 +1,5 @@
 /**
- * competitor-intelligence.ts — v2.3
+ * competitor-intelligence.ts — v2.4
  * Strategic competitor gap analysis with four layers:
  *   Layer 1: Page-role-aware query cluster selection (primary + supporting + strategic)
  *   Layer 2: SERP lane classification (editorial / retailer / brand / community / video)
@@ -169,7 +169,7 @@ interface AIOTask {
   citedUrlsReliable: boolean;
   citationCapsule: string | null;
   insertAfterHeading: string;
-  status: 'generated' | 'applied' | 'already-applied' | 'heading-not-found' | 'pending-passage-text';
+  status: 'generated' | 'applied' | 'already-applied' | 'heading-not-found' | 'pending-passage-text' | 'fallback-applied';
 }
 
 interface IntelligenceOutput {
@@ -717,11 +717,18 @@ function applyCapsuleToPage(root: string, page: string, insertAfterHeading: stri
 
 function parseAioFromRaw(ov: any): AIOData | null {
   if (!ov) return null;
+  // DataForSEO: references at top-level with .url; SerpAPI (cached): .link fallback
   const topRefs: any[] = ov.references ?? ov.sources ?? [];
   const blockRefs: any[] = (ov.blocks ?? ov.text_blocks ?? []).flatMap((b: any) => b.references ?? b.sources ?? []);
   const allRefs = [...topRefs, ...blockRefs];
-  const citedUrls: string[] = [...new Set(allRefs.map((r: any) => r.link ?? r.url ?? '').filter(Boolean))];
-  const passageText: string = extractAioText(ov);
+  const citedUrls: string[] = [...new Set(allRefs.map((r: any) => r.url ?? r.link ?? '').filter(Boolean))];
+  // DataForSEO provides a clean markdown field — prefer it over block extraction
+  let passageText: string;
+  if (ov.markdown && typeof ov.markdown === 'string' && ov.markdown.trim().length > 50) {
+    passageText = ov.markdown.replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[`*#>]/g, '').replace(/\s+/g, ' ').trim();
+  } else {
+    passageText = extractAioText(ov);
+  }
   const passageFormat: 'list' | 'prose' | 'table' =
     /^\s*[-*•]|\n[-*•]/m.test(passageText) ? 'list'
     : /\|\s/.test(passageText) ? 'table'
@@ -729,7 +736,7 @@ function parseAioFromRaw(ov: any): AIOData | null {
   return { hasAIO: true, citedUrls, passageText, passageFormat, wordCount: passageText.split(/\s+/).filter(Boolean).length };
 }
 
-async function fetchSerp(keyword: string, apiKey: string, serpCache?: Map<string, SerpCacheEntry>): Promise<{ results: SerpResult[]; aio: AIOData | null }> {
+async function fetchSerp(keyword: string, auth: string, serpCache?: Map<string, SerpCacheEntry>): Promise<{ results: SerpResult[]; aio: AIOData | null }> {
   // Return from SERP cache if fresh (saves API credits on debug reruns)
   if (serpCache) {
     const cached = serpCache.get(keyword);
@@ -739,89 +746,67 @@ async function fetchSerp(keyword: string, apiKey: string, serpCache?: Map<string
     }
   }
 
-  const url = new URL('https://serpapi.com/search.json');
-  url.searchParams.set('q', keyword);
-  url.searchParams.set('api_key', apiKey);
-  url.searchParams.set('num', String(SERP_RESULTS));
-  url.searchParams.set('hl', 'en');
-  url.searchParams.set('gl', 'us');
-
   try {
-    const res = await fetch(url.toString(), { signal: AbortSignal.timeout(15000) });
-    if (!res.ok) { console.warn(`  SerpAPI ${res.status} for "${keyword}"`); return { results: [], aio: null }; }
+    const res = await fetch('https://api.dataforseo.com/v3/serp/google/organic/live/advanced', {
+      method: 'POST',
+      headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify([{
+        keyword,
+        location_code: 2840, // United States
+        language_code: 'en',
+        device: 'desktop',
+        depth: SERP_RESULTS,
+      }]),
+      signal: AbortSignal.timeout(25000),
+    });
+
+    if (!res.ok) { console.warn(`  DataForSEO ${res.status} for "${keyword}"`); return { results: [], aio: null }; }
     const data = await res.json() as any;
-    const results: SerpResult[] = (data.organic_results ?? []).map((r: any) => {
-      const link = r.link ?? '';
-      return {
-        position: r.position ?? 0,
-        link,
-        title: r.title ?? '',
-        snippet: r.snippet ?? '',
-        lane: classifyDomain(link),
-        domain: (() => { try { return new URL(link).hostname.replace('www.', ''); } catch { return ''; } })(),
-      };
-    }).filter((r: SerpResult) => !r.link.includes(TCA_DOMAIN));
-
-    // Parse AIO block — already in the response, no extra credits consumed.
-    // SerpAPI schema varies: text may be in answer, snippet, text, or nested blocks[].
-    // Citations may be in references, sources, or blocks[].references.
-    let aio: AIOData | null = null;
-    let resolvedAiOverview: any = data.ai_overview ?? null;
-    if (data.ai_overview) {
-      const ov = data.ai_overview;
-      if (process.env.AIO_DEBUG) {
-        console.log('  [AIO_DEBUG] ai_overview keys:', JSON.stringify(Object.keys(ov)));
-        if (ov.text_blocks?.length) {
-          console.log('  [AIO_DEBUG] text_blocks[0]:', JSON.stringify(ov.text_blocks[0]));
-        }
-        if (ov.blocks?.length) {
-          console.log('  [AIO_DEBUG] blocks[0]:', JSON.stringify(ov.blocks[0]));
-        }
-        if (!ov.text_blocks?.length && !ov.blocks?.length) {
-          console.log('  [AIO_DEBUG] no blocks found — full ai_overview:', JSON.stringify(ov).slice(0, 500));
-        }
-      }
-      aio = parseAioFromRaw(ov);
-
-      // page_token case: SerpAPI deferred the AIO text — make secondary fetch to resolve it.
-      // The google_ai_overview engine returns text_blocks[].snippet with the actual content.
-      if (ov.page_token && (!aio || aio.passageText.length < 50)) {
-        console.log(`  [AIO] page_token detected — fetching secondary response`);
-        const tokenUrl = new URL('https://serpapi.com/search.json');
-        tokenUrl.searchParams.set('engine', 'google_ai_overview');
-        tokenUrl.searchParams.set('page_token', ov.page_token);
-        tokenUrl.searchParams.set('api_key', apiKey);
-        try {
-          const tokenRes = await fetch(tokenUrl.toString(), { signal: AbortSignal.timeout(15000) });
-          if (tokenRes.ok) {
-            const tokenData = await tokenRes.json() as any;
-            const secondary = tokenData.google_ai_overview ?? tokenData.ai_overview;
-            if (secondary) {
-              aio = parseAioFromRaw(secondary);
-              resolvedAiOverview = secondary;
-              if (process.env.AIO_DEBUG) console.log(`  [AIO_DEBUG] page_token resolved: ${aio?.passageText?.length ?? 0} chars`);
-            }
-          } else {
-            console.warn(`  SerpAPI page_token fetch: ${tokenRes.status}`);
-          }
-        } catch (e: any) {
-          console.warn(`  SerpAPI page_token fetch error: ${e.message}`);
-        }
-      }
+    const task = data.tasks?.[0];
+    if (!task || task.status_code !== 20000) {
+      console.warn(`  DataForSEO task error ${task?.status_code}: ${task?.status_message} for "${keyword}"`);
+      return { results: [], aio: null };
     }
 
-    // Save resolved content to SERP cache — only cache resolved AIO text.
-    // Unresolved page_token stored as null so next run re-fetches after TTL expiry.
+    const items: any[] = task.result?.[0]?.items ?? [];
+
+    const results: SerpResult[] = items
+      .filter((r: any) => r.type === 'organic')
+      .slice(0, SERP_RESULTS)
+      .map((r: any) => {
+        const link = r.url ?? '';
+        return {
+          position: r.rank_absolute ?? 0,
+          link,
+          title: r.title ?? '',
+          snippet: r.description ?? '',
+          lane: classifyDomain(link),
+          domain: (() => { try { return new URL(link).hostname.replace('www.', ''); } catch { return ''; } })(),
+        };
+      })
+      .filter((r: SerpResult) => !r.link.includes(TCA_DOMAIN));
+
+    // AIO item — DataForSEO surfaces it as type 'ai_overview' with .markdown and .references
+    const aioItem = items.find((i: any) => i.type === 'ai_overview') ?? null;
+    const aio = aioItem ? parseAioFromRaw(aioItem) : null;
+
+    if (process.env.AIO_DEBUG && aioItem) {
+      console.log('  [AIO_DEBUG] ai_overview keys:', JSON.stringify(Object.keys(aioItem)));
+      console.log('  [AIO_DEBUG] references count:', aioItem.references?.length ?? 0);
+      console.log('  [AIO_DEBUG] markdown length:', aioItem.markdown?.length ?? 0);
+    }
+
+    // Cache only when passage text is fully resolved
     const aioTextResolved = aio !== null && aio.passageText.length >= 50;
     if (serpCache) serpCache.set(keyword, {
-      aiOverview: aioTextResolved ? resolvedAiOverview : null,
+      aiOverview: aioTextResolved ? aioItem : null,
       results,
       timestamp: Date.now(),
     });
 
     return { results, aio };
   } catch (e: any) {
-    console.warn(`  SerpAPI error: ${e.message}`);
+    console.warn(`  DataForSEO error: ${e.message}`);
     return { results: [], aio: null };
   }
 }
@@ -1058,9 +1043,15 @@ async function analyzeGaps(
 
   const roleInstructions = ROLE_PROMPTS[role];
 
-  const prompt = `You are an SEO strategist for tallchairadvisor.com — a niche affiliate site for ergonomic office chairs for tall people (6'+). The author is Jackson Christopher, 6'4", Mechanical Engineering student at UC Berkeley. All chair reviews are either first-person (Steelcase Gesture only, which he owns) or research-based (all other chairs).
+  const systemPrompt = `You are an SEO strategist for tallchairadvisor.com — a niche affiliate site for ergonomic office chairs for tall people (6'+). The author is Jackson Christopher, 6'4", Mechanical Engineering student at UC Berkeley. All chair reviews are either first-person (Steelcase Gesture only, which he owns) or research-based (all other chairs).
 
-ANALYSIS TASK
+findingType guide:
+- absence_claim: content or section is absent/missing/not present
+- spec_gap: missing measurement table, height-range data, numeric specs
+- depth_claim: content exists but is shallow, vague, or needs expansion
+- structure_claim: content exists but placement, framing, or schema is wrong`;
+
+  const userPrompt = `ANALYSIS TASK
 Page: ${tcaPage}
 Page role: ${role}
 Target query: "${query}" (${queryType} benchmark query)
@@ -1084,19 +1075,14 @@ Respond with a JSON array of 3–5 gap findings. Be specific — name the missin
     "recommendation": "exactly what to add or change, with enough detail to act on",
     "competitor": "domain.com"
   }
-]
-
-findingType guide:
-- absence_claim: content or section is absent/missing/not present
-- spec_gap: missing measurement table, height-range data, numeric specs
-- depth_claim: content exists but is shallow, vague, or needs expansion
-- structure_claim: content exists but placement, framing, or schema is wrong`;
+]`;
 
   try {
     const response = await client.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 1200,
-      messages: [{ role: 'user', content: prompt }],
+      system: [{ type: 'text', text: systemPrompt, cache_control: { type: 'ephemeral' } }],
+      messages: [{ role: 'user', content: userPrompt }],
     });
 
     const text = response.content[0].type === 'text' ? response.content[0].text : '';
@@ -1206,18 +1192,49 @@ function synthesizeGaps(allQueryGaps: { query: string; gaps: RawGapFinding[] }[]
     });
 }
 
+// ─── Fallback capsule generation (no AIO passage available) ───────────────────
+
+async function generateFallbackCapsule(
+  query: string,
+  pageContent: string,
+  client: Anthropic
+): Promise<{ capsule: string; heading: string } | null> {
+  try {
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 256,
+      system: [{ type: 'text', text: `You are a citation capsule writer for tallchairadvisor.com, a niche ergonomic chair site for tall people (6'+). Write concise, self-contained passages optimized for AI citation. Always include specific measurements in inches and height context (6ft 3in+ users). Return only XML-tagged output.`, cache_control: { type: 'ephemeral' } }],
+      messages: [{
+        role: 'user',
+        content: `Write a 40-60 word standalone citation capsule for the query: "${query}"\n\nBase it ONLY on TCA page content below. Include specific measurements and height context (6ft 3in+ users).\n\n${pageContent.slice(0, 2000)}\n\nReturn:\n<capsule>your 40-60 word capsule here</capsule>\n<heading>closest matching H2 or H3 heading from the page</heading>`,
+      }],
+    });
+    const text = (response.content[0] as any).text ?? '';
+    const capsule = text.match(/<capsule>([\s\S]*?)<\/capsule>/)?.[1]?.trim();
+    const heading = text.match(/<heading>([\s\S]*?)<\/heading>/)?.[1]?.trim() ?? '';
+    if (!capsule || capsule.length < 20) return null;
+    return { capsule, heading };
+  } catch {
+    return null;
+  }
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
-  const serpApiKey = process.env.SERP_API_KEY;
+  const dfsUser = process.env.DATAFORSEO_USERNAME;
+  const dfsPass = process.env.DATAFORSEO_PASSWORD;
   const firecrawlApiKey = process.env.FIRECRAWL_API_KEY;
 
-  if (!serpApiKey || !firecrawlApiKey) {
+  if (!dfsUser || !dfsPass || !firecrawlApiKey) {
     console.error('Missing required env vars:');
-    if (!serpApiKey) console.error('  SERP_API_KEY — get from serpapi.com');
+    if (!dfsUser) console.error('  DATAFORSEO_USERNAME — get from dataforseo.com');
+    if (!dfsPass) console.error('  DATAFORSEO_PASSWORD — get from dataforseo.com');
     if (!firecrawlApiKey) console.error('  FIRECRAWL_API_KEY — get from firecrawl.dev');
     process.exit(1);
   }
+
+  const dfsAuth = Buffer.from(`${dfsUser}:${dfsPass}`).toString('base64');
 
   const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
   const latestPath = resolve(ROOT, 'data/gsc/latest.json');
@@ -1280,7 +1297,7 @@ async function main() {
     for (const { query, type } of queryTriple) {
       console.log(`  [${type}] "${query}"`);
 
-      const { results: serpResults, aio } = await fetchSerp(query, serpApiKey, serpCache);
+      const { results: serpResults, aio } = await fetchSerp(query, dfsAuth, serpCache);
       await new Promise(r => setTimeout(r, 1200));
 
       // AIO suppression check — only for primary query to control Claude API cost
@@ -1289,19 +1306,31 @@ async function main() {
         console.log(`    AIO detected — TCA not cited. passage: ${aio.passageText.length} chars, citedUrls: ${aio.citedUrls.length} (reliable: ${citedUrlsReliable})`);
 
         if (aio.passageText.length < 50) {
-          // AIO exists but text extraction failed — record suppression, skip capsule generation
-          console.log(`    Passage too short for capsule — marking pending-passage-text`);
-          aioTasks.push({
-            page: opp.page, query, aioFormat: aio.passageFormat,
-            aioPassage: '', aioCitedUrls: aio.citedUrls, citedUrlsReliable,
-            citationCapsule: null, insertAfterHeading: '',
-            status: 'pending-passage-text',
-          });
+          // AIO passage too short — attempt fallback capsule from TCA's own page content
+          console.log(`    Passage too short (${aio.passageText.length} chars) — attempting fallback capsule from page content`);
+          const fallback = await generateFallbackCapsule(query, tcaExtracted.content, client);
+          if (fallback) {
+            aioTasks.push({
+              page: opp.page, query, aioFormat: aio.passageFormat,
+              aioPassage: '', aioCitedUrls: aio.citedUrls, citedUrlsReliable,
+              citationCapsule: fallback.capsule, insertAfterHeading: fallback.heading,
+              status: 'generated',
+            });
+            console.log(`    Fallback capsule generated from page content`);
+          } else {
+            aioTasks.push({
+              page: opp.page, query, aioFormat: aio.passageFormat,
+              aioPassage: '', aioCitedUrls: aio.citedUrls, citedUrlsReliable,
+              citationCapsule: null, insertAfterHeading: '',
+              status: 'pending-passage-text',
+            });
+          }
         } else {
           try {
             const capsuleMsg = await client.messages.create({
               model: 'claude-sonnet-4-6',
               max_tokens: 512,
+              system: [{ type: 'text', text: `You are a citation capsule writer for tallchairadvisor.com, a niche ergonomic chair site for tall people (6'+). Write concise, self-contained passages optimized for Google AI Overview citation. Always include specific measurements in inches and height context (6ft 3in+ users). Match the AIO tone and format exactly. Return only XML-tagged output.`, cache_control: { type: 'ephemeral' } }],
               messages: [{
                 role: 'user',
                 content: `The Google AI Overview for "${query}" uses ${aio.passageFormat} format (${aio.wordCount} words).\nAIO sample: "${aio.passageText.slice(0, 400)}"\nTCA page content (${opp.page}):\n${tcaExtracted.content.slice(0, 2000)}\n\nWrite a 40-60 word standalone citation capsule in ${aio.passageFormat} format for TCA's page on "${query}".\nRules: include specific measurements in inches, include height context (6ft 3in+ users), be self-contained (readable without surrounding context), match the AIO tone exactly.\nReturn your answer using exactly these XML tags and nothing else:\n<capsule>your 40-60 word capsule here</capsule>\n<heading>closest matching H2 or H3 heading from the page</heading>`,
@@ -1485,11 +1514,12 @@ async function main() {
     console.log(`\nApplying ${toApply.length} capsule(s) to src/pages/...`);
     for (const task of toApply) {
       const result = applyCapsuleToPage(ROOT, task.page, task.insertAfterHeading, task.citationCapsule!);
-      task.status = result;
-      console.log(`  ${task.page} → ${result}`);
+      // Mark fallback-generated capsules distinctly (aioPassage empty = no Google AIO source)
+      task.status = (result === 'applied' && task.aioPassage === '') ? 'fallback-applied' : result;
+      console.log(`  ${task.page} → ${task.status}`);
     }
   }
-  if (pendingCount > 0) console.log(`  ${pendingCount} task(s) pending passage text — will auto-resolve when SerpAPI returns AIO text`);
+  if (pendingCount > 0) console.log(`  ${pendingCount} task(s) pending passage text — will auto-resolve when DataForSEO returns AIO text`);
   if (aioTasksRejected.length > 0) console.log(`  ${aioTasksRejected.length} capsule(s) rejected (spec mismatch) — see aioTasksRejected in intelligence.json`);
 
   // Top gaps across all pages, weighted by appearsInQueries
@@ -1508,7 +1538,8 @@ async function main() {
 
   const summary = `${pageAnalyses.length} pages analyzed × up to 3 queries each. ${totalCrawls} URLs crawled (${cacheHits} cache hits). ${highCount} high-priority gaps. Top editorial outrankers: ${topOutrankers.join(', ')}.`;
 
-  const appliedCount = aioTasks.filter(t => t.status === 'applied').length;
+  const appliedCount = aioTasks.filter(t => t.status === 'applied' || t.status === 'fallback-applied').length;
+  const fallbackCount = aioTasks.filter(t => t.status === 'fallback-applied').length;
   const output: IntelligenceOutput = {
     generatedAt: new Date().toISOString(),
     pagesAnalyzed: pageAnalyses.length,
@@ -1529,12 +1560,12 @@ async function main() {
   archiveJsonToRaw(ROOT, 'competitors', `${today()}-intelligence.json`, output);
   updateCompetitorLandscape(output);
   const pendingPassage = aioTasks.filter(t => t.status === 'pending-passage-text').length;
-  appendWikiLog(ROOT, `## [${today()}] competitor-intelligence v2.2 | Strategic Run\n\n- Pages: ${output.pagesAnalyzed} | Queries: ${output.queriesRun} | Crawls: ${output.urlsCrawled} (${output.cacheHits} cached)\n- High-priority gaps: ${highCount}\n- AIO tasks: ${aioTasks.length} generated | ${appliedCount} applied to src/pages/ | ${aioTasksRejected.length} rejected (spec mismatch) | ${pendingPassage} pending passage text\n- ${summary}\n`);
+  appendWikiLog(ROOT, `## [${today()}] competitor-intelligence v2.5 | Strategic Run\n\n- Pages: ${output.pagesAnalyzed} | Queries: ${output.queriesRun} | Crawls: ${output.urlsCrawled} (${output.cacheHits} cached)\n- High-priority gaps: ${highCount}\n- AIO tasks: ${aioTasks.length} generated | ${appliedCount} applied to src/pages/ (${fallbackCount} fallback) | ${aioTasksRejected.length} rejected (spec mismatch) | ${pendingPassage} pending passage text\n- ${summary}\n`);
 
   console.log(`Done.`);
   console.log(`  Pages: ${output.pagesAnalyzed} | Queries run: ${output.queriesRun} | URLs crawled: ${output.urlsCrawled} (${cacheHits} cached)`);
   console.log(`  High-priority gaps: ${highCount}`);
-  console.log(`  AIO tasks: ${aioTasks.length} | applied: ${appliedCount} | rejected: ${aioTasksRejected.length} | pending-passage: ${aioTasks.filter(t => t.status === 'pending-passage-text').length}`);
+  console.log(`  AIO tasks: ${aioTasks.length} | applied: ${appliedCount} (${fallbackCount} fallback) | rejected: ${aioTasksRejected.length} | pending-passage: ${pendingPassage}`);
   console.log(`  Output: data/competitors/intelligence.json`);
 }
 

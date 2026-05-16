@@ -302,7 +302,7 @@ async function main() {
   const wikiIndex = readWikiIndex(ROOT) || '';
   const synthesisContext = readSynthesisContext(ROOT);
   const conceptContext = readConceptContext(ROOT, [
-    'ctr-optimization', 'content-gaps', 'internal-linking', 'ai-citation-readiness', 'indexing-health', 'gsc-intelligence',
+    'ctr-optimization', 'statistical-confidence-policy', 'content-gaps', 'internal-linking', 'ai-citation-readiness', 'indexing-health', 'gsc-intelligence',
   ]);
   const decisionsLog = readWikiPage(ROOT, 'synthesis/decisions-log.md') || '';
   const thesis = readWikiPage(ROOT, 'synthesis/thesis.md') || '';

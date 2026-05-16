@@ -48,5 +48,5 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/audit-report.md raw/ wiki/
-          git diff --staged --quiet || git commit -m "report: Tuesday audit $(date +%Y-%m-%d)"
+          git diff --staged --quiet || git commit -m "[skip cd] report: Tuesday audit $(date +%Y-%m-%d)"
           git push

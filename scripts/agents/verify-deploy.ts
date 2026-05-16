@@ -34,12 +34,20 @@ const SECRET_PATTERNS = [
 
 // Non-Gesture pages — these should never have first-person testing voice
 const NON_GESTURE_VOICE_PATTERNS = [
+  // Brand-anchored patterns (original set)
   /I (tested|sat in|tried|used|reviewed|tested out|tried out) the? (aeron|leap|sihoo|doro)/i,
   /after (sitting|using|trying) (in |out )?(the )?(aeron|leap|sihoo|doro)/i,
   /in my experience.{0,100}(aeron|leap|sihoo|doro)/i,
   /I (found|discovered|noticed|felt).{0,60}(aeron|leap|sihoo|doro)/i,
   /during (my|the) (review|testing|test).{0,60}(aeron|leap|sihoo|doro)/i,
   /I (tried|tested) (it|them|this chair)/i,
+  // Brand-anchor-free patterns — catch generic first-person testing voice without chair name
+  /\bthe chair impressed me\b/i,
+  /\bI('ve| have) found it (superior|uncomfortable|comfortable|excellent|solid)\b/i,
+  /\bafter (sitting|using) (in |it |the chair)\b/i,
+  /\bI('ve| have) been using (this|it) (daily|for)\b/i,
+  /\bmy experience with (this|the) chair\b/i,
+  /\bI (noticed|found|felt) (while|when) (sitting|using)\b/i,
 ];
 
 async function checkSecrets(): Promise<CheckResult> {
@@ -299,12 +307,12 @@ async function main() {
   const summaryResponse = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 800,
-    system: `You are the operations log writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people.
+    system: [{ type: 'text', text: `You are the operations log writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people.
 Write in factual, terse bullet points.
 Show metric changes vs. prior week when data is available (e.g., "Impressions: 12,209 (+1,500 vs prior week)").
 State whether each metric improved or declined.
 Note which specific fixes or content changes likely drove changes.
-Be specific, not generic.`,
+Be specific, not generic.`, cache_control: { type: 'ephemeral' } }],
     messages: [{
       role: 'user',
       content: `Write a brief weekly summary (4-6 bullet points) for tallchairadvisor.com.
