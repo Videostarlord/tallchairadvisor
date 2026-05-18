@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-16
+last_updated: 2026-05-18
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,16 +70,17 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-16. 8 pages analyzed × up to 3 queries each. 2 URLs crawled (54 cache hits). 3 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
+*v2 run 2026-05-18. 8 pages analyzed × up to 3 queries each. 6 URLs crawled (54 cache hits). 5 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-05-16 | No methodology or data-sourcing statement explains how the single-inch breakdown | high | 3q | forbes.com |
-| 2026-05-16 | Explicit fit-range verdict with labeled tiers ('Best fit / Marginal / Not recomm | high | 1q | thehumansolution.com |
-| 2026-05-16 | No AIO-optimized passage explicitly maps a specific height to a specific slider  | high | 1q | forbes.com |
-| 2026-05-16 | The Cornell Ergonomics Rule is introduced in the H1 and repeated in the Poplitea | medium | 1q | ergo.human.cornell.edu |
-| 2026-05-16 | Pressure magnitude data is absent — eurekaergonomic.com cites a 60–100 mmHg pres | medium | 1q | eurekaergonomic.com |
-| 2026-05-16 | Author byline and methodology credentialing are not visibly surfaced near the to | medium | 1q | forbes.com |
-| 2026-05-16 | AggregateRating schema is absent — the schema block lists Article, Person, Organ | medium | 1q | btod.com |
-| 2026-05-16 | No weight capacity dimension integrated into the height-bracket framework — weig | medium | 1q | forbes.com |
-| 2026-05-16 | No named external expert or cited data source (e.g., anthropometric study, ergon | medium | 1q | forbes.com |
+| 2026-05-18 | No methodology or data-sourcing section exists explaining how the dimensional th | high | 2q | forbes.com |
+| 2026-05-18 | Author byline and methodology credentialing are not visibly surfaced near the to | high | 2q | btod.com |
+| 2026-05-18 | The 'Aeron vs Gesture vs Leap Plus for Tall People' section contains only narrat | high | 2q | forbes.com |
+| 2026-05-18 | FAQ section is absent — FAQPage schema is declared but no rendered FAQ section w | high | 1q | eurekaergonomic.com |
+| 2026-05-18 | Explicit fit-range verdict with labeled tiers ('Best fit / Marginal / Not recomm | high | 1q | thehumansolution.com |
+| 2026-05-18 | Head-to-head comparison section vs Steelcase Leap Plus is listed in the manifest | medium | 1q | crandalloffice.com |
+| 2026-05-18 | The self-measurement protocol lacks a named, scannable 'Quick Measurement Card'  | medium | 1q | eurekaergonomic.com |
+| 2026-05-18 | Popliteal compression mechanism section lacks any pressure-magnitude data or qua | medium | 1q | eurekaergonomic.com |
+| 2026-05-18 | No methodology or evaluation criteria section exists in the manifest — the page  | medium | 1q | forbes.com |
+| 2026-05-18 | Chair coverage is limited to three chairs (Aeron Size C, Gesture, Leap Plus); no | medium | 1q | forbes.com |
