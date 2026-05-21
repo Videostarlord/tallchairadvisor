@@ -2,6 +2,11 @@
 type: log
 ---
 
+## [2026-05-21] execute-fixes | Thursday Fixes Applied
+
+- /best-office-chairs/ → src/pages/best-office-chairs.astro
+
+
 ## [2026-05-18] index-monitor | Indexing Health Check
 
 - Pages inspected: 46
