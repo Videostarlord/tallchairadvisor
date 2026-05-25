@@ -1,13 +1,39 @@
 ---
 type: concept
-last_updated: 2026-05-18
-sources: [raw/gsc/gsc-2026-05-18.json]
+last_updated: 2026-05-25
+sources: [raw/gsc/gsc-2026-05-25.json]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-05-18)
+## Latest Snapshot (2026-05-25)
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 23105 |
+| Total clicks | 55 |
+| Avg CTR | 0.24% |
+| Avg position | 10.5 |
+
+## Top Pages
+
+| /review/gesture/ | 4775 impr | pos 7.9 | 0.1% CTR | 5 clicks |
+| /knee-pain-seat-depth/ | 3484 impr | pos 8.4 | 0.2% CTR | 7 clicks |
+| /correct-chair-dimensions/ | 2705 impr | pos 14.7 | 0.15% CTR | 4 clicks |
+| /review/leap-plus/ | 2203 impr | pos 8.1 | 0.23% CTR | 5 clicks |
+| /chairs/herman-miller-aeron/tall-people/ | 1622 impr | pos 7.5 | 0.25% CTR | 4 clicks |
+| /office-chairs-for-tall-people/ | 1224 impr | pos 15.7 | 0.49% CTR | 6 clicks |
+| /review/aeron-size-c/ | 1197 impr | pos 6.8 | 0.5% CTR | 6 clicks |
+| /chairs/steelcase-gesture/seat-depth/ | 1145 impr | pos 8.1 | 0.09% CTR | 1 clicks |
+| /best-office-chairs/ | 1095 impr | pos 21.9 | 0.09% CTR | 1 clicks |
+| /gesture-vs-leap-plus/ | 690 impr | pos 12.9 | 0.14% CTR | 1 clicks |
+
+*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+
+## Historical Snapshots
+
+### 2026-05-18
 
 | Metric | Value |
 |--------|-------|
@@ -15,23 +41,6 @@ tags: [gsc, performance, metrics, tracking]
 | Total clicks | 46 |
 | Avg CTR | 0.24% |
 | Avg position | 10.6 |
-
-## Top Pages
-
-| /review/gesture/ | 3758 impr | pos 7.9 | 0.08% CTR | 3 clicks |
-| /knee-pain-seat-depth/ | 2743 impr | pos 8.3 | 0.18% CTR | 5 clicks |
-| /correct-chair-dimensions/ | 2164 impr | pos 15.4 | 0.18% CTR | 4 clicks |
-| /review/leap-plus/ | 1677 impr | pos 8.1 | 0.24% CTR | 4 clicks |
-| /chairs/herman-miller-aeron/tall-people/ | 1537 impr | pos 7.5 | 0.26% CTR | 4 clicks |
-| /chairs/steelcase-gesture/seat-depth/ | 1085 impr | pos 8.1 | 0.09% CTR | 1 clicks |
-| /best-office-chairs/ | 962 impr | pos 21.9 | 0.1% CTR | 1 clicks |
-| /review/aeron-size-c/ | 946 impr | pos 6.7 | 0.42% CTR | 4 clicks |
-| /office-chairs-for-tall-people/ | 918 impr | pos 18.6 | 0.54% CTR | 5 clicks |
-| /chairs/steelcase-leap-plus/tall-people/ | 588 impr | pos 8.5 | 0% CTR | 0 clicks |
-
-*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
-
-## Historical Snapshots
 
 ### 2026-05-16
 
@@ -88,15 +97,6 @@ tags: [gsc, performance, metrics, tracking]
 | Avg position | 11.5 |
 
 ### 2026-05-05
-
-| Metric | Value |
-|--------|-------|
-| Total impressions | 12209 |
-| Total clicks | 29 |
-| Avg CTR | 0.24% |
-| Avg position | 11.5 |
-
-### 2026-05-04
 
 | Metric | Value |
 |--------|-------|

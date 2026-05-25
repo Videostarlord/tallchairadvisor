@@ -2,6 +2,45 @@
 type: log
 ---
 
+## [2026-05-25] index-monitor | Indexing Health Check
+
+- Pages inspected: 46
+- Indexed: 33 | Issues: 13 | Fixed: 0
+- Sitemap resubmitted: true
+- Issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/office-chair-return-policy/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/ (wait), https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/ (wait)
+
+
+## [2026-05-25] competitor-intelligence v2.5 | Strategic Run
+
+- Pages: 8 | Queries: 24 | Crawls: 29 (18 cached)
+- High-priority gaps: 2
+- AIO tasks: 7 generated | 2 applied to src/pages/ (1 fallback) | 0 rejected (spec mismatch) | 0 pending passage text
+- 8 pages analyzed × up to 3 queries each. 29 URLs crawled (18 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.
+
+
+## [2026-05-25] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 16 (top leak: /office-chairs-for-tall-people/ — "leadership equipment for tall people")
+- Opportunities: 28 actionable
+- AIO suspects: 1
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 8.8% WoW (3683 vs 4038), clicks down 18.2% (9 vs 11), avg position declining (0.9 spots)
+- Query entropy: 2 fragmented pages
+- Hub candidates: 6
+- Transition opportunities: 0
+- AIO recommendations: 1
+- Page velocity: 34 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-05-25] gsc-pull | GSC Data Pull
+
+- Period: 2026-02-24 → 2026-05-25 (90 days)
+- Pages: 46 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 56 | Daily trend rows: 89
+- Clicks: 55 | Impressions: 23105 | Avg pos: 10.5
+
+
 ## [2026-05-23] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
