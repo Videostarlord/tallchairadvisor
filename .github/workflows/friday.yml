@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: false
+
 jobs:
   execute-content:
     runs-on: ubuntu-latest
@@ -71,7 +75,7 @@ jobs:
         run: |
           git add reports/content-log.md raw/ wiki/
           git diff --staged --quiet || git commit -m "[skip cd] data: Friday wiki + reports $(date +%Y-%m-%d)"
-          git push origin HEAD:staging --force
+          git push origin HEAD:staging --force || { sleep 15 && git push origin HEAD:staging --force; } || { sleep 30 && git push origin HEAD:staging --force; }
 
       - name: Commit content log (failures)
         if: env.CONTENT_WRITTEN != 'true'
@@ -80,4 +84,4 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add reports/content-log.md raw/ || true
           git diff --staged --quiet || git commit -m "[skip cd] data: No pages written $(date +%Y-%m-%d) — see content-log.md"
-          git push origin HEAD:staging --force || true
+          git push origin HEAD:staging --force || { sleep 15 && git push origin HEAD:staging --force; } || true

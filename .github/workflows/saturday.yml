@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: false
+
 jobs:
   verify-deploy:
     runs-on: ubuntu-latest
@@ -47,5 +51,5 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add reports/weekly-summary.md raw/ wiki/
           git diff --staged --quiet || git commit -m "deploy: Weekly cycle $(date +%Y-%m-%d)"
-          git push origin staging
-          git push origin HEAD:main
+          git push origin staging || { sleep 15 && git push origin staging; } || { sleep 30 && git push origin staging; }
+          git push origin HEAD:main || { sleep 15 && git push origin HEAD:main; } || { sleep 30 && git push origin HEAD:main; }

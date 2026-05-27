@@ -49,4 +49,4 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add reports/weekly-plan.md raw/ wiki/
           git diff --staged --quiet || git commit -m "[skip cd] plan: Week of $(date +%Y-%m-%d)"
-          git push
+          git push || { sleep 15 && git push; } || { sleep 30 && git push; }

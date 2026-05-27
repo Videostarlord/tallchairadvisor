@@ -442,14 +442,22 @@ ${template}
 Write the complete Astro page. Output the file content only — no markdown fences, no explanation.`,
   }];
 
+  const diffAssets = buildDifferentiationAssets(task.slug, ROOT);
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 8000,
     system: [
       {
         type: 'text',
-        text: `${CONTENT_SYSTEM_PROMPT}\n\nHISTORICAL CONTEXT — WHAT WORKS:\n${synthesisContext}${buildDifferentiationAssets(task.slug, ROOT)}`,
+        // Cache the static rules + synthesis context — same for all tasks in a run.
+        // Enables cache hits on attempt 2/3 retries and on 2nd+ tasks in a multi-task Friday run.
+        text: `${CONTENT_SYSTEM_PROMPT}\n\nHISTORICAL CONTEXT — WHAT WORKS:\n${synthesisContext}`,
         cache_control: { type: 'ephemeral' },
+      },
+      {
+        type: 'text',
+        // Slug-specific differentiation assets (Gesture voice, chair Reddit data) — not cached.
+        text: diffAssets,
       },
     ],
     messages,

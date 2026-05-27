@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: false
+
 jobs:
   data-pull:
     runs-on: ubuntu-latest
@@ -91,4 +95,4 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add data/pipeline-status.json data/gsc/latest.json data/gsc/analysis.json data/gsc/history/ data/competitors/ reports/index-monitor.md raw/ wiki/ src/
           git diff --staged --quiet || git commit -m "[skip cd] data: Monday pull + index fixes $(date +%Y-%m-%d)"
-          git push
+          git push || { sleep 15 && git push; } || { sleep 30 && git push; }

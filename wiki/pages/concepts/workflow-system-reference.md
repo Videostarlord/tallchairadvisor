@@ -153,7 +153,7 @@ Evaluated 2026-05-11. Source: `raw/audits/2026-05-11-workflow-evaluation.md`.
 
 | ID | Issue | Location | Fix |
 |----|-------|----------|-----|
-| M1 | No prompt caching — wiki context + system prompt re-sent every run | `strategy.ts`, `execute-content.ts` | Add `anthropic-beta: prompt-caching-2024-07-31` + `cache_control` on static sections |
+| ~~M1~~ | ~~No prompt caching~~ | ~~`strategy.ts`, `execute-content.ts`~~ | **FIXED 2026-05-27.** All three agents have `cache_control: {type:'ephemeral'}` on system blocks. `execute-content.ts` further split into static-cached block + uncached slug-specific differentiation block — enables cache hits on retries and multi-task runs. |
 | M2 | Thursday force-push doesn't gate on build result before staging push | `thursday.yml` | Ensure `git push --force` only runs after build passes |
 | M3 | No failure notifications beyond GH Actions email | All workflows | Add `curl` POST to webhook in `if: failure()` step on each workflow |
 | M4 | `execute-content.ts` wiki index update hardcoded to `## Concept Pages` heading | `execute-content.ts` | Use flexible insertion pattern; place new entries in Site Page Entities section |
