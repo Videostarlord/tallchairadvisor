@@ -2,6 +2,16 @@
 type: log
 ---
 
+## [2026-05-27] automated | Full SEO audit — 6 agents, 75/100
+
+- **Score: 75/100** (vs 77/100 on May 10). Drop driven by on-page agent surfacing systemic meta-description under-length (9/10 pages under 130 chars — execute-fixes.ts over-trimmed previously over-limit metas) and og:type defaulting to "website" across all content pages.
+- **Raw files:** `raw/audits/2026-05-27-full-seo-audit.md`, `raw/audits/2026-05-27-action-plan.md`
+- **Category scores:** Technical 82, Content 71, On-Page 72, Schema 72, Performance 85, Images 83, AI Search 58
+- **Critical findings:** (1) `/aeron-vs-gesture/` H1/title mismatch — 0% CTR on 385 impressions still unresolved; (2) Homepage WebSite schema missing @id — dangling entity reference; (3) HowTo schema on `/correct-chair-dimensions/` deprecated since Sep 2023
+- **High findings:** 9/10 meta descriptions under-length; `/correct-chair-dimensions/` citation capsule still not applied; title truncation on 2 pages; ItemList `url`→`item` bug; `/author/` 404; Aeron Size C review thin (1,746 words); Quick Picks CTAs on money page routing to internal not Amazon
+- **Wiki updates:** `schema-markup`, `aeron-vs-gesture`, `meta-descriptions` all ingested
+- **Performance:** All CWV estimated PASS, TTFB 43ms, Cloudflare edge cache active
+
 ## [2026-05-26] manual | Content push — 7 pages updated, 1 new page
 
 - **`/correct-chair-dimensions/`** defragmented: title/H1/subtitle rewritten to anthropometric fitment framing; dimensional requirements table moved to top (before intro prose); generic 3-paragraph "Why Standard Specs Fail" section cut to 1 tight paragraph; dateModified updated

@@ -101,7 +101,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 Located in `raw/`. Organized by type:
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
-- `raw/audits/` — Audit/analysis files (latest: 2026-05-14). Key files: `2026-05-13-systems-architecture-audit.md` (current systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (6-specialist SEO audit, 77/100, archived).
+- `raw/audits/` — Audit/analysis files (latest: 2026-05-27). Key files: `2026-05-27-full-seo-audit.md` (current SEO audit, 75/100, 6-agent), `2026-05-27-action-plan.md` (29 prioritized fixes), `2026-05-13-systems-architecture-audit.md` (systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (prior SEO audit, 77/100, archived).
 - `raw/strategy/` — Strategy/planning files (latest: 2026-05-15). Key files: `2026-05-15-niche-incubator-plan.md` (adjacent-project architecture for niche go/no-go scoring), `2026-05-11-niche-validation-evaluation.md` (core validation framework), `2026-05-10-runpod-migration-proposal.md` (historical cost research, backlog only).
 - `raw/reddit/` — Reddit/Apify pipeline docs
 - `raw/misc/` — Session context, PDF

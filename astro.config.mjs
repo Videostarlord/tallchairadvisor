@@ -25,7 +25,7 @@ const pageLastmod = {
   'https://tallchairadvisor.com/review/aeron-size-c/': new Date('2026-05-07'),
   'https://tallchairadvisor.com/review/gesture/': new Date('2026-05-25'),
   'https://tallchairadvisor.com/review/leap-plus/': new Date('2026-03-07'),
-  'https://tallchairadvisor.com/aeron-vs-gesture/': new Date('2026-03-10'),
+  'https://tallchairadvisor.com/aeron-vs-gesture/': new Date('2026-05-27'),
   'https://tallchairadvisor.com/aeron-vs-leap-plus/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/gesture-vs-leap-plus/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/chairs/herman-miller-aeron/': new Date('2026-03-10'),

@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-05-11
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md]
+last_updated: 2026-05-27
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md, raw/audits/2026-05-27-full-seo-audit.md]
 tags: [meta, seo, on-page]
 ---
 
@@ -13,24 +13,28 @@ tags: [meta, seo, on-page]
 - **Title length:** 50–60 chars
 - **Regex bug:** Standard regex breaks on apostrophes in `6'4"`. Always use: `re.search(r'<meta\s+name=["\']description["\']\s+content="(.*?)"', html, re.I)`
 
-## Current Status (May 10 — from full SEO audit)
+## Current Status (May 27 — from full SEO audit)
+
+**9 of 10 audited pages are UNDER the 130-char floor.** Root cause: execute-fixes.ts likely over-trimmed metas that were previously flagged as over-limit in the May 10 audit. The problem has inverted — pages that were 166–170 chars are now 117–135 chars.
 
 | Page | Length | Status |
 |------|--------|--------|
-| /review/gesture/ | 146 | ✅ |
-| /chairs/steelcase-leap-plus/seat-height/ | 133 | ✅ |
-| /knee-pain-seat-depth/ | ~144 | ✅ (rewritten May 7) |
-| /review/aeron-size-c/ | 166 | ❌ Over limit — needs trim |
-| /review/leap-plus/ | 170 | ❌ Over limit — needs trim |
-| /gesture-vs-leap-plus/ | 165 | ❌ Over limit — needs trim |
-| /standing-desk-height-tall-people/ | 161 | ❌ Over limit — needs trim |
-| /aeron-vs-gesture/ | 154 | ⚠️ Borderline — **meta rewrite queued for Thursday W20** |
-| /chairs/herman-miller-aeron/tall-people/ | 149 | ✅ length — **passage-anchor AIO fix queued Thursday W20** |
+| / (homepage) | 102 | ❌ Severely under — highest priority |
+| /review/gesture/ | ~138 | ❌ Under floor (was 146 on May 10 — over-trimmed) |
+| /review/leap-plus/ | ~135 | ⚠️ Borderline |
+| /review/aeron-size-c/ | ~120 | ❌ Under (was 166 — over-trimmed) |
+| /best-office-chairs/ | ~117 | ❌ Under |
+| /aeron-vs-gesture/ | ~90 | ❌ Severely under — highest priority |
+| /correct-chair-dimensions/ | ~117 | ❌ Under |
+| /office-chairs-for-6-foot-4/ | ~122 | ❌ Under |
+| /chairs/herman-miller-aeron/tall-people/ | ~120 | ❌ Under |
+| /heavy-duty-ergonomic-chairs-tall-people/ | ~117 | ❌ Under |
 
-## Open Issues
+## Open Issues (May 27)
 
-1. **4 meta descriptions over 160 chars** (aeron-size-c, leap-plus, gesture-vs-leap-plus, standing-desk) — not yet scheduled for fixes. Add to a future weekly plan.
-2. **Aeron vs Gesture H1/title mismatch** — title says "Why I Chose the Gesture" (personal), H1 says "Herman Miller Aeron Size C vs Steelcase Gesture" (generic). Searchers clicking the personal title see a generic header. Thursday plan addresses the meta; H1 should also be aligned.
+1. **9/10 pages under 130-char floor** — systemic under-length problem. Homepage (102) and /aeron-vs-gesture/ (~90) are most urgent given their impression volume.
+2. **Pattern for all fixes:** height-specific verdict → named spec with number → differentiated value claim, 130–155 chars total.
+3. **Aeron vs Gesture H1/title mismatch** — still unresolved. Title: "Why I Chose the Gesture" (personal). H1: "Herman Miller Aeron Size C vs Steelcase Gesture" (generic). Direct cause of 0% CTR on 385 impressions.
 
 ## Pattern: Verdict-First for Tall Users
 

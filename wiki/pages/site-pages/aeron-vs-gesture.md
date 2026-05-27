@@ -2,38 +2,45 @@
 type: entity
 entity: site-page
 url: /aeron-vs-gesture/
-last_updated: 2026-05-11
-sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json]
+last_updated: 2026-05-27
+sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-05-10-full-seo-audit.md, raw/audits/2026-05-27-full-seo-audit.md, data/gsc/latest.json]
 tags: [page, comparison, ctr-issue, revenue-leak]
 ---
 
 # Page: /aeron-vs-gesture/
 
-## Current State (May 11 — GSC + full SEO audit)
+## Current State (May 27 — GSC + full SEO audit)
 
 | Metric | Value |
 |--------|-------|
-| Blog audit score | 82/100 (Strong) — as of Mar audit |
-| Impressions | 348 |
+| Blog audit score | 63/100 — dropped from 82 (on-page structural issues) |
+| Impressions | 385 |
 | Position | 8.5 |
-| CTR | **0%** (0 clicks on 348 impressions) |
-| Meta description | ~154 chars (borderline, rewrite queued) |
-| Schema | FAQPage + BreadcrumbList |
-| Word count | ~1,400 |
+| CTR | **0%** (0 clicks on 385 impressions) — still unresolved |
+| Meta description | ~90 chars — severely under floor (was 154, over-trimmed) |
+| Schema | Article, ItemList, FAQPage, BreadcrumbList |
+| Word count | ~2,200 |
 
-## Open Issues (May 10 — from full SEO audit, **none fixed yet**)
+## Open Issues (May 27 — CRITICAL, none fixed since May 10)
 
-1. **H1/title mismatch** — Title: "Why I Chose the Gesture" (personal). H1: "Herman Miller Aeron Size C vs Steelcase Gesture" (generic). Searchers who click the personal-angle title hit a generic header. Explains CTR failure alongside meta.
-2. **Quick Answer is non-verdict** — "Aeron for breathability; Gesture for armrests" doesn't deliver on "Why I Chose" promise. Should state Jackson's actual conclusion with rationale.
-3. **0 affiliate links in first 84% of page** — Both Amazon links appear at 85–86% into the HTML. 348 impr/month, 0 clicks. Revenue leak. Add CTA after Quick Answer box.
-4. **Meta rewrite queued** — Thursday W20 agent will rewrite meta to verdict-first with height bracket. *(In weekly plan 2026-05-10.)*
+1. **CRITICAL — H1/title mismatch** — Title: "Why I Chose the Gesture" (personal verdict). H1: "Herman Miller Aeron Size C vs Steelcase Gesture" (generic spec). This is the direct cause of 0% CTR. Fix: change H1 to "Why I Chose the Steelcase Gesture Over the Aeron at 6'4"".
+2. **CRITICAL — Meta ~90 chars** — Severely under floor. Needs full rewrite to 150+ chars with verdict + spec + differentiator.
+3. **Quick Answer is non-verdict** — "Aeron for breathability; Gesture for armrests" doesn't deliver on personal-decision promise.
+4. **All 8 internal links clustered at 90%+ of page depth** — Not contextual. Move 2–3 into body paragraphs.
+5. **Both affiliate CTAs at 93% page depth** — Revenue leak. Move one CTA to after Quick Answer box.
+6. **ItemList uses `url` instead of `item` on ListItem** — Schema spec violation. Fix: `"item": "URL"` not `"url": "URL"`.
+7. **dateModified frozen at March 17** — Update after any fix is applied.
 
 ## Fix History
 
 | Date | Fix | Result |
 |------|-----|--------|
 | 2026-04-03 | Page expanded from ~375 to ~1,400 words | Score 82/100 |
-| 2026-05-[Thu] | Meta rewrite + title fix — queued Thursday W20 | Pending |
+| 2026-05-27 | H1 rewritten to match title intent ("Why I Chose the Steelcase Gesture Over the Aeron at 6'4"") | CTR fix — pending GSC validation |
+| 2026-05-27 | Meta rewritten to ~154 chars with verdict + spec + capacity | From ~90 chars |
+| 2026-05-27 | Quick Answer headline updated to first-person verdict | Aligns with title frame |
+| 2026-05-27 | ItemList `url` → `item` on both ListItems | Schema spec compliance |
+| 2026-05-27 | dateModified updated to 2026-05-27 | Sitemap lastmod also updated |
 
 ## Links
 
