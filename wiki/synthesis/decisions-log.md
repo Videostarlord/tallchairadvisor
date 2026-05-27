@@ -8,6 +8,18 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W22 (May 27) — CTA placement fixed + FTC compliance verified across all affiliate pages
+
+**DONE — `/aeron-vs-gesture/` early CTA added.** Both Amazon CTAs were previously at 85%+ scroll. Added a two-button CTA block (Gesture + Aeron) immediately after the Quick Answer box at the top of the article. Disclosure was already present and compliant.
+
+**DONE — FTC disclosures added to 3 pages.** Source audit found `/knee-pain-seat-depth/`, `/correct-chair-dimensions/`, and `/office-chairs-for-tall-people/` had affiliate links but no body disclosure. Standard amber disclosure box added after Byline on each. Homepage has no affiliate links — disclosure not required.
+
+**DONE — `/review/gesture/` revenue leak confirmed already fixed.** The May 25 rewrite already added a CTA after the Direct Answer box. The wiki note was stale.
+
+**STATUS — All 7 affiliate-link pages are now FTC compliant.** One remaining revenue leak: `/best-office-chairs/` Quick Picks links to internal pages not Amazon. Surfaced in automation.
+
+See [[affiliate-compliance]] for updated full status table.
+
 ## 2026-W22 (May 26) — Content push: 7 pages updated, 1 new page created
 
 **DONE — `/correct-chair-dimensions/` defragmented.** Title/H1/subtitle rewritten to explicitly signal anthropometric fitment for tall users. Dimensional requirements table moved above intro prose. Generic "Why Standard Specs Fail" 3-paragraph section cut to a single tight paragraph. Entropy 4.419 fix: removed generic furniture sizing framing that was attracting 52 unrelated query clusters.

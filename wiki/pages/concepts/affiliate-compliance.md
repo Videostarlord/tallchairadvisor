@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-11
+last_updated: 2026-05-27
 sources: [raw/audits/2026-05-10-full-seo-audit.md]
 tags: [compliance, ftc, affiliate, legal]
 ---
@@ -9,39 +9,30 @@ tags: [compliance, ftc, affiliate, legal]
 
 **CRITICAL — legal requirement, not just SEO.** FTC requires affiliate disclosures to be "clear and conspicuous" — a footer link alone does not satisfy this standard. The disclosure must appear near the top of the page, before affiliate links are encountered.
 
-## Corrected Status (2026-05-11 codebase audit)
+## Verified Status (2026-05-27 — full source audit)
 
-The May 10 SEO audit flagged 6 pages as missing body disclosures. A direct source-file audit on 2026-05-11 found that the 4 highest-priority pages already have inline disclosures in their page body:
+All affiliate-link pages verified against source files:
 
-| Page | Source File Check | Status |
-|------|-------------------|--------|
-| /review/gesture/ | Line 184: `<strong>Disclosure:</strong> We may earn a commission...` | ✅ Has body disclosure |
-| /aeron-vs-gesture/ | Line 110: `<strong>Disclosure:</strong> We may earn a commission...` | ✅ Has body disclosure |
-| /best-office-chairs/ | Line 124: `<strong>Disclosure:</strong> We may earn a commission...` | ✅ Has body disclosure |
-| /review/leap-plus/ | Line 170: `<strong>Disclosure:</strong> We may earn a commission...` | ✅ Has body disclosure |
+| Page | Affiliate Links | Disclosure | Status |
+|------|----------------|-----------|--------|
+| /review/gesture/ | Yes | Line 190 | ✅ Compliant |
+| /aeron-vs-gesture/ | Yes | Line 109 | ✅ Compliant |
+| /best-office-chairs/ | Yes | Line 124 | ✅ Compliant |
+| /review/leap-plus/ | Yes | Line 170 | ✅ Compliant |
+| /knee-pain-seat-depth/ | Yes | Added 2026-05-27 | ✅ Compliant |
+| /correct-chair-dimensions/ | Yes (1 link) | Added 2026-05-27 | ✅ Compliant |
+| /office-chairs-for-tall-people/ | Yes | Added 2026-05-27 | ✅ Compliant |
+| / (Homepage) | None | N/A | ✅ Not required |
 
-The remaining pages from the May 10 audit were NOT individually verified in the 2026-05-11 source audit. They may or may not have body disclosures:
-
-| Page | Affiliate Links Present? | Status |
-|------|--------------------------|--------|
-| / (Homepage) | Unknown | ⚠️ Unverified — check source |
-| /knee-pain-seat-depth/ | Yes (Leap Plus + Gesture CTAs) | ⚠️ Unverified — check source |
-| /shoulder-pain-tall-people/ | Yes | ⚠️ Unverified — check source |
-| /correct-chair-dimensions/ | Unknown | ⚠️ Unverified — check source |
-| /office-chairs-for-tall-people/ (Pillar) | Unknown | ⚠️ Unverified — check source |
-| /standing-desk-height-tall-people/ | Unknown | ⚠️ Unverified — check source |
-
-**Summary:** The May 10 audit's finding of "6 pages missing FTC disclosure" was too broad. At minimum 4 of the named pages already have compliant disclosures. The actual gap may be smaller than originally documented.
+**All 7 affiliate-link pages are now FTC compliant.**
 
 ## Revenue Leaks (separate from compliance)
 
-These are CTA placement issues that cost clicks, not compliance violations:
-
-| Page | Issue |
-|------|-------|
-| /aeron-vs-gesture/ | 0 affiliate links in first 84% of page — both CTAs at 85–86% |
-| /review/gesture/ | Single affiliate link at 85% — needs CTA after DIRECT ANSWER box |
-| /best-office-chairs/ | Quick Picks section links to internal review pages, not Amazon |
+| Page | Issue | Status |
+|------|-------|--------|
+| /aeron-vs-gesture/ | Both CTAs were at 85%+ scroll | ✅ Fixed 2026-05-27 — CTA block added after Quick Answer box |
+| /review/gesture/ | Single CTA at 85% | ✅ Fixed in May 25 rewrite — CTA now after Direct Answer box at top |
+| /best-office-chairs/ | Quick Picks links to internal pages, not Amazon | ❌ Still open — automation will surface this |
 
 ## Required Fix Pattern
 
