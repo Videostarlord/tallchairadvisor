@@ -2,6 +2,14 @@
 type: log
 ---
 
+## [2026-05-26] manual | Content push — 7 pages updated, 1 new page
+
+- **`/correct-chair-dimensions/`** defragmented: title/H1/subtitle rewritten to anthropometric fitment framing; dimensional requirements table moved to top (before intro prose); generic 3-paragraph "Why Standard Specs Fail" section cut to 1 tight paragraph; dateModified updated
+- **5 height-specific pages** (6'3"–6'7") each received a 6-column spec table (seat height range, seat depth, back height, weight capacity, fit verdict) as the first element inside `.prose-tca`, before any prose or quick-answer box
+- **New page `/heavy-duty-ergonomic-chairs-tall-people/`** created: research-voice, targets "best heavy duty ergonomic chairs for tall people"; two-problem frame (weight capacity ≠ tall-user fit); Leap Plus as only mainstream solution; honest Aeron warning (350 lbs); Amazon affiliate links; FAQPage schema
+- Build: clean, 47 pages
+- Thesis items #2, #3, #5 marked DONE
+
 ## [2026-05-25] manual | Gesture review full first-person rewrite
 
 - Full rewrite from Jackson Q&A session — all fabricated voice content replaced with real first-hand data

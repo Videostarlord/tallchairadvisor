@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-23 (priority order rewritten; spec-first fitment frame set; Gesture rewrite protocol documented)
+last_updated: 2026-05-26 (items 2, 3, 5 marked done — correct-chair-dimensions defrag, height-page spec tables, new heavy-duty page)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -53,29 +53,20 @@ The only approved infra follow-up is lightweight **Anthropic Batch** research fo
 ### 0. ~~Build `geo-optimize.ts`~~ — DONE (2026-05-11)
 AIO suppression logic is integrated into `competitor-intelligence.ts` v2.3. SERP cache live. 3 capsules applied. See [[geo-optimize-plan]].
 
-### 1. Gesture review full rewrite — HIGHEST PRIORITY
-**2,529 impr, pos 8.2, 0.09% CTR — worst CTR-to-impression ratio on the site.**
+### ~~1. Gesture review full rewrite~~ — DONE (2026-05-25)
+Full first-person rewrite from Jackson Q&A session. Real pain story, ~3 finger knee clearance (corrected from fabricated 1.5–2), "woah" first sit, nap during finals, honest armrests take. itemReviewed schema fixed. CTA added at top. See [[review-gesture]].
 
-This is a **manual session only** — not suitable for the Friday automation agent. The page requires Jackson's real first-person body data that no agent can fabricate.
+### ~~2. Defragment `/correct-chair-dimensions/`~~ — DONE (2026-05-26)
+Title/H1/subtitle reframed to anthropometric fitment for tall users. Dimensional requirements table moved to top (before intro prose). Generic "Why Standard Specs Fail" section cut to a single tight paragraph. dateModified updated.
 
-**Session protocol:**
-1. Claude asks Jackson a series of prompting questions about his personal experience with the Gesture at 6'4" (seat depth feel, lumbar position, armrest height, how long it took to dial in, what hurt before vs. after, specific measurements he's noticed, etc.)
-2. Jackson answers in his own words
-3. Claude writes the entire rewritten page in first-person voice from those answers
+### ~~3. Add spec tables to height-specific pages~~ — DONE (2026-05-26)
+All 5 pages (6-foot-3 through 6-foot-7) now open with a spec table (seat height range, seat depth, back height, weight capacity, fit verdict) before any prose. Each table is height-specific: 6'3" shows Gesture as sweet spot; 6'5"+ shows Aeron as red/not recommended.
 
-**Do not start this rewrite without going through the question → answer → write sequence.** The first-person data is the entire differentiator.
+### ~~4. Build seat depth calculator on `/knee-pain-seat-depth/`~~ — DONE (2026-05-26)
+3 SVG mannequin body-type selectors + height brackets + manual inseam input. Color-coded chair results with affiliate links. Vanilla JS, no new dependencies.
 
-### 2. Defragment `/correct-chair-dimensions/`
-1,986 impr, pos 15.6, entropy 4.419 (52 query clusters — highest on site). Generic furniture sizing content is draining the tall-user fitment signal. Fix: remove or subordinate generic content, reframe title/intro to explicitly signal anthropometric fitment for tall users. Automation-eligible (Thursday/Friday agent).
-
-### 3. Add spec tables to height-specific pages
-`/office-chairs-for-6-foot-3/` through `/office-chairs-for-6-foot-7/` are sitting at pos 7–10 with near-zero CTR. Pattern from highest-CTR pages: specific measurement = clicks. Add a spec table (seat height range, seat depth range, weight capacity per chair) before any prose on each page. Automation-eligible.
-
-### 4. Build seat depth calculator on `/knee-pain-seat-depth/`
-TCA is the canonical web reference for the Cornell seat depth rule — 8+ query variants route to this page. A calculator (input: height → output: seat depth range + matching chairs with affiliate links) converts an informational moat into a conversion engine. **Manual build required** — vanilla JS in an Astro `<script>` tag, no new dependencies needed. Estimated: 2–3 hour session.
-
-### 5. Weight capacity guide for tall heavy users (new page)
-"Best heavy duty ergonomic chairs for tall people" at pos 14 with zero dedicated content. Leap Plus 500 lb capacity queries confirming. No competitor owns this. Research-voice page — automation-eligible.
+### ~~5. Weight capacity guide for tall heavy users (new page)~~ — DONE (2026-05-26)
+New page: `/heavy-duty-ergonomic-chairs-tall-people/`. Research-voice. "Two-problem frame" (weight capacity ≠ tall-user fit). Leap Plus as only chair that solves both. Honest Aeron warning (350 lbs lowest in category). Amazon affiliate links included.
 
 ### 6. Leap Plus "almost bought" reframe
 /review/leap-plus/ at pos 9.3 with 632 impressions. "I almost bought this — here's the spec analysis" narrative. Automation-eligible after cooldown clears.

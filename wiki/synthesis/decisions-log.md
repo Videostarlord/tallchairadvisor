@@ -1,12 +1,20 @@
 ---
 type: synthesis
-last_updated: 2026-05-23
+last_updated: 2026-05-26
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W22 (May 26) — Content push: 7 pages updated, 1 new page created
+
+**DONE — `/correct-chair-dimensions/` defragmented.** Title/H1/subtitle rewritten to explicitly signal anthropometric fitment for tall users. Dimensional requirements table moved above intro prose. Generic "Why Standard Specs Fail" 3-paragraph section cut to a single tight paragraph. Entropy 4.419 fix: removed generic furniture sizing framing that was attracting 52 unrelated query clusters.
+
+**DONE — Spec tables added to all 5 height-specific pages.** `/office-chairs-for-6-foot-3/` through `/office-chairs-for-6-foot-7/` now open with a 6-column spec table (chair, seat height range, seat depth, back height, weight capacity, fit verdict) before any prose. Each table is height-calibrated: 6'3" shows Gesture as sweet spot; 6'5"+ shows Aeron Size C as red/not recommended. Pattern from GSC: specific measurement = clicks.
+
+**DONE — New page `/heavy-duty-ergonomic-chairs-tall-people/` created.** Research-voice. Targets "best heavy duty ergonomic chairs for tall people" (pos 14, no dedicated content). Core frame: weight capacity and tall-user dimensional fit are two separate problems most chairs solve only one of. Leap Plus (500 lbs + 22.5" seat height) as only mainstream solution to both. Honest Aeron warning (350 lbs — lowest capacity in category). Amazon affiliate links included. 47th page on site.
 
 ## 2026-W21 (May 23) — Strategic direction set; Gesture rewrite protocol established
 

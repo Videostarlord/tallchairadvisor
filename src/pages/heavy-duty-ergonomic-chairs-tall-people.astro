@@ -1,0 +1,396 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Heavy-Duty Ergonomic Chairs for Tall People: Weight Capacity and Tall-User Specs",
+    "url": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
+    "description": "Finding a chair with both high weight capacity and tall-user dimensions is harder than it sounds. Here's what to look for — and which chairs actually clear both bars.",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-05-26",
+    "wordCount": 2000,
+    "dateModified": "2026-05-26",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Office Chairs for Tall People", "item": "https://tallchairadvisor.com/office-chairs-for-tall-people/" },
+      { "@type": "ListItem", "position": 3, "name": "Heavy Duty Ergonomic Chairs", "item": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best heavy-duty ergonomic chair for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Steelcase Leap Plus is the best heavy-duty ergonomic chair for tall people. It combines a 500 lb weight capacity with genuine tall-user dimensional specs: seat height up to 22.5\", adjustable seat depth up to 19.75\", and a 25.5\" back height. It's the rare chair that solves both the weight capacity problem and the dimensional fit problem simultaneously. Most \"big and tall\" consumer chairs offer high weight capacity but fail on seat height, seat depth, and lumbar adjustability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What weight capacity do I need in an office chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most ergonomic chairs are rated for 250–350 lbs. For users at or above 250 lbs, a 400 lb rated chair provides a meaningful safety margin. For users at or above 300 lbs, a 500 lb rated chair is the appropriate starting point. Weight capacity ratings reflect both structural integrity and the durability of components — a chair used continuously near its maximum rating will wear faster than one with headroom to spare."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Herman Miller Aeron good for heavier users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Herman Miller Aeron Size C has a 350 lb weight capacity — lower than the Steelcase Gesture (400 lbs) and significantly lower than the Steelcase Leap Plus (500 lbs). For users at or above 300 lbs, the Aeron's capacity is uncomfortably close to its limit. It's not the right choice for users who need both high weight capacity and tall-user dimensional fit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do big-and-tall chairs have good ergonomic support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most consumer big-and-tall chairs are not ergonomically equivalent to purpose-built ergonomic chairs. They're engineered for weight capacity and wider seat pans — not for adjustable lumbar support, seat depth control, or tilt mechanics. The Steelcase Leap Plus is an exception: it's built on a serious ergonomic platform with genuine adjustability, not a consumer big-and-tall frame."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What office chair dimensions do I need at 250 lbs and 6'3\"+?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At 250 lbs and 6'3\"+, you need both a high weight capacity (400 lbs minimum, 500 lbs preferred) and tall-user dimensional specs: seat height max of at least 19.5–21\", seat depth of at least 18–19.5\", and back height of at least 24–25.5\". The Steelcase Leap Plus (500 lbs, 22.5\" seat height, 19.75\" depth, 25.5\" back) is the only mainstream ergonomic chair that meets all of these requirements simultaneously."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Heavy-Duty Ergonomic Chairs for Tall People | Weight Capacity + Tall-User Specs"
+  description="Best heavy-duty ergonomic chairs for tall people: Leap Plus (500 lbs, 22.5-inch seat height) leads. See which chairs solve both problems at once."
+  schema={schema}
+  ogType="article"
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Heavy-Duty Ergonomic Chairs for Tall People</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Weight capacity and tall-user dimensional fit are two separate problems — most chairs solve only one
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-05-26" />
+
+    <div class="prose-tca">
+
+      <!-- Quick answer box -->
+      <div class="not-prose bg-secondary/40 border border-border rounded-lg px-5 py-4 my-8 text-sm text-muted-foreground leading-relaxed">
+        <strong class="text-heading block mb-2">Quick Answer</strong>
+        The <strong>Steelcase Leap Plus</strong> is the only mainstream ergonomic chair that solves both problems at once: 500 lb weight capacity, 22.5" maximum seat height, 19.75" adjustable seat depth, 25.5" back height. The Herman Miller Aeron Size C caps at 350 lbs — a significant limitation for heavier users. Most consumer "big-and-tall" chairs offer weight capacity but fail on seat depth adjustability, lumbar mechanics, and tall-user seat height range.
+      </div>
+
+      <!-- Spec comparison table -->
+      <div class="not-prose overflow-x-auto my-8">
+        <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+          <thead class="bg-secondary/50">
+            <tr>
+              <th class="px-4 py-3 text-left font-semibold text-heading">Chair</th>
+              <th class="px-4 py-3 text-left font-semibold text-heading">Weight Cap.</th>
+              <th class="px-4 py-3 text-left font-semibold text-heading">Seat Height Max</th>
+              <th class="px-4 py-3 text-left font-semibold text-heading">Seat Depth Max</th>
+              <th class="px-4 py-3 text-left font-semibold text-heading">Back Height</th>
+              <th class="px-4 py-3 text-left font-semibold text-heading">For Tall + Heavy Users</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bg-card">
+              <td class="px-4 py-3 font-medium text-heading">Steelcase Leap Plus</td>
+              <td class="px-4 py-3 font-medium text-green-700 dark:text-green-400">500 lbs</td>
+              <td class="px-4 py-3 text-muted-foreground">22.5"</td>
+              <td class="px-4 py-3 text-muted-foreground">19.75" (adj)</td>
+              <td class="px-4 py-3 text-muted-foreground">25.5"</td>
+              <td class="px-4 py-3 font-medium text-green-700 dark:text-green-400">Recommended — passes both tests</td>
+            </tr>
+            <tr class="bg-secondary/20">
+              <td class="px-4 py-3 font-medium text-heading">Steelcase Gesture</td>
+              <td class="px-4 py-3 text-muted-foreground">400 lbs</td>
+              <td class="px-4 py-3 text-muted-foreground">21"</td>
+              <td class="px-4 py-3 text-muted-foreground">18.75" (adj)</td>
+              <td class="px-4 py-3 text-muted-foreground">24"</td>
+              <td class="px-4 py-3 font-medium text-yellow-700 dark:text-yellow-400">Good to 6'3" — capacity adequate to ~350 lbs</td>
+            </tr>
+            <tr class="bg-card">
+              <td class="px-4 py-3 font-medium text-heading">Herman Miller Aeron Size C</td>
+              <td class="px-4 py-3 font-medium text-red-700 dark:text-red-400">350 lbs</td>
+              <td class="px-4 py-3 text-muted-foreground">20.5"</td>
+              <td class="px-4 py-3 text-muted-foreground">18.5" (fixed)</td>
+              <td class="px-4 py-3 text-muted-foreground">23"</td>
+              <td class="px-4 py-3 font-medium text-red-700 dark:text-red-400">Low capacity — not suited for heavier tall users</td>
+            </tr>
+            <tr class="bg-secondary/20">
+              <td class="px-4 py-3 font-medium text-heading">Humanscale Freedom Headrest</td>
+              <td class="px-4 py-3 font-medium text-red-700 dark:text-red-400">300 lbs</td>
+              <td class="px-4 py-3 text-muted-foreground">20.5"</td>
+              <td class="px-4 py-3 text-muted-foreground">~18" (limited adj)</td>
+              <td class="px-4 py-3 text-muted-foreground">~22"</td>
+              <td class="px-4 py-3 font-medium text-red-700 dark:text-red-400">Lowest capacity — not appropriate for heavy + tall</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-muted-foreground mt-2">Manufacturer-verified specs. Weight capacity ratings reflect structural limits under continuous use — not one-time load tests.</p>
+      </div>
+
+      <section>
+        <h2>Why Weight Capacity and Tall-User Fit Are Two Separate Problems</h2>
+        <p>
+          "Heavy duty" in chair marketing typically means a wider seat pan and a higher structural weight limit. It doesn't mean the chair was designed for tall-user dimensional requirements. A 500 lb rated chair can still have a seat height ceiling of 18" — useless for a 6'4" user whose popliteal height is 20"+. Both problems need solving at the same time, and very few chairs address both.
+        </p>
+        <p>
+          The dimensional issue is straightforward: if the seat can't raise to match your floor-to-knee-crease measurement, your thighs angle upward at the highest setting. That creates femoral compression and posterior pelvic tilt — the mechanical precursor to lower back strain. Weight capacity being high doesn't prevent this. Seat height range does.
+        </p>
+        <p>
+          At 250 lbs and 6'3"+, you're looking for a chair that clears at least three thresholds simultaneously: weight capacity of 400 lbs or more, seat height max of at least 19.5–21" (depending on your exact height), and seat depth of at least 18.5–19.5". That intersection is narrow. The <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> walks through how to take your own measurements before comparing chairs.
+        </p>
+
+        <blockquote class="border-l-4 border-primary/40 pl-4 italic text-muted-foreground text-sm my-6">
+          The Steelcase Leap Plus (500 lbs capacity, 22.5" seat height maximum, 19.75" adjustable seat depth, 25.5" back height) is the only mainstream ergonomic chair whose published specs clear both the weight capacity and tall-user dimensional thresholds simultaneously for users at 6'3" and above. All other mainstream ergonomic chairs fail on at least one of these dimensions for heavy tall users. (Steelcase product specification sheets, 2024)
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>How Each Chair Handles the Two-Problem Frame</h2>
+
+        <h3>Steelcase Leap Plus — 500 lbs, Genuine Ergonomic Platform</h3>
+        <p>
+          The Leap Plus is Steelcase's purpose-built big-and-tall variant of the Leap V2. It's the chair that appears at the top of this analysis because it's the only mainstream option that passes both tests. Based on manufacturer specs and community reports from r/ergonomics and r/OfficeChairs, the Leap Plus handles users who are both tall and heavier better than any comparable option.
+        </p>
+        <p>
+          The engineering reason it works where others don't: Steelcase built the Leap Plus on the same ergonomic platform as the standard Leap, but reinforced the frame, seat pan, and base to handle 500 lbs continuously. The lumbar, tilt, and seat depth mechanisms are identical to the standard Leap — which means you get full ergonomic adjustability without the compromises common in consumer big-and-tall chairs.
+        </p>
+        <p>
+          Seat height reaches 22.5", which covers most users up to 6'6". Seat depth adjusts to 19.75" — the only adjustable seat depth in this category that consistently clears the 19" minimum needed at 6'3"+. Back height is 25.5", which reaches the shoulder blades for most proportions in the 6'3"–6'5" range.
+        </p>
+        <p>
+          The honest limitation: the Leap Plus isn't cheap, and it's bulkier than the standard Leap. Users who weigh 200 lbs and are 6'2" may find the chair feels oversized. But if you're at the intersection of heavier and taller — say, 250–400 lbs at 6'3" to 6'6" — the Leap Plus is the only mainstream chair designed for that body.
+        </p>
+        <p>
+          <a href="https://www.amazon.com/dp/B00IYXROJY?tag=tallchairadvi-20" target="_blank" rel="noopener sponsored" class="font-medium">View Steelcase Leap Plus on Amazon</a>
+        </p>
+        <p>
+          See the <a href="/review/leap-plus/" class="link-internal">full Steelcase Leap Plus review</a> and the <a href="/chairs/steelcase-leap-plus/tall-people/" class="link-internal">Leap Plus tall-people fit guide</a> for the complete dimensional analysis.
+        </p>
+
+        <h3>Steelcase Gesture — 400 lbs, Best-in-Class Arms, Seat Depth Is the Limit</h3>
+        <p>
+          The Gesture carries a 400 lb weight capacity — sufficient for most users below 350 lbs but without the margin the Leap Plus provides. Based on Steelcase's own design documentation, the Gesture's upper design limit is 6'3", making it most appropriate for users in the 6'0"–6'3" range who also need higher weight capacity.
+        </p>
+        <p>
+          The seat depth caps at 18.75", which works for most 6'3" proportions but becomes borderline at 6'4"+. For a user who is both 6'4" and above 300 lbs, the Gesture's 400 lb capacity provides less margin than ideal, and the seat depth will be tight. The Leap Plus is the more conservative choice at that combination.
+        </p>
+        <p>
+          Where the Gesture genuinely stands apart is the 4D arm system. Its 360-degree arm movement handles multi-monitor work, reclining positions, and side tables in a way no competitor's arms match. If you're at 6'2"–6'3" and 250–350 lbs, the Gesture may be the better chair for your specific work pattern.
+        </p>
+        <p>
+          See the <a href="/review/gesture/" class="link-internal">full Steelcase Gesture review</a> for the complete fit analysis. The <a href="/chairs/steelcase-gesture/weight-limit/" class="link-internal">Gesture weight limit guide</a> covers the capacity specs in detail.
+        </p>
+
+        <h3>Herman Miller Aeron Size C — 350 lbs: An Honest Warning</h3>
+        <p>
+          The Aeron Size C is one of the most recommended ergonomic chairs, and it deserves that reputation within its design envelope. But its 350 lb weight capacity is the lowest of the three premium ergonomic chairs in this category — and it's worth being direct about what that means.
+        </p>
+        <p>
+          A user at 300 lbs sits 85% of the way to the Aeron's rated capacity. Ergonomic engineers generally advise not selecting a chair within 20% of its structural limit for continuous-use applications. At 300–325 lbs, the Aeron's capacity ceiling is genuinely a concern — not a theoretical one. Component wear, pneumatic cylinder performance, and mesh tension all degrade faster when a chair is used near its maximum load.
+        </p>
+        <p>
+          The dimensional picture compounds this. The Aeron's seat depth is fixed at 18.5" with no slider — there's no adjustment available if that falls short for your thigh length. At 6'4"+, 18.5" is likely short. The back height of 23" is the lowest of the three chairs, and it may not reach shoulder blades on users with longer torsos at this height.
+        </p>
+        <p>
+          For heavier tall users, the Aeron is not the right chair. This isn't a close call. Read the <a href="/review/aeron-size-c/" class="link-internal">full Aeron Size C review</a> to understand where it fits well.
+        </p>
+        <p>
+          <a href="https://www.amazon.com/dp/B01N0H73KU?tag=tallchairadvi-20" target="_blank" rel="noopener sponsored" class="font-medium">View Herman Miller Aeron Size C on Amazon</a>
+          <span class="text-sm text-muted-foreground"> — Not recommended for users above 280 lbs or above 6'4".</span>
+        </p>
+
+        <h3>Humanscale Freedom Headrest — 300 lbs: The Lowest Capacity Here</h3>
+        <p>
+          The Humanscale Freedom with headrest is a well-regarded chair for users in the 5'8"–6'2" range who don't need high weight capacity. Its 300 lb limit and approximately 18" seat depth make it a poor fit for the heavy-and-tall use case. The self-adjusting recline mechanism is genuinely clever, and the headrest is among the best available. But neither of those features compensates for dimensional and capacity shortfalls at 6'3"+ and above 250 lbs.
+        </p>
+        <p>
+          The Freedom is worth knowing about as context — it's often recommended for tall users in general guides that don't distinguish between height requirements and weight requirements. For users in its weight range and height range, it's a strong chair. For heavy tall users specifically, it's not appropriate.
+        </p>
+      </section>
+
+      <section>
+        <h2>What "Big-and-Tall" Consumer Chairs Actually Offer</h2>
+        <p>
+          Consumer big-and-tall chairs — the category that dominates search results for "office chair 500 lb capacity" — are built around a different set of design priorities than ergonomic chairs. Understanding the difference before buying can save considerable money and back pain.
+        </p>
+
+        <h3>What Consumer Big-and-Tall Chairs Do Well</h3>
+        <p>
+          Consumer big-and-tall chairs typically offer: high structural weight capacity (400–600+ lbs), wider seat pans (22"+ across), reinforced bases and casters, and higher seat height ranges in some cases. These are real advantages. For a user whose primary concern is structural safety and seat width, the consumer big-and-tall category can work.
+        </p>
+
+        <h3>Where Consumer Big-and-Tall Chairs Fall Short</h3>
+        <p>
+          The shortfalls are consistent across almost all consumer big-and-tall chairs: lumbar support is often fixed or limited to 1–2 inches of height adjustment, seat depth is rarely adjustable, tilt mechanics are basic (often just tilt tension without a proper recline lock or forward tilt), and arm systems lack the range and adjustability of purpose-built ergonomic chairs.
+        </p>
+        <p>
+          For a tall user spending 6–8 hours a day at a desk, these aren't minor inconveniences. Fixed lumbar support that sits 3" below your actual lumbar spine doesn't prevent back pain — it causes it. The engineering reason: lumbar contact at the wrong spinal level creates a fulcrum that increases disc compression rather than reducing it.
+        </p>
+
+        <h3>The Leap Plus as the Bridge Between Categories</h3>
+        <p>
+          The Leap Plus sits in a different category from consumer big-and-tall chairs precisely because Steelcase built it on the Leap V2's ergonomic platform — not on a commodity big-and-tall frame. It has the adjustable lumbar, dynamic backrest flex, and seat depth control that consumer big-and-tall chairs don't. The 500 lb capacity is a genuine engineering spec, not just a marketing number applied to a standard frame. Tall users in r/ergonomics who report using the Leap Plus consistently describe it as the first chair where weight capacity and ergonomic adjustability came together rather than requiring a trade-off between the two.
+        </p>
+      </section>
+
+      <section>
+        <h2>How to Verify a Chair Meets Your Requirements Before Buying</h2>
+        <p>
+          Before purchasing any chair in this category, take three measurements while seated on a firm, flat surface with feet flat and knees at 90 degrees. These three numbers tell you whether any chair's spec sheet can actually support your body.
+        </p>
+        <ul>
+          <li><strong>Popliteal height</strong> (floor to knee crease): this must not exceed the chair's maximum seat height</li>
+          <li><strong>Thigh length</strong> (back-of-hip to 2–3" before knee crease): this must not exceed the chair's maximum seat depth</li>
+          <li><strong>Seated torso height</strong> (seat surface to shoulder blades): the chair's back height must reach this measurement</li>
+        </ul>
+        <p>
+          Then add your weight against the chair's rated capacity. If any one of these four figures doesn't clear, that chair won't work for you regardless of what the marketing says.
+        </p>
+        <p>
+          The <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> has step-by-step measurement instructions and a reference table by height bracket. For height-specific recommendations, see the guides for <a href="/office-chairs-for-6-foot-3/" class="link-internal">6'3"</a>, <a href="/office-chairs-for-6-foot-4/" class="link-internal">6'4"</a>, <a href="/office-chairs-for-6-foot-5/" class="link-internal">6'5"</a>, and <a href="/office-chairs-for-6-foot-6/" class="link-internal">6'6"</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>What is the best heavy-duty ergonomic chair for tall people?</h3>
+        <p>
+          The Steelcase Leap Plus. It's the only mainstream ergonomic chair that combines 500 lb weight capacity with tall-user dimensional specs: 22.5" maximum seat height, 19.75" adjustable seat depth, and 25.5" back height. Most big-and-tall chairs offer weight capacity without proper lumbar adjustability. The Leap Plus offers both. See the <a href="/review/leap-plus/" class="link-internal">full Leap Plus review</a> for complete fit data.
+        </p>
+
+        <h3>What weight capacity do I actually need?</h3>
+        <p>
+          A useful rule: select a chair with a weight capacity at least 25–30% above your actual body weight. At 250 lbs, that means a 320 lb minimum — the Gesture (400 lbs) or Leap Plus (500 lbs) both provide adequate margin. At 300 lbs, the Aeron's 350 lb ceiling is too close to the limit for comfortable continuous use. At 350 lbs and above, the Leap Plus is the appropriate starting point.
+        </p>
+
+        <h3>Is the Herman Miller Aeron good for heavier users?</h3>
+        <p>
+          Not for users approaching 300 lbs. The Aeron Size C's 350 lb capacity leaves a narrow margin at that weight, and component wear accelerates when chairs operate near their rated limits. For users at or above 280 lbs, the Gesture (400 lbs) or Leap Plus (500 lbs) provide better structural headroom and longer-term durability.
+        </p>
+
+        <h3>Do big-and-tall chairs have good ergonomic support?</h3>
+        <p>
+          Most don't. Consumer big-and-tall chairs are built for weight capacity and seat width — not lumbar adjustability or seat depth control. The Steelcase Leap Plus is the exception: it's built on a serious ergonomic platform with the same adjustability as the standard Leap V2. If ergonomic support matters, the Leap Plus is in a different category from most chairs marketed as "big and tall."
+        </p>
+
+        <h3>What dimensions do I need at 250 lbs and 6'3"+?</h3>
+        <p>
+          At 250 lbs and 6'3"+, you need a weight capacity of at least 400 lbs (500 lbs preferred for margin), a seat height ceiling of at least 19.5–21" depending on your exact height, a seat depth of at least 18.5–19.5", and a back height of at least 24–25.5". The Steelcase Leap Plus clears all of these. The Steelcase Gesture passes at 6'3" but becomes borderline at 6'4"+. The Aeron fails on weight capacity for users above 280 lbs. See the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> to measure your own requirements.
+        </p>
+      </section>
+
+      <section>
+        <h2>Where to Buy</h2>
+        <p>
+          Both the Leap Plus and Gesture are available through Amazon, Steelcase authorized dealers, and the refurbished market. Certified refurbished Leap Plus chairs are a legitimate option — the chair's mechanical systems are durable enough that a well-maintained refurbished unit performs comparably to new.
+        </p>
+        <ul>
+          <li>
+            <a
+              href="https://www.amazon.com/dp/B00IYXROJY?tag=tallchairadvi-20"
+              class="link-internal"
+              rel="nofollow sponsored"
+              target="_blank"
+            >
+              Steelcase Leap Plus on Amazon — 500 lbs, top pick for heavy tall users
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.amazon.com/dp/B01N0H73KU?tag=tallchairadvi-20"
+              class="link-internal"
+              rel="nofollow sponsored"
+              target="_blank"
+            >
+              Herman Miller Aeron Size C on Amazon — 350 lbs, suitable only below 280 lbs
+            </a>
+          </li>
+        </ul>
+        <p class="text-sm text-muted-foreground">
+          Disclosure: links above use an affiliate tag. Tall Chair Advisor earns a commission on qualifying purchases at no additional cost to you.
+        </p>
+      </section>
+
+      <section>
+        <h2>Related Guides</h2>
+        <ul>
+          <li>
+            <a href="/review/leap-plus/" class="link-internal">
+              Steelcase Leap Plus — full review for tall users
+            </a>
+          </li>
+          <li>
+            <a href="/chairs/steelcase-leap-plus/tall-people/" class="link-internal">
+              Leap Plus tall-people fit guide — seat height, depth, and back height analysis
+            </a>
+          </li>
+          <li>
+            <a href="/chairs/steelcase-gesture/weight-limit/" class="link-internal">
+              Steelcase Gesture weight limit — capacity specs and implications
+            </a>
+          </li>
+          <li>
+            <a href="/correct-chair-dimensions/" class="link-internal">
+              Correct chair dimensions for tall people — measurement guide by height
+            </a>
+          </li>
+          <li>
+            <a href="/office-chairs-for-tall-people/" class="link-internal">
+              Office chairs for tall people — complete buyer's guide
+            </a>
+          </li>
+          <li>
+            <a href="/office-chairs-for-6-foot-4/" class="link-internal">
+              Best office chair for 6'4" — dimensional breakdown and verdict
+            </a>
+          </li>
+          <li>
+            <a href="/office-chairs-for-6-foot-5/" class="link-internal">
+              Best office chair for 6'5" — why the Leap Plus pulls ahead at this height
+            </a>
+          </li>
+          <li>
+            <a href="/best-office-chairs/" class="link-internal">
+              Best office chairs for tall people — full ranked guide
+            </a>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </article>
+</Layout>

@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-15 (architecture audit implementation status verified; statistical confidence policy added; old audit pages archived)
+last_updated: 2026-05-26 (heavy-duty page added; correct-chair-dimensions defrag done; height-page spec tables done)
 ---
 
 # TCA Wiki Index
@@ -29,6 +29,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[chairs-herman-miller-aeron-size-guide]] | NEW 2026-04-13. Size B vs C guide for tall users. No GSC data yet. |
 | [[correct-chair-dimensions]] | Educational. 1,766 impr, pos 15.8. Top GSC opportunity (content-depth, score 883). May 12. |
 | [[best-office-chairs]] | Money page. 776 impr, pos 22.5, 0 clicks. AIO capsule applied May 12 (21" Aeron seat height). |
+| [[heavy-duty-ergonomic-chairs]] | **NEW 2026-05-26.** Targets "best heavy duty ergonomic chairs for tall people" (pos 14). Two-problem frame: weight capacity + tall-user dimensions. Leap Plus as only mainstream solution. |
 
 ## Concept Pages
 
