@@ -104,6 +104,113 @@ const schema = [
       <p>Cornell ergonomics research defines correct seat depth as leaving 2–3 finger-widths of clearance between the front edge of the seat and the back of your knees. For most tall people, this means choosing a chair with a seat depth of 18–20 inches minimum. Standard office chairs top out at 17 inches — which is why knee pain is a tall-person problem, not a sitting posture problem.</p>
     </div>
 
+    <!-- Seat Depth Calculator -->
+    <div id="seat-depth-calc" class="my-10 bg-card border border-border rounded-xl overflow-hidden">
+      <div class="bg-primary/5 border-b border-border px-6 py-4">
+        <p class="font-semibold text-heading text-lg">Seat Depth Calculator</p>
+        <p class="text-sm text-muted-foreground mt-1">Select your height and body type to find your minimum seat depth and which chairs cover it.</p>
+      </div>
+
+      <div class="p-6">
+        <!-- Step 1: Height -->
+        <div id="calc-step1">
+          <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">Step 1 — How tall are you?</p>
+          <div class="flex flex-wrap gap-2">
+            <button class="height-btn px-4 py-2 rounded-md border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors" data-height="6.0">6'0"–6'1"</button>
+            <button class="height-btn px-4 py-2 rounded-md border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors" data-height="6.1">6'1"–6'2"</button>
+            <button class="height-btn px-4 py-2 rounded-md border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors" data-height="6.2">6'2"–6'3"</button>
+            <button class="height-btn px-4 py-2 rounded-md border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors" data-height="6.3">6'3"–6'4"</button>
+            <button class="height-btn px-4 py-2 rounded-md border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors" data-height="6.4">6'4"–6'5"</button>
+            <button class="height-btn px-4 py-2 rounded-md border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors" data-height="6.5">6'5"+</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Body type (revealed after height selection) -->
+        <div id="calc-step2" class="hidden mt-8">
+          <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-4">Step 2 — Which best describes your proportions?</p>
+          <div class="grid grid-cols-3 gap-3 max-w-lg">
+
+            <!-- Short legs / long torso -->
+            <button class="body-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer" data-body="short">
+              <svg viewBox="0 0 60 120" width="56" height="112" aria-hidden="true">
+                <circle cx="30" cy="10" r="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                <rect x="27" y="19" width="6" height="5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+                <rect x="14" y="24" width="32" height="56" rx="3" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+                <rect x="14" y="81" width="14" height="32" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                <rect x="32" y="81" width="14" height="32" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+              </svg>
+              <p class="text-xs font-medium text-heading text-center leading-snug">Short legs<br/>long torso</p>
+            </button>
+
+            <!-- Average proportions -->
+            <button class="body-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer" data-body="average">
+              <svg viewBox="0 0 60 120" width="56" height="112" aria-hidden="true">
+                <circle cx="30" cy="10" r="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                <rect x="27" y="19" width="6" height="5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+                <rect x="14" y="24" width="32" height="40" rx="3" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+                <rect x="14" y="65" width="14" height="48" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                <rect x="32" y="65" width="14" height="48" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+              </svg>
+              <p class="text-xs font-medium text-heading text-center leading-snug">Average<br/>proportions</p>
+            </button>
+
+            <!-- Long legs / short torso -->
+            <button class="body-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer" data-body="long">
+              <svg viewBox="0 0 60 120" width="56" height="112" aria-hidden="true">
+                <circle cx="30" cy="10" r="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                <rect x="27" y="19" width="6" height="5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+                <rect x="14" y="24" width="32" height="24" rx="3" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+                <rect x="14" y="49" width="14" height="64" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                <rect x="32" y="49" width="14" height="64" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+              </svg>
+              <p class="text-xs font-medium text-heading text-center leading-snug">Long legs<br/>short torso</p>
+            </button>
+
+          </div>
+
+          <!-- Manual toggle -->
+          <div class="mt-5">
+            <button id="manual-toggle" class="text-xs text-muted-foreground hover:text-primary underline transition-colors">
+              I know my exact inseam — enter it instead →
+            </button>
+          </div>
+
+          <!-- Manual inseam input (hidden by default) -->
+          <div id="calc-manual" class="hidden mt-4">
+            <div class="flex flex-wrap items-center gap-3">
+              <label for="inseam-input" class="text-sm font-medium text-heading">My inseam:</label>
+              <input
+                id="inseam-input"
+                type="number"
+                min="26"
+                max="42"
+                placeholder="e.g. 34"
+                class="w-24 px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+              <span class="text-sm text-muted-foreground">inches</span>
+              <button id="manual-calc-btn" class="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">
+                Calculate
+              </button>
+            </div>
+            <p class="text-xs text-muted-foreground mt-2">Standing inseam measured from floor to crotch, shoes off.</p>
+          </div>
+        </div>
+
+        <!-- Results (hidden until complete) -->
+        <div id="calc-results" class="hidden mt-6 pt-6 border-t border-border">
+          <div class="flex flex-wrap items-baseline gap-2 mb-1">
+            <p class="text-sm text-muted-foreground">Your minimum seat depth:</p>
+            <p class="text-3xl font-bold text-primary" id="result-depth">—</p>
+            <p class="text-sm text-muted-foreground">inches</p>
+          </div>
+          <p class="text-xs text-muted-foreground mb-5" id="result-note"></p>
+
+          <p class="text-sm font-semibold text-heading mb-3">Chairs that cover your requirement:</p>
+          <div id="result-chairs" class="space-y-2"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="prose-tca">
       <section>
         <h2>The Popliteal Pressure Problem</h2>
@@ -279,3 +386,143 @@ const schema = [
     </div>
   </article>
 </Layout>
+
+<script>
+(function () {
+  const baseDepths: Record<string, number> = {
+    '6.0': 17.5,
+    '6.1': 18.0,
+    '6.2': 18.5,
+    '6.3': 19.0,
+    '6.4': 19.5,
+    '6.5': 20.5,
+  };
+
+  const modifiers: Record<string, number> = {
+    short: -1.5,
+    average: 0,
+    long: 1.5,
+  };
+
+  const chairs = [
+    {
+      name: 'Steelcase Leap Plus',
+      maxDepth: 19.75,
+      note: 'adjustable 15.75"–19.75"',
+      url: '/review/leap-plus/',
+      amazon: 'https://www.amazon.com/s?k=Steelcase+Leap+Plus&tag=tallchairadvi-20',
+    },
+    {
+      name: 'Steelcase Gesture',
+      maxDepth: 18.75,
+      note: 'adjustable 15.75"–18.75"',
+      url: '/review/gesture/',
+      amazon: 'https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20',
+    },
+    {
+      name: 'Herman Miller Aeron Size C',
+      maxDepth: 18.5,
+      note: 'fixed 18.5"',
+      url: '/review/aeron-size-c/',
+      amazon: 'https://www.amazon.com/s?k=herman+miller+aeron+size+c&tag=tallchairadvi-20',
+    },
+  ];
+
+  let selectedHeight: string | null = null;
+  let selectedBody: string | null = null;
+
+  const step2 = document.getElementById('calc-step2')!;
+  const resultsEl = document.getElementById('calc-results')!;
+  const manualSection = document.getElementById('calc-manual')!;
+  const manualToggle = document.getElementById('manual-toggle')!;
+
+  document.querySelectorAll<HTMLButtonElement>('.height-btn').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.height-btn').forEach((b) =>
+        b.classList.remove('border-primary', 'text-primary', 'bg-primary/5')
+      );
+      this.classList.add('border-primary', 'text-primary', 'bg-primary/5');
+      selectedHeight = this.dataset.height!;
+      step2.classList.remove('hidden');
+      resultsEl.classList.add('hidden');
+      selectedBody = null;
+      document.querySelectorAll('.body-btn').forEach((b) =>
+        b.classList.remove('border-primary', 'bg-primary/5')
+      );
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.body-btn').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.body-btn').forEach((b) =>
+        b.classList.remove('border-primary', 'bg-primary/5')
+      );
+      this.classList.add('border-primary', 'bg-primary/5');
+      selectedBody = this.dataset.body!;
+      if (selectedHeight) {
+        const base = baseDepths[selectedHeight] ?? 18.5;
+        const mod = modifiers[selectedBody] ?? 0;
+        const minDepth = Math.round((base + mod) * 2) / 2;
+        const bodyLabel =
+          { short: 'short legs / long torso', average: 'average proportions', long: 'long legs / short torso' }[
+            selectedBody
+          ] ?? '';
+        showResults(minDepth, `Estimated for your height and ${bodyLabel}.`);
+      }
+    });
+  });
+
+  manualToggle.addEventListener('click', function () {
+    manualSection.classList.toggle('hidden');
+    this.textContent = manualSection.classList.contains('hidden')
+      ? 'I know my exact inseam — enter it instead →'
+      : 'Use body type selector instead ↑';
+  });
+
+  document.getElementById('manual-calc-btn')!.addEventListener('click', function () {
+    const inseamEl = document.getElementById('inseam-input') as HTMLInputElement;
+    const inseam = parseFloat(inseamEl.value);
+    if (!inseam || inseam < 26 || inseam > 42) {
+      inseamEl.style.borderColor = 'red';
+      return;
+    }
+    inseamEl.style.borderColor = '';
+    const thigh = inseam * 0.52;
+    const minDepth = Math.round((thigh - 2.5) * 2) / 2;
+    showResults(minDepth, `Based on your ${inseam}" inseam, leaving 2–3" of clearance at the knee (Cornell Ergonomics Lab guideline).`);
+  });
+
+  function showResults(minDepth: number, note: string) {
+    resultsEl.classList.remove('hidden');
+    document.getElementById('result-depth')!.textContent = minDepth.toFixed(1) + '"';
+    document.getElementById('result-note')!.textContent = note;
+
+    const chairsEl = document.getElementById('result-chairs')!;
+    chairsEl.innerHTML = '';
+
+    chairs.forEach((chair) => {
+      const fits = chair.maxDepth >= minDepth;
+      const div = document.createElement('div');
+      div.className = `flex items-start gap-3 p-3 rounded-lg ${
+        fits ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
+      }`;
+      div.innerHTML = `
+        <span class="text-base mt-0.5 shrink-0">${fits ? '✓' : '✗'}</span>
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+            <a href="${chair.url}" class="text-sm font-semibold ${fits ? 'text-green-800' : 'text-red-800'} hover:underline">${chair.name}</a>
+            <span class="text-xs text-muted-foreground">(${chair.note})</span>
+          </div>
+          <p class="text-xs mt-0.5 ${fits ? 'text-green-700' : 'text-red-700'}">
+            ${fits ? 'Covers your ' + minDepth.toFixed(1) + '" minimum' : 'Max depth (' + chair.maxDepth + '") falls short of your ' + minDepth.toFixed(1) + '" minimum'}
+          </p>
+        </div>
+        ${fits ? `<a href="${chair.amazon}" target="_blank" rel="noopener noreferrer sponsored" class="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-md font-medium hover:bg-primary/90 transition-colors">View →</a>` : ''}
+      `;
+      chairsEl.appendChild(div);
+    });
+
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+})();
+</script>

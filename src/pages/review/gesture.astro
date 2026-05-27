@@ -22,6 +22,7 @@ const schema = [
     "brand": { "@type": "Brand", "name": "Steelcase" },
     "review": {
       "@type": "Review",
+      "itemReviewed": { "@id": "https://tallchairadvisor.com/#product/steelcase-gesture" },
       "reviewRating": {
         "@type": "Rating",
         "ratingValue": "4.5",
@@ -35,9 +36,9 @@ const schema = [
         "description": "Mechanical Engineering student at UC Berkeley, 6'4\", daily Steelcase Gesture user",
         "url": "https://tallchairadvisor.com/author/jackson-christopher/"
       },
-      "reviewBody": "I've used the Steelcase Gesture daily at 6'4\" for close to a year. The 18.75\" seat depth is borderline at my height — I run at maximum extension with about 1.5–2 finger-widths of knee clearance. The flexible front edge compensates enough that it hasn't been a daily irritant, but someone with longer femur proportions would be better served by the Leap Plus. The 360-degree armrests have measurably reduced my shoulder tension by keeping my forearms supported across multiple work postures. The LiveBack mechanism adapts to posture shifts without manual adjustment, which matters across a 4-hour study session. For users 6'0\"–6'3\", this is the strongest ergonomic chair in the category. Above 6'4\", the Leap Plus is the lower-friction dimensional fit.",
+      "reviewBody": "I've used the Steelcase Gesture daily at 6'4\" for close to a year as my primary chair in my Berkeley apartment. Before buying it I was ending every long study session with constant lower back and upper back and shoulder aches — the kind where you're always wanting a massage. The first time I sat in the Gesture I literally said 'woah' out loud. At 6'4\" with maximum seat depth engaged I measured about 3 finger-widths of clearance between the seat edge and the back of my knee — solidly within the Cornell ergonomics guideline. The chair improved my posture and I stopped being distracted by back discomfort during long study sessions. One evening I was so drained I actually fell asleep in it. My honest critiques: the armrest padding could be better, and at $1,649 list the price is steep. For 6'0\"–6'3\" users it's the best ergonomic chair I know of at this price. At 6'4\" it fits well. Above 6'4\" the Leap Plus has more dimensional margin.",
       "datePublished": "2025-11-12",
-      "dateModified": "2026-03-17"
+      "dateModified": "2026-05-25"
     },
     "offers": {
       "@type": "Offer",
@@ -98,7 +99,7 @@ const schema = [
         "name": "Is the Steelcase Gesture good for tall people?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, for users 6'0\"–6'3\" the Gesture is one of the best ergonomic chairs available. The 21\" seat height ceiling, 18.75\" maximum seat depth, and 24\" backrest cover this range well. For users 6'4\" and above, the seat depth becomes a limiting factor for longer femur proportions — the Steelcase Leap Plus (19.75\" seat depth, 22.5\" seat height) is the better fit at that height."
+          "text": "Yes, through 6'4\" it's one of the best ergonomic chairs available. I'm 6'4\" and it's my daily chair — I measure about 3 finger-widths of knee clearance at maximum seat depth, solidly within the Cornell ergonomics guideline. The 21\" seat height ceiling, 18.75\" seat depth, and 24\" backrest cover 6'0\"–6'4\" well for most body proportions. Above 6'4\", the Steelcase Leap Plus adds meaningful dimensional margin across seat depth, seat height, and back height."
         }
       },
       {
@@ -122,7 +123,7 @@ const schema = [
         "name": "How long does the Steelcase Gesture take to break in?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Gesture's foam seat is noticeably firm out of the box — noticeably firmer than the Herman Miller Aeron's mesh. Most owners report it reaches its settled feel after 3–4 weeks of regular daily use, at which point the cushion conforms better to your sitting posture. The foam does not compress as aggressively as budget chairs, so long-term support tends to hold up well."
+          "text": "I felt a difference from the very first sit — there was no skeptical adjustment period. The foam seat does settle with use, but my experience wasn't a slow build. If anything, the first impression was the most dramatic. Demo units in a showroom will feel slightly more broken-in than a brand new chair, but the gap is small enough that a showroom sit is still a useful test."
         }
       },
       {
@@ -173,12 +174,18 @@ const schema = [
   </header>
 
   <article class="container-article py-12 md:py-16">
-    <Byline publishedDate="2025-11-12" updatedDate="2026-03-17" />
+    <Byline publishedDate="2025-11-12" updatedDate="2026-05-25" />
 
     <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">The Steelcase Gesture fits tall users between 6'0" and 6'3" well, with an 18.75" maximum seat depth, 21" seat height ceiling, and 24" backrest. At 6'4", seat depth is a borderline fit — a knee clearance check (2–3 finger-widths between the seat edge and the back of the knee) is the deciding test. Above 6'4", the Steelcase Leap Plus is the stronger dimensional fit: 19.75" seat depth, 22.5" seat height ceiling, and 25.5" back height at a similar price point.</p>
     </div>
+
+    <p class="mb-6">
+      <a href="https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Steelcase Gesture on Amazon" data-cta-position="top">
+        View Steelcase Gesture on Amazon →
+      </a>
+    </p>
 
     <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
@@ -202,20 +209,20 @@ const schema = [
     <!-- TL;DR Verdict Box -->
     <div class="bg-card border border-border rounded-lg p-5 mb-10">
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">TL;DR Verdict</p>
-      <p class="font-semibold text-heading text-lg mb-3">4.5 / 5 — Best for multi-device workers 6'0"–6'3". Borderline at 6'4".</p>
+      <p class="font-semibold text-heading text-lg mb-3">4.5 / 5 — Best for tall users 6'0"–6'4". Strong fit. Expensive but worth it.</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
         <div>
           <p class="font-medium text-heading mb-1">Best for</p>
           <ul class="text-muted-foreground space-y-1 list-none pl-0">
-            <li>✓ Tall users 6'0"–6'3" (strong fit)</li>
-            <li>✓ Multi-device workers (laptop, phone, tablet)</li>
-            <li>✓ Users prioritizing arm support flexibility</li>
+            <li>✓ Tall users 6'0"–6'4" (strong fit through this range)</li>
+            <li>✓ Anyone with ongoing lower or upper back pain from a bad chair</li>
+            <li>✓ Multi-device workers who shift posture frequently</li>
           </ul>
         </div>
         <div>
           <p class="font-medium text-heading mb-1">Not ideal for</p>
           <ul class="text-muted-foreground space-y-1 list-none pl-0">
-            <li>✗ Users above 6'4" with long femurs</li>
+            <li>✗ Users 6'5"+ (Leap Plus is the better dimensional fit)</li>
             <li>✗ Anyone who needs a forward tilt mechanism</li>
             <li>✗ Users who prefer mesh over foam seating</li>
           </ul>
@@ -227,10 +234,11 @@ const schema = [
     <div class="prose-tca">
 
       <section>
-        <h2>How I Evaluated the Gesture at 6'4"</h2>
-        <p>This is an independent review. The Steelcase Gesture is my daily chair — I've used it in my Berkeley apartment for close to a year as my primary work and study chair. Before buying it, I spent months with a lower back and shoulder issue that had worsened from years in undersized lecture chairs. The Gesture was a deliberate purchase after eliminating alternatives on spec: this is the chair I actually chose, for reasons I'll explain throughout this review.</p>
-        <p>I came at this with a Mechanical Engineering background — which means I care less about whether a chair "feels comfortable" in a five-minute showroom sit and more about whether the dimensional math holds up for bodies outside the design median. At 6'4" with a 32–33" inseam and a proportionally long torso, I'm right at the Gesture's dimensional ceiling. What I was specifically evaluating: how the 18.75" maximum seat depth interacts with my thigh length, where the 24" backrest actually contacts my spine, and whether the 360° armrest system translates to real-world postural support across a full study day at a 30" desk.</p>
-        <p>The comparison baseline throughout this review is the <a href="/gesture-vs-leap-plus/" class="link-internal">Steelcase Leap Plus</a> — the obvious alternative for tall users who need more dimensional range — and the <a href="/aeron-vs-gesture/" class="link-internal">Herman Miller Aeron Size C</a>, which targets the same user with a fundamentally different design philosophy.</p>
+        <h2>Why I Bought the Gesture — and What Happened the First Time I Sat In It</h2>
+        <p>This is an independent review. The Steelcase Gesture is my daily chair — I've used it in my Berkeley apartment for close to a year as my primary work and study chair. Before buying it, I was dealing with constant lower back aches and upper back and shoulder aches that built up over every long study session. The kind of aches where you end the day wanting a massage. I'd been through years of lecture hall seats and cheap dorm chairs that were never built for someone 6'4", and it showed.</p>
+        <p>I spent months researching before pulling the trigger — comparing spec sheets, reading through r/ergonomics and r/officechair, and running the dimensional math as a Mechanical Engineering student who cares more about whether the numbers actually work than whether something "feels premium" in a five-minute demo. At 6'4" with a 32–33" inseam, I was specifically checking seat depth against my thigh length, backrest height against my torso, and seat height ceiling against my desk setup.</p>
+        <p>The first time I sat in the Gesture, I literally said "woah" out loud to myself. That's not something I planned to write — it's just what happened. The chair felt different in a way I hadn't expected from something I'd only ever evaluated on paper. My posture immediately improved, and over the following weeks I noticed I could study longer without my back becoming a distraction. One evening during a particularly brutal stretch of finals week, I was so drained I actually fell asleep in the chair. The chair was that comfortable.</p>
+        <p>The comparison baseline throughout this review is the <a href="/gesture-vs-leap-plus/" class="link-internal">Steelcase Leap Plus</a> — the obvious alternative for tall users who need more dimensional range — and the <a href="/aeron-vs-gesture/" class="link-internal">Herman Miller Aeron Size C</a>, which targets a similar buyer with a fundamentally different design philosophy.</p>
       </section>
 
       <section>
@@ -357,7 +365,7 @@ const schema = [
         <!-- tca-aio-capsule -->
         <p>TCA's Steelcase Gesture review notes that its 18.75-inch seat depth suits most users but warrants verification for tall individuals, particularly those 6 feet 3 inches and above, who may find proportional fit varies. The review recommends the Gesture confidently for users up to 6 feet 3 inches, while suggesting the Leap Plus as the easier alternative beyond that height.</p>
         <p>The Gesture's 18.75" maximum seat depth is adequate for most tall users through 6'3" — but it's worth understanding exactly what "adequate" means here. The standard ergonomic guideline (per Cornell Ergonomics Lab) is that your seat depth should allow 2–3 finger-widths of clearance between the front edge of the seat and the back of your knee when you're seated fully against the backrest. That clearance prevents pressure behind the knee and keeps blood flow unimpeded during long sessions.</p>
-        <p>At 6'4" with a 32" inseam, I measured that clearance at the Gesture's maximum seat depth: roughly 1.5–2 finger-widths. It's on the tight side of the recommended range — not painful, but there's no margin. If you have longer-than-average femur proportions for your height, you'll feel it. At 6'1"–6'3", the same measurement typically produces 2–3 fingers of clearance without issue, which puts you comfortably within the guideline.</p>
+        <p>At 6'4" with a 32" inseam, I measured that clearance at the Gesture's maximum seat depth: about 3 finger-widths. That's solidly within the Cornell guideline — not a borderline fit, a comfortable one. If you have significantly longer-than-average femur proportions for your height you may land closer to 2 fingers, which is still within range. At 6'1"–6'3", you can expect similar or slightly more clearance without issue.</p>
         <p>The seat's flexible front edge is a genuine design advantage here — it compresses slightly under the back of the knee rather than pressing into it with a rigid lip. I notice this most during long study sessions when I'm locked in at maximum seat depth for hours. There's no sharp pressure point the way I'd get from a rigid-lipped chair at similar proportions. For users near the dimensional limit, that flexibility reduces the real-world impact of the tight clearance. It doesn't fix the underlying math, but it makes the chair more forgiving than the raw number suggests.</p>
         <p>The seat depth adjustment mechanism — a lever under the front of the seat — moves the seat pan forward or back in a smooth continuous range, not in clicks. I keep mine at or near maximum for nearly every session; the lever is quick to reach and I've adjusted it unconsciously at this point. This is one of the better implementations of seat depth adjustment in the category — the Leap Plus uses a similar mechanism, but the Gesture's is slightly lighter in action.</p>
 
@@ -377,17 +385,19 @@ const schema = [
       </section>
 
       <section>
-        <h2>Armrest System: The Gesture's Biggest Differentiator</h2>
-        <p>The 360-degree armrest system is where the Gesture genuinely has no competition. Steelcase developed the design after studying over 2,000 postures across six continents — the core finding being that modern computer work involves constant micro-position changes between keyboard, mouse, phone, and tablet that standard 4D armrests weren't designed to support.</p>
-        <p>In practice at 6'4", the arms needed to be at near-maximum height to clear a standard 30" desk — which is expected at this height. What stood out was the pivot range: the armrests can rotate inward to support forearms while reaching forward for a keyboard, then swing outward to support elbows during a reclined phone call, without requiring a deliberate readjustment. On a standard 4D armrest (the Leap Plus, the Aeron), you either adjust or you don't — the arm moves with you on the Gesture in a way that becomes instinctive after a short time.</p>
-        <p>For users who spend time at a standing desk that also gets used sitting, or who regularly work from a laptop alongside an external monitor, this system solves a real ergonomic problem. If your work is entirely mouse-and-keyboard at a fixed desk, the 4D arms on the Leap Plus or Aeron are sufficient and the Gesture's advantage here is smaller.</p>
+        <h2>Armrest System: Honest Take</h2>
+        <p>The 360-degree armrest system is the Gesture's headline feature. Steelcase developed it after studying over 2,000 postures across six continents — the idea being that modern desk work involves constant position shifts between keyboard, mouse, phone, and tablet that standard 4D armrests weren't designed to support.</p>
+        <p>Here's my honest account of how I actually use them: I keep mine set below desk height, and for most of my work — CAD, engineering assignments, anything where I'm typing or using a mouse — I'm resting my forearms on the desk surface, not on the armrests. So for my specific workflow, the 360-degree pivot isn't the daily differentiator the marketing suggests it might be.</p>
+        <p>What I do notice is that when I shift into reading posture or lean back with a laptop or phone, the arms are already in a natural position to support my elbows without my having to stop and adjust anything. That's genuinely convenient. And the pivot range does solve a real postural problem if you switch frequently between a tablet, a keyboard, and a secondary screen. If your setup is different from mine and you spend more time reaching across workstation surfaces, the 360-degree system will mean more to you than it does to me.</p>
+        <p>My one real gripe: the armrest padding could be better. The padding is fine for occasional contact, but if you're resting your forearms heavily on the pads for long stretches, you'll notice. It's the thing I'd change if Steelcase called me. The Aeron's armrests have a similar issue; the Leap Plus is comparable. It's not a dealbreaker but it's worth knowing.</p>
       </section>
 
       <section>
-        <h2>Backrest and Lumbar Support</h2>
-        <p>The Gesture's 24" back height is adequate through approximately 6'3". At 6'4", the top of the backrest makes contact roughly at mid-shoulder-blade — close to the ideal contact point but with less margin than the Leap Plus's 25.5" back. For users with longer-than-average torso proportions at 6'4", the upper shoulder blades may sit above the backrest's contact zone during upright typing posture. My shoulder issues have noticeably improved since switching to the Gesture — but I attribute more of that to the armrest system keeping my forearms supported than to the backrest itself. Tall users with shoulder pain should also read <a href="/shoulder-pain-tall-people/" class="link-internal">why tall people get shoulder pain at desks</a>. The back doesn't reach my upper traps, which I knew going in; the armrests compensate by reducing the shrug-and-tense pattern that was causing problems in chairless seating.</p>
-        <p>The LiveBack system — where the backrest flexes and follows your spine's movement — is a meaningful feature that reduces the need for manual lumbar adjustment. As you shift from upright typing to a reclined reading position, the backrest flexes at the thoracic region rather than staying rigid, maintaining contact with your lumbar curve throughout the movement. I change posture constantly during long sessions — deep recline for reading, upright for writing, forward lean for reference work — and the LiveBack follows without my having to stop and readjust anything. This is noticeably different from fixed-back designs and is the main reason I find it easier to maintain consistent spinal support across a four or five hour study session.</p>
-        <p>There is no separate manual lumbar adjustment knob. The LiveBack mechanism handles lumbar support dynamically rather than through a user-set fixed position. Some users prefer the control of a manual adjuster (the Leap Plus has this); others prefer the Gesture's automatic approach. After nearly a year I prefer the automatic approach — but I'd recommend understanding that there's a 2-3 week calibration period while the chair learns your posture habits and you learn to trust the mechanism instead of overriding it by sitting forward.</p>
+        <h2>Backrest, Lumbar, and What Changed for My Back</h2>
+        <p>The Gesture's 24" back height is adequate through approximately 6'3". At 6'4", the top of the backrest makes contact roughly at mid-shoulder-blade — close to the ideal contact point but with less margin than the Leap Plus's 25.5" back. For users with longer-than-average torso proportions at 6'4", the upper shoulder blades may sit above the backrest's contact zone during upright typing posture. Tall users with shoulder pain should also read <a href="/shoulder-pain-tall-people/" class="link-internal">why tall people get shoulder pain at desks</a>.</p>
+        <p>What I can tell you from a year of daily use: my lower back aches are gone, and my upper back and shoulder aches are significantly better. Before the Gesture, I was ending long study sessions constantly wanting a massage — that dull ache that builds across your whole back when you've been sitting wrong for hours. That's no longer my experience. I'm not distracted by my back anymore during study sessions, and I'm convinced that freed-up mental space has made me more focused. I can't separate how much of that improvement is the LiveBack lumbar mechanism versus the overall ergonomics of the chair, but the outcome is real.</p>
+        <p>The LiveBack system — where the backrest flexes and follows your spine's movement — is what I credit most for the lumbar improvement. As you shift from upright typing to a reclined reading position, the backrest flexes at the thoracic region rather than staying rigid. I change posture constantly during long sessions and the LiveBack follows without my having to stop and readjust anything. This is noticeably different from fixed-back designs.</p>
+        <p>There is no separate manual lumbar adjustment knob. The LiveBack handles it dynamically. Some users prefer the control of a manual adjuster (the Leap Plus has this); I prefer the Gesture's automatic approach after nearly a year with it. If you've been dealing with back issues from a bad chair setup and you're skeptical that a chair can make a real difference — I was too, and I was wrong.</p>
       </section>
 
       <section>
@@ -396,11 +406,11 @@ const schema = [
         <h3>6'1"–6'3": Strong fit</h3>
         <p>The Gesture is one of the best ergonomic chairs available at this height range. Seat height, depth, and back height all fall well within the recommended ergonomic ranges for typical body proportions at 6'1"–6'3". The 360-degree armrest system adds a capability that the Leap Plus and Aeron don't offer, and the dimensional ceiling isn't a meaningful constraint. If you work across multiple devices, this is the height range where the Gesture's design advantages are most pronounced.</p>
 
-        <h3>6'3"–6'4": Good fit — verify seat depth against your proportions</h3>
-        <p>At this range you're operating near the chair's dimensional ceiling. Most users at 6'3"–6'4" will find the fit adequate; users with long femur proportions relative to their height may find it tight. The check: sit fully against the backrest at maximum seat depth and measure your knee clearance. If you get 2 finger-widths, you're fine. If you get 1 or less, the Leap Plus's extra inch of seat depth is worth the tradeoff in armrest flexibility.</p>
+        <h3>6'3"–6'4": Good fit</h3>
+        <p>At 6'4" I measure about 3 finger-widths of clearance at maximum seat depth — solidly within the Cornell guideline and my daily experience. Most users at 6'3"–6'4" will find the Gesture fits well; users with significantly long femur proportions relative to their height may land at the lower end of the clearance range. The check: sit fully against the backrest at maximum seat depth and measure your knee clearance. Two or more finger-widths means you're fine.</p>
 
-        <h3>6'4"–6'5": Leap Plus is the easier path</h3>
-        <p>Above 6'4", the Gesture's dimensions start to work against you. The 18.75" seat depth maximum is frequently insufficient for thigh lengths common at this height, the 21" seat height ceiling can feel limiting with taller desk configurations, and the 24" back height may leave upper shoulder blades without support. The optional taller gas cylinder addresses the seat height issue but not the seat depth — which is the harder constraint. The Leap Plus resolves all three at a similar price point.</p>
+        <h3>6'4"–6'5": Good fit; Leap Plus is the safer bet if proportions are uncertain</h3>
+        <p>At the upper end of this range, the Gesture still works for most body types but the margin gets smaller. The 21" seat height ceiling can feel limiting with taller desk configurations, and the 24" back height may leave upper shoulder blades without full contact. The optional taller gas cylinder helps with seat height. If you can't test the chair in person and you're on the taller end with long legs, the Leap Plus's extra inch of seat depth removes the guesswork at a similar price point.</p>
 
         <h3>6'5"–6'7": Leap Plus recommended</h3>
         <p>The Gesture is not well-suited for this range without aftermarket modifications. The Steelcase Leap Plus — 19.75" seat depth, 22.5" seat height, 25.5" back height — is purpose-built for this range and the better choice without question.</p>
@@ -411,20 +421,20 @@ const schema = [
 
         <h3>What the Gesture does well</h3>
         <ul>
-          <li><strong>360° armrest system is best in class.</strong> No other chair in this price range offers the same range of arm positioning. For multi-device workers, it addresses a real ergonomic gap that standard 4D arms don't solve.</li>
-          <li><strong>Flexible seat edge reduces knee pressure.</strong> The front edge of the seat compresses slightly under load rather than pressing rigidly into the back of the knee — this matters when you're operating near the seat depth ceiling.</li>
-          <li><strong>LiveBack adapts to posture changes without adjustment.</strong> The flexing backrest maintains lumbar contact during recline without requiring you to stop and readjust a lumbar knob.</li>
-          <li><strong>BIFMA-certified 400 lb capacity with a 12-year warranty.</strong> Steelcase's warranty coverage is one of the strongest in the category and the BIFMA x5.1 certification means structural integrity has been independently tested.</li>
-          <li><strong>Seat depth adjustment is smooth and continuous.</strong> The lever-operated seat pan slides in a clean continuous range without the stepwise clicks some competitors use.</li>
+          <li><strong>It fixes back pain.</strong> My lower back aches and upper back/shoulder aches that built up from years of bad chairs are gone. That's the headline result and the main reason I'd buy it again.</li>
+          <li><strong>LiveBack adapts to posture changes without adjustment.</strong> The flexing backrest maintains lumbar contact during recline without requiring you to stop and readjust a lumbar knob. I shift posture constantly and never think about it.</li>
+          <li><strong>Fits through 6'4" with room to spare.</strong> At 6'4" I measure ~3 finger-widths of knee clearance at maximum seat depth — solidly within the ergonomic guideline. It's not a borderline fit at my height.</li>
+          <li><strong>360° armrest pivot range.</strong> No other chair in this price range matches it. Especially useful if you shift between keyboard, tablet, and phone positions throughout the day.</li>
+          <li><strong>12-year warranty, BIFMA-certified 400 lb capacity.</strong> Steelcase's warranty coverage is one of the strongest in the category and the structural integrity has been independently tested.</li>
         </ul>
 
         <h3>Where the Gesture falls short</h3>
         <ul>
-          <li><strong>Seat depth ceiling is 1" less than the Leap Plus.</strong> The 18.75" vs 19.75" gap is the single most consequential spec difference for tall users — it's the reason the Gesture has a height ceiling where the Leap Plus does not.</li>
+          <li><strong>Price.</strong> At $1,649 list, it's expensive. That's my #1 complaint. The refurbished market ($400–$700 from certified dealers) changes the math significantly if you're willing to go that route.</li>
+          <li><strong>Armrest padding could be better.</strong> The pads are fine for casual contact but not great for sustained forearm resting under load. If I could change one thing on the next version, it would be this.</li>
           <li><strong>No forward tilt mechanism.</strong> Users who prefer an active sitting posture — seat angled forward to reduce hip flexion — have no option on the Gesture. The Leap Plus and some Aerons include this.</li>
           <li><strong>Foam seat runs warm.</strong> The foam cushion retains more body heat than the Aeron's mesh. In warmer environments or for users who run hot, this is a meaningful daily comfort difference.</li>
-          <li><strong>Seat is firm out of the box.</strong> The Gesture requires a break-in period of 3–4 weeks before the cushion settles. First impressions in a showroom sitting underrepresent the long-term comfort.</li>
-          <li><strong>No manual lumbar adjustment.</strong> The dynamic LiveBack system works well for most users, but users who know their lumbar support preferences precisely may prefer the Leap Plus's manual adjuster.</li>
+          <li><strong>No manual lumbar adjustment.</strong> The dynamic LiveBack system works well, but users who want a user-set fixed lumbar position may prefer the Leap Plus's manual adjuster.</li>
         </ul>
       </section>
 
@@ -437,22 +447,22 @@ const schema = [
 
       <section>
         <h2>Verdict: Who Should Buy the Gesture?</h2>
-        <p><strong>Rating: 4.5 / 5 for users 6'0"–6'3". 3.5 / 5 above 6'4".</strong></p>
+        <p><strong>Rating: 4.5 / 5 for users 6'0"–6'4". 3.5 / 5 above 6'5".</strong></p>
 
-        <h3>For Users 6'0"–6'3"</h3>
-        <p>The Steelcase Gesture earns its reputation for users in the right height range. For tall users between 6'0" and 6'3" who work across multiple devices, it is the strongest ergonomic chair in its class — the 360-degree armrest system solves a real problem, the LiveBack mechanism delivers adaptive lumbar support without manual fiddling, and the dimensional spec sheet (21" seat height, 18.75" max seat depth, 24" back) covers this range comfortably. The one area where the Gesture has no competition is arm support: if you switch frequently between a keyboard, a phone, a tablet, and a secondary screen, that flexibility has ergonomic value that the spec sheet doesn't fully convey.</p>
-        <p><strong>Buy the Gesture if:</strong> you're 6'0"–6'3", work across multiple devices, and value arm positioning flexibility over maximum seat depth.</p>
+        <h3>For Users 6'0"–6'4"</h3>
+        <p>The Steelcase Gesture works well across this range — I'm 6'4" and it's my daily chair. The LiveBack mechanism delivers adaptive lumbar support that eliminated the constant back aches I had before. The dimensional spec (21" seat height, 18.75" max seat depth, 24" back) covers 6'0"–6'4" comfortably for most body proportions. At 6'4" I measure ~3 finger-widths of knee clearance at maximum depth — solidly within the ergonomic guideline. If you're on the taller end with long legs relative to your height, the knee clearance check is worth doing: sit against the backrest at max depth, count finger-widths. Two or more and you're good.</p>
+        <p><strong>Buy the Gesture if:</strong> you're 6'0"–6'4", need a chair that will actually fix ongoing back discomfort, and want the best armrest flexibility in the category. It's expensive, but it's the chair I'd buy again.</p>
 
-        <h3>For Users 6'4" and Above</h3>
-        <p>At 6'4", the Gesture becomes a judgment call based on your specific proportions. The seat depth ceiling of 18.75" is right at the threshold where it works for most body types and doesn't for some. If you can test the chair before purchasing — even in a showroom or at a friend's — the knee clearance check described above gives you a definitive answer. If you can't test it and you're 6'4" or taller, the Leap Plus removes the uncertainty at a similar price point: 19.75" seat depth, 22.5" seat height ceiling, 25.5" back height.</p>
-        <p><strong>Buy the Leap Plus instead if:</strong> you're 6'4" or taller, primarily keyboard-and-mouse, or need a forward tilt mechanism.</p>
+        <h3>For Users 6'5" and Above</h3>
+        <p>Above 6'4", the Gesture's dimensional margins shrink. The 18.75" seat depth works for most body types at 6'4" but becomes a tighter call at 6'5"+. The Leap Plus adds 1" seat depth, 1.5" seat height ceiling, and 1.5" back height at a similar price — those extra inches matter more the taller you are.</p>
+        <p><strong>Buy the Leap Plus instead if:</strong> you're 6'5" or taller, primarily keyboard-and-mouse, or need a forward tilt mechanism.</p>
       </section>
 
       <section>
         <h2>Frequently Asked Questions</h2>
 
         <h3>Is the Steelcase Gesture good for tall people?</h3>
-        <p>Yes, for users 6'0"–6'3" the Gesture is one of the best ergonomic chairs available. The 21" seat height ceiling, 18.75" adjustable seat depth, and 24" backrest cover this range well. At 6'4" it's a judgment call depending on your femur-to-torso ratio — the knee clearance check above is the deciding test. Above 6'4", the <a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus</a> is the better dimensional fit.</p>
+        <p>Yes, through 6'4" it's one of the best ergonomic chairs available. I'm 6'4" and it's my daily chair — I get about 3 finger-widths of knee clearance at maximum seat depth, which is solidly within the Cornell ergonomics guideline. The 21" seat height ceiling, 18.75" seat depth, and 24" backrest cover 6'0"–6'4" well for most body proportions. Above 6'4", the <a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus</a> adds meaningful dimensional margin across seat depth, seat height, and back height.</p>
 
         <h3>What is the weight limit of the Steelcase Gesture?</h3>
         <p>400 lbs, tested to BIFMA x5.1 standards — a third-party durability benchmark for office seating that tests structural integrity under dynamic load. See the <a href="/chairs/steelcase-gesture/weight-limit/" class="link-internal">full weight limit guide</a> for details. Users over 400 lbs should consider the Leap Plus, rated to 500 lbs under the same BIFMA standard.</p>
@@ -461,7 +471,7 @@ const schema = [
         <p>Yes. An optional taller gas cylinder is available through Steelcase authorized dealers, raising the seat height ceiling above the standard 21" maximum. This helps with desk height clearance for users above 6'4", but the seat depth maximum remains at 18.75" regardless — which is the harder constraint for tall users.</p>
 
         <h3>How long does the Gesture take to break in?</h3>
-        <p>Three to four weeks of daily use — and the first few days feel genuinely firm enough that I second-guessed myself. By week two the seat was noticeably more comfortable. By week four it had settled into what I'd describe as medium-firm with good pressure distribution. If you sit in a demo unit and think it's stiff and uncomfortable, you're not getting an accurate read on the chair you'd own. The demo unit has already broken in; a new one is firmer. Plan for the adjustment period.</p>
+        <p>My experience: I felt a difference from the very first sit. There was no "this is too firm, did I make a mistake" period. The foam seat does get more settled with use over time, but I wouldn't describe it as a chair that requires patience before it works for you. If anything, the first impression was the most dramatic — I wasn't expecting it to feel that noticeably different immediately. Demo units in a showroom will feel slightly more broken-in than a brand new chair, but the gap is small enough that a showroom sit is still a useful test.</p>
 
         <h3>Is the Steelcase Gesture worth the price?</h3>
         <p>At ~$1,649 list, it's expensive — but Steelcase-certified refurbished units in the $400–$700 range carry a warranty and are structurally identical to new. For users in the 6'0"–6'3" range, the 12-year warranty and BIFMA-certified build quality make the long-term value competitive. Above 6'4", spend the same budget on the Leap Plus.</p>

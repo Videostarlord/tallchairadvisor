@@ -46,6 +46,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[true-keyword-gaps]] | Monthly DataForSEO competitor-gap analysis. 225 grouped non-ranking keywords after GSC subtraction; main lane is big-and-tall / wide / heavy-user adjacency. |
 | [[dataforseo-reference]] | Official DataForSEO V3 reference for TCA. Auth model, priority endpoints, and current repo integration. Read before any DataForSEO work. |
 | [[gsc-analysis-strategy]] | Query-level GSC analysis. Cornell cluster (164 impr, 0 CTR). AIO pattern detection. Plan for gsc-analyze.ts. Read before any CTR fix decision. |
+| [[semantic-intent-analysis]] | **2026-05-22.** What Google thinks TCA is. 7-part analysis: entity clusters, intent decomposition, hidden signals, contamination, positioning, opportunities, defensibility. Five verdicts. |
 | [[gsc-intelligence]] | **AUTO-GENERATED WEEKLY** by gsc-analyze.ts. Current week's ranked opportunities, CTR leaks, affiliate alerts, device split. Read before strategy.ts runs. |
 | [[gsc-intelligence-system]] | Architecture reference: data flow, scoring formulas, expected CTR curve, file locations. Includes bug fix history. Read when modifying the pipeline. |
 | [[statistical-confidence-policy]] | Guardrail for low-volume GSC interpretation. Use query clusters and reversible tests; avoid overconfident causal claims from thin data. |

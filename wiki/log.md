@@ -2,6 +2,41 @@
 type: log
 ---
 
+## [2026-05-25] manual | Gesture review full first-person rewrite
+
+- Full rewrite from Jackson Q&A session — all fabricated voice content replaced with real first-hand data
+- Key corrections: seat depth clearance 1.5–2 fingers → 3 fingers (solidly within Cornell guideline, not borderline); break-in story (entirely AI-generated, never true) → immediate positive reaction on first sit
+- New first-person content added: "woah" moment on first sit; pain before (constant lower back + upper back/shoulder aches, always wanting a massage); nap in the chair during finals week; honest armrests account (mostly works on desk for CAD, armrest padding could be better); price as #1 complaint
+- Height verdict updated: 6'4" is now "good fit" (was "borderline/judgment call"); cutoff moved to 6'5"+
+- Schema: `itemReviewed` added to Review node (was blocking rich results)
+- Revenue: CTA button added immediately after Direct Answer box (was only at 85% page scroll)
+- sitemap lastmod updated to 2026-05-25 in astro.config.mjs
+- Build: clean, 46 pages
+- Wiki entity updated: wiki/pages/site-pages/review-gesture.md
+
+## [2026-05-23] manual | Strategic direction session + wiki updated
+
+- Frame set: TCA is spec-first fitment authority for tall buyers, not a review site
+- No rebranding needed; no page consolidation needed
+- Priority order updated in `wiki/synthesis/thesis.md`
+- Gesture review rewrite flagged as manual-only: Claude asks prompting questions → Jackson answers → Claude writes full first-person page from answers. Do not auto-generate.
+- Seat depth calculator flagged as manual build (vanilla JS, no new deps, 2–3 hrs)
+- Automation items: /correct-chair-dimensions/ defrag, spec tables on height pages, weight capacity guide, Leap Plus reframe
+- GitHub Actions failures this week: API credits exhausted between Mon and Tue (May 19). Thu succeeded via DAG guard. Node.js bumped 20→24 across all 7 workflows (committed a5f6ed7).
+- Decisions logged in `wiki/synthesis/decisions-log.md`
+
+## [2026-05-22] manual | GSC Semantic Intent Analysis
+
+- 7-part deep analysis of what Google believes TCA's semantic identity is
+- Finding: Google classifies TCA as spec-verification authority for tall-user fitment, not a review site
+- Top signal: dimensional/spec intent dominates (~4,200 impr) over transactional intent (~300 impr)
+- Key moat identified: Cornell seat depth cluster (280+ impr, ~8 query variants) — TCA is the canonical web reference
+- Critical weakness: /correct-chair-dimensions/ entropy 4.419 (52 clusters) draining authority
+- Top opportunity: Gesture review rewrite with Jackson's 6'4" body measurements as lead
+- Raw report: raw/audits/2026-05-22-semantic-intent-analysis.md
+- Wiki page: wiki/pages/concepts/semantic-intent-analysis.md
+
+
 ## [2026-05-16] audit | Weekly Site Audit
 
 - Pages audited: 20

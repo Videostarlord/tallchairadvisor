@@ -23,7 +23,7 @@ const pageLastmod = {
   'https://tallchairadvisor.com/correct-chair-dimensions/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/how-to-adjust-chair/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/review/aeron-size-c/': new Date('2026-05-07'),
-  'https://tallchairadvisor.com/review/gesture/': new Date('2026-03-07'),
+  'https://tallchairadvisor.com/review/gesture/': new Date('2026-05-25'),
   'https://tallchairadvisor.com/review/leap-plus/': new Date('2026-03-07'),
   'https://tallchairadvisor.com/aeron-vs-gesture/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/aeron-vs-leap-plus/': new Date('2026-03-10'),

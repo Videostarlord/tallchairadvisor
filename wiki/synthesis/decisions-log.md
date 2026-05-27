@@ -1,12 +1,27 @@
 ---
 type: synthesis
-last_updated: 2026-05-15
+last_updated: 2026-05-23
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W21 (May 23) — Strategic direction set; Gesture rewrite protocol established
+
+**DECISION — TCA's identity is spec-first fitment authority, not a review site.** Confirmed by [[semantic-intent-analysis]] (May 22). Google already classifies TCA as spec-verification authority for tall-user ergonomic fitment. Every page should lead with dimensional data (seat height, seat depth, weight capacity) before any prose. Generic recommendation pages (best-office-chairs at 0% CTR) are not the investment direction.
+
+**DECISION — No rebranding needed.** "Tall Chair Advisor" is well-aligned with the fitment authority identity. What changes is content positioning, not the brand name.
+
+**DECISION — No page consolidation needed.** The problem is not too many pages but semantic contamination on one page (`/correct-chair-dimensions/` entropy 4.419) and positioning on existing pages. Stop investing in generic "best of" pages.
+
+**DECISION — Priority order for manual work (highest to lowest):**
+1. **Gesture review full rewrite** — manual session only. Protocol: Claude asks Jackson prompting questions about his real 6'4" Gesture experience → Jackson answers → Claude writes the entire page in first-person from those answers. Do NOT start without the Q&A session.
+2. **Seat depth calculator** — manual build, vanilla JS, no new dependencies. 2–3 hours.
+3. Everything else is automation-eligible (spec tables on height pages, /correct-chair-dimensions/ defrag, weight capacity guide, Leap Plus reframe).
+
+**DECISION — Automation workflow resumes Monday** after Anthropic API credits are topped up (ran out mid-week of May 19–23, causing Tue/Wed/Fri failures). Node.js bumped to 24 across all workflows (committed May 22).
 
 ## 2026-W20 (May 15) — Architecture audit implementation status verified; wiki updated
 

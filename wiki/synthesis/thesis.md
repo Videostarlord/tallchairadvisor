@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-11 (geo-optimize marked complete)
+last_updated: 2026-05-23 (priority order rewritten; spec-first fitment frame set; Gesture rewrite protocol documented)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -46,35 +46,46 @@ TallChairAdvisor.com can become the #1 resource for height-specific office chair
 
 The only approved infra follow-up is lightweight **Anthropic Batch** research for non-urgent analysis steps. A broader RunPod migration is backlog-only until it beats Batch on real TCA prompt packs without adding meaningful ops burden.
 
-## What Needs to Happen Next (Priority Order — May 11)
+## What Needs to Happen Next (Priority Order — May 23)
+
+> **Strategic frame (updated May 23):** TCA is not a review site. Google already classifies it as a spec-verification authority for tall buyers. Every page should lead with dimensional data before prose. The identity is: *fitment verification tool for tall buyers who need spec confirmation before a $1,000+ purchase.* See [[semantic-intent-analysis]] for full evidence base.
 
 ### 0. ~~Build `geo-optimize.ts`~~ — DONE (2026-05-11)
-AIO suppression logic is integrated into `competitor-intelligence.ts` v2.3. SERP cache live. 3 capsules applied to src/pages/ (/review/gesture/, /best-office-chairs/, /review/leap-plus/). 3 pages remain pending (page_token type — unfixable without extra API credits). strategy.ts now reads AIO context. See [[geo-optimize-plan]].
+AIO suppression logic is integrated into `competitor-intelligence.ts` v2.3. SERP cache live. 3 capsules applied. See [[geo-optimize-plan]].
 
-Secondary build still open: **SERP-aware title comparison in `audit.ts`** (2–3 hours).
+### 1. Gesture review full rewrite — HIGHEST PRIORITY
+**2,529 impr, pos 8.2, 0.09% CTR — worst CTR-to-impression ratio on the site.**
 
-### 1. Execute this week's plan (Thu/Fri/Sat)
-Queued in `reports/weekly-plan.md` after enforcement:
-- **FIX:** /aeron-vs-gesture/ meta (348 impr, 0 CTR, pos 8.5)
-- **FIX:** /chairs/herman-miller-aeron/tall-people/ — AIO passage anchors + canonical check
-- **FIX:** /correct-chair-dimensions/ — restructure "5 Mistakes" as "5 Tall-Chair Measurement Rules"
-- **NEW:** /office-chair-return-policy/ — btod.com competitor gap, high purchase-anxiety query
-- **REWRITE:** /gesture-vs-leap-plus/ — add spec comparison table
+This is a **manual session only** — not suitable for the Friday automation agent. The page requires Jackson's real first-person body data that no agent can fabricate.
 
-### 2. Run competitor:intelligence again after next plan cycle
-Next run will benefit from v3 improvements (section manifest, FindingType tags). Schedule for ~June 10.
+**Session protocol:**
+1. Claude asks Jackson a series of prompting questions about his personal experience with the Gesture at 6'4" (seat depth feel, lumbar position, armrest height, how long it took to dial in, what hurt before vs. after, specific measurements he's noticed, etc.)
+2. Jackson answers in his own words
+3. Claude writes the entire rewritten page in first-person voice from those answers
 
-### 3. Content depth on Gesture review
-Page-level (May 10): 2,529 impr, pos 8.2, 3 clicks, 0.12% CTR. Query-level signal: the specific query "steelcase gesture review" drives 304 impr at pos 1 with 8.33% actual CTR vs 35% expected — 6.3 lost clicks/wk on that query alone. C1 from audit — REWRITE queued for a future week after cooldown clears.
+**Do not start this rewrite without going through the question → answer → write sequence.** The first-person data is the entire differentiator.
 
-### 4. Leap Plus "almost bought" reframe
-/review/leap-plus/ at pos 9.3 with 632 impressions. C2 from audit. "I almost bought this — here's the spec analysis" narrative. Future week.
+### 2. Defragment `/correct-chair-dimensions/`
+1,986 impr, pos 15.6, entropy 4.419 (52 query clusters — highest on site). Generic furniture sizing content is draining the tall-user fitment signal. Fix: remove or subordinate generic content, reframe title/intro to explicitly signal anthropometric fitment for tall users. Automation-eligible (Thursday/Friday agent).
 
-### 5. Shoulder pain + standing desk content
-Jackson's real experience anchors both. Zero-competition keywords. After current fixes ship.
+### 3. Add spec tables to height-specific pages
+`/office-chairs-for-6-foot-3/` through `/office-chairs-for-6-foot-7/` are sitting at pos 7–10 with near-zero CTR. Pattern from highest-CTR pages: specific measurement = clicks. Add a spec table (seat height range, seat depth range, weight capacity per chair) before any prose on each page. Automation-eligible.
 
-### 6. Competitor word count floor (Codex Finding 3)
-Add `competitorWordCount` to `GapFinding`, floor filter in `strategy.ts`. Small build, deferred until post-content push.
+### 4. Build seat depth calculator on `/knee-pain-seat-depth/`
+TCA is the canonical web reference for the Cornell seat depth rule — 8+ query variants route to this page. A calculator (input: height → output: seat depth range + matching chairs with affiliate links) converts an informational moat into a conversion engine. **Manual build required** — vanilla JS in an Astro `<script>` tag, no new dependencies needed. Estimated: 2–3 hour session.
+
+### 5. Weight capacity guide for tall heavy users (new page)
+"Best heavy duty ergonomic chairs for tall people" at pos 14 with zero dedicated content. Leap Plus 500 lb capacity queries confirming. No competitor owns this. Research-voice page — automation-eligible.
+
+### 6. Leap Plus "almost bought" reframe
+/review/leap-plus/ at pos 9.3 with 632 impressions. "I almost bought this — here's the spec analysis" narrative. Automation-eligible after cooldown clears.
+
+### 7. Shoulder pain + standing desk content
+Jackson's real experience anchors both. Zero-competition keywords. After items 1–3 ship.
+
+### Deferred
+- SERP-aware title comparison in `audit.ts` (2–3 hours, low urgency)
+- Competitor word count floor in `strategy.ts` (small build, post-content push)
 
 ## What Could Change This Thesis
 
