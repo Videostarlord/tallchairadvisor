@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-16
+last_updated: 2026-05-25
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,16 +70,12 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-16. 8 pages analyzed × up to 3 queries each. 2 URLs crawled (54 cache hits). 3 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
+*v2 run 2026-05-25. 8 pages analyzed × up to 3 queries each. 29 URLs crawled (18 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-05-16 | No methodology or data-sourcing statement explains how the single-inch breakdown | high | 3q | forbes.com |
-| 2026-05-16 | Explicit fit-range verdict with labeled tiers ('Best fit / Marginal / Not recomm | high | 1q | thehumansolution.com |
-| 2026-05-16 | No AIO-optimized passage explicitly maps a specific height to a specific slider  | high | 1q | forbes.com |
-| 2026-05-16 | The Cornell Ergonomics Rule is introduced in the H1 and repeated in the Poplitea | medium | 1q | ergo.human.cornell.edu |
-| 2026-05-16 | Pressure magnitude data is absent — eurekaergonomic.com cites a 60–100 mmHg pres | medium | 1q | eurekaergonomic.com |
-| 2026-05-16 | Author byline and methodology credentialing are not visibly surfaced near the to | medium | 1q | forbes.com |
-| 2026-05-16 | AggregateRating schema is absent — the schema block lists Article, Person, Organ | medium | 1q | btod.com |
-| 2026-05-16 | No weight capacity dimension integrated into the height-bracket framework — weig | medium | 1q | forbes.com |
-| 2026-05-16 | No named external expert or cited data source (e.g., anthropometric study, ergon | medium | 1q | forbes.com |
+| 2026-05-25 | The FAQPage schema is declared present but no visible FAQ section appears in the | high | 1q | btod.com |
+| 2026-05-25 | No complete spec table with min/max values for every adjustable dimension on the | high | 1q | btod.com |
+| 2026-05-25 | The 'Adjustable Seat Depth vs Fixed Seat Depth' section exists but the subsectio | medium | 1q | btod.com |
+| 2026-05-25 | No expert or third-party authority signal is present in the visible content. For | medium | 1q | forbes.com |
+| 2026-05-25 | Author byline and methodology credentialing: the Byline component is listed as p | medium | 1q | forbes.com |
