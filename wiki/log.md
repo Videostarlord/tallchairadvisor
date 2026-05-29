@@ -12,6 +12,14 @@ type: log
 - **Wiki updates:** `schema-markup`, `aeron-vs-gesture`, `meta-descriptions` all ingested
 - **Performance:** All CWV estimated PASS, TTFB 43ms, Cloudflare edge cache active
 
+## [2026-05-27] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-05-27-weekly-plan.md
+- 1 fixes, 0 rewrites, 1 new pages (5 tasks dropped by enforcement)
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+- Decay alerts injected: 0 (none — threshold requires 9+ snapshots)
+- Link gaps injected: 0 high-impression underlinked pages
+
 ## [2026-05-26] manual | Content push — 7 pages updated, 1 new page
 
 - **`/correct-chair-dimensions/`** defragmented: title/H1/subtitle rewritten to anthropometric fitment framing; dimensional requirements table moved to top (before intro prose); generic 3-paragraph "Why Standard Specs Fail" section cut to 1 tight paragraph; dateModified updated
