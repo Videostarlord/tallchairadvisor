@@ -200,6 +200,13 @@ function sanitizeFrontmatter(content: string): string {
     return match;
   });
 
+  // Replace bare English operators with JS equivalents, skipping string literals.
+  // Split on quoted strings so only code segments are transformed.
+  const replaceOutsideStrings = (s: string, pattern: RegExp, replacement: string) =>
+    s.split(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/).map((p, i) => i % 2 === 0 ? p.replace(pattern, replacement) : p).join('');
+  fm = replaceOutsideStrings(fm, /\band\b/g, '&&');
+  fm = replaceOutsideStrings(fm, /\bor\b/g, '||');
+
   return '---' + fm + content.slice(fenceEnd);
 }
 
@@ -216,7 +223,13 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   }
   const frontmatter = content.slice(3, frontmatterEnd);
   // Catch bare English operators in JS context (the specific failure mode we hit)
-  if (/\b(and|or)\b/.test(frontmatter.replace(/"[^"]*"/g, '').replace(/'[^']*'/g, ''))) {
+  const fmCodeOnly = frontmatter
+    .replace(/"[^"]*"/g, '""')
+    .replace(/'[^']*'/g, "''")
+    .replace(/`[^`]*`/g, '``')
+    .replace(/\/\/[^\n]*/g, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  if (/\b(and|or)\b/.test(fmCodeOnly)) {
     return { valid: false, reason: 'Bare "and"/"or" keyword in frontmatter JS (use && / ||)' };
   }
   if (content.includes('href="AMAZON_URL')) {
@@ -471,6 +484,17 @@ Write the complete Astro page. Output the file content only — no markdown fenc
     .trim();
 }
 
+function markSlugFailed(root: string, slug: string, reason: string): void {
+  const failedPath = resolve(root, 'data/content-failed.json');
+  let failed: Record<string, { reason: string; date: string }> = {};
+  if (existsSync(failedPath)) {
+    try { failed = JSON.parse(readFileSync(failedPath, 'utf-8')); } catch { /* ignore */ }
+  }
+  failed[slug] = { reason, date: today() };
+  mkdirSync(resolve(root, 'data'), { recursive: true });
+  writeFileSync(failedPath, JSON.stringify(failed, null, 2));
+}
+
 async function writeNewPage(task: ContentTask): Promise<{ success: boolean; filePath: string; summary: string }> {
   // Attempt 1
   let cleaned = await generatePage(task);
@@ -494,6 +518,11 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
 
   if (!validation.valid) {
     console.warn(`    VALIDATION FAILED (attempt 2) for ${task.slug}: ${validation.reason}`);
+    const rejectSlug = task.slug.replace(/^\/|\/$/g, '').replace(/\//g, '-');
+    if (cleaned && cleaned.length >= 500) {
+      archiveToRaw(ROOT, 'content-rejected', `${today()}-${rejectSlug}-validation-fail.md`, cleaned);
+    }
+    markSlugFailed(ROOT, task.slug, validation.reason);
     return { success: false, filePath: '', summary: `Validation failed after 2 attempts for ${task.slug}: ${validation.reason}` };
   }
 
@@ -555,13 +584,43 @@ async function main() {
   }
 
   const plan = readFileSync(planPath, 'utf-8');
-  const tasks = parsePlan(plan);
+  let tasks = parsePlan(plan);
 
   if (tasks.length === 0) {
-    console.log('No new content in plan — skipping.');
-    setEnv('CONTENT_WRITTEN', 'false');
-    appendWikiLog(ROOT, `## [${today()}] execute-content | Friday Content Skipped\n\n- Reason: No parseable NEW CONTENT entries found in reports/weekly-plan.md\n- Ensure plan uses 4-field format: title | keyword | /slug/ | description\n`);
-    process.exit(0);
+    // Fallback: directly load pending roadmap items if the strategy plan has no NEW tasks
+    const roadmapPath = resolve(ROOT, 'data/content-roadmap.json');
+    const failedPath = resolve(ROOT, 'data/content-failed.json');
+    let failedSlugs: Set<string> = new Set();
+    if (existsSync(failedPath)) {
+      try {
+        const failed = JSON.parse(readFileSync(failedPath, 'utf-8'));
+        failedSlugs = new Set(Object.keys(failed));
+      } catch { /* ignore */ }
+    }
+
+    if (existsSync(roadmapPath)) {
+      try {
+        const roadmap = JSON.parse(readFileSync(roadmapPath, 'utf-8')) as Array<{
+          title: string; keyword: string; slug: string; priority: number; status: string; notes: string;
+        }>;
+        const fallback = roadmap
+          .filter(t => (t.status === 'pending' || t.status === 'in-progress') && !failedSlugs.has(t.slug))
+          .sort((a, b) => a.priority - b.priority)
+          .slice(0, 2)
+          .map(t => ({ title: t.title, keyword: t.keyword, slug: t.slug, description: t.notes }));
+        if (fallback.length > 0) {
+          console.log(`Plan had no NEW tasks — falling back to ${fallback.length} pending roadmap item(s)`);
+          tasks.push(...fallback);
+        }
+      } catch { /* ignore */ }
+    }
+
+    if (tasks.length === 0) {
+      console.log('No new content in plan or roadmap — skipping.');
+      setEnv('CONTENT_WRITTEN', 'false');
+      appendWikiLog(ROOT, `## [${today()}] execute-content | Friday Content Skipped\n\n- Reason: No parseable NEW CONTENT entries found in reports/weekly-plan.md and no pending roadmap items\n`);
+      process.exit(0);
+    }
   }
 
   console.log(`Writing ${tasks.length} new pages...`);

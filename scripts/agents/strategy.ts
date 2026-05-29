@@ -104,6 +104,34 @@ function lookupImpressions(slug: string, gscAnalysis: any, gscLatest: any): numb
   return row?.impressions ?? null;
 }
 
+function injectMandatoryRoadmapItems(
+  planText: string,
+  roadmapTopics: Array<{ title: string; keyword: string; slug: string; status: string; priority: number; notes: string }>,
+  existingSlugs: Set<string>,
+  failedSlugs: Set<string>,
+): { plan: string; injected: string[] } {
+  const injected: string[] = [];
+  let plan = planText;
+
+  const pendingTopics = roadmapTopics
+    .filter(t => (t.status === 'pending' || t.status === 'in-progress') && !existingSlugs.has(t.slug) && !failedSlugs.has(t.slug))
+    .sort((a, b) => a.priority - b.priority)
+    .slice(0, 2);
+
+  for (const topic of pendingTopics) {
+    if (plan.includes(topic.slug)) continue;
+    const newLine = `- [ ] NEW: ${topic.title} | ${topic.keyword} | ${topic.slug} | ${topic.notes}`;
+    if (plan.includes('## STRATEGY NOTES')) {
+      plan = plan.replace('## STRATEGY NOTES', `${newLine}\n\n## STRATEGY NOTES`);
+    } else {
+      plan = plan + `\n${newLine}`;
+    }
+    injected.push(topic.slug);
+  }
+
+  return { plan, injected };
+}
+
 function enforcePlanConstraints(
   planText: string,
   pagesOnCooldown: Set<string>,
@@ -220,6 +248,13 @@ async function main() {
   const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
   const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
   const gscAnalysis = existsSync(analysisPath) ? JSON.parse(readFileSync(analysisPath, 'utf-8')) : null;
+
+  const failedContentPath = resolve(ROOT, 'data/content-failed.json');
+  const failedSlugs: Set<string> = new Set(
+    existsSync(failedContentPath)
+      ? Object.keys(JSON.parse(readFileSync(failedContentPath, 'utf-8')))
+      : []
+  );
 
   // CONT-01: Content roadmap — human-editable priority topic list
   const roadmapPath = resolve(ROOT, 'data/content-roadmap.json');
@@ -510,10 +545,18 @@ Output a structured weekly plan in this EXACT format so the execution agents can
     output2, pagesOnCooldown, existingFilePathSet, fileToSlug, gscAnalysis, gsc,
   );
 
+  // Inject mandatory roadmap items — deterministic, not LLM-dependent
+  const { plan: withRoadmap, injected: roadmapInjected } = injectMandatoryRoadmapItems(
+    enforced, contentRoadmap, existingSlugs, failedSlugs,
+  );
+  if (roadmapInjected.length > 0) {
+    console.log(`\nRoadmap injection: added ${roadmapInjected.length} mandatory item(s): ${roadmapInjected.join(', ')}`);
+  }
+
   // Append enforcement log to plan so it's visible in the archive
   const finalPlan = dropped.length > 0
-    ? enforced + `\n\n## DROPPED TASKS (enforcement log — not for execution)\n\n${dropped.map(d => `- ${d}`).join('\n')}\n`
-    : enforced;
+    ? withRoadmap + `\n\n## DROPPED TASKS (enforcement log — not for execution)\n\n${dropped.map(d => `- ${d}`).join('\n')}\n`
+    : withRoadmap;
 
   // Count valid tasks in the enforced plan
   function countParsedItems(planText: string, type: 'FIX' | 'REWRITE' | 'NEW'): number {
@@ -546,7 +589,7 @@ Output a structured weekly plan in this EXACT format so the execution agents can
   // Archive plan to raw layer
   archiveToRaw(ROOT, 'strategy', `${today()}-weekly-plan.md`, finalPlan);
 
-  appendWikiLog(ROOT, `## [${today()}] strategy | Weekly Plan Generated\n\n- Plan archived to raw/strategy/${today()}-weekly-plan.md\n- ${fixCount} fixes, ${rewriteCount} rewrites, ${newCount} new pages${dropped.length > 0 ? ` (${dropped.length} tasks dropped by enforcement)` : ''}\n- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation\n- Decay alerts injected: ${decayAlerts.length} (${decayAlerts.length === 0 ? 'none — threshold requires 9+ snapshots' : 'cooldown bypassed for flagged pages'})\n- Link gaps injected: ${linkGaps.length} high-impression underlinked pages\n`);
+  appendWikiLog(ROOT, `## [${today()}] strategy | Weekly Plan Generated\n\n- Plan archived to raw/strategy/${today()}-weekly-plan.md\n- ${fixCount} fixes, ${rewriteCount} rewrites, ${newCount} new pages${dropped.length > 0 ? ` (${dropped.length} tasks dropped by enforcement)` : ''}\n- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation\n- Decay alerts injected: ${decayAlerts.length} (${decayAlerts.length === 0 ? 'none — threshold requires 9+ snapshots' : 'cooldown bypassed for flagged pages'})\n- Link gaps injected: ${linkGaps.length} high-impression underlinked pages\n- Roadmap items force-injected: ${roadmapInjected.length}\n`);
 
   console.log('\nStrategy complete → reports/weekly-plan.md');
   console.log(finalPlan.slice(0, 500));
