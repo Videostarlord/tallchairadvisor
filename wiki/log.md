@@ -2,6 +2,17 @@
 type: log
 ---
 
+## [2026-05-28] manual | Content pipeline fixed — 4 bugs resolved, full autonomy restored
+
+- **Root cause diagnosis:** weekly plan had been stuck at May 16 (12 days stale). Strategy agent threw when enforcement dropped all FIX tasks (pages on cooldown after manual edits). Content agent failed `/wrist-pain-armrest-height/` twice due to JS comment validation bug — never committed fix that was sitting in local working tree.
+- **Fix 1 — Validation bug:** `validateAstroFile()` now strips JS single-line comments (`//`), block comments, and template literals before checking for bare `and`/`or`. Was producing false validation failures on Claude output containing natural-language comments in frontmatter.
+- **Fix 2 — Roadmap fallback:** `execute-content.ts` falls back to top-2 pending `data/content-roadmap.json` items when the strategy plan has zero NEW tasks. Content runs every Friday regardless of what the LLM chose to schedule.
+- **Fix 3 — Failure tracking:** Double-validation-fail now archives rejected draft to `raw/content-rejected/` AND writes `data/content-failed.json` keyed by slug. Strategy skips failed slugs permanently until manually cleared.
+- **Fix 4 — Mandatory roadmap injection:** `strategy.ts` post-processes every generated plan with `injectMandatoryRoadmapItems()` — deterministically force-injects top-2 pending roadmap items not already in plan, not already live, not in failed list. LLM can no longer bypass queued topics.
+- **Fix 5 — Auto-populate roadmap:** New `scripts/roadmap-sync.ts` clusters 225 competitor keyword gaps by topic (wide-seat, big-and-tall, back-pain, armrest, standing-desk, budget, sihoo, gaming, wide) and promotes new page opportunities to `data/content-roadmap.json`. Runs every Monday after competitor intelligence (added to monday.yml with `continue-on-error: true`).
+- **Immediate run:** `roadmap-sync` ran and added 3 new items — `/wide-seat-office-chairs-tall-people/` (8,940/mo), `/best-big-and-tall-office-chairs/` (5,100/mo), `/office-chair-lower-back-pain-tall-people/` (100/mo high-intent). Roadmap now has 7 pending items.
+- **Commit:** `84e5678` + `b63deaa` pushed to main.
+
 ## [2026-05-27] automated | Full SEO audit — 6 agents, 75/100
 
 - **Score: 75/100** (vs 77/100 on May 10). Drop driven by on-page agent surfacing systemic meta-description under-length (9/10 pages under 130 chars — execute-fixes.ts over-trimmed previously over-limit metas) and og:type defaulting to "website" across all content pages.

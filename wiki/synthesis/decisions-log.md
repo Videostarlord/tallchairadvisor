@@ -8,6 +8,27 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W22 (May 28) — Autonomous content pipeline fully fixed
+
+**DECISION — Content pipeline was broken in 4 ways; all fixed and pushed to main.**
+
+**Root causes found:**
+1. `validateAstroFile()` had no JS comment stripping — Claude writing `// tall and athletic` in frontmatter comments caused false `and`/`or` validation failures. The fix (`replaceOutsideStrings`) was sitting in the local working tree uncommitted for weeks, never deployed to GitHub Actions.
+2. Strategy LLM was ignoring the content roadmap queue — chose its own topics instead of the 4 pending items. No enforcement existed.
+3. Failed slugs were not tracked — pipeline would re-attempt the same broken slug indefinitely.
+4. Roadmap required manual maintenance — no auto-population from keyword gap data.
+
+**What was built:**
+- `validateAstroFile()` now strips comments + template literals before `and`/`or` check
+- `execute-content.ts` falls back to roadmap directly if strategy plan has 0 NEW tasks
+- `data/content-failed.json` tracks slugs that fail validation twice — strategy + fallback both skip them
+- `injectMandatoryRoadmapItems()` in `strategy.ts` deterministically force-injects top-2 pending roadmap items post-enforcement — LLM cannot bypass the queue
+- New `scripts/roadmap-sync.ts` clusters 225 competitor keyword gaps and promotes new page opportunities to `data/content-roadmap.json` every Monday
+
+**Roadmap state after fix:** 7 pending items — shoulder-pain (1), standing-desk (2), sihoo-doro (3), budget-500 (4), wide-seat (5, 8,940/mo), big-and-tall (6, 5,100/mo), back-pain (7).
+
+**Expected outcome:** 2 new pages auto-written every Friday. Roadmap self-replenishes weekly from Monday's keyword gap run. No Jackson input needed.
+
 ## 2026-W22 (May 27) — CTA placement fixed + FTC compliance verified across all affiliate pages
 
 **DONE — `/aeron-vs-gesture/` early CTA added.** Both Amazon CTAs were previously at 85%+ scroll. Added a two-button CTA block (Gesture + Aeron) immediately after the Quick Answer box at the top of the article. Disclosure was already present and compliant.

@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-14 (Clarity diagnosis: live CSP inconsistency + incomplete host allowlist)
+last_updated: 2026-05-28 (pipeline autonomy fixes: validation bug, roadmap injection, roadmap-sync)
 tags: [automation, workflow, agents, github-actions, obsidian, analytics]
 ---
 
