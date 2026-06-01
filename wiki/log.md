@@ -2,6 +2,14 @@
 type: log
 ---
 
+### 2026-06-01 — keyword-discovery.ts run
+- Seeds: GSC=12, Competitor=6, Deduped=16
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 11
+- After filter: 11 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 11 (gap=0, targeting=0, ranking=11)
+- Mode: production
+
 ## [2026-05-28] manual | Content pipeline fixed — 4 bugs resolved, full autonomy restored
 
 - **Root cause diagnosis:** weekly plan had been stuck at May 16 (12 days stale). Strategy agent threw when enforcement dropped all FIX tasks (pages on cooldown after manual edits). Content agent failed `/wrist-pain-armrest-height/` twice due to JS comment validation bug — never committed fix that was sitting in local working tree.
