@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-06-02] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 55 | Impressions: 23105
+- Full report archived to raw/audits/2026-06-02-weekly-audit.md
+
+
 ### 2026-06-01 — keyword-discovery.ts run
 - Seeds: GSC=12, Competitor=6, Deduped=16
 - Estimated cost: $0.0201 (1 task)
