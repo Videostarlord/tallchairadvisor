@@ -2,6 +2,12 @@
 type: log
 ---
 
+## [2026-06-04] execute-fixes | Thursday Fixes Applied
+
+- /aeron-vs-gesture/ → src/pages/aeron-vs-gesture.astro
+- /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
+
+
 ## [2026-06-03] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-06-03-weekly-plan.md
