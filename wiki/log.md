@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-06-06] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W23.md
+
+
 ## [2026-06-04] execute-fixes | Thursday Fixes Applied
 
 - /aeron-vs-gesture/ → src/pages/aeron-vs-gesture.astro
