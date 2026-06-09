@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-06-09] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 55 | Impressions: 23105
+- Full report archived to raw/audits/2026-06-09-weekly-audit.md
+
+
 ## [2026-06-06] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED

@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-06-02
-sources: [raw/audits/2026-06-02-weekly-audit.md]
+last_updated: 2026-06-09
+sources: [raw/audits/2026-06-09-weekly-audit.md]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-06-02)
+## Latest Snapshot (2026-06-09)
 
 | Metric | Value |
 |--------|-------|
@@ -29,9 +29,18 @@ tags: [gsc, performance, metrics, tracking]
 | /best-office-chairs/ | 1095 impr | pos 21.9 | 0.09% CTR | 1 clicks |
 | /gesture-vs-leap-plus/ | 690 impr | pos 12.9 | 0.14% CTR | 1 clicks |
 
-*Full audit report: raw/audits/2026-06-02-weekly-audit.md*
+*Full audit report: raw/audits/2026-06-09-weekly-audit.md*
 
 ## Historical Snapshots
+
+### 2026-06-02
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 23105 |
+| Total clicks | 55 |
+| Avg CTR | 0.24% |
+| Avg position | 10.5 |
 
 ### 2026-05-25
 
@@ -95,12 +104,3 @@ tags: [gsc, performance, metrics, tracking]
 | Total clicks | 35 |
 | Avg CTR | 0.24% |
 | Avg position | 11.1 |
-
-### 2026-05-09
-
-| Metric | Value |
-|--------|-------|
-| Total impressions | 12209 |
-| Total clicks | 29 |
-| Avg CTR | 0.24% |
-| Avg position | 11.5 |
