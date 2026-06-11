@@ -2,6 +2,12 @@
 type: log
 ---
 
+## [2026-06-11] execute-fixes | Thursday Fixes Applied
+
+- /office-chairs-for-6-foot-4/ → src/pages/office-chairs-for-6-foot-4.astro
+- /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
+
+
 ## [2026-06-10] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-06-10-weekly-plan.md
