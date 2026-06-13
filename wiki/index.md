@@ -103,6 +103,12 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 |------|---------|
 | [[2026-W23]] | Deployed. 55 clicks, 23105 impr. |
 
+## Weekly Summaries
+
+| Page | Summary |
+|------|---------|
+| [[2026-W24]] | Deployed. 55 clicks, 23105 impr. |
+
 ## Raw Sources (reference only — do not edit)
 
 Located in `raw/`. Organized by type:
