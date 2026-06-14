@@ -2,6 +2,15 @@
 type: log
 ---
 
+## [2026-06-14] ga4-pull | GA4 Data Pull
+
+- Period: 2026-05-17 → 2026-06-14 (28 days)
+- Sessions: 335 | Users: 270 | Views: 394
+- Engagement rate: 29.3% | Avg duration: 103s
+- Affiliate clicks: 20 | ChatGPT sessions: 56
+- Pages: 38 | Channels: 5
+
+
 ## [2026-06-14] clarity-history | Behavioral Data
 
 - Window: 3 days ending 2026-06-14
