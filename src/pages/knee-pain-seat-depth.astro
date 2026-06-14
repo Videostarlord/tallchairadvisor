@@ -361,6 +361,9 @@ const schema = [
           whether their maximum seat depth meets your number. Don't let overall reviews or
           brand reputation substitute for this single measurement check — it's the most
           reliable predictor of whether a chair will cause knee pain for your specific body.
+          If the Leap Plus and Gesture are outside your budget, our
+          <a href="/best-office-chairs-under-500/" class="link-internal">best office chairs under $500 for tall users</a>
+          covers spec-matched alternatives that still hit the 18"+ seat depth threshold.
         </p>
       </section>
 
@@ -403,4 +406,145 @@ const schema = [
           </div>
 
           <div class="border border-border rounded-lg p-5">
-            <p class="font-semibold text-heading mb-2">Does the Herman Miller A
+            <p class="font-semibold text-heading mb-2">Does the Herman Miller Aeron have enough seat depth for tall users?</p>
+            <p class="text-sm text-muted-foreground">The Herman Miller Aeron Size C has a fixed seat depth of approximately 18.5 inches. This is workable for users in the 6&#39;0&#34;&#8211;6&#39;2&#34; range with average thigh proportions. However, users 6&#39;3&#34; and taller, or users with longer-than-average femurs relative to their height, may find this depth marginal or insufficient &#8212; particularly if their measured minimum requirement is 19 inches or more. The Aeron&#39;s fixed depth means there is no slider to extend it further, so users above this threshold should consider the Steelcase Leap Plus, which reaches 19.75 inches of adjustable seat depth.</p>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </article>
+</Layout>
+
+<script>
+  const depthByHeight: Record<string, Record<string, number>> = {
+    '6.0': { short: 17.5, average: 18.0, long: 18.5 },
+    '6.1': { short: 18.0, average: 18.5, long: 19.0 },
+    '6.2': { short: 18.5, average: 19.0, long: 19.5 },
+    '6.3': { short: 19.0, average: 19.5, long: 20.0 },
+    '6.4': { short: 19.5, average: 20.0, long: 20.5 },
+    '6.5': { short: 20.0, average: 20.5, long: 21.0 },
+  };
+
+  const chairs = [
+    {
+      name: 'Steelcase Leap Plus',
+      depth: '15.75–19.75″ (adjustable)',
+      maxDepth: 19.75,
+      url: '/review/leap-plus/',
+      amazon: 'https://www.amazon.com/s?k=Steelcase+Leap+Plus&tag=tallchairadvi-20',
+    },
+    {
+      name: 'Steelcase Gesture',
+      depth: '15.75–18.75″ (adjustable)',
+      maxDepth: 18.75,
+      url: '/review/gesture/',
+      amazon: 'https://www.amazon.com/s?k=steelcase+gesture+chair&tag=tallchairadvi-20',
+    },
+    {
+      name: 'Herman Miller Aeron Size C',
+      depth: '~18.5″ (fixed)',
+      maxDepth: 18.5,
+      url: '/review/aeron-size-c/',
+      amazon: 'https://www.amazon.com/s?k=herman+miller+aeron+size+c&tag=tallchairadvi-20',
+    },
+  ];
+
+  let selectedHeight: string | null = null;
+
+  const step1 = document.getElementById('calc-step1')!;
+  const step2 = document.getElementById('calc-step2')!;
+  const resultsEl = document.getElementById('calc-results')!;
+  const resultDepthEl = document.getElementById('result-depth')!;
+  const resultNoteEl = document.getElementById('result-note')!;
+  const resultChairsEl = document.getElementById('result-chairs')!;
+  const manualToggle = document.getElementById('manual-toggle')!;
+  const manualSection = document.getElementById('calc-manual')!;
+  const inseamInput = document.getElementById('inseam-input') as HTMLInputElement;
+  const manualCalcBtn = document.getElementById('manual-calc-btn')!;
+
+  function showResults(minDepth: number, note: string) {
+    resultDepthEl.textContent = minDepth.toFixed(1);
+    resultNoteEl.textContent = note;
+
+    const matching = chairs.filter((c) => c.maxDepth >= minDepth);
+    const notMatching = chairs.filter((c) => c.maxDepth < minDepth);
+
+    let html = '';
+    matching.forEach((c) => {
+      html += `<div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-green-200 bg-green-50">
+        <div>
+          <span class="text-xs font-semibold text-green-700 uppercase tracking-wide">Covers your requirement</span>
+          <p class="font-medium text-heading text-sm mt-0.5"><a href="${c.url}" class="link-internal">${c.name}</a></p>
+          <p class="text-xs text-muted-foreground">${c.depth}</p>
+        </div>
+        <a href="${c.amazon}" target="_blank" rel="noopener noreferrer sponsored" class="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-md font-medium hover:bg-primary/90 transition-colors">View on Amazon &rarr;</a>
+      </div>`;
+    });
+    notMatching.forEach((c) => {
+      html += `<div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-border bg-secondary/20 opacity-60">
+        <div>
+          <span class="text-xs font-semibold text-muted-foreground uppercase tracking-wide">May be marginal</span>
+          <p class="font-medium text-heading text-sm mt-0.5"><a href="${c.url}" class="link-internal">${c.name}</a></p>
+          <p class="text-xs text-muted-foreground">${c.depth}</p>
+        </div>
+      </div>`;
+    });
+
+    resultChairsEl.innerHTML = html;
+    resultsEl.classList.remove('hidden');
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.height-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.height-btn').forEach((b) => {
+        b.classList.remove('border-primary', 'text-primary', 'bg-primary/5');
+      });
+      btn.classList.add('border-primary', 'text-primary', 'bg-primary/5');
+      selectedHeight = btn.dataset.height!;
+      step2.classList.remove('hidden');
+      resultsEl.classList.add('hidden');
+      document.querySelectorAll('.body-btn').forEach((b) => {
+        b.classList.remove('border-primary', 'bg-primary/5');
+      });
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.body-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!selectedHeight) return;
+      document.querySelectorAll('.body-btn').forEach((b) => {
+        b.classList.remove('border-primary', 'bg-primary/5');
+      });
+      btn.classList.add('border-primary', 'bg-primary/5');
+
+      const bodyType = btn.dataset.body as 'short' | 'average' | 'long';
+      const minDepth = depthByHeight[selectedHeight][bodyType];
+      const notes: Record<string, string> = {
+        short: 'Based on shorter-than-average legs relative to your height.',
+        average: 'Based on average leg-to-torso proportions.',
+        long: 'Based on longer-than-average legs relative to your height — measure your inseam to confirm.',
+      };
+      showResults(minDepth, notes[bodyType]);
+    });
+  });
+
+  manualToggle.addEventListener('click', () => {
+    manualSection.classList.toggle('hidden');
+  });
+
+  manualCalcBtn.addEventListener('click', () => {
+    const inseam = parseFloat(inseamInput.value);
+    if (isNaN(inseam) || inseam < 26 || inseam > 42) {
+      inseamInput.classList.add('border-red-400');
+      return;
+    }
+    inseamInput.classList.remove('border-red-400');
+    const minDepth = Math.round(inseam * 0.56 * 2) / 2;
+    showResults(minDepth, `Based on a ${inseam}" standing inseam measurement.`);
+    if (!step2.classList.contains('hidden') === false) {
+      step2.classList.remove('hidden');
+    }
+  });
+</script>
