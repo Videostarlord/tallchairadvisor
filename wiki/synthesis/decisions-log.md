@@ -8,6 +8,18 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W24 (June 14) — 4 CRO/CTR fixes from full-site-report audit
+
+**DONE — /knee-pain-seat-depth/ calculator now works.** The site's #1 impression page (12,804 GSC) had a fully-built interactive calculator UI with zero JavaScript — every button click was a dead click. Injected working JS: height selection reveals body-type step, which calculates minimum seat depth and displays matching chairs with affiliate links. Manual inseam path also wired. File was also silently truncated (last FAQ entry and `</Layout>` missing); completed.
+
+**DONE — /review/gesture/ TL;DR moved before hero image.** ChatGPT visitors (56 sessions/28d, 3% avg scroll) were leaving before seeing the verdict box. Moved TL;DR Verdict Box (Best for / Not ideal for) to appear immediately after the disclosure notice, before the hero `<figure>`. Two-line change.
+
+**DONE — /knee-pain-seat-depth/ → /best-office-chairs-under-500/ link added.** #1 impression page had no link to the hidden-star conversion page (285s dwell, 5 affiliate clicks, unranked in GSC). Added one contextual sentence in the "Chairs With Adequate Seat Depth" section.
+
+**DONE — /aeron-vs-gesture/ meta rewritten with verdict lead.** Page had 0 clicks at position 8.5. Meta was spec-listing ("seat depth, breathability, armrests"). Rewritten to: "At 6'4", the Gesture won — adjustable seat depth and 360° armrests outweighed the Aeron's breathability advantage." GSC validation pending.
+
+**Source:** raw/audits/2026-06-14-full-site-report.md — issues 1–4 of the 7-recommendation report.
+
 ## 2026-W22 (May 28) — Autonomous content pipeline fully fixed
 
 **DECISION — Content pipeline was broken in 4 ways; all fixed and pushed to main.**

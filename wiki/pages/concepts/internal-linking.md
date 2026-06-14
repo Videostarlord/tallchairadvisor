@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-11
+last_updated: 2026-06-14
 sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-03-site-structure.md, raw/audits/2026-05-10-full-seo-audit.md]
 tags: [internal-links, site-architecture]
 ---
@@ -20,6 +20,7 @@ Hub-and-spoke clusters. Each chair brand gets a hub + micro-pages. All pages rea
 | /review/gesture/ | /review/sihoo-doro-s300/ | ✅ |
 | /review/gesture/ | /review/aeron-size-c/ | ✅ |
 | /review/gesture/ | /correct-chair-dimensions/ | ✅ |
+| /knee-pain-seat-depth/ | /best-office-chairs-under-500/ | ✅ 2026-06-14 |
 | /aeron/tall-people/ | /review/aeron-size-c/ | ✅ |
 | /aeron/tall-people/ | /correct-chair-dimensions/ | ✅ |
 | /chairs/herman-miller-aeron/ | /chairs/herman-miller-aeron/size-guide/ | ✅ FIXED 2026-05-10 |
@@ -50,6 +51,7 @@ Hub-and-spoke clusters. Each chair brand gets a hub + micro-pages. All pages rea
 | Date | Fix |
 |------|-----|
 | 2026-05-10 | /chairs/herman-miller-aeron/size-guide/ orphan resolved — inbound links added from hub + aeron-size-c review |
+| 2026-06-14 | /knee-pain-seat-depth/ → /best-office-chairs-under-500/ added in "Chairs With Adequate Seat Depth" section. Closes highest-priority gap: #1 impression page (12,804 GSC) now passes link equity to hidden-star conversion page (42 sessions, 285s dwell, 5 affiliate clicks, unranked in GSC). |
 
 ## Links
 

@@ -2,6 +2,24 @@
 type: log
 ---
 
+## [2026-06-14] page-fixes | 4 CRO/CTR Fixes Applied
+
+- **Calculator JS** — /knee-pain-seat-depth/ had working HTML calculator with zero JS. Injected full script: height selection → body type reveal → depth calculation → chair match + affiliate CTAs. Also completed truncated file (last FAQ + `</Layout>` were missing).
+- **TL;DR order** — /review/gesture/ TL;DR Verdict Box moved before hero image. ChatGPT visitors (56 sessions/28d, 3% scroll depth) now see Best for/Not ideal for verdict without scrolling past a large photo.
+- **Internal link** — /knee-pain-seat-depth/ → /best-office-chairs-under-500/ added in "Chairs With Adequate Seat Depth" section. #1 impression page now links to hidden-star conversion page (285s dwell, 5 affiliate clicks, unranked).
+- **Meta description** — /aeron-vs-gesture/ rewritten to verdict-led: "At 6'4", the Gesture won — adjustable seat depth and 360° armrests outweighed the Aeron's breathability advantage." Addresses 0 clicks at pos 8.5.
+- Commit: b3308d6
+
+## [2026-06-14] full-site-report | Cross-Source Site Audit
+
+- Sources: GSC (90d), GA4 (28d), Clarity (3d)
+- 47 pages mapped across 5 tiers
+- Key finding: 42,738 impr, 108 clicks, 0.25% CTR — best ever but AIO stealing ~755 clicks/90d on /knee-pain-seat-depth/ alone
+- ChatGPT bounce problem on /review/gesture/ (3% scroll vs 79% on /review/leap-plus/)
+- /best-office-chairs-under-500/ hidden star: #2 GA4 page, 285s dwell, 5 affiliate clicks — not ranking in GSC
+- /best-office-chairs/ most affiliate clicks (8/20) from pos 21 — content depth fix needed
+- Raw: raw/audits/2026-06-14-full-site-report.md
+
 ## [2026-06-14] ga4-pull | GA4 Data Pull
 
 - Period: 2026-05-17 → 2026-06-14 (28 days)

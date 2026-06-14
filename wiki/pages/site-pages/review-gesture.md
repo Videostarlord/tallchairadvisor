@@ -2,7 +2,7 @@
 type: entity
 entity: site-page
 url: /review/gesture/
-last_updated: 2026-05-25
+last_updated: 2026-06-14
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-19-blog-audit.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json, data/competitors/intelligence.json]
 tags: [page, review, gesture, first-person, flagship]
 ---
@@ -66,6 +66,7 @@ tags: [page, review, gesture, first-person, flagship]
 | 2026-04-03 | Internal links to new pages confirmed present | ✅ |
 | 2026-05-12 | AIO citation capsule inserted after "Seat Depth" H2 | Spec-validated (18.75") |
 | 2026-05-25 | Full first-person rewrite from Jackson Q&A session. Intro rewritten with real pain story + "woah" moment. Seat depth corrected 1.5–2 → 3 fingers. Break-in story replaced (was AI-generated). Armrests section honest account. Backrest section adds pain improvement + nap story. Height guide: 6'4" no longer "borderline". Verdict updated to 4.5/5 through 6'4". CTA added after Direct Answer box. itemReviewed schema added. sitemap lastmod updated. | All 4 major open issues resolved |
+| 2026-06-14 | TL;DR Verdict Box moved before hero image — now appears immediately after the Disclosure notice, before the `<figure>`. Fixes ChatGPT bounce problem (3% scroll, visitors left before seeing Best for/Not ideal for). | Hero image no longer gates the verdict |
 
 ## Links
 

@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-05-26 (heavy-duty page added; correct-chair-dimensions defrag done; height-page spec tables done)
+last_updated: 2026-06-14 (4 page fixes: calculator JS, TL;DR order, internal link, meta description)
 ---
 
 # TCA Wiki Index
@@ -22,10 +22,11 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 | Page | Summary |
 |------|---------|
-| [[review-gesture]] | Flagship review. Score 88. 2,529 impr, pos 8.2. AIO capsule applied May 12 (18.75" seat depth). |
+| [[review-gesture]] | Flagship review. Score 88. 2,529 impr, pos 8.2. AIO capsule May 12. TL;DR moved before hero image Jun 14 (ChatGPT bounce fix). |
 | [[review-leap-plus]] | Research-based "almost bought" review. AIO capsule applied May 12 (19.75"/22.5"/500lb specs). |
 | [[aeron-tall-people]] | 1,353 impr, pos 7.4, 4 clicks (0.30% CTR). May 10. |
-| [[aeron-vs-gesture]] | 385 impr, pos 8.5, 0 clicks (0% CTR). Comparison. May 10. |
+| [[knee-pain-seat-depth]] | **NEW entity Jun 14.** #1 impression page (12,804 GSC). Calculator now working. Links to /best-office-chairs-under-500/ added. Cornell Rule framing. |
+| [[aeron-vs-gesture]] | 385 impr, pos 8.5, 0 clicks. Meta rewritten Jun 14 to verdict-lead. GSC validation pending. |
 | [[chairs-herman-miller-aeron-size-guide]] | NEW 2026-04-13. Size B vs C guide for tall users. No GSC data yet. |
 | [[correct-chair-dimensions]] | Educational. 1,766 impr, pos 15.8. Top GSC opportunity (content-depth, score 883). May 12. |
 | [[best-office-chairs]] | Money page. 776 impr, pos 22.5, 0 clicks. AIO capsule applied May 12 (21" Aeron seat height). |
@@ -114,7 +115,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 Located in `raw/`. Organized by type:
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
-- `raw/audits/` — Audit/analysis files (latest: 2026-05-27). Key files: `2026-05-27-full-seo-audit.md` (current SEO audit, 75/100, 6-agent), `2026-05-27-action-plan.md` (29 prioritized fixes), `2026-05-13-systems-architecture-audit.md` (systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (prior SEO audit, 77/100, archived).
+- `raw/audits/` — Audit/analysis files (latest: 2026-06-14). Key files: `2026-06-14-full-site-report.md` (cross-source site audit: GSC+GA4+Clarity, 47 pages mapped, 5 tiers, 7 recommendations), `2026-05-27-full-seo-audit.md` (SEO audit, 75/100, 6-agent), `2026-05-27-action-plan.md` (29 prioritized fixes), `2026-05-13-systems-architecture-audit.md` (systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (prior SEO audit, 77/100, archived).
 - `raw/strategy/` — Strategy/planning files (latest: 2026-05-15). Key files: `2026-05-15-niche-incubator-plan.md` (adjacent-project architecture for niche go/no-go scoring), `2026-05-11-niche-validation-evaluation.md` (core validation framework), `2026-05-10-runpod-migration-proposal.md` (historical cost research, backlog only).
 - `raw/reddit/` — Reddit/Apify pipeline docs
 - `raw/misc/` — Session context, PDF
