@@ -185,12 +185,12 @@ function parsePageRecords(rawMetrics: ClarityMetric[], windowEnd: string): PageR
   for (const metric of rawMetrics) {
     const prefix = metric.metricName.replace(/\s+/g, '_');
     for (const row of metric.information) {
-      const urlVal = String(row['URL'] ?? row['url'] ?? '').trim();
+      const urlVal = String(row['URL'] ?? row['url'] ?? row['Url'] ?? '').trim();
       if (!urlVal) continue;
 
       if (!urlMap.has(urlVal)) urlMap.set(urlVal, {});
       const merged = urlMap.get(urlVal)!;
-      const nums = extractNumericFields(row, 'URL');
+      const nums = extractNumericFields(row, 'Url');
 
       for (const [k, v] of Object.entries(nums)) {
         // Store with prefix (avoids cross-metric collisions in raw output)
@@ -206,12 +206,13 @@ function parsePageRecords(rawMetrics: ClarityMetric[], windowEnd: string): PageR
     windowEnd,
     windowDays: NUM_OF_DAYS,
     url,
-    sessions: findByKeywords(fields, 'session'),
-    scrollDepthAvg: findByKeywords(fields, 'scroll', 'depth') ?? findByKeywords(fields, 'scrolldepth'),
-    rageClicks: findByKeywords(fields, 'rage') ?? findByKeywords(fields, 'rageclick'),
-    deadClicks: findByKeywords(fields, 'dead') ?? findByKeywords(fields, 'deadclick'),
-    excessiveScroll: findByKeywords(fields, 'excessive'),
-    engagementTimeSec: findByKeywords(fields, 'engagement', 'time') ?? findByKeywords(fields, 'engagementtime'),
+    sessions: findByKeywords(fields, 'total', 'session') ?? findByKeywords(fields, 'session'),
+    // API returns 0–100 percentage; normalize to 0.0–1.0
+    scrollDepthAvg: (() => { const v = findByKeywords(fields, 'scroll', 'depth'); return v !== null ? Math.round(v) / 100 : null; })(),
+    rageClicks: findByKeywords(fields, 'rage', 'subtotal'),
+    deadClicks: findByKeywords(fields, 'dead', 'subtotal'),
+    excessiveScroll: findByKeywords(fields, 'excessive', 'subtotal'),
+    engagementTimeSec: findByKeywords(fields, 'engagement', 'activetime'),
     raw: fields,
   }));
 }

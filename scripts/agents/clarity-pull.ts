@@ -110,12 +110,12 @@ function parsePageMetrics(rawMetrics: ClarityMetric[]): PageMetrics[] {
 
   for (const metric of rawMetrics) {
     for (const row of metric.information) {
-      const urlValue = String(row['URL'] ?? row['url'] ?? '').trim();
+      const urlValue = String(row['URL'] ?? row['url'] ?? row['Url'] ?? '').trim();
       if (!urlValue) continue;
 
       if (!pageMap.has(urlValue)) pageMap.set(urlValue, {});
       const merged = pageMap.get(urlValue)!;
-      const nums = extractNumeric(row, 'URL');
+      const nums = extractNumeric(row, 'Url');
       // Prefix with metricName to avoid key collisions across metric types
       const prefix = metric.metricName.replace(/\s+/g, '_');
       for (const [k, v] of Object.entries(nums)) {
@@ -128,12 +128,13 @@ function parsePageMetrics(rawMetrics: ClarityMetric[]): PageMetrics[] {
 
   return Array.from(pageMap.entries()).map(([url, fields]) => ({
     url,
-    sessions: findField(fields, 'session') ?? findField(fields, 'Session'),
-    scrollDepthAvg: findField(fields, 'scroll', 'depth') ?? findField(fields, 'scrollDepth'),
-    engagementTimeSec: findField(fields, 'engagement', 'time') ?? findField(fields, 'engagementTime'),
-    rageClicks: findField(fields, 'rage') ?? findField(fields, 'rageClick'),
-    deadClicks: findField(fields, 'dead') ?? findField(fields, 'deadClick'),
-    excessiveScroll: findField(fields, 'excessive'),
+    sessions: findField(fields, 'total', 'session') ?? findField(fields, 'session'),
+    // API returns 0–100 percentage; normalize to 0.0–1.0
+    scrollDepthAvg: (() => { const v = findField(fields, 'scroll', 'depth'); return v !== null ? Math.round(v) / 100 : null; })(),
+    engagementTimeSec: findField(fields, 'engagement', 'activetime'),
+    rageClicks: findField(fields, 'rage', 'subtotal'),
+    deadClicks: findField(fields, 'dead', 'subtotal'),
+    excessiveScroll: findField(fields, 'excessive', 'subtotal'),
     rawFields: fields,
   }));
 }

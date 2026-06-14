@@ -2,6 +2,44 @@
 type: log
 ---
 
+## [2026-06-14] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-06-14
+- Pages recorded: 14
+- Device split: {"mobile":0.35,"tablet":0.05,"pc":0.6,"other":0}
+- Behavioral alerts: 7
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/how-to-adjust-chair/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/: 21% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 20% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 1
+
+
+## [2026-06-14] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-06-14
+- Pages recorded: 14
+- Device split: {"mobile":0.35,"tablet":0.05,"pc":0.6,"other":0}
+- Behavioral alerts: 7
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/how-to-adjust-chair/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/: 21% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 20% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 1
+
+
+## [2026-06-14] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-06-14
+- Pages recorded: 0
+- Device split: {"mobile":0.35,"tablet":0.05,"pc":0.6,"other":0}
+- Behavioral alerts: 0
+  (none above threshold)
+- history.jsonl total dates: 1
+
+
 ## [2026-06-14] manual | Quick Picks affiliate links + pipeline bugs fixed
 
 - Fixed /best-office-chairs/ Quick Picks: chair name links now go to Amazon affiliate URLs (tag=tallchairadvi-20) instead of internal review pages. "full review →" internal links added alongside each pick.
