@@ -279,6 +279,10 @@ async function main() {
     : { gaps: [] };
   const linkGaps: any[] = linkAudit.gaps ?? [];
 
+  // Clarity behavioral data — optional, only available if clarity-pull.ts ran this Monday
+  const clarityPath = resolve(ROOT, 'data/clarity/latest.json');
+  const clarityData = existsSync(clarityPath) ? JSON.parse(readFileSync(clarityPath, 'utf-8')) : null;
+
   const auditReport = readIfExists(resolve(ROOT, 'reports/audit-report.md'));
   const prevPlan = readIfExists(resolve(ROOT, 'reports/weekly-plan.md'), 'No previous plan.');
 
@@ -337,7 +341,7 @@ async function main() {
   const wikiIndex = readWikiIndex(ROOT) || '';
   const synthesisContext = readSynthesisContext(ROOT);
   const conceptContext = readConceptContext(ROOT, [
-    'ctr-optimization', 'statistical-confidence-policy', 'content-gaps', 'internal-linking', 'ai-citation-readiness', 'indexing-health', 'gsc-intelligence',
+    'ctr-optimization', 'statistical-confidence-policy', 'content-gaps', 'internal-linking', 'ai-citation-readiness', 'indexing-health', 'gsc-intelligence', 'semantic-intent-analysis',
   ]);
   const decisionsLog = readWikiPage(ROOT, 'synthesis/decisions-log.md') || '';
   const thesis = readWikiPage(ROOT, 'synthesis/thesis.md') || '';
@@ -437,6 +441,19 @@ ${(gscAnalysis.contentGap ?? []).slice(0, 6).map((g: any) =>
   `- [${g.gapSeverity}] "${g.query}" — TCA: ${g.tcaPage} pos ${g.tcaPosition}, ${g.competitorDomain} pos ${g.competitorPosition} | ${g.impressions} impr`
 ).join('\n') || '- No content gaps detected this week'}` : `(analysis.json not yet available — running without query-level intelligence)
 Top pages: ${gsc.pages.slice(0, 5).map((p: any) => `${p.page} (${p.impressions} impr, pos ${p.position}, ${p.clicks} clicks)`).join(', ')}`}
+
+CLARITY BEHAVIORAL SIGNALS (last ${clarityData?.numOfDays ?? 0} days — rage clicks, dead clicks, scroll depth):
+${clarityData ? (() => {
+  const alerts = (clarityData.behavioralAlerts ?? []).slice(0, 8);
+  const alertLines = alerts.length > 0
+    ? alerts.map((a: any) => `- [${a.issue}] ${a.url}: ${a.note}`).join('\n')
+    : '(no behavioral alerts above threshold)';
+  const topPages = (clarityData.pages ?? []).slice(0, 8).map((p: any) =>
+    `- ${p.url} | ${p.sessions ?? '?'} sessions | scroll ${p.scrollDepthAvg != null ? Math.round(p.scrollDepthAvg * 100) + '%' : '?'} | rage ${p.rageClicks ?? '?'} | dead ${p.deadClicks ?? '?'}`
+  ).join('\n');
+  const device = Object.entries(clarityData.deviceSplit ?? {}).map(([k, v]) => `${k}: ${Math.round((v as number) * 100)}%`).join(', ');
+  return `Device split: ${device || 'n/a'}\n\nTop pages by sessions:\n${topPages}\n\nAlerts:\n${alertLines}`;
+})() : '(clarity-pull.ts not yet run — add CLARITY_TOKEN secret to enable)'}
 
 AUDIT REPORT:
 ${auditReport.slice(0, 3000)}

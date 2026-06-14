@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-11 (marked complete — v2.3 capsules applied)
+last_updated: 2026-05-28 (page_token label corrected — SerpAPI artifact; pipeline now on DataForSEO)
 sources: [raw/strategy/2026-05-11-ctr-revenue-analysis.md]
 tags: [geo, aio, automation, ctr, build-plan]
 ---
@@ -10,7 +10,8 @@ tags: [geo, aio, automation, ctr, build-plan]
 **Status: COMPLETE — integrated into `competitor-intelligence.ts` v2.3**  
 **Output: `reports/geo-optimize-tasks.md` + `data/competitors/intelligence.json` (`aioTasks` field)**  
 **Capsules applied (2026-05-11):** `/review/gesture/`, `/best-office-chairs/`, `/review/leap-plus/`  
-**Pending (page_token — unfixable):** `/knee-pain-seat-depth/`, `/chairs/herman-miller-aeron/tall-people/`, `/chairs/steelcase-gesture/seat-depth/`  
+**Pending (no AIO detected at last run):** `/knee-pain-seat-depth/`, `/chairs/herman-miller-aeron/tall-people/`, `/chairs/steelcase-gesture/seat-depth/`  
+**Note:** "page_token" was a SerpAPI-specific error. Pipeline is now on DataForSEO. Under DataForSEO, either an `ai_overview` item is returned (processable) or it isn't (no AIO for that query — not a code error). Re-run competitor-intelligence.ts to check current AIO state for these three pages.  
 **SERP cache:** `data/competitors/serp-cache.json` (72h TTL, populated for all 23 queries)
 
 ---
@@ -52,10 +53,10 @@ geo-optimize.ts
 │   └── Reads data/gsc/analysis.json → filters for AIO suppression pattern
 │       Returns: [{page, topQuery, impressions, position, ctr}]
 │
-├── fetchAIOContent(query)  [SerpAPI]
-│   └── Queries SerpAPI with 'gl=us&hl=en&num=10'
-│       Parses ai_overview block from response
-│       Extracts: cited URLs, citation passage text, passage word count, format (list/table/prose)
+├── fetchAIOContent(query)  [DataForSEO]
+│   └── Queries DataForSEO /v3/serp/google/organic/live/advanced
+│       Parses ai_overview item (type: 'ai_overview') from response items array
+│       Extracts: .markdown passage text, .references[].url for cited URLs, format (list/table/prose)
 │       Returns: {hasAIO: bool, citedUrls: string[], passageFormat: string, samplePassage: string}
 │
 ├── fetchTCAPageSection(page, query)  [Firecrawl or local src read]
@@ -100,7 +101,7 @@ Option A is lower risk to start — manually reviewable before fixes apply.
 
 | Resource | Per run | Monthly (4 runs/mo) |
 |----------|---------|---------------------|
-| SerpAPI | ~5–10 credits (1 query × 5–8 pages) | 20–40 credits (8–16% of 250/mo quota) |
+| DataForSEO | ~5–8 SERP queries (1 per page) | ~20–32 queries/month |
 | Firecrawl | 0 credits (reads local src files instead of crawling) | $0 |
 | Claude API | ~$0.10–0.30 per run (Sonnet, 5–8 pages) | $0.40–1.20/mo |
 | **Total** | | **<$2/month** |

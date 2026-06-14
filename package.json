@@ -27,7 +27,9 @@
     "keyword:gaps": "tsx scripts/keyword-gap-discovery.ts",
     "keyword:gaps:test": "tsx scripts/keyword-gap-discovery.test.ts",
     "keywords:push": "tsx scripts/keywords-push.ts",
-    "roadmap:sync": "npx tsx scripts/roadmap-sync.ts"
+    "roadmap:sync": "npx tsx scripts/roadmap-sync.ts",
+    "agent:clarity": "tsx scripts/agents/clarity-pull.ts",
+    "agent:clarity-history": "tsx scripts/agents/clarity-history.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",

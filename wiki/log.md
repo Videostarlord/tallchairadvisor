@@ -2,6 +2,36 @@
 type: log
 ---
 
+## [2026-06-14] manual | Quick Picks affiliate links + pipeline bugs fixed
+
+- Fixed /best-office-chairs/ Quick Picks: chair name links now go to Amazon affiliate URLs (tag=tallchairadvi-20) instead of internal review pages. "full review →" internal links added alongside each pick.
+- Fixed execute-content.ts validateAstroFile: string-stripping regex upgraded to handle escaped quotes inside JSON strings. Root cause of repeated shoulder-pain-tall-people validation failures.
+- Fixed execute-content.ts scoreContent: markdown code fence stripping added before JSON.parse. Root cause of quality gate FAILED (0/100) on standing-desk-height-tall-people.
+
+
+## [2026-06-14] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 17 (top leak: /knee-pain-seat-depth/ — "cornell ergonomics office chair seat depth 2 inches behind knees")
+- Opportunities: 30 actionable
+- AIO suspects: 8
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions up 49.8% WoW (9162 vs 6117), clicks up 92.9% (27 vs 14), avg position stable
+- Query entropy: 2 fragmented pages
+- Hub candidates: 4
+- Transition opportunities: 0
+- AIO recommendations: 8
+- Page velocity: 34 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-06-14] gsc-pull | GSC Data Pull
+
+- Period: 2026-03-16 → 2026-06-14 (90 days)
+- Pages: 40 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 55 | Daily trend rows: 89
+- Clicks: 108 | Impressions: 42738 | Avg pos: 9.2
+
+
 ## [2026-06-13] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
@@ -69,7 +99,6 @@ type: log
 - After filter: 11 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
 - Opportunities written: 11 (gap=0, targeting=0, ranking=11)
 - Mode: production
-
 ## [2026-05-28] manual | Content pipeline fixed — 4 bugs resolved, full autonomy restored
 
 - **Root cause diagnosis:** weekly plan had been stuck at May 16 (12 days stale). Strategy agent threw when enforcement dropped all FIX tasks (pages on cooldown after manual edits). Content agent failed `/wrist-pain-armrest-height/` twice due to JS comment validation bug — never committed fix that was sitting in local working tree.

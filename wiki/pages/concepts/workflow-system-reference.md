@@ -48,7 +48,7 @@ Runs via GitHub Actions. Thursday and Friday push to `staging`. Saturday verifie
 
 | Day | Workflow | Script | Reads | Writes | Push target |
 |-----|----------|--------|-------|--------|-------------|
-| Monday | monday.yml | `gsc-pull.ts` → `gsc-analyze.ts` → `competitor-intelligence.ts` → `index-monitor.ts` | GSC API, SerpAPI, Firecrawl, competitor URLs, URL Inspection API for all pages | `data/gsc/latest.json`, `data/gsc/analysis.json`, `data/gsc/history/`, `raw/gsc/`, `data/competitors/intelligence.json`, `data/competitors/crawl-cache.json`, `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, `wiki/pages/concepts/gsc-intelligence.md`, `wiki/pages/concepts/competitor-landscape.md`, fixed `src/pages/` files (if issues found) | `main` |
+| Monday | monday.yml | `gsc-pull.ts` → `gsc-analyze.ts` → `clarity-pull.ts` → `competitor-intelligence.ts` → `index-monitor.ts` | GSC API, Clarity Data Export API, DataForSEO, Firecrawl, competitor URLs, URL Inspection API for all pages | `data/gsc/latest.json`, `data/gsc/analysis.json`, `data/gsc/history/`, `raw/gsc/`, `data/competitors/intelligence.json`, `data/competitors/crawl-cache.json`, `reports/index-monitor.md`, `wiki/pages/concepts/indexing-health.md`, `wiki/pages/concepts/gsc-intelligence.md`, `wiki/pages/concepts/competitor-landscape.md`, fixed `src/pages/` files (if issues found) | `main` |
 | Tuesday | tuesday.yml | `audit.ts` | `data/gsc/latest.json`, live site meta/schema, wiki concept pages | `reports/audit-report.md`, `raw/audits/`, `wiki/pages/concepts/gsc-performance.md` | `main` |
 | Wednesday | wednesday.yml | `strategy.ts` | Audit report, GSC data, wiki synthesis + concept pages | `reports/weekly-plan.md`, `raw/strategy/` | `main` |
 | Thursday | thursday.yml | `execute-fixes.ts` | `reports/weekly-plan.md` (FIXES section) | Modified `src/pages/*.astro` files, `reports/fixes-log.md`, wiki fix history | `staging` |
@@ -95,11 +95,13 @@ wiki/weekly/  →  git push  →  Cloudflare Pages deploy
 
 ## What Each Agent Does
 
+**`clarity-pull.ts`** — Monday behavioral data pull. Calls the Clarity Data Export API (2 requests: `dimension1=URL` + `dimension1=Device`). Budget: 2 of 10 daily requests. Writes `data/clarity/latest.json` with per-page sessions, scroll depth, rage clicks, dead clicks; device split; behavioral alerts (rage clicks ≥5, dead clicks ≥8, scroll depth <40%). Archives to `raw/clarity/`. `continue-on-error: true` in monday.yml — failure does not block GSC or competitor steps. Requires `CLARITY_TOKEN` secret.
+
 **`gsc-pull.ts`** — Data collection + immediate wiki update. Pulls page-level + query-level GSC data via the Google Search Console API. Writes `data/gsc/latest.json`. Archives raw JSON to `raw/gsc/`. Updates `wiki/pages/concepts/gsc-performance.md` with a new snapshot (same history preservation format as `audit.ts`). Guard: skips wiki update if `last_updated` is already today — means `audit.ts` already ran that day and is authoritative. Appends to `wiki/log.md`. Does not call Claude API.
 
 **`gsc-analyze.ts`** — Transforms `data/gsc/latest.json` into structured intelligence. Runs Monday immediately after `gsc-pull.ts` in the same workflow. Outputs `data/gsc/analysis.json` (scored opportunities: near-p1, ctr-leak, content-depth, affiliate-capture) and updates `wiki/pages/concepts/gsc-intelligence.md`. Phase 1 modules: CTR leak detector, query intent clusterer, opportunity scorer, cannibalization detector, affiliate opportunity detector, site trend / velocity. Phase 2 modules (added 2026-05-10): query entropy (fragmented/concentrated/balanced), impression gravity (hub candidate detection), informational→commercial intent transition mapper, AIO content structure recommendations, page velocity (history-based, activates after 2+ Monday runs). Includes URL canonical normalization (merges trailing-slash duplicates before scoring, uses composite `page|query` key for pageQuery rows), freshness warning (warns if latest.json >72h old), and junk query filter. Does not call Claude API. Archives to `data/gsc/history/YYYY-MM-DD.json` (16 weeks retained).
 
-**`competitor-intelligence.ts`** (scripts/ root, not agents/) — v2 competitor gap analysis. 4 layers: (1) page-role-aware query selection (primary/supporting/strategic triple per TCA page), (2) SERP lane classification (editorial/retailer/brand/community/video), (3) persistent crawl cache with lane-aware freshness windows (editorial: 30d, brand: 14d, community: 7d), (4) role-specific Claude gap analysis comparing TCA page content against real crawled competitors. Selects top 8 pages from `analysis.json` (near-p1 + content-depth opportunities). Outputs `data/competitors/intelligence.json` (per-page gap findings with confidence filter) and `raw/competitors/YYYY-MM-DD-intelligence.json`. Updates wiki `competitor-landscape.md`. **This is the active Monday agent in monday.yml.** Cost: ~$1–5/month (SerpAPI 250 credits/month, Firecrawl 500 pages/month, mostly cache hits after first run). API keys: `SERP_API_KEY` + `FIRECRAWL_API_KEY` required.
+**`competitor-intelligence.ts`** (scripts/ root, not agents/) — v2 competitor gap analysis. 4 layers: (1) page-role-aware query selection (primary/supporting/strategic triple per TCA page), (2) SERP lane classification (editorial/retailer/brand/community/video), (3) persistent crawl cache with lane-aware freshness windows (editorial: 30d, brand: 14d, community: 7d), (4) role-specific Claude gap analysis comparing TCA page content against real crawled competitors. Selects top 8 pages from `analysis.json` (near-p1 + content-depth opportunities). Outputs `data/competitors/intelligence.json` (per-page gap findings with confidence filter) and `raw/competitors/YYYY-MM-DD-intelligence.json`. Updates wiki `competitor-landscape.md`. **This is the active Monday agent in monday.yml.** SERP provider: **DataForSEO** (`api.dataforseo.com/v3/serp/google/organic/live/advanced`). Cost: ~$1–5/month (DataForSEO SERP queries, Firecrawl 500 pages/month, mostly cache hits after first run). API keys: `DATAFORSEO_USERNAME` + `DATAFORSEO_PASSWORD` + `FIRECRAWL_API_KEY` required.
 
 **`competitor-monitor.ts`** — LEGACY: Fetches configured competitor URLs (from `data/competitors/config.json`), extracts metadata, sends to Claude for analysis. Writes `data/competitors/latest.json`. Dead URLs (HTTP 400+) are flagged. **NOTE:** This script is no longer in monday.yml. The Monday workflow now runs `competitor-intelligence.ts` (SERP+Firecrawl+Claude v2) instead. `competitor-monitor.ts` can still be run manually (`npm run agent:competitor`) but is NOT part of the automated weekly cycle. `strategy.ts` prefers `data/competitors/intelligence.json` over `data/competitors/latest.json` when both exist.
 
@@ -162,7 +164,7 @@ Evaluated 2026-05-11. Source: `raw/audits/2026-05-11-workflow-evaluation.md`.
 
 | ID | Issue | Location | Fix |
 |----|-------|----------|-----|
-| L1 | SerpAPI budget (250/mo) has no usage tracking | `competitor-intelligence.ts` | Surface credit estimate in weekly summary |
+| L1 | DataForSEO usage has no per-run cost tracking | `competitor-intelligence.ts` | Surface estimated query count in weekly summary |
 | L2 | Voice check patterns only cover named chairs | `verify-deploy.ts` `checkVoice()` | Update pattern list when new chairs are added |
 
 ---
@@ -173,7 +175,9 @@ Evaluated 2026-05-11. Source: `raw/audits/2026-05-11-workflow-evaluation.md`.
 |--------|-------|----------|
 | `ANTHROPIC_API_KEY` | Anthropic API key | Yes |
 | `GSC_SERVICE_ACCOUNT_JSON` | Base64-encoded GSC service account JSON | Yes |
-| `SERP_API_KEY` | SerpAPI key — 250 credits/month free tier (~23/run = ~9% per run) | Configured — competitor-intelligence.ts |
+| `CLARITY_TOKEN` | Clarity Data Export API token | Configured — clarity-pull.ts |
+| `DATAFORSEO_USERNAME` | DataForSEO account username | Configured — competitor-intelligence.ts |
+| `DATAFORSEO_PASSWORD` | DataForSEO account password | Configured — competitor-intelligence.ts |
 | `FIRECRAWL_API_KEY` | Firecrawl API key — 500 pages/month free tier (mostly cache hits after first run) | Configured — competitor-intelligence.ts |
 
 ---

@@ -224,8 +224,8 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   const frontmatter = content.slice(3, frontmatterEnd);
   // Catch bare English operators in JS context (the specific failure mode we hit)
   const fmCodeOnly = frontmatter
-    .replace(/"[^"]*"/g, '""')
-    .replace(/'[^']*'/g, "''")
+    .replace(/"(?:[^"\\]|\\.)*"/g, '""')
+    .replace(/'(?:[^'\\]|\\.)*'/g, "''")
     .replace(/`[^`]*`/g, '``')
     .replace(/\/\/[^\n]*/g, '')
     .replace(/\/\*[\s\S]*?\*\//g, '');
@@ -256,9 +256,9 @@ async function scoreContent(content: string, keyword: string): Promise<{ score: 
 Return only JSON: {"score": <0-100>, "feedback": "<one sentence on the biggest gap if score < 80, else 'pass'>"}`,
     messages: [{ role: 'user', content: `Keyword: "${keyword}"\n\n${content.slice(0, 5000)}` }],
   });
-  const text = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
+  const raw = (response.content[0].type === 'text' ? response.content[0].text : '').replace(/```[a-z]*/g, '').trim();
   try {
-    const parsed = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
+    const parsed = JSON.parse(raw.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
     return { score: Number(parsed.score ?? 0), feedback: String(parsed.feedback ?? 'scoring failed') };
   } catch { return { score: 0, feedback: 'score parse failed' }; }
 }
@@ -396,8 +396,18 @@ Return JSON only: {"ratio": <0-100>, "missingSections": ["...", "..."], "rationa
   }
 }
 
-const CONTENT_SYSTEM_PROMPT = `You are a content writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people (6'+).
+const CONTENT_SYSTEM_PROMPT = `You are a content writer for tallchairadvisor.com.
 Author: Jackson Christopher, 6'4", Mechanical Engineering senior at UC Berkeley.
+
+SITE IDENTITY — CRITICAL:
+TCA is NOT a review site. Google classifies it as a spec-verification authority for tall-user ergonomic chair fitment. The reader is a tall buyer (6'+) in the fitment verification stage — they need a number, not a story.
+Every page must:
+- Open with dimensional data (seat height range, seat depth, back height, weight capacity) BEFORE any prose — a spec table or verdict box is the first visible element
+- State the answer in the first 2 sentences: a concrete spec, a fit verdict for a specific height, or a direct recommendation
+- Frame all analysis through anthropometric fit: does this chair fit someone who is 6'X with Y" inseam?
+- Use Jackson's ME background for spec analysis — seat pan pressure distribution, lumbar lordosis support angle, adjustment range tolerances
+- Link to the seat depth calculator at /knee-pain-seat-depth/ on any page discussing seat depth, knee pain, or chair fit
+- On spec-heavy pages, prefer data tables over prose paragraphs as the primary information structure
 
 CRITICAL VOICE RULES:
 - Jackson ONLY personally tested the Steelcase Gesture. All other chairs: research-based voice only.

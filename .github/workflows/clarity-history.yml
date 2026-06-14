@@ -1,0 +1,43 @@
+name: Clarity — Behavioral History
+
+# Runs every other day at 10:00 UTC.
+# On Mondays, monday.yml already calls clarity-history.ts at 08:00 UTC.
+# If both fire on the same day, the dedup check in clarity-history.ts exits
+# cleanly on the second run — no duplicate records are written.
+
+on:
+  schedule:
+    - cron: '0 10 */2 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "clarity-history-${{ github.ref }}"
+  cancel-in-progress: false
+
+jobs:
+  clarity-pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - run: npm ci
+
+      - name: Pull Clarity behavioral history
+        run: npm run agent:clarity-history
+        env:
+          CLARITY_TOKEN: ${{ secrets.CLARITY_TOKEN }}
+
+      - name: Commit history
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          git add data/clarity/ raw/clarity/ wiki/log.md
+          git diff --staged --quiet || git commit -m "[skip cd] data: Clarity history $(date +%Y-%m-%d)"
+          git push || { sleep 15 && git push; } || { sleep 30 && git push; }
