@@ -4,6 +4,20 @@ type: log
 
 ## [2026-06-14] clarity-history | Behavioral Data
 
+- Window: 3 days ending 2026-06-14
+- Pages recorded: 23
+- Device split: {"mobile":0.29,"tablet":0.032,"pc":0.677,"other":0}
+- Behavioral alerts: 13
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/: 36% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/?utm_source=chatgpt.com: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/how-to-adjust-chair/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 25% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 1
+
+
+## [2026-06-14] clarity-history | Behavioral Data
+
 - Window: 2 days ending 2026-06-14
 - Pages recorded: 14
 - Device split: {"mobile":0.35,"tablet":0.05,"pc":0.6,"other":0}
