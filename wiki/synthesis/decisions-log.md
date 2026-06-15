@@ -1,12 +1,22 @@
 ---
 type: synthesis
-last_updated: 2026-05-26
+last_updated: 2026-06-14
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W24 (June 14) — Indexing audit, strategic review, index-monitor enhancement
+
+**DECISION — Thesis queue is fully cleared. No new thesis priorities exist.** All items 0–7 verified done in codebase. Standing priorities are now: (1) fix 3 thin-content sub-pages that are stuck "crawled not indexed" for 3+ weeks, (2) let autonomous pipeline run and prove content quality before expanding to new niches.
+
+**DECISION — Do not start a second site yet.** Content pipeline was broken until May 28. Only ~2–3 autonomous Friday runs have completed. Need to see autonomously generated pages reach pos 15–30 before replicating the stack. Fastest expansion path is adjacent content inside TCA (standing desks, monitor arms) not a cold new domain.
+
+**DECISION — index-monitor.ts now checks redirect sources.** Gap discovered: GSC Coverage UI tracks every URL Google ever crawled; our script only checked src/pages/. Added getRedirectSourceUrls() to parse public/_redirects and inspect all non-wildcard source URLs. Two stale redirect errors (/review/gesture, /author/marcus-reid/) surfaced — both are working 301s, just stale records. Validated Fix in GSC UI recommended to clear faster.
+
+**OPEN — 3 thin-content sub-pages need action:** /chairs/herman-miller-aeron/seat-height/, /chairs/steelcase-gesture/seat-height/, /chairs/steelcase-gesture/tall-people/. Stuck "crawled not indexed" since at least May 25. Options: expand with more spec data, or 301 redirect into parent chair hub. No decision made yet.
 
 ## 2026-W24 (June 14) — 4 CRO/CTR fixes from full-site-report audit
 

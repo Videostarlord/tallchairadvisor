@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-27
+last_updated: 2026-06-14
 sources: [raw/audits/2026-05-10-full-seo-audit.md]
 tags: [compliance, ftc, affiliate, legal]
 ---
@@ -32,7 +32,7 @@ All affiliate-link pages verified against source files:
 |------|-------|--------|
 | /aeron-vs-gesture/ | Both CTAs were at 85%+ scroll | ✅ Fixed 2026-05-27 — CTA block added after Quick Answer box |
 | /review/gesture/ | Single CTA at 85% | ✅ Fixed in May 25 rewrite — CTA now after Direct Answer box at top |
-| /best-office-chairs/ | Quick Picks links to internal pages, not Amazon | ❌ Still open — automation will surface this |
+| /best-office-chairs/ | Quick Picks links to internal pages, not Amazon | ✅ Fixed (verified 2026-06-14 — Quick Picks now direct Amazon affiliate links) |
 
 ## Required Fix Pattern
 

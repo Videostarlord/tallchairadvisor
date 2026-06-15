@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-26 (items 2, 3, 5 marked done — correct-chair-dimensions defrag, height-page spec tables, new heavy-duty page)
+last_updated: 2026-06-14 (items 6, 7 marked done — Leap Plus reframe and shoulder/standing-desk pages verified in codebase)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -68,11 +68,11 @@ All 5 pages (6-foot-3 through 6-foot-7) now open with a spec table (seat height 
 ### ~~5. Weight capacity guide for tall heavy users (new page)~~ — DONE (2026-05-26)
 New page: `/heavy-duty-ergonomic-chairs-tall-people/`. Research-voice. "Two-problem frame" (weight capacity ≠ tall-user fit). Leap Plus as only chair that solves both. Honest Aeron warning (350 lbs lowest in category). Amazon affiliate links included.
 
-### 6. Leap Plus "almost bought" reframe
-/review/leap-plus/ at pos 9.3 with 632 impressions. "I almost bought this — here's the spec analysis" narrative. Automation-eligible after cooldown clears.
+### ~~6. Leap Plus "almost bought" reframe~~ — DONE (verified 2026-06-14)
+/review/leap-plus/ H1 and lede already read "I almost bought this instead of the Gesture — here's the spec analysis that drove my decision." Full first-person spec narrative in place.
 
-### 7. Shoulder pain + standing desk content
-Jackson's real experience anchors both. Zero-competition keywords. After items 1–3 ship.
+### ~~7. Shoulder pain + standing desk content~~ — DONE (verified 2026-06-14)
+Both pages exist in src/pages/: `shoulder-pain-tall-people.astro` and `standing-desk-height-tall-people.astro`.
 
 ### Deferred
 - SERP-aware title comparison in `audit.ts` (2–3 hours, low urgency)

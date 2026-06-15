@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-06-14 (4 page fixes: calculator JS, TL;DR order, internal link, meta description)
+last_updated: 2026-06-14 (indexing audit, thesis queue cleared, index-monitor enhanced for redirect source checking)
 ---
 
 # TCA Wiki Index
@@ -66,7 +66,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[content-quality-scores]] | Blog audit Mar 19. Avg 71/100. Gate: 80+ for new content. |
 | [[system-setup-guide]] | Step-by-step replication guide for Jackson (human reference only — not LLM context). Do not read for operational questions. |
 | [[workflow-system-reference]] | Current operational setup: weekly agent cycle, GitHub Actions, scripts, Obsidian vault, data flow. Read this for any question about how the automation works. |
-| [[indexing-health]] | Per-page GSC indexing status. Updated every Monday by index-monitor agent. Shows which pages are indexed, excluded, or waiting. |
+| [[indexing-health]] | Per-page GSC indexing status. Jun 14: 35/47 indexed. 3 thin-content pages stuck crawled-not-indexed. Script now also checks redirect sources. |
 | [[affiliate-compliance]] | **NEW 2026-05-11.** FTC body disclosure missing on 6 pages. Revenue leaks: aeron-vs-gesture (0 CTAs in 84%), gesture review (CTA at 85%), best-office-chairs (Quick Picks → internal not Amazon). |
 | [[runpod-migration-proposal]] | 🔴 BACKLOG / soft rejected. Broad RunPod migration for TCA deferred; Anthropic Batch research is now the preferred low-friction cost path. Raw proposal remains as historical research only. |
 

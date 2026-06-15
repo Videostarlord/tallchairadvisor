@@ -2,6 +2,31 @@
 type: log
 ---
 
+## [2026-06-14] session | Strategic review + indexing audit + index-monitor enhancement
+
+**Thesis queue fully cleared.** Verified in codebase that items 6 (Leap Plus reframe) and 7 (shoulder pain + standing desk pages) are already implemented. Marked both done in thesis.md. All thesis priorities 0–7 are now complete.
+
+**Affiliate compliance fully resolved.** Verified /best-office-chairs/ Quick Picks now uses direct Amazon affiliate links. Updated wiki — all outstanding compliance items closed.
+
+**Fresh indexing audit run.** 47 pages inspected via URL Inspection API. 35 indexed, 12 issues:
+- 🔴 Thin content (3 pages, 3+ weeks stuck): /chairs/herman-miller-aeron/seat-height/, /chairs/steelcase-gesture/seat-height/, /chairs/steelcase-gesture/tall-people/
+- 🟡 Discovered/queued (4 pages): /heavy-duty-ergonomic-chairs-tall-people/, /leg-pain-circulation/, /office-chair-return-policy/, /chairs/herman-miller-aeron/size-guide/
+- ⚪ Non-issues (5 pages): privacy-policy (intentional noindex), 404, contact, affiliate-disclosure, author page
+
+**GSC UI vs script gap identified.** GSC Coverage UI showed 10 "crawled not indexed" + 2 "redirect errors" that script missed. Redirect errors: /review/gesture and /author/marcus-reid/ — both confirmed working 301s, stale GSC records. Advised "Validate Fix" in GSC UI to clear faster. Gap cause: script only checked src/pages/ URLs; GSC Coverage tracks all URLs Google ever discovered.
+
+**index-monitor.ts enhanced.** Now also inspects all non-wildcard redirect source URLs from public/_redirects (~46 additional URLs per run). Would have caught both redirect errors automatically. Separate "Redirect Source Issues" section added to report and wiki. Committed 7e2e7a6, pushed.
+
+**Indexing-health wiki page** updated with priority grouping (🔴/🟡/⚪) and fix recommendations.
+
+## [2026-06-15] index-monitor | Indexing Health Check
+
+- Pages inspected: 47
+- Indexed: 35 | Issues: 12 | Fixed: 0
+- Sitemap resubmitted: true
+- Issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/office-chair-return-policy/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ (wait), https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ (wait)
+
+
 ## [2026-06-14] page-fixes | 4 CRO/CTR Fixes Applied
 
 - **Calculator JS** — /knee-pain-seat-depth/ had working HTML calculator with zero JS. Injected full script: height selection → body type reveal → depth calculation → chair match + affiliate CTAs. Also completed truncated file (last FAQ + `</Layout>` were missing).
