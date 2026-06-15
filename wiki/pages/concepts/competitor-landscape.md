@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-25
+last_updated: 2026-06-15
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,12 +70,12 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-05-25. 8 pages analyzed × up to 3 queries each. 29 URLs crawled (18 cache hits). 2 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
+*v2 run 2026-06-15. 8 pages analyzed × up to 3 queries each. 36 URLs crawled (13 cache hits). 4 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-05-25 | The FAQPage schema is declared present but no visible FAQ section appears in the | high | 1q | btod.com |
-| 2026-05-25 | No complete spec table with min/max values for every adjustable dimension on the | high | 1q | btod.com |
-| 2026-05-25 | The 'Adjustable Seat Depth vs Fixed Seat Depth' section exists but the subsectio | medium | 1q | btod.com |
-| 2026-05-25 | No expert or third-party authority signal is present in the visible content. For | medium | 1q | forbes.com |
-| 2026-05-25 | Author byline and methodology credentialing: the Byline component is listed as p | medium | 1q | forbes.com |
+| 2026-06-15 | No explicit OSHA guideline citation alongside the Cornell Ergonomics Rule — the  | high | 2q | boulies.com |
+| 2026-06-15 | Pressure magnitude quantification is absent — eurekaergonomic.com cites a specif | high | 2q | eurekaergonomic.com |
+| 2026-06-15 | User-height-to-setting mapping table: explicit recommended dial positions (seat  | high | 2q | thehumansolution.com |
+| 2026-06-15 | Chair roster covers only three models (Aeron Size C, Steelcase Gesture, Steelcas | high | 2q | forbes.com |
+| 2026-06-15 | Internal linking hub structure is chair-model-centric (links to Gesture/Leap/Aer | medium | 1q | forbes.com |

@@ -13,45 +13,90 @@ Last checked: **2026-06-15**
 
 | Metric | Value |
 |--------|-------|
-| Total pages | 47 |
+| Astro pages | 47 |
+| Redirect sources checked | 44 |
 | Indexed | 35 |
-| Issues | 12 |
+| Page issues | 12 |
+| Redirect issues | 44 |
 
-## Issues — Grouped by Priority
+## Page Issues
 
-### 🔴 Crawled but rejected — likely thin content (action needed)
-Google fetched these successfully but chose not to index. Persistent since at least May 25 (3+ weeks). This is a content quality signal, not a crawl budget issue.
+- **https://tallchairadvisor.com/404/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
+- **https://tallchairadvisor.com/affiliate-disclosure/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
+- **https://tallchairadvisor.com/contact/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
+- **https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
+- **https://tallchairadvisor.com/leg-pain-circulation/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
+- **https://tallchairadvisor.com/office-chair-return-policy/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
+- **https://tallchairadvisor.com/privacy-policy/** — noindex — Page has a noindex directive (meta robots or x-robots-tag). If unintentional, remove it from the source file. Coverage state: "Excluded by ‘noindex’ t
+- **https://tallchairadvisor.com/author/jackson-christopher/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
+- **https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/** — wait — Non-critical or unknown issue. Coverage: "Crawled - currently not indexed", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "SUCCESSFUL".
+- **https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
+- **https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/** — wait — Non-critical or unknown issue. Coverage: "Crawled - currently not indexed", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "SUCCESSFUL".
+- **https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/** — wait — Non-critical or unknown issue. Coverage: "Crawled - currently not indexed", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "SUCCESSFUL".
 
-| URL | Coverage State |
-|-----|---------------|
-| /chairs/herman-miller-aeron/seat-height/ | Crawled - currently not indexed |
-| /chairs/steelcase-gesture/seat-height/ | Crawled - currently not indexed |
-| /chairs/steelcase-gesture/tall-people/ | Crawled - currently not indexed |
+## Redirect Source Issues
 
-**Recommended fix:** Audit these 3 pages for thin content — add spec tables, unique height-specific data, or merge/301 into the parent chair hub if the content can’t be meaningfully expanded.
+- **https://tallchairadvisor.com/author/marcus-reid** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/author/marcus-reid/** — Redirect error on this source URL. Check public/_redirects — the chain may be broken or loop. Coverage: "Redirect error", FetchState: "REDIRECT_ERROR"
+- **https://tallchairadvisor.com/best-office-chairs** — Redirect source: Crawled - currently not indexed. Destination may not be indexed yet. Coverage: "Crawled - currently not indexed".
+- **https://tallchairadvisor.com/office-chairs-for-tall-people** — Redirect source: Crawled - currently not indexed. Destination may not be indexed yet. Coverage: "Crawled - currently not indexed".
+- **https://tallchairadvisor.com/correct-chair-dimensions** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/shoulder-pain-tall-people** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/standing-desk-height-tall-people** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/best-office-chairs-under-500** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/fit-guides** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/about** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/contact** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/privacy-policy** — Redirect source: Crawled - currently not indexed. Destination may not be indexed yet. Coverage: "Crawled - currently not indexed".
+- **https://tallchairadvisor.com/affiliate-disclosure** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/office-chairs-for-6-foot-3** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/office-chairs-for-6-foot-4** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/office-chairs-for-6-foot-5** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/office-chairs-for-6-foot-6** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/office-chairs-for-6-foot-7** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/pain-ergonomics** — Redirect source: Crawled - currently not indexed. Destination may not be indexed yet. Coverage: "Crawled - currently not indexed".
+- **https://tallchairadvisor.com/why-standard-chairs-dont-fit** — Redirect source: Crawled - currently not indexed. Destination may not be indexed yet. Coverage: "Crawled - currently not indexed".
+- **https://tallchairadvisor.com/back-pain-spine-height** — Redirect source: Crawled - currently not indexed. Destination may not be indexed yet. Coverage: "Crawled - currently not indexed".
+- **https://tallchairadvisor.com/knee-pain-seat-depth** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/leg-pain-circulation** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/how-to-adjust-chair** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/review/gesture** — Redirect error on this source URL. Check public/_redirects — the chain may be broken or loop. Coverage: "Redirect error", FetchState: "REDIRECT_ERROR"
+- **https://tallchairadvisor.com/review/aeron-size-c** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/review/leap-plus** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/review/sihoo-doro-s300** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/aeron-vs-gesture** — Redirect source: Crawled - currently not indexed. Destination may not be indexed yet. Coverage: "Crawled - currently not indexed".
+- **https://tallchairadvisor.com/aeron-vs-leap-plus** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/gesture-vs-leap-plus** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/herman-miller-aeron** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-gesture** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-leap-plus** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
+- **https://tallchairadvisor.com/author/jackson-christopher** — Redirect source: URL is unknown to Google. Destination may not be indexed yet. Coverage: "URL is unknown to Google".
 
-### 🟡 Discovered but not yet crawled — wait/resubmit
-Google knows about these but hasn’t visited yet. Sitemap resubmitted 2026-06-14. Give it 1–2 weeks.
+## Not Yet Indexed (waiting)
 
-| URL | Notes |
-|-----|-------|
-| /heavy-duty-ergonomic-chairs-tall-people/ | Created May 26 — substantial page, should index fine |
-| /leg-pain-circulation/ | Content page — monitor |
-| /office-chair-return-policy/ | Content page — monitor |
-| /chairs/herman-miller-aeron/size-guide/ | Sub-page — monitor |
-
-### ⚪ Non-issues (expected/intentional)
-| URL | Reason |
-|-----|--------|
-| /privacy-policy/ | noindex — intentional |
-| /404/ | Unknown to Google — expected, 404 pages shouldn’t be indexed |
-| /affiliate-disclosure/ | Unknown — utility page, low priority |
-| /contact/ | Unknown — utility page, low priority |
-| /author/jackson-christopher/ | Unknown — author page not yet discovered |
+- https://tallchairadvisor.com/404/ — URL is unknown to Google
+- https://tallchairadvisor.com/affiliate-disclosure/ — URL is unknown to Google
+- https://tallchairadvisor.com/contact/ — URL is unknown to Google
+- https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/ — Discovered - currently not indexed
+- https://tallchairadvisor.com/leg-pain-circulation/ — URL is unknown to Google
+- https://tallchairadvisor.com/office-chair-return-policy/ — Discovered - currently not indexed
+- https://tallchairadvisor.com/author/jackson-christopher/ — URL is unknown to Google
+- https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/ — Crawled - currently not indexed
+- https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ — Discovered - currently not indexed
+- https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/ — Crawled - currently not indexed
+- https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/ — Crawled - currently not indexed
 
 ## Fix History
 
 | Date | Page | Fix Type | Result |
 |------|------|----------|--------|
-| 2026-06-14 | Sitemap | Resubmitted sitemap-index.xml | +2 indexed since May 25 (gesture/weight-limit, leap-plus/weight-limit resolved) |
-| 2026-06-14 | 3 seat-height/tall-people sub-pages | No fix available — thin content diagnosis | Content expansion needed |
+| 2026-06-15 | — | — | No fixes needed |
