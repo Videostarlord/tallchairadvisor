@@ -44,6 +44,7 @@ const SKIP_FIX = new Set([
 interface PageInspection {
   url: string;
   filePath: string;
+  urlType: 'page' | 'redirect-source'; // page = src/pages/, redirect-source = _redirects source
   verdict: string;          // PASS | FAIL | NEUTRAL | VERDICT_UNSPECIFIED
   coverageState: string;    // human-readable GSC coverage state
   indexingState: string;    // INDEXING_ALLOWED | BLOCKED_BY_META_TAG | etc
@@ -51,7 +52,7 @@ interface PageInspection {
   pageFetchState: string;   // SUCCESSFUL | SOFT_404 | NOT_FOUND | etc
   lastCrawlTime: string | null;
   fixable: boolean;
-  fixType: 'noindex' | 'canonical' | 'schema' | 'not-found' | 'soft-404' | 'thin-content' | 'robots' | 'wait' | 'ok';
+  fixType: 'noindex' | 'canonical' | 'schema' | 'not-found' | 'soft-404' | 'thin-content' | 'robots' | 'wait' | 'ok' | 'redirect-error';
   diagnosis: string;
 }
 
@@ -74,14 +75,45 @@ function getAllAstroFiles(): string[] {
     .map(f => `src/pages/${f}`);
 }
 
-function classifyIssue(result: any): Pick<PageInspection, 'fixable' | 'fixType' | 'diagnosis'> {
+// Parse redirect source URLs from public/_redirects (skip wildcards)
+function getRedirectSourceUrls(): string[] {
+  const redirectsPath = resolve(ROOT, 'public/_redirects');
+  if (!existsSync(redirectsPath)) return [];
+  const lines = readFileSync(redirectsPath, 'utf-8').split('\n');
+  const urls: string[] = [];
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const parts = trimmed.split(/\s+/);
+    if (parts.length < 2) continue;
+    const source = parts[0];
+    // Skip wildcards and absolute URLs (e.g. https://www.* rule)
+    if (source.includes('*') || source.startsWith('https://')) continue;
+    urls.push(`https://tallchairadvisor.com${source}`);
+  }
+  return urls;
+}
+
+function classifyIssue(result: any, isRedirectSource = false): Pick<PageInspection, 'fixable' | 'fixType' | 'diagnosis'> {
   const indexingState = result.indexingState ?? '';
   const pageFetchState = result.pageFetchState ?? '';
   const coverageState = result.coverageState ?? '';
   const verdict = result.verdict ?? '';
 
   if (verdict === 'PASS') {
-    return { fixable: false, fixType: 'ok', diagnosis: 'Page is indexed and healthy.' };
+    return { fixable: false, fixType: 'ok', diagnosis: isRedirectSource ? 'Redirect resolves correctly — destination is indexed.' : 'Page is indexed and healthy.' };
+  }
+
+  if (isRedirectSource) {
+    // For redirect sources, any non-PASS result is a redirect error to investigate
+    const isError = coverageState.toLowerCase().includes('error') || pageFetchState === 'NOT_FOUND' || pageFetchState === 'REDIRECT_ERROR';
+    return {
+      fixable: false,
+      fixType: 'redirect-error',
+      diagnosis: isError
+        ? `Redirect error on this source URL. Check public/_redirects — the chain may be broken or loop. Coverage: "${coverageState}", FetchState: "${pageFetchState}".`
+        : `Redirect source: ${coverageState}. Destination may not be indexed yet. Coverage: "${coverageState}".`,
+    };
   }
 
   if (indexingState === 'BLOCKED_BY_META_TAG') {
@@ -281,7 +313,8 @@ async function main() {
   const sc = google.searchconsole({ version: 'v1', auth });      // for URL Inspection API
 
   const allFiles = getAllAstroFiles();
-  console.log(`Found ${allFiles.length} pages to inspect.`);
+  const redirectUrls = getRedirectSourceUrls();
+  console.log(`Found ${allFiles.length} pages + ${redirectUrls.length} redirect sources to inspect.`);
 
   const inspections: PageInspection[] = [];
 
@@ -292,11 +325,12 @@ async function main() {
     const result = await inspectPage(sc, url);
 
     const verdict = result.verdict ?? 'VERDICT_UNSPECIFIED';
-    const classification = classifyIssue(result);
+    const classification = classifyIssue(result, false);
 
     const inspection: PageInspection = {
       url,
       filePath,
+      urlType: 'page',
       verdict,
       coverageState: result.coverageState ?? 'Unknown',
       indexingState: result.indexingState ?? 'Unknown',
@@ -313,12 +347,46 @@ async function main() {
     await new Promise(r => setTimeout(r, 1100));
   }
 
-  // --- Apply fixes ---
-  const fixable = inspections.filter(i => i.fixable && !SKIP_FIX.has(i.filePath));
-  const issues = inspections.filter(i => i.verdict !== 'PASS');
-  const indexed = inspections.filter(i => i.verdict === 'PASS');
+  // Inspect redirect source URLs (catches redirect errors the page loop misses)
+  console.log('\nInspecting redirect sources...');
+  for (const url of redirectUrls) {
+    process.stdout.write(`  Inspecting ${url} ... `);
 
-  console.log(`\nResults: ${indexed.length} indexed | ${issues.length} with issues | ${fixable.length} fixable`);
+    const result = await inspectPage(sc, url);
+    const verdict = result.verdict ?? 'VERDICT_UNSPECIFIED';
+    const classification = classifyIssue(result, true);
+
+    // Only surface redirect sources that are non-PASS (working redirects are noise)
+    if (verdict !== 'PASS') {
+      const inspection: PageInspection = {
+        url,
+        filePath: '',
+        urlType: 'redirect-source',
+        verdict,
+        coverageState: result.coverageState ?? 'Unknown',
+        indexingState: result.indexingState ?? 'Unknown',
+        robotsTxtState: result.robotsTxtState ?? 'Unknown',
+        pageFetchState: result.pageFetchState ?? 'Unknown',
+        lastCrawlTime: result.lastCrawlTime ?? null,
+        ...classification,
+      };
+      inspections.push(inspection);
+      console.log(`${verdict} — ${inspection.coverageState} ⚠`);
+    } else {
+      console.log(`${verdict} — redirect working`);
+    }
+
+    await new Promise(r => setTimeout(r, 1100));
+  }
+
+  // --- Apply fixes ---
+  const fixable = inspections.filter(i => i.fixable && i.urlType === 'page' && !SKIP_FIX.has(i.filePath));
+  const issues = inspections.filter(i => i.verdict !== 'PASS');
+  const indexed = inspections.filter(i => i.verdict === 'PASS' && i.urlType === 'page');
+  const redirectIssues = inspections.filter(i => i.urlType === 'redirect-source');
+
+  const pageIssues = issues.filter(i => i.urlType === 'page');
+  console.log(`\nResults: ${indexed.length} indexed | ${pageIssues.length} page issues | ${redirectIssues.length} redirect issues | ${fixable.length} fixable`);
 
   const fixResults: string[] = [];
   let anyFixed = false;
@@ -343,8 +411,12 @@ async function main() {
     .map(i => `| ${i.url} | ✅ Indexed | ${i.lastCrawlTime ? i.lastCrawlTime.split('T')[0] : 'unknown'} |`)
     .join('\n');
 
-  const issueSection = issues
+  const pageIssueSection = pageIssues
     .map(i => `| ${i.url} | ${i.verdict} | ${i.coverageState} | ${i.fixType} | ${i.diagnosis.slice(0, 120)} |`)
+    .join('\n');
+
+  const redirectIssueSection = redirectIssues
+    .map(i => `| ${i.url} | ${i.coverageState} | ${i.diagnosis.slice(0, 120)} |`)
     .join('\n');
 
   const report = `# Index Monitor Report — ${today()}
@@ -353,17 +425,25 @@ async function main() {
 
 | Metric | Value |
 |--------|-------|
-| Total pages inspected | ${inspections.length} |
+| Astro pages inspected | ${allFiles.length} |
+| Redirect sources inspected | ${redirectUrls.length} |
 | Indexed (PASS) | ${indexed.length} |
-| Issues found | ${issues.length} |
+| Page issues | ${pageIssues.length} |
+| Redirect issues | ${redirectIssues.length} |
 | Fixes applied | ${fixable.filter((_, i) => fixResults[i]?.startsWith('- [✅]')).length} |
 | Sitemap resubmitted | ${sitemapResubmitted ? 'Yes' : 'No'} |
 
-## Issues
+## Page Issues
 
 | URL | Verdict | Coverage State | Issue Type | Diagnosis |
 |-----|---------|---------------|------------|-----------|
-${issueSection || '*(none)*'}
+${pageIssueSection || '*(none)*'}
+
+## Redirect Source Issues
+
+| URL | Coverage State | Diagnosis |
+|-----|---------------|-----------|
+${redirectIssueSection || '*(none — all redirects resolving correctly)*'}
 
 ## Fixes Applied
 
@@ -399,19 +479,27 @@ Last checked: **${today()}**
 
 | Metric | Value |
 |--------|-------|
-| Total pages | ${inspections.length} |
+| Astro pages | ${allFiles.length} |
+| Redirect sources checked | ${redirectUrls.length} |
 | Indexed | ${indexed.length} |
-| Issues | ${issues.length} |
+| Page issues | ${pageIssues.length} |
+| Redirect issues | ${redirectIssues.length} |
 
-## Pages With Issues
+## Page Issues
 
-${issues.length > 0
-  ? issues.map(i => `- **${i.url}** — ${i.fixType} — ${i.diagnosis.slice(0, 150)}`).join('\n')
+${pageIssues.length > 0
+  ? pageIssues.map(i => `- **${i.url}** — ${i.fixType} — ${i.diagnosis.slice(0, 150)}`).join('\n')
   : '*(none — all pages indexed)*'}
+
+## Redirect Source Issues
+
+${redirectIssues.length > 0
+  ? redirectIssues.map(i => `- **${i.url}** — ${i.diagnosis.slice(0, 150)}`).join('\n')
+  : '*(none — all redirects resolving correctly)*'}
 
 ## Not Yet Indexed (waiting)
 
-${inspections.filter(i => i.fixType === 'wait').map(i => `- ${i.url} — ${i.coverageState}`).join('\n') || '*(none)*'}
+${inspections.filter(i => i.fixType === 'wait' && i.urlType === 'page').map(i => `- ${i.url} — ${i.coverageState}`).join('\n') || '*(none)*'}
 
 ## Fix History
 
@@ -425,7 +513,7 @@ ${fixResults.map((r, idx) => {
 
   writeWikiPage(ROOT, 'pages/concepts/indexing-health.md', wikiPage);
 
-  appendWikiLog(ROOT, `## [${today()}] index-monitor | Indexing Health Check\n\n- Pages inspected: ${inspections.length}\n- Indexed: ${indexed.length} | Issues: ${issues.length} | Fixed: ${fixable.length}\n- Sitemap resubmitted: ${sitemapResubmitted}\n- Issues: ${issues.map(i => `${i.url} (${i.fixType})`).join(', ') || 'none'}\n`);
+  appendWikiLog(ROOT, `## [${today()}] index-monitor | Indexing Health Check\n\n- Pages inspected: ${allFiles.length} | Redirect sources: ${redirectUrls.length}\n- Indexed: ${indexed.length} | Page issues: ${pageIssues.length} | Redirect issues: ${redirectIssues.length} | Fixed: ${fixable.length}\n- Sitemap resubmitted: ${sitemapResubmitted}\n- Page issues: ${pageIssues.map(i => `${i.url} (${i.fixType})`).join(', ') || 'none'}\n- Redirect issues: ${redirectIssues.map(i => i.url).join(', ') || 'none'}\n`);
 
   console.log(`\nDone → reports/index-monitor.md`);
   if (issues.length > 0) {
