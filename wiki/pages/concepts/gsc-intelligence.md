@@ -147,11 +147,11 @@ _No transition opportunities detected_
 
 | Page | Cur Pos | Prev Pos | Pos Δ | Impr Δ | Trend |
 |------|---------|----------|-------|--------|-------|
-| /office-chairs-for-tall-people/ | 10.5 | 15.7 | -5.2 | +992 | rising |
-| /correct-chair-dimensions/ | 10.9 | 14.7 | -3.8 | +3800 | rising |
-| /how-to-adjust-chair/ | 36.2 | 33.3 | +2.9 | +20 | falling |
-| /chairs/herman-miller-aeron/ | 17.9 | 15.7 | +2.2 | +59 | falling |
-| /review/aeron-size-c/ | 8.6 | 6.8 | +1.8 | +966 | stable |
+| /back-pain-spine-height/ | 12.1 | 11.7 | +0.4 | +2 | stable |
+| /how-to-adjust-chair/ | 35.9 | 36.2 | -0.3 | +1 | stable |
+| /review/aeron-size-c/ | 8.8 | 8.6 | +0.2 | +49 | stable |
+| /chairs/herman-miller-aeron/ | 18.1 | 17.9 | +0.2 | -3 | stable |
+| /standing-desk-height-tall-people/ | 15.7 | 15.5 | +0.2 | +6 | stable |
 
 ---
 

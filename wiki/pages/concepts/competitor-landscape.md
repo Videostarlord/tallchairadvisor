@@ -70,12 +70,13 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-06-15. 8 pages analyzed × up to 3 queries each. 36 URLs crawled (13 cache hits). 4 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
+*v2 run 2026-06-15. 8 pages analyzed × up to 3 queries each. 0 URLs crawled (49 cache hits). 1 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-06-15 | No explicit OSHA guideline citation alongside the Cornell Ergonomics Rule — the  | high | 2q | boulies.com |
-| 2026-06-15 | Pressure magnitude quantification is absent — eurekaergonomic.com cites a specif | high | 2q | eurekaergonomic.com |
-| 2026-06-15 | User-height-to-setting mapping table: explicit recommended dial positions (seat  | high | 2q | thehumansolution.com |
-| 2026-06-15 | Chair roster covers only three models (Aeron Size C, Steelcase Gesture, Steelcas | high | 2q | forbes.com |
-| 2026-06-15 | Internal linking hub structure is chair-model-centric (links to Gesture/Leap/Aer | medium | 1q | forbes.com |
+| 2026-06-15 | No user-height-to-setting mapping with explicit numeric recommendations (e.g., ' | high | 2q | forbes.com |
+| 2026-06-15 | OSHA guideline citation is absent — TCA cites Cornell Ergonomics Lab and PubMed  | medium | 1q | boulies.com |
+| 2026-06-15 | The 'Adjustable Seat Depth vs Fixed Seat Depth' section header renders with only | medium | 1q | boulies.com |
+| 2026-06-15 | Author byline and methodology credentialing are not visibly surfaced near the to | medium | 1q | btod.com |
+| 2026-06-15 | No AggregateRating schema present — ItemList and ListItem are in the schema bloc | medium | 1q | btod.com |
+| 2026-06-15 | The 'Aeron vs Gesture vs Leap Plus for Tall People' section presents the compari | medium | 1q | btod.com |

@@ -15,12 +15,12 @@ tags: [ga4, analytics, sessions, conversions]
 
 | Metric | Value |
 |--------|-------|
-| Sessions | 339 |
-| Active Users | 273 |
-| Page Views | 394 |
-| Engagement Rate | 28.6% |
-| Avg Session Duration | 101s |
-| Bounce Rate | 71.4% |
+| Sessions | 345 |
+| Active Users | 279 |
+| Page Views | 400 |
+| Engagement Rate | 28.1% |
+| Avg Session Duration | 99s |
+| Bounce Rate | 71.9% |
 | Affiliate Clicks | 20 |
 | ChatGPT Sessions | 56 |
 
@@ -30,23 +30,23 @@ tags: [ga4, analytics, sessions, conversions]
 |------|----------|-------|---------|-------------|--------|
 | /review/leap-plus/ | 50 | 48 | 46% | 120s | 54% |
 | /best-office-chairs-under-500/ | 42 | 55 | 41% | 285s | 60% |
-| /best-office-chairs/ | 33 | 37 | 49% | 91s | 52% |
+| /best-office-chairs/ | 34 | 38 | 47% | 88s | 53% |
+| /review/gesture/ | 22 | 22 | 36% | 55s | 64% |
 | /knee-pain-seat-depth/ | 21 | 20 | 33% | 38s | 67% |
-| /review/gesture/ | 21 | 21 | 38% | 58s | 62% |
 | / | 20 | 19 | 10% | 3s | 90% |
-| /review/aeron-size-c/ | 19 | 19 | 42% | 42s | 58% |
+| /review/aeron-size-c/ | 20 | 20 | 40% | 40s | 60% |
 | /office-chairs-for-tall-people/ | 18 | 20 | 44% | 47s | 56% |
 | /correct-chair-dimensions/ | 12 | 13 | 42% | 258s | 58% |
-| /chairs/steelcase-gesture/seat-height/ | 10 | 11 | 30% | 159s | 70% |
+| /chairs/herman-miller-aeron/ | 10 | 9 | 20% | 58s | 80% |
 
 ## Traffic Channels
 
 | Channel | Sessions | Share |
 |---------|----------|-------|
-| Direct | 186 | 54.9% |
-| Organic Search | 92 | 27.1% |
-| Unassigned | 37 | 10.9% |
-| Referral | 15 | 4.4% |
+| Direct | 192 | 55.7% |
+| Organic Search | 92 | 26.7% |
+| Unassigned | 37 | 10.7% |
+| Referral | 15 | 4.3% |
 | AI Assistant | 11 | 3.2% |
 
 ## Affiliate Clicks (event: affiliate_click)
@@ -63,6 +63,19 @@ tags: [ga4, analytics, sessions, conversions]
 | /office-chairs-for-6-foot-6/ | 1 |
 
 ## Historical Snapshots
+
+### 2026-06-15
+
+| Metric | Value |
+|--------|-------|
+| Sessions | 339 |
+| Active Users | 273 |
+| Page Views | 394 |
+| Engagement Rate | 28.6% |
+| Avg Session Duration | 101s |
+| Bounce Rate | 71.4% |
+| Affiliate Clicks | 20 |
+| ChatGPT Sessions | 56 |
 
 ### 2026-06-14
 
