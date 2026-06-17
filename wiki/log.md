@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-06-17] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-06-17
+- Pages recorded: 16
+- Device split: {"mobile":0.176,"pc":0.824,"other":0}
+- Behavioral alerts: 6
+  - [low-scroll-depth] https://tallchairadvisor.com/knee-pain-seat-depth/: 30% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 27% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 23% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 18% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 10% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 3
+
+
 ## [2026-06-17] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-06-17-weekly-plan.md
