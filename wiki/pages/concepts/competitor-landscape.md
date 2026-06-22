@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-06-15
+last_updated: 2026-06-22
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,13 +70,11 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-06-15. 8 pages analyzed × up to 3 queries each. 0 URLs crawled (49 cache hits). 1 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
+*v2 run 2026-06-22. 8 pages analyzed × up to 3 queries each. 32 URLs crawled (18 cache hits). 2 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-06-15 | No user-height-to-setting mapping with explicit numeric recommendations (e.g., ' | high | 2q | forbes.com |
-| 2026-06-15 | OSHA guideline citation is absent — TCA cites Cornell Ergonomics Lab and PubMed  | medium | 1q | boulies.com |
-| 2026-06-15 | The 'Adjustable Seat Depth vs Fixed Seat Depth' section header renders with only | medium | 1q | boulies.com |
-| 2026-06-15 | Author byline and methodology credentialing are not visibly surfaced near the to | medium | 1q | btod.com |
-| 2026-06-15 | No AggregateRating schema present — ItemList and ListItem are in the schema bloc | medium | 1q | btod.com |
-| 2026-06-15 | The 'Aeron vs Gesture vs Leap Plus for Tall People' section presents the compari | medium | 1q | btod.com |
+| 2026-06-22 | No guidance on chair height or seat-to-floor height as it relates to knee pain o | high | 1q | meyland-smith.com |
+| 2026-06-22 | The 'Chair Model Fit by Height' table lacks a structured per-chair methodology n | high | 1q | boulies.com |
+| 2026-06-22 | The explicit fit-range verdict labels ('Best fit,' 'Marginal,' 'Not recommended' | medium | 1q | btod.com |
+| 2026-06-22 | The 'Aeron vs Gesture vs Leap Plus for Tall People' section presents the compari | medium | 1q | forbes.com |

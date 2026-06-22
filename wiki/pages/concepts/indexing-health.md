@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-06-15
-sources: [raw/audits/2026-06-15-index-monitor.md]
+last_updated: 2026-06-22
+sources: [raw/audits/2026-06-22-index-monitor.md]
 tags: [indexing, gsc, coverage, technical-seo]
 ---
 
 # Indexing Health
 
-Last checked: **2026-06-15**
+Last checked: **2026-06-22**
 
 ## Current Status
 
@@ -24,7 +24,7 @@ Last checked: **2026-06-15**
 - **https://tallchairadvisor.com/404/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
 - **https://tallchairadvisor.com/affiliate-disclosure/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
 - **https://tallchairadvisor.com/contact/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
-- **https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/** — wait — Non-critical or unknown issue. Coverage: "URL is unknown to Google", IndexingState: "INDEXING_STATE_UNSPECIFIED", FetchState: "PAGE_FETCH_STATE_UNSPEC
+- **https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
 - **https://tallchairadvisor.com/leg-pain-circulation/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
 - **https://tallchairadvisor.com/office-chair-return-policy/** — wait — Page is queued for indexing but hasn't been crawled yet. Sitemap resubmission will help. Coverage: "Discovered - currently not indexed".
 - **https://tallchairadvisor.com/privacy-policy/** — noindex — Page has a noindex directive (meta robots or x-robots-tag). If unintentional, remove it from the source file. Coverage state: "Excluded by ‘noindex’ t
@@ -86,7 +86,7 @@ Last checked: **2026-06-15**
 - https://tallchairadvisor.com/404/ — URL is unknown to Google
 - https://tallchairadvisor.com/affiliate-disclosure/ — URL is unknown to Google
 - https://tallchairadvisor.com/contact/ — URL is unknown to Google
-- https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/ — URL is unknown to Google
+- https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/ — Discovered - currently not indexed
 - https://tallchairadvisor.com/leg-pain-circulation/ — Discovered - currently not indexed
 - https://tallchairadvisor.com/office-chair-return-policy/ — Discovered - currently not indexed
 - https://tallchairadvisor.com/author/jackson-christopher/ — URL is unknown to Google
@@ -99,4 +99,4 @@ Last checked: **2026-06-15**
 
 | Date | Page | Fix Type | Result |
 |------|------|----------|--------|
-| 2026-06-15 | — | — | No fixes needed |
+| 2026-06-22 | — | — | No fixes needed |

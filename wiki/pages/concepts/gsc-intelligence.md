@@ -1,19 +1,19 @@
 ---
 type: concept
-last_updated: 2026-06-15
+last_updated: 2026-06-22
 sources: [data/gsc/analysis.json]
 tags: [gsc, intelligence, opportunities, ctr, weekly]
 ---
 
 # GSC Weekly Intelligence Digest
 
-**Generated 2026-06-15 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
+**Generated 2026-06-22 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
 
 ---
 
 ## Momentum
 
-Impressions up 61.7% WoW (9505 vs 5879), clicks up 47.1% (25 vs 17), avg position stable
+Impressions up 6.6% WoW (10134 vs 9505), clicks down 24% (19 vs 25), avg position stable
 
 ---
 
@@ -21,11 +21,11 @@ Impressions up 61.7% WoW (9505 vs 5879), clicks up 47.1% (25 vs 17), avg positio
 
 | Page | Type | Impressions | Position | Action |
 |------|------|-------------|----------|--------|
-| /knee-pain-seat-depth/ | near-p1 | 13347 impr | pos 6.8 | pos 6.8 with 13347 impr — expand content depth + internal links to push into top 5 |
-| /review/gesture/ | near-p1 | 6385 impr | pos 7.9 | pos 7.9 with 6385 impr — expand content depth + internal links to push into top 5 |
-| /correct-chair-dimensions/ | near-p1 | 6689 impr | pos 10.8 | pos 10.8 with 6689 impr — expand content depth + internal links to push into top 5 |
-| /review/leap-plus/ | near-p1 | 4226 impr | pos 8.7 | pos 8.7 with 4226 impr — expand content depth + internal links to push into top 5 |
-| /best-office-chairs/ | content-depth | 1492 impr | pos 21 | pos 21.0 with 1492 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
+| /knee-pain-seat-depth/ | near-p1 | 17581 impr | pos 6.6 | pos 6.6 with 17581 impr — expand content depth + internal links to push into top 5 |
+| /correct-chair-dimensions/ | near-p1 | 8758 impr | pos 10.2 | pos 10.2 with 8758 impr — expand content depth + internal links to push into top 5 |
+| /review/gesture/ | near-p1 | 6748 impr | pos 7.9 | pos 7.9 with 6748 impr — expand content depth + internal links to push into top 5 |
+| /review/leap-plus/ | near-p1 | 5620 impr | pos 8.9 | pos 8.9 with 5620 impr — expand content depth + internal links to push into top 5 |
+| /best-office-chairs/ | content-depth | 1562 impr | pos 19.7 | pos 19.7 with 1562 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
 
 ---
 
@@ -33,11 +33,11 @@ Impressions up 61.7% WoW (9505 vs 5879), clicks up 47.1% (25 vs 17), avg positio
 
 | Page | Query | Impr | Position | CTR (exp) | Lost clicks/wk |
 |------|-------|------|----------|-----------|----------------|
-| /knee-pain-seat-depth/ | "cornell ergonomics office chair seat depth 2 inches behind knees" | 87 impr | pos 5.1 | 0% (exp 6%) | ~0.41/wk ⚠ AIO |
-| /knee-pain-seat-depth/ | "cornell ergonomics chair seat depth two fingers behind knee" | 122 impr | pos 6.4 | 0% (exp 4%) | ~0.38/wk |
+| /knee-pain-seat-depth/ | "cornell ergonomics office chair seat depth 2 inches behind knees" | 102 impr | pos 4.6 | 0% (exp 8%) | ~0.63/wk ⚠ AIO |
+| /knee-pain-seat-depth/ | "cornell ergonomics chair seat depth 2 inches behind knees" | 110 impr | pos 5.9 | 0% (exp 6%) | ~0.51/wk ⚠ AIO |
+| /review/leap-plus/ | "steelcase leap plus" | 584 impr | pos 11.1 | 1.2% (exp 2%) | ~0.36/wk |
+| /knee-pain-seat-depth/ | "cornell ergonomics chair seat depth two fingers behind knee" | 123 impr | pos 6.3 | 0% (exp 4%) | ~0.38/wk |
 | /knee-pain-seat-depth/ | "cornell ergonomics chair seat pan depth 2 inches behind knees" | 37 impr | pos 3.8 | 0% (exp 12%) | ~0.35/wk ⚠ AIO |
-| /knee-pain-seat-depth/ | "cornell ergonomics chair seat depth 2 inches behind knees" | 106 impr | pos 6 | 0% (exp 4%) | ~0.33/wk ⚠ AIO |
-| /knee-pain-seat-depth/ | "cornell ergonomics chair seat depth two fingers behind knees" | 100 impr | pos 6.7 | 0% (exp 4%) | ~0.31/wk |
 
 **8 AIO suspects detected** — these positions rank well but earn zero clicks, likely due to AI Overviews capturing the SERP.
 
@@ -45,23 +45,23 @@ Impressions up 61.7% WoW (9505 vs 5879), clicks up 47.1% (25 vs 17), avg positio
 
 ## Affiliate Alerts
 
-- **/best-office-chairs/** [high]: 245 buyer-intent impr | queries: best office chairs for tall people, best office chair for tall person
-- **/gesture-vs-leap-plus/** [medium]: 132 buyer-intent impr | queries: steelcase gesture vs leap, steelcase leap vs gesture
-- **/office-chairs-for-tall-people/** [medium]: 63 buyer-intent impr | queries: best office chair for tall people, best office chairs for tall people
+- **/best-office-chairs/** [high]: 255 buyer-intent impr | queries: best office chairs for tall people, best office chair for tall person
+- **/gesture-vs-leap-plus/** [medium]: 135 buyer-intent impr | queries: steelcase gesture vs leap, steelcase leap vs gesture
+- **/aeron-vs-gesture/** [low]: 49 buyer-intent impr | queries: gesture vs aeron, aeron vs gesture
 
 ---
 
 ## Cannibalization Risks
 
-- **"steelcase leap plus"** [medium risk]: /review/leap-plus/ vs /chairs/steelcase-leap-plus/ vs /chairs/steelcase-leap-plus/seat-height/ vs /chairs/steelcase-leap-plus/tall-people/ (462 impr)
-- **"best office chair for tall person"** [medium risk]: /best-office-chairs/ vs /office-chairs-for-tall-people/ (92 impr)
-- **"best office chairs for tall people"** [medium risk]: /best-office-chairs/ vs /office-chairs-for-tall-people/ (72 impr)
+- **"steelcase leap plus"** [medium risk]: /review/leap-plus/ vs /chairs/steelcase-leap-plus/ vs /chairs/steelcase-leap-plus/seat-height/ vs /chairs/steelcase-leap-plus/tall-people/ (595 impr)
+- **"best office chair for tall person"** [medium risk]: /best-office-chairs/ vs /office-chairs-for-tall-people/ (84 impr)
+- **"best office chairs for tall people"** [medium risk]: /best-office-chairs/ vs /office-chairs-for-tall-people/ (70 impr)
 
 ---
 
 ## Device Split
 
-Mobile: 40% of impressions | Mobile CTR 0.44% vs Desktop 0% (gap: -0.44pp)
+Mobile: 25% of impressions | Mobile CTR 0.23% vs Desktop 0.18% (gap: -0.05pp)
 
 ---
 
@@ -70,26 +70,26 @@ Mobile: 40% of impressions | Mobile CTR 0.44% vs Desktop 0% (gap: -0.44pp)
 **Most fragmented pages** (topic generalists, low per-cluster authority):
 | Page | Entropy | Clusters | Regime |
 |------|---------|----------|--------|
-| /correct-chair-dimensions/ | 4.891 | 80 | fragmented |
-| /best-office-chairs/ | 3.693 | 34 | fragmented |
+| /correct-chair-dimensions/ | 4.781 | 74 | fragmented |
+| /best-office-chairs/ | 3.822 | 40 | fragmented |
 
 
 **Most concentrated pages** (single-keyword risk):
 | Page | Entropy | Clusters | Regime |
 |------|---------|----------|--------|
-| /chairs/steelcase-gesture/seat-depth/ | 0.326 | 4 | concentrated |
-| /chairs/steelcase-gesture/tall-people/ | 0.811 | 2 | concentrated |
-| /chairs/steelcase-gesture/weight-limit/ | 0.815 | 4 | concentrated |
+| /review/leap-plus/ | 0.194 | 2 | concentrated |
+| /aeron-vs-leap-plus/ | 0.48 | 2 | concentrated |
+| /chairs/herman-miller-aeron/tall-people/ | 0.514 | 4 | concentrated |
 
 
 ---
 
 ## Impression Gravity (Hub Candidates)
 
-- **/correct-chair-dimensions/**: 23 clusters, gravity score 202.59
-- **/best-office-chairs/**: 22 clusters, gravity score 160.77
-- **/knee-pain-seat-depth/**: 14 clusters, gravity score 132.99
-- **/aeron-vs-gesture/**: 9 clusters, gravity score 55.84
+- **/correct-chair-dimensions/**: 24 clusters, gravity score 217.87
+- **/knee-pain-seat-depth/**: 17 clusters, gravity score 166.17
+- **/best-office-chairs/**: 21 clusters, gravity score 154.43
+- **/aeron-vs-gesture/**: 9 clusters, gravity score 55.28
 
 ---
 
@@ -101,17 +101,17 @@ _No transition opportunities detected_
 
 ## AIO Action Items
 
-**/knee-pain-seat-depth/** — "cornell ergonomics chair seat depth 2 inches behind knees" [high] (106 impr, pos 6)
+**/knee-pain-seat-depth/** — "cornell ergonomics chair seat depth 2 inches behind knees" [high] (110 impr, pos 5.9)
   - Put the specific number/spec at the top of the page in a prominent answer box
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
 
-**/knee-pain-seat-depth/** — "cornell ergonomics office chair seat depth 2 inches behind knees" [medium] (87 impr, pos 5.1)
+**/knee-pain-seat-depth/** — "cornell ergonomics office chair seat depth 2 inches behind knees" [high] (102 impr, pos 4.6)
   - Put the specific number/spec at the top of the page in a prominent answer box
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
 
-**/knee-pain-seat-depth/** — "cornell ergonomics chair seat depth 2-3 fingers behind knees" [medium] (52 impr, pos 6)
+**/knee-pain-seat-depth/** — "cornell ergonomics chair seat depth 2-3 fingers behind knees" [medium] (57 impr, pos 5.6)
   - Put the specific number/spec at the top of the page in a prominent answer box
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
@@ -121,22 +121,22 @@ _No transition opportunities detected_
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
 
-**/chairs/steelcase-gesture/seat-depth/** — "steelcase gesture seat depth range inches" [medium] (33 impr, pos 4.3)
+**/chairs/steelcase-gesture/seat-depth/** — "steelcase gesture seat depth range inches" [medium] (32 impr, pos 4.2)
   - Put the specific number/spec at the top of the page in a prominent answer box
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
 
-**/knee-pain-seat-depth/** — "cornell ergonomics office chair seat depth two fingers behind knees" [medium] (28 impr, pos 3.6)
+**/knee-pain-seat-depth/** — "cornell ergonomics office chair seat depth two fingers behind knees" [medium] (29 impr, pos 3.5)
   - Put the specific number/spec at the top of the page in a prominent answer box
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
 
-**/knee-pain-seat-depth/** — "cornell ergonomics office chair seat depth two fingers behind knee" [medium] (16 impr, pos 2.8)
+**/knee-pain-seat-depth/** — "seat depth 2-3 finger widths back of knees ergonomics source" [medium] (19 impr, pos 5.3)
   - Put the specific number/spec at the top of the page in a prominent answer box
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
 
-**/knee-pain-seat-depth/** — "seat depth 2-3 finger widths back of knees ergonomics source" [medium] (16 impr, pos 5.3)
+**/knee-pain-seat-depth/** — "cornell ergonomics office chair seat depth two fingers behind knee" [medium] (17 impr, pos 2.7)
   - Put the specific number/spec at the top of the page in a prominent answer box
   - Add a definition callout box answering the spec directly
   - Add a citation capsule: 3 sentences, no pronouns, standalone
