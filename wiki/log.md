@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-06-23] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 125 | Impressions: 52635
+- Full report archived to raw/audits/2026-06-23-weekly-audit.md
+
+
 ## [2026-06-22] index-monitor | Indexing Health Check
 
 - Pages inspected: 47 | Redirect sources: 44
