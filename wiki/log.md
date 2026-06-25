@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-06-25] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-06-25
+- Pages recorded: 21
+- Device split: {"mobile":0.357,"pc":0.643,"other":0}
+- Behavioral alerts: 8
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 34% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs/: 34% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 24% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 16% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 8
+
+
 ## [2026-06-24] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-06-24-weekly-plan.md
