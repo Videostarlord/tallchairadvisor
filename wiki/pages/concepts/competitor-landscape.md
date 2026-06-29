@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-06-22
+last_updated: 2026-06-29
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,11 +70,8 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-06-22. 8 pages analyzed × up to 3 queries each. 32 URLs crawled (18 cache hits). 2 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
+*v2 run 2026-06-29. 8 pages analyzed × up to 3 queries each. 28 URLs crawled (24 cache hits). 0 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, btod.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-06-22 | No guidance on chair height or seat-to-floor height as it relates to knee pain o | high | 1q | meyland-smith.com |
-| 2026-06-22 | The 'Chair Model Fit by Height' table lacks a structured per-chair methodology n | high | 1q | boulies.com |
-| 2026-06-22 | The explicit fit-range verdict labels ('Best fit,' 'Marginal,' 'Not recommended' | medium | 1q | btod.com |
-| 2026-06-22 | The 'Aeron vs Gesture vs Leap Plus for Tall People' section presents the compari | medium | 1q | forbes.com |
+
