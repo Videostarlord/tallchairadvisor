@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-07-01] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-07-01
+- Pages recorded: 35
+- Device split: {"mobile":0.244,"pc":0.756,"other":0}
+- Behavioral alerts: 10
+  - [low-scroll-depth] https://tallchairadvisor.com/: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-4/: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-6/: 28% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 11
+
+
 ### 2026-07-01 — keyword-discovery.ts run
 - Seeds: GSC=16, Competitor=6, Deduped=22
 - Estimated cost: $0.0201 (1 task)
