@@ -2,6 +2,14 @@
 type: log
 ---
 
+### 2026-07-01 — keyword-discovery.ts run
+- Seeds: GSC=16, Competitor=6, Deduped=22
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 19
+- After filter: 16 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 16 (gap=3, targeting=0, ranking=13)
+- Mode: production
+
 ## [2026-06-29] index-monitor | Indexing Health Check
 
 - Pages inspected: 47 | Redirect sources: 44
