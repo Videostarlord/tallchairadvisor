@@ -3,11 +3,17 @@ https://www.tallchairadvisor.com/* https://tallchairadvisor.com/:splat 301!
 /author/marcus-reid/ /author/jackson-christopher/ 301
 /author/marcus-reid/* /author/jackson-christopher/:splat 301
 
+# Consolidation 301s (2026-07-04): merged cannibalizing money page + dead spec sub-pages
+/best-office-chairs/ /office-chairs-for-tall-people/ 301
+/chairs/herman-miller-aeron/seat-height/ /chairs/herman-miller-aeron/ 301
+/chairs/steelcase-gesture/seat-height/ /chairs/steelcase-gesture/ 301
+/chairs/steelcase-gesture/tall-people/ /chairs/steelcase-gesture/ 301
+
 # No-slash → trailing-slash (301 permanent redirects)
 # Without these, Cloudflare Pages defaults to 308 (wrong for SEO)
 
 # Top-level pages
-/best-office-chairs /best-office-chairs/ 301
+/best-office-chairs /office-chairs-for-tall-people/ 301
 /office-chairs-for-tall-people /office-chairs-for-tall-people/ 301
 /correct-chair-dimensions /correct-chair-dimensions/ 301
 /shoulder-pain-tall-people /shoulder-pain-tall-people/ 301
@@ -51,11 +57,11 @@ https://www.tallchairadvisor.com/* https://tallchairadvisor.com/:splat 301!
 /chairs/steelcase-leap-plus /chairs/steelcase-leap-plus/ 301
 
 # Chair sub-pages
-/chairs/herman-miller-aeron/seat-height /chairs/herman-miller-aeron/seat-height/ 301
+/chairs/herman-miller-aeron/seat-height /chairs/herman-miller-aeron/ 301
 /chairs/herman-miller-aeron/tall-people /chairs/herman-miller-aeron/tall-people/ 301
 /chairs/steelcase-gesture/seat-depth /chairs/steelcase-gesture/seat-depth/ 301
-/chairs/steelcase-gesture/seat-height /chairs/steelcase-gesture/seat-height/ 301
-/chairs/steelcase-gesture/tall-people /chairs/steelcase-gesture/tall-people/ 301
+/chairs/steelcase-gesture/seat-height /chairs/steelcase-gesture/ 301
+/chairs/steelcase-gesture/tall-people /chairs/steelcase-gesture/ 301
 /chairs/steelcase-gesture/weight-limit /chairs/steelcase-gesture/weight-limit/ 301
 /chairs/steelcase-leap-plus/seat-height /chairs/steelcase-leap-plus/seat-height/ 301
 /chairs/steelcase-leap-plus/tall-people /chairs/steelcase-leap-plus/tall-people/ 301

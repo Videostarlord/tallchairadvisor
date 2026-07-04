@@ -12,8 +12,7 @@ const sitemapExcludedPaths = new Set([
 // Per-page lastmod dates — update when a page is significantly revised
 const pageLastmod = {
   'https://tallchairadvisor.com/': new Date('2026-03-08'),
-  'https://tallchairadvisor.com/best-office-chairs/': new Date('2026-05-07'),
-  'https://tallchairadvisor.com/office-chairs-for-tall-people/': new Date('2026-03-08'),
+  'https://tallchairadvisor.com/office-chairs-for-tall-people/': new Date('2026-07-04'),
   'https://tallchairadvisor.com/why-standard-chairs-dont-fit/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/pain-ergonomics/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/fit-guides/': new Date('2026-03-08'),
@@ -29,12 +28,9 @@ const pageLastmod = {
   'https://tallchairadvisor.com/aeron-vs-leap-plus/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/gesture-vs-leap-plus/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/chairs/herman-miller-aeron/': new Date('2026-03-10'),
-  'https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/chairs/steelcase-gesture/': new Date('2026-05-07'),
   'https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/': new Date('2026-03-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/': new Date('2026-03-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/chairs/steelcase-leap-plus/': new Date('2026-03-10'),
   'https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/': new Date('2026-03-08'),
@@ -79,7 +75,6 @@ export default defineConfig({
         // Priority tiers
         if (
           item.url === 'https://tallchairadvisor.com/' ||
-          item.url === 'https://tallchairadvisor.com/best-office-chairs/' ||
           item.url === 'https://tallchairadvisor.com/office-chairs-for-tall-people/'
         ) {
           item.priority = 1.0;
