@@ -1,0 +1,362 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Best Big and Tall Office Chairs for Tall People (2026)",
+    "description": "Height-specific fit analysis for big-and-tall chairs — the dimension analysis that retailer listings skip. Seat height, seat depth, and weight capacity by height range.",
+    "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-07-04",
+    "dateModified": "2026-07-04",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Best Big and Tall Office Chairs",
+    "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Steelcase Leap Plus", "url": "https://tallchairadvisor.com/review/leap-plus/" },
+      { "@type": "ListItem", "position": 2, "name": "Herman Miller Aeron Size C", "url": "https://tallchairadvisor.com/review/aeron-size-c/" },
+      { "@type": "ListItem", "position": 3, "name": "Steelcase Gesture (standard)", "url": "https://tallchairadvisor.com/review/gesture/" },
+      { "@type": "ListItem", "position": 4, "name": "La-Z-Boy Trafford Big and Tall", "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/" },
+      { "@type": "ListItem", "position": 5, "name": "OFM Essentials 200 Series", "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Best Office Chairs", "item": "https://tallchairadvisor.com/best-office-chairs/" },
+      { "@type": "ListItem", "position": 3, "name": "Best Big and Tall Office Chairs", "item": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best big and tall office chair for someone over 6 feet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For users 6'0\"–6'3\", the Steelcase Gesture (500 lb capacity version or standard) covers most cases — 21\" seat height ceiling, adjustable seat depth to 18.75\". For users 6'3\"–6'7\", the Steelcase Leap Plus is the engineering-correct choice: 22.5\" seat height, 19.75\" adjustable seat depth, 500 lb weight capacity. The Leap Plus is the only mainstream chair that addresses all three dimensions of a tall, heavier user simultaneously."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What weight capacity do big and tall office chairs have?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Big-and-tall chairs typically carry 400–500 lb weight capacities. The Steelcase Leap Plus is rated to 500 lb. The Herman Miller Aeron Size C is rated to 350 lb — it is sized for taller frames but is not a high-capacity chair. Budget big-and-tall chairs (La-Z-Boy Trafford, OFM Essentials) generally carry 400 lb. Standard ergonomic chairs without a big-and-tall designation are usually rated 250–300 lb."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What seat height do I need in a big and tall office chair at 6 feet 4?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At 6'4\", the seat height requirement is approximately 19\"–22\" depending on inseam length. Most big-and-tall chairs marketed as such max out at 20\"–21\" — barely adequate. The Steelcase Leap Plus reaches 22.5\", which is the specification designed for users in the 6'3\"–6'7\" range. Check the seat height maximum before purchasing; many chairs labeled \"big and tall\" add weight capacity without increasing seat height."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are big and tall chairs actually taller, or just rated for more weight?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Often just rated for more weight. Many chairs marketed as big-and-tall add a reinforced frame and higher weight rating without increasing seat height range or seat depth. Always check three specs independently: seat height maximum, seat depth (fixed vs. adjustable and its range), and weight capacity. A chair that adds 50 lb to the weight rating but keeps the same 20\" seat height is not actually designed for tall users — it is a wider, heavier-duty version of a standard chair."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Best Big and Tall Office Chairs for Tall People (2026)"
+  description="Height-specific fit analysis that big-and-tall retailer listings skip. Seat height, seat depth, and weight capacity spec breakdown by height range — 6'0&quot; through 6'7&quot;."
+  ogType="article"
+  ogImage="/images/og-default.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Best Big and Tall Office Chairs for Tall People (2026)</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        The three dimensions retailers skip — and which chairs actually hit all of them
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-07-04" updatedDate="2026-07-04" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">For tall users 6'0"–6'3": Steelcase Gesture (21" seat height, 18.75" adjustable depth, ~300 lb standard). For tall users 6'3"–6'7" who also need high weight capacity: Steelcase Leap Plus (22.5" seat height, 19.75" adjustable depth, 500 lb). Most chairs labeled "big and tall" add weight capacity without increasing seat height — check all three specs independently.</p>
+    </div>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>The Problem with Most "Big and Tall" Chair Listings</h2>
+        <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. I spent months researching ergonomic chairs before buying the Steelcase Gesture, and one of the things that frustrated me most about that process was the "big and tall" category. Most chairs labeled big-and-tall in retail listings add weight capacity and a wider seat — but they don't touch the spec that matters most for tall users: seat height.</p>
+        <p>A chair with a 400 lb rating and a 20" seat height maximum is not a chair for tall people. It is a wide, reinforced chair built for heavier users of average height. For a user who is both tall and heavier — or simply tall and wanting a chair with structural headroom — those are different requirements that have to be evaluated separately.</p>
+        <p>This guide breaks down the three dimensions that define a genuinely tall-appropriate chair and identifies which products in the big-and-tall category actually address all three.</p>
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm">
+          <strong>Note on testing:</strong> I personally use and have tested the Steelcase Gesture. All other chairs in this guide are research-based assessments drawing on manufacturer specifications, engineering analysis, and aggregated user reports. Where I note "based on published specs" or "community reports suggest," that is the honest sourcing.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Three Specs That Define a Chair for Tall Users</h2>
+
+        <h3>1. Seat Height Maximum</h3>
+        <p>Seat height is the distance from the floor to the top of the seat pan. The ergonomic requirement is that your thighs be parallel to the floor (or slightly declining) with your feet flat on the floor. At 6'0", this typically requires a seat height of 18"–20". At 6'3", 19"–21". At 6'5"+, 21"–23".</p>
+        <p>Most chairs — including most labeled "big and tall" — max out at 20"–21". That covers users through about 6'3" in most proportional cases. It leaves users at 6'4"+ with their knees higher than their hips, which transfers load to the lumbar spine and causes the low-back fatigue that tall users disproportionately report after long desk sessions.</p>
+
+        <h3>2. Seat Depth (Adjustable Range)</h3>
+        <p>Seat depth is the front-to-back measurement of the seat pan. The ergonomic target is 2–3 finger-widths of clearance between the front seat edge and the back of your knee (per Cornell Ergonomics Lab guidelines). At 6'0"–6'2", this requires roughly 17"–18.5" of seat depth. At 6'3"–6'5", 18.5"–20".</p>
+        <p>Fixed-seat-depth chairs — even reinforced big-and-tall versions — are typically built at 17"–18" fixed depth, which is insufficient above 6'2". Adjustable seat depth is the feature that separates genuinely tall-user-appropriate chairs from wider-frame budget options. The Steelcase Leap Plus (17"–19.75" adjustable) and Gesture (16.75"–18.75" adjustable) both provide this. Most budget big-and-tall chairs do not.</p>
+
+        <h3>3. Weight Capacity</h3>
+        <p>Standard ergonomic chairs carry 250–300 lb. True big-and-tall chairs carry 400–500 lb. This matters independently of height — a taller frame carries more body weight on average, and a chair's structural limits are a separate safety question from its dimensional fit. Verify the weight capacity of any chair you're considering if you are near or above 250 lb.</p>
+      </section>
+
+      <section>
+        <h2>Quick Comparison: Dimensions by Chair</h2>
+      </section>
+
+    </div>
+
+    <div class="not-prose overflow-x-auto rounded-lg border border-border my-8">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="border-b border-border bg-secondary/30">
+            <th class="text-left p-3 font-semibold text-heading">Chair</th>
+            <th class="text-center p-3 font-semibold text-heading">Seat Height Max</th>
+            <th class="text-center p-3 font-semibold text-heading">Seat Depth</th>
+            <th class="text-center p-3 font-semibold text-heading">Weight Capacity</th>
+            <th class="text-center p-3 font-semibold text-heading">Best Tall Height</th>
+            <th class="text-center p-3 font-semibold text-heading">Price (New)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr class="hover:bg-secondary/20 bg-primary/5">
+            <td class="p-3 font-medium">Steelcase Leap Plus ✓</td>
+            <td class="p-3 text-center">22.5"</td>
+            <td class="p-3 text-center">17"–19.75" (adj.)</td>
+            <td class="p-3 text-center">500 lb</td>
+            <td class="p-3 text-center">6'3"–6'7"</td>
+            <td class="p-3 text-center">~$1,500</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Herman Miller Aeron C</td>
+            <td class="p-3 text-center">20.5"</td>
+            <td class="p-3 text-center">~18.5" (fixed)</td>
+            <td class="p-3 text-center">350 lb</td>
+            <td class="p-3 text-center">6'0"–6'3"</td>
+            <td class="p-3 text-center">~$1,700</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">Steelcase Gesture</td>
+            <td class="p-3 text-center">21"</td>
+            <td class="p-3 text-center">16.75"–18.75" (adj.)</td>
+            <td class="p-3 text-center">400 lb</td>
+            <td class="p-3 text-center">6'0"–6'3"</td>
+            <td class="p-3 text-center">~$1,649</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">La-Z-Boy Trafford B&amp;T</td>
+            <td class="p-3 text-center">~21"</td>
+            <td class="p-3 text-center">~19" (fixed)</td>
+            <td class="p-3 text-center">400 lb</td>
+            <td class="p-3 text-center">6'0"–6'2"</td>
+            <td class="p-3 text-center">~$350–450</td>
+          </tr>
+          <tr class="hover:bg-secondary/20">
+            <td class="p-3 font-medium">OFM Essentials 200</td>
+            <td class="p-3 text-center">~21.5"</td>
+            <td class="p-3 text-center">~17.5" (fixed)</td>
+            <td class="p-3 text-center">400 lb</td>
+            <td class="p-3 text-center">6'0"–6'1"</td>
+            <td class="p-3 text-center">~$200–280</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>1. Steelcase Leap Plus — Best for Tall Users 6'3"+ Who Need High Weight Capacity</h2>
+        <p><strong>Best for:</strong> Tall users 6'3"–6'7" who need both height range and structural capacity.<br/>
+        <strong>Price:</strong> ~$1,400–$1,600 new; ~$600–$900 certified refurbished<br/>
+        <strong>Key specs:</strong> 18"–22.5" seat height, 17"–19.75" adjustable seat depth, ~21" seat width, 25.5" back height, 500 lb weight capacity</p>
+
+        <p>The Steelcase Leap Plus is the engineering-correct answer for tall users who are also concerned about weight capacity. It is the only mainstream ergonomic chair that simultaneously provides a 22.5" seat height ceiling, adjustable seat depth reaching 19.75", and a 500 lb structural rating. No other chair on this list achieves all three.</p>
+
+        <p>The 22.5" seat height ceiling is the key differentiator. For a user at 6'5" with average proportions, the required seat height is approximately 21"–22". The Leap Plus is the only widely available chair that reaches that height — most competitors, including the Gesture and Aeron, max out at 20.5"–21". The adjustable seat depth (17"–19.75") handles users from 6'3" through 6'6"+ in most proportional cases.</p>
+
+        <p>The weight capacity of 500 lb is structurally over-engineered for most users — it is better understood as a frame robustness indicator than a practical limit for the average buyer. It means the chair's welds, gas cylinder, and base are built to a significantly higher standard than chairs rated at 250–300 lb.</p>
+
+        <p>Full analysis: <a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus full review for tall people →</a></p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=steelcase+leap+plus+office+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Steelcase Leap Plus on Amazon" data-cta-position="product-card">
+            View Steelcase Leap Plus on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Herman Miller Aeron Size C — Best Mesh Chair for Tall Users Who Run Warm</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'3" who prioritize breathability and run hot.<br/>
+        <strong>Price:</strong> ~$1,600–$1,800 new; ~$600–$1,000 certified refurbished<br/>
+        <strong>Key specs:</strong> 16"–20.5" seat height, ~18.5" fixed seat depth, ~20.5" seat width, 350 lb weight capacity, Pellicle mesh seat and back</p>
+
+        <p>The Aeron Size C is sized for taller frames — Size C is the large version of the three Aeron sizes (A, B, C) and is intended for users up to about 6'3". Its Pellicle mesh construction (mesh seat and back with no foam layer) provides class-leading breathability that matters for users spending 6+ hours in a chair in a non-air-conditioned environment.</p>
+
+        <p>The dimensional constraints to understand: the 20.5" seat height ceiling is adequate for most users through 6'3" but starts to strain above that. The fixed ~18.5" seat depth is reasonable for users at 6'0"–6'3" with average proportions, but it is not adjustable — users with longer femurs may find it short. The 350 lb weight capacity is the lowest in this guide and is a relevant constraint for heavier tall users.</p>
+
+        <p>The Aeron's PostureFit SL lumbar system (a two-pad mechanism supporting both the sacrum and lumbar) is frequently cited in ergonomics communities as one of the strongest lower-back support implementations available. For tall users whose primary concern is back support and heat management rather than maximum seat height, the Size C is a strong option.</p>
+
+        <p>Full analysis: <a href="/review/aeron-size-c/" class="link-internal">Herman Miller Aeron Size C full review for tall people →</a></p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=herman+miller+aeron+size+c+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Herman Miller Aeron Size C on Amazon" data-cta-position="product-card">
+            View Herman Miller Aeron Size C on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Steelcase Gesture — Best All-Around for Tall Users 6'0"–6'3"</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'3" who use multiple devices and change postures throughout the day.<br/>
+        <strong>Price:</strong> ~$1,649 new; ~$400–$700 certified refurbished<br/>
+        <strong>Key specs:</strong> 16"–21" seat height, 16.75"–18.75" adjustable seat depth, ~18.5" seat width, 400 lb weight capacity, 360-degree armrests</p>
+
+        <p>The Gesture is the chair I own and use daily at 6'4". Its 21" seat height ceiling is borderline at my height — I use it at maximum — but it covers most users through about 6'3" with room for adjustment. The adjustable seat depth (16.75"–18.75") handles the 6'0"–6'3" range well in most proportional cases.</p>
+
+        <p>The Gesture's distinguishing feature for tall users is the 360-degree rotating armrest system. Standard armrests pivot in one or two axes; the Gesture's armrests follow the arm through any position — rotated inward for typing, out and forward for tablet use, angled for reclined postures. For tall users whose upper-arm geometry doesn't match the assumed position of standard armrests, this matters more than marketing language typically conveys. I've found it eliminates the shoulder-elevation compensation that I needed in every previous chair.</p>
+
+        <p>Full analysis: <a href="/review/gesture/" class="link-internal">Steelcase Gesture review — tested daily at 6'4" →</a></p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=steelcase+gesture+office+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Steelcase Gesture on Amazon" data-cta-position="product-card">
+            View Steelcase Gesture on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. La-Z-Boy Trafford Big and Tall — Best Budget Option for 6'0"–6'2"</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'2" who want a recognizable brand at a budget price point with 400 lb capacity.<br/>
+        <strong>Price:</strong> ~$350–$450<br/>
+        <strong>Key specs:</strong> ~19"–21" seat height, ~19" fixed seat depth, ~22" seat width, 400 lb weight capacity, foam padded seat</p>
+
+        <p>The La-Z-Boy Trafford is the most common budget big-and-tall recommendation in retail channels and has a wide seat at ~22" — one of the widest available in this price range. Its 400 lb weight capacity and ~21" seat height ceiling cover the dimensional and structural needs of most users at 6'0"–6'2".</p>
+
+        <p>The main limitation is fixed seat depth (~19") and a foam-padded seat construction. The fixed depth is borderline adequate at 6'2" and insufficient for users with longer femurs above that. The foam retains more heat than mesh alternatives and will compress over time, reducing effective seat depth. Community reports suggest the cushion noticeably softens after 12–18 months of daily use.</p>
+
+        <p>For tall users at 6'0"–6'2" who need 400 lb capacity and cannot justify premium chair pricing, the Trafford is a reasonable practical choice. For users above 6'2" or those planning 5+ years of daily use, the refurbished Steelcase Leap V2 is a better investment at a similar price point.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=la-z-boy+trafford+big+tall+office+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View La-Z-Boy Trafford on Amazon" data-cta-position="product-card">
+            View La-Z-Boy Trafford on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>5. OFM Essentials 200 Series — Tall Seat Cylinder, Budget Price</h2>
+        <p><strong>Best for:</strong> Tall users 6'0"–6'1" who need a functional chair under $300.<br/>
+        <strong>Price:</strong> ~$200–$280<br/>
+        <strong>Key specs:</strong> ~19"–21.5" seat height, ~17.5" fixed seat depth, ~22" seat width, 400 lb weight capacity, mesh back with foam seat</p>
+
+        <p>The OFM Essentials 200 Series is notable for one specific reason: its seat height maximum reaches approximately 21.5" — above average for the budget tier, and enabled by the chair's tall gas cylinder. For budget-constrained tall users at 6'0"–6'1" who have struggled to find adequate seat height in the sub-$300 range, this is worth flagging.</p>
+
+        <p>The seat depth (~17.5" fixed) and mesh back with foam seat construction are comparable to other budget big-and-tall options. The 400 lb structural rating appears to hold up in community reports. The ergonomic support is minimal compared to premium options — no significant lumbar mechanism, no adjustable seat depth — but at this price tier that is expected. The chair's practical value is the seat height range, not the ergonomic system.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/s?k=ofm+essentials+200+big+tall+office+chair&tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View OFM Essentials 200 on Amazon" data-cta-position="product-card">
+            View OFM Essentials 200 on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>What "Big and Tall" Actually Means — and What It Doesn't</h2>
+        <p>The "big and tall" label is a retail category, not an engineering specification. It typically means some combination of: increased weight capacity (usually 400–500 lb), wider seat pan, and taller back height. It does not guarantee an increased seat height range — which is the most important spec for tall users.</p>
+
+        <p>A concrete example: a chair with a 24" back height, 400 lb capacity, and 20" seat height maximum is marketed as "big and tall." For a user who is 250 lb and 5'10", it may be appropriate. For a user who is 220 lb and 6'4", it fits neither need — the seat is too low, and the weight rating doesn't help with height. Always evaluate seat height maximum independently from weight capacity when filtering for "big and tall" chairs.</p>
+
+        <p>The three specs to verify in order, regardless of marketing language:</p>
+        <ol>
+          <li><strong>Seat height maximum</strong> — must reach your required seated position (see <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions by height →</a>)</li>
+          <li><strong>Seat depth</strong> — fixed or adjustable, and whether the range covers your thigh length</li>
+          <li><strong>Weight capacity</strong> — with margin above your actual weight</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Height-Based Buying Guide</h2>
+
+        <h3>6'0"–6'2": Multiple options cover the dimensional requirements</h3>
+        <p>The Gesture (21" seat height, adjustable depth), Aeron Size C (20.5", fixed depth), La-Z-Boy Trafford (21", fixed depth), and OFM Essentials 200 (21.5", fixed depth) all provide adequate seat height for users in this range. Prioritize: adjustable seat depth above 17.5" if you have longer proportions; weight capacity if structural robustness matters; mesh construction if you run warm. Budget: Trafford or OFM Essentials. Mid-range: refurbished Leap V2 (~$400–$500). Premium: Gesture or Aeron Size C.</p>
+
+        <h3>6'3"–6'4": Leap Plus or refurbished Gesture/Leap V2</h3>
+        <p>The 20.5"–21" seat height ceiling of most chairs becomes constraining at 6'3"+. The Steelcase Leap Plus (22.5") is the primary new-chair recommendation. The Gesture at 21" is borderline — it works for many users at 6'3"–6'4" depending on proportions, but there is no adjustment headroom left. Refurbished Leap V2 units (~$400–$600) provide an adjustable seat depth that most budget big-and-tall chairs cannot match.</p>
+
+        <h3>6'5"–6'7": Leap Plus is the primary option</h3>
+        <p>The Leap Plus is the only mainstream chair engineered to fit users in the 6'5"–6'7" range on all three key dimensions simultaneously. At 6'5", the required seat height is approximately 21"–22" — the Leap Plus's 22.5" ceiling provides a workable fit. No budget big-and-tall chair provides adequate seat height in this range. See the <a href="/review/leap-plus/" class="link-internal">full Leap Plus review →</a></p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>What is the best big and tall office chair for someone over 6 feet?</h3>
+        <p>For 6'0"–6'3": the Steelcase Gesture or Herman Miller Aeron Size C covers most cases at the premium tier. For budget: La-Z-Boy Trafford or refurbished Leap V2. For 6'3"+: the <a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus</a> is the engineering-correct answer — it is the only mainstream chair with a 22.5" seat height ceiling and 500 lb capacity.</p>
+
+        <h3>What weight capacity do big and tall office chairs have?</h3>
+        <p>Budget big-and-tall chairs: 400 lb (Trafford, OFM). Premium: 350 lb (Aeron C), 400 lb (Gesture), 500 lb (Leap Plus). Standard ergonomic chairs are typically 250–300 lb. Verify the spec for any chair you're considering — "big and tall" does not guarantee a specific capacity.</p>
+
+        <h3>Are big and tall chairs actually taller, or just rated for more weight?</h3>
+        <p>Often just rated for more weight. Always check the seat height maximum independently — many chairs add 100–150 lb to the weight rating without changing the seat height range. The three specs to verify: seat height maximum, seat depth (and whether it is adjustable), and weight capacity.</p>
+      </section>
+
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related guides and reviews:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus full review — best for 6'3"+ →</a></li>
+          <li><a href="/review/gesture/" class="link-internal text-muted-foreground">Steelcase Gesture review — tested at 6'4" →</a></li>
+          <li><a href="/review/aeron-size-c/" class="link-internal text-muted-foreground">Herman Miller Aeron Size C review →</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal text-muted-foreground">Correct chair dimensions by height →</a></li>
+          <li><a href="/best-office-chairs/" class="link-internal text-muted-foreground">← Best office chairs for tall people (all tiers)</a></li>
+          <li><a href="/best-office-chairs-under-500/" class="link-internal text-muted-foreground">Best office chairs under $500 for tall people →</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>

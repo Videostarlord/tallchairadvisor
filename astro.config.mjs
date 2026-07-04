@@ -55,6 +55,9 @@ const pageLastmod = {
   'https://tallchairadvisor.com/office-chairs-for-6-foot-7/': new Date('2026-05-26'),
   'https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/': new Date('2026-05-26'),
   'https://tallchairadvisor.com/standing-desk-height-tall-people/': new Date('2026-03-31'),
+  'https://tallchairadvisor.com/best-big-and-tall-office-chairs/': new Date('2026-07-04'),
+  'https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/': new Date('2026-07-04'),
+  'https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/': new Date('2026-07-04'),
 };
 
 export default defineConfig({
