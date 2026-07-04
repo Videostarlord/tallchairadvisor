@@ -2,6 +2,17 @@
 type: log
 ---
 
+## [2026-07-03] Amazon Associates | First Earnings Data Ingested
+
+- Source: 4 Amazon Associates CSV exports (Category, Linked Product, Top Sellers, Tracking ID)
+- Period: 2026-06-30 (single-date row — may be June aggregate; pull 30-day breakdown to confirm)
+- Raw snapshot: `raw/affiliate/2026-06-30-amazon-associates-report.md`
+- Clicks: 70 | Orders: 7 (10% CVR) | Net earnings: -$0.41
+- Key finding: 1 return ($610 item) clawed back $18.30, wiping $17.89 shipped earnings
+- Key gap: 94% of clicks "Unknown" — no page-level attribution
+- New wiki page: [[affiliate-performance]]
+- Action items: (1) add per-page tracking IDs, (2) pull full 30-day export, (3) wire GA4 outbound click events as proxy
+
 ## [2026-07-03] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-07-03
