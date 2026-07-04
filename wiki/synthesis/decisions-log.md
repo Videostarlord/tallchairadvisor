@@ -8,6 +8,18 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W27 (July 4, later) — Commercial cluster consolidation executed after GSC verification
+
+**CONTEXT:** Audit plan item 3. Jackson approved: verification pass first, then consolidate.
+
+**VERIFICATION FINDING — The cannibalization was worse and different than assumed.** The 90-day GSC pull showed the entire "best office chair(s) for tall people/person" head-term family (~340 visible impr) at position 45–90 sitewide with zero clicks ever, attributed to /best-office-chairs/. Meanwhile /office-chairs-for-tall-people/'s pos 8.1 was built entirely on Steelcase Leap V2 brand queries. Not two pages splitting a ranking — one page with the queries and no authority, one with authority and the wrong queries.
+
+**VERIFICATION FINDING — Audit kill-list revision.** best-big-and-tall and wide-seat pages were NOT merged into heavy-duty as the audit proposed: they were created Jul 4 (days old, zero GSC data) as deliberate keyword-gap fills targeting the distinct "big and tall" query family. Merging them would kill unindexed gap content. Re-evaluate ~Aug 15 with real data.
+
+**DECISION + EXECUTION:** /best-office-chairs/ 301'd into /office-chairs-for-tall-people/ (exact-match slug + existing authority). Survivor retitled to "Best Office Chairs for Tall People 2026", absorbed Quick Picks + height-bracket verdict table, broken AIO capsule replaced, back-pain FAQ added, affiliate links 3→15. Three dead spec sub-pages (crawled-not-indexed since spring) 301'd to parents. Nav, breadcrumb schemas, 40+ internal links repointed. Sitemap: 48 pages.
+
+**SUCCESS METRIC (audit experiment 4):** head-term family gains 3+ positions on the survivor within 4 weeks of crawl. Check GSC ~Aug 1. If head terms don't move by Sep 1, the constraint is domain authority, not architecture — response is content depth + links, not more restructuring.
+
 ## 2026-W27 (July 4) — Affiliate revenue audit: link architecture root cause found and fixed same day
 
 **CONTEXT:** Jackson requested a hostile affiliate revenue audit (full report: `raw/audits/2026-07-04-affiliate-revenue-audit.md`), then ordered items 1–2 of its 30-day plan executed immediately.

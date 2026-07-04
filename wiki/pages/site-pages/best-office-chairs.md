@@ -9,7 +9,15 @@ tags: [page, money-page]
 
 # Page: /best-office-chairs/
 
-**Main money page. Primary revenue driver.**
+**⛔ MERGED 2026-07-04 — 301 → /office-chairs-for-tall-people/. This page no longer exists.**
+
+The July 4 GSC verification pass (90-day data) showed this page never escaped position 45–75 on its target head terms ("best office chair(s) for tall people/person" family, ~340 impr, **0 clicks ever**) while cannibalizing /office-chairs-for-tall-people/ — both pages had near-identical titles targeting the same queries. Google attributed the head-term queries to this page but ranked it nowhere; the rival held pos 8.1 on Leap V2 brand queries. Merged: Quick Picks box, height-bracket verdict table (with corrected AIO capsule), and back-pain FAQ moved to the survivor; all internal links, nav (Header/Footer), and breadcrumb schemas repointed; 301 in `public/_redirects`; removed from sitemap config. See [[office-chairs-for-tall-people]] and decisions-log 2026-07-04 (consolidation entry).
+
+Historical record below preserved as-is.
+
+---
+
+**Main money page. Primary revenue driver.** *(historical)*
 
 ## Current State (May 11 — GSC + full SEO audit)
 

@@ -2077,3 +2077,12 @@ Chronological record of wiki operations. Append new entries at the top.
 - `src/pages/best-office-chairs-under-500.astro` — refurb section's plain-text Crandall mention now monetized (Amazon CTA) + link to new refurb page.
 - Program economics corrected: Autonomous.ai ~2% (skip); Humanscale/Crandall/FlexiSpot are the apply targets. [[thesis]] updated.
 - Build verified: 52 pages. Pending Jackson: per-page tracking IDs, ASIN click-verify, program applications.
+
+## [2026-07-04] consolidation | Commercial cluster merged — /best-office-chairs/ 301 → /office-chairs-for-tall-people/
+
+- GSC verification pass (90d) before any redirect: /best-office-chairs/ at pos 45–75 with 0 clicks ever on the "best office chair for tall people" head-term family (~340 impr) while /office-chairs-for-tall-people/ held pos 8.1 on brand queries. Full cannibalization (near-identical titles). Verdict: merge into the authority page with the exact-match slug.
+- Survivor upgraded: title/H1/meta now target "best" head terms; Quick Picks box + height-bracket verdict table absorbed from killed page; broken AIO capsule replaced (had wrong specs); back-pain FAQ added (targets 66-impr query). Affiliate links 3 → 15. Entity: [[office-chairs-for-tall-people]].
+- Killed + 301'd: `/best-office-chairs/` → survivor; dead spec sub-pages `/chairs/herman-miller-aeron/seat-height/`, `/chairs/steelcase-gesture/seat-height/`, `/chairs/steelcase-gesture/tall-people/` → parents (all were "crawled – currently not indexed", 0–8 impr/90d).
+- **Audit revision:** big-and-tall + wide-seat pages NOT merged — verification showed they're days old (Jul 4, keyword-gap fills targeting the distinct "big and tall" family). Re-evaluate ~2026-08-15.
+- Sitewide: 40+ internal links, Header/Footer nav, breadcrumb schemas repointed; `public/_redirects` +4 rules (no-slash variants fixed to avoid double hops); sitemap config cleaned. Build: 48 pages, 0 stale refs in dist.
+- Success metric: head-term family gains 3+ positions on survivor URL within 4 weeks. Check ~Aug 1.

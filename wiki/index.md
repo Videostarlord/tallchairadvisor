@@ -29,7 +29,8 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[aeron-vs-gesture]] | 385 impr, pos 8.5, 0 clicks. Meta rewritten Jun 14 to verdict-lead. GSC validation pending. |
 | [[chairs-herman-miller-aeron-size-guide]] | NEW 2026-04-13. Size B vs C guide for tall users. No GSC data yet. |
 | [[correct-chair-dimensions]] | Educational. 1,766 impr, pos 15.8. Top GSC opportunity (content-depth, score 883). May 12. |
-| [[best-office-chairs]] | Money page. 776 impr, pos 22.5, 0 clicks. AIO capsule applied May 12 (21" Aeron seat height). |
+| [[best-office-chairs]] | **MERGED 2026-07-04** — 301 → /office-chairs-for-tall-people/. Never ranked <45 on head terms, 0 clicks ever. Historical only. |
+| [[office-chairs-for-tall-people]] | **MONEY HUB since 2026-07-04.** Absorbed best-office-chairs. Pos 8.1, 2715 impr. Quick Picks + verdict table + "best" title. Watch head-term positions ~Aug 1. |
 | [[heavy-duty-ergonomic-chairs]] | **NEW 2026-05-26.** Targets "best heavy duty ergonomic chairs for tall people" (pos 14). Two-problem frame: weight capacity + tall-user dimensions. Leap Plus as only mainstream solution. |
 | [[refurbished-steelcase-leap]] | **NEW 2026-07-04.** Refurb Leap V2 for tall users — height-cutoff angle (~6'2" max). Crandall Amazon CTA (B08PPVCCST). Score 82/100. From revenue audit item 2. |
 
