@@ -8,7 +8,8 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today, logCacheUsage, readSynthesisContext } from './wiki-utils.js';
+import { Script as VmScript } from 'vm';
+import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today, logCacheUsage, readSynthesisContext, withRetry } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -240,11 +241,21 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   if (/'[^'\n]*'[^'\n]*'/.test(frontmatter)) {
     return { valid: false, reason: "Apostrophe inside single-quoted string in frontmatter — use double quotes for strings containing apostrophes (e.g. \"6'4\\\")\")" };
   }
+  // Full JS syntax check — catches any remaining esbuild-rejectable errors (unmatched parens,
+  // unescaped quotes inside string literals, etc.)
+  try {
+    const stripped = frontmatter
+      .replace(/^[ \t]*import\s+[^;]+;\s*$/gm, '') // strip import statements (not valid in vm.Script)
+      .trim();
+    if (stripped) new VmScript(stripped);
+  } catch (e: any) {
+    return { valid: false, reason: `Frontmatter JS syntax error: ${e.message.split('\n')[0]}` };
+  }
   return { valid: true };
 }
 
 async function scoreContent(content: string, keyword: string): Promise<{ score: number; feedback: string }> {
-  const response = await client.messages.create({
+  const response = await withRetry(() => client.messages.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 200,
     system: `Score this tallchairadvisor.com page draft on 5 criteria (20pts each, 100 total):
@@ -255,7 +266,7 @@ async function scoreContent(content: string, keyword: string): Promise<{ score: 
 5. At least 3 internal links using class="link-internal"
 Return only JSON: {"score": <0-100>, "feedback": "<one sentence on the biggest gap if score < 80, else 'pass'>"}`,
     messages: [{ role: 'user', content: `Keyword: "${keyword}"\n\n${content.slice(0, 5000)}` }],
-  });
+  }));
   const raw = (response.content[0].type === 'text' ? response.content[0].text : '').replace(/```[a-z]*/g, '').trim();
   try {
     const parsed = JSON.parse(raw.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
@@ -362,7 +373,7 @@ async function scoreCompetitiveDepth(
   }
 
   try {
-    const response = await client.messages.create({
+    const response = await withRetry(() => client.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 400,
       system: `You are a content depth auditor comparing a TCA draft against a competitor page. Score TCA 0-100 on competitive depth. Return only JSON.`,
@@ -381,7 +392,7 @@ ${bestContent.slice(0, 2000)}
 
 Return JSON only: {"ratio": <0-100>, "missingSections": ["...", "..."], "rationale": "<one sentence>"}`,
       }],
-    });
+    }));
 
     const text = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
     const parsed = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
@@ -466,7 +477,7 @@ Write the complete Astro page. Output the file content only — no markdown fenc
   }];
 
   const diffAssets = buildDifferentiationAssets(task.slug, ROOT);
-  const response = await client.messages.create({
+  const response = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 8000,
     system: [
@@ -484,7 +495,7 @@ Write the complete Astro page. Output the file content only — no markdown fenc
       },
     ],
     messages,
-  });
+  }));
   logCacheUsage('execute-content', response.usage, ROOT);
 
   const raw = response.content[0].type === 'text' ? response.content[0].text : '';

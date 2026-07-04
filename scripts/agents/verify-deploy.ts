@@ -11,7 +11,7 @@ import { execSync } from 'child_process';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Glob } from 'glob';
-import { appendWikiLog, writeWikiPage, readWikiPage, readSynthesisContext, currentWeek, today } from './wiki-utils.js';
+import { appendWikiLog, writeWikiPage, readWikiPage, readSynthesisContext, currentWeek, today, withRetry } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -304,7 +304,7 @@ async function main() {
   const historyMatch = gscHistory.match(/### [\d-]+\n([\s\S]*?)(?=\n###|\n##|$)/);
   const prevWeekStats = historyMatch?.[1]?.slice(0, 300) || 'No prior week data available.';
 
-  const summaryResponse = await client.messages.create({
+  const summaryResponse = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 800,
     system: [{ type: 'text', text: `You are the operations log writer for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people.
@@ -330,7 +330,7 @@ WHAT HAPPENED:
 
 Format as markdown bullet points. Be specific about what changed and what to watch next week.`,
     }],
-  });
+  }));
 
   const summary = summaryResponse.content[0].type === 'text' ? summaryResponse.content[0].text : '';
 

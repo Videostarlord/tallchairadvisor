@@ -12,6 +12,32 @@ import { resolve, dirname } from 'path';
 
 export type IntentType = 'buyer' | 'brand' | 'spec' | 'informational';
 
+/** Retry wrapper for transient Anthropic API errors (Premature close, ECONNRESET, 529, 503). */
+export async function withRetry<T>(
+  fn: () => Promise<T>,
+  maxRetries = 3,
+  baseDelayMs = 8000,
+): Promise<T> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err: any) {
+      const retryable =
+        err?.message?.includes('Premature close') ||
+        err?.message?.includes('ECONNRESET') ||
+        err?.message?.includes('ETIMEDOUT') ||
+        err?.message?.includes('socket hang up') ||
+        err?.status === 529 ||
+        err?.status === 503;
+      if (attempt === maxRetries || !retryable) throw err;
+      const delay = baseDelayMs * attempt;
+      console.warn(`  ⚠ API call failed (attempt ${attempt}/${maxRetries}): ${err.message}. Retrying in ${delay / 1000}s...`);
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+  throw new Error('withRetry: unreachable');
+}
+
 // tall-chair-advisor/ repo root
 export function getRepoRoot(metaUrl: string): string {
   const __dirname = dirname(new URL(metaUrl).pathname);

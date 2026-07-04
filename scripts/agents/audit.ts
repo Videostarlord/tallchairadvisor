@@ -8,7 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today, reconcileInterventions } from './wiki-utils.js';
+import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -82,7 +82,7 @@ async function main() {
   const synthesisContext = readSynthesisContext(ROOT);
 
   // Call Claude for analysis
-  const response = await client.messages.create({
+  const response = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
     system: [
@@ -147,7 +147,7 @@ Output a structured markdown audit report with:
 
 Be specific: include exact meta descriptions to rewrite, exact schema errors to fix, etc.`,
     }],
-  });
+  }));
 
   logCacheUsage('audit', response.usage, ROOT);
 
