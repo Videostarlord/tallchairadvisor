@@ -384,6 +384,15 @@ See [[affiliate-compliance]] for updated full status table.
 
 ---
 
+## 2026-W27 (2026-07-04)
+
+- **Deploy:** Passed
+- **GSC:** 150 clicks, 67673 impr, pos 8.5
+- **Fixes:** 0 applied
+- **Content:** 0 new pages
+
+
+
 ## 2026-W24 (2026-06-13)
 
 - **Deploy:** Passed
