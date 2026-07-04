@@ -1,12 +1,57 @@
 ---
 type: synthesis
-last_updated: 2026-06-14
+last_updated: 2026-07-03
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W27 (July 3) — 7-month audit, monetization pivot, 3 next steps decided
+
+**CONTEXT:** Full cross-source analysis session. Data reviewed: Amazon Associates report (June 30), GA4 (28-day ending June 29), GSC (28-day ending June 29), Clarity behavioral data (July 3), all wiki synthesis pages. Jackson asked whether to continue or pivot after 7 months.
+
+**FINDING — Traffic side is working, monetization side has a structural ceiling.**
+GSC impressions grew 12x in 10 weeks (5,590 Apr 18 → 67,673 Jun 29). Clicks 12 → 150. New pages hit pos 5–10 in weeks. ChatGPT actively cites the site (30 AI sessions/28d). Domain authority is compounding. These signals are real.
+
+But: Amazon 3% furniture commissions require ~167x more traffic to hit $100/month. ($3,300/month shipped revenue ÷ $600 avg chair ÷ 10% CVR = 55 Amazon clicks/month needed; at 0.22% CTR = 25,000 organic clicks/month needed; current = 150/month.) The May 11 pipeline projection of $20–30/month by Dec 2026 is accurate — and not a business.
+
+**FINDING — The pipeline was broken more than it was running for the first 5 months.**
+From launch (~Jan 2026) through May 28, the autonomous pipeline had: force-push bugs, stale data reads, silent Friday failures, JS syntax validation gaps, Thursday cooldown bugs, strategy agent bypassing the content roadmap, and 4 other critical issues. It has been genuinely stable for only ~5 weeks. The Jun 30 Amazon spike + Wed/Thu/Fri failures this week are consistent with "mostly stable, still fragile." Do not replicate until it runs cleanly for ~3 more months.
+
+**FINDING — Amazon affiliate click tracking was already sitewide; earlier diagnosis of "9x undercount" was wrong.**
+The Layout.astro global click listener catches all Amazon links with `?tag=tallchairadvi-20` via URL detection. The 8 GA4 affiliate clicks (28-day ending Jun 29) vs Amazon's 70 clicks (Jun 30 only) was a time-window mismatch, not a tracking gap. No code change needed.
+
+**FINDING — What the 7 months actually proved (the portable framework):**
+1. Spec-driven fitment content for an underserved physical characteristic (height, weight, body type) ranks fast on a young domain
+2. Hub-and-spoke sub-page architecture (seat-height, seat-depth, tall-people, weight-limit per chair) ranks independently without cannibalization
+3. Pain-pillar educational pages (not reviews) are the highest-converting pages — first commission from /knee-pain-seat-depth/, not /review/gesture/
+4. ChatGPT and AI tools actively cite spec-verification content; height-specific pages get 60% scroll depth from AI-referred users
+5. A fully autonomous Mon–Sat pipeline is buildable by one person; it took 4 months of debugging to stabilize
+6. The wiki/intelligence system (GSC analysis → competitor intelligence → strategy → execution) works as a self-contained memory layer
+
+**DECISION — Do not pivot the site. Pivot the monetization structure.**
+The content/authority asset is working. Abandoning at this trajectory point (fastest growth of the site's lifetime) is the wrong call. What's broken is the Amazon 3% commission layer. Three changes fix this without changing the content strategy:
+
+**DECISION — Next 3 steps in priority order (see [[thesis]] for full implementation specs):**
+
+**Step 1: Email capture on /knee-pain-seat-depth/** (~4 hours)
+Why: 25k impressions/month + 62% Clarity scroll depth + problem-aware intent = highest-converting opt-in opportunity on the site. Builds a subscriber asset independent of Google CTR and Amazon commissions. ConvertKit free tier, PDF lead magnet from existing page content. Target: ~125 subscribers/month at 0.5% opt-in rate on current impressions.
+
+**Step 2: Add Autonomous.ai + Fully.com + Humanscale affiliate programs** (~5 hours)
+Why: 8–12% commissions vs Amazon's 3% = 3–4x revenue per click with zero traffic change. Autonomous.ai carries Leap Plus and overlaps directly with existing content. Fully fits the standing desk page. Humanscale has genuine tall-user products. Add as parallel CTAs alongside Amazon (do not remove Amazon). Update Layout.astro domain detection to track these clicks in GA4.
+
+**Step 3: Launch adjacent niche site** (~30 hours seed, then autonomous)
+Why: The proven framework is fully replicable (8 workflows, all TS agents, wiki system are portable). Adjacent niches with higher commission structures generate materially more revenue on the same traffic model. Do NOT start before ~Sep 2026 — pipeline needs 3 more clean months first.
+Best candidates: (1) standing desks for tall people (Fully/Uplift 8–10% commissions, spec-verification angle proven by /standing-desk-height-tall-people/); (2) mattresses for tall people (flat-fee $50–200/sale affiliate programs, no tested product constraint).
+
+**DECISION — Previous "do not start second site yet" decision (Jun 14) is superseded.**
+That decision was waiting for autonomously generated pages to reach pos 15–30. Condition is still not fully met, but the monetization ceiling analysis changes the calculus. The time investment for step 3 is now justified by the framework proof — with a target start date of ~Sep 2026 pending pipeline stability confirmation.
+
+**OPEN — ChatGPT citation rate declining (56 sessions/28d in June → 30 in July window).** Monitor. If it continues declining, prioritize citation capsule content on the height-specific pages before step 3.
+
+**OPEN — 3 thin-content sub-pages still stuck "crawled not indexed":** /chairs/herman-miller-aeron/seat-height/, /chairs/steelcase-gesture/seat-height/, /chairs/steelcase-gesture/tall-people/. Expand or 301 redirect — no decision made yet.
 
 ## 2026-W24 (June 14) — Indexing audit, strategic review, index-monitor enhancement
 
