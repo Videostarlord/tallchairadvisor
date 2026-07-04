@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-06-14 (items 6, 7 marked done — Leap Plus reframe and shoulder/standing-desk pages verified in codebase)
+last_updated: 2026-07-03 (7-month audit complete — thesis queue cleared, monetization pivot decided, 3 next steps set)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -46,43 +46,66 @@ TallChairAdvisor.com can become the #1 resource for height-specific office chair
 
 The only approved infra follow-up is lightweight **Anthropic Batch** research for non-urgent analysis steps. A broader RunPod migration is backlog-only until it beats Batch on real TCA prompt packs without adding meaningful ops burden.
 
-## What Needs to Happen Next (Priority Order — May 23)
+## What Needs to Happen Next (Priority Order — July 3, 2026)
 
-> **Strategic frame (updated May 23):** TCA is not a review site. Google already classifies it as a spec-verification authority for tall buyers. Every page should lead with dimensional data before prose. The identity is: *fitment verification tool for tall buyers who need spec confirmation before a $1,000+ purchase.* See [[semantic-intent-analysis]] for full evidence base.
+> **Strategic frame (updated July 3):** The content/traffic side of the bet is working — impressions grew 12x in 10 weeks, ChatGPT is citing the site, new pages rank in weeks. The monetization side has a structural ceiling: Amazon 3% furniture commissions require ~167x more traffic to hit $100/month. The next phase pivots monetization structure and builds Google-independent assets, while the autonomous pipeline continues compounding content. See [[decisions-log]] 2026-07-03 entry for full reasoning.
 
-### 0. ~~Build `geo-optimize.ts`~~ — DONE (2026-05-11)
-AIO suppression logic is integrated into `competitor-intelligence.ts` v2.3. SERP cache live. 3 capsules applied. See [[geo-optimize-plan]].
+### 1. Email capture on `/knee-pain-seat-depth/` — ~4 hours
+**Why first:** Builds an audience asset independent of Google CTR and Amazon commissions. The page gets 25k impressions/month at 62% Clarity scroll depth — users are reading the calculator. Problem-aware intent (knee pain) is the highest-converting email audience. At 0.5% opt-in rate on current impressions: ~125 subscribers/month.
 
-### ~~1. Gesture review full rewrite~~ — DONE (2026-05-25)
-Full first-person rewrite from Jackson Q&A session. Real pain story, ~3 finger knee clearance (corrected from fabricated 1.5–2), "woah" first sit, nap during finals, honest armrests take. itemReviewed schema fixed. CTA added at top. See [[review-gesture]].
+**What to build:**
+- Sign up for ConvertKit (free to 1k subscribers)
+- Lead magnet: "Seat Depth Checklist PDF" — Cornell rule, self-measurement guide, chair shortlist for 6'+ users (content already exists on the page)
+- Add opt-in component after the calculator section, before FAQ
+- ConvertKit auto-delivers PDF on signup — no backend needed
 
-### ~~2. Defragment `/correct-chair-dimensions/`~~ — DONE (2026-05-26)
-Title/H1/subtitle reframed to anthropometric fitment for tall users. Dimensional requirements table moved to top (before intro prose). Generic "Why Standard Specs Fail" section cut to a single tight paragraph. dateModified updated.
+### 2. Alternative affiliate programs on top pages — ~5 hours
+**Why second:** 3–4x revenue per click with no traffic change. Amazon furniture pays ~3%. Direct ergonomic retailer programs pay 8–12%.
 
-### ~~3. Add spec tables to height-specific pages~~ — DONE (2026-05-26)
-All 5 pages (6-foot-3 through 6-foot-7) now open with a spec table (seat height range, seat depth, back height, weight capacity, fit verdict) before any prose. Each table is height-specific: 6'3" shows Gesture as sweet spot; 6'5"+ shows Aeron as red/not recommended.
+**Programs to add:**
+- **Autonomous.ai** — carries Steelcase Leap Plus + own ergonomic chairs, ~8–10% commission, overlaps with existing content
+- **Fully.com** (Impact Radius) — best fit for standing desk page + Capisco (tall-person saddle chair)
+- **Humanscale** — direct program, genuine tall-user product line
 
-### ~~4. Build seat depth calculator on `/knee-pain-seat-depth/`~~ — DONE (2026-05-26)
-3 SVG mannequin body-type selectors + height brackets + manual inseam input. Color-coded chair results with affiliate links. Vanilla JS, no new dependencies.
+**What to build:**
+- Update `isTrackedAffiliateLink()` in Layout.astro to detect `autonomous.ai`, `fully.com`, `humanscale.com` domains (one-line additions)
+- Add CTAs to `/best-office-chairs/`, `/best-office-chairs-under-500/`, `/standing-desk-height-tall-people/`, `/review/leap-plus/`
+- Do NOT remove Amazon links — add as parallel "Also available at" option
 
-### ~~5. Weight capacity guide for tall heavy users (new page)~~ — DONE (2026-05-26)
-New page: `/heavy-duty-ergonomic-chairs-tall-people/`. Research-voice. "Two-problem frame" (weight capacity ≠ tall-user fit). Leap Plus as only chair that solves both. Honest Aeron warning (350 lbs lowest in category). Amazon affiliate links included.
+### 3. Adjacent niche launch — ~30 hours seed, then autonomous
+**Why third:** Only start after the pipeline has run cleanly for 2–3 more months (by ~Sep 2026). The proven framework is fully replicable but the seed content (first 15–20 pages) requires real time investment. Do not rush this.
 
-### ~~6. Leap Plus "almost bought" reframe~~ — DONE (verified 2026-06-14)
-/review/leap-plus/ H1 and lede already read "I almost bought this instead of the Gesture — here's the spec analysis that drove my decision." Full first-person spec narrative in place.
+**Best candidate niches (in order):**
+1. **Standing desks for tall people** — `/standing-desk-height-tall-people/` already proves the angle works; Fully + Uplift pay 8–10%; frame height specs are pure spec-verification territory
+2. **Mattresses for tall people** — flat-fee affiliate programs ($50–200/sale); length/firmness specs for tall+heavy buyers; no tested product constraint (all research-voice)
 
-### ~~7. Shoulder pain + standing desk content~~ — DONE (verified 2026-06-14)
-Both pages exist in src/pages/: `shoulder-pain-tall-people.astro` and `standing-desk-height-tall-people.astro`.
+**What's portable from TCA:**
+- Astro SSG + Cloudflare Pages repo (clone, strip content)
+- All 8 GitHub Actions workflows (parameterized by niche)
+- All TypeScript agents (replace niche-specific prompts, keep logic)
+- Wiki + raw/ LLM memory system (init fresh)
+- GSC + GA4 (new properties, same service account)
+- DataForSEO / SerpAPI / Firecrawl (same API keys, shared quotas)
 
-### Deferred
-- SERP-aware title comparison in `audit.ts` (2–3 hours, low urgency)
-- Competitor word count floor in `strategy.ts` (small build, post-content push)
+**What requires rebuilding:**
+- CLAUDE.md niche instructions (voice rules, tested products, author constraints)
+- First 15–20 seed pages (manual — this is the bottleneck, ~15–25 hours)
+- Domain authority (cold start — expect 3–4 months before ranking)
+
+### Previously Completed (reference)
+All items 0–7 from the May 23 thesis queue are done. See [[decisions-log]] entries 2026-W21 through 2026-W24 for full details. Infrastructure work is complete.
+
+### Still Deferred
+- SERP-aware title comparison in `audit.ts` (low urgency)
+- Competitor word count floor in `strategy.ts` (low urgency)
+- Thin-content sub-pages: `/chairs/herman-miller-aeron/seat-height/`, `/chairs/steelcase-gesture/seat-height/`, `/chairs/steelcase-gesture/tall-people/` — stuck "crawled not indexed"; expand or 301 redirect
 
 ## What Could Change This Thesis
 
-- **If Thursday meta rewrites don't lift CTR on review pages:** Revisit whether editorial SERPs are also suppressed by features not visible in Apr 22 audit.
-- **If Gesture review CTR doesn't improve after depth expansion:** First-person voice may not be the only variable — AIO may be eating traffic on brand queries too.
-- **If commission revenue stays at one-off level:** Shift content priority toward more first-person pages.
+- **If the autonomous pipeline breaks again before Sep 2026:** Delay adjacent niche launch — don't replicate an unstable stack.
+- **If email list grows faster than expected:** Prioritize a standalone ergonomics guide product over a second niche site.
+- **If ChatGPT citation rate recovers (was 56 sessions/28d in June, now 30):** Double down on citation capsule content before other monetization work.
+- **If Autonomous.ai / Fully commissions show materially higher EPC than Amazon within 60 days:** Shift all new content CTAs to those programs and begin phasing out Amazon-only links.
 
 ## Links
 
