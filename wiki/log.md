@@ -13,7 +13,7 @@ type: log
 
 - Full cross-source analysis: Amazon Associates, GA4, GSC, Clarity, all synthesis pages
 - Verdict: traffic side working (12x impressions in 10 weeks), monetization side structurally capped (Amazon 3% furniture requires 167x more traffic for $100/month)
-- 3 next steps decided: (1) email capture /knee-pain-seat-depth/, (2) Autonomous.ai/Fully/Humanscale affiliate programs, (3) adjacent niche launch ~Sep 2026
+- 3 next steps decided: (1) email capture /knee-pain-seat-depth/, (2) Autonomous.ai/InMovement/Humanscale affiliate programs, (3) adjacent niche launch ~Sep 2026
 - Previous "do not start second site" decision superseded — target date Sep 2026 if pipeline stable
 - thesis.md updated with full implementation specs for all 3 steps
 - decisions-log.md updated with full reasoning, findings, and open items
@@ -2067,3 +2067,13 @@ Chronological record of wiki operations. Append new entries at the top.
 - `friday.yml` (failure path) — already data-only (no `src/`); added `[skip cd]` to commit message.
 - Saturday unchanged — deploy commit is data-only and intentionally triggers Cloudflare (production deploy).
 - All seven weekly workflows now use `[skip cd]` on every data-only commit. Code commits (Thu/Fri `src/` changes) remain untagged and trigger Cloudflare staging builds as intended.
+
+## [2026-07-04] revenue-audit | Affiliate link architecture fixed + refurb page shipped
+
+- Hostile affiliate revenue audit run (Jackson request). Raw: `raw/audits/2026-07-04-affiliate-revenue-audit.md`. Verdict: monetization problem, not traffic problem.
+- **Root cause of -$0.41 June:** 82 search-format Amazon links + 8 hallucinated ASINs. All swapped to verified live ASINs across ~40 `.astro` files (map in [[affiliate-performance]]). 4 search links intentionally kept (no verifiable listing).
+- `src/layouts/Layout.astro` — `DIRECT_PROGRAMS` domain map added (autonomous.ai, humanscale.com, inmovement.com, flexispot.com, branchfurniture.com, crandalloffice.com); `isTrackedAffiliateLink()`/`getAffiliateProgram()` now label direct-retailer clicks in GA4.
+- NEW: `src/pages/refurbished-steelcase-leap-tall-people.astro` (blog-analyze 82/100) — Crandall reman. Leap V2 Amazon CTA (B08PPVCCST); inbound links from under-500, big-and-tall, review/leap-plus; sitemap lastmod added. Wiki entity: [[refurbished-steelcase-leap]].
+- `src/pages/best-office-chairs-under-500.astro` — refurb section's plain-text Crandall mention now monetized (Amazon CTA) + link to new refurb page.
+- Program economics corrected: Autonomous.ai ~2% (skip); Humanscale/Crandall/FlexiSpot are the apply targets. [[thesis]] updated.
+- Build verified: 52 pages. Pending Jackson: per-page tracking IDs, ASIN click-verify, program applications.

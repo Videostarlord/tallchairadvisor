@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-07-03 (affiliate-performance page added; raw/affiliate/ directory created)
+last_updated: 2026-07-04 (revenue audit ingested; refurbished-steelcase-leap page added; weekly summaries section deduplicated)
 ---
 
 # TCA Wiki Index
@@ -31,6 +31,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[correct-chair-dimensions]] | Educational. 1,766 impr, pos 15.8. Top GSC opportunity (content-depth, score 883). May 12. |
 | [[best-office-chairs]] | Money page. 776 impr, pos 22.5, 0 clicks. AIO capsule applied May 12 (21" Aeron seat height). |
 | [[heavy-duty-ergonomic-chairs]] | **NEW 2026-05-26.** Targets "best heavy duty ergonomic chairs for tall people" (pos 14). Two-problem frame: weight capacity + tall-user dimensions. Leap Plus as only mainstream solution. |
+| [[refurbished-steelcase-leap]] | **NEW 2026-07-04.** Refurb Leap V2 for tall users — height-cutoff angle (~6'2" max). Crandall Amazon CTA (B08PPVCCST). Score 82/100. From revenue audit item 2. |
 
 ## Concept Pages
 
@@ -68,7 +69,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[workflow-system-reference]] | Current operational setup: weekly agent cycle, GitHub Actions, scripts, Obsidian vault, data flow. Read this for any question about how the automation works. |
 | [[indexing-health]] | Per-page GSC indexing status. Jun 14: 35/47 indexed. 3 thin-content pages stuck crawled-not-indexed. Script now also checks redirect sources. |
 | [[affiliate-compliance]] | **NEW 2026-05-11.** FTC body disclosure missing on 6 pages. Revenue leaks: aeron-vs-gesture (0 CTAs in 84%), gesture review (CTA at 85%), best-office-chairs (Quick Picks → internal not Amazon). |
-| [[affiliate-performance]] | **NEW 2026-06-30.** First Amazon earnings data. Jun 30: 70 clicks, 7 orders (10% CVR), -$0.41 net (1 return wiped earnings). 94% clicks unattributed. Action: add per-page tracking IDs. |
+| [[affiliate-performance]] | **UPDATED 2026-07-04.** Root cause of 94% unattributed clicks found: 82 search-format links + 8 hallucinated ASINs — all fixed to verified ASINs. Direct-program economics verified (Autonomous 2% = skip). Jun 30: 70 clicks, 7 orders, -$0.41 net. |
 | [[runpod-migration-proposal]] | 🔴 BACKLOG / soft rejected. Broad RunPod migration for TCA deferred; Anthropic Batch research is now the preferred low-friction cost path. Raw proposal remains as historical research only. |
 
 ## Synthesis
@@ -87,29 +88,9 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[2026-W16]] | Deployed. 12 clicks, 5590 impr. |
 | [[2026-W17]] | Deployed. 19 clicks, 7096 impr. |
 | [[2026-W18]] | Deployed. 23 clicks, 8455 impr. |
-
-## Weekly Summaries
-
-| Page | Summary |
-|------|---------|
 | [[2026-W20]] | Deployed. 35 clicks, 15417 impr. |
-
-## Weekly Summaries
-
-| Page | Summary |
-|------|---------|
 | [[2026-W21]] | Deployed. 46 clicks, 19437 impr. |
-
-## Weekly Summaries
-
-| Page | Summary |
-|------|---------|
 | [[2026-W23]] | Deployed. 55 clicks, 23105 impr. |
-
-## Weekly Summaries
-
-| Page | Summary |
-|------|---------|
 | [[2026-W24]] | Deployed. 55 clicks, 23105 impr. |
 
 ## Weekly Summaries
@@ -123,7 +104,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 Located in `raw/`. Organized by type:
 - `raw/affiliate/` — Amazon Associates export snapshots (latest: 2026-06-30)
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
-- `raw/audits/` — Audit/analysis files (latest: 2026-06-14). Key files: `2026-06-14-full-site-report.md` (cross-source site audit: GSC+GA4+Clarity, 47 pages mapped, 5 tiers, 7 recommendations), `2026-05-27-full-seo-audit.md` (SEO audit, 75/100, 6-agent), `2026-05-27-action-plan.md` (29 prioritized fixes), `2026-05-13-systems-architecture-audit.md` (systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (prior SEO audit, 77/100, archived).
+- `raw/audits/` — Audit/analysis files (latest: 2026-07-04). Key files: `2026-07-04-affiliate-revenue-audit.md` (hostile revenue audit: link architecture root cause, 30-day plan, kill list, ASIN map), `2026-06-14-full-site-report.md` (cross-source site audit: GSC+GA4+Clarity, 47 pages mapped, 5 tiers, 7 recommendations), `2026-05-27-full-seo-audit.md` (SEO audit, 75/100, 6-agent), `2026-05-27-action-plan.md` (29 prioritized fixes), `2026-05-13-systems-architecture-audit.md` (systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (prior SEO audit, 77/100, archived).
 - `raw/strategy/` — Strategy/planning files (latest: 2026-05-15). Key files: `2026-05-15-niche-incubator-plan.md` (adjacent-project architecture for niche go/no-go scoring), `2026-05-11-niche-validation-evaluation.md` (core validation framework), `2026-05-10-runpod-migration-proposal.md` (historical cost research, backlog only).
 - `raw/reddit/` — Reddit/Apify pipeline docs
 - `raw/misc/` — Session context, PDF

@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-06-14
+last_updated: 2026-07-04
 sources: [raw/audits/2026-05-10-full-seo-audit.md]
 tags: [compliance, ftc, affiliate, legal]
 ---
@@ -31,7 +31,7 @@ All affiliate-link pages verified against source files:
 | Page | Issue | Status |
 |------|-------|--------|
 | /aeron-vs-gesture/ | Both CTAs were at 85%+ scroll | ✅ Fixed 2026-05-27 — CTA block added after Quick Answer box |
-| /review/gesture/ | Single CTA at 85% | ✅ Fixed in May 25 rewrite — CTA now after Direct Answer box at top |
+| /review/gesture/ | Single CTA at 85% | ✅ Fixed May 25 (top CTA added). ✅ Further fixed 2026-07-04 — added CTAs after TL;DR Verdict Box (post-verdict-box) and after Verdict section (post-verdict-section). Now 4 CTAs total at ~15%, ~22%, ~75%, ~90% scroll. |
 | /best-office-chairs/ | Quick Picks links to internal pages, not Amazon | ✅ Fixed (verified 2026-06-14 — Quick Picks now direct Amazon affiliate links) |
 
 ## Required Fix Pattern

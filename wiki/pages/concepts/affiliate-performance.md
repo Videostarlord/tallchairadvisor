@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-06-30
-sources: [raw/affiliate/2026-06-30-amazon-associates-report.md]
+last_updated: 2026-07-04
+sources: [raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
@@ -65,6 +65,24 @@ No ASIN-level rank data populated because all purchases were "Unknown/None" indi
 *Note: June 30 data may represent one day, not the full month. Pull a 30-day date-range export to get per-day breakdown.*
 
 ---
+
+## Link Architecture Fix (2026-07-04) — ROOT CAUSE FOUND
+
+The July 4 revenue audit found the structural cause of the 94% "Unknown" attribution and non-recommended-product orders: **82 of ~90 Amazon links were search-results links** (`/s?k=`), dumping buyers onto Amazon SERPs. Worse, all 8 existing `/dp/` ASINs were **hallucinated** (matched no real listing) — the 6-foot-X pages linked to dead product pages.
+
+**Fixed same day:** all links now point to verified live ASINs — Gesture B016OIF2JU, Leap Plus B00TYE4QXU, Aeron Size C B01N32UFNT, Sihoo Doro S300 B0DQTRVSHS, La-Z-Boy Trafford B0116W5BG8, Hbada E3 Pro B0CQ4K1KXT, Ergotron HX B01MXYN33U, VIVO tall pole B01BO42XK0, Crandall reman. Leap V2 B08PPVCCST. 4 search links remain by design (Branch, FlexiSpot BS14, Ergotron LX Tall Pole, OFM ESS-200 — no verifiable Amazon listing). **Jackson: click-verify the 9 ASINs and create per-page tracking IDs before the next tag swap.** Expect "Unknown" attribution share and ordered-product match rate to be the success metrics (30-day window).
+
+## Direct Program Economics (verified 2026-07-04)
+
+| Program | Commission | Status |
+|---------|-----------|--------|
+| Amazon Associates | ~3% furniture | Live |
+| Autonomous.ai | **~2%** — worse than Amazon; thesis's 8–10% assumption was wrong | Skip |
+| Humanscale (via Impact) | Unpublished, 21-day cookie | Jackson to apply |
+| Crandall Office | Reman. Leap V2 sold ON Amazon (B08PPVCCST) — monetizable today; direct program TBD | Amazon route live |
+| FlexiSpot | Own program; BS14 not on Amazon | Jackson to apply |
+
+`Layout.astro` now tracks autonomous.ai / humanscale.com / inmovement.com / flexispot.com / branchfurniture.com / crandalloffice.com clicks as `affiliate_click` with per-program labels — GA4 will show direct-program EPC the moment links go live.
 
 ## Recommended Next Actions
 

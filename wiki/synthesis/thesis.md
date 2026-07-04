@@ -59,24 +59,21 @@ The only approved infra follow-up is lightweight **Anthropic Batch** research fo
 - Add opt-in component after the calculator section, before FAQ
 - ConvertKit auto-delivers PDF on signup — no backend needed
 
-### 2. Alternative affiliate programs on top pages — ~5 hours
-**Why second:** 3–4x revenue per click with no traffic change. Amazon furniture pays ~3%. Direct ergonomic retailer programs pay 8–12%.
+### 2. Alternative affiliate programs on top pages — ~5 hours — ⚠ PARTIALLY EXECUTED 2026-07-04, assumptions corrected
+**Correction (Jul 4 audit):** Autonomous.ai pays **~2%** — worse than Amazon's 3%. The 8–12% assumption was wrong for Autonomous. Revised targets: **Humanscale** (via Impact, unpublished rate, 21-day cookie), **Crandall Office** (refurb Steelcase; their remanufactured Leap V2 is already sold on Amazon as B08PPVCCST and earns under the existing tag today), **FlexiSpot** (own program; BS14 not on Amazon).
 
-**Programs to add:**
-- **Autonomous.ai** — carries Steelcase Leap Plus + own ergonomic chairs, ~8–10% commission, overlaps with existing content
-- **Fully.com** (Impact Radius) — best fit for standing desk page + Capisco (tall-person saddle chair)
-- **Humanscale** — direct program, genuine tall-user product line
+**Done 2026-07-04:**
+- `Layout.astro` DIRECT_PROGRAMS map live — autonomous.ai / humanscale.com / inmovement.com / flexispot.com / branchfurniture.com / crandalloffice.com clicks tracked in GA4 with program labels
+- All Amazon links swapped from search-format to verified ASINs (root cause of 94% Unknown attribution — see [[affiliate-performance]])
+- NEW `/refurbished-steelcase-leap-tall-people/` page (82/100) monetizing the refurb angle via Crandall's Amazon listing
 
-**What to build:**
-- Update `isTrackedAffiliateLink()` in Layout.astro to detect `autonomous.ai`, `fully.com`, `humanscale.com` domains (one-line additions)
-- Add CTAs to `/best-office-chairs/`, `/best-office-chairs-under-500/`, `/standing-desk-height-tall-people/`, `/review/leap-plus/`
-- Do NOT remove Amazon links — add as parallel "Also available at" option
+**Remaining (Jackson):** apply to Humanscale/Crandall/FlexiSpot; create per-page Amazon tracking IDs; click-verify the 9 new ASINs. Then add direct CTAs as parallel "Also available at" options — do NOT remove Amazon links.
 
 ### 3. Adjacent niche launch — ~30 hours seed, then autonomous
 **Why third:** Only start after the pipeline has run cleanly for 2–3 more months (by ~Sep 2026). The proven framework is fully replicable but the seed content (first 15–20 pages) requires real time investment. Do not rush this.
 
 **Best candidate niches (in order):**
-1. **Standing desks for tall people** — `/standing-desk-height-tall-people/` already proves the angle works; Fully + Uplift pay 8–10%; frame height specs are pure spec-verification territory
+1. **Standing desks for tall people** — `/standing-desk-height-tall-people/` already proves the angle works; InMovement pays 10%, Standing Desk Nation pays 7–10%; frame height specs are pure spec-verification territory (Fully.com shuttered 2023)
 2. **Mattresses for tall people** — flat-fee affiliate programs ($50–200/sale); length/firmness specs for tall+heavy buyers; no tested product constraint (all research-voice)
 
 **What's portable from TCA:**
@@ -105,7 +102,7 @@ All items 0–7 from the May 23 thesis queue are done. See [[decisions-log]] ent
 - **If the autonomous pipeline breaks again before Sep 2026:** Delay adjacent niche launch — don't replicate an unstable stack.
 - **If email list grows faster than expected:** Prioritize a standalone ergonomics guide product over a second niche site.
 - **If ChatGPT citation rate recovers (was 56 sessions/28d in June, now 30):** Double down on citation capsule content before other monetization work.
-- **If Autonomous.ai / Fully commissions show materially higher EPC than Amazon within 60 days:** Shift all new content CTAs to those programs and begin phasing out Amazon-only links.
+- **If Autonomous.ai / InMovement / Humanscale commissions show materially higher EPC than Amazon within 60 days:** Shift all new content CTAs to those programs and begin phasing out Amazon-only links.
 
 ## Links
 

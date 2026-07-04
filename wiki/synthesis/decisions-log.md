@@ -1,12 +1,28 @@
 ---
 type: synthesis
-last_updated: 2026-07-03
+last_updated: 2026-07-04
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W27 (July 4) — Affiliate revenue audit: link architecture root cause found and fixed same day
+
+**CONTEXT:** Jackson requested a hostile affiliate revenue audit (full report: `raw/audits/2026-07-04-affiliate-revenue-audit.md`), then ordered items 1–2 of its 30-day plan executed immediately.
+
+**FINDING — The June "-$0.41 month" had a structural cause, not a volume cause.** 82 of ~90 Amazon links were search-results links (`/s?k=`), which explains both the 94% "Unknown" attribution and why all 7 June orders were for non-recommended products. Additionally, all 8 existing `/dp/` ASINs in the codebase were hallucinated (no matching live listing) — the 6-foot-X pages linked to dead product pages.
+
+**FINDING — Thesis assumption wrong: Autonomous.ai pays ~2%, worse than Amazon's 3%.** Direct-program priority reordered to Humanscale (Impact), Crandall, FlexiSpot. Crandall's remanufactured Leap V2 is sold ON Amazon (B08PPVCCST) — the refurb angle monetizes under the existing tag with zero applications needed.
+
+**DECISION + EXECUTION (same day):**
+1. All monetizable links swapped to verified live ASINs (9-product map in [[affiliate-performance]]); 4 search links intentionally kept (no verifiable listing).
+2. `Layout.astro` DIRECT_PROGRAMS map added — GA4 tracks 6 direct-retailer domains as `affiliate_click` with program labels, so direct-program EPC is measurable from day one.
+3. NEW PAGE /refurbished-steelcase-leap-tall-people/ (blog-analyze 82/100) with Crandall Amazon CTA; un-monetized refurb mentions on under-500 page now carry the CTA too.
+4. Audit verdict adopted: monetization problem, not traffic problem. Kill list: no new automation features, no sub-pos-8 meta iteration, no AIO capsules on informational queries, defer adjacent niche — until repeatable positive revenue months.
+
+**PENDING (Jackson only):** create per-page Amazon tracking IDs, click-verify the 9 ASINs, apply to Humanscale/Crandall/FlexiSpot. Remaining plan items: commercial-cluster consolidation (item 3), knee-pain email capture (item 4), Gesture photo shoot (item 5).
 
 ## 2026-W27 (July 3) — 7-month audit, monetization pivot, 3 next steps decided
 
@@ -39,12 +55,12 @@ The content/authority asset is working. Abandoning at this trajectory point (fas
 **Step 1: Email capture on /knee-pain-seat-depth/** (~4 hours)
 Why: 25k impressions/month + 62% Clarity scroll depth + problem-aware intent = highest-converting opt-in opportunity on the site. Builds a subscriber asset independent of Google CTR and Amazon commissions. ConvertKit free tier, PDF lead magnet from existing page content. Target: ~125 subscribers/month at 0.5% opt-in rate on current impressions.
 
-**Step 2: Add Autonomous.ai + Fully.com + Humanscale affiliate programs** (~5 hours)
-Why: 8–12% commissions vs Amazon's 3% = 3–4x revenue per click with zero traffic change. Autonomous.ai carries Leap Plus and overlaps directly with existing content. Fully fits the standing desk page. Humanscale has genuine tall-user products. Add as parallel CTAs alongside Amazon (do not remove Amazon). Update Layout.astro domain detection to track these clicks in GA4.
+**Step 2: Add Autonomous.ai + InMovement + Humanscale affiliate programs** (~5 hours)
+Why: 8–12% commissions vs Amazon's 3% = 3–4x revenue per click with zero traffic change. Autonomous.ai carries Leap Plus and overlaps directly with existing content. InMovement (10% commission, 30-day cookie) replaces Fully.com (shuttered 2023, migrated to Herman Miller — no affiliate program). Humanscale has genuine tall-user products. Add as parallel CTAs alongside Amazon (do not remove Amazon). Update Layout.astro domain detection to track these clicks in GA4.
 
 **Step 3: Launch adjacent niche site** (~30 hours seed, then autonomous)
 Why: The proven framework is fully replicable (8 workflows, all TS agents, wiki system are portable). Adjacent niches with higher commission structures generate materially more revenue on the same traffic model. Do NOT start before ~Sep 2026 — pipeline needs 3 more clean months first.
-Best candidates: (1) standing desks for tall people (Fully/Uplift 8–10% commissions, spec-verification angle proven by /standing-desk-height-tall-people/); (2) mattresses for tall people (flat-fee $50–200/sale affiliate programs, no tested product constraint).
+Best candidates: (1) standing desks for tall people (InMovement 10% / Standing Desk Nation 7–10% commissions, spec-verification angle proven by /standing-desk-height-tall-people/); (2) mattresses for tall people (flat-fee $50–200/sale affiliate programs, no tested product constraint).
 
 **DECISION — Previous "do not start second site yet" decision (Jun 14) is superseded.**
 That decision was waiting for autonomously generated pages to reach pos 15–30. Condition is still not fully met, but the monetization ceiling analysis changes the calculus. The time investment for step 3 is now justified by the framework proof — with a target start date of ~Sep 2026 pending pipeline stability confirmation.
