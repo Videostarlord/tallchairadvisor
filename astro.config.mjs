@@ -59,6 +59,7 @@ const pageLastmod = {
   'https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/': new Date('2026-07-04'),
   'https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/': new Date('2026-07-04'),
   'https://tallchairadvisor.com/monitor-arm-tall-people/': new Date('2026-07-04'),
+  'https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/': new Date('2026-07-04'),
 };
 
 export default defineConfig({

@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Refurbished Steelcase Leap V2 for Tall People: When the Used Market Beats Buying New",
+    "url": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
+    "description": "A remanufactured Steelcase Leap V2 costs roughly half the price of new with a 12-year warranty from the best rebuilders. Here's the height cutoff that decides whether it fits you — and when to pay for the Leap Plus instead.",
+    "image": "https://tallchairadvisor.com/images/leap-plus-hero.webp",
+    "datePublished": "2026-07-04",
+    "dateModified": "2026-07-04",
+    "wordCount": 1100,
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Office Chairs for Tall People", "item": "https://tallchairadvisor.com/office-chairs-for-tall-people/" },
+      { "@type": "ListItem", "position": 3, "name": "Refurbished Steelcase Leap for Tall People", "item": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is a refurbished Steelcase Leap V2 good for tall people?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A refurbished Steelcase Leap V2 works well for tall users up to about 6'2\" with average proportions. Its maximum seat height is 20.5\" and maximum seat depth is 18.75\", which covers popliteal heights up to roughly 20\" with shoes. Above 6'2\"–6'3\", most users exceed those numbers and should look at the Steelcase Leap Plus (22.5\" seat height, 19.75\" seat depth) or Steelcase Gesture (21\" seat height) instead — neither of which is common on the refurbished market."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between refurbished, renewed, and remanufactured chairs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remanufactured means the chair was disassembled and rebuilt with new upholstery, foam, and worn mechanical parts replaced — Crandall Office Furniture is the best-known remanufacturer and backs its Leap V2 rebuilds with a 12-year warranty. Amazon Renewed and generic 'refurbished' listings usually mean the chair was inspected and cleaned, not rebuilt, with warranties of 90 days to 2 years. The warranty length is the honest signal of how much work was actually done."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does a refurbished Steelcase Leap V2 cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remanufactured Steelcase Leap V2 chairs typically sell for roughly half the price of a new Leap, which lists above $1,100. Amazon Renewed listings from third-party refurbishers are often cheaper still, but come with shorter warranties and cosmetic variability. A new Steelcase Leap Plus — the tall-and-heavy variant — costs more than both."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a refurbished Steelcase Leap Plus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Refurbished Leap Plus units are rare. The Leap Plus was sold in much smaller volumes than the standard Leap V2, so remanufacturers rarely have stock. Tall users above 6'3\" who need the Leap Plus's 22.5\" seat height usually have to buy new — which is why the refurbished path mainly makes sense for tall users in the 6'0\"–6'2\" range."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Refurbished Steelcase Leap V2 for Tall People (Fit Guide)"
+  description={"A remanufactured Leap V2 costs about half of new with up to a 12-year warranty — but its 20.5-inch seat height caps it at about 6'2\". The full fit math."}
+  schema={schema}
+  ogType="article"
+  ogImage="/images/leap-plus-hero.webp"
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Refurbished Steelcase Leap V2 for Tall People</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        The used market's best chair deal has a hard height cutoff — here's the measurement that decides it
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-07-04" />
+
+    <p class="not-prose text-xs text-muted-foreground mt-2 mb-6">
+      This page contains affiliate links. If you buy through them, I earn a commission at no extra cost to you.
+    </p>
+
+    <div class="prose-tca">
+
+      <!-- Quick answer box -->
+      <div class="not-prose bg-secondary/40 border border-border rounded-lg px-5 py-4 my-8 text-sm text-muted-foreground leading-relaxed">
+        <strong class="text-heading block mb-2">Quick Answer</strong>
+        A remanufactured <strong>Steelcase Leap V2</strong> is the best value in ergonomic seating for tall users up to about <strong>6'2"</strong> — roughly half the price of new, and the top rebuilders back their work with a 12-year warranty. The cutoff is dimensional, not quality: the Leap V2's seat height maxes at 20.5" and its seat depth at 18.75". Above 6'2"–6'3", those numbers run out, and the right answer becomes a new <a href="/review/leap-plus/" class="link-internal">Steelcase Leap Plus</a> (22.5" seat height) — which is almost never available refurbished.
+      </div>
+
+      <section>
+        <h2>Why the Refurbished Leap V2 Is the Standard Budget Answer for Tall Users</h2>
+        <p>
+          Ask r/ergonomics or r/OfficeChairs what to buy on a budget and the most common answer isn't a new budget chair — it's a used or remanufactured Steelcase Leap V2. The engineering logic holds up: the Leap V2 was built for institutional duty cycles, with a steel frame and mechanisms rated for years of 8-hour daily use. A ten-year-old Leap that's been rebuilt has more structural life left than most new chairs under $500 will ever have. I went through this exact analysis before buying my own chair — the refurbished Leap was the main alternative I weighed against buying new, and the reason I ruled it out was fit, not quality.
+        </p>
+        <p>
+          That fit problem is the part most refurb recommendations skip. The standard Leap V2's published specs (<a href="https://www.steelcase.com/products/office-chairs/leap/" target="_blank" rel="noopener noreferrer">Steelcase Leap product page</a>): seat height adjustable 15.5"–20.5", seat depth adjustable 15.75"–18.75", back height about 25". Using the fit method from the <a href="/correct-chair-dimensions/" class="link-internal">chair dimensions guide</a>, a 20.5" maximum seat height covers a popliteal height (floor to knee crease, with shoes) of up to about 20". That corresponds to roughly 6'2" with average proportions — sometimes 6'3" for short-legged builds, sometimes only 6'1" for long-legged ones. Measure before you decide; two inches of inseam moves the verdict.
+        </p>
+        <blockquote class="border-l-4 border-primary/40 pl-4 italic text-muted-foreground text-sm my-6">
+          The Steelcase Leap V2 has a maximum seat height of 20.5 inches and a maximum seat depth of 18.75 inches. These specifications cover users up to approximately 6'2" with average leg proportions. Taller users require the Steelcase Leap Plus, which extends seat height to 22.5 inches and seat depth to 19.75 inches. (Steelcase product specification sheets)
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Remanufactured vs. Renewed vs. Used: The Warranty Is the Tell</h2>
+        <p>
+          The refurbished chair market uses three words that sound interchangeable and aren't. What separates them is how much of the chair was actually replaced — and the warranty length tells you the truth faster than the product description does.
+        </p>
+
+        <div class="not-prose overflow-x-auto my-8">
+          <table class="w-full text-sm border border-border rounded-lg overflow-hidden">
+            <thead class="bg-secondary/50">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Type</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">What's Actually Done</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Typical Warranty</th>
+                <th class="px-4 py-3 text-left font-semibold text-heading">Typical Price vs. New</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="bg-card">
+                <td class="px-4 py-3 font-medium text-heading">Remanufactured (e.g., Crandall)</td>
+                <td class="px-4 py-3 text-muted-foreground">Disassembled; new foam, upholstery, arms pads, casters; worn mechanisms replaced</td>
+                <td class="px-4 py-3 font-medium text-green-700 dark:text-green-400">Up to 12 years</td>
+                <td class="px-4 py-3 text-muted-foreground">~50–60%</td>
+              </tr>
+              <tr class="bg-secondary/20">
+                <td class="px-4 py-3 font-medium text-heading">Renewed (Amazon Renewed sellers)</td>
+                <td class="px-4 py-3 text-muted-foreground">Inspected, cleaned, functional parts verified; cosmetic wear possible</td>
+                <td class="px-4 py-3 text-muted-foreground">90 days – 2 years</td>
+                <td class="px-4 py-3 text-muted-foreground">~40–55%</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="px-4 py-3 font-medium text-heading">Used (office liquidation, Craigslist)</td>
+                <td class="px-4 py-3 text-muted-foreground">As-is; cylinder, foam, and arm pads often near end of life</td>
+                <td class="px-4 py-3 font-medium text-red-700 dark:text-red-400">None</td>
+                <td class="px-4 py-3 text-muted-foreground">~20–35%</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-xs text-muted-foreground mt-2">Price ranges reflect typical listings observed across Crandall Office Furniture, Amazon Renewed, and BTOD as of mid-2026. Stock and pricing on refurbished units rotate constantly.</p>
+        </div>
+
+        <p>
+          For a chair you'll sit in 2,000 hours a year, the remanufactured tier is the one worth targeting. Crandall Office Furniture — the best-known Steelcase remanufacturer, and the source r/ergonomics most consistently recommends — rebuilds Leap V2s with new foam and fabric and backs them for 12 years, which is Steelcase's own new-chair warranty length. Their rebuilt Leap V2 is also sold directly on Amazon:
+        </p>
+
+        <div class="not-prose my-6 flex flex-wrap gap-3">
+          <a href="https://www.amazon.com/dp/B08PPVCCST?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Crandall Remanufactured Leap V2 on Amazon" data-cta-position="mid-article">
+            View Crandall Remanufactured Leap V2 on Amazon →
+          </a>
+          <a href="https://crandalloffice.com/products/crandall-remanufactured-steelcase-462-leap-v2-office-chair" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-border text-heading px-5 py-3 rounded-md font-medium hover:bg-accent transition-colors text-sm" data-cta-label="View on Crandall Office direct" data-cta-position="mid-article">
+            Or buy direct from Crandall Office
+          </a>
+        </div>
+
+        <p>
+          Buying direct from Crandall gets you their full fabric/configuration menu (including headrest additions); the Amazon listing is the fastest route with standard Prime logistics. Either way, confirm the listing is the <em>remanufactured</em> unit — Amazon also carries "Renewed" Leap V2s from other sellers at lower prices with much shorter coverage.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Height Decision Tree</h2>
+        <p>
+          The refurbished question for tall users reduces to one measurement — your popliteal height — and one honest constraint: the chairs tall users actually need above 6'3" barely exist on the refurb market.
+        </p>
+        <ul>
+          <li><strong>Popliteal height under ~20" (most users to 6'2"):</strong> The remanufactured Leap V2 is the best price-to-engineering ratio available. Buy it and stop shopping.</li>
+          <li><strong>Popliteal height 20–21" (typically 6'2"–6'4"):</strong> Borderline. The Leap V2 at max height leaves your knees slightly raised; workable with a footrest-free setup only if your desk height cooperates. The <a href="/review/gesture/" class="link-internal">Steelcase Gesture</a> (21" max seat height) or <a href="/review/leap-plus/" class="link-internal">Leap Plus</a> (22.5") are the correct-fit options — both effectively new-only purchases.</li>
+          <li><strong>Popliteal height over ~21" (6'4"+ or long-legged):</strong> The refurb market has nothing for you. The Leap Plus is the spec answer; see the <a href="/chairs/steelcase-leap-plus/tall-people/" class="link-internal">Leap Plus tall-people fit guide</a>.</li>
+        </ul>
+        <p>
+          If your budget is capped and you're above the cutoff, resist the temptation to buy the cheap refurb anyway — a chair that's two inches too short in the seat produces the femoral pressure and slouch pattern described in the <a href="/knee-pain-seat-depth/" class="link-internal">seat depth and knee pain guide</a>. A correctly sized chair from the <a href="/best-office-chairs-under-500/" class="link-internal">under-$500 list</a> beats an undersized premium chair.
+        </p>
+      </section>
+
+      <section>
+        <h2>What to Check Before Buying Any Refurbished Leap</h2>
+        <ul>
+          <li><strong>Cylinder condition or replacement.</strong> The pneumatic cylinder is the most common failure point on used Leaps. Remanufacturers replace it; renewed sellers often don't. If the listing doesn't say, assume it wasn't replaced.</li>
+          <li><strong>Seat foam.</strong> Original foam on a 10-year-old chair is compressed. New foam is the single biggest comfort difference between remanufactured and merely cleaned.</li>
+          <li><strong>Arm pad wear.</strong> Leap arm pads crack with age; they're cheap parts, but their condition signals how thorough the refurbisher was.</li>
+          <li><strong>Which generation.</strong> You want the Leap <em>V2</em> (2006+), not the V1 — the V2's LiveBack mechanism and adjustment ranges are what earn the recommendation.</li>
+          <li><strong>Warranty in writing.</strong> 12 years means remanufactured. 90 days means cleaned. Price accordingly.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Bottom Line</h2>
+        <p>
+          The remanufactured Leap V2 is the rare budget recommendation that involves no engineering compromise — only a dimensional one. Up to about 6'2", it's the smartest chair purchase on the market and the one the ergonomics community keeps converging on. Past that height, the used market quietly stops serving you, and the honest answer is the one I reached in my own purchase research: pay for the taller chair new, because no rebuild can add two inches to a seat-height range.
+        </p>
+        <p class="text-sm text-muted-foreground">
+          Disclosure: links above use an affiliate tag. Tall Chair Advisor earns a commission on qualifying purchases at no additional cost to you.
+        </p>
+      </section>
+
+    </div>
+  </article>
+</Layout>

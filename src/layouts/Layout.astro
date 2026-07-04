@@ -86,9 +86,27 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
         <script is:inline>
           const AFFILIATE_TAG = 'tallchairadvi-20';
 
+          // Direct affiliate programs (non-Amazon). Domain suffix → program name.
+          const DIRECT_PROGRAMS = {
+            'autonomous.ai': 'autonomous',
+            'humanscale.com': 'humanscale',
+            'inmovement.com': 'inmovement',
+            'flexispot.com': 'flexispot',
+            'branchfurniture.com': 'branch',
+            'crandalloffice.com': 'crandall',
+          };
+
           const normalizeDomain = (hostname) => hostname.replace(/^www\./, '');
 
           const getAnchor = (target) => target instanceof Element ? target.closest('a') : null;
+
+          const matchDirectProgram = (url) => {
+            const domain = normalizeDomain(url.hostname);
+            for (const [suffix, program] of Object.entries(DIRECT_PROGRAMS)) {
+              if (domain === suffix || domain.endsWith('.' + suffix)) return program;
+            }
+            return null;
+          };
 
           const isTrackedAffiliateLink = (link) => {
             if (!(link instanceof HTMLAnchorElement)) return false;
@@ -96,6 +114,7 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
 
             try {
               const url = new URL(link.href, window.location.origin);
+              if (matchDirectProgram(url)) return true;
               return normalizeDomain(url.hostname).endsWith('amazon.com')
                 && url.searchParams.get('tag') === AFFILIATE_TAG;
             } catch {
@@ -105,6 +124,8 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
 
           const getAffiliateProgram = (link, url) => {
             if (link.dataset.affiliateProgram) return link.dataset.affiliateProgram;
+            const direct = matchDirectProgram(url);
+            if (direct) return direct;
             return normalizeDomain(url.hostname).endsWith('amazon.com') ? 'amazon' : 'unknown';
           };
 
