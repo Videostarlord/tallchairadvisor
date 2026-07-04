@@ -9,7 +9,7 @@ import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt } from './wiki-utils.js';
+import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -356,7 +356,7 @@ async function main() {
 
   const recentOutcomes = loadRecentOutcomes(ROOT).slice(-20);  // last 90 days, max 20 entries
 
-  const response = await client.messages.create({
+  const response = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
     system: [
@@ -528,7 +528,7 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 ## STRATEGY NOTES
 [2-3 sentences on the week's focus and why]`,
     }],
-  });
+  }));
 
   logCacheUsage('strategy', response.usage, ROOT);
 
