@@ -2,6 +2,17 @@
 type: log
 ---
 
+## [2026-07-05] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-07-05
+- Pages recorded: 8
+- Device split: {"mobile":0.1,"tablet":0.1,"pc":0.8,"other":0}
+- Behavioral alerts: 2
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 24% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/: 21% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 13
+
+
 ## [2026-07-04] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
