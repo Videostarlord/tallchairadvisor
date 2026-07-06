@@ -2,6 +2,69 @@
 type: log
 ---
 
+## [2026-07-06] index-monitor | Indexing Health Check
+
+- Pages inspected: 48 | Redirect sources: 48
+- Indexed: 33 | Page issues: 15 | Redirect issues: 47 | Fixed: 0
+- Sitemap resubmitted: true
+- Page issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/best-big-and-tall-office-chairs/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/ (wait), https://tallchairadvisor.com/leg-pain-circulation/ (wait), https://tallchairadvisor.com/monitor-arm-tall-people/ (wait), https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/ (wait), https://tallchairadvisor.com/office-chair-return-policy/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/ (wait), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait)
+- Redirect issues: https://tallchairadvisor.com/author/marcus-reid, https://tallchairadvisor.com/author/marcus-reid/, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/, https://tallchairadvisor.com/best-office-chairs, https://tallchairadvisor.com/office-chairs-for-tall-people, https://tallchairadvisor.com/correct-chair-dimensions, https://tallchairadvisor.com/shoulder-pain-tall-people, https://tallchairadvisor.com/standing-desk-height-tall-people, https://tallchairadvisor.com/best-office-chairs-under-500, https://tallchairadvisor.com/fit-guides, https://tallchairadvisor.com/about, https://tallchairadvisor.com/contact, https://tallchairadvisor.com/privacy-policy, https://tallchairadvisor.com/affiliate-disclosure, https://tallchairadvisor.com/office-chairs-for-6-foot-3, https://tallchairadvisor.com/office-chairs-for-6-foot-4, https://tallchairadvisor.com/office-chairs-for-6-foot-5, https://tallchairadvisor.com/office-chairs-for-6-foot-6, https://tallchairadvisor.com/office-chairs-for-6-foot-7, https://tallchairadvisor.com/pain-ergonomics, https://tallchairadvisor.com/why-standard-chairs-dont-fit, https://tallchairadvisor.com/back-pain-spine-height, https://tallchairadvisor.com/knee-pain-seat-depth, https://tallchairadvisor.com/leg-pain-circulation, https://tallchairadvisor.com/how-to-adjust-chair, https://tallchairadvisor.com/review/gesture, https://tallchairadvisor.com/review/aeron-size-c, https://tallchairadvisor.com/review/leap-plus, https://tallchairadvisor.com/review/sihoo-doro-s300, https://tallchairadvisor.com/aeron-vs-gesture, https://tallchairadvisor.com/aeron-vs-leap-plus, https://tallchairadvisor.com/gesture-vs-leap-plus, https://tallchairadvisor.com/chairs/herman-miller-aeron, https://tallchairadvisor.com/chairs/steelcase-gesture, https://tallchairadvisor.com/chairs/steelcase-leap-plus, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height, https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people, https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit, https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height, https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people, https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit, https://tallchairadvisor.com/author/jackson-christopher
+
+
+## [2026-07-06] competitor-intelligence v2.5 | Strategic Run
+
+- Pages: 8 | Queries: 24 | Crawls: 26 (29 cached)
+- High-priority gaps: 6
+- AIO tasks: 7 generated | 0 applied to src/pages/ (0 fallback) | 0 rejected (spec mismatch) | 1 pending passage text
+- 8 pages analyzed × up to 3 queries each. 26 URLs crawled (29 cache hits). 6 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.
+
+
+## [2026-07-06] ga4-pull | GA4 Data Pull
+
+- Period: 2026-06-08 → 2026-07-06 (28 days)
+- Sessions: 163 | Users: 147 | Views: 166
+- Engagement rate: 17.8% | Avg duration: 52s
+- Affiliate clicks: 4 | ChatGPT sessions: 12
+- Pages: 35 | Channels: 5
+
+
+## [2026-07-06] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-07-06
+- Pages recorded: 10
+- Device split: {"mobile":0.25,"pc":0.75,"other":0}
+- Behavioral alerts: 7
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/: 21% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 17% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 16% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 14
+
+
+## [2026-07-06] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 21 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 31 actionable
+- AIO suspects: 6
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 22.6% WoW (12370 vs 15979), clicks down 23.1% (20 vs 26), avg position stable
+- Query entropy: 2 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 6
+- Page velocity: 34 pages
+- Link audit: 1 high-impression pages with < 3 inbound links
+
+
+## [2026-07-06] gsc-pull | GSC Data Pull
+
+- Period: 2026-04-07 → 2026-07-06 (90 days)
+- Pages: 39 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 56 | Daily trend rows: 89
+- Clicks: 167 | Impressions: 78826 | Avg pos: 8.3
+
+
 ## [2026-07-05] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-07-05

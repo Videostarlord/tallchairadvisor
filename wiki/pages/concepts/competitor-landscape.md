@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-06-29
+last_updated: 2026-07-06
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,8 +70,15 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-06-29. 8 pages analyzed × up to 3 queries each. 28 URLs crawled (24 cache hits). 0 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, btod.com.*
+*v2 run 2026-07-06. 8 pages analyzed × up to 3 queries each. 26 URLs crawled (29 cache hits). 6 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-
+| 2026-07-06 | Audience segmentation by both height bracket AND weight capacity is absent. TCA  | high | 3q | forbes.com |
+| 2026-07-06 | Author byline and methodology credentialing not visible near the top of the page | high | 3q | btod.com |
+| 2026-07-06 | ItemList + AggregateRating schema markup absent — page is not eligible for rich  | high | 3q | btod.com |
+| 2026-07-06 | No explicit methodology or data-sourcing statement explains how the single-inch  | high | 2q | boulies.com |
+| 2026-07-06 | Height-bracket verdict table lacks explicit height labels (e.g., '6'0"–6'2"', '6 | high | 1q | btod.com |
+| 2026-07-06 | No structured spec table listing every adjustable dimension with explicit min/ma | high | 1q | forbes.com |
+| 2026-07-06 | Head-to-head comparison section vs a direct alternative chair — the manifest lis | medium | 1q | forbes.com |
+| 2026-07-06 | Use-case segmentation (home office vs. corporate/executive vs. all-day heavy use | medium | 1q | btod.com |
