@@ -2,6 +2,16 @@
 type: log
 ---
 
+## [2026-07-08] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-07-08-weekly-plan.md
+- 0 fixes, 1 rewrites, 1 new pages (5 tasks dropped by enforcement)
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+- Decay alerts injected: 0 (none — threshold requires 9+ snapshots)
+- Link gaps injected: 0 high-impression underlinked pages
+- Roadmap items force-injected: 0
+
+
 ## [2026-07-07] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-07-07
