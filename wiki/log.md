@@ -2,6 +2,11 @@
 type: log
 ---
 
+## [2026-07-09] execute-fixes | Thursday Fixes Applied
+
+- /best-office-chairs/ → src/pages/best-big-and-tall-office-chairs.astro
+
+
 ## [2026-07-08] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-07-08-weekly-plan.md
