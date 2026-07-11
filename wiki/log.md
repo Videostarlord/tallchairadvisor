@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-07-11] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W28.md
+
+
 ## [2026-07-09] execute-fixes | Thursday Fixes Applied
 
 - /best-office-chairs/ → src/pages/best-big-and-tall-office-chairs.astro
