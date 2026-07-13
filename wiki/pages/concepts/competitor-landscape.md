@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-07-06
+last_updated: 2026-07-13
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,15 +70,13 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-07-06. 8 pages analyzed × up to 3 queries each. 26 URLs crawled (29 cache hits). 6 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
+*v2 run 2026-07-13. 8 pages analyzed × up to 3 queries each. 25 URLs crawled (23 cache hits). 5 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, btod.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-07-06 | Audience segmentation by both height bracket AND weight capacity is absent. TCA  | high | 3q | forbes.com |
-| 2026-07-06 | Author byline and methodology credentialing not visible near the top of the page | high | 3q | btod.com |
-| 2026-07-06 | ItemList + AggregateRating schema markup absent — page is not eligible for rich  | high | 3q | btod.com |
-| 2026-07-06 | No explicit methodology or data-sourcing statement explains how the single-inch  | high | 2q | boulies.com |
-| 2026-07-06 | Height-bracket verdict table lacks explicit height labels (e.g., '6'0"–6'2"', '6 | high | 1q | btod.com |
-| 2026-07-06 | No structured spec table listing every adjustable dimension with explicit min/ma | high | 1q | forbes.com |
-| 2026-07-06 | Head-to-head comparison section vs a direct alternative chair — the manifest lis | medium | 1q | forbes.com |
-| 2026-07-06 | Use-case segmentation (home office vs. corporate/executive vs. all-day heavy use | medium | 1q | btod.com |
+| 2026-07-13 | FAQ does not include a question covering what to do if your current chair has a  | high | 2q | forbes.com |
+| 2026-07-13 | Audience segmentation by height bracket AND weight capacity is absent — page doe | high | 2q | forbes.com |
+| 2026-07-13 | Author byline and methodology credentialing are not visible near the top of the  | high | 2q | btod.com |
+| 2026-07-13 | ItemList and AggregateRating schema are absent, blocking rich result eligibility | high | 2q | forbes.com |
+| 2026-07-13 | Head-to-head comparison table between the Gesture and Aeron Size C within the Ge | high | 1q | btod.com |
+| 2026-07-13 | Use-case segmentation (home office, corporate/executive, all-day heavy use) is a | medium | 1q | forbes.com |

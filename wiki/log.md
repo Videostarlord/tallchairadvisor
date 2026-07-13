@@ -2,6 +2,69 @@
 type: log
 ---
 
+## [2026-07-13] index-monitor | Indexing Health Check
+
+- Pages inspected: 48 | Redirect sources: 48
+- Indexed: 37 | Page issues: 11 | Redirect issues: 47 | Fixed: 0
+- Sitemap resubmitted: true
+- Page issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (wait), https://tallchairadvisor.com/contact/ (wait), https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/ (wait), https://tallchairadvisor.com/office-chair-return-policy/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/ (wait), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait)
+- Redirect issues: https://tallchairadvisor.com/author/marcus-reid, https://tallchairadvisor.com/author/marcus-reid/, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/, https://tallchairadvisor.com/best-office-chairs, https://tallchairadvisor.com/office-chairs-for-tall-people, https://tallchairadvisor.com/correct-chair-dimensions, https://tallchairadvisor.com/shoulder-pain-tall-people, https://tallchairadvisor.com/standing-desk-height-tall-people, https://tallchairadvisor.com/best-office-chairs-under-500, https://tallchairadvisor.com/fit-guides, https://tallchairadvisor.com/about, https://tallchairadvisor.com/contact, https://tallchairadvisor.com/privacy-policy, https://tallchairadvisor.com/affiliate-disclosure, https://tallchairadvisor.com/office-chairs-for-6-foot-3, https://tallchairadvisor.com/office-chairs-for-6-foot-4, https://tallchairadvisor.com/office-chairs-for-6-foot-5, https://tallchairadvisor.com/office-chairs-for-6-foot-6, https://tallchairadvisor.com/office-chairs-for-6-foot-7, https://tallchairadvisor.com/pain-ergonomics, https://tallchairadvisor.com/why-standard-chairs-dont-fit, https://tallchairadvisor.com/back-pain-spine-height, https://tallchairadvisor.com/knee-pain-seat-depth, https://tallchairadvisor.com/leg-pain-circulation, https://tallchairadvisor.com/how-to-adjust-chair, https://tallchairadvisor.com/review/gesture, https://tallchairadvisor.com/review/aeron-size-c, https://tallchairadvisor.com/review/leap-plus, https://tallchairadvisor.com/review/sihoo-doro-s300, https://tallchairadvisor.com/aeron-vs-gesture, https://tallchairadvisor.com/aeron-vs-leap-plus, https://tallchairadvisor.com/gesture-vs-leap-plus, https://tallchairadvisor.com/chairs/herman-miller-aeron, https://tallchairadvisor.com/chairs/steelcase-gesture, https://tallchairadvisor.com/chairs/steelcase-leap-plus, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height, https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people, https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit, https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height, https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people, https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit, https://tallchairadvisor.com/author/jackson-christopher
+
+
+## [2026-07-13] competitor-intelligence v2.5 | Strategic Run
+
+- Pages: 8 | Queries: 24 | Crawls: 25 (23 cached)
+- High-priority gaps: 5
+- AIO tasks: 5 generated | 0 applied to src/pages/ (0 fallback) | 0 rejected (spec mismatch) | 0 pending passage text
+- 8 pages analyzed × up to 3 queries each. 25 URLs crawled (23 cache hits). 5 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, btod.com.
+
+
+## [2026-07-13] ga4-pull | GA4 Data Pull
+
+- Period: 2026-06-15 → 2026-07-13 (28 days)
+- Sessions: 54 | Users: 53 | Views: 47
+- Engagement rate: 3.7% | Avg duration: 2s
+- Affiliate clicks: 0 | ChatGPT sessions: 0
+- Pages: 24 | Channels: 3
+
+
+## [2026-07-13] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-07-13
+- Pages recorded: 17
+- Device split: {"mobile":0.65,"pc":0.35}
+- Behavioral alerts: 11
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/?utm_source=chatgpt.com: 25% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/aeron-size-c/: 24% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 23% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 17
+
+
+## [2026-07-13] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 17 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 31 actionable
+- AIO suspects: 2
+- Affiliate alerts: 2 high-urgency
+- Site momentum: Impressions down 4.2% WoW (11845 vs 12370), clicks up 5% (21 vs 20), avg position stable
+- Query entropy: 2 fragmented pages
+- Hub candidates: 2
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: 34 pages
+- Link audit: 1 high-impression pages with < 3 inbound links
+
+
+## [2026-07-13] gsc-pull | GSC Data Pull
+
+- Period: 2026-04-14 → 2026-07-13 (90 days)
+- Pages: 42 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 60 | Daily trend rows: 89
+- Clicks: 188 | Impressions: 89422 | Avg pos: 8.1
+
+
 ## [2026-07-11] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-07-11
