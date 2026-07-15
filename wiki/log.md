@@ -2,6 +2,16 @@
 type: log
 ---
 
+## [2026-07-15] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-07-15-weekly-plan.md
+- 0 fixes, 0 rewrites, 1 new pages (7 tasks dropped by enforcement)
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+- Decay alerts injected: 0 (none — threshold requires 9+ snapshots)
+- Link gaps injected: 0 high-impression underlinked pages
+- Roadmap items force-injected: 0
+
+
 ## [2026-07-14] audit | Weekly Site Audit
 
 - Pages audited: 20
