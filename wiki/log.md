@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-07-18] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W29.md
+
+
 ## [2026-07-17] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-07-17
