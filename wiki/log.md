@@ -2345,3 +2345,8 @@ Chronological record of wiki operations. Append new entries at the top.
 - Ingested Jul 17 Amazon snapshot (4 CSVs → raw/affiliate/2026-07-17-amazon-csv/ + summary md): 82 clicks, 6 orders, $1,252.11 ordered revenue, **+$36.06 net** — first positive earnings in site history.
 - Jul 4 ASIN fix validated on both success metrics: Unknown attribution 94% → 45%; Leap Plus (B00TYE4QXU, 19 clicks) and Gesture (B016OIF2JU, 12 clicks) now individually attributed.
 - Updated [[affiliate-performance]] with July analysis + performance log row. Kill-list relaxation still gated on 2-3 consecutive positive periods.
+
+## [2026-07-18] manual session | GA4 outage root-caused — CSP blocked new Google collection endpoint
+
+- GA4 sessions collapsed ~Jun 16 (54 sessions/28d, 96% bounce, 1 organic session — while GSC logged 80+ organic clicks and Clarity saw normal traffic). Cause: Google migrated gtag collection to analytics.google.com; site CSP connect-src only allowed www.google-analytics.com, silently blocking hits. Verified: gtag.js for G-TWK4EPV8DT contains zero references to the whitelisted host.
+- Fixed public/_headers connect-src (added *.google-analytics.com, analytics.google.com, *.analytics.google.com, stats.g.doubleclick.net). GA4 data unusable Jun 16–Jul 18; caveat added to [[ga4-performance]].

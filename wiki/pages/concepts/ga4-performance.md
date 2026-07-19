@@ -11,6 +11,10 @@ tags: [ga4, analytics, sessions, conversions]
 
 ---
 
+## ⚠️ DATA OUTAGE: 2026-06-16 → 2026-07-18 — DO NOT TRUST THIS WINDOW
+
+GA4 collection was silently blocked by the site CSP from ~Jun 16: Google migrated gtag collection hits to `analytics.google.com`, which was absent from `connect-src` in `public/_headers` (only `www.google-analytics.com` was allowed). Sessions collapsed to 1-4/day, 87% "Direct", 96% bounce, 0 affiliate clicks — all artifacts of blocked hits, not real behavior. **Fixed 2026-07-18** (CSP now allows `*.google-analytics.com`, `analytics.google.com`, `*.analytics.google.com`, `stats.g.doubleclick.net`); trustworthy data resumes after the fix deploys. Use Clarity + GSC + Amazon reports for the outage window. Agents: ignore GA4 metrics dated 2026-06-16 through 2026-07-18.
+
 ## Latest Snapshot (2026-07-13)
 
 | Metric | Value |
