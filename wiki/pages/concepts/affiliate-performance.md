@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-07-04
-sources: [raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md]
+last_updated: 2026-07-18
+sources: [raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
@@ -15,7 +15,25 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 
 | Period | Clicks | Orders | CVR | Ordered Revenue | Net Earnings | Notes |
 |--------|--------|--------|-----|-----------------|--------------|-------|
+| 2026-07-17 | 82 | 6 | 7.3% | $1,252.11 | **+$36.06** | First positive snapshot. ASIN fix validated — see July analysis. |
 | 2026-06-30 | 70 | 7 | 10.0% | $578.08 | **-$0.41** | 1 return ($610) wiped earnings. See analysis below. |
+
+---
+
+## July 2026 Analysis (snapshot dated Jul 17 — ASIN fix validation)
+
+**The July 4 link-architecture fix worked on both of its named success metrics:**
+
+1. **Unknown attribution share: 94% → 45%.** Furniture (attributed ASINs) now carries 50% of clicks. The two verified chair ASINs are individually visible for the first time: Leap Plus B00TYE4QXU (19 clicks — top clicked product), Gesture B016OIF2JU (12 clicks).
+2. **Revenue quality up:** ordered revenue $578 → $1,252 (+117%) on only +17% clicks. Verified `/dp/` links land buyers on real product pages; indirect baskets got bigger.
+
+**First positive earnings in site history: +$36.06** ($37.56 shipped − $1.50 clawback). This period's single return was a $49.99 item, not a chair — June's "one chair return wipes the month" fragility did not repeat.
+
+All 6 orders were still indirect (0 direct orders on tracked chairs — expected at this volume for $1,000+ items). Top-Sellers report still empty; populates only with direct purchases.
+
+**Interpretation guardrail** (per [[statistical-confidence-policy]]): one positive snapshot ≠ repeatable revenue. The Jul 3 decision's kill-list condition — "until repeatable positive revenue months" — needs 2-3 consecutive positive periods before relaxing. Next checkpoints: August report, and Amazon may still restate this period (returns window).
+
+Raw: `raw/affiliate/2026-07-17-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-07-17-amazon-csv/`).
 
 ---
 

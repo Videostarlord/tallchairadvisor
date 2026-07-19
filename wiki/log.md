@@ -2339,3 +2339,9 @@ Chronological record of wiki operations. Append new entries at the top.
 - Fixed 4 bugs in scripts/agents/execute-content.ts: (1) quality gate scored only first 5000 chars — criteria 2-5 now deterministic full-page code checks, Haiku judges answer-first only; (2) apostrophe regex false-positived on valid frontmatter containing heights — deleted, vm.Script parse is authoritative; (3) dead sanitizer branch deleted; (4) max_tokens truncation now detected, output ceiling 8000→12000.
 - Workflows (Tue/Wed/Fri) now commit data/token-log.jsonl so API cost tracking survives CI runs.
 - Full decision record: [[decisions-log]] 2026-W29 entry.
+
+## [2026-07-18] manual session | July Amazon Associates ingest — first positive earnings
+
+- Ingested Jul 17 Amazon snapshot (4 CSVs → raw/affiliate/2026-07-17-amazon-csv/ + summary md): 82 clicks, 6 orders, $1,252.11 ordered revenue, **+$36.06 net** — first positive earnings in site history.
+- Jul 4 ASIN fix validated on both success metrics: Unknown attribution 94% → 45%; Leap Plus (B00TYE4QXU, 19 clicks) and Gesture (B016OIF2JU, 12 clicks) now individually attributed.
+- Updated [[affiliate-performance]] with July analysis + performance log row. Kill-list relaxation still gated on 2-3 consecutive positive periods.

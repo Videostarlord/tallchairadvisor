@@ -70,7 +70,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[workflow-system-reference]] | Current operational setup: weekly agent cycle, GitHub Actions, scripts, Obsidian vault, data flow. Read this for any question about how the automation works. |
 | [[indexing-health]] | Per-page GSC indexing status. Jun 14: 35/47 indexed. 3 thin-content pages stuck crawled-not-indexed. Script now also checks redirect sources. |
 | [[affiliate-compliance]] | **NEW 2026-05-11.** FTC body disclosure missing on 6 pages. Revenue leaks: aeron-vs-gesture (0 CTAs in 84%), gesture review (CTA at 85%), best-office-chairs (Quick Picks → internal not Amazon). |
-| [[affiliate-performance]] | **UPDATED 2026-07-04.** Root cause of 94% unattributed clicks found: 82 search-format links + 8 hallucinated ASINs — all fixed to verified ASINs. Direct-program economics verified (Autonomous 2% = skip). Jun 30: 70 clicks, 7 orders, -$0.41 net. |
+| [[affiliate-performance]] | **UPDATED 2026-07-18.** Jul 17 snapshot: +$36.06 — first positive earnings. ASIN fix validated: Unknown attribution 94%→45%, revenue $578→$1,252. Leap Plus + Gesture ASINs now click-visible. Need 2-3 positive periods before relaxing kill list. |
 | [[runpod-migration-proposal]] | 🔴 BACKLOG / soft rejected. Broad RunPod migration for TCA deferred; Anthropic Batch research is now the preferred low-friction cost path. Raw proposal remains as historical research only. |
 
 ## Synthesis
@@ -115,7 +115,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 ## Raw Sources (reference only — do not edit)
 
 Located in `raw/`. Organized by type:
-- `raw/affiliate/` — Amazon Associates export snapshots (latest: 2026-06-30)
+- `raw/affiliate/` — Amazon Associates export snapshots (latest: 2026-07-17 — first positive earnings, ASIN fix validation)
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
 - `raw/audits/` — Audit/analysis files (latest: 2026-07-04). Key files: `2026-07-04-affiliate-revenue-audit.md` (hostile revenue audit: link architecture root cause, 30-day plan, kill list, ASIN map), `2026-06-14-full-site-report.md` (cross-source site audit: GSC+GA4+Clarity, 47 pages mapped, 5 tiers, 7 recommendations), `2026-05-27-full-seo-audit.md` (SEO audit, 75/100, 6-agent), `2026-05-27-action-plan.md` (29 prioritized fixes), `2026-05-13-systems-architecture-audit.md` (systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (prior SEO audit, 77/100, archived).
 - `raw/strategy/` — Strategy/planning files (latest: 2026-05-15). Key files: `2026-05-15-niche-incubator-plan.md` (adjacent-project architecture for niche go/no-go scoring), `2026-05-11-niche-validation-evaluation.md` (core validation framework), `2026-05-10-runpod-migration-proposal.md` (historical cost research, backlog only).
