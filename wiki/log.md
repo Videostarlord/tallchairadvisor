@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-07-19] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-07-19
+- Pages recorded: 16
+- Device split: {"mobile":0.667,"pc":0.333,"other":0}
+- Behavioral alerts: 8
+  - [high-dead-clicks] https://tallchairadvisor.com/best-office-chairs-under-500/: 17 dead clicks — users clicking non-interactive elements
+  - [high-rage-clicks] https://tallchairadvisor.com/best-office-chairs-under-500/: 5 rage clicks — likely broken element or misleading CTA
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-3/?utm_source=chatgpt.com: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 34% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/: 33% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 20
+
+
 ## [2026-07-18] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
