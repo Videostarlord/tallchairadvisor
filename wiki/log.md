@@ -2332,3 +2332,10 @@ Chronological record of wiki operations. Append new entries at the top.
 - **Audit revision:** big-and-tall + wide-seat pages NOT merged — verification showed they're days old (Jul 4, keyword-gap fills targeting the distinct "big and tall" family). Re-evaluate ~2026-08-15.
 - Sitewide: 40+ internal links, Header/Footer nav, breadcrumb schemas repointed; `public/_redirects` +4 rules (no-slash variants fixed to avoid double hops); sitemap config cleaned. Build: 48 pages, 0 stale refs in dist.
 - Success metric: head-term family gains 3+ positions on survivor URL within 4 weeks. Check ~Aug 1.
+
+## [2026-07-18] manual session | Friday content pipeline root cause + fix
+
+- Root-caused 10 weeks of Friday content failures: all 7 archived rejects in raw/content-rejected/ replay as valid + 80/80 structural under corrected checks — every rejection since the May 6 quality gate was a false negative. The generator (Sonnet 4.6) was never at fault.
+- Fixed 4 bugs in scripts/agents/execute-content.ts: (1) quality gate scored only first 5000 chars — criteria 2-5 now deterministic full-page code checks, Haiku judges answer-first only; (2) apostrophe regex false-positived on valid frontmatter containing heights — deleted, vm.Script parse is authoritative; (3) dead sanitizer branch deleted; (4) max_tokens truncation now detected, output ceiling 8000→12000.
+- Workflows (Tue/Wed/Fri) now commit data/token-log.jsonl so API cost tracking survives CI runs.
+- Full decision record: [[decisions-log]] 2026-W29 entry.

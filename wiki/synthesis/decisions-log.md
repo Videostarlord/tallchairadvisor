@@ -1,12 +1,39 @@
 ---
 type: synthesis
-last_updated: 2026-07-04
+last_updated: 2026-07-18
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W29 (July 18) — Friday content pipeline root-caused: gates rejected good pages for 10 weeks; all 4 bugs fixed
+
+**CONTEXT:** Jackson asked why the Friday agent keeps failing. Root-cause session on execute-content.ts against the 7 archived rejects in raw/content-rejected/.
+
+**FINDING — The model was never the problem. The deterministic gate code was.** All 7 rejected drafts (May 15 → Jul 17) replay as VALID + 80/80 structural under corrected checks. Since the quality gate shipped May 6 (fcd7ae3), the Friday agent published zero pages on its own; every live page since came from manual sessions.
+
+**Bug 1 (quality gate):** scoreContent sent only `content.slice(0, 5000)` of ~20k-char pages to the Haiku judge, but graded criteria that live past char 5000 (affiliate CTA at ~16-17k, internal links at ~8-13k). 40/100 points were structurally unwinnable → max score ~60 vs 80 gate → no normal-length page could ever pass. W29's "answer-first section cut off mid-sentence" feedback was the slice boundary, not the page.
+
+**Bug 2 (validator false positive):** regex `/'[^'\n]*'[^'\n]*'/` rejected any frontmatter line with 3+ apostrophes regardless of quoting context — fatal on a site where heights like `6'2"` and `6'4"` appear constantly. The W28 and Jul 4 rejects were valid JavaScript (verified via vm.Script) killed by this regex; the retry instructed the model to use double quotes, which it had already done.
+
+**Bug 3 (dead sanitizer):** the apostrophe-fixing branch in sanitizeFrontmatter used `[^'\\\n]` which by construction cannot match a string containing a bare apostrophe — it never fired once.
+
+**Bug 4 (latent):** no stop_reason check after generation; a max_tokens truncation was indistinguishable from a model failure.
+
+**FIX (all in execute-content.ts, same day):**
+1. Quality gate rebuilt: criteria 2-5 (keyword placement, FAQPage ≥4 questions, CTA with tag=tallchairadvi-20, ≥3 class="link-internal") are now deterministic code checks against the FULL page (80pts); only answer-first quality remains an LLM judgment (Haiku, 0-20pts, prompt states it sees an excerpt). Gate threshold unchanged at 80. Scorer failure now defaults to 15/20 instead of 0/100.
+2. Apostrophe regex deleted from validateAstroFile — the vm.Script parse (already present five lines below) is the authoritative syntax check with zero false positives.
+3. Dead sanitizer branch deleted.
+4. stop_reason==='max_tokens' now logged with token count; max_tokens raised 8000→12000 for headroom.
+Plus: data/token-log.jsonl is now committed by the Tuesday/Wednesday/Friday workflows (it was written inside CI runners and discarded — why cost tracking had only 2 entries).
+
+**COST:** ~$0/month delta (pipeline total ~$4-5/mo API spend). Removing false-positive retries saves more than the occasional competitive-depth re-roll adds.
+
+**RULE FOR FUTURE SESSIONS:** Do not add regex-based syntax heuristics on top of the vm.Script parse in validateAstroFile. Do not slice content before scoring criteria that live in the back half of a page. When a gate rejects repeatedly, replay the archived reject from raw/content-rejected/ against the check before assuming the generator is at fault.
+
+**WATCH:** Next Friday (Jul 24) should publish whatever Wednesday plans (likely /seat-depth-too-shallow-fix/ again). The Jul 10 (/leap-plus-vs-aeron-size-c/) and Jul 17 (/seat-depth-too-shallow-fix/) archived drafts were publishable as-is if faster shipping is wanted.
 
 ## 2026-W27 (July 4, later) — Commercial cluster consolidation executed after GSC verification
 

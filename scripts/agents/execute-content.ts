@@ -194,13 +194,6 @@ function sanitizeFrontmatter(content: string): string {
     .replace(/—/g, '-')           // em dash → hyphen
     .replace(/–/g, '-');          // en dash → hyphen
 
-  // Convert single-quoted JS strings that contain an apostrophe to double-quoted.
-  // Matches 'any text' and, if the inner text contains a bare ', converts wrapper to ".
-  fm = fm.replace(/'((?:[^'\\\n]|\\.)*)'/g, (match, inner) => {
-    if (inner.includes("'") && !inner.includes('"')) return `"${inner}"`;
-    return match;
-  });
-
   // Replace bare English operators with JS equivalents, skipping string literals.
   // Split on quoted strings so only code segments are transformed.
   const replaceOutsideStrings = (s: string, pattern: RegExp, replacement: string) =>
@@ -236,13 +229,10 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   if (content.includes('href="AMAZON_URL')) {
     return { valid: false, reason: 'Unresolved AMAZON_URL placeholder found in href — Claude did not replace the template CTA' };
   }
-  // Detect apostrophes inside single-quoted strings (causes esbuild parse failure)
-  // Look for any single-quoted string containing a bare apostrophe
-  if (/'[^'\n]*'[^'\n]*'/.test(frontmatter)) {
-    return { valid: false, reason: "Apostrophe inside single-quoted string in frontmatter — use double quotes for strings containing apostrophes (e.g. \"6'4\\\")\")" };
-  }
-  // Full JS syntax check — catches any remaining esbuild-rejectable errors (unmatched parens,
-  // unescaped quotes inside string literals, etc.)
+  // Full JS syntax check — the authoritative gate for esbuild-rejectable errors
+  // (unescaped apostrophes, unmatched parens, bad string literals, etc.).
+  // Do not add regex-based syntax heuristics on top of this: heights like 6'2" and 6'4"
+  // appear throughout valid frontmatter and naive apostrophe patterns reject valid files.
   try {
     const stripped = frontmatter
       .replace(/^[ \t]*import\s+[^;]+;\s*$/gm, '') // strip import statements (not valid in vm.Script)
@@ -254,24 +244,63 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   return { valid: true };
 }
 
+// Structural criteria (4 of 5, 20pts each) are mechanically verifiable — check them in
+// code against the FULL page. The previous LLM scorer graded content.slice(0, 5000), but
+// the CTA block and internal links always sit past char 5000 in a normal-length page, so
+// 40pts were structurally unwinnable and every draft failed. See raw/content-rejected/.
+function checkStructure(content: string, keyword: string): { points: number; failures: string[] } {
+  const failures: string[] = [];
+  let points = 0;
+
+  // Keyword presence in title + opening content (fuzzy: significant words, not exact phrase)
+  const words = keyword.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+  const title = (content.match(/title="([^"]*)"/i)?.[1] ?? '').toLowerCase();
+  const opening = content.slice(0, 8000).toLowerCase();
+  const inTitle = words.filter(w => title.includes(w)).length;
+  const inOpening = words.filter(w => opening.includes(w)).length;
+  if (words.length === 0 || (inTitle / words.length >= 0.5 && inOpening / words.length >= 0.75)) points += 20;
+  else failures.push('target keyword words missing from title or opening content');
+
+  const questionCount = (content.match(/"@type":\s*"Question"/g) ?? []).length;
+  if (content.includes('"FAQPage"') && questionCount >= 4) points += 20;
+  else failures.push(`FAQPage schema has ${questionCount} questions (need 4+)`);
+
+  if (content.includes('tag=tallchairadvi-20')) points += 20;
+  else failures.push('no affiliate link with tag=tallchairadvi-20');
+
+  const internalLinks = (content.match(/class="link-internal"/g) ?? []).length;
+  if (internalLinks >= 3) points += 20;
+  else failures.push(`${internalLinks} internal links with class="link-internal" (need 3+)`);
+
+  return { points, failures };
+}
+
 async function scoreContent(content: string, keyword: string): Promise<{ score: number; feedback: string }> {
-  const response = await withRetry(() => client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 200,
-    system: `Score this tallchairadvisor.com page draft on 5 criteria (20pts each, 100 total):
-1. Answer-first format — verdict or TL;DR in the first visible section (before any H2)
-2. Target keyword present in title, H1, and opening paragraph
-3. FAQPage JSON-LD schema with at least 4 questions
-4. Affiliate CTA block with Amazon links containing tag=tallchairadvi-20
-5. At least 3 internal links using class="link-internal"
-Return only JSON: {"score": <0-100>, "feedback": "<one sentence on the biggest gap if score < 80, else 'pass'>"}`,
-    messages: [{ role: 'user', content: `Keyword: "${keyword}"\n\n${content.slice(0, 5000)}` }],
-  }));
-  const raw = (response.content[0].type === 'text' ? response.content[0].text : '').replace(/```[a-z]*/g, '').trim();
+  const structure = checkStructure(content, keyword);
+
+  // Answer-first quality is the one criterion that needs a model judgment, and it
+  // genuinely lives in the top of the page — the 5000-char excerpt is correct here.
+  // The scorer is told it's an excerpt so it can't penalize what it can't see.
+  let answerPoints = 15; // benefit of the doubt if the scorer call fails — structure checks carry the gate
+  let answerFeedback = '';
   try {
+    const response = await withRetry(() => client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 200,
+      system: `Score 0-20: does this tallchairadvisor.com page open answer-first? Full points when a verdict box or TL;DR stating the direct answer appears in the first visible section (before any H2) with no "In this guide we'll explore..." preamble. You are given only the TOP of a longer page — the excerpt may cut off mid-sentence; do not penalize anything about the ending or anything that would appear later in the page.
+Return only JSON: {"points": <0-20>, "feedback": "<one sentence>"}`,
+      messages: [{ role: 'user', content: `Keyword: "${keyword}"\n\n${content.slice(0, 5000)}` }],
+    }));
+    const raw = (response.content[0].type === 'text' ? response.content[0].text : '').replace(/```[a-z]*/g, '').trim();
     const parsed = JSON.parse(raw.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
-    return { score: Number(parsed.score ?? 0), feedback: String(parsed.feedback ?? 'scoring failed') };
-  } catch { return { score: 0, feedback: 'score parse failed' }; }
+    const p = Number(parsed.points);
+    if (Number.isFinite(p)) answerPoints = Math.max(0, Math.min(20, p));
+    if (answerPoints < 20) answerFeedback = String(parsed.feedback ?? '');
+  } catch { answerFeedback = 'answer-first scorer unavailable — defaulted to 15/20'; }
+
+  const score = structure.points + answerPoints;
+  const feedback = [...structure.failures, answerFeedback].filter(Boolean).join('; ') || 'pass';
+  return { score, feedback };
 }
 
 // ─── Differentiation asset injection ────────────────────────────────────────
@@ -479,7 +508,7 @@ Write the complete Astro page. Output the file content only — no markdown fenc
   const diffAssets = buildDifferentiationAssets(task.slug, ROOT);
   const response = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 8000,
+    max_tokens: 12000,
     system: [
       {
         type: 'text',
@@ -497,6 +526,12 @@ Write the complete Astro page. Output the file content only — no markdown fenc
     messages,
   }));
   logCacheUsage('execute-content', response.usage, ROOT);
+
+  if (response.stop_reason === 'max_tokens') {
+    // Truncated generation — the file will be missing </Layout> and fail validation.
+    // Surface the real cause so the retry correction message is accurate.
+    console.warn(`    TRUNCATED: generation for ${task.slug} hit max_tokens (${response.usage.output_tokens} output tokens)`);
+  }
 
   const raw = response.content[0].type === 'text' ? response.content[0].text : '';
   return raw

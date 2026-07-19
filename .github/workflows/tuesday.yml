@@ -50,5 +50,6 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/audit-report.md raw/ wiki/
+          [ -e data/token-log.jsonl ] && git add data/token-log.jsonl || true
           git diff --staged --quiet || git commit -m "[skip cd] report: Tuesday audit $(date +%Y-%m-%d)"
           git push || { sleep 15 && git push; } || { sleep 30 && git push; }
