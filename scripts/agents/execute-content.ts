@@ -204,7 +204,7 @@ function sanitizeFrontmatter(content: string): string {
   return '---' + fm + content.slice(fenceEnd);
 }
 
-function validateAstroFile(content: string): { valid: boolean; reason?: string } {
+async function validateAstroFile(content: string): Promise<{ valid: boolean; reason?: string }> {
   if (!content.startsWith('---')) {
     return { valid: false, reason: 'Does not start with --- frontmatter fence' };
   }
@@ -216,6 +216,7 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
     return { valid: false, reason: 'Missing <Layout> or </Layout> wrapper' };
   }
   const frontmatter = content.slice(3, frontmatterEnd);
+  const template = content.slice(frontmatterEnd + 4);
   // Catch bare English operators in JS context (the specific failure mode we hit)
   const fmCodeOnly = frontmatter
     .replace(/"(?:[^"\\]|\\.)*"/g, '""')
@@ -229,7 +230,7 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
   if (content.includes('href="AMAZON_URL')) {
     return { valid: false, reason: 'Unresolved AMAZON_URL placeholder found in href — Claude did not replace the template CTA' };
   }
-  // Full JS syntax check — the authoritative gate for esbuild-rejectable errors
+  // Frontmatter JS syntax check — fast, specific error messages for frontmatter bugs
   // (unescaped apostrophes, unmatched parens, bad string literals, etc.).
   // Do not add regex-based syntax heuristics on top of this: heights like 6'2" and 6'4"
   // appear throughout valid frontmatter and naive apostrophe patterns reject valid files.
@@ -240,6 +241,31 @@ function validateAstroFile(content: string): { valid: boolean; reason?: string }
     if (stripped) new VmScript(stripped);
   } catch (e: any) {
     return { valid: false, reason: `Frontmatter JS syntax error: ${e.message.split('\n')[0]}` };
+  }
+  // Authoritative gate: compile the WHOLE file the way the real build does
+  // (Astro compiler -> esbuild). The frontmatter check above cannot see template
+  // errors — e.g. a backslash-escaped quote inside a Layout attribute
+  // (description="...6'0\"-6'5\"...") closes the attribute early and the rest is
+  // parsed as JS, failing esbuild with 'Expected "}"'. That reaches src/pages/,
+  // passes scoring, and breaks the Saturday deploy build. This gate rejects exactly
+  // what the build would reject. If the toolchain can't load, skip it rather than
+  // false-reject a valid page.
+  try {
+    const { transform } = await import('@astrojs/compiler');
+    const esbuild = await import('esbuild');
+    const compiled = await transform(content, { sourcemap: false });
+    await esbuild.transform(compiled.code, { loader: 'js' });
+  } catch (e: any) {
+    const msg: string = e?.errors?.[0]?.text || e?.message || String(e);
+    if (/Cannot find (module|package)|ERR_MODULE_NOT_FOUND/i.test(msg)) {
+      // Astro compiler / esbuild not resolvable here — skip the extra gate.
+    } else {
+      let reason = `Astro/esbuild compile error: ${msg.split('\n')[0]}`;
+      if (template.includes('\\"')) {
+        reason += ' — likely a backslash-escaped quote (\\") in an HTML attribute; use &quot; for inch marks instead';
+      }
+      return { valid: false, reason };
+    }
   }
   return { valid: true };
 }
@@ -560,7 +586,7 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
   }
 
   cleaned = sanitizeFrontmatter(cleaned);
-  let validation = validateAstroFile(cleaned);
+  let validation = await validateAstroFile(cleaned);
 
   // Attempt 2 — retry with the specific failure injected as a correction
   if (!validation.valid) {
@@ -568,7 +594,7 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
     cleaned = await generatePage(task, `The previous attempt failed validation: "${validation.reason}". Fix this specific issue in your output.`);
     if (cleaned && cleaned.length >= 500) {
       cleaned = sanitizeFrontmatter(cleaned);
-      validation = validateAstroFile(cleaned);
+      validation = await validateAstroFile(cleaned);
     }
   }
 
@@ -603,7 +629,7 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
     const rerolledRaw = await generatePage(task, rerollInstruction);
     const rerolled = rerolledRaw ? sanitizeFrontmatter(rerolledRaw) : rerolledRaw;
     if (rerolled && rerolled.length >= 500) {
-      const rerollValidation = validateAstroFile(rerolled);
+      const rerollValidation = await validateAstroFile(rerolled);
       if (rerollValidation.valid) {
         cleaned = rerolled;
         console.log(`    Re-roll accepted`);

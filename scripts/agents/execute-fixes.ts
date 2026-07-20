@@ -266,9 +266,14 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
   // ──────────────────────────────────────────────────────────────────────────
 
   // ── Full-file path (schema changes, affiliate links, verdict tables) ────────
+  // max_tokens must cover the ENTIRE reproduced file plus the additions, not just
+  // the delta. The largest pages (~4,500 words) reproduce to ~12–13k output tokens,
+  // and fixes add content on top — an 8k cap truncated them mid-file, which the
+  // word-count guard then rejected. This silently blocked every fix on the biggest,
+  // highest-opportunity pages. 20k gives headroom for current pages + growth.
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 8000,
+    max_tokens: 20000,
     system: [{ type: 'text', text: `You are an SEO implementation agent for tallchairadvisor.com (Astro SSG site).
 Apply ONLY the requested fix — do not refactor, rename, or change anything else.
 CRITICAL RULES:
@@ -296,6 +301,15 @@ ${fileContent}
 Output the complete updated file content only. Make ONLY the requested change.`,
     }],
   });
+
+  // If generation hit the token ceiling the file is truncated mid-content — report
+  // it distinctly so it isn't misdiagnosed as Claude deliberately shortening the page.
+  if (response.stop_reason === 'max_tokens') {
+    return {
+      success: false,
+      summary: `TRUNCATED: ${task.filePath} output hit the max_tokens ceiling — file too large to reproduce in one pass. Raise max_tokens or split the page.`,
+    };
+  }
 
   const updatedContent = response.content[0].type === 'text' ? response.content[0].text : '';
 

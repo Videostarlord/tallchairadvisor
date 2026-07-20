@@ -2,6 +2,152 @@
 type: log
 ---
 
+## [2026-07-20] manual session | Full pipeline test run — 4 bugs/blindspots fixed
+
+- Ran the entire weekly cycle end-to-end locally (isolation branch `pipeline-test-run-2026-07-20`). Build green (49 pages); all 7 verify-deploy checks pass. Nothing pushed/deployed.
+- **Fix 1** `gsc-analyze.ts`: `normalizeUrl` now redirect-aware (parses `public/_redirects`) — folds 301'd URLs into their live target instead of scoring them as opportunities. `/best-office-chairs/` phantom refs 33→0.
+- **Fix 2** `index-monitor.ts`: skip trailing-slash redirect sources (38 wasted URL-Inspection calls/run) — inspect only the 10 content redirects.
+- **Fix 3** `execute-fixes.ts`: `max_tokens` 8000→20000 + stop_reason check — was silently truncating every fix on the 3 largest pages (sibling-file twin of the W29 execute-content fix).
+- **Fix 4** `execute-content.ts`: `validateAstroFile` now runs an authoritative `@astrojs/compiler`→`esbuild` compile gate over the whole file — caught a build-breaking `\"` in a Layout attribute that scored 98/100 and would have failed the Saturday deploy.
+- Detail: [[decisions-log]] 2026-07-20; [[workflow-system-reference]] "Resolved 2026-07-20".
+
+## [2026-07-20] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W30.md
+
+
+## [2026-07-20] execute-content | Friday New Content
+
+- Pages created: 1
+- Herman Miller Aeron Size C vs Steelcase Leap Plus for Tall People → /aeron-size-c-vs-leap-plus/
+
+
+## [2026-07-20] execute-fixes | Thursday Fixes Applied
+
+- /best-office-chairs-under-500/ → src/pages/best-office-chairs-under-500.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+- /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /chairs/herman-miller-aeron/tall-people/ → src/pages/chairs/herman-miller-aeron/tall-people.astro
+
+
+## [2026-07-20] execute-fixes | Thursday Fixes Applied
+
+- /best-office-chairs-under-500/ → src/pages/best-office-chairs-under-500.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+- /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /chairs/herman-miller-aeron/tall-people/ → src/pages/chairs/herman-miller-aeron/tall-people.astro
+
+
+## [2026-07-20] index-monitor | Indexing Health Check
+
+- Pages inspected: 48 | Redirect sources: 48
+- Indexed: 37 | Page issues: 11 | Redirect issues: 48 | Fixed: 0
+- Sitemap resubmitted: true
+- Page issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (noindex), https://tallchairadvisor.com/contact/ (noindex), https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/ (wait), https://tallchairadvisor.com/office-chair-return-policy/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/ (wait), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait)
+- Redirect issues: https://tallchairadvisor.com/author/marcus-reid, https://tallchairadvisor.com/author/marcus-reid/, https://tallchairadvisor.com/best-office-chairs/, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/, https://tallchairadvisor.com/best-office-chairs, https://tallchairadvisor.com/office-chairs-for-tall-people, https://tallchairadvisor.com/correct-chair-dimensions, https://tallchairadvisor.com/shoulder-pain-tall-people, https://tallchairadvisor.com/standing-desk-height-tall-people, https://tallchairadvisor.com/best-office-chairs-under-500, https://tallchairadvisor.com/fit-guides, https://tallchairadvisor.com/about, https://tallchairadvisor.com/contact, https://tallchairadvisor.com/privacy-policy, https://tallchairadvisor.com/affiliate-disclosure, https://tallchairadvisor.com/office-chairs-for-6-foot-3, https://tallchairadvisor.com/office-chairs-for-6-foot-4, https://tallchairadvisor.com/office-chairs-for-6-foot-5, https://tallchairadvisor.com/office-chairs-for-6-foot-6, https://tallchairadvisor.com/office-chairs-for-6-foot-7, https://tallchairadvisor.com/pain-ergonomics, https://tallchairadvisor.com/why-standard-chairs-dont-fit, https://tallchairadvisor.com/back-pain-spine-height, https://tallchairadvisor.com/knee-pain-seat-depth, https://tallchairadvisor.com/leg-pain-circulation, https://tallchairadvisor.com/how-to-adjust-chair, https://tallchairadvisor.com/review/gesture, https://tallchairadvisor.com/review/aeron-size-c, https://tallchairadvisor.com/review/leap-plus, https://tallchairadvisor.com/review/sihoo-doro-s300, https://tallchairadvisor.com/aeron-vs-gesture, https://tallchairadvisor.com/aeron-vs-leap-plus, https://tallchairadvisor.com/gesture-vs-leap-plus, https://tallchairadvisor.com/chairs/herman-miller-aeron, https://tallchairadvisor.com/chairs/steelcase-gesture, https://tallchairadvisor.com/chairs/steelcase-leap-plus, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height, https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people, https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit, https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height, https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people, https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit, https://tallchairadvisor.com/author/jackson-christopher
+
+
+## [2026-07-20] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-07-20-weekly-plan.md
+- 5 fixes, 1 rewrites, 1 new pages
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+- Decay alerts injected: 0 (none — threshold requires 9+ snapshots)
+- Link gaps injected: 0 high-impression underlinked pages
+- Roadmap items force-injected: 0
+
+
+## [2026-07-20] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 207 | Impressions: 94576
+- Full report archived to raw/audits/2026-07-20-weekly-audit.md
+
+
+## [2026-07-20] competitor-intelligence v2.5 | Strategic Run
+
+- Pages: 8 | Queries: 24 | Crawls: 33 (21 cached)
+- High-priority gaps: 5
+- AIO tasks: 5 generated | 0 applied to src/pages/ (0 fallback) | 0 rejected (spec mismatch) | 0 pending passage text
+- 8 pages analyzed × up to 3 queries each. 33 URLs crawled (21 cache hits). 5 high-priority gaps. Top editorial outrankers: thehumansolution.com, forbes.com, btod.com.
+
+
+## [2026-07-20] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 19 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 30 actionable
+- AIO suspects: 2
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 42.7% WoW (6793 vs 11845), clicks up 23.8% (26 vs 21), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: 33 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-07-20] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 19 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 30 actionable
+- AIO suspects: 2
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 42.7% WoW (6793 vs 11845), clicks up 23.8% (26 vs 21), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: 34 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-07-20] clarity-pull | Behavioral Data Pulled
+
+- Pages with data: 24
+- Device split: {"mobile":0.586,"tablet":0.034,"pc":0.379,"other":0}
+- Behavioral alerts: 10
+  - [high-dead-clicks] https://tallchairadvisor.com/best-office-chairs-under-500/: 17 dead clicks — users clicking non-interactive elements; check CTA visibility
+  - [high-rage-clicks] https://tallchairadvisor.com/best-office-chairs-under-500/: 5 rage clicks — users repeatedly clicking; likely broken element or misleading CTA
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-3/?utm_source=chatgpt.com: 37% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-7/: 37% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 34% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/: 33% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/?utm_source=chatgpt.com: 31% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 12% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/?utm_source=copilot.com: 7% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/?utm_source=chatgpt.com: 4% avg scroll depth — most content below fold not seen
+
+
+## [2026-07-20] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 19 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 31 actionable
+- AIO suspects: 2
+- Affiliate alerts: 1 high-urgency
+- Site momentum: Impressions down 42.7% WoW (6793 vs 11845), clicks up 23.8% (26 vs 21), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 2
+- Page velocity: 34 pages
+- Link audit: 1 high-impression pages with < 3 inbound links
+
+
+## [2026-07-20] gsc-pull | GSC Data Pull
+
+- Period: 2026-04-21 → 2026-07-20 (90 days)
+- Pages: 43 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 61 | Daily trend rows: 89
+- Clicks: 207 | Impressions: 94576 | Avg pos: 8.1
+
+
 ## [2026-07-18] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED

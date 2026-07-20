@@ -117,10 +117,56 @@ function normalizeQuery(query: string): string {
 
 // ─── URL Normalization ────────────────────────────────────────────────────────
 
+function withTrailingSlash(path: string): string {
+  // Enforce trailing slash unless the path has a file extension
+  return /\.[a-z]{2,4}$/.test(path) ? path : path.endsWith('/') ? path : path + '/';
+}
+
+// Redirect map parsed from public/_redirects. Folds impressions on redirected
+// (merged/deleted) URLs into their live target so scored opportunities never
+// point at a 301'd page. Historical GSC impressions persist ~90 days after a
+// redirect goes live, so without this the analyzer keeps scoring phantom URLs
+// (and can hand execute-fixes a task whose .astro file no longer exists).
+function loadRedirectMap(): Map<string, string> {
+  const map = new Map<string, string>();
+  try {
+    const raw = readFileSync(resolve(ROOT, 'public/_redirects'), 'utf-8');
+    for (const line of raw.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const [source, target] = trimmed.split(/\s+/);
+      if (!source || !target) continue;
+      // Only simple path→path rules — skip domain-level, splat, placeholder redirects
+      if (/[*:]/.test(source) || /[*:]/.test(target)) continue;
+      if (/^https?:/i.test(source) || /^https?:/i.test(target)) continue;
+      if (!source.startsWith('/') || !target.startsWith('/')) continue;
+      const s = withTrailingSlash(source);
+      const t = withTrailingSlash(target);
+      if (s === t) continue; // trailing-slash normalizer — no-op for scoring
+      map.set(s, t);
+    }
+  } catch {
+    // No _redirects file (or unreadable) — leave map empty, normalize as before
+  }
+  return map;
+}
+
+const REDIRECT_MAP = loadRedirectMap();
+
+// Follow a redirect chain to its final live target (guards against loops).
+function resolveRedirect(path: string): string {
+  let current = path;
+  const seen = new Set<string>();
+  while (REDIRECT_MAP.has(current) && !seen.has(current)) {
+    seen.add(current);
+    current = REDIRECT_MAP.get(current)!;
+  }
+  return current;
+}
+
 function normalizeUrl(url: string): string {
   const path = url.replace(/^https?:\/\/[^/]+/, '');
-  // Enforce trailing slash unless URL has a file extension
-  return /\.[a-z]{2,4}$/.test(path) ? path : path.endsWith('/') ? path : path + '/';
+  return resolveRedirect(withTrailingSlash(path));
 }
 
 function mergeCanonicalDuplicates<T extends { page: string; clicks: number | null; impressions: number; position: number | null }>(rows: T[], keyFn?: (row: T) => string): T[] {
@@ -718,7 +764,9 @@ function computePageVelocity(): PageVelocityEntry[] | null {
   const loadPages = (filename: string): PageEntry[] => {
     try {
       const data = JSON.parse(readFileSync(resolve(histDir, filename), 'utf-8'));
-      return (data.opportunities ?? []) as PageEntry[];
+      // Normalize on load so redirects added after a snapshot was written fold
+      // old URLs into their live target (keeps velocity matching consistent).
+      return ((data.opportunities ?? []) as PageEntry[]).map(p => ({ ...p, page: normalizeUrl(p.page) }));
     } catch {
       return [];
     }
@@ -853,7 +901,9 @@ export function detectDecayingPages(): DecayAlert[] {
   type PageEntry = { page: string; position: number; impressions: number };
   const loadPages = (f: string): PageEntry[] => {
     try {
-      return (JSON.parse(readFileSync(resolve(histDir, f), 'utf-8')).opportunities ?? []) as PageEntry[];
+      // Normalize on load so post-snapshot redirects fold old URLs into their target.
+      return ((JSON.parse(readFileSync(resolve(histDir, f), 'utf-8')).opportunities ?? []) as PageEntry[])
+        .map(p => ({ ...p, page: normalizeUrl(p.page) }));
     } catch { return []; }
   };
 

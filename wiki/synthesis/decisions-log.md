@@ -1,12 +1,28 @@
 ---
 type: synthesis
-last_updated: 2026-07-18
+last_updated: 2026-07-20
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-07-20 — Full pipeline test run (Mon→Sat, local): 4 bugs/blindspots fixed
+
+**CONTEXT:** Jackson asked to run the entire weekly cycle end-to-end and fix any bugs or blindspots. Ran all stages locally on isolation branch `pipeline-test-run-2026-07-20` (gsc-pull → analyze → clarity → competitor-intelligence → index-monitor → audit → strategy → execute-fixes → execute-content → verify-deploy). Build passes (49 pages); all 7 verify-deploy checks green. Nothing pushed/deployed — deploy lives only in the workflow YAML, not the scripts.
+
+**Bug 1 — Redirect-blind opportunity scoring (`gsc-analyze.ts`).** The analyzer scored `/best-office-chairs/` as a top affiliate + impression-gravity opportunity, but that page 301-redirected to `/office-chairs-for-tall-people/` on 2026-07-04. GSC serves impressions for a redirected URL for ~90 days, so the analyzer scored a dead page — occupying real opportunity slots and surfacing it in the executive summary. FIX: `normalizeUrl` now parses `public/_redirects` and folds redirected URLs into their live target (impressions accrue to the real page); history snapshots are normalized on load too, so redirects added later retroactively fold old data. Verified: 33 phantom references → 0; affiliate alert now correctly targets `/office-chairs-for-tall-people/`; no phantom reached the weekly plan.
+
+**Bug 2 — index-monitor inspects redirect-source noise (`index-monitor.ts`).** URL Inspection ran on all 48 redirect sources, including 38 trailing-slash normalizers (`/review/gesture` → `/review/gesture/`) that permanently return "unknown to Google" — ~38 wasted API calls/Monday and false "may not be indexed" lines in indexing-health. FIX: skip trailing-slash normalizers (source differs from target only by a slash); inspect only the 10 genuine content redirects where a broken redirect could actually matter.
+
+**Bug 3 — execute-fixes `max_tokens` truncation (`execute-fixes.ts`) — the sibling-file completion of the W29 (Jul 18) fix.** The full-file edit path capped output at 8,000 tokens with no stop_reason check — the identical bug pattern the Jul 18 session fixed in `execute-content.ts` (raised to 12000 + stop_reason) but never applied to its sibling. The largest pages reproduce to ~12–13k tokens, so every fix on a page over ~8k was truncated mid-file and rejected by the word-count guard — the pipeline could never edit its biggest, highest-opportunity pages (correct-chair-dimensions, office-chairs-for-tall-people, best-office-chairs-under-500). Confirmed exactly: every page whose reproduction exceeded 8k tokens was rejected; every one under it applied. FIX: `max_tokens` 8000→20000 and explicit `stop_reason==='max_tokens'` detection reporting "TRUNCATED" distinctly. After fix, all 6 fixes applied; the 3 large pages grew correctly (+190/+327/+517 words).
+
+**Bug 4 — execute-content emits build-breaking pages (`execute-content.ts`).** The new page `/aeron-size-c-vs-leap-plus/` scored 98/100 and passed `validateAstroFile`, but broke `npm run build`: a backslash-escaped quote inside the Layout `description` attribute (`6'0\"–6'5\"`) — invalid in HTML attributes — closed the attribute early, leaving an en dash parsed as JS (`Expected "}" but found "–"`). Root cause: validation only syntax-checked the frontmatter (vm.Script), never the template. In production this reaches staging Friday and fails the Saturday deploy build. FIX: added an authoritative compile gate (`@astrojs/compiler` transform → `esbuild.transform`) that validates the WHOLE file exactly as the real build does, catching any esbuild-rejectable template error; error message enriched with a `&quot;` hint when the `\"` pattern is present. Respects the W29 RULE — NOT a regex heuristic; it's the real compiler. Verified: gate rejects the broken content, accepts the fixed page. Repaired the generated page to `&quot;` (codebase convention); build now green at 49 pages.
+
+**LATENT (not fixed):** pre-existing TS error `gsc-analyze.ts:704` — AIO `priority` not narrowed to `'high'|'medium'`. Unrelated to these changes; `tsx` transpiles without type-checking so it never affects runtime. One-line `as const` cleanup someday.
+
+**RULE FOR FUTURE SESSIONS:** When a redirect/merge ships, the redirected URL keeps generating GSC impressions for ~90 days — any per-URL analysis (scoring, index inspection) must be redirect-aware or it acts on dead pages. When one of a pair of sibling agents (execute-content / execute-fixes) gets a fix, check the other for the same pattern.
 
 ## 2026-W29 (July 18) — Friday content pipeline root-caused: gates rejected good pages for 10 weeks; all 4 bugs fixed
 
@@ -438,6 +454,15 @@ See [[affiliate-compliance]] for updated full status table.
 - **Multiple SEO audits:** Mar 2, 8, 12, 15, 16, 17, 19 — iterative improvement cycle
 
 ---
+
+## 2026-W30 (2026-07-20)
+
+- **Deploy:** Passed
+- **GSC:** 207 clicks, 94576 impr, pos 8.1
+- **Fixes:** 4 applied
+- **Content:** 1 new pages
+
+
 
 ## 2026-W29 (2026-07-18)
 

@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-28 (pipeline autonomy fixes: validation bug, roadmap injection, roadmap-sync)
+last_updated: 2026-07-20 (pipeline test run: redirect-aware analyzer + index-monitor, execute-fixes max_tokens, execute-content compile gate)
 tags: [automation, workflow, agents, github-actions, obsidian, analytics]
 ---
 
@@ -166,6 +166,17 @@ Evaluated 2026-05-11. Source: `raw/audits/2026-05-11-workflow-evaluation.md`.
 |----|-------|----------|-----|
 | L1 | DataForSEO usage has no per-run cost tracking | `competitor-intelligence.ts` | Surface estimated query count in weekly summary |
 | L2 | Voice check patterns only cover named chairs | `verify-deploy.ts` `checkVoice()` | Update pattern list when new chairs are added |
+
+### Resolved 2026-07-20 (full pipeline test run)
+
+End-to-end local run of the whole cycle surfaced and fixed 4 bugs/blindspots. Full detail in [[decisions-log]] 2026-07-20 entry.
+
+| Was | Location | Resolution |
+|-----|----------|-----------|
+| Analyzer scored 301-redirected URLs as live opportunities (GSC serves impressions ~90 days post-redirect) — `/best-office-chairs/` occupied top affiliate/impression-gravity slots | `gsc-analyze.ts` `normalizeUrl` | Parses `public/_redirects`; folds redirected URLs into their live target; history snapshots normalized on load. Verified 33→0 phantom refs |
+| URL Inspection ran on all 48 redirect sources incl. 38 trailing-slash normalizers (permanent "unknown to Google", ~38 wasted API calls/run) | `index-monitor.ts` `getRedirectSourceUrls` | Skips trailing-slash normalizers; inspects only the 10 content redirects |
+| `max_tokens: 8000` + no stop_reason check truncated every full-file fix on pages >~8k output tokens (the 3 largest, highest-opportunity pages could never be edited) — the sibling-file twin of the W29 execute-content fix | `execute-fixes.ts` | `max_tokens` 8000→20000; explicit `stop_reason==='max_tokens'` → distinct "TRUNCATED" report |
+| `validateAstroFile` syntax-checked frontmatter only; a build-breaking template attribute (`\"` in a Layout prop) scored 98/100 and would fail the Saturday deploy build | `execute-content.ts` | Added authoritative compile gate (`@astrojs/compiler` → `esbuild.transform`) over the whole file — rejects exactly what the build rejects (not a regex heuristic, per W29 rule) |
 
 ---
 

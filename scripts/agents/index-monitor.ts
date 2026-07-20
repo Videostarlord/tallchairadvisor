@@ -81,14 +81,22 @@ function getRedirectSourceUrls(): string[] {
   if (!existsSync(redirectsPath)) return [];
   const lines = readFileSync(redirectsPath, 'utf-8').split('\n');
   const urls: string[] = [];
+  const withSlash = (p: string) => (/\.[a-z]{2,4}$/.test(p) || p.endsWith('/') ? p : p + '/');
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#')) continue;
     const parts = trimmed.split(/\s+/);
     if (parts.length < 2) continue;
     const source = parts[0];
+    const target = parts[1];
     // Skip wildcards and absolute URLs (e.g. https://www.* rule)
     if (source.includes('*') || source.startsWith('https://')) continue;
+    // Skip trailing-slash normalizers (source differs from target only by a slash).
+    // Google never indexes these sources, so inspecting them permanently returns a
+    // meaningless "unknown to Google" — burning URL Inspection API quota (~30/run)
+    // and flooding the report with noise. Only content redirects (merged/renamed
+    // pages) can have a real broken-redirect problem worth catching.
+    if (withSlash(source) === withSlash(target)) continue;
     urls.push(`https://tallchairadvisor.com${source}`);
   }
   return urls;
