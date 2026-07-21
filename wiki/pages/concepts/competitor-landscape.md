@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-07-13
+last_updated: 2026-07-20
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,13 +70,14 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-07-13. 8 pages analyzed × up to 3 queries each. 25 URLs crawled (23 cache hits). 5 high-priority gaps. Top editorial outrankers: forbes.com, thehumansolution.com, btod.com.*
+*v2 run 2026-07-20. 8 pages analyzed × up to 3 queries each. 33 URLs crawled (21 cache hits). 5 high-priority gaps. Top editorial outrankers: thehumansolution.com, forbes.com, btod.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-07-13 | FAQ does not include a question covering what to do if your current chair has a  | high | 2q | forbes.com |
-| 2026-07-13 | Audience segmentation by height bracket AND weight capacity is absent — page doe | high | 2q | forbes.com |
-| 2026-07-13 | Author byline and methodology credentialing are not visible near the top of the  | high | 2q | btod.com |
-| 2026-07-13 | ItemList and AggregateRating schema are absent, blocking rich result eligibility | high | 2q | forbes.com |
-| 2026-07-13 | Head-to-head comparison table between the Gesture and Aeron Size C within the Ge | high | 1q | btod.com |
-| 2026-07-13 | Use-case segmentation (home office, corporate/executive, all-day heavy use) is a | medium | 1q | forbes.com |
+| 2026-07-20 | Per-chair dimension tables with min/max seat height, seat depth, and back height | high | 2q | thehumansolution.com |
+| 2026-07-20 | Audience segmentation by height bracket AND weight capacity is absent — the page | high | 2q | forbes.com |
+| 2026-07-20 | ItemList + AggregateRating schema markup for rich results eligibility — no struc | high | 2q | btod.com |
+| 2026-07-20 | Author byline and methodology credentialing visible near the top of the page — n | high | 1q | btod.com |
+| 2026-07-20 | No structured spec table presenting all three dimensions (seat height range, sea | high | 1q | thehumansolution.com |
+| 2026-07-20 | The height-bracket verdict table lacks a methodology note explaining the body-pr | medium | 1q | karo.co.za |
+| 2026-07-20 | Use-case segmentation (home office vs. corporate/executive vs. all-day/heavy-use | medium | 1q | forbes.com |

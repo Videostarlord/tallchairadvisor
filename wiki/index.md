@@ -34,6 +34,8 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[heavy-duty-ergonomic-chairs]] | **NEW 2026-05-26.** Targets "best heavy duty ergonomic chairs for tall people" (pos 14). Two-problem frame: weight capacity + tall-user dimensions. Leap Plus as only mainstream solution. |
 | [[refurbished-steelcase-leap]] | **NEW 2026-07-04.** Refurb Leap V2 for tall users — height-cutoff angle (~6'2" max). Crandall Amazon CTA (B08PPVCCST). Score 82/100. From revenue audit item 2. |
 
+| [[aeron-size-c-vs-leap-plus]] | New page: Herman Miller Aeron Size C vs Steelcase Leap Plus for Tall People. Created 2026-07-20. |
+
 ## Concept Pages
 
 | Page | Summary |
@@ -111,6 +113,12 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | Page | Summary |
 |------|---------|
 | [[2026-W29]] | Deployed. 188 clicks, 89422 impr. |
+
+## Weekly Summaries
+
+| Page | Summary |
+|------|---------|
+| [[2026-W30]] | Deployed. 207 clicks, 94576 impr. |
 
 ## Raw Sources (reference only — do not edit)
 
