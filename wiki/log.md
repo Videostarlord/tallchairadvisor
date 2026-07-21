@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-07-21] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-07-21
+- Pages recorded: 18
+- Device split: {"mobile":0.476,"tablet":0.048,"pc":0.476,"other":0}
+- Behavioral alerts: 7
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 25% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 13% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 11% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-7/: 11% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 22
+
+
 ## [2026-07-21] audit | Weekly Site Audit
 
 - Pages audited: 20
