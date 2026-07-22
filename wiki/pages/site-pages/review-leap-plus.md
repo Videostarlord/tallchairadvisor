@@ -2,14 +2,31 @@
 type: entity
 entity: site-page
 url: /review/leap-plus/
-last_updated: 2026-05-12
-sources: [data/gsc/latest.json, data/competitors/intelligence.json]
+last_updated: 2026-07-21
+sources: [data/gsc/latest.json, data/competitors/intelligence.json, raw/audits/2026-07-21-full-seo-audit.md]
 tags: [page, review, leap-plus, research-based]
 ---
 
 # Page: /review/leap-plus/
 
 **Research-based review. Jackson's second-choice finalist — "almost bought" narrative.**
+
+
+## 🔴 CRITICAL — source file is structurally destroyed (found 2026-07-21, NOT yet live)
+
+`src/pages/review/leap-plus.astro` line 1 is **raw LLM chat output**, not the `---` frontmatter fence:
+
+> "Looking at the file, I need to identify the dead click. The Amazon ASIN `B00TYE4QXU` appears in both CTA buttons — but that ASIN is for the standard Steelcase Leap, not the Leap Plus..."
+
+Because the fence is not at byte 0, Astro never executes the frontmatter. **The build succeeds silently** (49 pages, no error). The emitted `dist/review/leap-plus/index.html` has **no `<title>`, no meta description, no canonical, and zero JSON-LD** — and renders the chat text as visible body copy.
+
+Committed in `3505a12` (**unpushed**). Live production is currently clean. **The next deploy ships it.**
+
+Stakes: this page is the site's **#1 click source** — 34 clicks/90d, 16.3% of all site clicks. Shipping this zeroes its SEO and removes it from the AI citation pool.
+
+**Fix:** delete lines 1–5 and the trailing ```` ``` ```` fence artifact. Then add a build assertion that every `dist/**/index.html` contains `<title>` and `rel="canonical"` — the silent build pass is the real systemic defect. Note the ASIN change the leaked text describes was never applied; `B00TYE4QXU` is still in the file.
+
+Also on this page (from the same audit): `aggregateRating` with `reviewCount: 1` mirroring the single self-authored review (remove); the retracted "Gesture 3–4 week break-in" fabrication survives at L116 (FAQ schema), L282, L322 (delete); `hasMerchantReturnPolicy` + `shippingDetails` asserted as though TCA were the seller (remove). Full audit: `raw/audits/2026-07-21-full-seo-audit.md`.
 
 ## Current State (May 12 — GSC + competitor:intelligence)
 

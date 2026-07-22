@@ -8,6 +8,28 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## 2026-W30 (July 21) — Full SEO audit: 76/100. Deploy gate and fabrication-propagation rules established.
+
+**CONTEXT:** `/seo audit tallchairadvisor.com` — 6 specialist agents in parallel plus an orchestrator sweep. Full report: `raw/audits/2026-07-21-full-seo-audit.md`.
+
+**FINDING — the site's engineering is strong and its content trust is not.** On-page hygiene is effectively perfect (43/43 titles, metas, canonicals, OG, Twitter cards; all canonicals self-referencing; zero duplicates; zero missing alt text; zero JSON-LD parse errors; CLS 0.0 measured). Score 76/100 is dragged down almost entirely by Content (62) and Schema (66).
+
+**FINDING — "fixed" did not mean "shipped."** The GA4 CSP fix was committed Jul 18 and never deployed, because there is no CD workflow and every subsequent commit carried `[skip cd]`. The analytics outage assumed resolved on Jul 18 was still live on Jul 21. **This invalidates the assumption in `raw/strategy/2026-07-21-profit-projections-monetization.md` that August would be the first clean GA4 month.**
+
+**FINDING — a green build is not evidence a page rendered.** `src/pages/review/leap-plus.astro` had raw LLM chat output committed above the frontmatter fence. Astro silently skipped the frontmatter; `astro build` reported 49 pages and zero errors while emitting a page with no title, canonical, or structured data — on the site's #1 click source.
+
+**FINDING — the May 2026 fabrication cleanup corrected one page and left the copies.** The retracted "break-in period" story and the wrong 6'4" inseam/clearance figures are still live on four pages and inside two JSON-LD blocks, contradicting the corrected Gesture review. `/review/gesture/` even contradicts itself: its Direct Answer capsule (the block AI Overviews extract) still says "borderline fit" while the body says the opposite four times.
+
+**DECISION — build gate.** Assert that every `dist/**/index.html` contains `<title>` and `rel="canonical"`, and that review pages contain ≥1 `application/ld+json` block. Fail the build otherwise. Recorded on [[deploy-pipeline-integrity]].
+
+**DECISION — deploy verification rule.** A change to `public/_headers` or `public/_redirects` is done only when a non-`[skip cd]` commit lands **and** the live header is verified by curl. When the weekly agents have produced only `[skip cd]` commits since a code fix, that fix has not shipped.
+
+**DECISION — fabrication propagation rule.** When a fabricated fact is corrected on one page, grep the whole repo for the figure and fix every copy **in the same commit**. Recorded on [[content-integrity]].
+
+**DECISION — do not act on two audit-agent recommendations.** (1) Removing `*.clarity.ms` from CSP as a "dead allowance" — false; Clarity loads inline, and with GA4 blocked it is the only working analytics source. (2) Stripping `Review` schema from untested chairs — overstated; the `reviewBody` text is careful spec analysis and editorial critic reviews are legitimate. The real violation is `aggregateRating`, not `Review`. **RULE: verify agent findings against the live artifact before acting — two of six specialist reports contained a materially wrong claim.**
+
+**PRIORITY ORDER SET:** (1) fix `leap-plus.astro` and add the build gate before any deploy; (2) do not ship `aeron-size-c-vs-leap-plus.astro` — merge it, or it re-fragments the cluster the July consolidation just merged; (3) trigger a rebuild for the CSP fix; (4) rewrite the `/about/` methodology section; (5) reconcile the 6'4" figures including the FAQ JSON-LD; (6) strip `aggregateRating` from 7 pages; (7) link the 5-page orphan island — three of those pages are invisible to Google today.
+
 ## 2026-W30 (July 21) — Impressions retired as a health metric; consolidation success metric rewritten
 
 **CONTEXT:** Jackson observed impressions falling since the Jul 4 consolidation and asked whether the strategy was working. Full analysis: `raw/audits/2026-07-21-post-consolidation-gsc-analysis.md` (160-day merged daily series + page/pageQuery diffs across three 90-day snapshots).

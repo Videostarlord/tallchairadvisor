@@ -1,11 +1,46 @@
 ---
 type: concept
-last_updated: 2026-05-27
-sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-02-schema-audit.md, raw/audits/2026-05-10-full-seo-audit.md, raw/audits/2026-05-27-full-seo-audit.md]
+last_updated: 2026-07-21
+sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-02-schema-audit.md, raw/audits/2026-05-10-full-seo-audit.md, raw/audits/2026-05-27-full-seo-audit.md, raw/audits/2026-07-21-full-seo-audit.md]
 tags: [schema, json-ld, structured-data]
 ---
 
 # Schema Markup
+
+
+## 2026-07-21 audit — structured data findings
+
+Full audit: `raw/audits/2026-07-21-full-seo-audit.md`. Orchestrator-verified census across all 43 live pages.
+
+**Healthy baseline:** zero JSON-LD parse errors on 43/43 (April 2026 duplicate-`@type` fix has not regressed). `Person` `@id` `https://tallchairadvisor.com/author/jackson-christopher/#person` is stable and identical across all 43 pages — the best-executed entity work on the site. All breadcrumb targets return 200 with zero redirect hops, so the July consolidation's URL repointing was done correctly.
+
+**CRITICAL — `aggregateRating` with `reviewCount: 1` on 7 pages.** Each restates the page's single self-authored review verbatim. That is not an aggregation; it is the textbook review-snippet spam pattern and a known manual-action trigger.
+
+| Page | Review rating | AggregateRating |
+|---|---|---|
+| /review/aeron-size-c/ | 4.7 | 4.7, count 1 |
+| /review/leap-plus/ | 4.6 | 4.6, count 1 |
+| /review/sihoo-doro-s300/ | 3.8 | 3.8, count 1 |
+| /review/gesture/ | 4.5 | 4.5, count 1 |
+| /chairs/herman-miller-aeron/ | — | 4.3, count 1 |
+| /chairs/steelcase-leap-plus/ | — | 4.4, count 1 |
+| /chairs/steelcase-gesture/ | — | 4.5, count 1 |
+
+Remove `aggregateRating` from all 7. On `/review/gesture/` **keep** the single `Review` node — a lone genuine critic review is snippet-eligible without an aggregate wrapper.
+
+**RULE — do NOT strip the `Review` nodes on untested chairs.** An audit agent flagged these as asserting first-hand testing; verification of the actual `reviewBody` text showed careful spec analysis with no sitting claims ("The Aeron Size C delivers exceptional breathability... the fixed 18.5" seat depth is the primary limitation"). Editorial/critic reviews of third-party products are legitimate. The defect is type-level, not text-level.
+
+**HIGH — merchant-only `Offer` properties.** All 4 review pages declare `hasMerchantReturnPolicy` (30-day, free returns) and `shippingDetails` (free shipping) as though TCA were the seller. Remove, or nest under an `Offer` with an explicit `seller`.
+
+**HIGH — `/office-chair-return-policy/` has no `BreadcrumbList`.** Only content page lacking it. Since `Layout.astro` L39 derives the **visible** breadcrumb nav from the schema, the page renders with no breadcrumbs. Must be added as a **top-level** array member or the Layout will not find it.
+
+**MEDIUM — deprecated `HowTo` on 4 pages** (`/correct-chair-dimensions/`, `/how-to-adjust-chair/`, `/monitor-arm-tall-people/`, `/standing-desk-height-tall-people/`). Retired Sept 2023, renders nothing. Remove.
+
+**MEDIUM — `FAQPage` on 42/43 pages is no longer rich-result eligible** (restricted to government/healthcare since Aug 2023). Not an error. Treat as dead payload, not an asset; do not add more. Keep the visible Q&A — that is what AI crawlers extract.
+
+**MEDIUM — breadcrumb `name` conflicts from the July consolidation.** `/office-chairs-for-tall-people/` is labeled "Best Office Chairs" on 20 pages and "Office Chairs for Tall People" on 8. The sweep repointed `item` URLs but left `name` strings.
+
+**Schema type census (43 pages):** FAQPage 42 · Person 42 · BreadcrumbList 41 · Organization 39 · Article 35 · AggregateRating 7 · ItemList 6 · HowTo 4 · Product 4 · Review 4 · WebPage 2 · BlogPosting 2.
 
 ## Schema Types in Use
 
