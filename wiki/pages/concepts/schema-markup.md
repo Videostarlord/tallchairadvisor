@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-07-21
+last_updated: 2026-07-22
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-02-schema-audit.md, raw/audits/2026-05-10-full-seo-audit.md, raw/audits/2026-05-27-full-seo-audit.md, raw/audits/2026-07-21-full-seo-audit.md]
 tags: [schema, json-ld, structured-data]
 ---
@@ -9,6 +9,8 @@ tags: [schema, json-ld, structured-data]
 
 
 ## 2026-07-21 audit — structured data findings
+
+> **STATUS 2026-07-22 — CRITICAL `aggregateRating` finding FIXED.** Removed from all 7 pages on branch `worktree-gsc-post-consolidation-analysis` (PR #1). `grep -rc aggregateRating src/pages/ dist/` returns zero sitewide. All 47 JSON-LD blocks in `dist/` re-parsed clean; all 4 `Review` nodes correctly preserved. A build gate now fails any build that reintroduces `aggregateRating` with `reviewCount:1` — see [[deploy-pipeline-integrity]]. Remaining schema items (merchant `Offer` properties, missing breadcrumb, `HowTo`) are still open.
 
 Full audit: `raw/audits/2026-07-21-full-seo-audit.md`. Orchestrator-verified census across all 43 live pages.
 

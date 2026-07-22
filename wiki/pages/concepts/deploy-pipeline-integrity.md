@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-07-21
+last_updated: 2026-07-22
 sources: [raw/audits/2026-07-21-full-seo-audit.md]
 tags: [deploy, cloudflare-pages, ci-cd, build-gates, infrastructure]
 ---
@@ -39,6 +39,21 @@ curl -sI https://tallchairadvisor.com/ | grep -o "connect-src[^;]*;"
 ```
 
 **RULE:** when the weekly agents have only produced `[skip cd]` commits since a code fix, the fix has not shipped. Check before assuming any infrastructure change is live.
+
+## ✅ Build gate added 2026-07-22 — failure mode 2 is now caught
+
+`scripts/verify-build.mjs`, wired into `npm run build` (`astro build && npm run verify:build`). Fails the build on any emitted page that has:
+
+1. raw source / LLM output leaked into the body (frontmatter fence not at byte 0)
+2. a missing or empty `<title>`
+3. a missing `rel="canonical"`
+4. a missing meta description
+5. zero JSON-LD blocks, or a JSON-LD block that does not parse
+6. an `aggregateRating` with `reviewCount:1` (the C5 regression guard)
+
+`npm run build:nocheck` remains as an escape hatch.
+
+**The gate was tested against the real corruption pattern, not just assumed to work.** Feeding it the exact `leap-plus.astro` failure produced 5 findings and exit code 1; a synthetic `aggregateRating reviewCount:1` payload was also caught. Clean run reports `48 pages OK`.
 
 ## 🔴 Failure mode 2 — the build passes silently on a destroyed page
 
