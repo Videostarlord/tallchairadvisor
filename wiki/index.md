@@ -45,6 +45,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[ai-citation-readiness]] | GEO score 71/100. Missing: citation capsules, verdict table. |
 | [[internal-linking]] | Hub-and-spoke architecture. Verified + unverified link inventory. |
 | [[deploy-pipeline-integrity]] | **How code reaches prod, and the 2 ways it silently failed.** No CD workflow — Cloudflare auto-deploys on push, skipped by `[skip cd]`. GA4 CSP fix sat undeployed 3 days; build passes green on a page with no title/canonical/schema. |
+| [[core-web-vitals]] | **Lab CWV baseline (all pass) + the Times font bug.** LCP 1.7–2.0s, CLS 0.002–0.075, INP 88ms. No field data — no CrUX key. `font-family` is invalid CSS so the whole site renders body copy in Times. |
 | [[content-integrity]] | **Live false first-hand claims + cross-page factual drift.** `/about/` publishes a fabricated 3-week testing protocol; the 6'4" inseam/clearance contradiction survives in FAQ JSON-LD; the retracted break-in fabrication propagated to 4 pages. |
 | [[competitor-landscape]] | 5 direct competitors. TCA advantage: height specificity. |
 | [[gsc-performance]] | 12,209 impr, 29 clicks, 0.24% CTR (May 4, 90-day). Page-level rankings. KPI targets. |

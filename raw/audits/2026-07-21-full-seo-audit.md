@@ -115,6 +115,38 @@ An `AggregateRating` restating a single self-authored review is not an aggregati
 
 ---
 
+### C6 — The entire site renders body copy in Times; `font-family` is invalid CSS
+
+**Verified independently in real Chromium (Playwright), not inferred.**
+
+`tailwind.config.mjs:9` declares `sans: ["Source Sans 3", "system-ui", "sans-serif"]`. Tailwind emits it **unquoted**, and the shipped CSS contains:
+
+```css
+body{...;font-family:Source Sans 3,system-ui,sans-serif;...}
+```
+
+An unquoted `<family-name>` must be a sequence of `<custom-ident>`. The bare `3` is a number token, not an identifier — so the value is a parse error and **Chrome discards the whole declaration**.
+
+Orchestrator verification on the live `/review/gesture/`:
+
+```
+bodyComputedFontFamily:  Times
+unquotedParsesTo:        ""                                  ← rejected
+quotedParsesTo:          "Source Sans 3", system-ui, sans-serif   ← valid
+bodyRuleHasFontFamily:   False
+bodyRuleProps:           ['margin-top','margin-right','margin-bottom','margin-left','line-height']
+fontsLoaded:             ['Playfair Display 500','Playfair Display 600']   ← 2 of 26 faces
+totalFontFaces:          26
+```
+
+**Every visitor reads body copy in Times**, the browser default serif. Headings render correctly in Playfair Display, so the site looks deliberately serif rather than obviously broken — which is why it survived this long. Source Sans 3 never downloads; `dist/_astro/` ships 28 Source Sans woff/woff2 files that are never requested.
+
+**Fix:** `sans: ['"Source Sans 3"', "system-ui", "sans-serif"]`, then confirm the minified output keeps the quotes.
+
+**Ship it together with the Playfair font preload (M12).** Fixing this *adds* two font downloads and will likely *increase* CLS — trading a rendering fix for a CWV regression if shipped alone.
+
+*Note: the scoring framework has no category that captures a site-wide rendering defect, so this does not move the 76. It is arguably the most consequential single finding in the audit for actual user experience.*
+
 ## HIGH
 
 ### H1 — Five-page commercial orphan island
@@ -284,7 +316,26 @@ Two specialist findings were wrong and are **not** actioned:
 
 **Schema — 66.** Zero parse errors and excellent `@id` entity work, offset by C5 aggregateRating across 7 pages, H7 merchant properties, H8 missing breadcrumb, M3 deprecated HowTo.
 
-**Performance — 88.** CLS 0.0 measured across 10 captures. Brotli (65KB → 17.4KB on `/review/gesture/`), TTFB 0.04–0.27s from edge, total JS = gtag + a 1.6KB module. All images carry explicit dimensions. Field CWV (LCP/INP) not measurable without CrUX access — reported as source-level signals, not fabricated numbers. Watch item: the single render-blocking stylesheet is a shared chunk, so every page pays for every page's CSS; fine at 6.9KB brotli, scales poorly.
+**Performance — 88.** Lighthouse 13.4.1 (mobile, 4x CPU, Slow-4G) across 8 pages: **scores 97–99, LCP 1,722–1,982 ms, CLS 0.002–0.075, TBT 37–147 ms.** All three CWV pass in lab on every page sampled. Interaction latency measured via CDP Event Timing (headful, 82 interaction events on the calculator): **88 ms at 4x CPU, 104 ms at 6x** — the calculator's JS is genuinely cheap. All 43 URLs: 200, brotli, 8.4–17.0 KB, **TTFB 50–79 ms, `cf-cache-status: HIT`**.
+
+**No field data.** No Google API key exists in the repo and the anonymous PageSpeed quota returned `429`. Every number above is lab-measured; there is **zero real-user 75th-percentile data**, so whether the site passes CWV in Search Console is unknown. Getting a CrUX API key is the single biggest gap in this audit.
+
+*Methodology note worth preserving: the performance agent's first INP runs used headless Chrome and produced a constant ~560 ms presentation delay that did not scale with CPU throttling (identical at 1x and 6x). It correctly identified this as an artifact, discarded it, and re-ran headful for the 88 ms figure. **Do not measure INP in headless Chrome.***
+
+Deductions: 3P weight (below), oversized images, latent aspect-ratio CLS, font-swap CLS.
+
+### Performance findings (detail)
+
+- **HIGH — third-party scripts are 63–73% of page weight.** `gtag/js` alone is **164.5 KB transfer with 64 KiB unused**; Clarity 25.2 KB + sync pixels; **Cloudflare Insights 11.6 KB — a third analytics tool alongside GA4 and Clarity.** On `/knee-pain-seat-depth/`: 74 KB first-party vs **204.6 KB third-party**. Only `googletagmanager.com` has a `preconnect`; Clarity is an un-preconnected two-hop chain (`www.clarity.ms` → `scripts.clarity.ms`). Removing Cloudflare Insights (redundant with GA4) and deferring Clarity returns ~37 KB and 20–36 ms of main thread per page.
+- **HIGH — hero images 3.5–4.5x oversized, zero `srcset` sitewide.** `grep -rc srcset src/` returns zero. Against a 380 CSS px slot: `aeron-size-c-hero.webp` is 1600×1600 (192 KB, 159 KB wasted); `leap-plus-hero.webp` 1920×1080 (168 KB, 148 KB wasted). Lighthouse estimates **203 KiB** savings on `/review/aeron-size-c/` and **232 KiB** on `/review/leap-plus/`. These live in `public/` and bypass Astro's image pipeline; moving them to `astro:assets` `<Picture>` generates srcset + AVIF automatically.
+- **HIGH — every content image has an aspect-ratio mismatch (latent CLS).** All images carry `width`/`height`, but the declared ratios don't match the files. Tailwind preflight ships `img{height:auto}`, so the attributes only set the *placeholder* ratio. Measured by aborting the hero request: `/review/aeron-size-c/` jumps **+127 px** (380×253 placeholder → 380×380 actual). **Honest caveat: this could not be reproduced as measured CLS** — a slow-4G scroll produced 0.0001–0.0004 because the heroes are preloaded and land before first paint. Latent, not currently firing. Cheap fix: correct the attributes to true intrinsic ratios.
+- **M12 — 100% of measured CLS is Playfair Display font swap.** Lighthouse attributes every shift on every page to `cause: Web font loaded`. Worst: `/office-chairs-for-6-foot-6/` at **0.075** — 75% of the way to the 0.1 threshold. The two woff2 files (23.5 + 23.7 KB) are **not preloaded**, discovered only after CSS parses at ~113–150 ms. Fix: `<link rel="preload" as="font" type="font/woff2" crossorigin>` for the two latin subsets in `Layout.astro`. **This is the fix that must ship alongside C6.**
+- **M13 — `preloadImage` is pointed at the wrong element.** Lighthouse LCP attribution shows **the LCP element is text on all 8 pages measured — never an image.** `/review/gesture/`'s LCP is the AIO summary paragraph; the other 7 are the `<h1>`. So `/` preloads a **128×128 author avatar** at `fetchpriority="high"`, starting at 63 ms — *ahead of the stylesheet at 66 ms*, competing with the render path. Since LCP is text, the real LCP lever here is CSS + font delivery, not image preload. Drop `preloadImage` from `index.astro:88`.
+- **M14 — render-blocking CSS discovered late in `<head>`.** The stylesheet (35.4 KB raw / **6.9 KB brotli**) is emitted *after* the gtag script, inline gtag config, inline affiliate handler, JSON-LD blob and inline Clarity loader. Lighthouse estimates **150–320 ms** savings on 7 of 8 pages from a free reorder. At 6.9 KB compressed, `inlineStylesheets: 'always'` is also worth testing.
+- **LOW — the calculator does not cause CLS.** Measured 0.035 idle vs 0.203 including post-click shifts; the 0.168 delta is entirely `hadRecentInput: true` and excluded from CLS by definition. No change needed.
+- **LOW — DOM size 292–504 elements** (threshold 1,500). HTTP/2 confirmed. Not factors.
+
+Run-to-run Lighthouse variance on this site is ±700 ms on LCP (homepage produced 87/98/98 across three runs) — do not trust a single run.
 
 **Images — 78.** Perfect execution (100% alt text, dimensions, webp, fetchpriority) on the 11 images that exist — but 35 of 43 pages have none.
 
