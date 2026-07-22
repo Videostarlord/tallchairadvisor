@@ -114,3 +114,44 @@ The decisions-log already anticipated the likely answer: *"If head terms don't m
 3. **Hold the Sep 1 evaluation date.** Consolidation mechanics are correct; signal migration takes 2–8 weeks. No further restructuring before then.
 4. **Do not restructure in response to the impression decline.** It is not caused by site changes.
 5. **The click engine is `/review/leap-plus/`** (34 clicks/90d, the site's top click source) and the survivor is compounding slowly on Leap V2 brand terms. Depth on the Leap/Steelcase cluster is the highest-confidence lever, consistent with the standing monetization-first thesis.
+
+---
+
+## Addendum — Site growth curve (added 2026-07-21)
+
+Monthly organic clicks, from the merged daily series:
+
+| Month | Days | Clicks | Clicks/day | Impressions | CTR |
+|---|---|---|---|---|---|
+| Feb 2026 | 20 | 0 | 0.00 | 62 | 0.000% |
+| Mar 2026 | 31 | 8 | 0.26 | 3,523 | 0.227% |
+| Apr 2026 | 30 | 18 | 0.60 | 7,600 | 0.237% |
+| May 2026 | 31 | 46 | 1.48 | 19,306 | 0.238% |
+| Jun 2026 | 30 | 99 | 3.30 | 46,208 | 0.214% |
+| Jul 2026 (partial, 18d) | 18 | 54 | 3.00 | 25,419 | 0.212% |
+
+**The site roughly doubled clicks every month Mar → Jun, then flattened.** July is tracking ~3.0 clicks/day vs June's 3.30 — a plateau, not a decline (and July is incomplete with GSC lag understating the tail).
+
+Average position followed the same shape and also flattened: 11.5 (May 4) → 10.6 → 9.2 → 8.5 → 8.1 (Jul 13) → 8.1 (Jul 20).
+
+**Read:** this is the site's first plateau after four months of compounding. It coincides with the consolidation but is not caused by it — clicks/day actually rose across the consolidation window (3.10 → 3.36). The plateau is the more important strategic fact than the impression drop.
+
+### Where clicks come from (90d ending Jul 20, 207 total)
+
+| Page | Clicks | Share | CTR | Position |
+|---|---|---|---|---|
+| `/review/leap-plus/` | 34 | 16.3% | 0.29% | 8.7 |
+| `/correct-chair-dimensions/` | 30 | 14.4% | 0.18% | 9.6 |
+| `/review/aeron-size-c/` | 22 | 10.5% | 0.46% | 10.9 |
+| `/knee-pain-seat-depth/` | 18 | 8.6% | 0.05% | 5.7 |
+| `/office-chairs-for-tall-people/` | 18 | 8.6% | 0.56% | 8.1 |
+| `/office-chairs-for-6-foot-6/` | 13 | 6.2% | **2.76%** | 8.4 |
+| `/chairs/herman-miller-aeron/tall-people/` | 12 | 5.7% | 0.81% | 8.1 |
+| `/best-office-chairs-under-500/` | 11 | 5.3% | 0.86% | 9.1 |
+| `/review/gesture/` | 7 | 3.3% | **0.08%** | 7.9 |
+
+**Two structural signals:**
+
+1. **Height-specific pages convert far better than anything else.** `/office-chairs-for-6-foot-6/` produces 13 clicks from 471 impressions (2.76% CTR) — 55x the CTR of `/knee-pain-seat-depth/` at a similar position. Narrow, specific, high-intent queries are where this site actually wins.
+
+2. **`/review/gesture/` is the biggest single opportunity gap on the site.** 9,077 impressions at position 7.9 producing 7 clicks (0.08% CTR). It is the only page with genuine first-hand testing authority, it ranks well, and it converts at almost nothing. Either the title/meta are failing to earn the click, or its impressions sit in the same anonymous zero-click pool as `/knee-pain-seat-depth/`. Worth diagnosing before any new content — this is consistent with the standing C1 "Gesture review expansion" priority.

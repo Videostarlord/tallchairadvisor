@@ -23,6 +23,26 @@ The pool is concentrated on two measurement/dimension pages. `/knee-pain-seat-de
 
 **Rule: track clicks, CTR, and affiliate revenue. Do not treat impression movement as a signal, and never restructure the site in response to it.** Impressions here move independently of anything done to the site — `/knee-pain-seat-depth/` *improved* from pos 6.1 → 5.7 while its impressions collapsed 57%.
 
+## Growth curve — site hit its first plateau in July 2026
+
+| Month | Clicks | Clicks/day | Impressions |
+|---|---|---|---|
+| Feb | 0 | 0.00 | 62 |
+| Mar | 8 | 0.26 | 3,523 |
+| Apr | 18 | 0.60 | 7,600 |
+| May | 46 | 1.48 | 19,306 |
+| Jun | 99 | 3.30 | 46,208 |
+| Jul (18d) | 54 | 3.00 | 25,419 |
+
+Clicks roughly **doubled every month Mar → Jun, then flattened**. Average position followed the same shape and also flattened: 11.5 (May 4) → 9.2 (Jun 14) → 8.5 (Jun 29) → 8.1 (Jul 13) → 8.1 (Jul 20).
+
+The plateau coincides with the Jul 4 consolidation but is **not caused by it** — clicks/day rose across the consolidation window (3.10 → 3.36). **The plateau is the more strategically important fact than the impression drop.**
+
+### Two structural CTR signals (90d ending Jul 20, 207 clicks total)
+
+1. **Height-specific pages convert far better than anything else.** `/office-chairs-for-6-foot-6/` = 13 clicks from 471 impressions (**2.76% CTR**) — 55x the CTR of `/knee-pain-seat-depth/` at a comparable position. Narrow, specific, high-intent queries are where this site actually wins.
+2. **`/review/gesture/` is the largest opportunity gap on the site.** 9,077 impressions at pos 7.9 → **7 clicks (0.08% CTR)**. It is the only page with genuine first-hand testing authority and it converts at almost nothing. Diagnose title/meta vs. zero-click-pool contamination before writing new content. Consistent with the standing C1 Gesture-expansion priority.
+
 ## Post-consolidation verdict (2026-07-21)
 
 Jackson flagged falling impressions after the 2026-07-04 commercial-cluster consolidation. **Impressions −27%, clicks +8%, CTR +49%.** The consolidation is not the cause — the killed page accounts for 1.7% of the drop.
