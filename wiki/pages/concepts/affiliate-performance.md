@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-07-18
-sources: [raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md]
+last_updated: 2026-07-21
+sources: [raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-21-profit-projections-monetization.md]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
@@ -109,6 +109,62 @@ The July 4 revenue audit found the structural cause of the 94% "Unknown" attribu
 3. **GA4 outbound click events** — Cross-reference Amazon clicks with GA4 `outbound_click` events per page as a proxy for page-level attribution until tracking IDs are in place.
 
 ---
+
+---
+
+## Unit Economics & Projections (established 2026-07-21)
+
+Full model: `raw/strategy/2026-07-21-profit-projections-monetization.md`
+
+**Derived from July 1–17 (the only post-ASIN-fix period):**
+
+| Constant | Value |
+|---|---|
+| Sessions (Clarity, 11.3/day) | 192 |
+| Affiliate click rate | **43% of sessions** |
+| Order rate on affiliate clicks | **7.3%** |
+| Revenue per order | $208.68 |
+| Effective commission rate | **3.0%** ($6.26/order) |
+| **Net EPC** | **$0.44 per affiliate click** |
+| **Net RPS** | **$0.188 per session** |
+| Monthly run rate | $63.64 |
+| Risk-adjusted baseline (return drag ~$10/mo) | **~$54/month** |
+
+**The funnel is not the problem.** 43% affiliate CTR and 7.3% order conversion are both strong. The constraints are traffic volume and the 3% commission rate.
+
+**Return risk:** 2 returns / 13 orders = 15%. A chair return costs $18–25 (June: $610 chair → −$18.30). Expect one roughly every other month.
+
+### Revenue requires traffic — the key table
+
+| Target/mo | Sessions/mo | Sessions/day | Multiple of today |
+|---|---|---|---|
+| $100 | 533 | 18 | 1.6x |
+| $250 | 1,332 | 44 | 3.9x |
+| $500 | 2,664 | 89 | 7.9x |
+| $1,000 | 5,327 | 178 | **15.7x** |
+
+$1,000/month needs ~16x current traffic — a 2027 conversation, not a content tweak.
+
+### 12-month scenarios (from $54/mo baseline)
+
+| Scenario | M12 | 12-mo cumulative |
+|---|---|---|
+| A. Plateau holds | $54 | $644 |
+| B. Base — 8%/mo compounding | $135 | $1,099 |
+| C. Base + Gesture cluster captured | $244 | $1,914 |
+| D. Upside — 15%/mo + direct programs @8% | $461 | $3,093 |
+
+**Most likely: B–C, i.e. $1,100–1,900 over 12 months, exiting at $135–245/mo.**
+
+### Monetization levers, ranked
+
+1. **Reposition `/review/gesture/` onto brand head terms** (~$109/mo, low effort) — see [[review-gesture]] and [[gsc-performance]]. 37,910 searches/mo unclaimed.
+2. **Escape the 3% ceiling** — Humanscale / Crandall / FlexiSpot applications **still pending since Jul 4**. Only lever that multiplies revenue without new traffic. Jackson-only.
+3. **Per-page tracking IDs** — still pending; 45% of clicks remain "Unknown". Measurement prerequisite for everything else.
+4. **More height-specific pages** — `/office-chairs-for-6-foot-6/` converts at 2.76% CTR, 55x `/knee-pain-seat-depth/`. Proven format, only 5 exist.
+5. **AI referral channel** — **17% of sessions already arrive from ChatGPT/Perplexity/Copilot**, consistently since mid-June, invisible to GSC. Free and compounding.
+
+**Confidence guardrail:** the entire model rests on 13 orders across 2 reporting periods, and GA4 was broken Jun 16–Jul 18 so Clarity is the only traffic proxy. The August affiliate report and the first clean GA4 month are the two data points that would most change this.
 
 ## Links
 
