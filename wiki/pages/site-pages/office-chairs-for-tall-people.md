@@ -3,8 +3,8 @@ type: entity
 entity: site-page
 url: /office-chairs-for-tall-people/
 created: 2026-07-04
-last_updated: 2026-07-04
-sources: [data/gsc/latest.json, raw/audits/2026-07-04-affiliate-revenue-audit.md]
+last_updated: 2026-07-21
+sources: [data/gsc/latest.json, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/audits/2026-07-21-post-consolidation-gsc-analysis.md]
 tags: [page, money-page, hub]
 ---
 
@@ -31,15 +31,35 @@ The rival page owned the head-term query association but ranked nowhere; this pa
 - Affiliate links: 3 → 15
 - Header/Footer nav + all breadcrumb schemas sitewide now point here
 
-## Success metric (audit experiment 4)
+## Success metric (audit experiment 4) — REVISED 2026-07-21
 
-Head-term family ("best office chair(s) for tall people/person", ~340 impr/90d baseline at pos 45–75, 0 clicks) should consolidate onto this URL and gain 3+ positions within 4 weeks of the 301 being crawled. Check GSC ~2026-08-01.
+**Original:** head-term family gains 3+ positions on this URL within 4 weeks of the 301 being crawled.
+
+**Why revised:** head terms sit at positions 40.6–68.1. A 3-position gain produces zero clicks, and the rolling-average drift alone moved them 4–6 positions with nothing changing. The metric can be satisfied while delivering nothing.
+
+**Revised metric:** any head-term query enters the **top 20**, OR the family records its **first non-zero click**. Evaluate 2026-09-01.
+
+## Post-consolidation status (checked 2026-07-21, 17 days after 301)
+
+**Mechanics clean, goal not yet delivered.** Redirects verified live: `/best-office-chairs/` and no-slash variant both 301 single-hop here; sitemap 43 URLs with zero killed URLs; no pages dropped from the index (GSC page count 39 → 42 → 43).
+
+This page is stable and slightly compounding:
+
+| Snapshot (90d) | Impressions | Clicks | Position |
+|---|---|---|---|
+| Jun 29 | 2,715 | 16 | 8.1 |
+| Jul 06 | 2,895 | 16 | 8.1 |
+| Jul 13 | 3,046 | 17 | 8.2 |
+| Jul 20 | 3,233 | 18 | 8.1 |
+
+**But no head-term migration yet.** The entire "best office chair(s) for tall people" family is still attributed to the dead `/best-office-chairs/` URL at pos 40.6–68.1, 0 clicks. This page's queries remain purely Leap V2 brand terms ("steelcase leap v2 for tall people" 69 impr pos 7.9; "leap v2 for tall people" 24 impr; "steelcase leap v2 tall person" 21 impr). Normal 301 signal-consolidation latency is 2–8 weeks — too early to call. See [[gsc-performance]] and `raw/audits/2026-07-21-post-consolidation-gsc-analysis.md`.
 
 ## Fix History
 
 | Date | Change | Why |
 |------|--------|-----|
 | 2026-07-04 | Absorbed /best-office-chairs/; Quick Picks + verdict table + FAQ; title/meta/H1 rewrite; AIO capsule fix | Cannibalization consolidation (audit item 3) |
+| 2026-07-21 | No page change — success metric revised to absolute threshold; post-consolidation status recorded | 3-position metric was unfalsifiable/meaningless at pos 40–70 |
 
 ## Links
 
