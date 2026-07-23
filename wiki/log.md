@@ -2,6 +2,14 @@
 type: log
 ---
 
+## [2026-07-23] gsc-pull | GSC Data Pull
+
+- Period: 2026-04-24 → 2026-07-23 (90 days)
+- Pages: 43 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 61 | Daily trend rows: 88
+- Clicks: 206 | Impressions: 95251 | Avg pos: 8.1
+
+
 ## [2026-07-20] manual session | Full pipeline test run — 4 bugs/blindspots fixed
 
 - Ran the entire weekly cycle end-to-end locally (isolation branch `pipeline-test-run-2026-07-20`). Build green (49 pages); all 7 verify-deploy checks pass. Nothing pushed/deployed.
