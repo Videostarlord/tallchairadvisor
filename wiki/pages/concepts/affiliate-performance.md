@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-07-21
-sources: [raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-21-profit-projections-monetization.md]
+last_updated: 2026-07-23
+sources: [raw/affiliate/2026-07-22-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-21-profit-projections-monetization.md]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
@@ -15,8 +15,46 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 
 | Period | Clicks | Orders | CVR | Ordered Revenue | Net Earnings | Notes |
 |--------|--------|--------|-----|-----------------|--------------|-------|
+| 2026-07-22 | 84 | 5 | 6.0% | $3,142.77 | **+$40.02** | Same July window re-read (supersedes Jul 17). Big basket landed; ~$1.76K ordered-but-unshipped, ~$52 commission pending. Unknown attrib 45%→24%. |
 | 2026-07-17 | 82 | 6 | 7.3% | $1,252.11 | **+$36.06** | First positive snapshot. ASIN fix validated — see July analysis. |
 | 2026-06-30 | 70 | 7 | 10.0% | $578.08 | **-$0.41** | 1 return ($610) wiped earnings. See analysis below. |
+
+---
+
+## July 2026 Update (snapshot dated Jul 22 — same window, re-read)
+
+The Jul 22 export is the **same July month-to-date window** as Jul 17, re-pulled 5 days later — not a new period. Confirmed by clicks barely moving (82 → 84) and the identical single $49.99 return / $1.50 clawback carrying through both. It **supersedes** the Jul 17 numbers.
+
+**What changed in 5 days:**
+
+1. **A large basket landed.** Ordered revenue jumped $1,252 → **$3,142.77** (+$1,890). But shipped revenue is only **$1,383.96** — so **~$1,758.81 is ordered-but-unshipped.** Amazon pays on *shipment*, so net earnings only edged **+$36.06 → +$40.02**. The unshipped portion, if it ships and holds, adds **~$52** more (~3%) → potential ~$92 on this window. Pending, not banked.
+2. **Attribution improved again: Unknown 45% → 24%** (was 94% pre-fix). Attributed Furniture clicks now 71% of total. The Jul 4 ASIN fix keeps compounding and is near the indirect-tracking floor — don't expect Unknown to hit 0%.
+3. **Third verified ASIN now visible:** Aeron Size C B01N32UFNT (12 clicks) surfaces individually for the first time, alongside Leap Plus B00TYE4QXU (28, still top) and Gesture B016OIF2JU (17). All three tracked chairs are individually attributable.
+4. **First direct-classed order:** of 5 items, 4 indirect + 1 direct (vs 0 direct on Jul 17). Sits in "others" aggregation, so the product isn't exposed. Direct orders on the tracked chairs themselves: still 0 (expected for $1,000+ items at this volume).
+
+**Guardrail unchanged** (per [[statistical-confidence-policy]]): July is tracking clearly positive, but it's still *one* window, not 2–3 consecutive positive *periods*. The Jul 3 kill-list condition needs independent months. Next real checkpoint: the August export. Amazon may still restate this window as the unshipped order ships or returns.
+
+### Daily breakdown (Group By: Date view, pulled Jul 23)
+
+The per-day export — the breakdown previously flagged as missing — pins down exactly where the earnings and the "missing" commission sit. Days with 0 activity omitted:
+
+| Date | Clicks | Ordered | Ordered Rev | Shipped | Returned | Net Rev | Earnings |
+|---|---|---|---|---|---|---|---|
+| 2026-07-22 | 9 | 1 | $304.99 | 1 | 0 | $304.99 | **$9.15** |
+| 2026-07-19 | 3 | 1 | **$2,048.80** | **0** | 0 | $0 | **$0** |
+| 2026-07-16 | 3 | 0 | $0 | 1 | 0 | $729.00 | **$21.87** |
+| 2026-07-15 | 4 | 1 | $729.00 | 0 | 0 | $0 | $0 |
+| 2026-07-11 | 6 | 0 | $0 | 0 | 1 | −$49.99 | **−$1.50** |
+
+Aggregate row: Total (net shipped) Revenue $1,333.97 = gross shipped $1,383.96 − $49.99 return. Visible daily earnings sum to $29.52; the balance to $40.02 (~$10.50 on ~$350 shipped revenue) is on days Amazon hides under its low-volume privacy threshold ("individual day metrics may not sum to totals").
+
+**The ordered → shipped → paid mechanic (why "unshipped" ≠ "unpaid" ≠ "lost").** Commission accrues on *shipment*, not order, and the two events post on different days:
+- **07-15 → 07-16:** the $729 order shows Ordered Revenue on 07-15 ($0 earnings) and its $21.87 payout on 07-16 (0 items ordered). Same sale, split across two rows — a "$0 earnings" order row is usually just waiting for its shipment row.
+- **07-19 ($2,048.80, shipped 0, $0):** this single order *is* the "~$1,759 unshipped" from the aggregate — 65% of ordered revenue, earning nothing yet. At ~3% it's worth **~$61 when it ships**, which roughly doubles the window. If cancelled/returned before shipment it stays $0.
+
+**Why big orders sit unshipped (not a tracking failure).** If a sale appears under Ordered Revenue with `tallchairadvi-20`, attribution already succeeded — it could not show otherwise. "Not shipped" is a timing state, not lost credit. Causes, in order of impact here: (1) **high-ticket furniture ships slowly** — Steelcase/Herman Miller-class chairs and desks often ship from the manufacturer or by freight/LTL with 1–3 week lead times, not fast Prime; (2) **mid-window snapshot** — the $2,048.80 order was placed only ~3 days before the pull; re-pulling in August should flip it to shipped; (3) **cancellations** — a small share never ship (buyer cancels), which legitimately pays $0. Third-party/marketplace orders still pay as long as checkout is on Amazon — the sale shows in *your* report tied to *your* tag, which is the proof attribution held. The only permanent $0 cases are **returns** (clawback, itemized — see 07-11) and **cancellations/category exclusions**, never silent re-routing.
+
+Raw: `raw/affiliate/2026-07-22-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-07-22-amazon-csv/`).
 
 ---
 

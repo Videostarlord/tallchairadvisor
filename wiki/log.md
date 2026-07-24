@@ -2508,3 +2508,16 @@ Branch `worktree-gsc-post-consolidation-analysis` (PR #1). Two subagents ran the
 - **Bonus (same defect class):** the invented "gives me a clean 2-finger clearance" on the untested Leap Plus hub reframed as derived spec analysis. Still open: that page has no Byline.
 - **Verification:** `npm run build` → 48 pages, gate reports `48 pages OK`. Grep sweep across `src/` **and** `dist/` returns zero hits for all 7 defect patterns. 47 JSON-LD blocks re-parsed, 0 invalid, 4 `Review` nodes intact. **The build gate was tested against the real corruption pattern** — fed the exact `leap-plus.astro` failure it produced 5 findings and exit code 1; a synthetic `aggregateRating reviewCount:1` was also caught.
 - **Not fixed (out of scope, C6):** the invalid `font-family` making the site render in Times. Deliberately deferred — it must ship together with the Playfair preload or it trades a rendering fix for a CLS regression. See [[core-web-vitals]].
+
+## [2026-07-23] ingest | Amazon Associates July 22 snapshot digested + combined
+
+Ingested a 4-CSV Amazon Associates export (snapshot dated 2026-07-22, downloaded Jul 23) into affiliate knowledge. Raw archived: `raw/affiliate/2026-07-22-amazon-associates-report.md` + CSVs in `raw/affiliate/2026-07-22-amazon-csv/`. Findings combined into [[affiliate-performance]] (new Performance Log row, new "July 2026 Update" section, frontmatter sources + last_updated).
+
+- **Same July window re-read**, not a new period — clicks 82→84 and the identical $49.99 return/$1.50 clawback carry through from Jul 17. The Jul 22 figures supersede Jul 17.
+- **Ordered revenue $1,252 → $3,142.77**, but shipped only $1,383.96 → **~$1,759 ordered-but-unshipped**; net earnings only edged +$36.06 → **+$40.02** (Amazon pays on shipment). ~$52 commission pending if it ships and holds.
+- **Attribution kept improving:** Unknown 45% → 24% (94% pre-Jul-4-fix); attributed Furniture 71%. Aeron B01N32UFNT (12 clicks) now visible individually — third verified ASIN, alongside Leap Plus (28, top) and Gesture (17).
+- **Guardrail held:** still one July window, not 2–3 consecutive positive periods. Kill-list condition unchanged; August export is the next independent checkpoint.
+
+## [2026-07-23] ingest | Amazon daily (Group By: Date) view folded into affiliate knowledge
+
+Added the per-day breakdown (the previously-missing daily export) to [[affiliate-performance]] and the raw Jul 22 report. Resolves "why are orders unshipped / am I being cheated" — no: the ~$1,759 unshipped is a single 07-19 order for $2,048.80 (65% of ordered revenue, ~$61 pending at ~3% on shipment). Documented the ordered→shipped→paid mechanic (payout posts on shipment day, not order day — e.g. 07-15 order → 07-16 payout) and that high-ticket furniture ships slow via manufacturer/freight, so "unshipped" is timing, not lost tracking. Permanent $0 only via returns (07-11, −$1.50) or cancellations. Visible daily earnings $29.52 vs $40.02 aggregate = ~$10.50 on Amazon's hidden low-volume days.
