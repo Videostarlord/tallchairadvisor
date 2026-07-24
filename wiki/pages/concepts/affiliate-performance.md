@@ -140,6 +140,27 @@ The July 4 revenue audit found the structural cause of the 94% "Unknown" attribu
 
 `Layout.astro` now tracks autonomous.ai / humanscale.com / inmovement.com / flexispot.com / branchfurniture.com / crandalloffice.com clicks as `affiliate_click` with per-program labels — GA4 will show direct-program EPC the moment links go live.
 
+## GA4 Link Tracking — Verified Working (2026-07-23)
+
+End-to-end verification of the `affiliate_click` event pipeline. **Code is live and correct — no code fix needed.**
+
+| Layer | Status | Evidence |
+|---|---|---|
+| GA4 base install | ✅ live | `G-TWK4EPV8DT` + `gtag.js` + `dataLayer` in production HTML (`curl` of `/`) |
+| Click handler shipped | ✅ live | `affiliate_click` listener present in prod (capture-phase `click` + `auxclick`) |
+| Links match tracker condition | ✅ | all money-page links are `www.amazon.com` + `tag=tallchairadvi-20`; CTAs carry `data-affiliate-cta` |
+| Handler fires correctly | ✅ | logic simulation: tracks 3 chair ASINs + flexispot + CTA-flagged links; correctly skips untagged Amazon + external non-affiliate |
+| Survives navigation | ✅ | `transport_type: 'beacon'` |
+
+Event params sent: `page_path`, `page_title`, `destination_domain`, `affiliate_program`, `cta_label`, `cta_position`, `link_url`.
+
+**Remaining gap is GA4-side config, not code** — events are collected but the params won't appear in standard reports until registered:
+1. **Register custom dimensions** (Admin → Custom definitions, Event scope) for `affiliate_program`, `cta_position`, `cta_label`, `destination_domain`, `link_url`, `page_path`.
+2. **Mark `affiliate_click` a Key event** (Admin → Events) to count it as a conversion.
+3. **Verify:** GA4 → DebugView/Realtime, click any "Check price on Amazon" CTA → event should appear within seconds with all params.
+
+Note: no cookie-consent gate exists — `gtag('config')` fires immediately on load (relevant if a CMP is added later). Live in-browser click test not run this session (Claude browser extension was disconnected); DebugView is the equivalent user-side check.
+
 ## Recommended Next Actions
 
 1. **Add per-page tracking IDs** — Create `tallchairadvi-gesture-20`, `tallchairadvi-leap-20`, etc. in Amazon Associates. Update affiliate links in `/review/gesture/`, `/review/leap-plus/`, `/aeron-vs-gesture/`. This splits the "Unknown" blob into attributable page buckets.
