@@ -1,10 +1,3 @@
-Looking at the file, I need to identify the broken CTA element causing dead clicks and rage clicks. The issue is in the refurbished section — there's an inline `<a>` tag that wraps text "sold directly on Amazon" but it's styled as plain inline text without button styling, yet it has `data-affiliate-cta="true"` attributes suggesting it was intended as a CTA. However, the real problem is more likely the `<div class="not-prose mt-4 mb-6">` CTA buttons — they use `<a>` tags which should be fine.
-
-Looking more carefully: the Crandall Amazon link inside the `<li>` text is an inline anchor without proper href visibility, but it does have an href. The actual broken CTA is likely the inline anchor in the refurb section that has `data-affiliate-cta` attributes but blends into text — users clicking the surrounding non-linked text get dead clicks.
-
-The fix: add a proper standalone CTA button for the Crandall Leap V2 in the refurb section, and ensure the inline link doesn't cause confusion by making the button the primary CTA target.
-
-```astro
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
 
 const schema = [
   {
@@ -93,6 +94,7 @@ const schema = [
 
   <article class="container-article py-12 md:py-16">
     <Byline publishedDate="2026-07-04" updatedDate="2026-07-04" />
+    <Disclosure />
 
     <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
 
 const schema = [
   {
@@ -69,6 +70,8 @@ const schema = [
   </header>
 
   <main class="container-article py-10">
+
+    <Disclosure />
 
     <!-- VERDICT BOX -->
     <div class="bg-card border border-border rounded-lg p-5 my-8">

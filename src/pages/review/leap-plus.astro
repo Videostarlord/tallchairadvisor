@@ -1,8 +1,3 @@
-Looking at the file, I need to identify the dead click. The Amazon ASIN `B00TYE4QXU` appears in both CTA buttons — but that ASIN is for the standard Steelcase Leap, not the Leap Plus. The Leap Plus ASIN is `B09NR9QMGN` (or commonly `B00TYE4QXW`). However, more critically, `B00TYE4QXU` may be a dead/invalid product listing causing the dead click Clarity detected.
-
-The fix: update both Amazon href instances to use the correct Leap Plus ASIN. The standard Leap Plus Amazon ASIN is `B09NR9QMGN`. Both links already have `tag=tallchairadvi-20` present. I'll fix the ASIN to a known valid Leap Plus listing while keeping the affiliate tag intact.
-
-```astro
 ---
 import Layout from '../../layouts/Layout.astro';
 import Byline from '../../components/Byline.astro';
@@ -298,7 +293,7 @@ const schema = [
             target="_blank"
             rel="noopener noreferrer sponsored"
             class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
-            href="https://www.amazon.com/dp/B09NR9QMGN?tag=tallchairadvi-20"
+            href="https://www.amazon.com/dp/B00TYE4QXU?tag=tallchairadvi-20"
             data-affiliate-cta="true"
             data-affiliate-program="amazon"
             data-cta-label="View Steelcase Leap Plus on Amazon"
@@ -356,7 +351,7 @@ const schema = [
             target="_blank"
             rel="noopener noreferrer sponsored"
             class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
-            href="https://www.amazon.com/dp/B09NR9QMGN?tag=tallchairadvi-20"
+            href="https://www.amazon.com/dp/B00TYE4QXU?tag=tallchairadvi-20"
             data-affiliate-cta="true"
             data-affiliate-program="amazon"
             data-cta-label="View Steelcase Leap Plus on Amazon"
