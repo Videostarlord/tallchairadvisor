@@ -2,6 +2,23 @@
 type: log
 ---
 
+## [2026-07-25] manual session | Step A triage + Step C affiliate research + disclosure compliance sweep
+
+- **Step A:** money-page triage built from live GSC (`raw/strategy/2026-07-25-money-page-triage.md`). Tier 1 = leap-plus, office-chairs-for-tall-people, aeron-size-c, gesture. ~56k of 95k impr are unmonetizable Tier 3.
+- **Step C:** multi-source affiliate research (`raw/strategy/2026-07-25-affiliate-program-research.md`), agent-run, 2-source rule. Verdicts: Crandall APPLY NOW (BixGrow in-house + Amazon B08PPVCCST live), Humanscale APPLY via Impact but rate unverified + 21-day cookie, FlexiSpot WAIT for desk content. [[affiliate-performance]] direct-program table corrected.
+- **Compliance sweep:** found 9 of 38 affiliate pages had NO disclosure (prior "all 7 compliant" note was money-page-scoped). Created `src/components/Disclosure.astro`, fixed all 9. Build green (49 pages), render verified. Detail: [[affiliate-compliance]].
+- **Open finding:** direct programs don't cleanly map onto 3 of 4 Tier-1 chairs (all Steelcase/HM via Amazon); only Crandall fits (Leap). Tier-1 "Also available at" CTA scaffolding paused for a routing decision.
+- **🔴 CRITICAL fix:** found `/review/leap-plus/` (#1 money page) + `/best-office-chairs-under-500/` rendering raw LLM reasoning + ` ```astro ` fence above frontmatter → Astro parsed no frontmatter → NO title/meta/canonical/schema/html in production. Both fixed; head signals restored; site-wide scan clean; pageLastmod bumped. Root cause: `execute-fixes.ts` wrote unwrapped model output; the 2026-07-20 compile gate was never applied to it. Detail + pipeline fix spec: [[decisions-log]] 2026-07-25.
+- **Gesture CTR diagnosis:** `/review/gesture/` (9,021 impr, 0.07% CTR) has NO anchor query — every "steelcase gesture …" query is cannibalized by sibling pages (weight-limit, seat-depth, /chairs/ hub, vs-pages). Fix is consolidation (needs verification pass like the Jul 4 best-office-chairs merge), NOT a meta rewrite. Not yet executed.
+
+## [2026-07-24] manual session | Profit Audit adopted as "next steps" routing directive
+
+- Jackson requested a profit-obsessed contractor audit + asked to bake it into the wiki so future "next steps" queries follow it. Dated for tracking.
+- Verdict: traffic engine bolted to a broken cash register — 95,251 impr → 206 clicks (0.22% CTR) → +$36 first profitable month. Two severed links: impression→click (SERP suppression) and click→dollar (Amazon 3%). Both → convert existing traffic, stop growing impressions.
+- Smoking gun: `/knee-pain-seat-depth/` = 41% of site impressions at pos 5.7, 0.05% CTR.
+- Route: freeze content ~30d → triage by buyer-intent × escapable-SERP × position → ship monetization pivot → email capture → ranking lift on escapable SERPs. Stop: impressions-as-success, AIO-eaten informational farming, meta-tweaking suppressed pages, Google+Amazon-only dependence, 47-page spread.
+- Written to: [[thesis]] routing directive, [[decisions-log]] 2026-07-24, `raw/strategy/2026-07-24-profit-audit.md`.
+
 ## [2026-07-23] gsc-pull | GSC Data Pull
 
 - Period: 2026-04-24 → 2026-07-23 (90 days)

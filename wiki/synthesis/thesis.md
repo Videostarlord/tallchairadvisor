@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-07-03 (7-month audit complete — thesis queue cleared, monetization pivot decided, 3 next steps set)
+last_updated: 2026-07-24 (Profit Audit adopted as routing directive — convert existing traffic, freeze content, ship monetization pivot; see decisions-log 2026-07-24)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -46,7 +46,9 @@ TallChairAdvisor.com can become the #1 resource for height-specific office chair
 
 The only approved infra follow-up is lightweight **Anthropic Batch** research for non-urgent analysis steps. A broader RunPod migration is backlog-only until it beats Batch on real TCA prompt packs without adding meaningful ops burden.
 
-## What Needs to Happen Next (Priority Order — July 3, 2026)
+## What Needs to Happen Next (Priority Order)
+
+> **🎯 ROUTING DIRECTIVE — Profit Audit adopted 2026-07-24.** When Jackson asks "what's next," follow this route: **stop growing impressions, convert the traffic already present.** The site is a traffic engine bolted to a broken cash register — 95,251 impr/mo → only 206 clicks (0.22% CTR) → +$36 first profitable month. Two severed links (impression→click via SERP suppression; click→dollar via Amazon 3%) both point to the same move. Priority order below is unchanged in substance (email → direct programs → adjacent niche) but **reframed and hardened**: freeze new content ~30 days, triage pages by `buyer-intent × escapable-SERP × position`, ship the monetization pivot before writing anything new. **Absolutely stop:** treating impressions as success; farming AI-Overview-eaten informational queries (knee-pain, correct-dimensions, spec pages); meta-tweaking suppressed pages; 100% dependence on Google CTR + Amazon 3%; spreading effort across 47 pages. Full reasoning + the money-page numbers: [[decisions-log]] 2026-07-24 entry and `raw/strategy/2026-07-24-profit-audit.md`.
 
 > **Strategic frame (updated July 3):** The content/traffic side of the bet is working — impressions grew 12x in 10 weeks, ChatGPT is citing the site, new pages rank in weeks. The monetization side has a structural ceiling: Amazon 3% furniture commissions require ~167x more traffic to hit $100/month. The next phase pivots monetization structure and builds Google-independent assets, while the autonomous pipeline continues compounding content. See [[decisions-log]] 2026-07-03 entry for full reasoning.
 

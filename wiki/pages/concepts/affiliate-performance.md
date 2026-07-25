@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-07-18
-sources: [raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md]
+last_updated: 2026-07-25
+sources: [raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
@@ -90,15 +90,19 @@ The July 4 revenue audit found the structural cause of the 94% "Unknown" attribu
 
 **Fixed same day:** all links now point to verified live ASINs — Gesture B016OIF2JU, Leap Plus B00TYE4QXU, Aeron Size C B01N32UFNT, Sihoo Doro S300 B0DQTRVSHS, La-Z-Boy Trafford B0116W5BG8, Hbada E3 Pro B0CQ4K1KXT, Ergotron HX B01MXYN33U, VIVO tall pole B01BO42XK0, Crandall reman. Leap V2 B08PPVCCST. 4 search links remain by design (Branch, FlexiSpot BS14, Ergotron LX Tall Pole, OFM ESS-200 — no verifiable Amazon listing). **Jackson: click-verify the 9 ASINs and create per-page tracking IDs before the next tag swap.** Expect "Unknown" attribution share and ordered-product match rate to be the success metrics (30-day window).
 
-## Direct Program Economics (verified 2026-07-04)
+## Direct Program Economics (updated 2026-07-25 — multi-source research, `raw/strategy/2026-07-25-affiliate-program-research.md`)
 
-| Program | Commission | Status |
-|---------|-----------|--------|
-| Amazon Associates | ~3% furniture | Live |
-| Autonomous.ai | **~2%** — worse than Amazon; thesis's 8–10% assumption was wrong | Skip |
-| Humanscale (via Impact) | Unpublished, 21-day cookie | Jackson to apply |
-| Crandall Office | Reman. Leap V2 sold ON Amazon (B08PPVCCST) — monetizable today; direct program TBD | Amazon route live |
-| FlexiSpot | Own program; BS14 not on Amazon | Jackson to apply |
+| Program | Commission | Cookie | Network / apply | Verdict |
+|---------|-----------|--------|-----------------|---------|
+| Amazon Associates | 3% furniture ✅ verified | 24h | Live | Baseline to beat |
+| Autonomous.ai | ~2% — worse than Amazon | — | — | Skip |
+| Humanscale | ⚠️ UNVERIFIED (only stale 3% legacy-CJ; real rate visible only after approval) | 21 days ✅ | Impact.com (CJ→Impact migration; page shows "COMING SOON" — single-source) | Apply, verify rate before linking |
+| Crandall Office | ⚠️ Not publicly disclosed (read after signup) | Not disclosed | **In-house BixGrow Shopify app** at crandalloffice.com/affiliate-program (NOT ShareASale — that claim is wrong) | **Apply now** — self-serve, near-auto-approve; + Amazon B08PPVCCST live today |
+| FlexiSpot | ⚠️ SOURCES CONFLICT: 0.8% (FlexOffers) → 3% (CJ) → ~7% (Awin) → "up to 15%"; ~3% baseline | 30 days ✅ | CJ / Awin / in-house | Wait — desk-first brand; apply when standing-desk content ships |
+
+**Benchmark conversion (ranges, not precision):** affiliate click→sale ~0.5–2% for chair reviews; furniture eComm site conv ~1.2–1.9%. A $300–$1,000 chair at 3% ($9–$30/sale) beats most low-ticket niches on EPC — higher commission only helps if cookie + approval don't cost conversions.
+
+**Approval gate (do first):** FTC affiliate-disclosure + privacy pages are the most likely rejection cause — see [[affiliate-compliance]] (6 pages missing disclosure). Networks also need W-9 + PayPal/ACH payout.
 
 `Layout.astro` now tracks autonomous.ai / humanscale.com / inmovement.com / flexispot.com / branchfurniture.com / crandalloffice.com clicks as `affiliate_click` with per-program labels — GA4 will show direct-program EPC the moment links go live.
 

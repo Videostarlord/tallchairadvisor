@@ -1,12 +1,56 @@
 ---
 type: synthesis
-last_updated: 2026-07-20
+last_updated: 2026-07-24
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-07-25 — CRITICAL: two money pages found rendering raw LLM output in production; fixed
+
+**CONTEXT:** While inspecting Tier-1 pages for the affiliate-CTA scaffolding (Profit Audit Step B), found `/review/leap-plus/` — the #1 money page — was structurally broken in production.
+
+**THE BUG:** The top of `src/pages/review/leap-plus.astro` contained the model's raw reasoning prose ("Looking at the file, I need to identify the dead click...") followed by a literal ` ```astro ` markdown fence, ABOVE the `---` frontmatter. Because the file didn't start with `---`, Astro parsed NO frontmatter → the `<Layout>` wrapper silently failed. Live-page damage (verified in `dist/`): reasoning text + code fence rendered visibly on the page; **no `<html>` wrapper, no `<title>`, no meta description, no canonical, no JSON-LD schema.** The page shipped to Google with zero head signals. Build never caught it — a page without leading `---` renders as a broken-but-valid fragment, so no error.
+
+**SCOPE:** Full scan of all 49 pages found exactly TWO corrupted: `/review/leap-plus/` and `/best-office-chairs-under-500/` (Tier-2 money page, same pattern — 3 reasoning paragraphs + fence about a Clarity "dead click / rage click" fix). Both fixed by removing the junk above `---`. Rebuilt: both now have title/meta/canonical/schema/html restored. Site-wide leak scan clean. `pageLastmod` bumped to 2026-07-25 for both.
+
+**ASIN COLLATERAL FIX:** The same bad leap-plus edit had also swapped the Amazon ASIN to `B09NR9QMGN` on the reasoning that the verified earner `B00TYE4QXU` "may be dead / is the standard Leap not the Plus." Jackson validated the live listing 2026-07-25: `B00TYE4QXU` = "Steelcase Leap Plus Desk Chair … 500 lb Weight Capacity," alive and correct. Reverted both review hrefs `B09NR9QMGN` → `B00TYE4QXU`; review now matches the money hub and the verified top-earner (19 clicks). Lesson: the pipeline's "dead click" reasoning invented a listing problem that did not exist — do not trust model-asserted ASIN facts without live validation.
+
+**ROOT CAUSE (pipeline — NOT yet fixed):** Both files were last touched by an `execute-fixes.ts` run addressing Clarity dead-click/rage-click data. The model returned its answer wrapped in reasoning prose + a ` ```astro ... ``` ` markdown code block, and execute-fixes.ts wrote the ENTIRE response to disk instead of extracting only the code inside the fence. The `@astrojs/compiler` compile gate added to `execute-content.ts` on 2026-07-20 was NEVER applied to its sibling `execute-fixes.ts` — the exact "check the other sibling agent" rule from the 2026-07-20 entry. execute-fixes.ts needs: (1) strip leading prose / markdown fences from model output before writeFileSync, (2) the same authoritative compile gate, (3) a guard rejecting any page file not starting with `---`.
+
+**RULE FOR FUTURE SESSIONS:** A passing `npm run build` does NOT prove pages are well-formed — Astro renders a file with no leading `---` as a broken fragment (no head) without erroring. Add a structural check (first line == `---`, no ``` fences, `<title>` present in dist) to verify-deploy. When execute-content gets a hardening fix, apply it to execute-fixes the same day.
+
+## 2026-07-24 — Profit Audit adopted as the "next steps" routing directive
+
+**CONTEXT:** Jackson asked for a profit-obsessed contractor's take — what they'd say, immediate next steps, what to absolutely stop — and asked that the evaluation be written into the wiki so future "what's next" queries route through it. Grounded in the 2026-07-23 GSC pull (95,251 impr, 206 clicks, 0.22% CTR, avg pos 8.1) and [[affiliate-performance]] (first profitable month +$36.06, Jul 17).
+
+**VERDICT — Traffic engine bolted to a broken cash register.** Traffic is the thing working (impressions 12x in 10 weeks). Everything between impression and dollar is severed in two places, and effort has been going into the half that's already fixed.
+
+**THE TWO SEVERED LINKS:**
+1. **Impression → click** severed by SERP structure (AI Overviews on informational/spec queries; shopping carousels on money queries). Site CTR 0.22% vs ~2-3% benchmark at pos 8 — capturing ~14% of a normal click rate.
+2. **Click → dollar** severed by monetization structure (Amazon 3% furniture needs ~167x traffic for $100/mo; one $610 return wipes a month).
+
+**THE SMOKING GUN:** `/knee-pain-seat-depth/` = 38,990 impr (41% of the whole site) at pos 5.7, converting at **0.05% CTR (18 clicks)**. Ranks beautifully for an informational, AIO-eaten, non-buyer query. Meanwhile the real money pages are starved: `/review/leap-plus/` (0.28%), `/review/aeron-size-c/` (0.44%), `/office-chairs-for-tall-people/` (0.55%), `/best-office-chairs-under-500/` (0.85%) — 10-17x the knee-pain CTR because they're buyer-intent on escapable SERPs.
+
+**DECISION — Adopt this as the routing logic for all future "next steps" queries.** Both severed links point to the same move: **stop growing impressions, convert the traffic already present.** Substance matches the Jul 3 monetization pivot (email → direct programs → adjacent niche) but is reframed and hardened:
+
+*Immediate next steps (profit-only order):*
+1. Freeze new content ~30 days — the traffic to make money is already on the site.
+2. Triage every page by `buyer-intent × escapable-SERP × position` → ~6 pages get 100% of revenue effort.
+3. Fix the cash register, not the CTR — ship the monetization pivot (Humanscale/Crandall/FlexiSpot applications, per-page tracking IDs, "Also available at" direct CTAs) before writing anything new. Do NOT remove Amazon links.
+4. Email capture on `/knee-pain-seat-depth/` — own the audience the page can't monetize (thesis item #1, still unbuilt).
+5. Buy ranking lift where SERP is escapable (leap-plus pos 8.7 → 5) over meta tweaks on suppressed pages.
+
+*Absolutely stop:*
+1. Treating impression growth as success (12x impressions, flat revenue). Track clicks-to-buyer-pages and EPC.
+2. Farming AI-Overview-eaten informational queries (knee-pain, correct-dimensions, spec pages). [[what-failed]] proves 3x you can't meta-tweak into an AI Overview.
+3. Meta-tweaking suppressed pages — documented dead lever.
+4. 100% dependence on Google CTR + Amazon 3% — both structurally rigged.
+5. Spreading effort across 47 pages — concentrate on the ~6 that convert.
+
+**RULE FOR FUTURE SESSIONS:** When Jackson asks "what's next" / "next steps," lead with this frame — convert existing traffic, don't grow impressions — and rank actions by revenue impact, not content volume. Impressions are a vanity metric here until CTR and commission structure are fixed. Full detail: `raw/strategy/2026-07-24-profit-audit.md`. Not yet executed — this is the adopted plan, next checkpoint is whether steps 1-4 get built.
 
 ## 2026-07-20 — Full pipeline test run (Mon→Sat, local): 4 bugs/blindspots fixed
 
