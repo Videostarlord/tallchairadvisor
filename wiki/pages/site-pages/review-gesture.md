@@ -2,14 +2,47 @@
 type: entity
 entity: site-page
 url: /review/gesture/
-last_updated: 2026-06-14
-sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-19-blog-audit.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json, data/competitors/intelligence.json]
+last_updated: 2026-07-21
+sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-19-blog-audit.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json, data/competitors/intelligence.json, raw/strategy/2026-07-21-profit-projections-monetization.md]
 tags: [page, review, gesture, first-person, flagship]
 ---
 
 # Page: /review/gesture/
 
 **Flagship page. Only first-person review on the site.**
+
+## 🔴 HIGHEST-VALUE OPPORTUNITY ON THE SITE (established 2026-07-21)
+
+**37,910 monthly searches in the Steelcase Gesture branded cluster. TCA ranks for none of it.** This page is 5,270 words, sits at position 7.9, and has **zero query-attributed impressions in GSC** — all 9,077 of its impressions are in the anonymous zero-click pool. The only page with genuine first-hand authority is invisible for its own brand terms.
+
+| Keyword | Volume/mo | KD | TCA status |
+|---|---|---|---|
+| steelcase gesture office chair | 14,800 | 1 | not ranking |
+| steelcase gesture | 14,800 | 1 | not ranking |
+| steelcase gesture chair | 2,400 | 3 | not ranking |
+| steelcase gesture ergonomic office chair | 2,400 | 2 | not ranking |
+| steelcase gesture ergonomic chair | 1,300 | 3 | not ranking |
+| gesture chair | 720 | 0 | not ranking |
+| steelcase gesture used | 480 | 0 | not ranking |
+| steelcase gesture review | 320 | 0 | not ranking |
+| + 12 long-tail | 690 | 0–6 | not ranking |
+
+**⚠️ KD caveat:** "KD 1" does not mean easy #1. Branded SERPs are dominated by steelcase.com, Amazon, Wayfair, Office Depot. An affiliate review realistically lands **pos 5–10**. The only editorial competitor DataForSEO found for the head term is a Medium post at pos 7 — the editorial layer is barely defended, which is the actual opening.
+
+**Conservative capture model (pos 5–10, 1.5% of cluster): ~578 visits/mo = 1.7x the site's entire current traffic ≈ +$109/mo.**
+
+### Why it isn't ranking
+
+Current title — `Steelcase Gesture Review (2026): Tall User Fit Analysis` — targets the tall-fit angle, a narrow slice, not the 14,800/mo generic brand term. The page also carries only **4 Amazon links** vs 15 on the money hub.
+
+### Recommended actions (not yet executed)
+
+1. Retitle onto the generic brand head term, keeping the tall angle as the differentiator in the subhead rather than the primary target.
+2. Add a used/refurbished section — "steelcase gesture used" (480/mo) unclaimed; Crandall reman already monetizes on Amazon (B08PPVCCST).
+3. Raise Amazon links 4 → 12–15 to match money-hub density.
+4. Diagnose the zero-attributed-queries anomaly at pos 7.9 — may be the same anonymous zero-click pool that inflates [[knee-pain-seat-depth]].
+
+Full model: `raw/strategy/2026-07-21-profit-projections-monetization.md`. See [[affiliate-performance]] and [[gsc-performance]].
 
 ## Current State (May 25 — post-rewrite)
 

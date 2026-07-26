@@ -7,6 +7,58 @@ tags: [gsc, performance, metrics, tracking]
 
 # GSC Performance Tracking
 
+## CRITICAL — impressions are not a valid health metric for this site (established 2026-07-21)
+
+**97% of site impressions carry no query attribution and produce no clicks.** Query-attributable impressions have been flat at ~2,500 per 90d window for two months while total impressions ballooned 52k → 94k and then deflated:
+
+| Snapshot (90d) | Total impr | Top-200 query impr | Query coverage |
+|---|---|---|---|
+| Jun 22 | 52,635 | 2,519 | 4.8% |
+| Jun 29 | 67,673 | 2,558 | 3.8% |
+| Jul 06 | 78,826 | 2,549 | 3.2% |
+| Jul 13 | 89,422 | 2,487 | 2.8% |
+| Jul 20 | 94,576 | 2,648 | 2.8% |
+
+The pool is concentrated on two measurement/dimension pages. `/knee-pain-seat-depth/` alone is 38,644 impressions (41% of site total) at position 5.7 with **18 clicks** — 0.047% CTR, impossible on a normal text SERP at that position. Signature is consistent with zero-click informational surfacing.
+
+**Rule: track clicks, CTR, and affiliate revenue. Do not treat impression movement as a signal, and never restructure the site in response to it.** Impressions here move independently of anything done to the site — `/knee-pain-seat-depth/` *improved* from pos 6.1 → 5.7 while its impressions collapsed 57%.
+
+## Growth curve — site hit its first plateau in July 2026
+
+| Month | Clicks | Clicks/day | Impressions |
+|---|---|---|---|
+| Feb | 0 | 0.00 | 62 |
+| Mar | 8 | 0.26 | 3,523 |
+| Apr | 18 | 0.60 | 7,600 |
+| May | 46 | 1.48 | 19,306 |
+| Jun | 99 | 3.30 | 46,208 |
+| Jul (18d) | 54 | 3.00 | 25,419 |
+
+Clicks roughly **doubled every month Mar → Jun, then flattened**. Average position followed the same shape and also flattened: 11.5 (May 4) → 9.2 (Jun 14) → 8.5 (Jun 29) → 8.1 (Jul 13) → 8.1 (Jul 20).
+
+The plateau coincides with the Jul 4 consolidation but is **not caused by it** — clicks/day rose across the consolidation window (3.10 → 3.36). **The plateau is the more strategically important fact than the impression drop.**
+
+### Two structural CTR signals (90d ending Jul 20, 207 clicks total)
+
+1. **Height-specific pages convert far better than anything else.** `/office-chairs-for-6-foot-6/` = 13 clicks from 471 impressions (**2.76% CTR**) — 55x the CTR of `/knee-pain-seat-depth/` at a comparable position. Narrow, specific, high-intent queries are where this site actually wins.
+2. **`/review/gesture/` is the largest opportunity gap on the site.** 9,077 impressions at pos 7.9 → **7 clicks (0.08% CTR)**. It is the only page with genuine first-hand testing authority and it converts at almost nothing. Diagnose title/meta vs. zero-click-pool contamination before writing new content. Consistent with the standing C1 Gesture-expansion priority.
+
+## Post-consolidation verdict (2026-07-21)
+
+Jackson flagged falling impressions after the 2026-07-04 commercial-cluster consolidation. **Impressions −27%, clicks +8%, CTR +49%.** The consolidation is not the cause — the killed page accounts for 1.7% of the drop.
+
+| Metric | 21d PRE (Jun 14–Jul 4) | 14d POST (Jul 5–18) | Change |
+|---|---|---|---|
+| Clicks/day | 3.10 | 3.36 | +8% |
+| Impressions/day | 1,833 | 1,331 | −27% |
+| CTR | 0.169% | 0.252% | +49% |
+
+Weekly impression drop attribution (wk ending Jul 20 vs Jul 13, total −5,614): `/knee-pain-seat-depth/` −3,285 (58.5%), `/review/leap-plus/` −1,061 (18.9%), `/correct-chair-dimensions/` −640 (11.4%), **`/best-office-chairs/` (the killed page) −96 (1.7%)**.
+
+Week ending Jul 18 was tied for the best click week in 10 weeks (26 clicks) on 6,793 impressions vs 15,979 four weeks prior — same clicks, 57% fewer impressions. Clicks/day have been flat at ~3.2 since June 1 through the entire impression balloon and deflation.
+
+*Full analysis: `raw/audits/2026-07-21-post-consolidation-gsc-analysis.md`*
+
 ## Latest Snapshot (2026-07-21)
 
 | Metric | Value |

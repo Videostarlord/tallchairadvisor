@@ -2,14 +2,24 @@
 type: entity
 entity: site-page
 url: /knee-pain-seat-depth/
-last_updated: 2026-06-14
-sources: [raw/audits/2026-06-14-full-site-report.md]
+last_updated: 2026-07-21
+sources: [raw/audits/2026-06-14-full-site-report.md, raw/audits/2026-07-21-post-consolidation-gsc-analysis.md]
 tags: [page, educational, high-impression, calculator]
 ---
 
 # Page: /knee-pain-seat-depth/
 
 **Highest-impression page on the site. Educational; no chair tested. Cornell Ergonomics Rule framing.**
+
+## ⚠️ This page's impressions are not real demand (established 2026-07-21)
+
+**38,644 impressions (41% of all site impressions) at position 5.7 → 18 clicks. CTR 0.047%** — impossible on a normal text SERP at that position. Its queries are almost entirely anonymized long-tail; sitewide, only 2.8% of impressions carry any query attribution. Signature is consistent with zero-click informational surfacing where the answer renders in the SERP itself.
+
+**This page drove 58.5% of the July sitewide impression decline** (−3,285 in the week ending Jul 20 vs the week prior, against a sitewide −5,614) — while its *position improved* from 6.1 → 5.7. Impressions and rankings here are decoupled; the movement is demand/SERP-surface, not a ranking loss and not caused by any site change.
+
+**Do not treat this page's impression volume as a health signal, and do not restructure in response to it.** See [[gsc-performance]] and `raw/audits/2026-07-21-post-consolidation-gsc-analysis.md`.
+
+Open question worth testing: whether the page can be reframed to capture *any* click share at pos 5.7, or whether the query class is structurally zero-click. Until answered, the site's real click engine is [[review-leap-plus]].
 
 ## Current State (June 14)
 

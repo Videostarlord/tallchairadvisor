@@ -2,8 +2,8 @@
 type: entity
 entity: site-page
 url: /best-office-chairs/
-last_updated: 2026-05-12
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json, data/competitors/intelligence.json]
+last_updated: 2026-07-21
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json, data/competitors/intelligence.json, raw/audits/2026-07-21-post-consolidation-gsc-analysis.md]
 tags: [page, money-page]
 ---
 
@@ -12,6 +12,15 @@ tags: [page, money-page]
 **⛔ MERGED 2026-07-04 — 301 → /office-chairs-for-tall-people/. This page no longer exists.**
 
 The July 4 GSC verification pass (90-day data) showed this page never escaped position 45–75 on its target head terms ("best office chair(s) for tall people/person" family, ~340 impr, **0 clicks ever**) while cannibalizing /office-chairs-for-tall-people/ — both pages had near-identical titles targeting the same queries. Google attributed the head-term queries to this page but ranked it nowhere; the rival held pos 8.1 on Leap V2 brand queries. Merged: Quick Picks box, height-bracket verdict table (with corrected AIO capsule), and back-pain FAQ moved to the survivor; all internal links, nav (Header/Footer), and breadcrumb schemas repointed; 301 in `public/_redirects`; removed from sitemap config. See [[office-chairs-for-tall-people]] and decisions-log 2026-07-04 (consolidation entry).
+
+**Post-merge status (2026-07-21, 17 days after the 301):** redirect verified live — both `/best-office-chairs/` and the no-slash variant 301 single-hop to the survivor; page absent from sitemap; no index loss sitewide. **But GSC still attributes the entire head-term family to this dead URL** at pos 40.6–68.1 with 0 clicks — no migration to the survivor yet. Normal 301 signal-consolidation latency is 2–8 weeks. As a page it contributed only ~14 impressions/day when killed, so its removal accounts for just **1.7%** of the July sitewide impression decline. Full analysis: `raw/audits/2026-07-21-post-consolidation-gsc-analysis.md`.
+
+| Head-term query (still on this URL) | Position Jun 29 → Jul 20 | Clicks |
+|---|---|---|
+| best office chairs for tall people | 56.9 → 51.2 | 0 |
+| best office chair for tall person | 71.6 → 68.1 | 0 |
+| best office chair tall person | 72.3 → 67.2 | 0 |
+| best office chairs for tall man | 47.0 → 40.6 | 0 |
 
 Historical record below preserved as-is.
 

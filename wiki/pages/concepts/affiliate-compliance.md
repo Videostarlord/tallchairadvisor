@@ -1,13 +1,32 @@
 ---
 type: concept
-last_updated: 2026-07-04
-sources: [raw/audits/2026-05-10-full-seo-audit.md]
+last_updated: 2026-07-21
+sources: [raw/audits/2026-05-10-full-seo-audit.md, raw/audits/2026-07-21-full-seo-audit.md]
 tags: [compliance, ftc, affiliate, legal]
 ---
 
 # Affiliate Compliance (FTC)
 
 **CRITICAL — legal requirement, not just SEO.** FTC requires affiliate disclosures to be "clear and conspicuous" — a footer link alone does not satisfy this standard. The disclosure must appear near the top of the page, before affiliate links are encountered.
+
+
+## 🔴 2026-07-21 audit — FTC disclosure gaps on 15 monetized pages
+
+Full audit: `raw/audits/2026-07-21-full-seo-audit.md`.
+
+**Nine pages with ZERO body disclosure** (footer link only — the long-standing open issue, still open):
+
+`office-chairs-for-6-foot-5` (3 affiliate links) · `office-chair-return-policy` · `how-to-adjust-chair` · `leg-pain-circulation` · `office-chair-lower-back-pain-tall-people` · `why-standard-chairs-dont-fit` · `back-pain-spine-height` · `shoulder-pain-tall-people` · `aeron-size-c-vs-leap-plus`
+
+`office-chairs-for-6-foot-5` is a straight template miss — its four siblings (6-3, 6-4, 6-6, 6-7) all carry one. The pain-cluster pages monetize health-adjacent YMYL content with no disclosure at all, which is the worst combination for a quality rater.
+
+**Six pages with bottom-only disclosure**, ~1,800–1,950 words *after* the first CTA: `office-chairs-for-6-foot-3/4/6/7`, `heavy-duty-ergonomic-chairs-tall-people`. FTC guidance requires disclosure **before** the endorsement.
+
+**Compliance-grade case (visual capture):** on `/office-chairs-for-6-foot-6/` the disclosure sits at **87.1% scroll depth**, 14px, low-contrast gray (`rgb(103,111,126)`), as a plain `<p>` — *below* the affiliate link it qualifies. Every other monetized page uses a bordered amber callout at 3.5–6.8% depth. Against observed scroll depth of 40–70%, effectively no one sees it.
+
+**Fix:** port the standard amber callout above the first CTA on all 15 pages.
+
+**Minor:** disclosure copy alternates between "We may earn a commission" (~25 pages) and "I earn a commission" (`refurbished-steelcase-leap-tall-people.astro:98`). On a single-author site, "we" weakens the transparency signal — standardize on first person.
 
 ## Verified Status (2026-05-27 — full source audit)
 

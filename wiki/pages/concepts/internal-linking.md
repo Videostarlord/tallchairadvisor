@@ -1,11 +1,35 @@
 ---
 type: concept
-last_updated: 2026-06-14
-sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-03-site-structure.md, raw/audits/2026-05-10-full-seo-audit.md]
+last_updated: 2026-07-21
+sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-03-site-structure.md, raw/audits/2026-05-10-full-seo-audit.md, raw/audits/2026-07-21-full-seo-audit.md]
 tags: [internal-links, site-architecture]
 ---
 
 # Internal Linking
+
+
+## 🔴 2026-07-21 audit — five-page commercial orphan island
+
+Confirmed three independent ways (local source grep, live crawl of all 43 pages, sitemap agent). Full audit: `raw/audits/2026-07-21-full-seo-audit.md`.
+
+**Zero inbound internal links sitewide:**
+
+| Page | 90d impressions | Clicks |
+|---|---|---|
+| `/heavy-duty-ergonomic-chairs-tall-people/` | **not in GSC at all** | — |
+| `/wide-seat-office-chairs-tall-people/` | **not in GSC at all** | — |
+| `/office-chair-return-policy/` | **not in GSC at all** | — |
+| `/monitor-arm-tall-people/` | 13 | 0 |
+| `/best-big-and-tall-office-chairs/` (1 inbound, from an orphan) | 8 | 0 |
+| *Contrast: `/office-chairs-for-6-foot-6/` (well-linked, same age/type)* | *471* | *13* |
+
+All five are monetizable pages shipped 2026-07-04, all sitting at sitemap priority `0.3 / yearly`. **Three of five are invisible to Google entirely.** A page in the sitemap with zero internal links is the weakest possible signal combination.
+
+**Fix:** `/wide-seat-.../`, `/heavy-duty-.../` and `/best-big-and-tall-.../` belong in the body of `/office-chairs-for-tall-people/` (the strongest hub). `/monitor-arm-.../` belongs on `/standing-desk-height-tall-people/` and `/correct-chair-dimensions/`. `/office-chair-return-policy/` belongs in every review page's buying section.
+
+**Near-orphans worth strengthening:** `/chairs/steelcase-leap-plus/weight-limit/` (1 inbound — natural fit from the big-and-tall and heavy-duty pages, 500 lb capacity is exactly their topic), `/chairs/herman-miller-aeron/size-guide/` (2), `/standing-desk-height-tall-people/` (2, one from an orphan), `/office-chair-lower-back-pain-tall-people/` (2, one from an orphan).
+
+**Healthy baseline:** zero internal links point at a redirected URL, and zero omit the trailing slash — the July consolidation's link sweep was done correctly for the pages it covered.
 
 ## Architecture
 

@@ -1,12 +1,54 @@
 ---
 type: synthesis
-last_updated: 2026-07-18
+last_updated: 2026-07-21
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W30 (July 21) — Full SEO audit: 76/100. Deploy gate and fabrication-propagation rules established.
+
+**CONTEXT:** `/seo audit tallchairadvisor.com` — 6 specialist agents in parallel plus an orchestrator sweep. Full report: `raw/audits/2026-07-21-full-seo-audit.md`.
+
+**FINDING — the site's engineering is strong and its content trust is not.** On-page hygiene is effectively perfect (43/43 titles, metas, canonicals, OG, Twitter cards; all canonicals self-referencing; zero duplicates; zero missing alt text; zero JSON-LD parse errors; CLS 0.0 measured). Score 76/100 is dragged down almost entirely by Content (62) and Schema (66).
+
+**FINDING — "fixed" did not mean "shipped."** The GA4 CSP fix was committed Jul 18 and never deployed, because there is no CD workflow and every subsequent commit carried `[skip cd]`. The analytics outage assumed resolved on Jul 18 was still live on Jul 21. **This invalidates the assumption in `raw/strategy/2026-07-21-profit-projections-monetization.md` that August would be the first clean GA4 month.**
+
+**FINDING — a green build is not evidence a page rendered.** `src/pages/review/leap-plus.astro` had raw LLM chat output committed above the frontmatter fence. Astro silently skipped the frontmatter; `astro build` reported 49 pages and zero errors while emitting a page with no title, canonical, or structured data — on the site's #1 click source.
+
+**FINDING — the May 2026 fabrication cleanup corrected one page and left the copies.** The retracted "break-in period" story and the wrong 6'4" inseam/clearance figures are still live on four pages and inside two JSON-LD blocks, contradicting the corrected Gesture review. `/review/gesture/` even contradicts itself: its Direct Answer capsule (the block AI Overviews extract) still says "borderline fit" while the body says the opposite four times.
+
+**DECISION — build gate.** Assert that every `dist/**/index.html` contains `<title>` and `rel="canonical"`, and that review pages contain ≥1 `application/ld+json` block. Fail the build otherwise. Recorded on [[deploy-pipeline-integrity]].
+
+**DECISION — deploy verification rule.** A change to `public/_headers` or `public/_redirects` is done only when a non-`[skip cd]` commit lands **and** the live header is verified by curl. When the weekly agents have produced only `[skip cd]` commits since a code fix, that fix has not shipped.
+
+**DECISION — fabrication propagation rule.** When a fabricated fact is corrected on one page, grep the whole repo for the figure and fix every copy **in the same commit**. Recorded on [[content-integrity]].
+
+**DECISION — do not act on two audit-agent recommendations.** (1) Removing `*.clarity.ms` from CSP as a "dead allowance" — false; Clarity loads inline, and with GA4 blocked it is the only working analytics source. (2) Stripping `Review` schema from untested chairs — overstated; the `reviewBody` text is careful spec analysis and editorial critic reviews are legitimate. The real violation is `aggregateRating`, not `Review`. **RULE: verify agent findings against the live artifact before acting — two of six specialist reports contained a materially wrong claim.**
+
+**PRIORITY ORDER SET:** (1) fix `leap-plus.astro` and add the build gate before any deploy; (2) do not ship `aeron-size-c-vs-leap-plus.astro` — merge it, or it re-fragments the cluster the July consolidation just merged; (3) trigger a rebuild for the CSP fix; (4) rewrite the `/about/` methodology section; (5) reconcile the 6'4" figures including the FAQ JSON-LD; (6) strip `aggregateRating` from 7 pages; (7) link the 5-page orphan island — three of those pages are invisible to Google today.
+
+## 2026-W30 (July 21) — Impressions retired as a health metric; consolidation success metric rewritten
+
+**CONTEXT:** Jackson observed impressions falling since the Jul 4 consolidation and asked whether the strategy was working. Full analysis: `raw/audits/2026-07-21-post-consolidation-gsc-analysis.md` (160-day merged daily series + page/pageQuery diffs across three 90-day snapshots).
+
+**FINDING — The premise was half right, and the half that was right doesn't matter.** Impressions are genuinely down 27% (1,833 → 1,331/day). But clicks are **up** 8% (3.10 → 3.36/day) and CTR is up 49%. The week ending Jul 18 tied the best click week in 10 weeks while running 57% fewer impressions than four weeks earlier.
+
+**FINDING — The consolidation is exonerated by arithmetic.** The killed `/best-office-chairs/` was contributing ~14 impressions/day when it was 301'd. The sitewide drop is ~500/day. In the week-over-week attribution it is **1.7%** of the decline; `/knee-pain-seat-depth/` — a page the consolidation never touched — is **58.5%**.
+
+**FINDING — 97% of this site's impressions are anonymous and produce no clicks.** Query-attributable impressions have been flat at ~2,500 per 90d window for two months while total impressions ballooned 52k → 94k and then deflated. `/knee-pain-seat-depth/` alone is 41% of site impressions at position 5.7 with 18 clicks (0.047% CTR — impossible on a normal text SERP), and its position *improved* 6.1 → 5.7 while impressions collapsed.
+
+**DECISION — Impressions are retired as a health metric.** Track clicks, CTR, and affiliate revenue. **Never restructure the site in response to impression movement** — on this site it measures an anonymous zero-value pool that moves independently of anything we do. Recorded in [[gsc-performance]] and on the affected entity pages.
+
+**DECISION — Consolidation success metric rewritten.** The original "head-term family gains 3+ positions within 4 weeks" is unfalsifiable at positions 40–70: a 3-position gain yields zero clicks, and rolling-average drift alone moved the terms 4–6 positions with nothing changing. **Replaced with an absolute threshold: any head term entering the top 20, or the family's first non-zero click.** Evaluate 2026-09-01.
+
+**RULE FOR FUTURE SESSIONS:** When defining a success metric for a ranking experiment, use an absolute threshold tied to a click outcome, not a relative position delta. A relative delta on a page ranking below ~20 measures noise.
+
+**STATUS — Consolidation mechanics verified clean, goal still pending.** Both slash variants 301 single-hop, spec sub-pages 301 to parents, sitemap 43 URLs with no killed URLs, no index loss (GSC pages 39 → 42 → 43), survivor stable at pos 8.1 with clicks 16 → 17 → 18. Head terms remain attributed to the dead URL 17 days post-301 — within normal 2–8 week latency. **No further restructuring before Sep 1.** If head terms haven't moved by then, the constraint is domain authority, not architecture (as anticipated in the 2026-W27 entry) — response is content depth + links.
+
+**HIGHEST-CONFIDENCE LEVER:** [[review-leap-plus]] is the site's click engine (34 clicks/90d, top click source) and the survivor is compounding on Leap V2 brand terms. Depth on the Leap/Steelcase cluster, consistent with the standing monetization-first thesis.
 
 ## 2026-W29 (July 18) — Friday content pipeline root-caused: gates rejected good pages for 10 weeks; all 4 bugs fixed
 
