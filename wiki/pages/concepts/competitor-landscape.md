@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-07-20
+last_updated: 2026-07-27
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,15 +70,15 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-07-20. 8 pages analyzed × up to 3 queries each. 28 URLs crawled (19 cache hits). 6 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
+*v2 run 2026-07-27. 8 pages analyzed × up to 3 queries each. 22 URLs crawled (15 cache hits). 5 high-priority gaps. Top editorial outrankers: forbes.com, btod.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-07-20 | The 'Adjustable Seat Depth vs Fixed Seat Depth' section header exists but its in | high | 2q | forbes.com |
-| 2026-07-20 | Methodology / evaluation criteria for verdicts is implicit rather than explicit  | high | 2q | forbes.com |
-| 2026-07-20 | Audience segmentation by height bracket AND weight capacity axis is absent — TCA | high | 2q | forbes.com |
-| 2026-07-20 | ItemList and AggregateRating schema markup are absent, making TCA ineligible for | high | 1q | forbes.com |
-| 2026-07-20 | The 'Which Chair Is Best at Your Height?' height-bracket verdict table lacks exp | high | 1q | forbes.com |
-| 2026-07-20 | No structured spec table presenting all adjustable dimensions with explicit min/ | high | 1q | forbes.com |
-| 2026-07-20 | The Alternatives section contains only brief stubs (Leap Plus and Aeron Size C s | medium | 1q | btod.com |
-| 2026-07-20 | Use-case segmentation (home office, corporate/executive, all-day/heavy-use) is a | medium | 1q | thehumansolution.com |
+| 2026-07-27 | The Chair Model Fit by Height table covers only three chairs (Gesture, Leap Plus | high | 3q | forbes.com |
+| 2026-07-27 | Per-chair dimension tables with min/max seat height, seat depth, and back height | high | 3q | thehumansolution.com |
+| 2026-07-27 | No dual-axis audience segmentation addressing both height brackets (6'–6'3", 6'4 | high | 3q | forbes.com |
+| 2026-07-27 | Author byline with credentialing methodology statement not visible near page top | high | 3q | btod.com |
+| 2026-07-27 | No ItemList or AggregateRating schema markup present to qualify the page for ric | high | 3q | forbes.com |
+| 2026-07-27 | The 'Adjustable Seat Depth vs Fixed Seat Depth' section header exists but contai | medium | 1q | forbes.com |
+| 2026-07-27 | The 'Verdict: Who Should Buy the Gesture?' section contains an explicit fit-rang | medium | 1q | btod.com |
+| 2026-07-27 | The side-by-side comparison section ('Aeron vs Gesture vs Leap Plus') uses prose | medium | 1q | forbes.com |

@@ -1,13 +1,39 @@
 ---
 type: concept
-last_updated: 2026-07-21
-sources: [raw/audits/2026-07-21-weekly-audit.md]
+last_updated: 2026-07-27
+sources: [raw/gsc/gsc-2026-07-27.json]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-07-21)
+## Latest Snapshot (2026-07-27)
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 97131 |
+| Total clicks | 221 |
+| Avg CTR | 0.23% |
+| Avg position | 8.1 |
+
+## Top Pages
+
+| /knee-pain-seat-depth/ | 39625 impr | pos 5.8 | 0.05% CTR | 18 clicks |
+| /correct-chair-dimensions/ | 17813 impr | pos 9.6 | 0.17% CTR | 30 clicks |
+| /review/leap-plus/ | 12391 impr | pos 8.7 | 0.3% CTR | 37 clicks |
+| /review/gesture/ | 9037 impr | pos 7.9 | 0.07% CTR | 6 clicks |
+| /review/aeron-size-c/ | 4804 impr | pos 10.8 | 0.46% CTR | 22 clicks |
+| /office-chairs-for-tall-people/ | 3401 impr | pos 8.1 | 0.59% CTR | 20 clicks |
+| /best-office-chairs/ | 1862 impr | pos 17.7 | 0.48% CTR | 9 clicks |
+| /chairs/herman-miller-aeron/tall-people/ | 1353 impr | pos 8.2 | 0.96% CTR | 13 clicks |
+| /gesture-vs-leap-plus/ | 1347 impr | pos 10.4 | 0.45% CTR | 6 clicks |
+| /best-office-chairs-under-500/ | 1337 impr | pos 9.1 | 1.05% CTR | 14 clicks |
+
+*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+
+## Historical Snapshots
+
+### 2026-07-21
 
 | Metric | Value |
 |--------|-------|
@@ -15,23 +41,6 @@ tags: [gsc, performance, metrics, tracking]
 | Total clicks | 207 |
 | Avg CTR | 0.22% |
 | Avg position | 8.1 |
-
-## Top Pages
-
-| /knee-pain-seat-depth/ | 38644 impr | pos 5.7 | 0.05% CTR | 18 clicks |
-| /correct-chair-dimensions/ | 16917 impr | pos 9.6 | 0.18% CTR | 30 clicks |
-| /review/leap-plus/ | 11911 impr | pos 8.7 | 0.29% CTR | 34 clicks |
-| /review/gesture/ | 9077 impr | pos 7.9 | 0.08% CTR | 7 clicks |
-| /review/aeron-size-c/ | 4764 impr | pos 10.9 | 0.46% CTR | 22 clicks |
-| /office-chairs-for-tall-people/ | 3233 impr | pos 8.1 | 0.56% CTR | 18 clicks |
-| /best-office-chairs/ | 1952 impr | pos 17.7 | 0.46% CTR | 9 clicks |
-| /chairs/herman-miller-aeron/tall-people/ | 1488 impr | pos 8.1 | 0.81% CTR | 12 clicks |
-| /gesture-vs-leap-plus/ | 1339 impr | pos 10.5 | 0.45% CTR | 6 clicks |
-| /best-office-chairs-under-500/ | 1284 impr | pos 9.1 | 0.86% CTR | 11 clicks |
-
-*Full audit report: raw/audits/2026-07-21-weekly-audit.md*
-
-## Historical Snapshots
 
 ### 2026-07-20
 
@@ -88,15 +97,6 @@ tags: [gsc, performance, metrics, tracking]
 | Avg position | 8.5 |
 
 ### 2026-06-23
-
-| Metric | Value |
-|--------|-------|
-| Total impressions | 52635 |
-| Total clicks | 125 |
-| Avg CTR | 0.24% |
-| Avg position | 8.9 |
-
-### 2026-06-22
 
 | Metric | Value |
 |--------|-------|
