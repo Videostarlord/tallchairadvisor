@@ -2,6 +2,14 @@
 type: log
 ---
 
+### 2026-08-01 — keyword-discovery.ts run
+- Seeds: GSC=17, Competitor=7, Deduped=24
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 19
+- After filter: 18 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 18 (gap=2, targeting=0, ranking=16)
+- Mode: production
+
 ## [2026-07-31] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-07-31
