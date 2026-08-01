@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-08-01] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W31.md
+
+
 ### 2026-08-01 — keyword-discovery.ts run
 - Seeds: GSC=17, Competitor=7, Deduped=24
 - Estimated cost: $0.0201 (1 task)
