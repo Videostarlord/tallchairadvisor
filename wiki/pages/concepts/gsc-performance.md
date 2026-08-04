@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-08-03
-sources: [raw/gsc/gsc-2026-08-03.json]
+last_updated: 2026-08-04
+sources: [raw/audits/2026-08-04-weekly-audit.md]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-08-03)
+## Latest Snapshot (2026-08-04)
 
 | Metric | Value |
 |--------|-------|
@@ -29,9 +29,18 @@ tags: [gsc, performance, metrics, tracking]
 | /gesture-vs-leap-plus/ | 1356 impr | pos 10.3 | 0.44% CTR | 6 clicks |
 | /chairs/herman-miller-aeron/tall-people/ | 1180 impr | pos 8.3 | 1.02% CTR | 12 clicks |
 
-*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+*Full audit report: raw/audits/2026-08-04-weekly-audit.md*
 
 ## Historical Snapshots
+
+### 2026-08-03
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 98003 |
+| Total clicks | 230 |
+| Avg CTR | 0.23% |
+| Avg position | 8.1 |
 
 ### 2026-07-28
 
@@ -88,15 +97,6 @@ tags: [gsc, performance, metrics, tracking]
 | Avg position | 8.1 |
 
 ### 2026-07-07
-
-| Metric | Value |
-|--------|-------|
-| Total impressions | 78826 |
-| Total clicks | 167 |
-| Avg CTR | 0.21% |
-| Avg position | 8.3 |
-
-### 2026-07-06
 
 | Metric | Value |
 |--------|-------|
