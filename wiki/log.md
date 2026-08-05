@@ -2828,3 +2828,40 @@ Chronological record of wiki operations. Append new entries at the top.
 
 - GA4 sessions collapsed ~Jun 16 (54 sessions/28d, 96% bounce, 1 organic session — while GSC logged 80+ organic clicks and Clarity saw normal traffic). Cause: Google migrated gtag collection to analytics.google.com; site CSP connect-src only allowed www.google-analytics.com, silently blocking hits. Verified: gtag.js for G-TWK4EPV8DT contains zero references to the whitelisted host.
 - Fixed public/_headers connect-src (added *.google-analytics.com, analytics.google.com, *.analytics.google.com, stats.g.doubleclick.net). GA4 data unusable Jun 16–Jul 18; caveat added to [[ga4-performance]].
+
+## [2026-07-29] manual session | Jul 28 Amazon Associates ingest — attribution solved, conversion gap exposed
+
+- Ingested Jul 28 snapshot (4 CSVs → `raw/affiliate/2026-07-28-amazon-csv/` + summary md): 87 clicks, 5 orders, $3,109.76 ordered revenue, **+$30.60 net** — second consecutive positive snapshot.
+- **Attribution fully resolved:** Unknown click share 94% (Jun) → 45% (Jul 17) → **0% (Jul 28)**; named-ASIN share 38% → 87%. Aeron Size C B01N32UFNT click-visible for the first time. No further link-architecture work warranted.
+- **New top finding:** Leap Plus B00TYE4QXU took 41 clicks = **47% of all site affiliate clicks**, beating Gesture (23) + Aeron (12) combined and doubling period-over-period. Inverts the assumption that the Gesture review is the primary money surface. Raised the "almost bought" reframe on [[review-leap-plus]] from C2 to top revenue priority.
+- **New primary constraint:** 76 attributed chair clicks → 0 chair orders. All earnings still from indirect baskets. Also first direct order in site history (1 of 5) though Top-Sellers stays empty.
+- $2,048.80 ordered-but-unshipped (~$61 unrealized at 3%) — recheck next export. Realized commission 3.03%.
+- **Caveat logged:** $49.99 return / $1.50 clawback identical to Jul 17, so the two positive snapshots may overlap; items ordered fell 6→5 which rules out pure cumulative. Per [[statistical-confidence-policy]] these do **not** count as two independent positive periods — Jul 3 kill-list relaxation stays gated. Action: record exact export date range next download.
+- Updated [[affiliate-performance]] (performance log, new analysis section, structural issues, benchmarks, next actions), [[review-leap-plus]], [[index]].
+
+## [2026-08-01] manual session | July Amazon month close — +$92.06 best month ever; snapshot window question settled; Jul 3 ceiling math falsified
+
+- Ingested Jul 31 snapshot (4 CSVs → `raw/affiliate/2026-07-31-amazon-csv/` + summary md). **July final: 92 clicks, 5 orders, $3,109.76 ordered AND shipped, +$92.06 net.** Best month in site history, ~2.5x prior best. Realized commission 3.01%.
+- **Window question RESOLVED — snapshots are cumulative month-to-date.** Jul 28 and Jul 31 carry an identical order set and identical ordered revenue ($3,109.76) with shipped catching up; clicks rise monotonically 82 → 87 → 92. **Correction:** the Jul 29 ingest favored a "discrete window" reading based on items ordered falling 6 → 5 — that was an order restatement, not a new window. Snapshots within a month supersede, never add. July = $92.06, not $158.72.
+- **Consequence for the kill-list gate:** there is **one** positive month (July), not three positive periods. Jul 3 gate stands at 1 of 2–3; August is the confirming month.
+- The $2,048.80 unshipped balance flagged Jul 28 **shipped in full** — shipped earnings $32.10 → $93.56 (+$61.46), matching the ~$61 projected at 3%.
+- **⚠ The Jul 3 monetization-ceiling math is wrong.** It computed "55 Amazon clicks/month needed for $100" then converted to "25,000 organic clicks/month needed" via the site-wide 0.22% CTR. July delivered **$92.06 on 92 Amazon clicks** (94% of the $3,300 shipped-revenue target). The click math held; the organic-CTR conversion step assumed all affiliate clicks originate from Google organic, which is 19% of sessions (GA4). The pivot's direction stays valid; its "current traffic cannot monetize" framing does not. [[thesis]] needs revision.
+- Attribution final: Unknown 0%, Furniture 87/92 (95%), named-ASIN 81/92 (88%). Leap Plus 45, Gesture 24, Aeron 12.
+- **Open problem sharper at close:** 81 named chair clicks → 0 chair orders. All earnings from indirect baskets on products TCA does not link. Also 66% of July revenue came from a single order — remove it and July is ~$32.
+- Updated [[affiliate-performance]] (performance log restructured to monthly with interim-snapshot audit trail, month-close analysis, ceiling-math correction, structural issues, benchmarks, next actions), [[review-leap-plus]], [[index]].
+
+## [2026-08-04] manual session | Aug 3 Amazon ingest (rolling window) + first CPC-vs-EPC benchmark; monetization/traffic verdict inverted
+
+- Ingested Aug 3 snapshot (3 CSVs → `raw/affiliate/2026-08-03-amazon-csv/` + summary md). Headline 101 clicks / 6 orders / $3,117.75 ordered / **+$92.30 net**.
+- **Window confirmed by Jackson: LAST 30 DAYS (Jul 5 – Aug 3)** — first export in the archive with a verified range, and the first that is *not* month-to-date. A second window type now exists in the dataset.
+- **The $92.30 is 99.7% July's money re-reported.** Reconciled against the Jul 31 close: +9 clicks, +1 order, **+$7.99 ordered revenue, +$0.24 net** (3.00% = furniture tier). Window algebra resolves August 1–3 to one $7.99 order. **Not a second positive month, not acceleration.** Kill-list gate stays **1 of 2–3**; August closes 2026-09-01.
+- **NEW — first DataForSEO CPC vs realized EPC benchmark.** Impression-weighted market CPC across 16 matched ranking queries (1,910 impr): **$3.73/click**, all HIGH competition, commercial/transactional. TCA July EPC $1.00/click ($0.35 ex-outlier); revenue per session ~$0.30. vs Amazon home/furniture EPC norms $0.20–0.80 and display-ad equivalent $0.015–0.030/session ($6–9/mo at current volume). **Monetization is at or above category norms — session volume (303/28d) is the binding constraint.** No SEO API carries EPC; use Impact/CJ/ShareASale/Awin published program EPC for a true comparison.
+- **⚠ Jul 4 verdict "monetization problem, not traffic problem" INVERTED.** Recorded in [[decisions-log]] as superseded. Constraint has moved to traffic.
+- Impression collapse (−72%, 2,200→600/day) was **non-converting inventory** — clicks flat, GA4 organic (65/28d) cross-validates GSC (~68/28d). Impression charts are not the health metric.
+- GA4 channel mix (28d): Direct 170 (56%), Organic 65 (22%), **AI Assistant 47 (16%)**, Unassigned 26 (9%). AI referrals ≈72% of Google organic volume. 56% direct on an unbranded 7-month domain flagged as an open question.
+- **Data-quality warning logged:** GA4 undercounts affiliate clicks ~4x (26 events vs Amazon's 101, near-identical window). Do not use GA4 affiliate-click counts for page-level attribution.
+- Chair-conversion gap now conclusive at 4 consecutive exports: 88 named chair clicks → 0 chair orders this window, 200+ cumulative. `/best-office-chairs-under-500/` is #1 GA4 page — audience converts down-market from recommendations.
+- **Audit false positive caught:** the 2026-08-04 Tuesday audit's "C-1 CRITICAL duplicate content crisis" is wrong — `/best-office-chairs/` 301-redirects to `/office-chairs-for-tall-people/` (verified by curl, `public/_redirects:7`). The audit followed the redirect and compared the page to itself. Audit agent needs a no-follow status check.
+- **Open, unfixed:** Friday content pipeline failing 4 of last 8 runs — content agent writes an en-dash into a JS expression in a `best-office-chairs.astro` it should not be creating at all (that URL is a 301).
+- Decision recorded: **do not start a second niche site yet**; keep TCA, stop hand-optimizing, re-evaluate at the September month close. Kill rule needs a **deadline** added, not just a threshold.
+- Updated [[affiliate-performance]] (window-type rule, August row, rolling-window audit trail, market-value benchmark section, GA4 warning), [[decisions-log]], [[index]].

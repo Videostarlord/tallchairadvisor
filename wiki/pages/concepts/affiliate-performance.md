@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-07-25
-sources: [raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md]
+last_updated: 2026-08-04
+sources: [raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
@@ -11,12 +11,116 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 
 ---
 
-## Performance Log
+## Performance Log — BY MONTH
 
-| Period | Clicks | Orders | CVR | Ordered Revenue | Net Earnings | Notes |
-|--------|--------|--------|-----|-----------------|--------------|-------|
-| 2026-07-17 | 82 | 6 | 7.3% | $1,252.11 | **+$36.06** | First positive snapshot. ASIN fix validated — see July analysis. |
-| 2026-06-30 | 70 | 7 | 10.0% | $578.08 | **-$0.41** | 1 return ($610) wiped earnings. See analysis below. |
+> **Read this first — two rules.**
+> 1. **Snapshots within a month supersede each other — never add them.** Amazon month-to-date snapshots are cumulative. Proven 2026-08-01: Jul 28 and Jul 31 carry an identical order set and identical ordered revenue ($3,109.76), shipped catching up to ordered, clicks rising monotonically (82 → 87 → 92).
+> 2. **Check the window type before logging any export.** The window is whatever was selected in Associates Central and is *not* recorded in the CSV. Month-to-date and rolling-30-day exports look identical in the file. A rolling window cannot be appended to this monthly log — see the Aug 3 export below, which was 99.7% July's money re-reported and briefly read as a second positive month. **Record the selected range on every download.**
+
+| Month | Clicks | Orders | CVR | Ordered Revenue | Shipped Revenue | Net Earnings | Status |
+|--------|--------|--------|-----|-----------------|-----------------|--------------|--------|
+| **2026-08** | — | 1 (partial) | — | $7.99 | — | **+$0.24** | Days 1–3 only, derived from the Aug 3 rolling export. Confirming month for the kill-list gate; closes 2026-09-01. |
+| **2026-07** | 92 | 5 (1 direct) | 5.4% | $3,109.76 | $3,109.76 | **+$92.06** | Best month in site history (~2.5x prior best). 66% from a single order. Return window open. |
+| 2026-06 | 70 | 7 | 10.0% | $578.08 | $578.08 | **−$0.41** | 1 return ($610) wiped earnings. |
+
+### July interim snapshots (superseded — retained for audit trail only)
+
+| Snapshot | Clicks | Ordered Rev | Shipped Rev | Net | Note |
+|---|---|---|---|---|---|
+| Jul 31 (final) | 92 | $3,109.76 | $3,109.76 | +$92.06 | All 5 items shipped |
+| Jul 28 | 87 | $3,109.76 | $1,060.96 | +$30.60 | $2,048.80 still unshipped |
+| Jul 17 | 82 | $1,252.11 | — | +$36.06 | 6 items ordered (later restated to 5) |
+
+*Correction 2026-08-01: the Jul 28 ingest treated these as discrete periods and favored a "not cumulative" reading based on items ordered falling 6 → 5. That was wrong — the 6 → 5 change was an order restatement, not a new window. There is **one** positive month on record (July), not three positive periods. The Jul 3 kill-list gate ("2–3 consecutive positive revenue months") therefore stands at 1 of 2–3. August is the confirming period.*
+
+### Aug 3 export — ROLLING 30-DAY window (not a month; excluded from the log above)
+
+**Window confirmed by Jackson 2026-08-04: last 30 days = Jul 5 – Aug 3.** First export in the archive with a verified date range, and the first that is *not* month-to-date.
+
+| Metric | Aug 3 (rolling Jul 5–Aug 3) | July final (MTD) | Δ |
+|---|---|---|---|
+| Clicks | 101 | 92 | +9 |
+| Items ordered | 6 | 5 | +1 |
+| Ordered revenue | $3,117.75 | $3,109.76 | **+$7.99** |
+| Net earnings | $92.30 | $92.06 | **+$0.24** |
+
+$0.24 / $7.99 = 3.00%, exactly the furniture tier. Window algebra `(Jul 5–Aug 3) = (Jul 1–31) − (Jul 1–4) + (Aug 1–3)` resolves to: Jul 1–4 ≈ $0, **Aug 1–3 = one $7.99 order = $0.24 net.**
+
+**The $92.30 headline is July's earnings through a shifted window — not a second positive month, not acceleration.** Kill-list gate remains **1 of 2–3**; August closes 2026-09-01.
+
+Raw: `raw/affiliate/2026-08-03-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-08-03-amazon-csv/`).
+
+---
+
+## July 2026 Month Close (snapshot Jul 31) — best month in site history
+
+**+$92.06 net** ($93.56 shipped earnings − $1.50 clawback) on 92 clicks and $3,109.76 of shipped revenue. Realized commission 3.01%.
+
+**The $2,048.80 unshipped balance flagged on Jul 28 resolved fully in TCA's favor** — all 5 ordered items shipped, shipped earnings rose $32.10 → $93.56 (+$61.46), matching the ~$61 projected at 3%.
+
+**Final click attribution:** Furniture 87/92 (95%), others 5, **Unknown 0**. Named-ASIN share 81/92 = **88%**.
+
+| ASIN | Product | Jul 31 | Jul 28 | Jul 17 |
+|---|---|---|---|---|
+| B00TYE4QXU | Steelcase Leap Plus | **45** | 41 | 19 |
+| B016OIF2JU | Steelcase Gesture | 24 | 23 | 12 |
+| B01N32UFNT | Herman Miller Aeron Size C | 12 | 12 | — |
+| others | — | 11 | 11 | 21 |
+
+### ⚠ The Jul 3 monetization-ceiling math was wrong — revisit [[thesis]]
+
+The Jul 3 pivot computed: *"$3,300/month shipped revenue ÷ $600 avg chair ÷ 10% CVR = 55 Amazon clicks/month needed; at 0.22% CTR = 25,000 organic clicks/month needed; current = 150/month"* — concluding the site was ~167x short of $100/month.
+
+July actual: **$3,109.76 shipped revenue (94% of the $3,300 target), $622 avg item, 5.4% CVR, 92 Amazon clicks, $92.06 earned (92% of the $100 target).**
+
+The click-side math was sound — ~55–92 Amazon clicks is indeed what $100/month takes. **The error was the final step:** converting Amazon clicks into required Google organic clicks via the site-wide 0.22% CTR. That assumes every affiliate click originates from a Google organic visitor. GA4 shows Google organic is only **19% of sessions** (Direct 54%, AI Assistant 12%). Affiliate clicks come substantially from direct and AI traffic, so the 25,000-organic-clicks requirement is not real.
+
+**Implication:** the "structural monetization ceiling" that justified the July pivot is far less severe than modeled. This does not invalidate the pivot's direction (diversify away from 3% Amazon, build Google-independent assets) — email capture and higher-commission programs are still correct. It does invalidate the framing that the current traffic level cannot produce meaningful revenue. It can, and in July it did.
+
+### Caveats — do not over-read one month
+
+- **One order carried the month.** ~$2,049 of $3,110 came from a single high-ticket item. Remove it and July is ~$32.
+- **Return window still open.** Amazon can restate; June's $610 return is the precedent.
+- Per [[statistical-confidence-policy]], one month is not a trend. August is the confirming period.
+
+### The open problem, sharper at month close
+
+**81 named chair clicks → 0 chair orders.** All 5 orders and all $93.56 of earnings booked against the `others` row — products TCA does not link. Every dollar earned in July was a toll on Amazon sessions TCA originated, not commission on a recommended chair. Click growth alone will not change this.
+
+**Data quality:** Category vs Linked-Product `others` discrepancy widened to 5 vs 11 (was 8 vs 11). Both total 92. Do not reconcile the two reports click-for-click.
+
+Raw: `raw/affiliate/2026-07-31-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-07-31-amazon-csv/`).
+
+---
+
+## Late-July 2026 Analysis (snapshot dated Jul 28 — SUPERSEDED by the Jul 31 month close above; retained for the attribution narrative)
+
+**Attribution is now fully resolved.** Unknown click share: 94% (Jun) → 45% (Jul 17) → **0% (Jul 28)**. Furniture carries 79 of 87 clicks (91%); named-ASIN share is 76/87 = **87%** (was 38%). Aeron Size C B01N32UFNT appears for the first time — all three flagship chairs are individually attributed. **No further link-architecture work is warranted**; the residual opacity is Amazon's indirect-purchase model, not TCA's links.
+
+**Per-ASIN click ranking (the important new signal):**
+
+| ASIN | Product | Clicks | Share | Jul 17 |
+|---|---|---|---|---|
+| B00TYE4QXU | Steelcase Leap Plus | **41** | 47% | 19 |
+| B016OIF2JU | Steelcase Gesture | 23 | 26% | 12 |
+| B01N32UFNT | Herman Miller Aeron Size C | 12 | 14% | — |
+| others | — | 11 | 13% | 21 |
+
+**Leap Plus is the site's most-clicked product** — 47% of affiliate clicks, more than Gesture + Aeron combined, and more than double period-over-period.
+
+**Which page produces those clicks is NOT established by this data.** Amazon reports per-ASIN, not per-source-page. GA4 page-level `affiliate_click` events (working again since the Jul 18 CSP fix) put `/office-chairs-for-tall-people/` first with 6 of 11 tracked events — its Quick Picks box links the Leap Plus. The money hub, not [[review-leap-plus]], is the likelier source. *Corrected 2026-07-29: an earlier version of this section asserted the review page was the top commercial surface, which the data does not support.*
+
+**The conversion gap is the story now:** 76 attributed chair clicks → **0 chair orders**. All 5 orders and all $32.10 of earnings booked against the `others` row (indirect baskets). The site earns on accidents, not intent. Expected at $1,000+ price points and 87 clicks/period, but it means click growth alone won't produce chair commissions.
+
+**First direct order in site history** — `Direct Items Ordered = 1` (was 0 in every prior period). Top-Sellers is still empty, so the direct ASIN isn't exposed.
+
+**$2,048.80 ordered-but-unshipped.** Ordered revenue $3,109.76 vs shipped $1,060.96. At 3% that's ~$61 of unrealized commission. → **RESOLVED at month close: shipped in full, +$61.46 realized.**
+
+~~**Window caveat — the two positive snapshots may overlap.**~~ **RESOLVED 2026-08-01: snapshots are cumulative month-to-date.** The Jul 31 export carries an identical order set and ordered revenue to Jul 28, settling it. The "discrete window favored" reading recorded here was wrong. See the month-close section above.
+
+**Data quality:** Category and Linked-Product disagree on bucketing (`others` 8 vs 11; Furniture 79 vs 76). Both total 87. Don't reconcile the two reports click-for-click.
+
+Raw: `raw/affiliate/2026-07-28-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-07-28-amazon-csv/`).
 
 ---
 
@@ -31,7 +135,7 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 
 All 6 orders were still indirect (0 direct orders on tracked chairs — expected at this volume for $1,000+ items). Top-Sellers report still empty; populates only with direct purchases.
 
-**Interpretation guardrail** (per [[statistical-confidence-policy]]): one positive snapshot ≠ repeatable revenue. The Jul 3 decision's kill-list condition — "until repeatable positive revenue months" — needs 2-3 consecutive positive periods before relaxing. Next checkpoints: August report, and Amazon may still restate this period (returns window).
+**Interpretation guardrail** (per [[statistical-confidence-policy]]): one positive snapshot ≠ repeatable revenue. *Note added 2026-08-01: this snapshot is a July-to-date interim, later restated to the $92.06 month close — it was never an independent period.*
 
 Raw: `raw/affiliate/2026-07-17-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-07-17-amazon-csv/`).
 
@@ -61,26 +165,70 @@ No ASIN-level rank data populated because all purchases were "Unknown/None" indi
 
 ## Structural Issues
 
-| Issue | Impact | Fix |
-|-------|--------|-----|
-| 94% "Unknown" click attribution | Can't optimize which pages drive conversions | Amazon doesn't expose this — use GA4 outbound click events as proxy |
-| Single tracking ID | No page-level split in Amazon dashboard | Add per-page tracking IDs (e.g., `tallchairadvi-gesture-20`) to isolate top performers |
-| $610 return risk | Single return = negative month | Unavoidable at low volume; resolves with scale |
-| Commission rate ~3% | Low margin on high-ticket items | Price-range diversification (accessories, books) adds stability |
+| Issue | Impact | Fix | Status |
+|-------|--------|-----|--------|
+| ~~"Unknown" click attribution~~ | ~~Can't tie clicks to products~~ | Jul 4 ASIN fix | **RESOLVED** — 94% → 45% → 0% (Jul 28) |
+| **0 chair orders on 81 attributed chair clicks** | Earnings come from indirect baskets, not chair intent | No link-side fix available; needs conversion work on the pages producing clicks (GA4 says the money hub leads) | **OPEN — primary constraint** |
+| Single tracking ID | No page-level split in Amazon dashboard | Add per-page tracking IDs (e.g., `tallchairadvi-gesture-20`) — now lower priority since ASIN-level attribution works | Open, deprioritized |
+| ~~Snapshot date range not recorded~~ | ~~Can't tell if snapshots overlap~~ | Settled 2026-08-01: snapshots are **cumulative month-to-date**; within a month they supersede, never add | **RESOLVED** |
+| **Single-order revenue concentration** | ~$2,049 of July's $3,110 came from one item; remove it and July is ~$32 | Volume + price-range diversification | **OPEN — fragility** |
+| Return clawback risk | Single chair return = negative period | Unavoidable at low volume; resolves with scale ($49.99 returns are survivable, $610 was not) | Open, tolerated |
+| Commission rate ~3% (realized 3.03%) | Low margin on high-ticket items | Price-range diversification (accessories, books) adds stability | Open |
 
 ---
 
 ## Benchmarks & Targets
 
-| Metric | Current (Jun 30) | Target |
-|--------|-----------------|--------|
-| Monthly clicks | ~70 (one day?) | 500+ |
-| Order CVR | 10% | Maintain 8–12% |
-| Monthly earnings | -$0.41 | $100+ |
-| Return rate | 14% (1/7) | <10% |
-| ASIN attribution | 0% | 20%+ via per-page tracking IDs |
+| Metric | July 2026 (final) | Target |
+|--------|-------------------|--------|
+| Monthly clicks | 92 | 500+ |
+| Order CVR | 5.4% | Maintain 8–12% |
+| **Monthly earnings** | **+$92.06** | $100+ — **92% of target, effectively reached** |
+| Return rate | 20% (1/5) | <10% |
+| ASIN attribution (named-ASIN click share) | **88%** | ✅ target exceeded (was 20%+) |
+| **Chair orders on attributed chair clicks** | **0 / 81** | 1+ per month |
+| Revenue concentration | 66% from one order | <33% from any single order |
 
-*Note: June 30 data may represent one day, not the full month. Pull a 30-day date-range export to get per-day breakdown.*
+*Snapshots are cumulative month-to-date — compare month finals only (the last snapshot of each month), never interim exports.*
+
+---
+
+## Market-Value Benchmark: DataForSEO CPC vs realized EPC (first run 2026-08-04)
+
+**No SEO API carries affiliate EPC** — it is a network-side metric and Amazon has never published it. DataForSEO provides **CPC** (what advertisers pay per click), which is the best available proxy for what TCA's traffic is worth on the open market.
+
+Source: `data/keywords/raw/2026-08-01T09-51-48.json` (monthly discovery, run cost $0.014), matched against GSC queries in `data/gsc/latest.json`.
+
+**Impression-weighted market CPC across 16 matched ranking queries (1,910 impressions): $3.73/click.** All HIGH competition; intent predominantly commercial/transactional.
+
+| Query | Impr | CPC |
+|---|---|---|
+| steelcase leap plus | 1,013 | $3.39 |
+| aeron size c | 262 | $4.60 |
+| aeron c | 79 | $4.53 |
+| best office chairs for tall people | 71 | $5.28 |
+| best office chair tall person | 33 | $5.28 |
+
+| TCA metric (July) | Value |
+|---|---|
+| Affiliate EPC | **$1.00/click** (ex-outlier **$0.35**) |
+| Revenue per session | **~$0.30** ($92.06 / 303 GA4 sessions, 28d) |
+| Market CPC, same traffic | $3.73 |
+
+### Interpretation — the monetization layer is NOT the constraint
+
+The naive read ("capturing 8% of traffic value") is misleading. Against realistic alternatives:
+
+- **Display ads** (Mediavine/Raptive tier, home/furniture) run roughly **$15–30 RPM** as an industry rule of thumb ≈ $0.015–0.030/session → **$6–9/month** at 303 sessions. Affiliate is ~10x better.
+- **Amazon Associates EPC** in home/furniture typically runs **$0.20–0.80**. TCA's ex-outlier $0.35 sits mid-band; with-outlier $1.00 sits above it.
+
+**Conclusion: EPC and commission capture are performing at or above category norms. The binding constraint is session volume (303/28d), not conversion or rate.** This is the evidence base for the traffic-vs-monetization reframe recorded in [[decisions-log]] 2026-08-04.
+
+For a true apples-to-apples EPC comparison, use networks that publish program-level EPC (**Impact, CJ, ShareASale, Awin**). The Impact.com UTT is live (`941c7d1`), so approved-program EPC becomes readable there — see [[affiliate-compliance]].
+
+### Data-quality warning — GA4 undercounts affiliate clicks ~4x
+
+GA4 logged **26** `affiliate_click` events (Jul 6 – Aug 3) against Amazon's **101** for a near-identical window. Likely ad blockers plus consent gating. **Do not use GA4 affiliate-click counts for page-level revenue attribution.** GA4 channel mix is still trustworthy; the event counts are not.
 
 ---
 
@@ -108,9 +256,13 @@ The July 4 revenue audit found the structural cause of the 94% "Unknown" attribu
 
 ## Recommended Next Actions
 
-1. **Add per-page tracking IDs** — Create `tallchairadvi-gesture-20`, `tallchairadvi-leap-20`, etc. in Amazon Associates. Update affiliate links in `/review/gesture/`, `/review/leap-plus/`, `/aeron-vs-gesture/`. This splits the "Unknown" blob into attributable page buckets.
-2. **Pull full 30-day export** — Re-export with a June 1–30 date range to confirm if this is one day or the full month's aggregated data.
-3. **GA4 outbound click events** — Cross-reference Amazon clicks with GA4 `outbound_click` events per page as a proxy for page-level attribution until tracking IDs are in place.
+*Updated 2026-08-01 after the July month close. Attribution and window questions are settled; conversion and confirmation are the live items.*
+
+1. **Revisit the Jul 3 monetization-ceiling math in [[thesis]]** — July earned $92.06 on 92 Amazon clicks against a model that said 25,000 organic clicks/month were required. The click math held; the organic-CTR conversion step did not (Google organic is 19% of sessions). The pivot's direction stays valid, its "current traffic cannot monetize" framing does not.
+2. **Treat August as the confirming month.** One positive month, 66% of it from a single order. The kill-list gate stands at 1 of 2–3.
+3. **Close the conversion gap** — 81 chair clicks, 0 chair orders. GA4 points at `/office-chairs-for-tall-people/` as the main click source; that's where fit-verdict and CTA work should land. See [[office-chairs-for-tall-people]].
+4. **Per-page tracking IDs — deprioritized.** ASIN-level attribution now works (88% named). Only worth doing if multiple pages start linking the same ASIN heavily.
+5. ~~Record the export date range~~ — no longer needed; cumulative month-to-date behavior is confirmed.
 
 ---
 

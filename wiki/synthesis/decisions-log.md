@@ -1,12 +1,52 @@
 ---
 type: synthesis
-last_updated: 2026-07-24
+last_updated: 2026-08-04
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## 2026-W32 (August 4) — CORRECTION: "monetization problem, not traffic problem" is no longer true; constraint has moved to traffic
+
+**CONTEXT:** Jackson asked whether to keep optimizing TCA or start a second site, citing a half-remembered kill rule. Session pulled GSC (Aug 3), GA4 (Jul 6–Aug 3), GitHub Actions history, the Aug 3 Amazon export, and ran the first-ever DataForSEO CPC vs realized EPC benchmark.
+
+**⚠ SUPERSEDES the Jul 4 line: "Audit verdict adopted: monetization problem, not traffic problem."** That verdict was correct when written and is now inverted. Do not cite it as current state.
+
+**FINDING — The monetization layer is fixed and performing at or above category norms.**
+July EPC $1.00/click ($0.35 ex-outlier) vs Amazon home/furniture norms of $0.20–0.80. Revenue per session ~$0.30 vs display ads' ~$0.015–0.030 for this niche — affiliate is ~10x better than the ad alternative. Unknown attribution has held at 0% across four consecutive exports. **The Jul 4 ASIN work did what it was supposed to do; there is no remaining monetization-mechanics problem to solve.** Full benchmark in [[affiliate-performance]].
+
+**FINDING — Market CPC establishes the traffic is genuinely valuable.**
+Impression-weighted CPC across 16 matched ranking queries: **$3.73/click**, HIGH competition, commercial/transactional intent (DataForSEO, `data/keywords/raw/2026-08-01T09-51-48.json`). TCA ranks for queries advertisers actively bid on. The problem is not what the traffic is worth — it is that there are only **303 sessions/28d**.
+
+**FINDING — The impression collapse was noise, not business loss.**
+GSC impressions fell 2,200/day (late June) → ~600/day (late July), −72%, position 7.0 → 9.5. But clicks stayed ~2–4/day and GA4 organic (65 sessions/28d) cross-validates against GSC (~68 clicks/28d). **The lost impressions produced no clicks.** Do not treat the impression chart as the health metric; it was flattering. Real converting traffic was roughly flat.
+
+**FINDING — GA4 traffic mix: AI assistants are 16% of sessions.**
+Direct 170 (56%), Organic Search 65 (22%), **AI Assistant 47 (16% — ChatGPT 44, Perplexity 6, Claude 3)**, Unassigned 26 (9%). AI referral volume is ~72% of Google organic volume. This is a genuine differentiator for a 7-month domain and the one surface AI Overviews cannot erode. The 56% direct share is implausible as pure human traffic on an unbranded domain — **open question, needs investigation.**
+
+**FINDING — The chair-conversion gap is now conclusive, not tentative.**
+Fourth consecutive export with named chair clicks → 0 chair orders (88 clicks this window; 200+ cumulative). Buyers purchase $520-average chair-priced goods via indirect baskets, just never the three promoted ASINs. Corollary: `/best-office-chairs-under-500/` is the #1 GA4 page (29 sessions) and #2 in affiliate clicks. **The audience converts down-market from the recommendations.**
+
+**DECISION — Do not start a second niche site yet. Keep TCA, stop hand-optimizing it.**
+Rationale: the monetization fix started compounding exactly when abandonment was being considered; walking away spends ~30 hours seeding a new domain to escape a solved problem. The existing kill list already forbids most hand-optimization (no meta/CTR iteration below pos 8, no new automation features, no AIO capsules on informational queries) — following it frees the time without needing a new site.
+
+**DECISION — Kill-list gate stands at 1 of 2–3 positive months. Re-evaluate 2026-09-01.**
+The Aug 3 export (rolling 30-day, Jul 5 – Aug 3) is **99.7% July's money re-reported**: +$7.99 revenue and +$0.24 earnings over the July close. August has produced $0.24 in three days. It is not a second positive month. See [[affiliate-performance]] for the window algebra.
+
+**DECISION — The kill rule needs a deadline, not just a threshold.**
+"Defer until $100/mo" has no time bound. At 77 clicks/month against a ~25,000-click requirement (per the Jul 3 math, itself since falsified) the gate could never be passed, making it a trap rather than a rule. **Add a date.** Proposed and pending Jackson's call: *if TCA is under $100/mo by 2026-12-31, it moves to permanent maintenance regardless of trajectory.*
+
+**CAVEATS on the July number — do not over-read it.**
+66% of July revenue ($2,048.80 of $3,109.76) came from a **single order**; ex-outlier July is ~$31.83. n=5 orders. The return window on that order is open and Amazon can restate. Per [[statistical-confidence-policy]], one month with one dominant order is not a run rate.
+
+**PROCESS FIX — record the export date range on every Amazon download.**
+The Aug 3 export was briefly read as a second positive month because month-to-date and rolling-30-day exports are indistinguishable in the CSV. Jackson's confirmation of "last 30 days" is what made the reconciliation possible. Prefer calendar-month ranges for continuity with the monthly log.
+
+**OPEN — Friday content pipeline still failing 4 of last 8 runs.** Root cause: the content agent writes an en-dash inside a JS expression in `src/pages/best-office-chairs.astro:118`, esbuild fails, nothing commits. That page **does not exist on main and should not** — `/best-office-chairs/` is a 301 to `/office-chairs-for-tall-people/` (`public/_redirects:7`). The agent burns a run every other Friday recreating a deliberately consolidated URL. Not yet fixed.
+
+**CORRECTION — the 2026-08-04 Tuesday audit's "C-1 CRITICAL duplicate content crisis" is a false positive.** It flagged `/best-office-chairs/` and `/office-chairs-for-tall-people/` as duplicates with identical titles and canonicals. Verified by curl: the first 301-redirects to the second. The audit followed the redirect and compared the page to itself — the WebFetch-strips-head failure mode that CLAUDE.md already warns about, now present in the audit agent. **The audit agent needs a no-follow status check before flagging duplicates.**
 
 ## 2026-07-25 — CRITICAL: two money pages found rendering raw LLM output in production; fixed
 

@@ -72,7 +72,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[workflow-system-reference]] | Current operational setup: weekly agent cycle, GitHub Actions, scripts, Obsidian vault, data flow. Read this for any question about how the automation works. |
 | [[indexing-health]] | Per-page GSC indexing status. Jun 14: 35/47 indexed. 3 thin-content pages stuck crawled-not-indexed. Script now also checks redirect sources. |
 | [[affiliate-compliance]] | **NEW 2026-05-11.** FTC body disclosure missing on 6 pages. Revenue leaks: aeron-vs-gesture (0 CTAs in 84%), gesture review (CTA at 85%), best-office-chairs (Quick Picks → internal not Amazon). |
-| [[affiliate-performance]] | **UPDATED 2026-07-18.** Jul 17 snapshot: +$36.06 — first positive earnings. ASIN fix validated: Unknown attribution 94%→45%, revenue $578→$1,252. Leap Plus + Gesture ASINs now click-visible. Need 2-3 positive periods before relaxing kill list. |
+| [[affiliate-performance]] | **UPDATED 2026-08-04.** July closed **+$92.06** (best month ever) but 66% came from one order — ex-outlier ~$32. **Two window types now exist: check before logging.** The Aug 3 export was rolling-30-day and was 99.7% July re-reported (+$0.24 real) — gate stays **1 of 2–3**, August closes 09-01. **NEW: market-value benchmark** — DataForSEO CPC $3.73/click vs TCA EPC $1.00 ($0.35 ex-outlier) and ~$0.30/session; **monetization at/above category norms, session volume is the constraint.** GA4 undercounts affiliate clicks ~4x — do not use for attribution. Open: 0 chair orders on 88 chair clicks (4th straight export). |
 | [[runpod-migration-proposal]] | 🔴 BACKLOG / soft rejected. Broad RunPod migration for TCA deferred; Anthropic Batch research is now the preferred low-friction cost path. Raw proposal remains as historical research only. |
 
 ## Synthesis
@@ -82,7 +82,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[what-works]] | Confirmed wins: hub-and-spoke, spec sub-pages, FAQ schema, content expansion. |
 | [[what-failed]] | Comparison table didn't fix CTR. Meta trim had marginal effect. |
 | [[thesis]] | The strategic bet: own height-specific chair ergonomics. Current priorities. |
-| [[decisions-log]] | Week-by-week record of what was done, decided, and deferred. |
+| [[decisions-log]] | Week-by-week record of what was done, decided, and deferred. **UPDATED 2026-08-04 — the Jul 4 verdict "monetization problem, not traffic problem" is SUPERSEDED and inverted; monetization is fixed, traffic is now the constraint. Do not cite the old line as current state.** |
 
 ## Weekly Summaries
 
@@ -124,7 +124,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 ## Raw Sources (reference only — do not edit)
 
 Located in `raw/`. Organized by type:
-- `raw/affiliate/` — Amazon Associates export snapshots (latest: 2026-07-17 — first positive earnings, ASIN fix validation)
+- `raw/affiliate/` — Amazon Associates export snapshots (latest: **2026-08-03 — rolling 30-day window**, 99.7% a restatement of the 2026-07-31 July close of +$92.06). **Two window types exist: month-to-date snapshots are cumulative and supersede each other; rolling-window exports cannot be appended to the monthly log at all. The CSV does not record which was selected — always note the range at download.**
 - `raw/gsc/` — GSC data exports (Mar 7 through May 4)
 - `raw/audits/` — Audit/analysis files (latest: 2026-07-04). Key files: `2026-07-04-affiliate-revenue-audit.md` (hostile revenue audit: link architecture root cause, 30-day plan, kill list, ASIN map), `2026-06-14-full-site-report.md` (cross-source site audit: GSC+GA4+Clarity, 47 pages mapped, 5 tiers, 7 recommendations), `2026-05-27-full-seo-audit.md` (SEO audit, 75/100, 6-agent), `2026-05-27-action-plan.md` (29 prioritized fixes), `2026-05-13-systems-architecture-audit.md` (systems audit — source for [[systems-architecture-audit-2026-05-13]]), `2026-05-10-full-seo-audit.md` (prior SEO audit, 77/100, archived).
 - `raw/strategy/` — Strategy/planning files (latest: 2026-05-15). Key files: `2026-05-15-niche-incubator-plan.md` (adjacent-project architecture for niche go/no-go scoring), `2026-05-11-niche-validation-evaluation.md` (core validation framework), `2026-05-10-runpod-migration-proposal.md` (historical cost research, backlog only).
