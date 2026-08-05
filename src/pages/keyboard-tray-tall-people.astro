@@ -1,0 +1,398 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Keyboard Tray for Tall People (2026): Negative Tilt at High Desks",
+    "description": "Raising a desk or converter to a tall user's 43\"–48\" standing height forces wrist extension. A negative-tilt keyboard tray angling 10°–20° away restores a neutral wrist. The geometry and three trays that deliver it.",
+    "url": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-08-04",
+    "dateModified": "2026-08-04",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Workstation Setup", "item": "https://tallchairadvisor.com/fit-guides/" },
+      { "@type": "ListItem", "position": 3, "name": "Keyboard Trays for Tall People", "item": "https://tallchairadvisor.com/keyboard-tray-tall-people/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do tall people need a special keyboard tray?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Keyboard trays are not built in tall-specific versions, and no tray on the market is engineered around body height. What is tall-specific is the situation: a user at 6'4\" sets a standing surface at 43\"–45\" and a user at 6'6\" at 45\"–47\", and a raised typing surface without corrective tilt drives the wrist into extension. A negative-tilt tray is therefore a companion product to a raised desk or converter, not a tall-specific device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a negative-tilt keyboard tray and why does it matter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Negative tilt means the far edge of the keyboard sits lower than the near edge, so the surface slopes away from the user. Standard keyboards do the opposite: their rear feet create roughly 5°–11° of positive tilt, which forces the wrist into extension. Ergonomics guidance targets a neutral wrist within about 0°–15° of extension, and carpal tunnel pressure rises steeply beyond that. A tray offering 10°–20° of negative tilt cancels both the keyboard's own slope and the extension caused by a typing surface set above elbow height."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How high should a keyboard tray sit for a tall person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At or slightly below elbow height in whichever posture is being used. Seated, a 6'4\" user has an elbow height of approximately 27\"–29\", which sits at or below a standard 29\"–30\" desktop, so an under-desk tray dropping the keyboard 1\"–3\" is usually correct. Standing, the same user's elbow height is approximately 45\", so the typing surface belongs at 43\"–45\". The tray's job is to place the keyboard at that number and then tilt it away to keep the wrist neutral."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can a keyboard tray be used with a standing desk converter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, and it is often necessary. Many converters place the keyboard on a flat deck with no tilt adjustment, which leaves the wrist extended once the deck is raised to a tall user's 43\"–48\" standing height. A sit/stand tray that mounts under the desk and rises above the desktop, such as the Fellowes Professional Series tray with up to 6.25\" of above-desktop travel, addresses the same problem from the opposite direction. Confirm mounting clearance before buying, since converters occupy 20\"–24\" of desk depth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does an under-desk keyboard tray reduce legroom for tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, and it is the main tradeoff. An under-desk tray and its track consume roughly 1.5\"–3\" of vertical clearance beneath the desktop. A 6'4\" user seated correctly typically has 24\"–26\" of knee clearance under a 29\"–30\" desk, so losing 2\"–3\" can create thigh contact with the track. Measure clearance from the floor to the underside of the desk and subtract the tray's stated mounting depth before ordering."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Set Keyboard Tray Height and Negative Tilt as a Tall User",
+    "description": "Four-step procedure for positioning a keyboard tray so the wrist stays neutral at a raised desk or standing converter height.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Measure elbow height in the posture you are fixing",
+        "text": "Seated, sit with feet flat and thighs level, bend forearms to 90 degrees, and measure floor to underside of elbow. Standing, repeat while upright in work shoes. Typical values at 6'4\" are approximately 27\"–29\" seated and approximately 45\" standing."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Set the tray so the keyboard home row sits at or just below elbow height",
+        "text": "Position the tray so the middle row of keys sits level with the elbow or up to 2\" below it. Typing surfaces above elbow height are the primary cause of wrist extension and shoulder elevation."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Apply negative tilt until the wrist is flat",
+        "text": "Retract the keyboard's rear feet first, then tilt the tray so the far edge drops. Increase negative tilt until the back of the hand is roughly in line with the forearm. Most users land between 10 and 20 degrees of negative tilt."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Verify legroom and knee clearance",
+        "text": "Confirm that the tray track does not contact the thighs. Measure from the floor to the underside of the tray at its lowest setting and compare against seated knee height, which is approximately 24\"–26\" for a 6'4\" user."
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Keyboard Tray for Tall People (2026): Negative Tilt at High Desks"
+  description="Raising a desk to tall standing height forces wrist extension. A negative-tilt tray angling 10-20 degrees away restores neutral wrists. Geometry plus 3 trays."
+  ogType="article"
+  ogImage="/images/og-default.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Keyboard Tray for Tall People: Negative Tilt at High Desks (2026)</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Raise the desk to fit your height and the wrists pay for it — unless the surface tilts away
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-08-04" updatedDate="2026-08-04" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">No keyboard tray is engineered for tall bodies — the tall-specific part is the desk height that surrounds it. A 6'4" user sets a standing surface at 43"–45" and a 6'6" user at 45"–47", and a flat typing surface at that height drives the wrist into extension. Standard keyboards make it worse, adding roughly 5°–11° of positive tilt through their rear feet. A tray offering 10°–20° of negative tilt cancels both and returns the wrist to the neutral 0°–15° band. Treat it as a companion to a raised desk or converter, not a standalone tall product.</p>
+    </div>
+
+    <div class="bg-card border border-border rounded-lg px-5 py-4 mb-8">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Honest framing up front</p>
+      <p class="text-sm">Keyboard trays are not sold in tall versions and none of the products below were designed around user height. This page exists because raising a desk or converter to a tall user's correct height creates a wrist problem that shorter users rarely encounter. The tray solves that downstream problem. If you have not yet solved the desk height itself, start with <a href="/standing-desk-converter-tall-people/" class="link-internal">standing desk converters for tall people →</a>.</p>
+    </div>
+
+    <Disclosure />
+
+    <div class="prose-tca">
+
+      <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. The Steelcase Gesture is the only product I have personally used and can speak to first-hand. Everything below is spec analysis and wrist-joint geometry, drawn from published manufacturer dimensions and reported experience from tall users in r/ergonomics and r/officechair.</p>
+
+      <p>I want to be direct about what this page is, because a lot of tall-keyword content oversells the connection. There is no such thing as a tall person's keyboard tray. What exists is a predictable chain: tall body, higher correct desk height, raised typing surface, extended wrist. The tray is the link that breaks the chain.</p>
+
+      <section>
+        <h2>Why Raising a Desk to Tall Height Creates a Wrist Problem</h2>
+
+        <p>Start with the wrist joint itself. Neutral means the back of the hand is roughly in line with the forearm — zero degrees of extension. Ergonomics guidance broadly targets keeping the wrist within about 0°–15° of extension during typing, because pressure inside the carpal tunnel rises steeply as extension increases beyond that band. Sustained extension while typing is one of the better-documented contributors to wrist and forearm discomfort in desk work.</p>
+
+        <p>Now stack up what a tall user actually does to a workstation:</p>
+
+        <ol>
+          <li><strong>Raise the surface.</strong> Standing elbow height at 6'4" is approximately 45", and at 6'6" approximately 47". The typing surface goes to 43"–45" or 45"–47" respectively.</li>
+          <li><strong>The surface is flat.</strong> Converter keyboard decks and desktops are horizontal, with no tilt adjustment.</li>
+          <li><strong>The keyboard adds positive tilt.</strong> Nearly every keyboard has flip-out rear feet that raise the back edge, creating roughly 5°–11° of upward slope toward the user.</li>
+        </ol>
+
+        <p>The result is a surface that already slopes the wrong way, and any error toward setting it too high compounds the extension. If the surface ends up even an inch or two above elbow height — easy to do when a converter's steps are 2" apart — the forearm angles downward to reach it while the hand must angle back up to stay on the keys. That difference is absorbed entirely by the wrist.</p>
+
+        <h3>The moment-arm view</h3>
+
+        <p>An engineering way to see it: the finger flexor tendons run through the carpal tunnel like cables through a conduit. Extending the wrist bends the conduit. A bent path means the tendons press against the tunnel walls and against the median nerve, and it also increases the tension the muscles must generate for the same keystroke force because the effective moment arm changes. Higher tendon load through a narrower opening, repeated tens of thousands of times a day. That is the mechanism, and it is geometry, not effort.</p>
+
+        <p>Negative tilt reverses step two. Dropping the far edge of the keyboard 10°–20° below the near edge means the fingers descend to the keys rather than reaching up to them, and the wrist stays flat or slightly flexed. It is the same correction that keyboard trays have offered for decades — it is just that tall users hit the triggering condition, an above-elbow typing surface, far more often.</p>
+
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm italic">Negative-tilt keyboard trays correct wrist extension caused by raised typing surfaces, not by user height. Standing elbow height is approximately 45" at 6'4" and approximately 47" at 6'6", so a tall user's typing surface sits 14"–18" above a 29" desktop where flat decks and the 5°–11° positive tilt of standard keyboard feet drive the wrist out of the neutral 0°–15° extension band. Trays offering 10°–20° of negative tilt reverse both effects.</p>
+      </section>
+
+      <section>
+        <h2>Seated Versus Standing: Two Different Tray Jobs</h2>
+
+        <p>The correct tray height is not one number, and tall users tend to conflate the two cases.</p>
+
+        <h3>Seated at a standard desk</h3>
+
+        <p>This surprises people who assume tall users always need things higher. Seated elbow height at 6'4" is roughly 27"–29" with the chair set correctly — feet flat, thighs level. A standard desk is 29"–30". So seated, the desktop is at or slightly <em>above</em> a tall user's elbow, and an under-desk tray that drops the keyboard 1"–3" is genuinely the right move.</p>
+
+        <p>The catch is legroom, and it is a real constraint for long femurs. This is the same clearance problem that governs <a href="/knee-pain-seat-depth/" class="link-internal">seat depth and knee position →</a>, viewed from above instead of behind.</p>
+
+        <h3>Standing at a raised desk or converter</h3>
+
+        <p>Here the tray needs to go up, not down. A sit/stand tray that mounts under the desktop but rises above it covers this case: the keyboard sits below the desktop when seated and above it when standing, without moving the mount. The Fellowes Professional Series tray is the example in this comparison, with a published range extending up to 6.25" above the desktop.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Your Height</th>
+                <th class="text-center p-3 font-semibold text-heading">Seated Elbow Height</th>
+                <th class="text-center p-3 font-semibold text-heading">Seated Tray Target</th>
+                <th class="text-center p-3 font-semibold text-heading">Standing Elbow Height</th>
+                <th class="text-center p-3 font-semibold text-heading">Standing Tray Target</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'0"</td>
+                <td class="p-3 text-center">~26"–27"</td>
+                <td class="p-3 text-center">25"–27"</td>
+                <td class="p-3 text-center">~41"</td>
+                <td class="p-3 text-center">39"–41"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'2"</td>
+                <td class="p-3 text-center">~27"–28"</td>
+                <td class="p-3 text-center">26"–28"</td>
+                <td class="p-3 text-center">~43"</td>
+                <td class="p-3 text-center">41"–43"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'4"</td>
+                <td class="p-3 text-center">~27"–29"</td>
+                <td class="p-3 text-center">27"–29"</td>
+                <td class="p-3 text-center">~45"</td>
+                <td class="p-3 text-center">43"–45"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'6"</td>
+                <td class="p-3 text-center">~28"–30"</td>
+                <td class="p-3 text-center">28"–30"</td>
+                <td class="p-3 text-center">~47"</td>
+                <td class="p-3 text-center">45"–47"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-sm"><em>Anthropometric estimates. Seated elbow height depends heavily on chair height and torso-to-leg ratio — measure your own rather than reading off the row.</em></p>
+      </section>
+
+      <section>
+        <h2>Keyboard Trays Worth Considering at a Raised Desk</h2>
+
+        <p>Filter on three specs and ignore the rest: negative tilt range, height adjustment range, and mounting depth under the desk. Every other listed feature is secondary.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Tray</th>
+                <th class="text-center p-3 font-semibold text-heading">Tilt</th>
+                <th class="text-center p-3 font-semibold text-heading">Height Behavior</th>
+                <th class="text-center p-3 font-semibold text-heading">Approx. Price</th>
+                <th class="text-center p-3 font-semibold text-heading">Best Use</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Uncaged Ergonomics KT2-b</td>
+                <td class="p-3 text-center">Adjustable, incl. negative</td>
+                <td class="p-3 text-center">Adjustable under-desk</td>
+                <td class="p-3 text-center">$70–$90</td>
+                <td class="p-3 text-center">Seated correction, budget</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Fellowes Professional Sit/Stand</td>
+                <td class="p-3 text-center">Adjustable</td>
+                <td class="p-3 text-center">Up to 6.25" above desktop</td>
+                <td class="p-3 text-center">$150–$200</td>
+                <td class="p-3 text-center">Sit-to-stand on a fixed desk</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">UPLIFT Desk Large Tray</td>
+                <td class="p-3 text-center">20° negative to 10° positive</td>
+                <td class="p-3 text-center">Under-desk track</td>
+                <td class="p-3 text-center">$100–$130</td>
+                <td class="p-3 text-center">Widest tilt range, full-size boards</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Uncaged Ergonomics KT2-b — Best Budget Negative-Tilt Tray</h3>
+
+        <p><strong>Type:</strong> under-desk, adjustable height and angle &nbsp;|&nbsp; <strong>Tilt:</strong> adjustable including negative &nbsp;|&nbsp; <strong>Approx. price:</strong> $70–$90</p>
+
+        <p>The KT2-b is an under-desk tray with independent height and angle adjustment, and negative tilt is part of its published capability. At $70–$90 it is the cheapest way to test whether wrist extension is what has been bothering you, which is the right first experiment before spending three times as much.</p>
+
+        <p>Confidence here is high on the mechanism and the fit for seated work. What I will not do is quote an exact tilt figure in degrees, because the listing does not publish one consistently — treat "adjustable negative tilt" as the claim and verify the achievable angle when it arrives. That distinction matters more than it sounds: a tray that reaches 5° of negative tilt will not cancel a keyboard's own 8° of positive slope, while one reaching 15° will.</p>
+
+        <p>For a tall user the relevant check before ordering is vertical clearance. Measure floor-to-underside of your desk, subtract the tray's mounting depth, and confirm the result still clears your knees at roughly 24"–26" for a 6'4" frame.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B01BRLJPZQ?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Uncaged Ergonomics KT2-b keyboard tray on Amazon" data-cta-position="product-card">
+            View Uncaged Ergonomics KT2-b on Amazon →
+          </a>
+        </div>
+
+        <h3>Fellowes Professional Series Sit/Stand Keyboard Tray — The Only One With an Explicit Tall Claim</h3>
+
+        <p><strong>Type:</strong> under-desk sit/stand &nbsp;|&nbsp; <strong>Height:</strong> up to 6.25" above the desktop &nbsp;|&nbsp; <strong>Approx. price:</strong> $150–$200</p>
+
+        <p>Fellowes states this model provides an increased height adjustment range for taller users, up to 6.25" above the desktop. That is the closest thing to a tall-specific claim in this category, and unlike most such claims it maps to a published number rather than to adjectives.</p>
+
+        <p>Run the arithmetic on it. A 29" desk plus 6.25" gives a 35.25" typing surface. That is well short of a 6'4" user's 43"–45" standing target, so this tray is not a substitute for a converter or a full standing desk. What it does well is bridge a partial sit-stand setup on a desk that is already somewhat raised, or provide the tilt-and-height correction alongside a desk you have already raised by other means.</p>
+
+        <p>Confidence is medium. The above-desktop range is published and verifiable, but the tilt range is described qualitatively rather than in degrees, so the negative-tilt magnitude cannot be confirmed from specifications. If maximum negative tilt is your priority, the UPLIFT below publishes a harder number.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B0051MOFP8?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Fellowes Professional Series Sit/Stand keyboard tray on Amazon" data-cta-position="product-card">
+            View Fellowes Sit/Stand Tray on Amazon →
+          </a>
+        </div>
+
+        <h3>UPLIFT Desk Large Keyboard Tray — Widest Published Tilt Range</h3>
+
+        <p><strong>Type:</strong> under-desk track &nbsp;|&nbsp; <strong>Tilt:</strong> 20° negative to 10° positive &nbsp;|&nbsp; <strong>Approx. price:</strong> $100–$130</p>
+
+        <p>The UPLIFT Large publishes a 20° negative to 10° positive tilt range, which is the specification that actually matters here. Twenty degrees of negative tilt is enough to cancel a keyboard's built-in 5°–11° positive slope and still leave 9°–15° of genuine downward angle. That is comfortably inside the range where the wrist returns to neutral.</p>
+
+        <p>The large surface is the second reason to consider it. Tall users have longer forearms and wider natural elbow spacing, and a narrow tray forces the arms inward toward the body — the same mechanism that makes narrow armrests uncomfortable and contributes to <a href="/shoulder-pain-tall-people/" class="link-internal">shoulder tension in tall desk users →</a>. A tray sized for a full-width keyboard plus mouse keeps both hands in front of the shoulders rather than crowded together.</p>
+
+        <p>Confidence is medium, driven entirely by fit rather than by the product. Under-desk track systems require adequate flat mounting area beneath the desktop, and desks with front aprons, cross-braces, or converter feet in the way can make installation impractical. Measure the underside before ordering.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B07B42X78Q?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View UPLIFT Desk Large Keyboard Tray on Amazon" data-cta-position="product-card">
+            View UPLIFT Large Keyboard Tray on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>How to Set Tray Height and Tilt</h2>
+
+        <h3>Step 1: Measure elbow height in the posture you are fixing</h3>
+        <p>Seated: feet flat, thighs level, forearms at 90 degrees, measure floor to underside of elbow. Standing: same, upright in work shoes. At 6'4" expect roughly 27"–29" seated and roughly 45" standing. Fix one posture at a time.</p>
+
+        <h3>Step 2: Put the home row at or just below elbow height</h3>
+        <p>Not the tray surface — the middle row of keys. Up to 2" below the elbow is fine and often preferable. Above elbow height is the condition that creates the whole problem.</p>
+
+        <h3>Step 3: Retract the keyboard feet, then add negative tilt</h3>
+        <p>Fold the rear feet down first. That alone removes 5°–11° of positive slope, and a surprising number of people never do it. Then tilt the tray so the far edge drops until the back of your hand lines up with your forearm. Most users settle between 10° and 20°.</p>
+
+        <h3>Step 4: Check knee clearance before you commit</h3>
+        <p>Measure floor to the underside of the tray at its lowest position. Compare against seated knee height, roughly 24"–26" at 6'4". If the track contacts your thighs, the tray is the wrong mount type for your desk regardless of how good its tilt range is.</p>
+      </section>
+
+      <section>
+        <h2>When a Tray Is the Wrong Purchase</h2>
+
+        <ul>
+          <li><strong>Your desk is too low, not too high.</strong> If you are hunching down to a 28" desk seated, the answer is raising the desk, not lowering the keyboard further. See <a href="/standing-desk-height-tall-people/" class="link-internal">standing desk height for tall people →</a>.</li>
+          <li><strong>Legroom is already tight.</strong> A tray and track eat 1.5"–3" of under-desk clearance. If your thighs already contact the desk underside, a tray makes an existing problem worse.</li>
+          <li><strong>The real issue is the chair.</strong> Wrist symptoms sometimes trace back to armrests that cannot reach elbow height, leaving the forearms unsupported and the wrists compensating. Rule that out first with <a href="/correct-chair-dimensions/" class="link-internal">the chair dimensions guide →</a>.</li>
+          <li><strong>You have a converter with a dedicated tilting tray.</strong> Some converters already separate the keyboard deck and allow tilt. Check what you own before buying a second solution to the same problem.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Do tall people need a special keyboard tray?</h3>
+        <p>No. No tray is engineered around body height, and none of the three above claims to be. The tall-specific factor is the raised typing surface — 43"–45" standing at 6'4", 45"–47" at 6'6" — which creates the wrist extension a negative-tilt tray corrects. Buy it as a companion to a raised desk or converter.</p>
+
+        <h3>What is a negative-tilt keyboard tray and why does it matter?</h3>
+        <p>Negative tilt slopes the keyboard away from you, far edge lower than near edge. Standard keyboards do the opposite, adding roughly 5°–11° of positive tilt through their rear feet, which pushes the wrist into extension. Neutral is about 0°–15° of extension, and carpal tunnel pressure climbs steeply past that. A 10°–20° negative tilt cancels the keyboard's slope and restores the neutral angle.</p>
+
+        <h3>How high should a keyboard tray sit for a tall person?</h3>
+        <p>At or up to 2" below elbow height in the posture you are using. At 6'4", that is roughly 27"–29" seated — usually 1"–3" below a standard desktop — and roughly 43"–45" standing. Set the home row to that height, then adjust tilt.</p>
+
+        <h3>Can a keyboard tray be used with a standing desk converter?</h3>
+        <p>Yes, and it is frequently necessary because many converters use a flat, non-tilting keyboard deck. A sit/stand tray such as the Fellowes Professional Series, with up to 6.25" of above-desktop travel, tackles the same problem from the desk side. Check mounting clearance first, since converters occupy 20"–24" of desk depth and can block the track.</p>
+
+        <h3>Does an under-desk keyboard tray reduce legroom for tall users?</h3>
+        <p>Yes — roughly 1.5"–3" of vertical clearance for the tray and its track. A 6'4" user seated correctly has about 24"–26" of knee clearance under a 29"–30" desk, so that loss can produce thigh contact. Measure floor-to-desk-underside and subtract the mounting depth before ordering.</p>
+
+        <h3>Will a negative-tilt tray help if my wrists hurt at a normal seated desk?</h3>
+        <p>Often, yes, and the fix may be free. Retracting the keyboard's rear feet removes 5°–11° of positive tilt on its own. If that helps but not enough, a tray adds the remaining 10°–20° of correction and drops the surface 1"–3" below the desktop, which is where a tall user's seated elbow already sits.</p>
+      </section>
+
+      <section>
+        <h2>The Bottom Line</h2>
+        <p>A keyboard tray is not a tall-person product, and any page telling you otherwise is stretching. It is the correction for a condition tall users create when they finally set their desk to the right height: a typing surface at or above elbow level, on a flat deck, under a keyboard that already tilts the wrong way.</p>
+        <p>Filter on published negative-tilt range first — the UPLIFT's 20° is the clearest number in the group — then on height behavior, then on whether it physically fits under your desk without stealing knee room. Solve desk height first; add the tray second.</p>
+      </section>
+
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related workstation setup guides:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/standing-desk-converter-tall-people/" class="link-internal">Standing desk converters for tall people →</a></li>
+          <li><a href="/standing-desk-height-tall-people/" class="link-internal text-muted-foreground">Standing desk height for tall people →</a></li>
+          <li><a href="/monitor-arm-tall-people/" class="link-internal text-muted-foreground">Monitor arms for tall people →</a></li>
+          <li><a href="/lumbar-support-tall-people/" class="link-internal text-muted-foreground">Lumbar support for long torsos →</a></li>
+          <li><a href="/shoulder-pain-tall-people/" class="link-internal text-muted-foreground">Shoulder pain in tall desk users →</a></li>
+          <li><a href="/review/gesture/" class="link-internal text-muted-foreground">Steelcase Gesture review — tested at 6'4" →</a></li>
+          <li><a href="/office-chairs-for-tall-people/" class="link-internal text-muted-foreground">← All chairs for tall people</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>

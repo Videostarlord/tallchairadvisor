@@ -1,0 +1,446 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Chair Headrest for Tall People (2026): Leap V2, Gesture, and Aeron",
+    "description": "Premium task chairs ship without headrests, and at 6'2\" and above the backrest stops 8\"–11\" below the occiput. Only the Herman Miller Aeron has aftermarket headrests in stock. The Leap V2 unit is sold out, it does not fit the Leap Plus, and the Gesture has no option at all.",
+    "url": "https://tallchairadvisor.com/chair-headrest-tall-people/",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-08-04",
+    "dateModified": "2026-08-04",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides/" },
+      { "@type": "ListItem", "position": 3, "name": "Chair Headrests for Tall People", "item": "https://tallchairadvisor.com/chair-headrest-tall-people/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do tall people need a chair headrest?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tall users benefit from a headrest primarily during recline, not during upright typing. The Steelcase Leap V2, Steelcase Gesture, and Herman Miller Aeron all top out at roughly 23\"–25\" above the seat pan. Seated occiput height — the back of the skull, where a headrest makes contact — is approximately 33\" above the seat at 6'2\", 34\" at 6'4\", and 35\" at 6'6\". That leaves an 8\"–11\" span of unsupported cervical spine. A headrest closes that span when the chair is reclined past roughly 110 degrees, which is where most reading, calls, and thinking work happens."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the Steelcase Leap V2 have a headrest?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The standard Steelcase Leap V2 ships without a headrest. Its backrest measures roughly 23\" above the seat pan, which lands near the shoulder blades for a user at 6'4\". Aftermarket headrests are the common retrofit path — the Atlas Headrest for Steelcase Leap V2 (around $190) clamps to the upper back frame. As of August 2026 it is sold out at every verified seller, including Atlas direct, Crandall Office Furniture, and Office Logix Shop. It also does not fit the Leap Plus or Leap V1, which have different back structures."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there an aftermarket headrest for the Steelcase Gesture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No confirmed aftermarket headrest for the Steelcase Gesture is available on Amazon as of August 2026. Steelcase sells a Gesture headrest only as a factory-configured option bundled at the time of chair purchase, mounted to a specific upper back assembly. A Gesture bought without that option cannot be upgraded through a standard retail accessory. Owners who want head support on an existing Gesture are limited to third-party universal clamp headrests of unverified fitment, or to reclining the chair less than they otherwise would."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which headrest fits a Herman Miller Aeron?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Herman Miller does not manufacture an Aeron headrest in any size, including Size C. The two established aftermarket makers are Engineered Now and Atlas. Engineered Now sells The Original Headrest in an HW version for the Remastered Aeron built from 2016 onward (ASIN B0B86SYST5, roughly $150–$190) and an H4 version for the Aeron Classic built from 1994 to 2016 (ASIN B00MV8C8TA, roughly $140–$170). Atlas offers a Graphite headrest for the Aeron (ASIN B00L2IJNMK, around $190). Matching Classic versus Remastered generation is the critical fitment step."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How high should a chair headrest be for a 6'4\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The contact pad should meet the occiput — the bony ridge at the base of the skull — not the top of the head and not the neck itself. At 6'4\", that target sits roughly 33\"–34\" above the seat pan when seated upright, and drops 2\"–4\" lower relative to the backrest as the chair reclines. Most aftermarket headrests publish 3\"–4\" of vertical travel plus a tilt range. Subtract the backrest top height (about 23\"–25\" on a Leap V2, Gesture, or Aeron) from the occiput target to get the required rise: typically 8\"–11\"."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Measure Whether You Need a Chair Headrest",
+    "description": "A four-step measurement process for tall users to determine whether a chair backrest reaches the cervical spine, and how much headrest rise is required.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Set the chair to your correct seat height",
+        "text": "Sit with feet flat on the floor and thighs roughly parallel to the ground or declining slightly. This is the reference posture. Measuring at the wrong seat height shifts every subsequent number."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Measure the backrest top above the seat pan",
+        "text": "With a tape measure, record the vertical distance from the compressed seat surface to the highest point of the backrest. Typical published values: Steelcase Leap V2 about 23\", Steelcase Gesture about 22.5\"–23\", Herman Miller Aeron Size C about 24\"–25\"."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Measure your seated occiput height",
+        "text": "Have someone measure from the seat pan to the bony ridge at the base of your skull, roughly 5\"–6\" below the crown of the head. Typical values: about 33\" at 6'2\", 34\" at 6'4\", 35\" at 6'6\"."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Subtract to find required headrest rise",
+        "text": "Occiput height minus backrest top height equals the vertical rise a headrest must provide. If the result exceeds the headrest's published vertical travel plus its fixed mounting offset, the headrest will contact your neck instead of your skull and should not be purchased."
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Chair Headrest for Tall People (2026): Leap, Gesture, Aeron"
+  description="Chair backrests stop 8-11 inches below the occiput at 6'2&quot;+. Only the Aeron has headrests in stock: the Leap V2 unit is sold out and the Gesture has none."
+  ogType="article"
+  ogImage="/images/og-default.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Chair Headrest for Tall People: Leap V2, Gesture, and Aeron (2026)</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Why premium chairs stop at your shoulder blades — and which aftermarket headrests actually close the gap
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-08-04" updatedDate="2026-08-04" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">The Steelcase Leap V2, Steelcase Gesture, and Herman Miller Aeron all ship without a headrest, and their backrests top out at roughly 23"–25" above the seat pan. At 6'2"–6'6", the occiput sits about 33"–35" above the seat — an 8"–11" gap with no support. Only the Herman Miller Aeron has aftermarket headrests in stock (Engineered Now, Atlas; $140–$190). The Leap V2 unit is real but sold out at every verified seller as of August 2026, and it does not fit the Leap Plus. There is no aftermarket headrest for the Steelcase Gesture at all; Steelcase sells that headrest only bundled at time of chair purchase.</p>
+    </div>
+
+    <Disclosure />
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>Why Premium Task Chairs Ship Without Headrests</h2>
+        <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. The chair in my apartment is a Steelcase Gesture, and it has no headrest. Neither does a standard Leap V2. Neither does any Herman Miller Aeron, in any size, in any generation. That is not an oversight.</p>
+        <p>Premium task chairs are engineered around an upright work posture. The design assumption is that the user sits between 90 and 110 degrees of trunk angle, with the head balanced over the shoulders and the cervical spine loaded almost entirely in compression. In that posture a headrest does nothing useful — the head is already in equilibrium, and a pad behind the skull would push the head forward rather than support it. Manufacturers leave it off to protect the posture they designed for.</p>
+        <p>The problem is that the assumption breaks twice. It breaks when the user reclines past about 110 degrees, which most people do for reading, calls, and thinking. And it breaks structurally for tall users, because the backrest was scaled to a torso far shorter than a 6'2"-plus frame. For the tall user, the backrest stops well before the top of the thoracic spine, so even upright there is nothing behind the upper back to work against.</p>
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm">
+          <strong>Note on testing:</strong> I have personally used and tested only the Steelcase Gesture. I have not sat in a Leap V2 or an Aeron, and I have not installed any headrest in this guide. Every headrest assessment below is based on published manufacturer dimensions, seller compatibility documentation, aggregated reports from r/ergonomics and r/officechair, and engineering analysis of mounting geometry and load path.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Geometry: Where Your Neck Sits vs. Where the Backrest Stops</h2>
+        <p>This is a subtraction problem, and it's worth doing before spending $190 on an accessory. Two numbers matter: how far above the seat pan the backrest reaches, and how far above the seat pan the back of your skull sits.</p>
+
+        <h3>Seated landmark heights for tall users</h3>
+        <p>Seated anthropometry scales roughly linearly with stature. Erect sitting height — seat pan to crown of the head — runs about 0.52 times standing height in adults with typical proportions. The occiput, the bony ridge at the base of the skull where a headrest should make contact, sits approximately 5"–6" below the crown. Acromion height, the top of the shoulder, runs about 24"–26" above the seat in this range.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Standing Height</th>
+                <th class="text-center p-3 font-semibold text-heading">Sitting Height (seat to crown)</th>
+                <th class="text-center p-3 font-semibold text-heading">Shoulder Height Above Seat</th>
+                <th class="text-center p-3 font-semibold text-heading">Occiput Height Above Seat</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'0"</td>
+                <td class="p-3 text-center">~37.5"</td>
+                <td class="p-3 text-center">~23.5"</td>
+                <td class="p-3 text-center">~32"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'2"</td>
+                <td class="p-3 text-center">~38.5"</td>
+                <td class="p-3 text-center">~24.5"</td>
+                <td class="p-3 text-center">~33"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20 bg-primary/5">
+                <td class="p-3 font-medium">6'4"</td>
+                <td class="p-3 text-center">~39.5"</td>
+                <td class="p-3 text-center">~25"</td>
+                <td class="p-3 text-center">~34"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'6"</td>
+                <td class="p-3 text-center">~40.5"</td>
+                <td class="p-3 text-center">~26"</td>
+                <td class="p-3 text-center">~35"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Where the three chairs actually stop</h3>
+        <p>Published overall-height and seat-height ranges let you back out the backrest top above the seat pan. Subtract minimum seat height from minimum overall height, and the result is how far the backrest rises above where you sit.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Chair</th>
+                <th class="text-center p-3 font-semibold text-heading">Seat Height Range</th>
+                <th class="text-center p-3 font-semibold text-heading">Backrest Top Above Seat</th>
+                <th class="text-center p-3 font-semibold text-heading">Gap to Occiput at 6'4"</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Steelcase Leap V2</td>
+                <td class="p-3 text-center">15.5"–20.5"</td>
+                <td class="p-3 text-center">~23"</td>
+                <td class="p-3 text-center">~11"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Steelcase Gesture</td>
+                <td class="p-3 text-center">16"–21"</td>
+                <td class="p-3 text-center">~22.5"–23"</td>
+                <td class="p-3 text-center">~11"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Herman Miller Aeron Size C</td>
+                <td class="p-3 text-center">16"–20.5"</td>
+                <td class="p-3 text-center">~24"–25"</td>
+                <td class="p-3 text-center">~9"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>All three land within about two inches of each other, and all three stop at or just below shoulder height for a 6'4" user. That is the whole story in one line: <strong>the backrest ends at the shoulder blades, and everything above the shoulder blades is cantilevered.</strong></p>
+
+        <p>At 6'4" in my Gesture, this is exactly what I feel. The top edge of the backrest contacts me somewhere across the upper part of my shoulder blades. Everything above that — the last few inches of thoracic spine, the whole cervical spine, and about eleven pounds of head — has no structure behind it. Upright, that's manageable. Reclined, it is the reason I stop reclining.</p>
+
+        <!-- Citation capsule -->
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm italic">The Steelcase Leap V2, Steelcase Gesture, and Herman Miller Aeron all ship with backrests topping out roughly 23 to 25 inches above the seat pan, which lands at or just below shoulder height for users between 6'2" and 6'6". Seated occiput height at those statures falls between roughly 33 and 35 inches above the seat pan, leaving an 8 to 11 inch span of unsupported cervical spine. Aftermarket headrests from Engineered Now and Atlas close that span on the Herman Miller Aeron, while the Steelcase Leap V2 unit was sold out at every verified seller as of August 2026 and no aftermarket headrest exists for the Steelcase Gesture or the Steelcase Leap Plus.</p>
+
+        <p>For the underlying dimensional math on seat height, seat depth, and backrest height by user stature, see the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide by height →</a></p>
+      </section>
+
+      <section>
+        <h2>Does a Headrest Actually Do Anything, or Is It Just a Recline Accessory?</h2>
+        <p>Mostly it's a recline accessory — and that is not a criticism. The value shows up when the trunk angle opens past about 110 degrees, because that is when the head stops balancing over the shoulders and starts hanging off the front of the cervical spine.</p>
+        <p>The load numbers are worth knowing. An adult head weighs roughly 10–12 lb in neutral position. A 2014 analysis in <em>Surgical Technology International</em> by Kenneth Hansraj modeled cervical spine loading as a function of head flexion and found effective load rising to approximately 27 lb at 15 degrees, 40 lb at 30 degrees, 49 lb at 45 degrees, and 60 lb at 60 degrees of forward tilt. The mechanism is a moment arm: as the skull's center of mass translates forward of the C7 vertebra, the posterior neck extensors must generate increasing torque to hold it.</p>
+        <p>Reclining without head support produces a mirrored version of the same problem. If the trunk drops back to 120 degrees and the head stays level with the monitor, the neck is now in sustained flexion relative to the torso — and the cervical extensors hold that position isometrically for as long as you stay there. A headrest at the correct height removes that torque entirely by transferring head weight into the chair frame.</p>
+        <p>Upright, at 90–100 degrees, a headrest does close to nothing. Buy one for the reclined half of your day, not the typing half.</p>
+      </section>
+
+      <section>
+        <h2>Aftermarket Headrest Comparison</h2>
+        <p>Three products with live Amazon listings cover the Aeron. The Leap V2, Leap Plus, and Gesture rows are included because the honest answer for those chairs is that nothing is currently buyable, and a guide that hides that is wasting your time. The fitment column matters because headrest compatibility is generation-specific and the single most common cause of returns in this category.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Headrest</th>
+                <th class="text-center p-3 font-semibold text-heading">Fits</th>
+                <th class="text-center p-3 font-semibold text-heading">ASIN</th>
+                <th class="text-center p-3 font-semibold text-heading">Typical Price</th>
+                <th class="text-center p-3 font-semibold text-heading">Fitment Certainty</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20 bg-primary/5">
+                <td class="p-3 font-medium">Engineered Now — The Original Headrest (HW, Onyx)</td>
+                <td class="p-3 text-center">Aeron Remastered (2016+)</td>
+                <td class="p-3 text-center">B0B86SYST5</td>
+                <td class="p-3 text-center">~$150–190</td>
+                <td class="p-3 text-center">High</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Engineered Now — Headrest (H4, Carbon)</td>
+                <td class="p-3 text-center">Aeron Classic (1994–2016)</td>
+                <td class="p-3 text-center">B00MV8C8TA</td>
+                <td class="p-3 text-center">~$140–170</td>
+                <td class="p-3 text-center">Verify generation</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Atlas Headrest (Graphite)</td>
+                <td class="p-3 text-center">Herman Miller Aeron</td>
+                <td class="p-3 text-center">B00L2IJNMK</td>
+                <td class="p-3 text-center">~$190</td>
+                <td class="p-3 text-center">Verify generation</td>
+              </tr>
+              <tr class="hover:bg-secondary/20 bg-amber-50/60">
+                <td class="p-3 font-medium">Atlas Headrest for Steelcase Leap V2</td>
+                <td class="p-3 text-center">Leap V2 only &mdash; <strong>not</strong> Leap Plus or V1</td>
+                <td class="p-3 text-center">Sold out everywhere</td>
+                <td class="p-3 text-center">~$190</td>
+                <td class="p-3 text-center">Unavailable as of Aug 2026</td>
+              </tr>
+              <tr class="hover:bg-secondary/20 bg-amber-50/60">
+                <td class="p-3 font-medium">Steelcase Leap Plus</td>
+                <td class="p-3 text-center">&mdash;</td>
+                <td class="p-3 text-center">None</td>
+                <td class="p-3 text-center">&mdash;</td>
+                <td class="p-3 text-center">No compatible option exists</td>
+              </tr>
+              <tr class="hover:bg-secondary/20 bg-amber-50/60">
+                <td class="p-3 font-medium">Steelcase Gesture</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center">None</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center">No aftermarket option exists</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><em>Prices are typical street ranges and move frequently. Confirm the current listing price and the seller's compatibility chart before ordering.</em></p>
+      </section>
+
+      <section>
+        <h2>Herman Miller Aeron Headrests</h2>
+        <p>Herman Miller has never manufactured an Aeron headrest, in any size or generation. That is a deliberate design position, and it means every Aeron headrest on the market is third-party. Two makers dominate: Engineered Now and Atlas.</p>
+        <p>The critical fitment variable is generation. The Aeron Classic ran from 1994 to 2016; the Remastered Aeron launched in 2016 with a revised back frame, different posture-fit hardware, and altered top-rail geometry. Headrests are not cross-compatible. Ordering the wrong generation is the dominant failure mode reported in this category.</p>
+
+        <h3>Engineered Now &quot;The Original Headrest&quot; HW — for Aeron Remastered (2016+)</h3>
+        <p><strong>Fits:</strong> Remastered Aeron, Sizes A/B/C &nbsp;|&nbsp; <strong>Finish:</strong> Onyx &nbsp;|&nbsp; <strong>Price:</strong> ~$150–190</p>
+        <p>This is the most consistently referenced Aeron headrest in ergonomics communities and the safest starting point if the chair is a Remastered Aeron. The mount clamps to the upper back frame rather than bonding to the mesh, so the load path runs into the frame — structurally the correct approach, since mesh is a tension membrane and shouldn't carry a cantilevered point load. Published adjustment covers vertical travel in the 3"–4" range plus a tilt arc, which on a Size C should place the pad near the 34" occiput target for a 6'4" user once the frame's own 24"–25" starting height is added.</p>
+        <p>For a Size C owner at 6'4", the arithmetic is favorable: backrest top around 24"–25", occiput around 34", leaving a 9"–10" rise. That is the smallest gap of the three chairs covered here, which is why Aeron owners generally have the easiest retrofit.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B0B86SYST5?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Engineered Now HW Aeron Headrest on Amazon" data-cta-position="product-card">
+            View Engineered Now HW Headrest on Amazon →
+          </a>
+        </div>
+
+        <h3>Engineered Now H4 — for Aeron Classic (1994–2016)</h3>
+        <p><strong>Fits:</strong> Aeron Classic &nbsp;|&nbsp; <strong>Finish:</strong> Carbon &nbsp;|&nbsp; <strong>Price:</strong> ~$140–170</p>
+        <p>The H4 is the Classic-generation counterpart. If you bought a used or refurbished Aeron, this is more likely the correct part than the HW — most of the secondhand Aeron supply predates 2016. Identify the generation before ordering: the Remastered has a smoother, more uniform mesh weave and a redesigned posture-fit lumbar assembly, while the Classic uses the older separated pad hardware.</p>
+        <p>Community reports on refurbished Aeron builds note occasional variation in back-frame tolerances, which can affect clamp seating. Check the seller's return window before committing.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B00MV8C8TA?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Engineered Now H4 Aeron Classic Headrest on Amazon" data-cta-position="product-card">
+            View Engineered Now H4 Headrest on Amazon →
+          </a>
+        </div>
+
+        <h3>Atlas Headrest for Aeron (Graphite)</h3>
+        <p><strong>Fits:</strong> Herman Miller Aeron &nbsp;|&nbsp; <strong>Finish:</strong> Graphite &nbsp;|&nbsp; <strong>Price:</strong> ~$190</p>
+        <p>Atlas is the other established name in this category, priced at the top of the range. The design intent is the same — a frame-mounted arm carrying an adjustable pad — with a finish chosen to match graphite Aeron frames. Confirm the listing's stated generation compatibility, since Atlas has shipped variants across the Classic and Remastered lines.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B00L2IJNMK?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Atlas Aeron Headrest on Amazon" data-cta-position="product-card">
+            View Atlas Aeron Headrest on Amazon →
+          </a>
+        </div>
+
+        <p>If you're still deciding whether the Aeron itself fits a tall frame before adding accessories, start with the <a href="/chairs/herman-miller-aeron/tall-people/" class="link-internal">Aeron for tall people fit analysis →</a> or the full <a href="/review/aeron-size-c/" class="link-internal">Aeron Size C review →</a></p>
+      </section>
+
+      <section>
+        <h2>Steelcase Leap V2 Headrest Options</h2>
+        <p>The Leap V2 has the largest gap of the three chairs: a backrest topping out around 23" above the seat against a 34" occiput target at 6'4". That is roughly eleven inches of unsupported spine, and it is why Leap owners search for headrests more than Aeron owners do.</p>
+
+        <h3>Atlas Headrest for Steelcase Leap V2 — real product, currently unbuyable</h3>
+        <p><strong>Fits:</strong> Steelcase Leap V2 only &nbsp;|&nbsp; <strong>Price:</strong> ~$190 &nbsp;|&nbsp; <strong>Status:</strong> sold out at every verified seller as of August 2026</p>
+        <p>The engineering is the right answer to the problem. The mount attaches to the Leap's upper back structure, which matters because the Leap's back is a flexing composite shell — the Steelcase &quot;Liveback&quot; system — that changes shape as you recline. A headrest bolted into a flexing shell has to tolerate that motion without loosening, so a frame-referenced clamp is the correct approach.</p>
+
+        <div class="not-prose bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 my-6 text-sm text-amber-900">
+          <p class="font-semibold mb-2">Availability check, August 2026 — do not buy on a stale link</p>
+          <p class="mb-2">Every seller verified for this guide is out of stock. Atlas Headrest direct lists it &quot;sold out.&quot; Crandall Office Furniture, which co-brands the same unit, lists it &quot;currently unavailable.&quot; Office Logix Shop lists its competing Leap V2 headrest as backordered. The Amazon listing that previously carried it no longer resolves.</p>
+          <p>Any site still presenting a live &quot;buy now&quot; button for this product is running an unchecked affiliate link. There is nothing to purchase here right now, so this guide is not going to hand you a button that earns a commission and wastes your click.</p>
+        </div>
+
+        <p>If you want to track it, Atlas sells direct at <a href="https://atlasheadrest.com/products/headrest-for-steelcase-leap-chair" target="_blank" rel="noopener noreferrer">atlasheadrest.com</a> and quotes 1&ndash;2 business days on the black frame once stock returns. That is an unaffiliated link — this guide earns nothing from it.</p>
+
+        <h3>The Leap Plus has no headrest option at all</h3>
+        <p>This is the part that matters most for tall buyers, because the Leap Plus is the model most often recommended to people over 6'2&quot; — it carries the 500 lb frame and the taller seat-height range. Atlas states plainly that the headrest &quot;does not fit Leap V1 or Leap Plus versions,&quot; and Crandall confirms it is &quot;not compatible with any variation of the V1 Leap or Leap Plus.&quot;</p>
+        <p>The Leap Plus uses a different back structure to carry its higher weight rating, and the mounting geometry the V2 headrest depends on is not present. So the chair with the best raw dimensions for a tall user is also the chair with no retrofit path to head support. If recline-time neck support is a hard requirement, that is a genuine argument against the Leap Plus at purchase time — see the <a href="/review/leap-plus/" class="link-internal">Leap Plus analysis →</a> for the full dimensional trade-off.</p>
+      </section>
+
+      <section>
+        <h2>The Steelcase Gesture Headrest Gap — Stated Plainly</h2>
+        <p>There is no confirmed aftermarket headrest for the Steelcase Gesture on Amazon. I'm not going to route you to a substitute product to fill the space, because there isn't one I can verify.</p>
+        <p>Here is the actual situation. Steelcase offers a Gesture headrest, but only as a factory-configured option selected at the time of chair purchase. It mounts to a specific upper back assembly, and a Gesture ordered without that option does not have the structure to accept it later. This is not a bolt-on accessory — it's a different back build. If you bought a Gesture without the headrest, as I did, retrofitting through normal retail channels is not available.</p>
+        <p>The remaining options are both bad. Universal clamp-on headrests marketed as fitting &quot;any office chair&quot; exist, but their mounting straps and bar clamps are designed around flat-topped backrests, and the Gesture's upper back is a contoured shell. I have not tested one and will not recommend one on unverified fitment. The other option is behavioral: recline less, or add head support from outside the chair entirely.</p>
+        <p>What I do instead, at 6'4" in my own Gesture, is treat it as an upright-work chair and accept the limit. The back-tilt tension is set firm enough that I don't drift into a deep recline during long sessions. It works, but it is a workaround, not a fix. If head support during recline is a requirement for you, that is a legitimate reason to weigh a Leap V2 or an Aeron over a Gesture at purchase time — or to order a Gesture with the factory headrest from the start.</p>
+        <p>My full breakdown of living with this chair at 6'4" is in the <a href="/review/gesture/" class="link-internal">Steelcase Gesture review →</a></p>
+      </section>
+
+      <section>
+        <h2>How to Measure Whether You Need a Headrest</h2>
+        <p>Four steps, one tape measure, and a helper. Do this before you spend $190.</p>
+        <ol>
+          <li><strong>Set the chair to your correct seat height.</strong> Feet flat on the floor, thighs parallel or declining slightly. Measuring at the wrong seat height corrupts every number that follows.</li>
+          <li><strong>Measure the backrest top above the compressed seat surface.</strong> Sit in the chair so the cushion compresses, then measure straight up to the highest point of the backrest. Expect roughly 23" on a Leap V2, 22.5"–23" on a Gesture, 24"–25" on an Aeron Size C.</li>
+          <li><strong>Measure your seated occiput height.</strong> The occiput is the bony ridge at the base of the skull, about 5"–6" below the crown. Have someone measure from the seat pan up to it. Expect about 33" at 6'2", 34" at 6'4", 35" at 6'6".</li>
+          <li><strong>Subtract.</strong> Occiput height minus backrest top height equals the rise the headrest must deliver. Compare that against the product's published vertical travel plus its fixed mounting offset. If your required rise exceeds what the headrest can reach, the pad will land on your neck instead of your skull — which is worse than no headrest at all.</li>
+        </ol>
+        <p>A headrest contacting the cervical spine rather than the occiput pushes the neck into extension and concentrates pressure on soft tissue. That is the specific failure mode tall users report most often when a headrest is technically compatible but dimensionally too short.</p>
+      </section>
+
+      <section>
+        <h2>What a Headrest Will Not Fix</h2>
+        <p>A headrest is a narrow tool. It solves head support during recline. It does not solve any of the following, and buying one to address them will disappoint you.</p>
+        <ul>
+          <li><strong>Seat depth that's too short.</strong> If the seat pan doesn't reach far enough under a long femur, that's a thigh-support and popliteal-pressure problem. No headrest affects it.</li>
+          <li><strong>Armrests that sit too low.</strong> Unsupported forearms load the upper trapezius continuously. That's an armrest height problem, and it produces shoulder and neck symptoms that a headrest will not touch.</li>
+          <li><strong>Lumbar support positioned too low.</strong> Tall users often need lumbar support 1"–2" higher than default. A headrest does nothing for pelvic tilt or lumbar lordosis.</li>
+          <li><strong>A monitor mounted too low.</strong> If the screen sits below eye level, you'll flex your neck forward regardless of what's behind your head — and the headrest becomes a thing you never touch. Fix the screen height first. See the <a href="/monitor-arm-tall-people/" class="link-internal">monitor arm height guide for tall people →</a></li>
+        </ul>
+        <p>In practice, monitor height and armrest height are more common root causes of tall-user neck pain than the absent headrest is. Order of operations matters: screen, then armrests, then headrest.</p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Do tall people need a chair headrest?</h3>
+        <p>Tall users benefit from a headrest primarily during recline, not during upright typing. The Leap V2, Gesture, and Aeron all top out at roughly 23"–25" above the seat pan, while seated occiput height runs about 33" at 6'2", 34" at 6'4", and 35" at 6'6". That leaves 8"–11" of unsupported cervical spine. A headrest closes that span once the chair reclines past roughly 110 degrees.</p>
+
+        <h3>Does the Steelcase Leap V2 have a headrest?</h3>
+        <p>The standard Leap V2 ships without one. Its backrest reaches about 23" above the seat pan, landing near the shoulder blades at 6'4". The Atlas Headrest for Steelcase Leap V2 (around $190) is the primary aftermarket retrofit, but it is sold out at every verified seller as of August 2026 and it does not fit the Leap Plus or Leap V1. Only the Herman Miller Aeron currently has aftermarket headrests in stock.</p>
+
+        <h3>Is there an aftermarket headrest for the Steelcase Gesture?</h3>
+        <p>No confirmed aftermarket headrest for the Steelcase Gesture is available on Amazon as of August 2026. Steelcase sells a Gesture headrest only as a factory-configured option bundled at the time of chair purchase, mounted to a specific upper back assembly. A Gesture bought without that option cannot be upgraded through a standard retail accessory. This is a genuine product gap, not an oversight in this guide.</p>
+
+        <h3>Which headrest fits a Herman Miller Aeron?</h3>
+        <p>Herman Miller does not make an Aeron headrest in any size. Engineered Now sells The Original Headrest in an HW version for the Remastered Aeron built from 2016 onward (ASIN B0B86SYST5, roughly $150–$190) and an H4 version for the Aeron Classic from 1994 to 2016 (ASIN B00MV8C8TA, roughly $140–$170). Atlas offers a Graphite Aeron headrest (ASIN B00L2IJNMK, around $190). Matching Classic versus Remastered generation is the critical fitment step.</p>
+
+        <h3>How high should a chair headrest be for a 6'4" person?</h3>
+        <p>The pad should meet the occiput — the bony ridge at the base of the skull — not the crown and not the neck. At 6'4" that target sits roughly 33"–34" above the seat pan when upright, and shifts 2"–4" lower relative to the backrest as the chair reclines. Subtract the backrest top height (about 23"–25" on these chairs) from the occiput target to get the required rise: typically 9"–11".</p>
+
+        <h3>Will a universal clamp-on headrest work on a premium task chair?</h3>
+        <p>Universal headrests are designed around flat-topped backrests with a uniform upper rail. The Gesture, Leap V2, and Aeron all use contoured or flexing upper back structures, so strap-and-bar mounts seat inconsistently and can loosen as the back flexes during recline. Purpose-built headrests reference the chair frame rather than the backrest surface, which is why they cost $140–$190 rather than $30.</p>
+      </section>
+
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related chair fit guides:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/review/gesture/" class="link-internal">Steelcase Gesture review — tested at 6'4" →</a></li>
+          <li><a href="/review/aeron-size-c/" class="link-internal text-muted-foreground">Herman Miller Aeron Size C review →</a></li>
+          <li><a href="/review/leap-plus/" class="link-internal text-muted-foreground">Steelcase Leap Plus analysis →</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal text-muted-foreground">Correct chair dimensions by height →</a></li>
+          <li><a href="/monitor-arm-tall-people/" class="link-internal text-muted-foreground">Monitor arm height for tall people →</a></li>
+          <li><a href="/office-chairs-for-tall-people/" class="link-internal text-muted-foreground">← All office chairs for tall people</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>

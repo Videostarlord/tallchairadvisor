@@ -1,0 +1,428 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Standing Desk Converter for Tall People (2026): Height Math Guide",
+    "description": "A converter's usable height equals your desk height plus the riser's maximum travel. On a 29\" desk, a 6'4\" user needs roughly 14\"–16\" of keyboard rise and 6'6\" needs 16\"–18\" — here is which converters actually deliver it.",
+    "url": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-08-04",
+    "dateModified": "2026-08-04",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Workstation Setup", "item": "https://tallchairadvisor.com/fit-guides/" },
+      { "@type": "ListItem", "position": 3, "name": "Standing Desk Converters for Tall People", "item": "https://tallchairadvisor.com/standing-desk-converter-tall-people/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How tall does a standing desk converter need to be for a 6'4\" person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A 6'4\" user has a standing elbow height of approximately 45\", which puts the correct keyboard surface at 43\"–45\" from the floor. On a standard 29\" desk, the converter must therefore raise the keyboard deck 14\"–16\" above the desktop. On a 30\" desk, 13\"–15\" is enough. Converters whose keyboard deck tops out at 15\"–17\" of rise cover this height marginally; models offering 21\"–24\" of rise, such as the CHANGEdesk Tall and Vari Tall 40, clear it with usable margin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do most standing desk converters fail tall users?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Two separate failure modes. First, keyboard height: a mainstream converter raises its keyboard deck roughly 15\"–17\", which on a 29\" desk produces a 44\"–46\" typing surface — adequate through about 6'4\" and short above 6'5\". Second, and more often missed, monitor height: converter top decks sit only 5\"–7\" above the keyboard deck, while a 6'4\" user needs the top of the screen roughly 22\"–24\" above the typing surface. Nearly every converter fails the second test regardless of brand, which is why a separate monitor riser or arm is usually required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the total height of a converter on a standard desk?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Total usable standing height equals desk height plus the converter's maximum riser travel. On a 29\" desk: the Vari Tall 40 reaches approximately 52\" at its 23\" maximum setting, the manual CHANGEdesk Tall reaches approximately 50.5\" at 21.5\", and the Electric CHANGEdesk Tall reaches approximately 53.5\" at 24.5\". A typical non-tall converter with 17\" of travel reaches approximately 46\". Measure your own desk first, because fixed desks range from 28\" to 31\" and that variance alone shifts the result by 3\"."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a converter or a full standing desk better for a tall person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A full electric standing desk is the better ergonomic outcome for users above 6'2\" because it moves the keyboard and monitor together and typically reaches 48\"–51\". A converter is the better practical choice when the desk cannot be replaced, such as in a rental, dorm, or shared office. The tradeoff is that a converter fixes keyboard height but leaves monitor height roughly 15\"–18\" too low for a tall user, so a monitor arm or riser must be added on top."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a converter work on a 28\" desk for someone over 6'5\"?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Only with a tall-specific model. A 6'5\" user needs a keyboard surface at approximately 44\"–46\", which on a 28\" desk requires 16\"–18\" of riser travel, and a 6'7\" user needs 18\"–20\". Standard converters offering 15\"–17\" of travel fall short. The Electric CHANGEdesk Tall at 24.5\" maximum and the Vari Tall 40 at 23\" maximum both clear the requirement with several inches of adjustment margin remaining."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Calculate the Standing Desk Converter Height You Need",
+    "description": "Four-step arithmetic method for tall users to determine the minimum riser travel a standing desk converter must provide.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Measure your standing elbow height",
+        "text": "Stand upright in your normal work shoes with your upper arms hanging vertically and your forearms bent to 90 degrees. Measure from the floor to the underside of your elbow. Typical values: 41\" at 6'0\", 43\" at 6'2\", 45\" at 6'4\", 47\" at 6'6\"."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Measure your existing desk height",
+        "text": "Measure from the floor to the top of your current desk surface. Fixed desks commonly range from 28\" to 31\", and this number varies more than people expect, so measure rather than assume 29\"."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Subtract to find required riser travel",
+        "text": "Required riser travel equals standing elbow height minus desk height, then subtract up to 2\" if you prefer the keyboard slightly below elbow height. Example: a 6'4\" user with a 45\" elbow height on a 29\" desk needs 14\"–16\" of travel."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add margin and check the keyboard deck spec, not the top deck",
+        "text": "Add 2\"–3\" of margin so the converter is not used at its absolute limit, where stability is worst. Confirm the published maximum applies to the keyboard deck rather than the monitor deck, since the two differ by 5\"–7\" on most designs."
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Standing Desk Converter for Tall People (2026): Height Math Guide"
+  description="Converter height equals desk height plus riser travel. At 6 foot 4 you need 14-16 inches of rise on a 29 inch desk. The arithmetic and 3 models that clear it."
+  ogType="article"
+  ogImage="/images/og-default.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Standing Desk Converter for Tall People: The Height Math (2026)</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Desk height plus riser travel is the entire equation — and most converters lose it by three inches
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-08-04" updatedDate="2026-08-04" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">A converter's usable standing height equals your existing desk height plus the converter's maximum riser travel. On a standard 29" desk, a 6'4" user needs 14"–16" of travel to reach a 43"–45" keyboard surface, and a 6'6" user needs 16"–18". Mainstream converters top out at 15"–17" of keyboard-deck travel, which produces 44"–46" total and runs out above 6'5". Three models clear the requirement with margin: the Vari Tall 40 at 23" maximum, the manual CHANGEdesk Tall at 21.5", and the Electric CHANGEdesk Tall at 24.5".</p>
+    </div>
+
+    <div class="bg-card border border-border rounded-lg px-5 py-4 mb-8">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Which guide do you need?</p>
+      <p class="text-sm">This page is about <strong>converters</strong> — the riser units that sit on top of an existing fixed desk. If you are buying or setting a <strong>full standing desk</strong> and want the correct surface height for your body, read <a href="/standing-desk-height-tall-people/" class="link-internal">standing desk height for tall people →</a> instead. That page gives the target number. This page covers whether a converter can physically reach it.</p>
+    </div>
+
+    <Disclosure />
+
+    <div class="prose-tca">
+
+      <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. Of every tall-user product category I have analyzed for this site, standing desk converters have the cleanest math. There is no ambiguity, no subjective comfort judgment, no "it depends on your preference." Either the riser travel plus your desk height reaches your elbow height, or it does not.</p>
+
+      <p>That also makes it the category where marketing copy is easiest to check. A converter that calls itself tall-friendly either publishes a maximum riser height that clears the arithmetic or it does not. I have personally used only the Steelcase Gesture, the chair in my apartment — every converter assessment below is based on published manufacturer dimensions and the height arithmetic, not on hands-on testing.</p>
+
+      <section>
+        <h2>The Converter Height Equation</h2>
+
+        <p>One line of arithmetic governs this entire category:</p>
+
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-2"><strong>Usable standing height = existing desk height + converter maximum riser travel</strong></p>
+
+        <p>Your existing desk is the floor of the system, and you cannot lower it. That is the structural difference between a converter and a full standing desk: a full desk starts at whatever height you set, while a converter always starts 28"–31" up and can only add.</p>
+
+        <p>This works in a tall user's favor at the low end and against them at the high end. A fixed desk at 29" is already close to a short user's standing needs, so short users have plenty of converter headroom. For a tall user the desk height is a modest head start on a much larger target, and the riser has to supply the rest.</p>
+
+        <h3>Your target: standing elbow height</h3>
+
+        <p>Correct standing keyboard height is at or just below standing elbow height — the point where your upper arms hang vertically and your forearms sit at roughly 90 degrees. Anything higher forces shoulder elevation. Anything meaningfully lower forces you to lean or hunch.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Your Height</th>
+                <th class="text-center p-3 font-semibold text-heading">Standing Elbow Height</th>
+                <th class="text-center p-3 font-semibold text-heading">Target Keyboard Surface</th>
+                <th class="text-center p-3 font-semibold text-heading">Riser Needed (29" desk)</th>
+                <th class="text-center p-3 font-semibold text-heading">Riser Needed (31" desk)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'0"</td>
+                <td class="p-3 text-center">~41"</td>
+                <td class="p-3 text-center">39"–41"</td>
+                <td class="p-3 text-center">10"–12"</td>
+                <td class="p-3 text-center">8"–10"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'2"</td>
+                <td class="p-3 text-center">~43"</td>
+                <td class="p-3 text-center">41"–43"</td>
+                <td class="p-3 text-center">12"–14"</td>
+                <td class="p-3 text-center">10"–12"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'4"</td>
+                <td class="p-3 text-center">~45"</td>
+                <td class="p-3 text-center">43"–45"</td>
+                <td class="p-3 text-center">14"–16"</td>
+                <td class="p-3 text-center">12"–14"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'5"</td>
+                <td class="p-3 text-center">~46"</td>
+                <td class="p-3 text-center">44"–46"</td>
+                <td class="p-3 text-center">15"–17"</td>
+                <td class="p-3 text-center">13"–15"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'6"</td>
+                <td class="p-3 text-center">~47"</td>
+                <td class="p-3 text-center">45"–47"</td>
+                <td class="p-3 text-center">16"–18"</td>
+                <td class="p-3 text-center">14"–16"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'7"</td>
+                <td class="p-3 text-center">~48"</td>
+                <td class="p-3 text-center">46"–48"</td>
+                <td class="p-3 text-center">17"–19"</td>
+                <td class="p-3 text-center">15"–17"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-sm"><em>Elbow heights are anthropometric estimates and vary by ±1"–2" with torso-to-leg ratio. Measure your own using the procedure below before buying.</em></p>
+
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm italic">Standing desk converter height for tall users is determined by one equation: existing desk height plus maximum riser travel. On a 29" desk, a 6'4" user requires 14"–16" of riser travel to reach a 43"–45" keyboard surface, and a 6'6" user requires 16"–18". Mainstream converters provide 15"–17" of keyboard-deck travel, producing a 44"–46" ceiling that fails above 6'5".</p>
+      </section>
+
+      <section>
+        <h2>Why Most Converters Fail Tall Users — Two Separate Reasons</h2>
+
+        <h3>Failure mode one: the keyboard deck runs out</h3>
+
+        <p>Most mainstream converters advertise 15"–17" of rise. Run the equation on a 29" desk and that yields a 44"–46" keyboard surface. Honest assessment: that actually works for 6'0" through about 6'4". The category is not universally broken.</p>
+
+        <p>It breaks at 6'5" and above, where 44"–46" is exactly the target rather than comfortably above it — meaning you are running the mechanism at its absolute maximum with zero adjustment margin. That matters mechanically. A Z-lift or parallelogram riser is least stable at full extension, where the linkage angles are shallowest and any keystroke force produces the largest deflection at the top. Buying a converter that only just reaches your height means using it at its wobbliest setting every single time.</p>
+
+        <p>It also breaks earlier if your desk is short. A 28" desk costs you an inch, which pushes 6'4" into the same no-margin situation. Measure your desk. Fixed desks in the wild run from 28" to 31" and people routinely assume 30" when they own a 28.5".</p>
+
+        <h3>Failure mode two: the monitor deck is far too low</h3>
+
+        <p>This is the one almost nobody checks, and it defeats nearly every converter regardless of brand or price.</p>
+
+        <p>On a converter, the monitor sits on a top deck that is typically only 5"–7" above the keyboard deck. But the correct top-of-screen height for a tall user is at or just below standing eye level. At 6'4", standing eye level is roughly 71"–72". With a keyboard surface at 45", the top of the monitor should be roughly 24"–26" above the typing surface. A monitor sitting on a deck 6" up, with its own screen adding maybe 12"–14", puts the top around 18"–20" above the keyboard — still 5"–8" short.</p>
+
+        <p>The mechanical consequence is the same forward-head posture that a low seated monitor produces: sustained cervical flexion loading the upper trapezius and cervical extensors for hours. Standing does not fix a neck angle problem; it only changes which muscles fatigue.</p>
+
+        <p>The practical answer is that a converter is a keyboard-height solution, not a monitor-height solution. Pair one with a clamp-mount arm and you have both. Details on the arm side: <a href="/monitor-arm-tall-people/" class="link-internal">monitor arms for tall people — height range and reach →</a>.</p>
+      </section>
+
+      <section>
+        <h2>Standing Desk Converters That Reach Tall Height</h2>
+
+        <p>Three models publish riser maximums that clear the arithmetic for users through 6'7" with real margin. Total heights below assume a 29" desk — adjust for your measured desk height.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Converter</th>
+                <th class="text-center p-3 font-semibold text-heading">Riser Range</th>
+                <th class="text-center p-3 font-semibold text-heading">Total on 29" Desk</th>
+                <th class="text-center p-3 font-semibold text-heading">Lift Type</th>
+                <th class="text-center p-3 font-semibold text-heading">Approx. Price</th>
+                <th class="text-center p-3 font-semibold text-heading">Covers</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Vari Tall 40</td>
+                <td class="p-3 text-center">4.75"–23"</td>
+                <td class="p-3 text-center">33.75"–52"</td>
+                <td class="p-3 text-center">Manual, 9 settings</td>
+                <td class="p-3 text-center">$350–$450</td>
+                <td class="p-3 text-center">Through 6'6"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">CHANGEdesk Tall (manual)</td>
+                <td class="p-3 text-center">4.5"–21.5"</td>
+                <td class="p-3 text-center">33.5"–50.5"</td>
+                <td class="p-3 text-center">Manual</td>
+                <td class="p-3 text-center">$130–$180</td>
+                <td class="p-3 text-center">Through 6'5"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Electric CHANGEdesk Tall</td>
+                <td class="p-3 text-center">6.75"–24.5"</td>
+                <td class="p-3 text-center">35.75"–53.5"</td>
+                <td class="p-3 text-center">Motorized</td>
+                <td class="p-3 text-center">$300–$400</td>
+                <td class="p-3 text-center">Through 6'7"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">Typical mainstream converter</td>
+                <td class="p-3 text-center">~5"–17"</td>
+                <td class="p-3 text-center">~34"–46"</td>
+                <td class="p-3 text-center">Z-lift / gas spring</td>
+                <td class="p-3 text-center">$150–$300</td>
+                <td class="p-3 text-center">Through ~6'4"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Vari Tall 40 — The Only Converter Marketed by User Height</h3>
+
+        <p><strong>Riser range:</strong> 4.75"–23" across 9 settings &nbsp;|&nbsp; <strong>Total on a 29" desk:</strong> ~33.75"–52" &nbsp;|&nbsp; <strong>Approx. price:</strong> $350–$450</p>
+
+        <p>The Vari Tall 40 is unusual in that its own product listing states it is built for users up to 6'6" — an explicit height claim rather than an inferred one. Based on published dimensions, the 23" maximum riser on a 29" desk produces a roughly 52" keyboard surface, which is 5"–7" above what even a 6'7" user needs. You will never run this at maximum, which is exactly the point: it operates in the stable middle of its travel.</p>
+
+        <p>The 9 discrete settings are worth understanding. A stepped mechanism is not infinitely adjustable, so your ideal height may fall between two settings. With 23" spread over 9 stops, the steps average roughly 2.3" apart. For a 6'4" user targeting 43"–45", that 2" target window will contain a setting, but it is worth confirming rather than assuming. Stepped mechanisms trade fine adjustment for repeatability — you land on the same height every time, which a friction-based gas lift does not guarantee.</p>
+
+        <p>The 40" wide surface is also relevant to tall users specifically. Longer arms want wider elbow spacing, and a narrow 30"–32" converter deck forces the forearms inward. This is the same shoulder-position issue that armrest width creates in chairs.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B076HB7NZS?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Vari Tall 40 Standing Desk Converter on Amazon" data-cta-position="product-card">
+            View Vari Tall 40 on Amazon →
+          </a>
+        </div>
+
+        <h3>CHANGEdesk Tall (Manual) — Best Value Above 6'2"</h3>
+
+        <p><strong>Riser range:</strong> 4.5"–21.5" &nbsp;|&nbsp; <strong>Total on a 29" desk:</strong> ~33.5"–50.5" &nbsp;|&nbsp; <strong>Includes:</strong> keyboard tray &nbsp;|&nbsp; <strong>Approx. price:</strong> $130–$180</p>
+
+        <p>The manual CHANGEdesk Tall delivers 21.5" of travel at roughly a third of the Vari's price, which makes it the strongest value in the category on pure height-per-dollar. On a 29" desk it reaches approximately 50.5" — clearing 6'6" requirements with about 3" of margin.</p>
+
+        <p>The separate keyboard tray is the specification that matters most here, and it is easy to overlook. A converter with an integrated single-surface design forces the keyboard and monitor to the same height. A converter with a dedicated keyboard tray lets the typing surface sit lower than the monitor platform, which is the correct relationship: keyboard at elbow height, screen far above it. For tall users, whose keyboard-to-eye vertical gap is the largest of any user group, that separation is worth more than it sounds.</p>
+
+        <p>Manual operation is the tradeoff. Raising and lowering a loaded converter by hand several times a day is a friction point that determines whether you actually alternate postures or just leave it in one position. In our reading of tall-user reports across r/ergonomics and r/StandingDesk, abandoned sit-stand routines correlate far more with transition effort than with height fit.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B07322VF6S?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View CHANGEdesk Tall manual converter on Amazon" data-cta-position="product-card">
+            View CHANGEdesk Tall on Amazon →
+          </a>
+        </div>
+
+        <h3>Electric CHANGEdesk Tall — Maximum Height, Motorized</h3>
+
+        <p><strong>Riser range:</strong> 6.75"–24.5" &nbsp;|&nbsp; <strong>Total on a 29" desk:</strong> ~35.75"–53.5" &nbsp;|&nbsp; <strong>Approx. price:</strong> $300–$400</p>
+
+        <p>The motorized version offers the highest ceiling in this comparison at 24.5" of travel, reaching approximately 53.5" on a 29" desk. That covers 6'7" with roughly 5" of margin and is the only model here with genuine headroom above 6'6".</p>
+
+        <p>Note the higher floor: the minimum riser is 6.75" rather than 4.5". On a 29" desk that puts the lowest position around 35.75", which is 6"–7" above a normal seated keyboard height. If you plan to type seated with the converter in place, you will need to raise your chair substantially or use the desk surface beside the unit. Verify how you intend to work seated before buying — this is the single most common regret with high-floor converters.</p>
+
+        <p>Motorized transition removes the effort barrier that undermines manual units. Confidence on this model is medium rather than high: the published range is clear, but motorized converters carry more variance in load rating, travel speed, and long-term reliability than a purely mechanical linkage, and those factors are not resolvable from specifications alone.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B01BT3DK12?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View Electric CHANGEdesk Tall converter on Amazon" data-cta-position="product-card">
+            View Electric CHANGEdesk Tall on Amazon →
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>How to Calculate the Converter Height You Need</h2>
+
+        <h3>Step 1: Measure standing elbow height</h3>
+        <p>Stand upright in the shoes you actually work in. Let your upper arms hang vertically, bend your forearms to 90 degrees, and measure from the floor to the underside of your elbow. Do not estimate from the table if you can measure — torso-to-leg ratio moves this number by 1"–2" at the same standing height.</p>
+
+        <h3>Step 2: Measure your desk</h3>
+        <p>Floor to desktop. Write down the actual number. This is where most converter mistakes originate, because the difference between a 28" and a 31" desk is three full inches of riser requirement.</p>
+
+        <h3>Step 3: Subtract</h3>
+        <p>Required travel = elbow height minus desk height. Optionally subtract another 1"–2" if you prefer the keyboard just below elbow level, which many people do because it opens the wrist angle slightly.</p>
+
+        <h3>Step 4: Add margin, and check the right deck</h3>
+        <p>Add 2"–3" so you are not operating at maximum extension, where stability is lowest. Then confirm the manufacturer's published maximum refers to the keyboard deck, not the monitor deck. On most designs those differ by 5"–7", and a listing that quotes the higher number will overstate real typing height.</p>
+      </section>
+
+      <section>
+        <h2>What a Converter Cannot Fix</h2>
+
+        <p>Being clear about the limits keeps this from being a purchase you regret:</p>
+
+        <ul>
+          <li><strong>Monitor height.</strong> Covered above. Budget for a monitor arm or riser alongside the converter, not instead of one.</li>
+          <li><strong>Seated ergonomics.</strong> A converter does nothing for how you sit. If your seated posture is the actual problem, the chair is where the money should go — see <a href="/office-chairs-for-tall-people/" class="link-internal">chairs for tall people →</a>.</li>
+          <li><strong>Wrist angle at height.</strong> Raising the typing surface without changing its tilt can force wrist extension, particularly on units without a dedicated tray. A negative-tilt tray restores the neutral angle: <a href="/keyboard-tray-tall-people/" class="link-internal">keyboard trays for tall users at high desks →</a>.</li>
+          <li><strong>Desk depth.</strong> A converter consumes 20"–24" of desk depth and pushes the monitor closer to you. On a shallow 24" desk, the resulting viewing distance can drop below the comfortable 20"–30" range.</li>
+        </ul>
+
+        <p>If you can replace the desk instead, do. A full electric standing desk moves the keyboard and monitor together, typically reaches 48"–51", and eliminates both failure modes at once. The converter exists for the case where the desk is not yours to replace.</p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>How tall does a standing desk converter need to be for a 6'4" person?</h3>
+        <p>Standing elbow height at 6'4" is approximately 45", so the keyboard surface belongs at 43"–45". On a 29" desk that requires 14"–16" of riser travel; on a 31" desk, 12"–14". Models with 21"–24" of travel, such as the CHANGEdesk Tall and Vari Tall 40, clear the requirement with margin instead of running at maximum extension.</p>
+
+        <h3>Why do most standing desk converters fail tall users?</h3>
+        <p>Two reasons. The keyboard deck on a mainstream converter rises 15"–17", producing a 44"–46" surface on a 29" desk — adequate through about 6'4" and short above 6'5". Separately, the monitor deck sits only 5"–7" above the keyboard deck, while a 6'4" user needs the screen top 24"–26" above the typing surface. Almost no converter solves the second problem without an added arm or riser.</p>
+
+        <h3>What is the total height of a converter on a standard desk?</h3>
+        <p>Desk height plus maximum riser travel. On a 29" desk: Vari Tall 40 reaches ~52", manual CHANGEdesk Tall ~50.5", Electric CHANGEdesk Tall ~53.5", and a typical 17"-travel converter ~46". Because fixed desks range from 28" to 31", measure yours before applying any of these numbers.</p>
+
+        <h3>Is a converter or a full standing desk better for a tall person?</h3>
+        <p>A full electric desk is ergonomically better above 6'2" because it raises keyboard and monitor together and typically reaches 48"–51". A converter is the right call when the desk cannot be replaced — a rental, a dorm, a shared office. Accept that you will also need a monitor solution on top.</p>
+
+        <h3>Does a converter work on a 28" desk for someone over 6'5"?</h3>
+        <p>Only a tall-specific one. At 6'5" the target keyboard surface is 44"–46", which on a 28" desk needs 16"–18" of travel; at 6'7", 18"–20". Standard 15"–17" converters fall short. The Electric CHANGEdesk Tall at 24.5" and the Vari Tall 40 at 23" both clear it comfortably.</p>
+
+        <h3>Do I still need a monitor arm if I use a converter?</h3>
+        <p>Almost certainly, yes. The converter's top deck raises the monitor only 5"–7" above the keyboard, leaving the screen roughly 5"–8" below correct standing eye height for a 6'4" user. A clamp-mount arm with sufficient vertical range closes the gap and lets the screen follow you between sitting and standing.</p>
+      </section>
+
+      <section>
+        <h2>The Bottom Line</h2>
+        <p>Converters are the most spec-transparent tall-user category on this site. Measure your elbow height, measure your desk, subtract, add 2"–3" of margin, and buy a unit whose keyboard deck clears the result. On a 29" desk that means 14"–16" of travel at 6'4" and 16"–18" at 6'6" — and the three models above deliver 21.5", 23", and 24.5" respectively.</p>
+        <p>Then plan the monitor separately. Fixing typing height while leaving the screen 6" too low simply relocates the strain from the wrists to the neck.</p>
+      </section>
+
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related workstation setup guides:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/standing-desk-height-tall-people/" class="link-internal">Standing desk height for tall people — the target numbers →</a></li>
+          <li><a href="/monitor-arm-tall-people/" class="link-internal text-muted-foreground">Monitor arms for tall people →</a></li>
+          <li><a href="/keyboard-tray-tall-people/" class="link-internal text-muted-foreground">Negative-tilt keyboard trays for tall users →</a></li>
+          <li><a href="/lumbar-support-tall-people/" class="link-internal text-muted-foreground">Lumbar support for long torsos →</a></li>
+          <li><a href="/correct-chair-dimensions/" class="link-internal text-muted-foreground">Correct chair dimensions by height →</a></li>
+          <li><a href="/review/gesture/" class="link-internal text-muted-foreground">Steelcase Gesture review — tested at 6'4" →</a></li>
+          <li><a href="/office-chairs-for-tall-people/" class="link-internal text-muted-foreground">← All chairs for tall people</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>

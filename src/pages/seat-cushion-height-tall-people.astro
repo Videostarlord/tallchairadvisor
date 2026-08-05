@@ -1,0 +1,351 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Seat Cushion to Increase Chair Height: Tall User Guide (2026)",
+    "description": "Most ergonomic chairs stop at 20\"–21\" seat height while 6'4\" users need 21\"–22\". How a firm cushion adds 2\"–4\", why chair leg extenders fail on office chairs, and the backrest trade-off.",
+    "url": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
+    "image": "https://tallchairadvisor.com/images/og-default.webp",
+    "datePublished": "2026-08-04",
+    "dateModified": "2026-08-04",
+    "wordCount": 2400,
+    "author": {
+      "@type": "Person",
+      "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
+      "name": "Jackson Christopher",
+      "url": "https://tallchairadvisor.com/author/jackson-christopher/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tall Chair Advisor",
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
+    },
+    "mainEntityOfPage": "https://tallchairadvisor.com/seat-cushion-height-tall-people/"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tallchairadvisor.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Fit Guides", "item": "https://tallchairadvisor.com/fit-guides/" },
+      { "@type": "ListItem", "position": 3, "name": "Seat Cushion to Increase Chair Height", "item": "https://tallchairadvisor.com/seat-cushion-height-tall-people/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do chair leg extenders work on an office chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Chair leg extenders are designed for four-legged furniture — dining chairs, tables, and desks — and clamp or slot onto a straight vertical leg. A standard office chair such as the Steelcase Gesture, Steelcase Leap Plus, or Herman Miller Aeron uses a pneumatic gas cylinder inside a five-star base riding on casters. There is no leg to extend, and raising a five-star base on extenders would move the load path off the caster stems and create a tipping hazard. The only legitimate ways to raise seat height on a gas-cylinder chair are a firm seat cushion or a taller replacement gas cylinder."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much height does a seat cushion add to an office chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A seat cushion adds roughly 55 to 70 percent of its stated thickness once a 180–220 lb adult is seated on it. A 6-inch high-density foam cushion typically compresses to 3.5\"–4\" of usable lift. A 3-inch cushion yields about 1.75\"–2\". Memory foam and gel-topped cushions compress further — often 50 to 70 percent — and are a poor choice when the goal is added seat height rather than pressure relief. Measure the loaded thickness by sitting on the cushion and measuring from the floor to the top surface beside the thigh."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best way to raise office chair height for a tall person?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Raise the pneumatic cylinder to its maximum first, then close any remaining gap with the thinnest firm cushion that works. Measure popliteal height (floor to the back of the knee, seated, wearing normal shoes) and subtract the chair's maximum seat height. A gap of 1 inch or less is best solved with a 2-inch high-density cushion. A gap above 2 inches is better solved by changing chairs — the Steelcase Leap Plus reaches 22.5 inches — or by fitting a taller gas cylinder, because thick cushions cost backrest height and lumbar position."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a seat cushion ruin the lumbar support on an ergonomic chair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A seat cushion shifts the lumbar support downward relative to the spine by exactly its loaded thickness. The Steelcase Gesture has a 24-inch backrest and the Herman Miller Aeron Size C about 23.5 inches, both measured from the seat pan. A 3-inch cushion reduces effective backrest height to 21 inches and 20.5 inches respectively, and moves the lumbar apex 3 inches below where it was set. Most ergonomic chairs offer only 3 to 4 inches of lumbar height adjustment, so a cushion thicker than about 2 inches can push the lumbar curve past the top of the adjustment range."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can a taller gas cylinder replace a seat cushion for added height?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, on many chairs. Extended-travel pneumatic cylinders add roughly 2 to 5 inches over a standard cylinder and raise the seat pan itself, preserving the backrest and lumbar geometry that a cushion degrades. The trade-off is fitment risk and warranty. Cylinder taper standards vary by manufacturer, premium chairs such as Steelcase and Herman Miller use proprietary mechanisms in some models, and a third-party cylinder swap can void the warranty. Confirm the taper specification and warranty terms with the manufacturer before ordering."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Seat Cushion to Increase Chair Height: Tall User Guide (2026)"
+  description="Most ergonomic chairs stop at 20–21&quot; seat height; 6'4&quot; users often need 21–22&quot;. How a firm cushion adds 2–4&quot;, why leg extenders fail, and the backrest trade-off."
+  canonical="https://tallchairadvisor.com/seat-cushion-height-tall-people/"
+  ogType="article"
+  ogImage="/images/og-default.webp"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Seat Cushion to Increase Chair Height: A Tall User's Guide</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        How to raise office chair height when the cylinder is already maxed out — and the backrest cost nobody mentions
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-08-04" updatedDate="2026-08-04" />
+
+    <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
+      <p class="text-sm text-muted-foreground">A firm high-density seat cushion is the only legitimate way to add seat height to a gas-cylinder office chair. Chair leg extenders do not work — they are made for four-legged furniture and cannot attach to a five-star base on casters. A 6" high-density foam cushion compresses to roughly 3.5"–4" under a 180–220 lb adult; a 3" cushion yields about 1.75"–2". The cost is symmetrical: every inch of cushion subtracts one inch from effective backrest height and pushes the lumbar apex one inch below where the chair set it. Use the thinnest cushion that closes your gap.</p>
+    </div>
+
+    <Disclosure />
+
+    <div class="prose-tca">
+
+      <section>
+        <h2>Why Most Ergonomic Chairs Top Out Too Low for Tall Users</h2>
+        <!-- tca-aio-capsule -->
+        <p>Premium ergonomic office chairs cap out at 20.5"–21" of seat height — the Herman Miller Aeron Size C at 20.5", the Steelcase Gesture at 21" — while typical popliteal height for a 6'4" adult measures 19.5"–21" barefoot and 20.5"–22" in normal shoes. Mass-market task chairs top out lower still, usually 18"–19". The Steelcase Leap Plus, at a 22.5" maximum, is the only widely available mainstream chair with a seat height ceiling clearing the full 6'0"–6'6" range without a cushion.</p>
+
+        <p>I'm Jackson Christopher — 6'4", Mechanical Engineering senior at UC Berkeley. The seat height rule is the least negotiable dimension in seated ergonomics, and it's the one tall users lose most often. Popliteal height is the distance from the floor to the crease behind your knee while seated. If the seat pan sits below that number, your thighs angle upward, your pelvis rotates backward, and the lumbar curve flattens. Every downstream problem — lower back load, femoral compression at the seat edge, feet creeping forward — starts there.</p>
+
+        <p>Here's the arithmetic most chair guides skip. Measure your popliteal height in the shoes you actually wear at your desk, because a standard sneaker or dress shoe heel adds 0.75"–1". Then subtract the chair's published maximum seat height. What remains is your <strong>height gap</strong> — the exact number a cushion has to close.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Standing Height</th>
+                <th class="text-center p-3 font-semibold text-heading">Popliteal Height (with shoes)</th>
+                <th class="text-center p-3 font-semibold text-heading">Gap vs. Aeron Size C (20.5")</th>
+                <th class="text-center p-3 font-semibold text-heading">Gap vs. Gesture (21")</th>
+                <th class="text-center p-3 font-semibold text-heading">Gap vs. Typical Task Chair (19")</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'0"</td>
+                <td class="p-3 text-center">19.5"–20.5"</td>
+                <td class="p-3 text-center">0"</td>
+                <td class="p-3 text-center">0"</td>
+                <td class="p-3 text-center">0.5"–1.5"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'2"</td>
+                <td class="p-3 text-center">20"–21"</td>
+                <td class="p-3 text-center">0"–0.5"</td>
+                <td class="p-3 text-center">0"</td>
+                <td class="p-3 text-center">1"–2"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'4"</td>
+                <td class="p-3 text-center">20.5"–22"</td>
+                <td class="p-3 text-center">0"–1.5"</td>
+                <td class="p-3 text-center">0"–1"</td>
+                <td class="p-3 text-center">1.5"–3"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6'6"</td>
+                <td class="p-3 text-center">22"–23"</td>
+                <td class="p-3 text-center">1.5"–2.5"</td>
+                <td class="p-3 text-center">1"–2"</td>
+                <td class="p-3 text-center">3"–4"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><em>Gap figures assume the chair's pneumatic cylinder is already raised to its published maximum. If you have not verified that, do it first — a surprising number of "my chair is too low" complaints are a cylinder sitting two inches below its ceiling.</em></p>
+
+        <p>For the full dimensional picture beyond seat height, see the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> and the <a href="/office-chairs-for-6-foot-4/" class="link-internal">6'4" chair fit breakdown</a>.</p>
+      </section>
+
+      <section>
+        <h2>Chair Leg Extenders Do Not Work on Office Chairs</h2>
+
+        <p>This is the single most common wrong answer to "how do I raise my office chair," and it wastes money and creates a genuine safety problem. Chair leg extenders — also sold as furniture risers, bed risers, or table leg extensions — are cups, sleeves, or threaded inserts that fit over or into a straight vertical furniture leg. They are engineered for dining chairs, desks, tables, and bed frames.</p>
+
+        <p>A gas-cylinder office chair has no legs. The Steelcase Gesture, Steelcase Leap Plus, Herman Miller Aeron, Sihoo Doro S300, and essentially every task chair sold in the last thirty years use the same architecture: a pneumatic cylinder that telescopes vertically through the hub of a five-star base, with a caster pressed into a stem socket at the end of each arm.</p>
+
+        <p>The engineering reason extenders fail is the load path. On a four-legged chair, load runs straight down each leg in compression, so lengthening a leg simply lengthens a compression member. On a five-star base, load enters the hub, travels outward along each arm as a cantilever, and exits into a short caster stem in a press-fit socket. Slipping a riser onto that stem lengthens the moment arm and applies bending to a joint designed only to carry axial load and roll. The base is also the tipping-limit component of the chair, so raising the assembly moves the center of mass up without widening the footprint — the wrong direction for stability.</p>
+
+        <p>Some sellers market "office chair risers" that are really a platform placed under the whole chair. Marginally safer, but the casters now roll on a small elevated surface with an edge, so normal repositioning walks a caster over the lip. Not a solution for a chair you move during the day.</p>
+
+        <p class="bg-secondary/30 border-l-2 border-primary/40 pl-4 py-1 text-sm">
+          <strong>Note on testing:</strong> I have personally used and measured only one chair — the Steelcase Gesture in my apartment. Every cushion assessment on this page is based on published product dimensions, foam density specifications, and engineering analysis of seated load geometry. No cushion on this page has been personally tested.
+        </p>
+      </section>
+
+      <section>
+        <h2>How Much Height Does a Seat Cushion Actually Add?</h2>
+
+        <p>Less than the box says. Foam thickness is quoted unloaded, and the number that matters is the loaded thickness under your body weight. As a working rule from published density and compression data, a high-density polyurethane foam cushion retains roughly 55–70% of its stated thickness under a 180–220 lb adult, concentrated at the ischial tuberosities where nearly all seated load lands.</p>
+
+        <div class="not-prose overflow-x-auto rounded-lg border border-border my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border bg-secondary/30">
+                <th class="text-left p-3 font-semibold text-heading">Stated Cushion Thickness</th>
+                <th class="text-center p-3 font-semibold text-heading">High-Density Foam (loaded)</th>
+                <th class="text-center p-3 font-semibold text-heading">Memory Foam / Gel (loaded)</th>
+                <th class="text-center p-3 font-semibold text-heading">Backrest Height Lost</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">2"</td>
+                <td class="p-3 text-center">~1.2"–1.4"</td>
+                <td class="p-3 text-center">~0.6"–1"</td>
+                <td class="p-3 text-center">~1.3"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">3"</td>
+                <td class="p-3 text-center">~1.75"–2.1"</td>
+                <td class="p-3 text-center">~0.9"–1.5"</td>
+                <td class="p-3 text-center">~2"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">4"</td>
+                <td class="p-3 text-center">~2.3"–2.8"</td>
+                <td class="p-3 text-center">~1.2"–2"</td>
+                <td class="p-3 text-center">~2.5"</td>
+              </tr>
+              <tr class="hover:bg-secondary/20">
+                <td class="p-3 font-medium">6"</td>
+                <td class="p-3 text-center">~3.5"–4.2"</td>
+                <td class="p-3 text-center">~1.8"–3"</td>
+                <td class="p-3 text-center">~4"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Why memory foam is the wrong foam for height</h3>
+        <p>Memory foam is viscoelastic: it is designed to yield progressively under sustained load and conform to body contour. That behavior is excellent for pressure redistribution and terrible for holding a seated hip point at a fixed elevation. A 4" memory foam cushion can settle another half inch over a two-hour work session, which means your seat height drifts downward through the day. High-density non-viscoelastic foam, or a firm foam core with a thin comfort top layer, holds its loaded height far more predictably.</p>
+
+        <h3>Verify the number yourself</h3>
+        <p>Sit on the cushion normally and have someone measure from the floor to its top surface beside your thigh, about 4" back from the front edge. Compare against the same measurement without it. That difference is your real lift.</p>
+      </section>
+
+      <section>
+        <h2>The Trade-Off Nobody Mentions: Cushion Height vs. Backrest and Lumbar Position</h2>
+
+        <p>This is where most seat-cushion advice falls apart, and it matters more for tall users than anyone else. A cushion does not raise the chair. It raises <em>you</em> inside the chair. The seat pan, the backrest, the lumbar mechanism, and the armrests all stay exactly where they were.</p>
+
+        <p>Backrest height on ergonomic chairs is measured from the seat pan: 24" on the Steelcase Gesture, roughly 23.5" on the Herman Miller Aeron Size C, 25.5" on the Steelcase Leap Plus. A 3" loaded cushion turns the Gesture into a 21" backrest and the Aeron Size C into a 20.5" backrest. For a 6'4" user whose shoulder blades already sit near the top edge of a 24" back, losing three inches means the backrest now ends mid-thoracic — precisely the support tall users are shortest on to begin with.</p>
+
+        <p>The lumbar problem is sharper. For a 6'4" seated adult, the L3–L4 apex of the lumbar curve sits roughly 8"–10" above the seat pan. Ergonomic chairs typically provide only 3"–4" of lumbar height adjustment. Add a 3"–4" cushion and your lumbar apex moves above the top of that adjustment range entirely — the support is now pressing into your sacrum rather than your lumbar curve. That is functionally worse than no lumbar support, because it drives the pelvis into the posterior rotation the chair was bought to prevent.</p>
+
+        <p>Armrests carry the same penalty. Armrest height is specified relative to the seat pan, so a 3" cushion effectively removes 3" from the top of the armrest range. Tall users are already at the top of that range — the <a href="/review/gesture/" class="link-internal">Gesture's 4D armrests</a> are one of the few that reach far enough at 6'4". A thick cushion gives that back.</p>
+
+        <p><strong>The design rule this produces:</strong> max out the pneumatic cylinder first, then close the remaining gap with the thinnest firm cushion that reaches it. Never buy a cushion thicker than your measured gap. A 6" cushion bought to solve a 1" problem costs you four inches of backrest, four inches of armrest range, and puts your lumbar curve out of reach of the mechanism — a net ergonomic loss on a chair that was otherwise nearly right.</p>
+
+        <h3>Match cushion thickness to your gap</h3>
+        <ul>
+          <li><strong>Gap of 1" or less:</strong> A 2" high-density cushion (~1.3" loaded). Backrest cost is negligible; lumbar stays within adjustment range. This is the common case at 6'2"–6'4" on a Gesture or Aeron Size C.</li>
+          <li><strong>Gap of 1"–2":</strong> A 3" high-density cushion (~2" loaded). Raise the lumbar mechanism toward its maximum before you add the cushion, so the net position lands near correct. Expect to lower your monitor plan and re-check desk clearance.</li>
+          <li><strong>Gap above 2":</strong> Do not solve this with foam. Change the chair or change the cylinder. A 4"–6" cushion converts an ergonomic chair into a padded stool with a low back.</li>
+        </ul>
+
+        <h3>Second-order effects on the rest of the workstation</h3>
+        <p>Raising your hip point by 2"–4" moves everything else. Your elbow rises relative to a fixed-height desk, which pushes you toward wrist extension and shoulder depression unless the desk goes up too — see the <a href="/standing-desk-height-tall-people/" class="link-internal">standing desk height guide</a> for the elbow-height formula. Your eye line rises by the same amount, so a monitor already positioned correctly is now low; the <a href="/monitor-arm-tall-people/" class="link-internal">monitor arm height guide</a> covers the reach specs that matter. And if the cushion lifts you above your popliteal height, your feet lose solid floor contact and you'll need a footrest. Check the thigh-clearance side of the equation in the <a href="/knee-pain-seat-depth/" class="link-internal">seat depth and knee pressure guide</a>.</p>
+      </section>
+
+      <section>
+        <h2>Seat Cushions Worth Considering (and an Honest Caveat)</h2>
+
+        <p>Be clear-eyed about this category. Almost no seat-riser cushion sold on Amazon is purpose-built for tall users. These are general-purpose foam cushions — designed for comfort, coccyx relief, or car seats — that sellers reposition with height-boost keywords. There is no tall-specific engineering behind them, no published compression data at load, and listing dimensions are often approximate. Buy accordingly: choose on foam type, thickness, and return policy, not on marketing claims.</p>
+
+        <h3>MABOZOO Extra Thick Chair Cushion (18" × 16" × 6")</h3>
+        <p><strong>Stated thickness:</strong> 6" &nbsp;|&nbsp; <strong>Estimated loaded lift:</strong> ~3.5"–4" &nbsp;|&nbsp; <strong>Footprint:</strong> 18" × 16" &nbsp;|&nbsp; <strong>Typical price:</strong> $35–$45</p>
+        <p>This is the option for a large gap — a 6'6" user on a mass-market task chair, a fixed-height gaming or conference chair, or any seat with a hard ceiling well below popliteal height. The 6" build is the thickest commonly available in a firm foam construction, and the 18" × 16" footprint fits most ergonomic seat pans without overhanging the front edge, which matters because an overhanging cushion reintroduces the popliteal pressure you were trying to avoid.</p>
+        <p>Understand what you are trading. At roughly 4" of loaded lift, this cushion removes about four inches of effective backrest and moves your lumbar curve above nearly any chair's adjustment range. It is the right answer when the chair has no meaningful lumbar system to lose. It is the wrong answer on a Gesture, Aeron, or Leap where you would be degrading a mechanism you paid for.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B0CYWXYZKF?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View MABOZOO Extra Thick Chair Cushion on Amazon" data-cta-position="product-card">
+            View MABOZOO Extra Thick Chair Cushion on Amazon →
+          </a>
+        </div>
+
+        <h3>Booster Seat Cushion (thinner build, moderate lift)</h3>
+        <p><strong>Estimated loaded lift:</strong> ~1.5"–2.5" depending on the variant &nbsp;|&nbsp; <strong>Typical price:</strong> $25–$35</p>
+        <p>This is a thinner booster-style cushion in the category most tall users on a premium chair actually need — the 1"–2" gap case. Spec confidence here is lower: listings in this segment vary in stated thickness and foam composition, and the same ASIN can ship in multiple configurations. Verify the thickness and foam type on the live listing before ordering, and buy only where the return window is long enough for you to measure the loaded lift.</p>
+        <p>The reason a thin cushion is often the better purchase for a tall user is simply the trade-off math above. Closing a 1" gap with 1.5" of loaded foam costs you 1.5" of backrest and keeps the lumbar mechanism inside its working range. That is a good trade. Closing the same 1" gap with four inches of foam is not.</p>
+
+        <div class="not-prose mt-4 mb-6">
+          <a href="https://www.amazon.com/dp/B07VTQTTDG?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-cta="true" data-affiliate-program="amazon" data-cta-label="View booster seat cushion on Amazon" data-cta-position="product-card">
+            View booster seat cushion on Amazon →
+          </a>
+        </div>
+
+        <h3>What to check on any cushion listing</h3>
+        <ul>
+          <li><strong>Foam type.</strong> High-density polyurethane over memory foam or gel, every time, when the goal is height.</li>
+          <li><strong>Footprint vs. your seat pan.</strong> The cushion must not extend past the front edge of the seat — overhang recreates popliteal compression.</li>
+          <li><strong>Non-slip base or strap.</strong> A cushion that migrates forward changes your effective seat depth every time you stand up.</li>
+          <li><strong>Return window.</strong> You cannot know the loaded thickness until you sit on it. Treat the return policy as part of the spec.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>When a Cushion Is the Wrong Answer</h2>
+
+        <p>If your measured gap is more than about two inches, foam is not the fix. Two alternatives preserve the chair's geometry instead of degrading it.</p>
+
+        <h3>Buy a chair with a taller ceiling</h3>
+        <p>The Steelcase Leap Plus reaches 22.5" of seat height, 19.75" of seat depth, and a 25.5" backrest — the only mainstream chair whose published specs clear the full 6'0"–6'6" range without accessories. If you're currently stacking four inches of foam on a chair that tops out at 19", you are spending money to make an ill-fitting chair worse. The <a href="/review/leap-plus/" class="link-internal">Leap Plus spec breakdown</a> covers the fit case in detail, and <a href="/office-chairs-for-tall-people/" class="link-internal">the full tall-user chair guide</a> compares the alternatives across every critical dimension.</p>
+
+        <h3>Replace the gas cylinder</h3>
+        <p>Extended-travel pneumatic cylinders add roughly 2"–5" over a standard cylinder and raise the seat pan itself — which means the backrest, lumbar, and armrest geometry all rise with you and nothing is lost. This is the mechanically correct solution. The catch is fitment and warranty: cylinder taper standards vary, some premium chairs use proprietary mechanisms, and a third-party swap can void coverage. Confirm the taper specification and warranty terms with the manufacturer before ordering anything.</p>
+
+        <h3>Reconsider the desk instead</h3>
+        <p>Sometimes the seat isn't too low — the desk is too low, and raising the seat is a workaround for the wrong variable. If your knees are hitting the underside of a 28"–29" desk, or your elbows drop below the work surface at correct seat height, fix the desk height first. Budget-conscious readers weighing a chair replacement against accessories can start with <a href="/best-office-chairs-under-500/" class="link-internal">the under-$500 tall-user chair options</a>.</p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Do chair leg extenders work on an office chair?</h3>
+        <p>No. Chair leg extenders are made for four-legged furniture and clamp or slot onto a straight vertical leg. A gas-cylinder office chair — Steelcase Gesture, Steelcase Leap Plus, Herman Miller Aeron, and essentially every task chair — has no legs, only a pneumatic cylinder through a five-star base on casters. There is nothing to extend, and raising a five-star base shifts bending load into caster stems designed for axial load only. A firm cushion or a taller replacement cylinder are the only legitimate options.</p>
+
+        <h3>How much height does a seat cushion add to an office chair?</h3>
+        <p>Roughly 55–70% of the stated thickness once you are sitting on it. A 6" high-density foam cushion delivers about 3.5"–4" of usable lift; a 3" cushion delivers about 1.75"–2"; a 2" cushion about 1.2"–1.4". Memory foam and gel cushions compress substantially more — often 50–70% — and continue settling over a work session, so they hold seat height poorly. Measure the loaded thickness while seated rather than trusting the listing.</p>
+
+        <h3>What is the best way to raise office chair height for a tall person?</h3>
+        <p>Raise the pneumatic cylinder to its published maximum first, then close any remaining gap with the thinnest firm cushion that reaches it. Measure popliteal height in normal shoes and subtract the chair's maximum seat height to get your exact gap. A gap of 1" or less takes a 2" high-density cushion. A gap above 2" should be solved with a taller-ceiling chair such as the Leap Plus at 22.5", or with an extended gas cylinder.</p>
+
+        <h3>Does a seat cushion ruin the lumbar support on an ergonomic chair?</h3>
+        <p>A cushion shifts lumbar support downward relative to the spine by exactly its loaded thickness, because the chair's mechanism does not move with you. Backrest height is measured from the seat pan: 24" on the Gesture, about 23.5" on the Aeron Size C, 25.5" on the Leap Plus. A 3" cushion cuts those to 21", 20.5", and 22.5". Since most chairs offer only 3"–4" of lumbar height adjustment, cushions thicker than about 2" can push the lumbar apex past the top of the adjustment range.</p>
+
+        <h3>Can a taller gas cylinder replace a seat cushion for added height?</h3>
+        <p>Yes, on many chairs, and it is the mechanically superior option. Extended-travel cylinders add roughly 2"–5" and raise the seat pan itself, so backrest, lumbar, and armrest geometry all move up with the user and nothing is degraded. The trade-offs are fitment risk and warranty: taper standards vary by manufacturer, several premium chairs use proprietary mechanisms, and a third-party cylinder can void coverage. Verify the taper specification and warranty terms before purchasing.</p>
+      </section>
+
+      <nav class="not-prose mt-10 pt-6 border-t border-border">
+        <p class="text-sm font-medium text-muted-foreground mb-3">Related fit and setup guides:</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/correct-chair-dimensions/" class="link-internal">Correct chair dimensions by height →</a></li>
+          <li><a href="/knee-pain-seat-depth/" class="link-internal text-muted-foreground">Seat depth and knee pressure for tall users →</a></li>
+          <li><a href="/office-chairs-for-6-foot-4/" class="link-internal text-muted-foreground">Best office chairs for 6'4" →</a></li>
+          <li><a href="/review/leap-plus/" class="link-internal text-muted-foreground">Steelcase Leap Plus — 22.5" seat height breakdown →</a></li>
+          <li><a href="/review/gesture/" class="link-internal text-muted-foreground">Steelcase Gesture review — tested at 6'4" →</a></li>
+          <li><a href="/monitor-arm-tall-people/" class="link-internal text-muted-foreground">Monitor arms for tall people →</a></li>
+          <li><a href="/fit-guides/" class="link-internal text-muted-foreground">← All workstation fit guides</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </article>
+</Layout>
