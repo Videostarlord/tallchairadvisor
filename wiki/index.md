@@ -34,7 +34,12 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[heavy-duty-ergonomic-chairs]] | **NEW 2026-05-26.** Targets "best heavy duty ergonomic chairs for tall people" (pos 14). Two-problem frame: weight capacity + tall-user dimensions. Leap Plus as only mainstream solution. |
 | [[refurbished-steelcase-leap]] | **NEW 2026-07-04.** Refurb Leap V2 for tall users — height-cutoff angle (~6'2" max). Crandall Amazon CTA (B08PPVCCST). Score 82/100. From revenue audit item 2. |
 
-| [[aeron-size-c-vs-leap-plus]] | New page: Herman Miller Aeron Size C vs Steelcase Leap Plus for Tall People. Created 2026-07-20. |
+| [[aeron-size-c-vs-leap-plus]] | New page: Herman Miller Aeron Size C vs Steelcase Leap Plus for Tall People. Created 2026-07-20. **Both affiliate CTAs were dead ASINs (pipeline-invented) until fixed 2026-08-04.** |
+| [[standing-desk-converter-tall-people]] | **NEW 2026-08-04. Strongest of the accessory batch.** Vari Tall 40's own Amazon title says "up to 6'6"" — explicitly tall-marketed, in stock, no niche competitor ranking. Converter height math (desk + riser vs 44-50" target). Disambiguated from [[standing-desk-height-tall-people]]. |
+| [[chair-headrest-tall-people]] | **NEW 2026-08-04.** Only the Aeron has buyable aftermarket headrests. Gesture has none (factory-bundled only); Atlas Leap V2 unit sold out everywhere AND does not fit Leap Plus. Highest differentiation, weakest availability. |
+| [[seat-cushion-height-tall-people]] | **NEW 2026-08-04.** Firm cushions for 2-4" of added seat height. Corrects the leg-extender myth (wrong for gas-cylinder chairs). Info gain: cushion height gained vs backrest/lumbar position lost. Most inbound links of the batch (8). |
+| [[lumbar-support-tall-people]] | **NEW 2026-08-04.** Long-torso lumbar apex sits higher than standard 14-16" cushions support. **Tells Leap/Gesture/Aeron owners NOT to buy** — those chairs have built-in lumbar and a cushion costs 2-4" of seat depth. |
+| [[keyboard-tray-tall-people]] | **NEW 2026-08-04.** Negative-tilt trays as companion to raised desks. States plainly there is no tall-specific keyboard tray; debunks the Fellowes "6.25in above desktop" claim arithmetically. |
 
 ## Concept Pages
 
