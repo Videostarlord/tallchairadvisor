@@ -14,6 +14,26 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const PAGES_DIR = join(ROOT, 'src', 'pages');
 
+// Amazon ASIN allowlist. Any /dp/<ASIN> link in a page must appear in
+// data/verified-asins.json, which only ever gains entries a human has
+// loaded in a browser. LLM agents invent plausible 10-char ASINs; three
+// separate incidents shipped dead affiliate links to live money pages
+// before this gate existed. Deliberately offline — Amazon bot-blocks CI.
+const ASIN_REGISTRY_PATH = join(ROOT, 'data', 'verified-asins.json');
+const ASIN_LINK_PATTERN = /\/dp\/([A-Z0-9]{10})/g;
+
+let VERIFIED_ASINS = new Set();
+let KNOWN_DEAD = {};
+try {
+  const registry = JSON.parse(readFileSync(ASIN_REGISTRY_PATH, 'utf-8'));
+  VERIFIED_ASINS = new Set(Object.keys(registry.asins || {}));
+  KNOWN_DEAD = registry.known_dead || {};
+} catch (err) {
+  console.error(`\n❌ Cannot read ASIN registry at data/verified-asins.json — ${err.message}`);
+  console.error('   This file gates every affiliate link. Restore it before shipping.\n');
+  process.exit(1);
+}
+
 // Placeholder patterns that must not appear in shipped content
 const PLACEHOLDER_PATTERNS = [
   { pattern: /\[IMAGE:/g,              label: '[IMAGE: placeholder]' },
@@ -73,6 +93,26 @@ function checkFile(filePath) {
       VOICE_PATTERN.lastIndex = 0;
     });
   }
+
+  // Unverified / known-dead Amazon ASINs
+  content.split('\n').forEach((line, i) => {
+    ASIN_LINK_PATTERN.lastIndex = 0;
+    let match;
+    while ((match = ASIN_LINK_PATTERN.exec(line)) !== null) {
+      const asin = match[1];
+      if (KNOWN_DEAD[asin]) {
+        violations.push(
+          `  ${relPath}:${i + 1} — DEAD ASIN ${asin}: ${KNOWN_DEAD[asin]}`
+        );
+      } else if (!VERIFIED_ASINS.has(asin)) {
+        violations.push(
+          `  ${relPath}:${i + 1} — UNVERIFIED ASIN ${asin}. Open https://www.amazon.com/dp/${asin} ` +
+          `and confirm the listing loads and the title matches, then add it to data/verified-asins.json. ` +
+          `Never register an ASIN you have not personally opened.`
+        );
+      }
+    }
+  });
 
   return violations;
 }

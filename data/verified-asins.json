@@ -1,0 +1,38 @@
+{
+  "_README": "Allowlist of Amazon ASINs cleared to appear in src/pages/**/*.astro. Enforced by scripts/lint-content.mjs, which runs in the Saturday deploy gate. An ASIN not listed here FAILS THE BUILD.",
+  "_WHY": "Three separate incidents shipped dead affiliate links to live money pages: 8 hallucinated ASINs found 2026-07-04, 2 more shipped by the content pipeline 2026-07-20 on /aeron-size-c-vs-leap-plus/, and B0GTJ3YT1B nearly shipped 2026-08-04. Every one earned nothing while sitting on a page with traffic. LLM agents invent plausible-looking 10-character ASINs; an allowlist is the only check that catches that deterministically.",
+  "_HOW_TO_ADD": "1. Open https://www.amazon.com/dp/<ASIN> in a browser and confirm the listing loads and the product title matches what the page will claim. 2. Add an entry below with the date and who verified it. Do NOT add an ASIN you have not personally loaded — that is the entire point of this file.",
+  "_NOT_AN_HTTP_CHECK": "Deliberately not a live HTTP validator. Amazon blocks automated requests (500s / bot walls), so a network check would fail randomly in CI and get ignored. This registry is deterministic and offline.",
+  "asins": {
+    "B016OIF2JU": { "product": "Steelcase Gesture Office Chair", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B00TYE4QXU": { "product": "Steelcase Leap Plus (500 lb capacity)", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B01N32UFNT": { "product": "Herman Miller Aeron Size C, Graphite", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B0DQTRVSHS": { "product": "Sihoo Doro S300", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B0116W5BG8": { "product": "La-Z-Boy Trafford Big & Tall", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B0CQ4K1KXT": { "product": "Hbada E3 Pro", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B01MXYN33U": { "product": "Ergotron HX Monitor Arm", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B01BO42XK0": { "product": "VIVO Extra Tall Single Monitor Desk Mount, 39in pole (STAND-V011)", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+    "B08PPVCCST": { "product": "Crandall remanufactured Steelcase Leap V2", "verified": "2026-07-04", "by": "Jackson", "source": "Jul 4 revenue audit ASIN map" },
+
+    "B0B86SYST5": { "product": "Engineered Now The Original Headrest for Herman Miller Aeron (HW, Onyx)", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B00MV8C8TA": { "product": "Engineered Now Headrest for Aeron Classic (H4, Carbon)", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B00L2IJNMK": { "product": "Atlas Headrest for Herman Miller Aeron (Graphite)", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B0CYWXYZKF": { "product": "MABOZOO Extra Thick Chair Cushion 18x16x6in booster", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B07VTQTTDG": { "product": "Booster seat cushion (height increase)", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B0CYF58KZQ": { "product": "McCarty's SacroEase MSE1 Sacro Premium Lumbar Support 16x15x19in", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B0001X22QG": { "product": "DMI Extra-Tall Adjustable Lumbar Support Cushion 14x21in", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B00DB42YIS": { "product": "Ergotron LX Desk Mount LCD Arm, Tall Pole", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B09T78LQYQ": { "product": "Ergotron LX Vertical Stacking Dual Monitor Arm, Tall Pole", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B076HB7NZS": { "product": "Vari (Varidesk) Tall 40 Standing Desk Converter", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B07322VF6S": { "product": "CHANGEdesk Tall standing desk converter (manual)", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B01BT3DK12": { "product": "Electric CHANGEdesk Tall standing desk converter", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B01BRLJPZQ": { "product": "Uncaged Ergonomics KT2-b negative-tilt keyboard tray", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B0051MOFP8": { "product": "Fellowes Professional Series Sit/Stand Keyboard Tray", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" },
+    "B07B42X78Q": { "product": "UPLIFT Desk Large Keyboard Tray", "verified": "2026-08-04", "by": "Jackson", "source": "click-tested during accessory page build" }
+  },
+  "known_dead": {
+    "B0GTJ3YT1B": "Atlas Headrest for Steelcase Leap V2 — listing does not resolve (checked 2026-08-04). Product is real but sold out at Atlas direct, Crandall, and Office Logix. Also does NOT fit Leap Plus or Leap V1.",
+    "B07CNMTQ2X": "Claimed Herman Miller Aeron Size C — invented by the content pipeline 2026-07-20, never resolved. Use B01N32UFNT.",
+    "B0050GNMRY": "Claimed Steelcase Leap Plus — invented by the content pipeline 2026-07-20, never resolved. Use B00TYE4QXU."
+  }
+}
