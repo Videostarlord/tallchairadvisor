@@ -119,6 +119,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | Page | Summary |
 |------|---------|
 | [[2026-W30]] | Deployed. 207 clicks, 94576 impr. |
+| [[2026-W31]] | Deployed. 221 clicks, 97131 impr. |
 
 ## Raw Sources (reference only — do not edit)
 

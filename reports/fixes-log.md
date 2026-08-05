@@ -1,8 +1,3 @@
-# Fixes Log — 2026-07-20
+# Fixes Log — 2026-07-30
 
-- [✅] Fixed [complex]: /best-office-chairs-under-500/ in src/pages/best-office-chairs-under-500.astro (words: 3833 → 4023)
-- [✅] Fixed [complex]: /correct-chair-dimensions/ in src/pages/correct-chair-dimensions.astro (words: 4490 → 4627)
-- [✅] Fixed [complex]: /correct-chair-dimensions/ in src/pages/correct-chair-dimensions.astro (words: 4627 → 4817)
-- [✅] Fixed [complex]: /office-chairs-for-tall-people/ in src/pages/office-chairs-for-tall-people.astro (words: 4532 → 5049)
-- [✅] Fixed [complex]: /review/leap-plus/ in src/pages/review/leap-plus.astro (words: 3156 → 3018)
-- [✅] Fixed [complex]: /chairs/herman-miller-aeron/tall-people/ in src/pages/chairs/herman-miller-aeron/tall-people.astro (words: 2987 → 2987)
+No fixes needed this week.

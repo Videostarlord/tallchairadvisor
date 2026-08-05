@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-07-20
+last_updated: 2026-08-03
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,14 +70,15 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-07-20. 8 pages analyzed × up to 3 queries each. 33 URLs crawled (21 cache hits). 5 high-priority gaps. Top editorial outrankers: thehumansolution.com, forbes.com, btod.com.*
+*v2 run 2026-08-03. 8 pages analyzed × up to 3 queries each. 30 URLs crawled (20 cache hits). 6 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-07-20 | Per-chair dimension tables with min/max seat height, seat depth, and back height | high | 2q | thehumansolution.com |
-| 2026-07-20 | Audience segmentation by height bracket AND weight capacity is absent — the page | high | 2q | forbes.com |
-| 2026-07-20 | ItemList + AggregateRating schema markup for rich results eligibility — no struc | high | 2q | btod.com |
-| 2026-07-20 | Author byline and methodology credentialing visible near the top of the page — n | high | 1q | btod.com |
-| 2026-07-20 | No structured spec table presenting all three dimensions (seat height range, sea | high | 1q | thehumansolution.com |
-| 2026-07-20 | The height-bracket verdict table lacks a methodology note explaining the body-pr | medium | 1q | karo.co.za |
-| 2026-07-20 | Use-case segmentation (home office vs. corporate/executive vs. all-day/heavy-use | medium | 1q | forbes.com |
+| 2026-08-03 | ItemList and AggregateRating schema markup are absent, making the page ineligibl | high | 3q | forbes.com |
+| 2026-08-03 | Use-case segmentation (home office, corporate/executive, all-day heavy use, budg | high | 3q | thehumansolution.com |
+| 2026-08-03 | Author byline and methodology credentialing are not visible near the top of the  | high | 2q | crandalloffice.com |
+| 2026-08-03 | ItemList and AggregateRating schema markup are absent, blocking rich result elig | high | 2q | crandalloffice.com |
+| 2026-08-03 | No explicit citation of the Cornell Ergonomics Lab source URL or document title  | high | 1q | ergo.human.cornell.edu |
+| 2026-08-03 | Audience segmentation by height bracket AND weight capacity (tall-only vs. big-a | high | 1q | canfor.it |
+| 2026-08-03 | '## Compare With' section exists in the manifest (372 chars) but at 372 characte | medium | 1q | thehumansolution.com |
+| 2026-08-03 | Explicit, self-contained fit-range verdict formatted as a scannable summary (e.g | medium | 1q | btod.com |
