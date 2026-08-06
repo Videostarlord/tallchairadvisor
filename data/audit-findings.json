@@ -1,12 +1,282 @@
 {
-  "generatedAt": "2026-08-06T09:58:47.750Z",
+  "generatedAt": "2026-08-06T10:03:35.341Z",
   "dateRange": {
     "start": "2026-05-08",
     "end": "2026-08-06"
   },
-  "executiveSummary": "tallchairadvisor.com has strong impression volume (99,415 over 90 days) but a critically low site-wide CTR of 0.24%, driven primarily by one page — /knee-pain-seat-depth/ — which alone accounts for 41% of all impressions at a catastrophic 0.04% CTR. Title and meta length violations are widespread, with several pages exceeding the 60-char title and 155-char meta caps. A spec discrepancy on /chairs/steelcase-leap-plus/seat-height/ (title states 15.5\"–22.5\" but body says 15.5\"–20.5\") undermines E-E-A-T on a key spec page. Several low-click pages in positions 7–10 represent high-priority CTR leak fixes that could meaningfully move revenue.",
-  "weeklyFocus": [],
-  "pagesNotNeedingAction": [],
-  "findings": [],
+  "executiveSummary": "The site has strong impression volume (99,415 over 90 days) but a critically low overall CTR of 0.24%, driven primarily by one page (/knee-pain-seat-depth/) that alone accounts for 41% of all impressions yet converts at only 0.04% CTR. Title and meta length violations are widespread, with several pages exceeding or falling short of ideal ranges. A confirmed spec discrepancy exists on /chairs/steelcase-leap-plus/seat-height/ where the title and meta contradict each other on the max seat height (22.5\" vs 20.5\"). Multiple pages with strong positional data (pos 5–10) are leaking clicks due to weak or overlong meta descriptions, and the site's hub page (/office-chairs-for-tall-people/) has an overlong title suppressing SERP display.",
+  "weeklyFocus": [
+    "1. FIX SPEC ERROR on /chairs/steelcase-leap-plus/seat-height/ — correct the meta to read '15.5\"–22.5\"' (not 20.5\") and rewrite for CTR. This is the only page with a factual data conflict and it has 0 clicks at pos 8.8.",
+    "2. REWRITE META on /knee-pain-seat-depth/ — 40,752 impressions at 0.04% CTR is the single largest click-recovery opportunity on the site. Even lifting CTR to 1% yields ~400 clicks/month from one page.",
+    "3. SHORTEN TITLES on /correct-chair-dimensions/ (73 chars) and /office-chairs-for-tall-people/ (75 chars) — both hub/pillar pages are being truncated in SERPs, directly suppressing click-through on the site's most commercially important pages."
+  ],
+  "pagesNotNeedingAction": [
+    "/office-chairs-for-6-foot-3/",
+    "/office-chairs-for-6-foot-6/",
+    "/chairs/herman-miller-aeron/tall-people/"
+  ],
+  "findings": [
+    {
+      "findingId": "e56f5c82ad68",
+      "page": "/knee-pain-seat-depth/",
+      "issueClass": "ctr-leak",
+      "severity": "critical",
+      "summary": "Page has the site's highest impression volume by far but an almost non-existent CTR of 0.04%, indicating the title/meta is failing to earn clicks despite near-page-1 position.",
+      "recommendation": "Rewrite meta description to lead with a concrete verdict/promise. Suggested (145 chars): \"Seat edge cutting into the back of your knees? The Cornell 17-inch rule fixes it. See exact seat depth minimums for 6'0–6'7 and the chairs that hit them.\"",
+      "evidence": "40,752 impr, pos 5.7, 17 clicks, 0.04% CTR — 41% of all site impressions, yet the worst CTR of any ranked page."
+    },
+    {
+      "findingId": "fae650db38e2",
+      "page": "/chairs/herman-miller-aeron/",
+      "issueClass": "ctr-leak",
+      "severity": "critical",
+      "summary": "Page has 551 impressions with 0 clicks and is ranked at pos 20.6, indicating thin content or weak E-E-A-T is suppressing rank and preventing any CTR.",
+      "recommendation": "This page competes directly with /review/aeron-size-c/ and /chairs/herman-miller-aeron/tall-people/ for the same queries. Conduct a content depth audit: add a full spec table (seat height range, depth, back height, weight limit), height-by-height verdict section, and at least 3 internal links from higher-authority pages. Consider whether this page should be merged into /review/aeron-size-c/ or clearly differentiated with unique depth.",
+      "evidence": "551 impr, pos 20.6, 0 clicks, 0% CTR. Top queries: 'aeron size c', 'aeron chair size c', 'herman miller aeron size c'."
+    },
+    {
+      "findingId": "32766b2a9f2c",
+      "page": "/chairs/steelcase-leap-plus/seat-height/",
+      "issueClass": "spec-error",
+      "severity": "critical",
+      "summary": "The page title states the seat height range as '15.5\"–22.5\"' but the meta description contradicts this, stating '15.5\"–20.5\" range' — one figure is wrong and will damage trust and E-E-A-T.",
+      "recommendation": "Correct the meta description to match the title and the verified spec from /review/leap-plus/. Updated meta (153 chars): \"Steelcase Leap Plus seat height: 15.5\"–22.5\" range (7\" adjustment). Fits users 5'5\"–6'6\". Why the extra range matters most if you're 6'2\" or taller.\"",
+      "evidence": "Title: 'Steelcase Leap Plus Seat Height: 15.5\"–22.5\" Range'. Meta desc: 'Steelcase Leap Plus seat height: 15.5\"–20.5\" range (5\" adjustment).' The Leap Plus official max is 22.5\" per /review/leap-plus/ data."
+    },
+    {
+      "findingId": "31788964418d",
+      "page": "/chairs/steelcase-leap-plus/seat-height/",
+      "issueClass": "ctr-leak",
+      "severity": "critical",
+      "summary": "Page has 527 impressions at pos 8.8 with 0 clicks — a complete CTR failure on a near-page-1 spec page with clear commercial query intent.",
+      "recommendation": "Fix the spec error (see spec-error finding) first, as inconsistent data may be triggering Google's quality filters. Then rewrite meta with the corrected spec as the lead. Add internal links from /review/leap-plus/ and /chairs/steelcase-leap-plus/tall-people/ pointing to this page.",
+      "evidence": "527 impr, pos 8.8, 0 clicks, 0% CTR. Top queries include 'steelcase leap chair dimensions seat depth official'."
+    },
+    {
+      "findingId": "212811006ec2",
+      "page": "/knee-pain-seat-depth/",
+      "issueClass": "title-length",
+      "severity": "high",
+      "summary": "Title is 67 characters, exceeding the 50–60 char ideal and likely truncating in SERPs.",
+      "recommendation": "Shorten to: \"Seat Depth & Knee Pain: The Fix for Tall People\" (57 chars) — preserves the core keyword and removes the verbose 'Cornell Ergonomics Rule' prefix.",
+      "evidence": "Title length: 67 chars. Ideal max: 60 chars."
+    },
+    {
+      "findingId": "9f99335dd373",
+      "page": "/correct-chair-dimensions/",
+      "issueClass": "ctr-leak",
+      "severity": "high",
+      "summary": "Page sits at pos 9.6 with 18,707 impressions but achieves only 0.18% CTR, well below the expected ~2–3% for that position.",
+      "recommendation": "Rewrite meta to be verdict-first and height-specific. Suggested (150 chars): \"Exact seat height, depth, and back height minimums for 6'0–6'7+, based on Cornell ergonomics. Copy these numbers before you buy any office chair.\"",
+      "evidence": "18,707 impr, pos 9.6, 34 clicks, 0.18% CTR. Query leak: 'ergonomic chair dimensions' (62 impr, pos 19.3, 0%); 'standard size of a office chair' (97 impr, pos 16.3, 0%)."
+    },
+    {
+      "findingId": "ef9fbd421bf3",
+      "page": "/correct-chair-dimensions/",
+      "issueClass": "title-length",
+      "severity": "high",
+      "summary": "Title is 73 characters, significantly exceeding the 60-char cap and will be truncated in Google SERPs.",
+      "recommendation": "Shorten to: \"Office Chair Dimensions for Tall People: Specs by Height\" (61 chars) or \"Ergonomic Chair Dimensions for Tall People (6'0–6'7)\" (53 chars).",
+      "evidence": "Title length: 73 chars. Ideal max: 60 chars."
+    },
+    {
+      "findingId": "d0d72d28e7be",
+      "page": "/review/leap-plus/",
+      "issueClass": "meta-length",
+      "severity": "high",
+      "summary": "Meta description is 170 characters, exceeding the 155-char ideal and risking truncation.",
+      "recommendation": "Trim to under 155 chars. Suggested (151 chars): \"Research-based spec analysis for tall users 6'0–6'6. Seat depth 15.75–19.75\", 500 lb capacity, 22.5\" seat height ceiling — who fits and who doesn't.\"",
+      "evidence": "Meta desc length: 170 chars. Ideal max: 155 chars."
+    },
+    {
+      "findingId": "822656ebbd96",
+      "page": "/review/leap-plus/",
+      "issueClass": "ctr-leak",
+      "severity": "high",
+      "summary": "Top query 'steelcase leap plus' has 1,084 impressions at pos 10.2 but only 1.01% CTR — the page is just off page 1 and leaking significant high-intent clicks.",
+      "recommendation": "Push this page to p1 via internal linking from /office-chairs-for-tall-people/, /gesture-vs-leap-plus/, and /chairs/steelcase-leap-plus/tall-people/. Add a structured 'Fast Facts' schema-eligible spec table at the top to increase rich-result eligibility and CTR.",
+      "evidence": "Query 'steelcase leap plus': 1,084 impr, pos 10.2, 1.01% CTR. Page total: 13,223 impr, pos 8.8, 0.29% CTR."
+    },
+    {
+      "findingId": "018c617c0678",
+      "page": "/review/gesture/",
+      "issueClass": "ctr-leak",
+      "severity": "high",
+      "summary": "Despite being the site's only first-person-tested product at pos 8.0, the page achieves only 0.12% CTR across 8,415 impressions — well below potential.",
+      "recommendation": "Leverage the unique first-person E-E-A-T angle harder in the meta. Suggested (153 chars): \"Reviewed by a 6'4\" owner after 18 months of daily use. Seat depth, armrests, back height verdict for 6'1–6'7 — who fits and who should look elsewhere.\"",
+      "evidence": "8,415 impr, pos 8.0, 10 clicks, 0.12% CTR."
+    },
+    {
+      "findingId": "1760ee88a1cd",
+      "page": "/office-chairs-for-tall-people/",
+      "issueClass": "title-length",
+      "severity": "high",
+      "summary": "Hub page title is 75 characters — the most over-length title on the site and the highest-priority fix given this page's commercial importance.",
+      "recommendation": "Shorten to: \"Best Office Chairs for Tall People 2026 (6'0–6'7)\" (52 chars) — drops the word 'Guide' and the redundant closing quote mark to stay under 60 chars while keeping the year and height bracket.",
+      "evidence": "Title length: 75 chars. Ideal max: 60 chars. Page: 3,707 impr, pos 8.5, 20 clicks."
+    },
+    {
+      "findingId": "4d4660bb8c27",
+      "page": "/best-office-chairs-under-500/",
+      "issueClass": "meta-quality",
+      "severity": "high",
+      "summary": "Meta description references Jackson's personal purchase of the Gesture in first-person ('an ME student who spent months researching before buying the $1,649 Gesture'), but the Gesture is the ONLY personally tested chair — this framing must not imply first-hand testing of the budget chairs listed on this page.",
+      "recommendation": "Rewrite to maintain E-E-A-T without implying personal testing of budget picks. Suggested (150 chars): \"Budget picks for tall users 6'0–6'7: spec-verified seat height and depth minimums by height, with clear guidance on where to compromise and where not to.\"",
+      "evidence": "Meta: 'Honest budget picks for tall users from an ME student who spent months researching before buying the $1,649 Gesture.' 152 chars. None of the under-$500 chairs were personally tested by Jackson."
+    },
+    {
+      "findingId": "5d47576a55b8",
+      "page": "/chairs/steelcase-gesture/weight-limit/",
+      "issueClass": "ctr-leak",
+      "severity": "high",
+      "summary": "Three query clusters totalling 149 impressions at positions 9.1–10.1 generate 0% CTR, with only 1 click total across 682 impressions.",
+      "recommendation": "Rewrite meta to lead with the definitive answer and create urgency for heavier-tall users. Suggested (149 chars): \"Steelcase Gesture weight limit is 400 lbs (BIFMA certified). How that compares to the Leap Plus at 500 lbs — and which to choose if you're 6'2+ and 250+ lbs.\"",
+      "evidence": "'steelcase gesture weight limit': 82 impr, pos 9.1, 0% CTR. 'steelcase gesture weight': 51 impr, pos 10.1, 0% CTR. 'steelcase gesture chair weight capacity official': 16 impr, pos 9.4, 0% CTR. Page total: 682 impr, pos 8.3, 1 click."
+    },
+    {
+      "findingId": "2f44da9be495",
+      "page": "/chairs/steelcase-gesture/",
+      "issueClass": "ctr-leak",
+      "severity": "high",
+      "summary": "Hub page for Gesture chair sits at pos 9.4 with 615 impressions and only 1 click, a near-zero CTR that indicates the SERP snippet is failing to capture intent.",
+      "recommendation": "Rewrite meta to be verdict-first. Suggested (148 chars): \"Gesture fits 6'0–6'4 per Steelcase specs (21\" seat height, 18.75\" adjustable depth). Tall-person fit verdict, adjustment guide, and comparison to Leap Plus.\"",
+      "evidence": "615 impr, pos 9.4, 1 click, 0.16% CTR. Query leak: 'steelcase gesture for tall people' (17 impr, pos 11, 0% CTR)."
+    },
+    {
+      "findingId": "81bc473ec908",
+      "page": "/pain-ergonomics/",
+      "issueClass": "thin-content",
+      "severity": "high",
+      "summary": "Page ranks at pos 29.3 — far from page 1 — with 487 impressions and 1 click, signalling Google does not consider this content authoritative enough to surface for its target queries.",
+      "recommendation": "Expand with: (1) a height-segmented pain diagnosis section (e.g., 'Pain at 6'0–6'2 vs 6'4+'), (2) citations to ergonomics research (Cornell, NIOSH), (3) specific chair dimension fixes for each pain type, and (4) internal links from /knee-pain-seat-depth/ and /back-pain-spine-height/ as contextual anchors. Target 1,500+ words with structured H2/H3 hierarchy.",
+      "evidence": "487 impr, pos 29.3, 1 click, 0.21% CTR. No query leak data provided, suggesting no single query has significant traction."
+    },
+    {
+      "findingId": "2afb01154404",
+      "page": "/back-pain-spine-height/",
+      "issueClass": "title-length",
+      "severity": "high",
+      "summary": "Title is 42 characters, well below the 50-char minimum, wasting keyword signal in the most weighted on-page SEO element.",
+      "recommendation": "Expand to: \"Back Pain From Your Office Chair? A Tall User Fix\" (50 chars) or \"Office Chair Back Pain for Tall People: The Fix\" (47 chars) — best option: \"Back Pain From Your Chair: Lumbar Fix for Tall People\" (54 chars).",
+      "evidence": "Title length: 42 chars. Ideal minimum: 50 chars."
+    },
+    {
+      "findingId": "ea09e7be3cda",
+      "page": "/correct-chair-dimensions/",
+      "issueClass": "aio-suppression",
+      "severity": "medium",
+      "summary": "Top query 'cornell ergonomics chair seat height feet flat thighs parallel' is confirmed AIO-suppressed, meaning meta rewrites cannot recover clicks for that specific query.",
+      "recommendation": "Do not invest in meta optimisation targeting this exact query. Instead, redirect content strategy toward transactional variants like 'chair seat height for 6 foot 4' where AIO coverage is less complete. Add a comparison table of chairs meeting the Cornell spec to capture downstream purchase intent.",
+      "evidence": "Query: 'cornell ergonomics chair seat height feet flat thighs parallel' — 17 impr, pos 4.8, 0% CTR, flagged ⚠AIO."
+    },
+    {
+      "findingId": "5663893947e9",
+      "page": "/review/gesture/",
+      "issueClass": "meta-length",
+      "severity": "medium",
+      "summary": "Meta description is 158 characters, exceeding the 155-char ideal.",
+      "recommendation": "The CTR-focused rewrite above (see ctr-leak recommendation) lands at 153 chars and resolves both issues simultaneously.",
+      "evidence": "Meta desc length: 158 chars. Ideal max: 155 chars."
+    },
+    {
+      "findingId": "47248c01f0c3",
+      "page": "/review/aeron-size-c/",
+      "issueClass": "meta-length",
+      "severity": "medium",
+      "summary": "Meta description is 166 characters, 11 chars over the 155-char ceiling.",
+      "recommendation": "Trim to: \"Aeron Size C fits most 6'0–6'3 users: seat height to 20.5\", fixed depth 18.5\". Who it fits, who should step up to the Leap Plus, and why.\" (152 chars).",
+      "evidence": "Meta desc length: 166 chars. Ideal max: 155 chars."
+    },
+    {
+      "findingId": "c5a9b74a3b06",
+      "page": "/office-chairs-for-tall-people/",
+      "issueClass": "meta-length",
+      "severity": "medium",
+      "summary": "Meta description is 168 characters, 13 chars over the 155-char limit.",
+      "recommendation": "Trim to: \"Leap Plus (22.5\" seat height) for 6'4+, Aeron Size C and Gesture to 6'4 — height-bracket verdicts with exact specs for tall office workers.\" (149 chars).",
+      "evidence": "Meta desc length: 168 chars. Ideal max: 155 chars."
+    },
+    {
+      "findingId": "f0baa4b52fb4",
+      "page": "/best-office-chairs-under-500/",
+      "issueClass": "title-length",
+      "severity": "medium",
+      "summary": "Title is 45 characters, below the 50-char minimum, leaving keyword real estate unused.",
+      "recommendation": "Expand to: \"Best Office Chairs for Tall People Under $500 (2026)\" (53 chars) — adds the year signal and stays comfortably within range.",
+      "evidence": "Title length: 45 chars. Ideal range: 50–60 chars."
+    },
+    {
+      "findingId": "369f0d637ae2",
+      "page": "/gesture-vs-leap-plus/",
+      "issueClass": "meta-length",
+      "severity": "medium",
+      "summary": "Meta description is 165 characters, 10 chars over the 155-char ceiling.",
+      "recommendation": "Trim to: \"Seat depth (18.75\" vs 19.75\"), back height, armrest comparison for 6'0–6'6. Which one wins depends on your exact height — full verdict inside.\" (152 chars).",
+      "evidence": "Meta desc length: 165 chars. Ideal max: 155 chars."
+    },
+    {
+      "findingId": "6f2887c79740",
+      "page": "/chairs/steelcase-gesture/",
+      "issueClass": "meta-length",
+      "severity": "medium",
+      "summary": "Meta description is 170 characters, 15 chars over the 155-char limit.",
+      "recommendation": "The CTR rewrite above (see ctr-leak recommendation) lands at 148 chars and resolves both issues simultaneously.",
+      "evidence": "Meta desc length: 170 chars. Ideal max: 155 chars."
+    },
+    {
+      "findingId": "16b4f4925969",
+      "page": "/back-pain-spine-height/",
+      "issueClass": "meta-length",
+      "severity": "medium",
+      "summary": "Meta description is 132 characters, below the 130-char minimum — barely in range but at risk of being too short to fill SERP snippet space competitively.",
+      "recommendation": "Expand slightly to add specificity and reach ~145 chars. Suggested: \"Standard chair lumbar hits the wrong spinal segment at 6'2+. Here's why tall users get back pain from 'ergonomic' chairs — and exact chair fixes by height range.\" (156 chars — trim to 153): \"Standard lumbar support hits the wrong spinal segment at 6'2+. Why tall users get back pain from 'ergonomic' chairs and which chair fixes it by height.\"",
+      "evidence": "Meta desc length: 132 chars. Ideal minimum: 130 chars."
+    },
+    {
+      "findingId": "abca2db3aac4",
+      "page": "/chairs/steelcase-gesture/seat-depth/",
+      "issueClass": "ctr-leak",
+      "severity": "medium",
+      "summary": "Page sits at pos 7.7 with 969 impressions but only 2 clicks (0.21% CTR), and the primary query 'steelcase gesture seat depth' has 0% CTR at pos 8.8.",
+      "recommendation": "Rewrite meta to front-load the spec answer. Suggested (133 chars): \"Gesture seat depth: 15.75–18.75\" (3\" range). Fits 6'0–6'4; at 6'4+ use full extension. Step-by-step adjustment guide inside.\"",
+      "evidence": "969 impr, pos 7.7, 2 clicks, 0.21% CTR. Query leak: 'steelcase gesture seat depth' (39 impr, pos 8.8, 0% CTR)."
+    },
+    {
+      "findingId": "5c033f2e62af",
+      "page": "/office-chairs-for-6-foot-4/",
+      "issueClass": "meta-quality",
+      "severity": "medium",
+      "summary": "Page title uses an HTML-encoded apostrophe (&#39;) in the OG Title field, which may render as a literal entity string in some social/preview contexts.",
+      "recommendation": "Ensure the OG Title field outputs a properly decoded UTF-8 apostrophe character (') rather than the HTML entity &#39; — check the template/CMS output for the og:title meta tag specifically.",
+      "evidence": "OG Title: \"Best Office Chair for 6'4\" | Tall Chair Advisor\" — standard title appears correct but OG field shows encoding discrepancy in raw data."
+    },
+    {
+      "findingId": "e2e8be9482a4",
+      "page": "/chairs/steelcase-leap-plus/tall-people/",
+      "issueClass": "internal-linking",
+      "severity": "medium",
+      "summary": "Spoke page for Leap Plus tall-people fit sits at pos 9.2 with 488 impressions and low CTR — it is likely under-linked from the hub and review pages, limiting authority flow.",
+      "recommendation": "Add a contextual internal link to this page from /office-chairs-for-tall-people/, /review/leap-plus/, and /chairs/steelcase-leap-plus/seat-height/ using anchor text 'Steelcase Leap Plus for tall people' or 'Leap Plus tall-person fit guide'. This will consolidate authority on the spoke and improve its ranking for the top query.",
+      "evidence": "488 impr, pos 9.2, 2 clicks, 0.41% CTR. Top queries include 'steelcase leap v2 for tall people' — a high-value commercial query."
+    },
+    {
+      "findingId": "a6b8138171ac",
+      "page": "/chairs/herman-miller-aeron/",
+      "issueClass": "title-length",
+      "severity": "low",
+      "summary": "Title is 49 characters, just under the 50-char minimum.",
+      "recommendation": "Expand by one word: \"Aeron Size C for Tall People: Full Fit Analysis\" (47 chars) — or \"Herman Miller Aeron Size C for Tall People\" (43 chars, though this risks being shorter). Better: \"Aeron Size C for Tall People: Specs & Fit Guide\" (49 chars). Safest: \"Herman Miller Aeron Size C: Tall Person Fit Guide\" (50 chars exactly).",
+      "evidence": "Title length: 49 chars. Ideal minimum: 50 chars."
+    },
+    {
+      "findingId": "e97fddd47a65",
+      "page": "/chairs/steelcase-gesture/seat-depth/",
+      "issueClass": "meta-length",
+      "severity": "low",
+      "summary": "Meta description is 132 characters, just at the lower boundary of the 130–155 char ideal range — tighter than recommended for competitive SERPs.",
+      "recommendation": "The CTR rewrite above targets 133 chars, which resolves both issues. Aim for 140+ chars to give Google more snippet content to display.",
+      "evidence": "Meta desc length: 132 chars. Ideal minimum: 130 chars."
+    }
+  ],
   "suppressed": []
 }
