@@ -140,7 +140,12 @@ async function main() {
   // Call Claude for analysis
   const response = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 4000,
+    // 4000 was too small and had been silently truncating the findings array
+    // every week since at least 2026-07-21 — five logged runs, five hits of
+    // exactly 4000 output tokens. A structured audit of ~50 pages needs room
+    // for 25-30 finding records; the model was spending its budget on the
+    // executive summary and running out mid-array.
+    max_tokens: 16000,
     system: [
       {
         type: 'text',
@@ -255,6 +260,20 @@ Rules:
   // Structured output — the model is forced through the report_findings tool, so
   // findings are records rather than prose. Everything downstream reads the JSON;
   // the markdown is a render for humans.
+  // A truncated tool call is the dangerous case, not the absent one. When the
+  // model runs out of tokens mid-JSON the SDK still hands back a `tool_use`
+  // block with whatever fields completed — typically a polished
+  // executiveSummary and no findings at all. Writing that produces a report
+  // saying "No findings this week", which reads as good news and is the exact
+  // degraded-but-plausible value this pipeline exists to refuse.
+  if (response.stop_reason === 'max_tokens') {
+    throw new Error(
+      `Audit hit max_tokens (${response.usage.output_tokens}) mid-response, so the findings ` +
+        `array is truncated or empty. REFUSING to write a report that would understate the ` +
+        `site's problems. Raise max_tokens in scripts/agents/audit.ts and re-run.`,
+    );
+  }
+
   const toolUse = response.content.find(b => b.type === 'tool_use');
   if (!toolUse || toolUse.type !== 'tool_use') {
     throw new Error(`Audit did not return structured findings (stop_reason: ${response.stop_reason}). No report written.`);
@@ -270,7 +289,18 @@ Rules:
   const seen = new Set<string>();
   const allFindings: AuditFinding[] = [];
 
-  for (const f of raw.findings ?? []) {
+  // No `?? []` here: an absent findings array means the tool call did not
+  // complete, which must be loud. An audit that legitimately finds nothing
+  // returns an empty array, which is a different thing entirely.
+  if (!Array.isArray(raw.findings)) {
+    throw new Error(
+      'Audit tool call returned no `findings` array (present but not an array, or absent). ' +
+        'This indicates a malformed or truncated response — refusing to write a report ' +
+        'that would imply the site is clean.',
+    );
+  }
+
+  for (const f of raw.findings) {
     // Defensive: the enum is in the schema, but an out-of-set class would break
     // ID stability, so coerce rather than trust.
     const issueClass: IssueClass = validClasses.has(f.issueClass) ? (f.issueClass as IssueClass) : 'other';
