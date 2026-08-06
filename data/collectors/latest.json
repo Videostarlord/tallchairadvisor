@@ -1,22 +1,17 @@
 {
-  "collectedAt": "2026-08-06T10:41:42.867Z",
-  "finishedAt": "2026-08-06T10:47:37.450Z",
-  "durationMs": 354583,
-  "healthy": false,
-  "healthyCount": 6,
+  "collectedAt": "2026-08-06T12:06:14.510Z",
+  "finishedAt": "2026-08-06T12:12:16.994Z",
+  "durationMs": 362484,
+  "healthy": true,
+  "healthyCount": 7,
   "total": 7,
-  "coveragePct": 86,
-  "unhealthy": [
-    {
-      "name": "clarity",
-      "reason": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
-    }
-  ],
+  "coveragePct": 100,
+  "unhealthy": [],
   "ledger": {
     "available": true,
-    "filed": 1,
+    "filed": 0,
     "failed": 0,
-    "note": "filed 1 collector finding(s)"
+    "note": "no unhealthy collectors to file"
   },
   "collectors": {
     "gsc": {
@@ -29,7 +24,7 @@
         },
         "performance": {
           "pulledAt": "2026-08-06T09:29:38.159Z",
-          "ageHours": 1.2,
+          "ageHours": 2.6,
           "dateRange": {
             "start": "2026-05-08",
             "end": "2026-08-06",
@@ -46,7 +41,7 @@
         },
         "analysis": {
           "generatedAt": "2026-08-06T09:29:38.651Z",
-          "ageHours": 1.2,
+          "ageHours": 2.6,
           "opportunityCount": 38,
           "ctrLeakCount": 17,
           "decayAlertCount": 0
@@ -65,8 +60,8 @@
           },
           "coverageStates": {
             "Submitted and indexed": 45,
-            "Discovered - currently not indexed": 2,
-            "URL is unknown to Google": 1,
+            "Discovered - currently not indexed": 1,
+            "URL is unknown to Google": 2,
             "Crawled - currently not indexed": 1
           },
           "notIndexed": [
@@ -470,7 +465,7 @@
               "url": "https://tallchairadvisor.com/office-chair-return-policy/",
               "file": "src/pages/office-chair-return-policy.astro",
               "verdict": "NEUTRAL",
-              "coverageState": "Discovered - currently not indexed",
+              "coverageState": "URL is unknown to Google",
               "indexingState": "INDEXING_STATE_UNSPECIFIED",
               "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
               "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -717,7 +712,7 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T10:47:37.381Z",
+        "collectedAt": "2026-08-06T12:12:16.993Z",
         "rowCount": 49,
         "healthy": true,
         "reason": null
@@ -729,7 +724,7 @@
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
         "pulledAt": "2026-08-06T09:29:42.271Z",
-        "ageHours": 1.2,
+        "ageHours": 2.6,
         "slaHours": 192,
         "dateRange": {
           "start": "2026-07-09",
@@ -787,7 +782,7 @@
         "aiReferralSessions": 60
       },
       "meta": {
-        "collectedAt": "2026-08-06T10:41:42.901Z",
+        "collectedAt": "2026-08-06T12:06:14.534Z",
         "rowCount": 50,
         "healthy": true,
         "reason": null
@@ -797,7 +792,7 @@
       "data": {
         "source": "data/clarity/latest.json",
         "pulledAt": "2026-08-05T12:00:55.968Z",
-        "ageHours": 22.7,
+        "ageHours": 24.1,
         "slaHours": 192,
         "numOfDays": 2,
         "pageCount": 31,
@@ -813,16 +808,16 @@
         "credential": {
           "envVar": "CLARITY_TOKEN",
           "present": true,
-          "live": false,
-          "checkedAt": "2026-08-06T10:41:42.902Z",
-          "detail": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
+          "live": true,
+          "checkedAt": "2026-08-06T12:06:14.535Z",
+          "detail": null
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T10:41:43.040Z",
+        "collectedAt": "2026-08-06T12:06:16.962Z",
         "rowCount": 31,
-        "healthy": false,
-        "reason": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
+        "healthy": true,
+        "reason": null
       }
     },
     "cloudflare": {
@@ -839,30 +834,30 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "87bdcd57-6fc3-4b16-939a-9629cc29609a",
-          "shortId": "87bdcd57",
+          "deploymentId": "5331c6bc-da19-4024-b464-533568befea7",
+          "shortId": "5331c6bc",
           "environment": "production",
-          "url": "https://87bdcd57.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-06T10:40:27.703689Z",
+          "url": "https://5331c6bc.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-06T11:34:24.748528Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "3767b6593f87de9a426bbeb501499055a7d4d139",
-          "commitMessage": "deploy: Weekly cycle 2026-08-06"
+          "commitHash": "04e75e9f7f287dca4350f61ca3310be698b757c4",
+          "commitMessage": "docs: regenerate task list against strategy-aligned findings\n\n[skip cd] v1 was contaminated — built from findings produced while the\nauditor saw 1.4% of the synthesis, so it recommended meta rewrites on\nAIO-suppressed pages and called /knee-pain-seat-depth/ the largest traffic\nlever, which is the exact page the directive names as a trap.\n\nv2 is built from the 14 in-scope findings after deterministic filtering.\nThe 14 held-back ones are listed in section C with the rule that classified\nthem and how to reverse it — visible, not hidden.\n\nAlso logs the decision in decisions-log.md, at the TOP where newest entries\nbelong.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
         },
         "cache": {
           "windowDays": 7,
-          "requests": 20829,
-          "cachedRequests": 2103,
+          "requests": 21292,
+          "cachedRequests": 2161,
           "hitRatePct": 10.1,
-          "bytes": 218427781,
-          "cachedBytes": 80100972,
+          "bytes": 224024612,
+          "cachedBytes": 81852226,
           "byDay": [
             {
               "date": "2026-08-06",
-              "requests": 2522,
-              "cachedRequests": 1098,
-              "hitRatePct": 43.5
+              "requests": 2985,
+              "cachedRequests": 1156,
+              "hitRatePct": 38.7
             },
             {
               "date": "2026-08-05",
@@ -911,7 +906,7 @@
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T10:41:46.498Z",
+        "collectedAt": "2026-08-06T12:06:16.094Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -921,7 +916,7 @@
       "data": {
         "repo": "Videostarlord/tallchairadvisor",
         "defaultBranch": "main",
-        "ghVersion": "gh version 2.96.0 (2026-07-02)",
+        "ghVersion": "gh version 2.97.0 (2026-07-31)",
         "authAccount": "github-actions[bot]",
         "workflows": [
           {
@@ -936,7 +931,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-05T12:00:26Z",
               "finishedAt": "2026-08-05T12:01:01Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31003768185",
               "headSha": "0827a7254bc37f4cc9a9fd78b5f1a966cebe553f",
               "event": "schedule"
@@ -965,8 +960,9 @@
               "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
               "event": "workflow_dispatch"
             },
-            "committedDuringRun": 2,
+            "committedDuringRun": 3,
             "commitSubjects": [
+              "[skip cd] nightly: god's-eye 2026-08-06",
               "deploy: Weekly cycle 2026-08-06",
               "[skip cd] data: No pages written 2026-08-06 — see content-log.md"
             ],
@@ -1032,19 +1028,19 @@
             "cron": "0 10 * * *",
             "expectedCadenceDays": 1,
             "lastRun": {
-              "runNumber": 2,
+              "runNumber": 3,
               "status": "in_progress",
               "conclusion": null,
-              "startedAt": "2026-08-06T10:41:16Z",
-              "finishedAt": "2026-08-06T10:41:26Z",
+              "startedAt": "2026-08-06T12:05:50Z",
+              "finishedAt": "2026-08-06T12:05:52Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31094240169",
-              "headSha": "3767b6593f87de9a426bbeb501499055a7d4d139",
-              "event": "workflow_dispatch"
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31099962422",
+              "headSha": "04e75e9f7f287dca4350f61ca3310be698b757c4",
+              "event": "schedule"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:41:16Z) and run end + 15min (2026-08-06T10:56:26.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T12:05:50Z) and run end + 15min (2026-08-06T12:20:52.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1064,8 +1060,9 @@
               "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
               "event": "workflow_dispatch"
             },
-            "committedDuringRun": 1,
+            "committedDuringRun": 2,
             "commitSubjects": [
+              "[skip cd] nightly: god's-eye 2026-08-06",
               "deploy: Weekly cycle 2026-08-06"
             ],
             "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:39:41Z) and run end + 15min (2026-08-06T10:55:30.000Z) — inferred, not authoritative",
@@ -1103,22 +1100,21 @@
             "cron": "0 8 * * 2",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 22,
+              "runNumber": 23,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-06T10:01:00Z",
-              "finishedAt": "2026-08-06T10:03:40Z",
+              "startedAt": "2026-08-06T11:11:09Z",
+              "finishedAt": "2026-08-06T11:14:42Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31091513689",
-              "headSha": "fc67f1b7f486d38e0e5fc0fdbf2a20dac9af897f",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31096237812",
+              "headSha": "afbb89a25c3c961f6d0745ec9d8c1c6043d6fb5f",
               "event": "workflow_dispatch"
             },
-            "committedDuringRun": 2,
+            "committedDuringRun": 1,
             "commitSubjects": [
-              "[skip cd] plan: Week of 2026-08-06",
               "[skip cd] report: Tuesday audit 2026-08-06"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:01:00Z) and run end + 15min (2026-08-06T10:18:40.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T11:11:09Z) and run end + 15min (2026-08-06T11:29:42.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1153,7 +1149,7 @@
         "wroteNothing": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T10:41:47.988Z",
+        "collectedAt": "2026-08-06T12:06:21.282Z",
         "rowCount": 9,
         "healthy": true,
         "reason": null
@@ -1230,7 +1226,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T10:41:43.419Z",
+        "collectedAt": "2026-08-06T12:06:15.171Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1326,7 +1322,7 @@
         "overdue": false
       },
       "meta": {
-        "collectedAt": "2026-08-06T10:41:42.934Z",
+        "collectedAt": "2026-08-06T12:06:14.578Z",
         "rowCount": 27,
         "healthy": true,
         "reason": null

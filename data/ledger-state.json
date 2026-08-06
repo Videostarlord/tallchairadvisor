@@ -1,18 +1,17 @@
 {
-  "generatedAt": "2026-08-06T10:47:37.912Z",
+  "generatedAt": "2026-08-06T12:12:57.476Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
   "counts": {
     "open": 54,
-    "closed": 3,
+    "closed": 4,
     "escalated": 0,
-    "regressed": 1,
+    "regressed": 0,
     "total": 58,
     "retractedSkipped": 0
   },
-  "closedTonight": [],
-  "regressed": [
+  "closedTonight": [
     {
       "id": "d0c52e63b8fe",
       "kind": "finding",
@@ -22,13 +21,14 @@
       "summary": "collector \"clarity\" reported healthy:false — CLARITY_TOKEN unset (or empty) — the Microsoft Clarity export credential is missing, so behavioral data cannot be refreshed and the on-disk snapshot cannot be verified as live. Set CLARITY_TOKEN from Clarity → Settings → Data Export (and as a repo secret for the nightly workflow).",
       "predicate": "collector-healthy clarity",
       "ageDays": 0,
-      "attempts": 1,
+      "attempts": 0,
       "firstSeen": "2026-08-06",
       "lastSeen": "2026-08-06",
-      "verdict": "fail",
-      "reason": "collector clarity unhealthy — 429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
+      "verdict": "pass",
+      "reason": "collector clarity healthy, 31 row(s) at 2026-08-06T12:06:16.962Z"
     }
   ],
+  "regressed": [],
   "escalated": [],
   "stuck": [
     {
@@ -90,21 +90,6 @@
       "lastSeen": "2026-08-06",
       "verdict": "fail",
       "reason": "position 8.5 does not satisfy < 8.1"
-    },
-    {
-      "id": "d0c52e63b8fe",
-      "kind": "finding",
-      "page": "collector:clarity",
-      "issueClass": "collector-unhealthy",
-      "severity": "high",
-      "summary": "collector \"clarity\" reported healthy:false — CLARITY_TOKEN unset (or empty) — the Microsoft Clarity export credential is missing, so behavioral data cannot be refreshed and the on-disk snapshot cannot be verified as live. Set CLARITY_TOKEN from Clarity → Settings → Data Export (and as a repo secret for the nightly workflow).",
-      "predicate": "collector-healthy clarity",
-      "ageDays": 0,
-      "attempts": 1,
-      "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
-      "verdict": "fail",
-      "reason": "collector clarity unhealthy — 429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
     },
     {
       "id": "6fe567efcc25",
@@ -449,7 +434,7 @@
       "firstSeen": "2026-08-06",
       "lastSeen": "2026-08-06",
       "verdict": "fail",
-      "reason": "missing Direct Answer block and citation capsule"
+      "reason": "missing Direct Answer block"
     },
     {
       "id": "253776607edf",
@@ -859,8 +844,8 @@
   ],
   "coverage": {
     "evaluated": 58,
-    "pass": 3,
-    "fail": 55,
+    "pass": 4,
+    "fail": 54,
     "unevaluable": 0,
     "coveragePercent": 100,
     "openUnevaluable": 0,
@@ -883,6 +868,13 @@
     "gscSource": "gsc:schemas/gsc-history.pageMetricsFrom",
     "network": null
   },
-  "transitions": [],
+  "transitions": [
+    {
+      "id": "d0c52e63b8fe",
+      "from": "regressed",
+      "to": "closed",
+      "reason": "collector clarity healthy, 31 row(s) at 2026-08-06T12:06:16.962Z"
+    }
+  ],
   "retractedSkipped": []
 }
