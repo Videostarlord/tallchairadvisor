@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-03
+last_updated: 2026-08-06
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,15 +70,16 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-08-03. 8 pages analyzed × up to 3 queries each. 30 URLs crawled (20 cache hits). 6 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
+*v2 run 2026-08-06. 8 pages analyzed × up to 3 queries each. 4 URLs crawled (48 cache hits). 4 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-08-03 | ItemList and AggregateRating schema markup are absent, making the page ineligibl | high | 3q | forbes.com |
-| 2026-08-03 | Use-case segmentation (home office, corporate/executive, all-day heavy use, budg | high | 3q | thehumansolution.com |
-| 2026-08-03 | Author byline and methodology credentialing are not visible near the top of the  | high | 2q | crandalloffice.com |
-| 2026-08-03 | ItemList and AggregateRating schema markup are absent, blocking rich result elig | high | 2q | crandalloffice.com |
-| 2026-08-03 | No explicit citation of the Cornell Ergonomics Lab source URL or document title  | high | 1q | ergo.human.cornell.edu |
-| 2026-08-03 | Audience segmentation by height bracket AND weight capacity (tall-only vs. big-a | high | 1q | canfor.it |
-| 2026-08-03 | '## Compare With' section exists in the manifest (372 chars) but at 372 characte | medium | 1q | thehumansolution.com |
-| 2026-08-03 | Explicit, self-contained fit-range verdict formatted as a scannable summary (e.g | medium | 1q | btod.com |
+| 2026-08-06 | Fit-range verdict is dispersed across four Height Fit Guide subsections rather t | high | 1q | thehumansolution.com |
+| 2026-08-06 | Warranty and return policy content is functionally absent as a decision-support  | high | 1q | thehumansolution.com |
+| 2026-08-06 | Explicit fit-range verdict with labeled tiers (Best Fit / Marginal / Not Recomme | high | 1q | btod.com |
+| 2026-08-06 | Warranty and return policy section with concrete purchase-anxiety-reducing detai | high | 1q | btod.com |
+| 2026-08-06 | No measurement instruction for users with longer-than-average femurs relative to | medium | 1q | ergo.human.cornell.edu |
+| 2026-08-06 | Compare With section exists in the manifest but the head-to-head comparison visi | medium | 1q | thehumansolution.com |
+| 2026-08-06 | CTA placement relative to the fit verdict — the affiliate CTA is present but the | medium | 1q | btod.com |
+| 2026-08-06 | AggregateRating schema is absent from the schema @types list — ItemList and List | medium | 1q | ck12.org |
+| 2026-08-06 | No explicit 'who should NOT buy this chair' framing exists anywhere on the page  | medium | 1q | btod.com |
