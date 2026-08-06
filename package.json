@@ -32,7 +32,16 @@
         "agent:clarity-history": "tsx scripts/agents/clarity-history.ts",
         "ga4:pull": "tsx scripts/ga4-pull.ts",
         "ga4:pull:force": "tsx scripts/ga4-pull.ts --force",
-        "ga4:full": "npm run ga4:pull && npm run gsc:analyze"
+        "ga4:full": "npm run ga4:pull && npm run gsc:analyze",
+        "cost:rollup": "tsx scripts/cost-rollup.ts",
+        "cost:reconcile": "tsx scripts/cost-rollup.ts --reconcile",
+        "lint:architecture": "node scripts/lint-architecture.mjs",
+        "ledger:evaluate": "tsx scripts/ledger-evaluate.ts",
+        "collect:all": "tsx scripts/collect-all.ts",
+        "probe": "tsx scripts/probes/run.ts",
+        "nightly": "tsx scripts/nightly-report.ts",
+        "correct": "tsx scripts/corrector.ts",
+        "godseye": "npm run collect:all && npm run ledger:evaluate && npm run nightly"
     },
     "dependencies": {
         "@anthropic-ai/sdk": "^0.36.3",
@@ -46,9 +55,11 @@
         "glob": "^13.0.6",
         "googleapis": "^171.4.0",
         "tailwindcss": "^3.4.17",
-        "tailwindcss-animate": "^1.0.7"
+        "tailwindcss-animate": "^1.0.7",
+        "zod": "^3.25.76"
     },
     "devDependencies": {
+        "playwright": "^1.62.1",
         "tsx": "^4.19.2"
     }
 }
