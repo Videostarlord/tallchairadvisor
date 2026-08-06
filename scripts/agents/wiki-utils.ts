@@ -9,6 +9,15 @@
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, appendFileSync, readdirSync } from 'fs';
 import { resolve, dirname } from 'path';
+import { ContractViolation, parseValidated, readValidated } from '../lib/read-validated.js';
+import {
+  gscHistoryOptions,
+  gscHistorySchema,
+  normalizePageKey,
+  pageMetricsFrom,
+  type PageMetrics,
+} from '../schemas/gsc-history.js';
+import { interventionSchema } from '../schemas/interventions.js';
 
 export type IntentType = 'buyer' | 'brand' | 'spec' | 'informational';
 
@@ -231,6 +240,33 @@ function assignConfidence(
  * Reads data/interventions.jsonl, enriches entries older than 14 days that
  * have reconciledAt=null, and rewrites the file.
  * IMMUTABILITY: entries where reconciledAt !== null are NEVER modified.
+ *
+ * ─── THE BUG THIS REPLACES (God's-Eye PRD §7.2) ──────────────────────────────
+ * This function used to do:
+ *
+ *     const raw = JSON.parse(readFileSync(resolve(historyDir, candidate), 'utf-8'));
+ *     snapshot = new Map((raw.pages ?? []).map(...));
+ *
+ * GSC history snapshots have NO `pages` key and never have — per-page metrics
+ * live in `opportunities`. So `raw.pages` was always undefined, `?? []` turned
+ * that into an empty Map, every lookup missed, every entry returned unchanged,
+ * and the file was rewritten byte-identical. Green checkmarks weekly, zero
+ * reconciliations, for months.
+ *
+ * The read now goes through readValidated() against gscHistorySchema, where
+ * `opportunities` is required and non-empty. Asking for a key that is not there
+ * throws instead of quietly yielding nothing — the original bug is no longer
+ * representable. Per-page metrics come from pageMetricsFrom(), which knows
+ * which arrays actually carry them.
+ *
+ * FAILURE POLICY. This runs inside the weekly audit agent (audit.ts:85), so one
+ * malformed snapshot must not take down the audit. A ContractViolation on a
+ * snapshot is caught PER SNAPSHOT, logged loudly to stderr naming the file, and
+ * leaves the entries that depend on it unreconciled. That is a visible,
+ * recoverable degrade — not a silent one. Everything else still throws: a
+ * malformed interventions.jsonl in particular must NOT be caught, because the
+ * last act of this function is to rewrite that file, and rewriting a file we
+ * could not fully parse would destroy data.
  */
 export function reconcileInterventions(repoRoot: string): void {
   const filePath = resolve(repoRoot, 'data/interventions.jsonl');
@@ -241,9 +277,49 @@ export function reconcileInterventions(repoRoot: string): void {
     ? readdirSync(historyDir).filter(f => f.endsWith('.json')).sort()
     : [];
 
+  // filename → per-page metrics, or null when that snapshot violated its
+  // contract. Cached so a broken snapshot is read and reported ONCE, not once
+  // per intervention that happens to target it.
+  const snapshotCache = new Map<string, Map<string, PageMetrics> | null>();
+
+  function metricsFor(candidate: string): Map<string, PageMetrics> | null {
+    const cached = snapshotCache.get(candidate);
+    if (cached !== undefined) return cached;
+
+    let metrics: Map<string, PageMetrics> | null;
+    try {
+      const snapshot = readValidated(
+        resolve(historyDir, candidate),
+        gscHistorySchema,
+        gscHistoryOptions,
+      );
+      metrics = pageMetricsFrom(snapshot);
+    } catch (err) {
+      // Only contract failures are survivable here. An unexpected error (I/O,
+      // programmer error) is not something to paper over.
+      if (!(err instanceof ContractViolation)) throw err;
+      console.error(
+        `  ✖ reconcileInterventions: GSC history snapshot data/gsc/history/${candidate} FAILED ITS CONTRACT — ${err.detail}`,
+      );
+      console.error(
+        `    Interventions dated against this snapshot stay unreconciled and will retry next week. ` +
+          `This is a real defect in the snapshot, not a transient error — re-run \`npm run gsc:analyze\` or investigate the file.`,
+      );
+      metrics = null;
+    }
+
+    snapshotCache.set(candidate, metrics);
+    return metrics;
+  }
+
   const lines = readFileSync(filePath, 'utf-8').split('\n').filter(Boolean);
-  const updated = lines.map(line => {
-    const entry: InterventionEntry = JSON.parse(line);
+  const updated = lines.map((line, index) => {
+    const entry = parseValidated(
+      line,
+      interventionSchema,
+      `data/interventions.jsonl line ${index + 1}`,
+    ) as InterventionEntry;
+
     // IMMUTABILITY: already reconciled entries are NEVER touched
     if (entry.reconciledAt !== null) return line;
 
@@ -259,24 +335,29 @@ export function reconcileInterventions(repoRoot: string): void {
       ?? historyFiles[historyFiles.length - 1];
     if (!candidate) return line;
 
-    let snapshot: Map<string, { ctr: number; position: number; impressions: number }>;
-    try {
-      const raw = JSON.parse(readFileSync(resolve(historyDir, candidate), 'utf-8'));
-      snapshot = new Map((raw.pages ?? []).map((p: any) => [
-        p.page,
-        { ctr: p.ctr ?? 0, position: p.position ?? 99, impressions: p.impressions ?? 0 }
-      ]));
-    } catch {
+    const metrics = metricsFor(candidate);
+    if (metrics === null) return line;  // snapshot broke its contract; already logged
+
+    // Single normalized key. The old code did `get(entry.slug) ?? get(fullUrl)`
+    // because it was guessing at the key format; pageMetricsFrom() normalizes
+    // snapshot keys to path-with-trailing-slash, which is exactly what `slug`
+    // already is. `entry.page` is a SOURCE FILE path and must never be used here.
+    const snap = metrics.get(normalizePageKey(entry.slug));
+    if (snap === undefined) return line;
+
+    if (entry.targetMetric === 'ctr' && snap.ctr === null) {
+      // Only reachable for a page present in pageVelocity but not opportunities.
+      // pageVelocity carries no clicks, so no CTR can be derived — and inventing
+      // one is precisely the degraded-but-plausible value the contract layer bans.
+      console.error(
+        `  ✖ reconcileInterventions: ${entry.slug} has no CTR in data/gsc/history/${candidate} ` +
+          `(page appears only in pageVelocity, which carries no clicks). Left unreconciled rather than reported as 0%.`,
+      );
       return line;
     }
 
-    // Dual-key lookup: try slug, then full URL
-    const fullUrl = 'https://tallchairadvisor.com' + entry.slug;
-    const snap = snapshot.get(entry.slug) ?? snapshot.get(fullUrl);
-    if (!snap) return line;
-
     const afterMetric =
-      entry.targetMetric === 'ctr' ? snap.ctr :
+      entry.targetMetric === 'ctr' ? snap.ctr as number :
       entry.targetMetric === 'impressions' ? snap.impressions :
       snap.position;
 
