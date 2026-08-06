@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-08-06T06:50:48.130Z",
+  "ledgerPath": "data/ledger.jsonl",
+  "escalateAfter": 3,
+  "dryRun": false,
+  "counts": {
+    "open": 4,
+    "closed": 1,
+    "escalated": 0,
+    "regressed": 0,
+    "total": 5,
+    "retractedSkipped": 0
+  },
+  "closedTonight": [],
+  "regressed": [],
+  "escalated": [],
+  "stuck": [
+    {
+      "id": "8aeed43a09a6",
+      "kind": "intervention",
+      "page": "/review/leap-plus/",
+      "issueClass": "intervention:position:2026-07-20",
+      "severity": null,
+      "summary": "/review/leap-plus/",
+      "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
+      "ageDays": 17,
+      "attempts": 1,
+      "firstSeen": "2026-07-20",
+      "lastSeen": "2026-08-06",
+      "verdict": "fail",
+      "reason": "position 8.8 does not satisfy < 8.7"
+    },
+    {
+      "id": "7429ec085c29",
+      "kind": "intervention",
+      "page": "/chairs/herman-miller-aeron/tall-people/",
+      "issueClass": "intervention:position:2026-07-20",
+      "severity": null,
+      "summary": "/chairs/herman-miller-aeron/tall-people/",
+      "predicate": "gsc-position /chairs/herman-miller-aeron/tall-people/ < 8.1 after 14d",
+      "ageDays": 17,
+      "attempts": 1,
+      "firstSeen": "2026-07-20",
+      "lastSeen": "2026-08-06",
+      "verdict": "fail",
+      "reason": "position 8.3 does not satisfy < 8.1"
+    },
+    {
+      "id": "65336bac6935",
+      "kind": "intervention",
+      "page": "/correct-chair-dimensions/",
+      "issueClass": "intervention:position:2026-07-20",
+      "severity": null,
+      "summary": "/correct-chair-dimensions/",
+      "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
+      "ageDays": 17,
+      "attempts": 1,
+      "firstSeen": "2026-07-20",
+      "lastSeen": "2026-08-06",
+      "verdict": "fail",
+      "reason": "position 9.6 does not satisfy < 9.6"
+    },
+    {
+      "id": "c76d198a75bc",
+      "kind": "intervention",
+      "page": "/office-chairs-for-tall-people/",
+      "issueClass": "intervention:position:2026-07-20",
+      "severity": null,
+      "summary": "/office-chairs-for-tall-people/",
+      "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
+      "ageDays": 17,
+      "attempts": 1,
+      "firstSeen": "2026-07-20",
+      "lastSeen": "2026-08-06",
+      "verdict": "fail",
+      "reason": "position 8.4 does not satisfy < 8.1"
+    }
+  ],
+  "coverage": {
+    "evaluated": 5,
+    "pass": 1,
+    "fail": 4,
+    "unevaluable": 0,
+    "coveragePercent": 100,
+    "openUnevaluable": 0,
+    "byReason": {},
+    "items": []
+  },
+  "blindSpots": {
+    "probes": "data/probes/ does not exist — Playwright probes (PRD §7.5) are not built yet",
+    "probeSource": null,
+    "collectors": [
+      "amazon",
+      "clarity",
+      "cloudflare",
+      "ga4",
+      "github-actions",
+      "gsc",
+      "quotas"
+    ],
+    "gsc": null,
+    "gscSource": "gsc:schemas/gsc-history.pageMetricsFrom",
+    "network": null
+  },
+  "transitions": [],
+  "retractedSkipped": []
+}

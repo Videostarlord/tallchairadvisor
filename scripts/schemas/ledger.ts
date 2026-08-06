@@ -48,6 +48,19 @@ export const closurePredicateSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('schema-valid'), url: z.string(), type: z.string() }).passthrough(),
   z.object({ kind: z.literal('geo-capsule'), url: z.string() }).passthrough(),
   z.object({ kind: z.literal('tag-fires'), url: z.string(), tag: z.string() }).passthrough(),
+  /**
+   * Not in the PRD §7.3 table — added because §7.4 requires that "a failed
+   * collector is a finding in the ledger, not a skipped section in the report".
+   * Such a finding is about a data source rather than a URL, so it carries
+   * `collector` instead of `url`.
+   *
+   * This member must exist for the read contract to accept what the collectors
+   * actually write. Without it, the first unhealthy collector would file a
+   * finding that this schema then rejects on the next read — the ledger would
+   * throw precisely when something had gone wrong, which is the worst possible
+   * time for the observation system to go blind.
+   */
+  z.object({ kind: z.literal('collector-healthy'), collector: z.string() }).passthrough(),
 ]);
 
 export type ClosurePredicate = z.infer<typeof closurePredicateSchema>;
