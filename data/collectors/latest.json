@@ -1,7 +1,7 @@
 {
-  "collectedAt": "2026-08-06T08:55:14.933Z",
-  "finishedAt": "2026-08-06T09:01:21.541Z",
-  "durationMs": 366608,
+  "collectedAt": "2026-08-06T10:41:42.867Z",
+  "finishedAt": "2026-08-06T10:47:37.450Z",
+  "durationMs": 354583,
   "healthy": false,
   "healthyCount": 6,
   "total": 7,
@@ -28,25 +28,25 @@
           "permissionLevel": "siteFullUser"
         },
         "performance": {
-          "pulledAt": "2026-08-03T11:30:12.853Z",
-          "ageHours": 69.4,
+          "pulledAt": "2026-08-06T09:29:38.159Z",
+          "ageHours": 1.2,
           "dateRange": {
-            "start": "2026-05-05",
-            "end": "2026-08-03",
+            "start": "2026-05-08",
+            "end": "2026-08-06",
             "days": 90
           },
           "totals": {
-            "clicks": 230,
-            "impressions": 98003,
-            "ctr": 0.23,
+            "clicks": 236,
+            "impressions": 99415,
+            "ctr": 0.24,
             "avgPosition": 8.1
           },
           "pageCount": 44,
           "queryCount": 200
         },
         "analysis": {
-          "generatedAt": "2026-08-03T11:30:13.162Z",
-          "ageHours": 69.4,
+          "generatedAt": "2026-08-06T09:29:38.651Z",
+          "ageHours": 1.2,
           "opportunityCount": 38,
           "ctrLeakCount": 17,
           "decayAlertCount": 0
@@ -717,7 +717,7 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T09:01:21.475Z",
+        "collectedAt": "2026-08-06T10:47:37.381Z",
         "rowCount": 49,
         "healthy": true,
         "reason": null
@@ -728,62 +728,67 @@
         "source": "data/ga4/latest.json",
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
-        "pulledAt": "2026-08-03T11:30:19.800Z",
-        "ageHours": 69.4,
+        "pulledAt": "2026-08-06T09:29:42.271Z",
+        "ageHours": 1.2,
         "slaHours": 192,
         "dateRange": {
-          "start": "2026-07-06",
-          "end": "2026-08-03",
+          "start": "2026-07-09",
+          "end": "2026-08-06",
           "days": 28
         },
         "totals": {
-          "sessions": 303,
-          "activeUsers": 286,
-          "pageViews": 367,
-          "engagementRate": 0.356,
-          "avgSessionDuration": 107.7,
-          "bounceRate": 0.644
+          "sessions": 510,
+          "activeUsers": 479,
+          "pageViews": 592,
+          "engagementRate": 0.276,
+          "avgSessionDuration": 76.1,
+          "bounceRate": 0.724
         },
-        "pageCount": 39,
+        "pageCount": 50,
         "channelGroups": [
           {
             "channel": "Direct",
-            "sessions": 170,
-            "pct": 0.561
+            "sessions": 340,
+            "pct": 0.667
           },
           {
             "channel": "Organic Search",
-            "sessions": 65,
-            "pct": 0.215
+            "sessions": 86,
+            "pct": 0.169
           },
           {
             "channel": "AI Assistant",
-            "sessions": 47,
-            "pct": 0.155
+            "sessions": 54,
+            "pct": 0.106
           },
           {
             "channel": "Unassigned",
             "sessions": 26,
-            "pct": 0.086
+            "pct": 0.051
+          },
+          {
+            "channel": "Cross-network",
+            "sessions": 7,
+            "pct": 0.014
+          },
+          {
+            "channel": "Referral",
+            "sessions": 2,
+            "pct": 0.004
           },
           {
             "channel": "Organic Video",
             "sessions": 1,
-            "pct": 0.003
-          },
-          {
-            "channel": "Referral",
-            "sessions": 1,
-            "pct": 0.003
+            "pct": 0.002
           }
         ],
-        "affiliateClickTotal": 26,
+        "affiliateClickTotal": 45,
         "zeroSessionDays": [],
-        "aiReferralSessions": 54
+        "aiReferralSessions": 60
       },
       "meta": {
-        "collectedAt": "2026-08-06T08:55:14.954Z",
-        "rowCount": 39,
+        "collectedAt": "2026-08-06T10:41:42.901Z",
+        "rowCount": 50,
         "healthy": true,
         "reason": null
       }
@@ -792,7 +797,7 @@
       "data": {
         "source": "data/clarity/latest.json",
         "pulledAt": "2026-08-05T12:00:55.968Z",
-        "ageHours": 20.9,
+        "ageHours": 22.7,
         "slaHours": 192,
         "numOfDays": 2,
         "pageCount": 31,
@@ -809,12 +814,12 @@
           "envVar": "CLARITY_TOKEN",
           "present": true,
           "live": false,
-          "checkedAt": "2026-08-06T08:55:14.955Z",
+          "checkedAt": "2026-08-06T10:41:42.902Z",
           "detail": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T08:55:15.270Z",
+        "collectedAt": "2026-08-06T10:41:43.040Z",
         "rowCount": 31,
         "healthy": false,
         "reason": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
@@ -834,30 +839,30 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "5664e0a6-d6f9-4645-9f4b-55d4145ffaae",
-          "shortId": "5664e0a6",
+          "deploymentId": "87bdcd57-6fc3-4b16-939a-9629cc29609a",
+          "shortId": "87bdcd57",
           "environment": "production",
-          "url": "https://5664e0a6.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-06T08:45:43.384367Z",
+          "url": "https://87bdcd57.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-06T10:40:27.703689Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "ddb05795b56539e090db28361ba236953bb85185",
-          "commitMessage": "Merge: God's-Eye Nightly — observation layer for the Mon-Sat pipeline\n\n[skip cd] No files under src/, public/, or astro.config.mjs are touched, so\nthe deployed site is byte-identical. package.json gains npm scripts, zod,\nand playwright only.\n\nImplements raw/strategy/2026-08-05-godseye-PRD.md in full — all 7 steps.\nThe goal, in Jackson's words: \"When you open Claude Code, there is nothing\nleft to check.\"\n\n  L0 contracts   readValidated + 14 schemas; a missing key throws naming\n                 the file, the key, and a \"did you mean\" suggestion\n  L1 collectors  7 sources incl. GSC URL Inspection (R6); an unhealthy\n                 collector reports a reason, never an empty section\n  L2 probes      Playwright asserts tags actually FIRE — the June 16 CSP\n                 incident hid for a month because gtag.js still loaded 200\n  L3 ledger      append-only; no finding may exist without a machine-\n                 evaluable closure predicate; regressions detected\n  L4 cost        every LLM call priced at write time\n  L5 report      one Sonnet call, no truncation, states its own coverage\n  L6 dead-man    alarms on ABSENCE, from a separate repo\n  L7 corrector   bounded deterministic auto-fixes; no LLM, by design\n\nThe headline fix: reconcileInterventions read `raw.pages ?? []` from GSC\nhistory snapshots that have no `pages` key, so it rewrote\ndata/interventions.jsonl byte-identically for months under a green\ncheckmark. It now enriches 8 of 8 entries — every one of which was past\nits 14-day gate the entire time.\n\nVerified on real data: 7/7 collectors healthy, 100% report coverage, 245\ntests passing, architecture lint green, site builds 54 pages unchanged.\n\nDefects found by the system on its first runs, still open: the Friday\nworkflow failed 2026-07-31 and committed nothing; two pages 404 their own\nhero images; 4 URLs are not indexed by Google.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+          "commitHash": "3767b6593f87de9a426bbeb501499055a7d4d139",
+          "commitMessage": "deploy: Weekly cycle 2026-08-06"
         },
         "cache": {
           "windowDays": 7,
-          "requests": 20201,
-          "cachedRequests": 1862,
-          "hitRatePct": 9.2,
-          "bytes": 210091890,
-          "cachedBytes": 75136086,
+          "requests": 20829,
+          "cachedRequests": 2103,
+          "hitRatePct": 10.1,
+          "bytes": 218427781,
+          "cachedBytes": 80100972,
           "byDay": [
             {
               "date": "2026-08-06",
-              "requests": 1894,
-              "cachedRequests": 857,
-              "hitRatePct": 45.2
+              "requests": 2522,
+              "cachedRequests": 1098,
+              "hitRatePct": 43.5
             },
             {
               "date": "2026-08-05",
@@ -906,7 +911,7 @@
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T08:55:17.159Z",
+        "collectedAt": "2026-08-06T10:41:46.498Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -950,19 +955,22 @@
             "cron": "0 8 * * 5",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 19,
+              "runNumber": 20,
               "status": "completed",
-              "conclusion": "failure",
-              "startedAt": "2026-07-31T10:29:17Z",
-              "finishedAt": "2026-07-31T10:34:57Z",
-              "daysAgo": 5,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30623712382",
-              "headSha": "af4936b2e02f788aa62f5776697885ec5bbc7e85",
-              "event": "schedule"
+              "conclusion": "success",
+              "startedAt": "2026-08-06T10:31:40Z",
+              "finishedAt": "2026-08-06T10:35:42Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31093605243",
+              "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
+              "event": "workflow_dispatch"
             },
-            "committedDuringRun": 0,
-            "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-07-31T10:29:17Z) and run end + 15min (2026-07-31T10:49:57.000Z) — inferred, not authoritative",
+            "committedDuringRun": 2,
+            "commitSubjects": [
+              "deploy: Weekly cycle 2026-08-06",
+              "[skip cd] data: No pages written 2026-08-06 — see content-log.md"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:31:40Z) and run end + 15min (2026-08-06T10:50:42.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -977,7 +985,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-01T09:50:38Z",
               "finishedAt": "2026-08-01T09:52:05Z",
-              "daysAgo": 4,
+              "daysAgo": 5,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
               "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
               "event": "schedule"
@@ -996,21 +1004,25 @@
             "cron": "0 8 * * 1",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 23,
+              "runNumber": 25,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-03T11:29:55Z",
-              "finishedAt": "2026-08-03T11:57:02Z",
-              "daysAgo": 2,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30809767811",
-              "headSha": "a0af2bd03d3fc11b5ce0c299fe9ad10a9a71104f",
-              "event": "schedule"
+              "startedAt": "2026-08-06T09:29:16Z",
+              "finishedAt": "2026-08-06T09:50:05Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31089302906",
+              "headSha": "ffaf52aac297148ca7350d7219d6b8bad645a8d7",
+              "event": "workflow_dispatch"
             },
-            "committedDuringRun": 1,
+            "committedDuringRun": 5,
             "commitSubjects": [
-              "[skip cd] data: Monday pull + index fixes 2026-08-03"
+              "[skip cd] report: Tuesday audit 2026-08-06",
+              "[skip cd] report: Tuesday audit 2026-08-06",
+              "[skip cd] report: Tuesday audit 2026-08-06",
+              "[skip cd] report: Tuesday audit 2026-08-06",
+              "[skip cd] data: Monday pull + index fixes 2026-08-06"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-03T11:29:55Z) and run end + 15min (2026-08-03T12:12:02.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T09:29:16Z) and run end + 15min (2026-08-06T10:05:05.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1020,19 +1032,19 @@
             "cron": "0 10 * * *",
             "expectedCadenceDays": 1,
             "lastRun": {
-              "runNumber": 1,
+              "runNumber": 2,
               "status": "in_progress",
               "conclusion": null,
-              "startedAt": "2026-08-06T08:54:47Z",
-              "finishedAt": "2026-08-06T08:54:53Z",
+              "startedAt": "2026-08-06T10:41:16Z",
+              "finishedAt": "2026-08-06T10:41:26Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31086852912",
-              "headSha": "ddb05795b56539e090db28361ba236953bb85185",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31094240169",
+              "headSha": "3767b6593f87de9a426bbeb501499055a7d4d139",
               "event": "workflow_dispatch"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T08:54:47Z) and run end + 15min (2026-08-06T09:09:53.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:41:16Z) and run end + 15min (2026-08-06T10:56:26.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1042,22 +1054,21 @@
             "cron": "0 9 * * 6",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 23,
+              "runNumber": 24,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-01T10:24:20Z",
-              "finishedAt": "2026-08-01T10:25:03Z",
-              "daysAgo": 4,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30695642014",
-              "headSha": "3898b88b650aeb2caff71cfd22e8036673f3ff9e",
-              "event": "schedule"
+              "startedAt": "2026-08-06T10:39:41Z",
+              "finishedAt": "2026-08-06T10:40:30Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31094135025",
+              "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
+              "event": "workflow_dispatch"
             },
-            "committedDuringRun": 2,
+            "committedDuringRun": 1,
             "commitSubjects": [
-              "deploy: Weekly cycle 2026-08-01",
-              "chore: sync main into staging before deploy"
+              "deploy: Weekly cycle 2026-08-06"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-01T10:24:20Z) and run end + 15min (2026-08-01T10:40:03.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:39:41Z) and run end + 15min (2026-08-06T10:55:30.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1067,21 +1078,22 @@
             "cron": "0 8 * * 4",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 22,
+              "runNumber": 24,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-07-30T10:07:57Z",
-              "finishedAt": "2026-07-30T10:08:23Z",
-              "daysAgo": 6,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30533486641",
-              "headSha": "af4936b2e02f788aa62f5776697885ec5bbc7e85",
+              "startedAt": "2026-08-06T10:21:46Z",
+              "finishedAt": "2026-08-06T10:22:16Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092944439",
+              "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
               "event": "schedule"
             },
-            "committedDuringRun": 1,
+            "committedDuringRun": 2,
             "commitSubjects": [
-              "[skip cd] data: Thursday wiki + reports 2026-07-30"
+              "[skip cd] data: No pages written 2026-08-06 — see content-log.md",
+              "[skip cd] data: Thursday wiki + reports 2026-08-06"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-07-30T10:07:57Z) and run end + 15min (2026-07-30T10:23:23.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:21:46Z) and run end + 15min (2026-08-06T10:37:16.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1091,21 +1103,22 @@
             "cron": "0 8 * * 2",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 18,
+              "runNumber": 22,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-04T10:37:26Z",
-              "finishedAt": "2026-08-04T10:39:33Z",
-              "daysAgo": 1,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30901415489",
-              "headSha": "a991c6cc147a587d3dde7f83288eed2a283b411a",
-              "event": "schedule"
+              "startedAt": "2026-08-06T10:01:00Z",
+              "finishedAt": "2026-08-06T10:03:40Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31091513689",
+              "headSha": "fc67f1b7f486d38e0e5fc0fdbf2a20dac9af897f",
+              "event": "workflow_dispatch"
             },
-            "committedDuringRun": 1,
+            "committedDuringRun": 2,
             "commitSubjects": [
-              "[skip cd] report: Tuesday audit 2026-08-04"
+              "[skip cd] plan: Week of 2026-08-06",
+              "[skip cd] report: Tuesday audit 2026-08-06"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-04T10:37:26Z) and run end + 15min (2026-08-04T10:54:33.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:01:00Z) and run end + 15min (2026-08-06T10:18:40.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1115,33 +1128,32 @@
             "cron": "0 8 * * 3",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 21,
+              "runNumber": 22,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-05T10:39:45Z",
-              "finishedAt": "2026-08-05T10:40:53Z",
+              "startedAt": "2026-08-06T10:13:28Z",
+              "finishedAt": "2026-08-06T10:14:41Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30998314806",
-              "headSha": "c2a9427696ac19f95558197bd536f3693c56fe6c",
-              "event": "schedule"
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092381683",
+              "headSha": "1f93f9dfc08725d1dd639857364f0332c69bc01d",
+              "event": "workflow_dispatch"
             },
-            "committedDuringRun": 1,
+            "committedDuringRun": 2,
             "commitSubjects": [
-              "[skip cd] plan: Week of 2026-08-05"
+              "[skip cd] data: Thursday wiki + reports 2026-08-06",
+              "[skip cd] plan: Week of 2026-08-06"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-05T10:39:45Z) and run end + 15min (2026-08-05T10:55:53.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:13:28Z) and run end + 15min (2026-08-06T10:29:41.000Z) — inferred, not authoritative",
             "stale": false
           }
         ],
-        "failing": [
-          "Friday — New Content (Conditional)"
-        ],
+        "failing": [],
         "stale": [],
         "neverRan": [],
         "wroteNothing": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T08:55:22.616Z",
+        "collectedAt": "2026-08-06T10:41:47.988Z",
         "rowCount": 9,
         "healthy": true,
         "reason": null
@@ -1179,7 +1191,7 @@
             "configured": true,
             "unit": "pages",
             "used": null,
-            "remaining": 19306,
+            "remaining": 19298,
             "limit": 1000,
             "pctRemaining": null,
             "knownFreeTierLimit": 500,
@@ -1202,7 +1214,7 @@
             "configured": true,
             "unit": "usd",
             "used": null,
-            "remaining": 50.4798,
+            "remaining": 50.4638,
             "limit": null,
             "pctRemaining": null,
             "knownFreeTierLimit": null,
@@ -1218,7 +1230,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T08:55:15.714Z",
+        "collectedAt": "2026-08-06T10:41:43.419Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1314,7 +1326,7 @@
         "overdue": false
       },
       "meta": {
-        "collectedAt": "2026-08-06T08:55:14.989Z",
+        "collectedAt": "2026-08-06T10:41:42.934Z",
         "rowCount": 27,
         "healthy": true,
         "reason": null

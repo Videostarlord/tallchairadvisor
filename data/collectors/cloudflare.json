@@ -12,30 +12,30 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "5664e0a6-d6f9-4645-9f4b-55d4145ffaae",
-      "shortId": "5664e0a6",
+      "deploymentId": "87bdcd57-6fc3-4b16-939a-9629cc29609a",
+      "shortId": "87bdcd57",
       "environment": "production",
-      "url": "https://5664e0a6.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-06T08:45:43.384367Z",
+      "url": "https://87bdcd57.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-06T10:40:27.703689Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "ddb05795b56539e090db28361ba236953bb85185",
-      "commitMessage": "Merge: God's-Eye Nightly — observation layer for the Mon-Sat pipeline\n\n[skip cd] No files under src/, public/, or astro.config.mjs are touched, so\nthe deployed site is byte-identical. package.json gains npm scripts, zod,\nand playwright only.\n\nImplements raw/strategy/2026-08-05-godseye-PRD.md in full — all 7 steps.\nThe goal, in Jackson's words: \"When you open Claude Code, there is nothing\nleft to check.\"\n\n  L0 contracts   readValidated + 14 schemas; a missing key throws naming\n                 the file, the key, and a \"did you mean\" suggestion\n  L1 collectors  7 sources incl. GSC URL Inspection (R6); an unhealthy\n                 collector reports a reason, never an empty section\n  L2 probes      Playwright asserts tags actually FIRE — the June 16 CSP\n                 incident hid for a month because gtag.js still loaded 200\n  L3 ledger      append-only; no finding may exist without a machine-\n                 evaluable closure predicate; regressions detected\n  L4 cost        every LLM call priced at write time\n  L5 report      one Sonnet call, no truncation, states its own coverage\n  L6 dead-man    alarms on ABSENCE, from a separate repo\n  L7 corrector   bounded deterministic auto-fixes; no LLM, by design\n\nThe headline fix: reconcileInterventions read `raw.pages ?? []` from GSC\nhistory snapshots that have no `pages` key, so it rewrote\ndata/interventions.jsonl byte-identically for months under a green\ncheckmark. It now enriches 8 of 8 entries — every one of which was past\nits 14-day gate the entire time.\n\nVerified on real data: 7/7 collectors healthy, 100% report coverage, 245\ntests passing, architecture lint green, site builds 54 pages unchanged.\n\nDefects found by the system on its first runs, still open: the Friday\nworkflow failed 2026-07-31 and committed nothing; two pages 404 their own\nhero images; 4 URLs are not indexed by Google.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+      "commitHash": "3767b6593f87de9a426bbeb501499055a7d4d139",
+      "commitMessage": "deploy: Weekly cycle 2026-08-06"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 20201,
-      "cachedRequests": 1862,
-      "hitRatePct": 9.2,
-      "bytes": 210091890,
-      "cachedBytes": 75136086,
+      "requests": 20829,
+      "cachedRequests": 2103,
+      "hitRatePct": 10.1,
+      "bytes": 218427781,
+      "cachedBytes": 80100972,
       "byDay": [
         {
           "date": "2026-08-06",
-          "requests": 1894,
-          "cachedRequests": 857,
-          "hitRatePct": 45.2
+          "requests": 2522,
+          "cachedRequests": 1098,
+          "hitRatePct": 43.5
         },
         {
           "date": "2026-08-05",
@@ -84,7 +84,7 @@
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-06T08:55:17.159Z",
+    "collectedAt": "2026-08-06T10:41:46.498Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
