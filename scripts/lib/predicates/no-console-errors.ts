@@ -50,7 +50,21 @@ export async function evaluate(predicate: ClosurePredicate, ctx: EvalContext): P
     return unevaluable(`${ctx.probeSource ?? 'probe'} record for ${p.url} carries no console-error field`);
   }
 
-  const rejections = typeof probe.unhandledRejections === 'number' ? probe.unhandledRejections : 0;
+  // §7.5 types this `string[]`. Reading it as a number meant `typeof [] ===
+  // 'object'` fell through to 0, so a page with unhandled promise rejections
+  // scored a clean pass — the predicate silently could not see the thing it
+  // exists to catch. An unrecognized shape is now `unevaluable`, never 0.
+  const raw = probe.unhandledRejections;
+  let rejections: number;
+  if (Array.isArray(raw)) rejections = raw.length;
+  else if (typeof raw === 'number') rejections = raw;      // tolerated legacy shape
+  else if (raw === undefined || raw === null) rejections = 0; // field genuinely absent
+  else {
+    return unevaluable(
+      `${ctx.probeSource ?? 'probe'} record for ${p.url} has an unreadable unhandledRejections field ` +
+        `(${typeof raw}); refusing to score it as zero`,
+    );
+  }
   const observedAt = typeof probe.observedAt === 'string' ? probe.observedAt : ctx.now.toISOString();
   const evidence = {
     source: ctx.probeSource ?? 'probe',
