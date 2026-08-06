@@ -2,6 +2,16 @@
 type: log
 ---
 
+## [2026-08-06] fix | Leap Plus seat-height spec correction
+
+- **Error:** Site published "Leap Plus seat height 15.5"–22.5", a 7-inch range, standard / out of the box." That configuration does not exist — it welded the standard cylinder's minimum to the optional cylinder's maximum.
+- **Truth (Steelcase Seating Specification Guide, Oct 2020 + 2017 editions):** standard cylinder 15.5"–19.5" (4" range); optional 5" cylinder (+~$63) 17.5"–22.5", which raises the floor as well as the ceiling. Source: https://www.steelcase.com/content/uploads/2020/10/Seating-Leap-Seat.pdf
+- **Two derived claims were also wrong, not just the numbers:** (1) "highest maximum seat height of any mainstream ergonomic chair" is inverted at default config — 19.5" is below the Gesture (21") and the Aeron C (20.5"); (2) "seat height increases from 20" to 22.5"" going Leap → Leap Plus is backwards — the Plus is 1" lower at default (19.5" vs 20.5").
+- **Fixed:** `/chairs/steelcase-leap-plus/seat-height/`, `/review/leap-plus/` (FAQPage JSON-LD + visible FAQ kept in sync), `astro.config.mjs` lastmod, wiki [[steelcase-leap-plus]], [[review-leap-plus]], index.
+- **Fixed in parallel by another session:** `/chairs/herman-miller-aeron/tall-people/`.
+- **NOT fixed — 28 pages, 129 statements still carry the wrong figure.** Highest counts: `chairs/steelcase-leap-plus/tall-people.astro` (13), `office-chairs-for-6-foot-5` (10), `office-chairs-for-6-foot-6` (9), `best-big-and-tall-office-chairs` (9), `office-chairs-for-6-foot-4` (8). Full list in the 2026-08-06 entry of [[steelcase-leap-plus]].
+- Build (54 pages) and `lint:content` pass.
+
 ## [2026-08-06] audit | Weekly Site Audit
 
 - Pages audited: 20

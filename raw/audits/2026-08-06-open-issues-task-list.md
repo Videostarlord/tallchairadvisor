@@ -39,11 +39,15 @@ The week's most important event — the trust layer rejecting fabricated ASIN `B
 
 - [ ] Add them as sources in `scripts/nightly-report.ts` with contracts
 
-### A3. Clarity quota — structurally guaranteed to fail
+### A3. ~~Clarity quota — structurally guaranteed to fail~~ — DONE 2026-08-06
 10 requests/day/project; Monday spends 2, the nightly then 429s. Causes a recurring `regressed` ledger entry.
 
-- [ ] Reuse the on-disk snapshot when <24h old instead of re-pulling
-- [ ] Or request a higher quota
+The nightly was spending a request purely to re-prove a credential that had just been used successfully. A snapshot pulled in the last 24h *is* the liveness evidence — it could not exist unless the token worked.
+
+- [x] `collectors/clarity.ts` now reads liveness off the artifact when `latest.json` is <24h old, and skips the ping entirely
+- [x] `checkedAt` reports the snapshot's `pulledAt`, **not** `now()` — claiming we verified the credential at this instant would be the same species of lie as `gtagFired: false` meaning "we didn't look"
+- [x] 28/28 collector tests pass
+- [ ] Requesting a higher quota is still worth doing; this removes the recurring false alarm, not the ceiling
 
 ### A4. Architecture lint backlog — 163 known violations
 76 `?? []`, 6 `?? {}`, 10 empty catch, 62 raw `JSON.parse`, 15 direct `messages.create`. New violations already fail the build; the backlog does not. Each `?? []` on parsed input is a latent copy of the reconciler bug.
@@ -120,6 +124,19 @@ The `null`-not-zero discipline `probes/types.ts` already enforces, applied one l
 
 **A3 is the live example:** Clarity's 10/day quota is structurally guaranteed to fail, and a blind collector currently looks identical to a healthy one in a summary table.
 
+### A14. The audit and the probe disagree about the same pages, and nothing reconciles them — FIXED 2026-08-06
+Found while working B7. `scripts/agents/audit.ts:50` read meta descriptions with a raw regex over the HTML and **never decoded HTML entities**. Astro escapes `"` to `&#34;`, so every quote counted as 5 characters instead of 1.
+
+This site's meta descriptions are full of `6'4"` measurements, so the inflation is systemic. `/review/gesture/` measured **158 chars** and was filed as "3 over the limit". The text Google actually sees is **146** — comfortably in range. B7 was a fabricated task.
+
+The Playwright probe never had this bug: `descEl.getAttribute('content')` returns the decoded value (`probes/probe-page.ts:204`), and its record for that page says 146, in range. **Both detectors ran on the same night, disagreed about the same page, and the wrong one generated the work item.** Nothing in the system noticed.
+
+- [x] `decodeEntities()` added and applied to `title`, `desc`, `ogTitle`, `ogDesc` in `audit.ts`. `&amp;` is decoded last so `&amp;#34;` cannot collapse into a quote
+- [ ] **The general problem is unfixed.** Two detectors measuring the same property with different methods, no cross-check. The probe should be the single source of truth for anything it already measures — `head`, tag firing, vitals — and the audit should consume that record rather than re-fetching and re-parsing pages itself
+- [ ] Audit the other `.length` comparisons in `audit.ts` for the same class of error (titles are measured the same way)
+
+**This is A13 in miniature, and it is the strongest argument for it:** the failure was silent, it manufactured work, and it was caught by a human reading a number, not by the system.
+
 ---
 
 ## A-MEDIUM
@@ -152,35 +169,73 @@ The `null`-not-zero discipline `probes/types.ts` already enforces, applied one l
 
 ## B-CRITICAL
 
-### B1. `/chairs/steelcase-leap-plus/seat-height/` — contradictory specs
-**`32766b2a9f2c`** · Title says **15.5″–22.5″**; meta says **15.5″–20.5″**. One is wrong, on a spec page, about the exact number the page exists to answer.
+### B1 + B2. ~~Leap Plus contradictory seat-height specs~~ — ROOT FACT ESTABLISHED AND BOTH PAGES FIXED 2026-08-06
+**`32766b2a9f2c`** (`/chairs/steelcase-leap-plus/seat-height/`) · **`9f9636eb65e2`** (`/review/leap-plus/`)
 
-- [ ] Get the real range from Steelcase source data
-- [ ] Fix whichever is wrong
-- [ ] **Blocked by A1** — currently waiting behind the cooldown
+**Neither published number was correct.** From the Steelcase Seating Specification Guide, verified in two editions (Oct 2020 + 2017), each agreeing in three places internally — https://www.steelcase.com/content/uploads/2020/10/Seating-Leap-Seat.pdf:
 
-### B2. `/review/leap-plus/` — same contradiction, second page
-**`9f9636eb65e2`** · Title/meta say 15.5″–22.5″ while the body states a 22.5″ ceiling and the sibling page disagrees. Same root fact, propagated.
+| Configuration | Range |
+|---|---|
+| **Leap Plus, standard cylinder (default)** | **15.5″–19.5″** (4″ range) |
+| Leap Plus, optional 5″ cylinder (~$63) | 17.5″–22.5″ — note the floor RISES |
+| Standard Leap / v2 | 15.5″–20.5″ (5″ range) |
+| Gesture | 21″ (higher w/ optional cylinder) |
+| Aeron Size C | 16″–20.5″, hard limit |
 
-- [ ] Fix together with B1 so both pages agree
+- **`15.5″–22.5″` exists in no configuration.** It welds the standard cylinder's minimum to the optional cylinder's maximum.
+- **`15.5″–20.5″` is the standard Leap v2 spec** — cross-contaminated from the other model. The giveaway was in the meta description itself, which carried the v2's "(5″ adjustment)" parenthetical verbatim.
+- **The site's core claim was inverted.** Both pages sold the Leap Plus as having "the highest maximum seat height of any mainstream ergonomic chair." At its default 19.5″ ceiling it is **lower than both** the Gesture and the Aeron C.
+- The Leap → Leap Plus comparison was backwards: the Plus is *lower* than the standard Leap by default. It trades seat-height range for width, back height, and capacity.
+
+- [x] Both pages rewritten around "standard 15.5″–19.5″; 22.5″ requires the optional 5″ cylinder, specified at order time"
+- [x] Thesis preserved honestly — still the right chair above 6'4″, but the buyer must order the cylinder
+- [x] FAQPage JSON-LD and visible FAQ verified in sync on `/review/leap-plus/`
+- [x] Refurb caveat added: refurbished units ship with whatever cylinder the original buyer ordered, and a tall buyer cannot specify it
+- [x] Comparison table column changed from "Within Leap Plus range?" to "Cylinder required" — the honest answer to the old question is "depends what you ordered"
+- [x] `astro.config.mjs` `pageLastmod` bumped; wiki chair page, site-page, index, log, and decisions-log all corrected
+- [x] Not blocked by A1 after all — A1 blocks the *pipeline* from applying fixes; a human editing directly was never gated
+
+### B11. The bad Leap Plus spec is on 31 more pages — 250+ statements — NEW, B-CRITICAL
+Discovered while fixing B1/B2. The contradiction was never limited to two pages; those were just the two where the auditor happened to catch title and meta disagreeing with each other. **The false `22.5″` figure is repeated across 31 further files**, and on the height landing pages it is stated as an unqualified default.
+
+This is the highest-stakes item on the list. `/office-chairs-for-6-foot-5/` through `-7/` are exactly where a 6'5″–6'7″ buyer lands, and they currently promise a ceiling the default chair cannot reach. A reader who follows that advice buys a chair that does not fit. It is also, per the research, why AI assistants confidently repeat the wrong figure — **they are citing this site as the authority.**
+
+- [ ] **chairs/steelcase-leap-plus/tall-people.astro** — 15 statements
+- [ ] **office-chairs-for-6-foot-6.astro** — 13 · **office-chairs-for-6-foot-5.astro** — 12 · **office-chairs-for-6-foot-7.astro** — 11 · **office-chairs-for-6-foot-4.astro** — 10 · **office-chairs-for-6-foot-3.astro** — 5 ← *do these first, highest buyer risk*
+- [ ] **aeron-size-c-vs-leap-plus.astro** — 11 · **chairs/steelcase-leap-plus/index.astro** — 10 · **best-big-and-tall-office-chairs.astro** — 10
+- [ ] **heavy-duty-ergonomic-chairs-tall-people.astro** — 8 · **gesture-vs-leap-plus.astro** — 8
+- [ ] **seat-cushion-height-tall-people.astro** — 6 · **review/gesture.astro** — 6 · **office-chairs-for-tall-people.astro** — 6
+- [ ] **wide-seat-office-chairs-tall-people.astro** — 5 · **refurbished-steelcase-leap-tall-people.astro** — 5 · **correct-chair-dimensions.astro** — 5
+- [ ] **index.astro** — 4 · **chairs/steelcase-gesture/index.astro** — 4 · **chairs/herman-miller-aeron/size-guide.astro** — 4 · **aeron-vs-gesture.astro** — 4
+- [ ] **chair-headrest-tall-people.astro** — 3 · **best-office-chairs-under-500.astro** — 3
+- [ ] Long tail, 1–2 each: **office-chair-lower-back-pain-tall-people**, **chairs/steelcase-leap-plus/weight-limit**, **aeron-vs-leap-plus**, **why-standard-chairs-dont-fit**, **review/sihoo-doro-s300**, **leg-pain-circulation**, **how-to-adjust-chair**, **chairs/steelcase-gesture/weight-limit**
+
+**Not a find-and-replace.** Some instances are comparison claims whose direction flips (the Gesture is 1.5″ *taller* than a default Leap Plus, not 1.5″ shorter), some are height-fit recommendations that change which chair is recommended, and some legitimately describe the optional configuration and are already correct in context. Two further errors surfaced in the same sweep: the standard Leap's maximum is quoted as 20″ in places where the spec guide says 20.5″, and a "1.5″ more seat height ceiling than the Gesture" claim is true only with the option.
+
+**Also worth fixing the cause, not just the instances:** there is no canonical spec source in `data/`. The wiki chair page was the only internal source of truth and it was wrong and uncited, so every page that quoted it inherited the error. A `data/chair-specs.json` with cited sources, linted like `verified-asins.json`, would make this class of error impossible to propagate — the same argument that file's `_WHY` block already makes about hallucinated ASINs.
 
 ---
 
 ## B-HIGH
 
-### B3. Invalid schema blocking rich results on money pages
-Five `schema-invalid` findings, all mechanically verifiable:
+### B3. ~~Invalid schema blocking rich results on money pages~~ — 4 of 5 DONE 2026-08-06, 1 declined
+Five `schema-invalid` findings, all mechanically verifiable. Existing site convention followed: site-rooted product entities (`/#product/<slug>`), matching `/review/gesture/`.
 
-- [ ] **`dc65989fd486`** `/review/leap-plus/` — Product schema missing `@id`; `itemReviewed` missing from Review
-- [ ] **`bd852d016763`** `/review/aeron-size-c/` — same, on the second-highest-CTR review
-- [ ] **`7d502e933b53`** `/correct-chair-dimensions/` — **HowTo schema is dead code.** Google removed HowTo rich results in September 2023
-- [ ] **`14beecb44bd0`** `/office-chairs-for-tall-people/` — Article missing `@id`, unresolved site-wide since May 10
-- [ ] **`7a0984559a84`** `/chairs/herman-miller-aeron/` — Article uses `name` instead of `headline`
+- [x] **`dc65989fd486`** `/review/leap-plus/` — added `@id` `/#product/steelcase-leap-plus` + `itemReviewed` referencing it
+- [x] **`bd852d016763`** `/review/aeron-size-c/` — added `@id` `/#product/herman-miller-aeron-size-c` + `itemReviewed`
+- [ ] **`7d502e933b53`** `/correct-chair-dimensions/` — **DECLINED, reasoning recorded in the file.** Google did drop HowTo rich results in Sept 2023, so it earns no widget — but the schema is valid, costs ~1.5KB, and this is one of B6's three AIO-suppressed pages where AI citation is the only remaining play. LLM crawlers parse JSON-LD. Deleting machine-readable procedural content from precisely that page optimises for a widget that no longer exists at the cost of a channel that still does. **Overrule if you disagree — it is a one-line deletion.**
+- [x] **`14beecb44bd0`** `/office-chairs-for-tall-people/` — Article `@id` added
+- [x] **`7a0984559a84`** `/chairs/herman-miller-aeron/` — the page carried BOTH `name` and `headline`. Removed the redundant `name`, added Article `@id`, and gave the author node the `#person` `@id` every other page uses
 
-### B4. `/chairs/herman-miller-aeron/tall-people/` — no affiliate link
-**`c48591dd56bd`** · pos 8.2, 1,163 impressions, **1.03% CTR** — one of your better-converting sub-pages, earning nothing.
+### B4. ~~`/chairs/herman-miller-aeron/tall-people/` — no affiliate link~~ — FINDING WAS STALE. Real gap fixed 2026-08-06
+**`c48591dd56bd`** · pos 8.2, 1,163 impressions, **1.03% CTR**.
 
-- [ ] Add affiliate CTA with a **registered** ASIN from `data/verified-asins.json`
+**The page already had two affiliate links** — `B01N32UFNT` (Aeron) and `B00TYE4QXU` (Leap Plus), both carrying `tag=tallchairadvi-20`, both registered in `verified-asins.json`, both added back in commit `014828f`. The finding as written was false.
+
+The real gap was **placement**: the only CTA sat at line 317 of a 326-line page, after the verdict — roughly 120 lines below the point where a 6'0"–6'2" reader has just been told the chair is a strong fit for them. Highest-intent moment on the page, and nothing to click.
+
+- [x] Mid-page Aeron CTA added directly after the "6'0"–6'2": Strong fit" section
+- [x] Leap Plus CTA deliberately left at the bottom — that section is not recommending it
 
 ### B5. `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0
 **`018c617c0678`** · Your only first-person-tested page, and the strongest E-E-A-T asset on the site. In scope because it is at position 8.0, not below it.
@@ -201,20 +256,25 @@ Three findings confirming clicks are structurally suppressed. **Do not respond w
 **Context worth weighing:** AI assistants are already **16% of your sessions** (ChatGPT 44, Perplexity 6, Claude 3 — ~72% of Google organic volume) and that is the one surface AI Overviews cannot erode. The kill list bars capsules on *informational* queries; it does not bar them on money pages.
 
 ### B7. Other in-scope
-- [ ] **`f88a6837b1c9`** `/office-chairs-for-6-foot-4/` — pos 5.8, 757 impressions, high buyer intent, under-linked into the funnel
-- [ ] **`5663893947e9`** `/review/gesture/` — meta 158 chars (3 over)
+- [ ] **`f88a6837b1c9`** `/office-chairs-for-6-foot-4/` — pos 5.8, 757 impressions, high buyer intent, "under-linked into the funnel". **Questionable:** it already has 7 internal inbound links. Re-verify what "under-linked" was measuring before acting.
+- [x] ~~**`5663893947e9`** `/review/gesture/` — meta 158 chars (3 over)~~ — **FALSE POSITIVE. Detector bug, fixed 2026-08-06.** See A14.
 
-### B8. Two pages 404 their own hero images
+### B8. ~~Two pages 404 their own hero images~~ — DONE 2026-08-06
 Ledger `9764cf8c99c4`, `b5cbab622428` — found by Playwright, invisible to every prior audit.
 
-- [ ] `/review/sihoo-doro-s300/`
-- [ ] `/shoulder-pain-tall-people/`
+Root cause on both: the page shipped with a `<!-- NOTE: Image file must be sourced ... before deploying -->` placeholder that was never actioned. Each served a 404 hero, a 404 `og:image`, and a 404 schema `image` since 2026-03-17 — and `/shoulder-pain-tall-people/` also preloaded the missing file.
 
-### B9. Four URLs not indexed (GSC URL Inspection, 45/49 PASS)
+- [x] `/review/sihoo-doro-s300/` — figure, `ogImage`, and Product schema `image` removed. Layout falls back to `og-default.webp`. **Do not substitute a stock chair photo** — a Product schema for a specific model showing a different chair is a false statement; needs a real S300 photo
+- [x] `/shoulder-pain-tall-people/` — same treatment. A licensed stock photo IS a legitimate fix here; the subject is generic
+- [x] **Third broken image found by sweeping every `/images/` reference against `public/`:** `/images/logo.png` never existed, and `/shoulder-pain-tall-people/` used it as its schema publisher logo. Repointed to `og-default.webp`, matching every other page. The probe could not catch this one — it is schema-only and no browser ever fetches it
+
+### B9. ~~Four URLs not indexed~~ — INVESTIGATED 2026-08-06, one claim is contradicted by your own data
 - [ ] `/chairs/herman-miller-aeron/size-guide/` — Discovered, not indexed
 - [ ] `/lumbar-support-tall-people/` — Discovered, not indexed
 - [ ] `/office-chair-return-policy/` — Crawled, not indexed
-- [ ] `/standing-desk-height-tall-people/` — **unknown to Google.** Never discovered — check sitemap and internal links
+- [x] ~~`/standing-desk-height-tall-people/` — **unknown to Google.** Never discovered~~ — **NOT TRUE.** Verified live: HTTP 200, `<meta name="robots">` = `index, follow`, self-referencing canonical, present in `sitemap-0.xml` (49 URLs), `robots.txt` fully open, and **5 internal inbound links**. It also has **307 impressions in `data/gsc/latest.json`**, which cannot happen for a URL Google has never discovered. The suggested action ("check sitemap and internal links") was already satisfied on both counts. No technical defect exists; nothing to fix.
+
+  Worth noting for the other three: this page is linked from `/correct-chair-dimensions/` (18,707 impressions), so it is not weakly linked either. The remaining three are ordinary crawl-priority cases — request indexing in GSC, which is manual.
 
 ### B10. The GEO worklist already exists in the probe output and nobody reads it
 `data/probes/2026-08-06.json` measures `geo.directAnswerPresent` and `geo.citationCapsulePresent` on all 49 pages, every night. It has never been turned into a queue. Current state: **44 of 49 pages have at least one GEO gap.**
@@ -254,8 +314,9 @@ Mostly meta/title length on pages ranking worse than position 8 — where rank, 
 # SUGGESTED ORDER
 
 0. **A12** — let one nightly run on cron, unattended. Costs a calendar day and no work, and everything below is theoretical until it passes.
-1. **A1** — unblock the pipeline. Nothing ships until fixes can land.
-2. **B1 + B2** — the spec contradiction. It is wrong on the live site right now, on two pages.
+1. **B11** — the false Leap Plus seat height on 31 more pages, starting with the five height landing pages. A 6'5"–6'7" buyer is being told to buy a chair that does not fit them, and the site is the source AI assistants are quoting it from. Nothing else on this list costs a reader money.
+2. **A1** — unblock the pipeline. Nothing ships until fixes can land.
+3. ~~**B1 + B2**~~ — done 2026-08-06. Root fact established from the Steelcase spec guide; B11 is the remainder.
 3. **B3** — schema fixes. Deterministic, mechanically verifiable, directly affects rich results on money pages.
 4. **B4 + A10** — the earning page with no affiliate link, and the detector for links that die later. Same failure mode, one found by audit and one currently found by nobody.
 5. **B8 / B9** — broken images and unindexed URLs. Small and concrete.

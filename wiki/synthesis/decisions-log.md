@@ -1,12 +1,28 @@
 ---
 type: synthesis
-last_updated: 2026-08-04
+last_updated: 2026-08-06
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## [2026-08-06] Leap Plus seat height: state the configuration, not just the number
+
+**PROBLEM:** The site published a Leap Plus seat height of 15.5"–22.5" as a standard "7-inch range" available "out of the box." No such configuration exists. The figure spliced the standard cylinder's minimum (15.5") onto the optional cylinder's maximum (22.5"). One meta description carried 15.5"–20.5", which is the *standard Leap v2* spec cross-contaminated from another model.
+
+**VERIFIED SPEC** (Steelcase Seating Specification Guide, Oct 2020 and 2017 editions, internally consistent in three places): standard cylinder **15.5"–19.5"**; optional 5" cylinder (+~$63) **17.5"–22.5"**. The optional cylinder shifts the whole range up — it does not add travel.
+
+**WHY THIS WAS WORSE THAN A WRONG NUMBER.** Two load-bearing arguments were built on it and both inverted:
+1. "Highest maximum seat height of any mainstream ergonomic chair." At default config the Leap Plus tops out at 19.5" — **lower** than the Gesture (21") and the Aeron Size C (20.5"). It is the lowest of the three, not the highest.
+2. "Seat height increases from 20" to 22.5"" going standard Leap → Leap Plus. Backwards. The standard Leap reaches 20.5"; the Leap Plus reaches 19.5". The Plus trades seat-height range for seat width, back height, and 500 lb capacity.
+
+**DECISION — the recommendation survives, the framing changes.** The Leap Plus is still the correct pick above 6'4", because with the optional cylinder it reaches 22.5" and nothing mainstream goes higher. But the advantage is *conditional on an order-time line item*, so every page that recommends it above ~6'2" must name the cylinder, the ~$63 cost, and the fact that the floor rises to 17.5". A buyer who orders the default gets the worst of the three chairs on the exact spec they bought it for. Vagueness ("range varies by configuration") is not an acceptable fix — be specific and correct.
+
+**PRECEDENT FOR AGENTS:** where a spec has a standard and an optional configuration, publish both and say which one the recommendation depends on. Never quote a min from one and a max from the other.
+
+**DEFERRED — 28 pages / 129 statements still carry the wrong figure.** Only `/chairs/steelcase-leap-plus/seat-height/`, `/review/leap-plus/` and `/chairs/herman-miller-aeron/tall-people/` are corrected. The height-specific landing pages (`office-chairs-for-6-foot-4` through `-7`) and `chairs/steelcase-leap-plus/tall-people.astro` are the highest-risk remainder — they are the pages a very tall buyer actually lands on. See [[steelcase-leap-plus]] for the full file list.
 
 ## [2026-08-06] Strategy enforcement moved from prompt to code
 

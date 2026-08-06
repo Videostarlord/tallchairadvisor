@@ -75,6 +75,18 @@ const schema = [
       }
     ]
   },
+  // KEPT DELIBERATELY — audit finding 7d502e933b53 ("HowTo schema is dead code") reviewed
+  // and declined 2026-08-06. Google did drop HowTo rich results in September 2023, so this
+  // earns no SERP widget and never will. It is not invalid, though, and it costs ~1.5KB.
+  //
+  // The reason to keep it is this specific page. /correct-chair-dimensions/ is one of the
+  // three AIO-suppressed URLs in open-issues B6 — clicks are structurally gone from Google,
+  // and the strategy note there records AI assistants at 16% of sessions as the one surface
+  // AI Overviews cannot erode. LLM crawlers parse JSON-LD. Deleting well-formed, machine-
+  // readable procedural content from precisely the page whose remaining play is AI citation
+  // optimises for a widget that no longer exists at the cost of the channel that still does.
+  //
+  // Revisit if Google ever penalises unused types, or if AI citations for this page stay flat.
   {
     "@context": "https://schema.org",
     "@type": "HowTo",

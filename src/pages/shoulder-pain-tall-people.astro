@@ -10,7 +10,6 @@ const schema = [
     "headline": "Why Tall People Get Shoulder Pain at Desks — And How to Fix It",
     "description": "Shoulders are the third most affected body region for office workers with musculoskeletal disorders. For users above 6'1\", standard chair design leaves the trapezius and deltoid chronically overloaded. Here's the biomechanical reason, and what actually helped.",
     "url": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
-    "image": "https://tallchairadvisor.com/images/shoulder-pain-tall-people-hero.webp",
     "author": {
       "@type": "Person",
       "@id": "https://tallchairadvisor.com/author/jackson-christopher/#person",
@@ -22,10 +21,7 @@ const schema = [
       "@type": "Organization",
       "name": "Tall Chair Advisor",
       "url": "https://tallchairadvisor.com/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://tallchairadvisor.com/images/logo.png"
-      }
+      "logo": { "@type": "ImageObject", "url": "https://tallchairadvisor.com/images/og-default.webp" }
     },
     "datePublished": "2026-03-17",
     "dateModified": "2026-03-17",
@@ -94,8 +90,6 @@ const schema = [
   title="Why Tall People Get Shoulder Pain at Desks"
   description="Shoulders are the 3rd most common WMSD site for office workers. Above 6'1&quot;, standard chairs leave trapezius chronically overloaded. Here's the fix."
   ogType="article"
-  ogImage="/images/shoulder-pain-tall-people-hero.webp"
-  preloadImage="/images/shoulder-pain-tall-people-hero.webp"
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
@@ -111,19 +105,18 @@ const schema = [
     <Byline publishedDate="2026-03-17" updatedDate="2026-03-17" />
     <Disclosure />
 
-    <!-- NOTE: Image file must be sourced and placed at public/images/shoulder-pain-tall-people-hero.webp before deploying -->
-    <figure class="mb-8">
-      <img
-        src="/images/shoulder-pain-tall-people-hero.webp"
-        alt="Person experiencing upper shoulder and neck tension while seated at a desk — a common problem for tall office workers"
-        class="w-full max-w-lg mx-auto rounded-lg"
-        width="800"
-        height="533"
-        fetchpriority="high"
-        loading="eager"
-      />
-    </figure>
+    {/*
+      HERO IMAGE REMOVED 2026-08-06 (open-issues B8, ledger b5cbab622428).
+      Same cause as /review/sihoo-doro-s300/: the page shipped referencing
+      /images/shoulder-pain-tall-people-hero.webp, which was never created, so it served
+      a 404 hero, a 404 og:image, a 404 Article schema image, AND a preload pointing at
+      the missing file since 2026-03-17.
 
+      Unlike the Sihoo review this one is generic enough that a licensed stock photo is
+      a legitimate fix — a desk worker with shoulder tension illustrates the subject
+      honestly. Place it at public/images/shoulder-pain-tall-people-hero.webp, then
+      re-add the <figure>, the `image` in the Article schema, and preloadImage.
+    */}
     <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">Shoulders are the third most affected body region for office workers with musculoskeletal disorders, affecting 37.4% of cases (<a href="https://www.nature.com/articles/s41598-025-30155-6" target="_blank" rel="noopener noreferrer">Scientific Reports, 2025</a>). For users above 6'1", the root cause is usually the same: standard chair armrests are designed for the 95th-percentile male at ~185 cm and sit too low to support the forearms of taller users, forcing the trapezius and deltoid to fire continuously to hold arm weight throughout the workday.</p>

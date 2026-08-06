@@ -32,7 +32,7 @@ The queued "I almost bought this" reframe (Open Issue 2) remains worthwhile on i
 
 - **Query:** "steelcase leap plus review"
 - **AIO detected:** Yes — TCA not cited. 15 cited URLs, 1,087-char passage.
-- **Capsule:** Applied ✅ — after H2 "Overview" (spec-validated: 19.75" depth, 22.5" height, 25.5" back, 500lb)
+- **Capsule:** Applied ✅ — after H2 "Overview". Rewritten 2026-08-06: the original capsule asserted a 22.5" seat height ceiling as standard, which is false. Now states 15.5"–19.5" standard / 17.5"–22.5" with the optional 5" cylinder (19.75" depth, 25.5" back, 500lb unchanged).
 - **Sentinel:** `<!-- tca-aio-capsule -->` present — future runs will not re-apply.
 - **Source of truth:** `data/competitors/intelligence.json` (2026-05-12 run)
 
@@ -46,7 +46,8 @@ The queued "I almost bought this" reframe (Open Issue 2) remains worthwhile on i
 
 | Date | Fix | Result |
 |------|-----|--------|
-| 2026-05-12 | AIO citation capsule inserted after "Overview" H2 | Spec-validated (19.75"/22.5"/25.5"/500lb) |
+| 2026-05-12 | AIO citation capsule inserted after "Overview" H2 | Spec-validated (19.75"/22.5"/25.5"/500lb) — seat height figure later found false |
+| 2026-08-06 | **Factual seat-height correction.** Page claimed a 22.5" ceiling as standard and "seat height increases from 20" to 22.5"" vs the standard Leap. Both false: standard Leap Plus is 15.5"–19.5"; 22.5" requires the optional 5" cylinder (~$63, raises floor to 17.5"); the Plus is 1" *lower* than the standard Leap at default. Corrected FAQPage JSON-LD (5 answers), visible FAQ, Direct Answer, AIO capsule, key specs, Cons, height-fit guide, verdict, title/meta. Steelcase spec-guide PDF cited. | Build + lint:content pass; schema and visible FAQ verified in sync |
 
 ## Links
 

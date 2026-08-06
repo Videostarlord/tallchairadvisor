@@ -23,7 +23,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | Page | Summary |
 |------|---------|
 | [[review-gesture]] | Flagship review. Score 88. 2,529 impr, pos 8.2. AIO capsule May 12. TL;DR moved before hero image Jun 14 (ChatGPT bounce fix). |
-| [[review-leap-plus]] | Research-based "almost bought" review. AIO capsule applied May 12 (19.75"/22.5"/500lb specs). |
+| [[review-leap-plus]] | Research-based "almost bought" review. Seat-height spec corrected 2026-08-06 — 15.5"–19.5" standard, 22.5" only with the optional 5" cylinder. See [[steelcase-leap-plus]]. |
 | [[aeron-tall-people]] | 1,353 impr, pos 7.4, 4 clicks (0.30% CTR). May 10. |
 | [[knee-pain-seat-depth]] | **NEW entity Jun 14.** #1 impression page (12,804 GSC). Calculator now working. Links to /best-office-chairs-under-500/ added. Cornell Rule framing. |
 | [[aeron-vs-gesture]] | 385 impr, pos 8.5, 0 clicks. Meta rewritten Jun 14 to verdict-lead. GSC validation pending. |

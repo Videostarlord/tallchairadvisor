@@ -4,18 +4,17 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readStrategicDirective, assertPromptBudget, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
+import { archiveToRaw, appendWikiLog, readConceptContext, readSynthesisContext, readStrategicDirective, assertPromptBudget, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 import { loadStrategyRules, loadPositions, classifyFindings, renderOutOfStrategy } from '../strategy-filter.js';
 import { ISSUE_CLASSES, makeFindingId, renderReport, sortFindings, type AuditFinding, type AuditFindingsFile, type IssueClass, type Severity } from '../audit-findings.js';
+import { meteredCreate } from '../lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const BASE_URL = 'https://tallchairadvisor.com';
 
 /**
@@ -28,6 +27,36 @@ const BASE_URL = 'https://tallchairadvisor.com';
  * destination page against itself and reported identical titles + canonicals.
  * A redirect source has no <head> of its own and must never be meta-audited.
  */
+/**
+ * Decode the HTML entities Astro emits, so lengths are measured the way Google
+ * measures them.
+ *
+ * THE BUG THIS FIXES (found 2026-08-06, open-issues B7 / finding 5663893947e9).
+ * These values were read straight out of the raw HTML and never decoded. Astro
+ * escapes `"` to `&#34;`, so every quote counted as FIVE characters instead of one.
+ * On a site whose meta descriptions are full of `6'4"` measurements that inflates
+ * almost every page: /review/gesture/ measured 158 chars and was filed as "3 over
+ * the 155 limit", when the text Google actually sees is 146 — comfortably in range.
+ *
+ * The Playwright probe never had this bug, because `descEl.getAttribute('content')`
+ * returns the decoded value (probes/probe-page.ts:204). So the two detectors have
+ * been silently disagreeing about the same pages, and the wrong one generated the
+ * task. Anything comparing a length against a threshold must decode first.
+ */
+function decodeEntities(value: string | null): string | null {
+  if (value === null) return null;
+  return value
+    .replace(/&#(\d+);/g, (_, code: string) => String.fromCharCode(Number.parseInt(code, 10)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code: string) => String.fromCharCode(Number.parseInt(code, 16)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    // &amp; LAST — decoding it earlier would let "&amp;#34;" collapse into a quote.
+    .replace(/&amp;/g, '&');
+}
+
 async function fetchMeta(path: string) {
   const url = `${BASE_URL}${path}`;
   try {
@@ -47,11 +76,11 @@ async function fetchMeta(path: string) {
     }
 
     const html = await res.text();
-    const title = html.match(/<title[^>]*>(.*?)<\/title>/i)?.[1]?.trim() ?? null;
-    const desc = html.match(/<meta\s+name=["']description["']\s+content="([^"]*)"/i)?.[1] ?? null;
+    const title = decodeEntities(html.match(/<title[^>]*>(.*?)<\/title>/i)?.[1]?.trim() ?? null);
+    const desc = decodeEntities(html.match(/<meta\s+name=["']description["']\s+content="([^"]*)"/i)?.[1] ?? null);
     const canonical = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)['"]/i)?.[1] ?? null;
-    const ogTitle = html.match(/<meta\s+property=["']og:title["']\s+content="(.*?)"/i)?.[1] ?? null;
-    const ogDesc = html.match(/<meta\s+property=["']og:description["']\s+content="(.*?)"/i)?.[1] ?? null;
+    const ogTitle = decodeEntities(html.match(/<meta\s+property=["']og:title["']\s+content="(.*?)"/i)?.[1] ?? null);
+    const ogDesc = decodeEntities(html.match(/<meta\s+property=["']og:description["']\s+content="(.*?)"/i)?.[1] ?? null);
     const hasSchema = html.includes('application/ld+json');
     const schemaBlocks: string[] = [];
     const schemaMatches = [...html.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)];
@@ -142,7 +171,7 @@ async function main() {
   // Call Claude for analysis
   assertPromptBudget('audit', `${wikiContext}${synthesisContext}${strategicDirective}`);
 
-  const response = await withRetry(() => client.messages.create({
+  const response = await withRetry(() => meteredCreate({
     model: 'claude-sonnet-4-6',
     // 4000 was too small and had been silently truncating the findings array
     // every week since at least 2026-07-21 — five logged runs, five hits of
@@ -274,9 +303,7 @@ Rules:
 - Put metrics in "evidence", not in "summary".
 - Do not emit a duplicate-content or cannibalization finding for any URL in the REDIRECT SOURCES list above.`,
     }],
-  }));
-
-  logCacheUsage('audit', response.usage, ROOT);
+  }, { agent: 'audit', run: today(), purpose: 'structured-findings' }));
 
   // Structured output — the model is forced through the report_findings tool, so
   // findings are records rather than prose. Everything downstream reads the JSON;

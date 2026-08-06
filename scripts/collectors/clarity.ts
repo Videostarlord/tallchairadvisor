@@ -143,6 +143,24 @@ export async function collect(): Promise<CollectorResult<ClarityCollected>> {
           'cannot be refreshed and the on-disk snapshot cannot be verified as live. Set CLARITY_TOKEN from ' +
           'Clarity → Settings → Data Export (and as a repo secret for the nightly workflow).'
       );
+    } else if (parsed !== null && ageHours(parsed.pulledAt) < 24) {
+      // A3 (open-issues task list, 2026-08-06): DO NOT SPEND A REQUEST HERE.
+      //
+      // Clarity allows 10 requests/day/project. The Monday pull spends 2, and this
+      // nightly liveness ping spent a 3rd every night purely to re-prove a credential
+      // that had just been used successfully. On days when anything else touched the
+      // API the ping 429'd, got recorded as a problem, and surfaced as a `regressed`
+      // ledger entry — a recurring false alarm manufactured by the check itself.
+      //
+      // A snapshot pulled in the last 24h IS the liveness evidence: it could not exist
+      // unless the token worked. So we read liveness off the artifact instead of buying
+      // it again. `checkedAt` reports when the snapshot was pulled, not now, because
+      // claiming we verified the credential at this instant would be the same species
+      // of lie as `gtagFired: false` meaning "we didn't look".
+      live = true;
+      checkedAt = parsed.pulledAt;
+      detail = `not re-pinged — data/clarity/latest.json was pulled ${ageHours(parsed.pulledAt).toFixed(1)}h ago, ` +
+        `which is itself proof the credential was live. Conserves the 10/day quota (A3).`;
     } else {
       checkedAt = new Date().toISOString();
       try {

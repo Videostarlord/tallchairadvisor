@@ -52,7 +52,7 @@ const schema = [
         "name": "Aeron Size C vs Steelcase Gesture for tall people \u2014 which is better?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "For tall users 6'0\"\u20136'3\" who prioritize breathability and run warm, the Aeron Size C is often the better choice. Its Pellicle mesh eliminates heat buildup entirely. For users who need adjustable seat depth, maximum seat height, or weigh above 350 lbs, the Steelcase Gesture (400 lb capacity, adjustable depth, 360\u00b0 armrests) or Leap Plus (500 lb, 22.5\" height) are stronger fits. The Gesture also offers a taller optional cylinder for users above 6'4\"."
+          "text": "For tall users 6'0\"\u20136'3\" who prioritize breathability and run warm, the Aeron Size C is often the better choice. Its Pellicle mesh eliminates heat buildup entirely. For users who need adjustable seat depth, maximum seat height, or weigh above 350 lbs, the Steelcase Gesture (400 lb capacity, adjustable depth, 360\u00b0 armrests) or Leap Plus (500 lb; 15.5\"\u201319.5\" as standard, or 17.5\"\u201322.5\" with the optional 5\" cylinder) are stronger fits. The Gesture also offers a taller optional cylinder for users above 6'4\"."
         }
       },
       {
@@ -60,7 +60,7 @@ const schema = [
         "name": "Can a 6'5\" person use the Herman Miller Aeron Size C?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A 6'5\" person can sit in the Aeron Size C, but it is not ideally configured for this height. The 20.5\" seat height maximum may be insufficient for standard desk setups at 6'5\". The fixed 18.5\" seat depth may also feel short for the longer femurs common at this height. The Steelcase Leap Plus, with its 22.5\" seat height and adjustable seat depth up to 19.75\", is a better fit at 6'5\"."
+          "text": "A 6'5\" person can sit in the Aeron Size C, but it is not ideally configured for this height. The 20.5\" seat height maximum may be insufficient for standard desk setups at 6'5\". The fixed 18.5\" seat depth may also feel short for the longer femurs common at this height. The Steelcase Leap Plus is a better fit at 6'5\", with adjustable seat depth up to 19.75\" — but order it with the optional 5\" cylinder, which raises its range to 17.5\"–22.5\". The standard Leap Plus cylinder stops at 19.5\", lower than the Aeron, and would not solve the problem."
         }
       }
     ]
@@ -133,7 +133,7 @@ const schema = [
             <td class="px-4 py-3 font-medium text-heading">Seat Height Range</td>
             <td class="px-4 py-3 text-muted-foreground">16.25" min – 20.25" max</td>
             <td class="px-4 py-3 text-muted-foreground">16" min – 21" max</td>
-            <td class="px-4 py-3 text-muted-foreground">15.5" min – 22.5" max</td>
+            <td class="px-4 py-3 text-muted-foreground">15.5"–19.5" std; 17.5"–22.5" opt. cylinder</td>
           </tr>
           <tr class="bg-secondary/20">
             <td class="px-4 py-3 font-medium text-heading">Seat Depth</td>
@@ -196,6 +196,22 @@ const schema = [
         <p>The Aeron's mesh makes it particularly compelling for tall users in this range who run warm or work in environments without strong air conditioning. No other chair in this class delivers this level of passive ventilation.</p>
         <p>PostureFit SL — the dual-zone lumbar system that supports both the sacrum and lumbar region — is also a genuine advantage here. Most lumbar systems target one point; the PostureFit SL's two-pad design maintains spinal alignment across different sitting postures without constant manual readjustment.</p>
 
+        {/*
+          Mid-page CTA added 2026-08-06 (open-issues B4). The finding recorded this page as
+          having NO affiliate link, which was stale — links were added in 014828f and both
+          ASINs are registered. The real gap was placement: the only CTA sat at the very
+          bottom, after the verdict, ~120 lines below the point where a 6'0"–6'2" reader has
+          just been told the chair is a strong fit for them. Highest-intent moment on the
+          page, no way to act on it. Aeron only here — the Leap Plus CTA stays at the bottom
+          because this section is not recommending it.
+        */}
+        <div class="not-prose my-6 rounded-lg border border-border bg-secondary/30 px-5 py-4">
+          <p class="text-sm text-muted-foreground mb-3">Aeron Size C is a strong fit at 6'0"–6'2". Check current pricing:</p>
+          <a href="https://www.amazon.com/dp/B01N32UFNT?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+            View Herman Miller Aeron Size C on Amazon →
+          </a>
+        </div>
+
         <h3>6'2" – 6'4": Good fit, verify seat depth</h3>
         <p>The Aeron still works well for most users in this range, but the variables matter more. At 6'3"–6'4", check two things before buying:</p>
         <ul>
@@ -207,10 +223,11 @@ const schema = [
         <h3>6'4" – 6'6": Gesture or Leap Plus is easier</h3>
         <p>Above 6'4", the Aeron's constraints compound. The 20.5" seat height is at its ceiling. The 18.5" fixed seat depth is likely short for the longer femurs common at this height. The 23.5" back height may leave upper shoulder blades unsupported for very tall torsos.</p>
         <p>Unlike the Gesture — which can accept a taller optional gas cylinder from a Steelcase dealer — there is no equivalent modification for the Aeron. The 20.5" maximum is final.</p>
-        <p>The Steelcase Leap Plus (22.5" seat height, adjustable seat depth up to 19.75", 25.5" back height) is the clearer fit above 6'4". If you specifically want a mesh chair and are set on the Aeron at this height range, be prepared for the dimensional constraints to require some compromise in setup.</p>
+        <p>The Steelcase Leap Plus (adjustable seat depth up to 19.75", 25.5" back height) is the clearer fit above 6'4". One ordering detail matters, though: per Steelcase's <a href="https://www.steelcase.com/content/uploads/2020/10/Seating-Leap-Seat.pdf" target="_blank" rel="noopener noreferrer">seating specification guide</a>, the Leap Plus ships standard with a 4" cylinder giving 15.5"–19.5" — <em>lower</em> than the Aeron's 20.5" ceiling. The 22.5" figure requires the optional 5" cylinder (about $63), which also raises the seat's floor to 17.5". Specify it at order time; you cannot infer it from the base listing.</p>
+        <p>If you specifically want a mesh chair and are set on the Aeron at this height range, be prepared for the dimensional constraints to require some compromise in setup.</p>
 
         <h3>6'6"–6'7": Look elsewhere</h3>
-        <p>At 6'6"–6'7", the Steelcase Leap Plus is the clear recommendation. The Aeron's dimensions are not scaled for this range, and the lack of a taller cylinder option means there's no path to extend its fit. The Leap Plus's 22.5" seat height, 19.75" adjustable seat depth, and 25.5" back height are all better calibrated for users at this extreme of the tall range.</p>
+        <p>At 6'6"–6'7", the Steelcase Leap Plus is the clear recommendation — ordered with the optional 5" cylinder. The Aeron's dimensions are not scaled for this range, and the lack of a taller cylinder option means there's no path to extend its fit. The Leap Plus configured that way reaches 22.5" of seat height, alongside 19.75" of adjustable seat depth and a 25.5" back height, all better calibrated for users at this extreme of the tall range. Ordered with the standard cylinder it tops out at 19.5" and will not fit you — this is the single spec to get right at checkout.</p>
       </section>
 
       <section>
@@ -286,7 +303,7 @@ const schema = [
         <ul>
           <li><strong>Choose the Aeron Size C</strong> if you're 6'0"–6'3" with average proportions, prioritize breathability above all else, and/or work in a warm environment. Also a strong choice if you prefer a mesh feel and want PostureFit SL lumbar support.</li>
           <li><strong>Choose the Gesture</strong> if you're 6'0"–6'4" and work across multiple devices (the 360° arm system is unique), prefer foam/fabric, or need adjustable seat depth. Also the better choice if you weigh more than 350 lbs or need the optional taller cylinder for 6'5".</li>
-          <li><strong>Choose the Leap Plus</strong> if you're 6'4"+, need maximum seat height (22.5"), require the highest seat depth ceiling (19.75"), weigh more than 400 lbs, or simply want the most dimensional headroom for a tall body without aftermarket modifications.</li>
+          <li><strong>Choose the Leap Plus</strong> if you're 6'4"+, need maximum seat height (22.5", which requires specifying the optional 5" cylinder — the standard one stops at 19.5"), require the highest seat depth ceiling (19.75"), weigh more than 400 lbs, or simply want the most dimensional headroom for a tall body.</li>
         </ul>
         <p>For users at exactly 6'2"–6'3" with average proportions, all three chairs are genuinely viable. The deciding factor is usually breathability (Aeron) vs armrests (Gesture) vs maximum adjustability (Leap Plus).</p>
       </section>

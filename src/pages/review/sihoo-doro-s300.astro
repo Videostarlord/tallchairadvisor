@@ -8,7 +8,6 @@ const schema = [
     "@type": "Product",
     "name": "Sihoo Doro S300",
     "url": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
-    "image": "https://tallchairadvisor.com/images/sihoo-doro-s300-hero.webp",
     "description": "The Sihoo Doro S300 is a budget-to-mid-range ergonomic office chair featuring a split-back mesh design with independent lumbar support, adjustable armrests, and a seat height range of 17–21 inches.",
     "brand": { "@type": "Brand", "name": "Sihoo" },
     "review": {
@@ -142,7 +141,6 @@ const schema = [
   title="Sihoo Doro S300 Review for Tall People (2026)"
   description="Sihoo Doro S300 spec analysis for tall users. Split-back mesh, 21&quot; seat height ceiling, fixed depth — honest fit verdict for users 6'0&quot;–6'4&quot;."
   ogType="article"
-  ogImage="/images/sihoo-doro-s300-hero.webp"
   schema={schema}
 >
   <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
@@ -157,19 +155,19 @@ const schema = [
   <article class="container-article py-12 md:py-16">
     <Byline publishedDate="2026-03-17" updatedDate="2026-03-17" />
 
-    <!-- NOTE: Image file must be sourced and placed at public/images/sihoo-doro-s300-hero.webp before deploying -->
-    <figure class="mb-8">
-      <img
-        src="/images/sihoo-doro-s300-hero.webp"
-        alt="Sihoo Doro S300 ergonomic office chair with split-back mesh design and adjustable lumbar support"
-        class="w-full max-w-lg mx-auto rounded-lg shadow-md"
-        width="800"
-        height="533"
-        fetchpriority="high"
-        loading="eager"
-      />
-    </figure>
+    {/*
+      HERO IMAGE REMOVED 2026-08-06 (open-issues B8, ledger 9764cf8c99c4).
+      This page shipped referencing /images/sihoo-doro-s300-hero.webp, which was never
+      created — the "source this before deploying" note was not actioned, so the page
+      served a 404 hero, a 404 og:image, and a 404 Product schema image to every visitor
+      and crawler since 2026-03-17. Playwright caught it; no prior audit did.
 
+      To restore: place a REAL Sihoo Doro S300 photo at public/images/sihoo-doro-s300-hero.webp,
+      then re-add the <figure> here plus `image` in the Product schema above. Do NOT
+      substitute a generic stock chair photo — this is a Product schema for a specific
+      model, and a picture of a different chair is a false statement to Google and to
+      the reader.
+    */}
     <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">The Sihoo Doro S300 is a mid-range mesh chair with a split-back design and independent lumbar zone that performs above its price tier on back adjustability. For tall users 6'0"–6'2", it's a viable option at roughly $450–$500. Above 6'2", the fixed seat depth (~17") and 300 lb weight capacity start to work against taller frames. This is a research-based analysis — I own the Steelcase Gesture, not the S300. The Doro S300 has been rising in AI citation indexes and community discussions, which is why I'm covering it here.</p>

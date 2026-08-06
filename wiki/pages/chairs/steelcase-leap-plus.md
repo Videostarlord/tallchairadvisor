@@ -1,8 +1,8 @@
 ---
 type: entity
 entity: chair
-last_updated: 2026-05-11
-sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-05-10-full-seo-audit.md, raw/misc/2026-03-07-session-context.md, data/gsc/latest.json]
+last_updated: 2026-08-06
+sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-05-10-full-seo-audit.md, raw/misc/2026-03-07-session-context.md, data/gsc/latest.json, "https://www.steelcase.com/content/uploads/2020/10/Seating-Leap-Seat.pdf"]
 tags: [chair, steelcase, leap-plus, research-based]
 ---
 
@@ -15,12 +15,19 @@ tags: [chair, steelcase, leap-plus, research-based]
 | Spec | Value |
 |------|-------|
 | Seat depth | 15.75"–19.75" (4" range — best in class) |
-| Seat height | 15.5"–22.5" (widest range of all reviewed chairs) |
+| Seat height (standard cylinder) | 15.5"–19.5" (4" range — **default configuration**) |
+| Seat height (optional 5" cylinder, ~$63) | 17.5"–22.5" (floor rises with the ceiling) |
 | Back height | 25.5" |
 | Weight capacity | 500 lbs |
 | Seat width | 22" |
 
-**For tall users:** Best raw specs of any chair reviewed. Highest seat height max (22.5"), deepest seat depth max (19.75"), tallest back. The "big and tall" choice.
+Seat height source: [Steelcase Seating Specification Guide — Leap (Oct 2020 PDF)](https://www.steelcase.com/content/uploads/2020/10/Seating-Leap-Seat.pdf), corroborated by the 2017 edition.
+
+**Reference points:** standard Leap / Leap v2 = 15.5"–20.5" standard, 17"–24" optional. Gesture = 21" standard. Aeron Size C = 16"–20.5", hard limit.
+
+**For tall users:** Deepest seat depth max (19.75"), tallest back, highest weight capacity. On seat height the answer is conditional: **with the optional 5" cylinder it reaches 22.5" — the highest ceiling of any mainstream chair. At its default 19.5" ceiling it is LOWER than both the Gesture (21") and the Aeron C (20.5").** The cylinder must be specified at order time. Any content recommending the Leap Plus above ~6'2" must state the cylinder requirement.
+
+⚠️ **Known contamination:** the false "15.5"–22.5" / 7-inch range / standard" claim was published across ~34 pages. Only `/review/leap-plus/`, `/chairs/steelcase-leap-plus/seat-height/` and `/chairs/herman-miller-aeron/tall-people/` are corrected as of 2026-08-06. See History.
 
 ## Site Pages (May 11 GSC)
 
@@ -57,6 +64,7 @@ tags: [chair, steelcase, leap-plus, research-based]
 | 2026-03-30 | seat-height meta fixed |
 | 2026-04-03 | weight-limit 404 confirmed fixed |
 | 2026-05-11 | /tall-people/ hit CRITICAL threshold (481 impr, 0 CTR) — strategy agent should flag |
+| 2026-08-06 | **Factual spec correction.** Site claimed Leap Plus seat height was "15.5"–22.5", a 7-inch range, standard/out of the box." That configuration does not exist — it welded the standard cylinder's minimum (15.5") to the optional cylinder's maximum (22.5"). Corrected to 15.5"–19.5" standard / 17.5"–22.5" with the optional 5" cylinder (~$63), per the Steelcase Seating Specification Guide. Also corrected the inverted claim that the Leap Plus has the highest max seat height of any mainstream chair (false at default config — it is lower than Gesture and Aeron C) and the backwards Leap→Leap Plus comparison ("seat height increases from 20" to 22.5""; in fact the Plus is 1" *lower* at default). Fixed in `/review/leap-plus/` and `/chairs/steelcase-leap-plus/seat-height/`; `/chairs/herman-miller-aeron/tall-people/` fixed in parallel by another session. ~31 further pages still carry the wrong figure — see the contamination note above. |
 
 ## Links
 
