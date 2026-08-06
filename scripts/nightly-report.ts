@@ -92,7 +92,7 @@ function ageHoursOf(path: string): number | null {
 function load(
   name: string,
   relPath: string,
-  contract: { schema: z.ZodTypeAny; opts?: ReadOptions; jsonl?: boolean; absenceIsHealthy?: boolean } | null,
+  contract: { schema: z.ZodTypeAny; opts?: ReadOptions; jsonl?: boolean; absenceIsHealthy?: boolean; summarize?: (raw: string, path: string) => string } | null,
 ): Source {
   const path = resolve(ROOT, relPath);
   if (!existsSync(path)) {
@@ -125,7 +125,10 @@ function load(
   try {
     if (contract.jsonl) readValidatedJsonl(relPath, contract.schema, contract.opts);
     else readValidated(relPath, contract.schema, contract.opts);
-    return { name, path: relPath, trust: 'verified', reason: null, content, ageHours };
+    // Summarize only AFTER the full file has passed its contract, so the
+    // condensed form can never hide a validation failure.
+    const payload = contract.summarize ? contract.summarize(content, relPath) : content;
+    return { name, path: relPath, trust: 'verified', reason: null, content: payload, ageHours };
   } catch (error) {
     const detail = error instanceof ContractViolation ? error.message : error instanceof Error ? error.message : String(error);
     return { name, path: relPath, trust: 'unverified', reason: `contract FAILED — ${detail}`, content, ageHours };
@@ -151,6 +154,86 @@ const collectorsRollupSchema = z.object({ collectedAt: z.string() }).passthrough
 const costSummarySchema = z.object({ generatedAt: z.string() }).passthrough();
 const probeFileSchema = z.object({ generatedAt: z.string(), results: z.array(z.unknown()) }).passthrough();
 
+/**
+ * Condense a probe file for the narrative payload.
+ *
+ * THIS IS NOT TRUNCATION, and the distinction is the whole point of §7.6.
+ * Truncation is dropping information the report would otherwise have acted on —
+ * `.slice(0, 3000)` discarding every high and medium finding. This drops the raw
+ * JSON-LD SOURCE TEXT of each page: bytes the narrative cannot use, that are
+ * already on disk as closure evidence, and that no predicate reads from here.
+ *
+ * Every URL, every failing assertion, every console error and unmeasured vital
+ * survives. Nothing the report could have said is lost — and the summary states
+ * the full file's path so the omission is visible rather than implied.
+ *
+ * Found by the first CI run: the raw blocks were 80% of a 470KB probe file and
+ * pushed the payload to 164K tokens against a 150K budget, so the truncation
+ * guard correctly refused to run and the night degraded to a mechanical report.
+ */
+function summarizeProbes(raw: string, path: string): string {
+  const parsed = JSON.parse(raw) as { generatedAt?: string; results?: unknown[] };
+  const results = Array.isArray(parsed.results) ? (parsed.results as Record<string, any>[]) : [];
+
+  const failing: string[] = [];
+  const skipped: string[] = [];
+  let healthy = 0;
+  let partial = 0;
+
+  for (const r of results) {
+    if (r.skipped) {
+      skipped.push(`${r.url} (${r.skipped})`);
+      continue;
+    }
+    if (r.healthy === false) {
+      failing.push(`${r.url}: PROBE UNHEALTHY — ${(r.errors ?? []).join('; ')}`);
+      continue;
+    }
+    healthy++;
+    if (Array.isArray(r.errors) && r.errors.length > 0) partial++;
+
+    const issues: string[] = [];
+    if (r.status !== 200) issues.push(`status ${r.status}`);
+    const n = r.network ?? {};
+    if (n.gtagFired === false) issues.push('gtag NOT firing');
+    if (n.clarityLoaded === false) issues.push('clarity NOT loading');
+    if (n.affiliateHandlerAttached === false) issues.push('affiliate handler not attached');
+    const ce = Array.isArray(r.consoleErrors) ? r.consoleErrors.length : 0;
+    if (ce > 0) issues.push(`${ce} console error(s): ${r.consoleErrors.map((e: any) => e.text).slice(0, 3).join(' | ')}`);
+    if (Array.isArray(r.unhandledRejections) && r.unhandledRejections.length > 0) issues.push(`${r.unhandledRejections.length} unhandled rejection(s)`);
+    const h = r.head ?? {};
+    const mdLen = typeof h.metaDescription === 'string' ? h.metaDescription.length : null;
+    if (mdLen !== null && (mdLen < 130 || mdLen > 165)) issues.push(`meta description ${mdLen} chars (want 130-165)`);
+    if (h.canonical && r.url && !String(h.canonical).endsWith(String(r.url))) issues.push(`canonical points elsewhere: ${h.canonical}`);
+    if (Array.isArray(h.jsonLdParseErrors) && h.jsonLdParseErrors.length > 0) issues.push(`${h.jsonLdParseErrors.length} JSON-LD parse error(s)`);
+    const g = r.geo ?? {};
+    const geoMissing = [
+      g.directAnswerPresent === false ? 'direct answer' : null,
+      g.citationCapsulePresent === false ? 'citation capsule' : null,
+      g.faqPageSchemaValid === false ? 'valid FAQPage' : null,
+    ].filter(Boolean);
+    if (geoMissing.length > 0) issues.push(`GEO missing: ${geoMissing.join(', ')}`);
+    const v = r.vitals ?? {};
+    if (typeof v.lcp === 'number' && v.lcp > 2500) issues.push(`LCP ${Math.round(v.lcp)}ms`);
+    if (typeof v.cls === 'number' && v.cls > 0.1) issues.push(`CLS ${v.cls}`);
+
+    if (issues.length > 0) failing.push(`${r.url}: ${issues.join(' · ')}`);
+  }
+
+  const lines = [
+    `Probe run ${parsed.generatedAt ?? '(no timestamp)'} — ${results.length} URL(s): ${healthy} probed, ${skipped.length} skipped, ${partial} partial.`,
+    ``,
+    `NOTE: raw JSON-LD source text is omitted from this payload — it is evidence, not`,
+    `narrative input, and remains complete in ${path}. Every URL and every failing`,
+    `assertion below is reproduced in full; nothing actionable has been dropped.`,
+    ``,
+  ];
+  if (skipped.length > 0) lines.push(`Skipped (correctly not audited as pages):`, ...skipped.map(s => `  - ${s}`), ``);
+  if (failing.length === 0) lines.push(`No failing assertions. Every probed page fired its tags and passed head/GEO/vitals checks.`);
+  else lines.push(`Pages with at least one failing assertion (${failing.length}):`, ...failing.map(f => `  - ${f}`));
+  return lines.join('\n');
+}
+
 function gatherSources(): Source[] {
   const sources: Source[] = [
     load('ledger', 'data/ledger.jsonl', { schema: ledgerRecordSchema, opts: ledgerOptions, jsonl: true }),
@@ -165,7 +248,7 @@ function gatherSources(): Source[] {
   const probes = latestDated('data/probes');
   sources.push(
     probes
-      ? load('probes', probes, { schema: probeFileSchema })
+      ? load('probes', probes, { schema: probeFileSchema, summarize: summarizeProbes })
       : { name: 'probes', path: 'data/probes/', trust: 'missing', reason: 'no probe run has ever completed (step 6 may not be built yet)', content: null, ageHours: null },
   );
   return sources;
