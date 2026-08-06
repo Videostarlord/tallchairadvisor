@@ -89,6 +89,7 @@ async function checkHeartbeat(): Promise<Signal> {
 
     // Deliberately a raw parse: this script must run standalone in a second repo
     // with zero dependencies from this codebase. It validates the shape by hand.
+    // lint-architecture-allow R4 -- this file must run standalone in a second repo with zero imports from this codebase; it hand-validates the shape below
     const beat = JSON.parse(r.text) as { lastRun?: string; date?: string; coveragePct?: number };
     if (typeof beat.lastRun !== 'string') {
       return { name: 'heartbeat', alive: false, detail: 'heartbeat file has no lastRun timestamp — malformed' };

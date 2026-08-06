@@ -123,22 +123,56 @@ function findMultilineEmptyCatch(lines) {
   return hits;
 }
 
+/**
+ * Inline escape hatch, deliberately noisy:
+ *
+ *     // lint-architecture-allow R4 -- detecting malformed JSON requires a raw parse
+ *
+ * on the line before the violation. A REASON after `--` is mandatory; a bare
+ * allow is itself reported, because an unexplained suppression is how a ban list
+ * quietly becomes decorative. These are auditable with a single grep, unlike a
+ * baseline entry that looks identical to genuine debt.
+ */
+const ALLOW_RE = /lint-architecture-allow\s+(R\d)(?:\s*--\s*(.*))?/;
+
+function suppressionFor(rawLines, idx) {
+  for (const candidate of [rawLines[idx - 1], rawLines[idx]]) {
+    if (typeof candidate !== 'string') continue;
+    const m = ALLOW_RE.exec(candidate);
+    if (m) return { rule: m[1], reason: (m[2] ?? '').trim() };
+  }
+  return null;
+}
+
 function scan() {
   const violations = [];
   for (const file of walk(SCAN_DIR)) {
     const rel = relative(ROOT, file);
-    const lines = stripComments(readFileSync(file, 'utf-8'));
+    const source = readFileSync(file, 'utf-8');
+    const rawLines = source.split('\n');   // comments intact — suppressions live in them
+    const lines = stripComments(source);
 
     for (const rule of RULES) {
       if (rule.exempt.includes(rel)) continue;
       lines.forEach((line, idx) => {
-        if (rule.test(line)) {
-          violations.push({ rule: rule.id, file: rel, line: idx + 1, text: line.trim().slice(0, 120) });
+        if (!rule.test(line)) return;
+        const allow = suppressionFor(rawLines, idx);
+        if (allow && allow.rule === rule.id.slice(0, 2)) {
+          if (allow.reason.length === 0) {
+            violations.push({
+              rule: rule.id, file: rel, line: idx + 1,
+              text: `unexplained suppression — \`lint-architecture-allow ${allow.rule}\` requires \`-- <reason>\``,
+            });
+          }
+          return; // suppressed with a reason
         }
+        violations.push({ rule: rule.id, file: rel, line: idx + 1, text: line.trim().slice(0, 120) });
       });
     }
 
     for (const line of findMultilineEmptyCatch(lines)) {
+      const allow = suppressionFor(rawLines, line - 1);
+      if (allow && allow.rule === 'R3' && allow.reason.length > 0) continue;
       violations.push({ rule: 'R3-empty-catch', file: rel, line, text: 'multi-line empty catch block' });
     }
   }

@@ -32,6 +32,8 @@ import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
 import { assertSafeToAct, filePathToSlug } from './assert-safe-to-act.js';
 import { loadRedirectMap, isRedirectSource, withTrailingSlash } from './redirect-map.js';
+import { readValidated } from './lib/read-validated.js';
+import { verifiedAsinsSchema, verifiedAsinsOptions, type VerifiedAsins } from './schemas/verified-asins.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -72,26 +74,24 @@ function forbidden(relPath: string): boolean {
 
 // ─── ASIN registry ────────────────────────────────────────────────────────────
 
-interface AsinRegistry {
-  asins: Record<string, { product?: string }>;
-  known_dead: Record<string, string>;
-}
+type AsinRegistry = VerifiedAsins;
 
+/**
+ * Read through the contract (PRD §7.2) rather than a raw parse. A corrector that
+ * hand-parses its own safety registry is the exact shape of the bug this build
+ * exists to remove: a malformed registry would yield an empty `known_dead`, and
+ * the corrector would then cheerfully report "no dead ASINs" forever.
+ */
 function loadRegistry(): AsinRegistry | null {
-  const path = resolve(ROOT, 'data/verified-asins.json');
-  if (!existsSync(path)) {
-    console.error('[corrector] data/verified-asins.json missing — skipping ASIN corrections entirely.');
-    return null;
-  }
   try {
-    const parsed = JSON.parse(readFileSync(path, 'utf-8')) as AsinRegistry;
-    if (!parsed.asins || typeof parsed.asins !== 'object') {
-      console.error('[corrector] verified-asins.json has no `asins` map — skipping ASIN corrections.');
-      return null;
-    }
-    return parsed;
+    return readValidated('data/verified-asins.json', verifiedAsinsSchema, verifiedAsinsOptions);
   } catch (error) {
-    console.error(`[corrector] verified-asins.json unreadable: ${error instanceof Error ? error.message : String(error)}`);
+    // Loud, named, and it declines to act — it does not fall back to a guess.
+    console.error(
+      `[corrector] cannot read the ASIN registry, so ALL ASIN corrections are skipped:\n  ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
     return null;
   }
 }
@@ -107,7 +107,10 @@ function loadRegistry(): AsinRegistry | null {
  * is worse than leaving a dead link visible.
  */
 function replacementFor(dead: string, reason: string, registry: AsinRegistry): string | null {
-  const candidates = [...new Set(reason.match(/\bB[A-Z0-9]{9}\b/g) ?? [])].filter(a => a !== dead);
+  // matchAll returns an empty iterator rather than null, so there is no absent
+  // case to paper over with a default.
+  const found = [...reason.matchAll(/\bB[A-Z0-9]{9}\b/g)].map(m => m[0]);
+  const candidates = [...new Set(found)].filter(a => a !== dead);
   if (candidates.length !== 1) return null;
   const candidate = candidates[0];
   if (!(candidate in registry.asins)) return null;
@@ -122,7 +125,9 @@ function pageFiles(): string[] {
 
 /** AUTO-FIX: dead ASIN -> the registry's verified replacement. */
 function fixDeadAsins(registry: AsinRegistry): void {
-  const dead = registry.known_dead ?? {};
+  // The schema guarantees known_dead exists, so no default is needed — that
+  // guarantee is the entire reason loadRegistry() goes through readValidated().
+  const dead = registry.known_dead;
   if (Object.keys(dead).length === 0) return;
 
   for (const rel of pageFiles()) {
@@ -269,6 +274,7 @@ function fixMalformedDataFiles(): void {
     if (!existsSync(path)) continue;
     const content = readFileSync(path, 'utf-8');
     try {
+      // lint-architecture-allow R4 -- detecting malformed JSON IS the check; readValidated would throw the very error being probed for
       JSON.parse(content);
       continue; // well-formed
     } catch (error) {
@@ -276,6 +282,7 @@ function fixMalformedDataFiles(): void {
       let lastGood: string;
       try {
         lastGood = execFileSync('git', ['show', `HEAD:${rel}`], { cwd: ROOT, encoding: 'utf-8' });
+        // lint-architecture-allow R4 -- verifying the committed version is itself parseable before restoring it
         JSON.parse(lastGood);
       } catch {
         escalations.push({
