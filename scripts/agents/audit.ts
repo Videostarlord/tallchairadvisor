@@ -8,7 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
+import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readStrategicDirective, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 import { ISSUE_CLASSES, makeFindingId, renderReport, sortFindings, type AuditFinding, type AuditFindingsFile, type IssueClass, type Severity } from '../audit-findings.js';
 
@@ -136,6 +136,7 @@ async function main() {
   // Read wiki context for historical comparison
   const wikiContext = readConceptContext(ROOT, ['ctr-optimization', 'statistical-confidence-policy', 'meta-descriptions', 'schema-markup']);
   const synthesisContext = readSynthesisContext(ROOT);
+  const strategicDirective = readStrategicDirective(ROOT);
 
   // Call Claude for analysis
   const response = await withRetry(() => client.messages.create({
@@ -174,7 +175,24 @@ ${formatRetractionRules(retractions)}
 HISTORICAL CONTEXT FROM WIKI (compare this week against prior findings):
 ${wikiContext.slice(0, 2000)}
 
-STRATEGIC CONTEXT:
+STANDING STRATEGIC DIRECTIVE — THIS OVERRIDES ANY HISTORICAL CONTEXT ABOVE.
+This is sent in full and is never truncated. Where the historical context and
+this directive disagree, THIS WINS — the historical notes predate it.
+
+${strategicDirective}
+
+HOW TO APPLY IT WHEN CHOOSING FINDINGS:
+- Do NOT file meta-length, meta-quality, title-length or ctr-leak findings for a
+  page the directive names as AIO-suppressed or informational. Those clicks are
+  not recoverable by a snippet rewrite, and the directive says so explicitly.
+- DO file findings that increase revenue per existing visitor: affiliate-missing,
+  schema-missing on money pages, internal-linking into buyer-intent pages,
+  spec-error (a factual error is always in scope), and anything on a page with
+  commercial intent and an escapable SERP.
+- A finding you would file only to "grow impressions" is out of scope. Say so in
+  pagesNotNeedingAction rather than filing it.
+
+STRATEGIC CONTEXT (historical, truncated — subordinate to the directive above):
 ${synthesisContext.slice(0, 1500)}`,
         cache_control: { type: 'ephemeral' },
       },

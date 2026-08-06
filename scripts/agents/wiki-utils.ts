@@ -137,6 +137,37 @@ export function currentWeek(): string {
 }
 
 /** Read all synthesis pages for agent context */
+/**
+ * The standing strategic directive, extracted VERBATIM and never truncated.
+ *
+ * WHY THIS EXISTS: on 2026-08-06 the audit produced 29 findings dominated by
+ * meta rewrites and CTR fixes on /knee-pain-seat-depth/ and
+ * /correct-chair-dimensions/ — the exact pages thesis.md has told the system to
+ * STOP touching since 2026-07-24 ("Absolutely stop: ... farming AI-Overview-eaten
+ * informational queries (knee-pain, correct-dimensions, spec pages);
+ * meta-tweaking suppressed pages").
+ *
+ * The cause was truncation, and it was worse than simply losing the rule. The
+ * synthesis context was sliced to 1500 chars per file and then sliced AGAIN to
+ * 1500 chars in total — 1.39% of 107KB — and the surviving fragment came
+ * entirely from what-works.md, which says knee-pain drove the first commission.
+ * So the agent was handed the evidence FOR the abandoned strategy and none of
+ * the decision that superseded it. Inverted context is worse than none.
+ *
+ * A directive that governs what the agent may recommend cannot be subject to a
+ * character budget. It is pulled out by name and always sent whole.
+ */
+export function readStrategicDirective(repoRoot: string): string {
+  const thesis = readWikiPages(repoRoot, ['synthesis/thesis.md'])['synthesis/thesis.md'];
+  if (!thesis) return '';
+  const lines = thesis.split('\n');
+  const out: string[] = [];
+  for (const line of lines) {
+    if (/ROUTING DIRECTIVE|Absolutely stop|kill list/i.test(line)) out.push(line);
+  }
+  return out.join('\n\n');
+}
+
 export function readSynthesisContext(repoRoot: string): string {
   const pages = readWikiPages(repoRoot, [
     'synthesis/what-works.md',
