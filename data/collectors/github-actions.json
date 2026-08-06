@@ -1,0 +1,213 @@
+{
+  "data": {
+    "repo": "Videostarlord/tallchairadvisor",
+    "defaultBranch": "main",
+    "ghVersion": "gh version 2.83.2 (2025-12-10)",
+    "authAccount": "Videostarlord",
+    "workflows": [
+      {
+        "name": "Clarity — Behavioral History",
+        "path": ".github/workflows/clarity-history.yml",
+        "state": "active",
+        "cron": "0 10 */2 * *",
+        "expectedCadenceDays": 2,
+        "lastRun": {
+          "runNumber": 27,
+          "status": "completed",
+          "conclusion": "success",
+          "startedAt": "2026-08-05T12:00:26Z",
+          "finishedAt": "2026-08-05T12:01:01Z",
+          "daysAgo": 0,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31003768185",
+          "headSha": "0827a7254bc37f4cc9a9fd78b5f1a966cebe553f",
+          "event": "schedule"
+        },
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] data: Clarity history 2026-08-05"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-05T12:00:26Z) and run end + 15min (2026-08-05T12:16:01.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Friday — New Content (Conditional)",
+        "path": ".github/workflows/friday.yml",
+        "state": "active",
+        "cron": "0 8 * * 5",
+        "expectedCadenceDays": 7,
+        "lastRun": {
+          "runNumber": 19,
+          "status": "completed",
+          "conclusion": "failure",
+          "startedAt": "2026-07-31T10:29:17Z",
+          "finishedAt": "2026-07-31T10:34:57Z",
+          "daysAgo": 5,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30623712382",
+          "headSha": "af4936b2e02f788aa62f5776697885ec5bbc7e85",
+          "event": "schedule"
+        },
+        "committedDuringRun": 0,
+        "commitSubjects": [],
+        "commitInferenceMethod": "bot commits on main between run start (2026-07-31T10:29:17Z) and run end + 15min (2026-07-31T10:49:57.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Keywords — Monthly Discovery",
+        "path": ".github/workflows/keywords-monthly.yml",
+        "state": "active",
+        "cron": "0 8 1 * *",
+        "expectedCadenceDays": 31,
+        "lastRun": {
+          "runNumber": 3,
+          "status": "completed",
+          "conclusion": "success",
+          "startedAt": "2026-08-01T09:50:38Z",
+          "finishedAt": "2026-08-01T09:52:05Z",
+          "daysAgo": 4,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
+          "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
+          "event": "schedule"
+        },
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] data: monthly keyword discovery 2026-08-01"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-01T09:50:38Z) and run end + 15min (2026-08-01T10:07:05.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Monday — Data & Competitor Intelligence",
+        "path": ".github/workflows/monday.yml",
+        "state": "active",
+        "cron": "0 8 * * 1",
+        "expectedCadenceDays": 7,
+        "lastRun": {
+          "runNumber": 23,
+          "status": "completed",
+          "conclusion": "success",
+          "startedAt": "2026-08-03T11:29:55Z",
+          "finishedAt": "2026-08-03T11:57:02Z",
+          "daysAgo": 2,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30809767811",
+          "headSha": "a0af2bd03d3fc11b5ce0c299fe9ad10a9a71104f",
+          "event": "schedule"
+        },
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] data: Monday pull + index fixes 2026-08-03"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-03T11:29:55Z) and run end + 15min (2026-08-03T12:12:02.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Saturday — Verify & Deploy",
+        "path": ".github/workflows/saturday.yml",
+        "state": "active",
+        "cron": "0 9 * * 6",
+        "expectedCadenceDays": 7,
+        "lastRun": {
+          "runNumber": 23,
+          "status": "completed",
+          "conclusion": "success",
+          "startedAt": "2026-08-01T10:24:20Z",
+          "finishedAt": "2026-08-01T10:25:03Z",
+          "daysAgo": 4,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30695642014",
+          "headSha": "3898b88b650aeb2caff71cfd22e8036673f3ff9e",
+          "event": "schedule"
+        },
+        "committedDuringRun": 2,
+        "commitSubjects": [
+          "deploy: Weekly cycle 2026-08-01",
+          "chore: sync main into staging before deploy"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-01T10:24:20Z) and run end + 15min (2026-08-01T10:40:03.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Thursday — Execute Fixes",
+        "path": ".github/workflows/thursday.yml",
+        "state": "active",
+        "cron": "0 8 * * 4",
+        "expectedCadenceDays": 7,
+        "lastRun": {
+          "runNumber": 22,
+          "status": "completed",
+          "conclusion": "success",
+          "startedAt": "2026-07-30T10:07:57Z",
+          "finishedAt": "2026-07-30T10:08:23Z",
+          "daysAgo": 6,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30533486641",
+          "headSha": "af4936b2e02f788aa62f5776697885ec5bbc7e85",
+          "event": "schedule"
+        },
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] data: Thursday wiki + reports 2026-07-30"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-07-30T10:07:57Z) and run end + 15min (2026-07-30T10:23:23.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Tuesday — Full Site Audit",
+        "path": ".github/workflows/tuesday.yml",
+        "state": "active",
+        "cron": "0 8 * * 2",
+        "expectedCadenceDays": 7,
+        "lastRun": {
+          "runNumber": 18,
+          "status": "completed",
+          "conclusion": "success",
+          "startedAt": "2026-08-04T10:37:26Z",
+          "finishedAt": "2026-08-04T10:39:33Z",
+          "daysAgo": 1,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30901415489",
+          "headSha": "a991c6cc147a587d3dde7f83288eed2a283b411a",
+          "event": "schedule"
+        },
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] report: Tuesday audit 2026-08-04"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-04T10:37:26Z) and run end + 15min (2026-08-04T10:54:33.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Wednesday — Strategy & Planning",
+        "path": ".github/workflows/wednesday.yml",
+        "state": "active",
+        "cron": "0 8 * * 3",
+        "expectedCadenceDays": 7,
+        "lastRun": {
+          "runNumber": 21,
+          "status": "completed",
+          "conclusion": "success",
+          "startedAt": "2026-08-05T10:39:45Z",
+          "finishedAt": "2026-08-05T10:40:53Z",
+          "daysAgo": 0,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30998314806",
+          "headSha": "c2a9427696ac19f95558197bd536f3693c56fe6c",
+          "event": "schedule"
+        },
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] plan: Week of 2026-08-05"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-05T10:39:45Z) and run end + 15min (2026-08-05T10:55:53.000Z) — inferred, not authoritative",
+        "stale": false
+      }
+    ],
+    "failing": [
+      "Friday — New Content (Conditional)"
+    ],
+    "stale": [],
+    "neverRan": [],
+    "wroteNothing": []
+  },
+  "meta": {
+    "collectedAt": "2026-08-06T06:54:16.039Z",
+    "rowCount": 8,
+    "healthy": true,
+    "reason": null
+  }
+}

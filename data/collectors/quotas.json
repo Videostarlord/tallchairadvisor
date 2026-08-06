@@ -1,0 +1,77 @@
+{
+  "data": {
+    "services": [
+      {
+        "service": "serpapi",
+        "envVars": [
+          "SERP_API_KEY",
+          "SERPAPI_KEY"
+        ],
+        "configured": true,
+        "unit": "credits",
+        "used": 45,
+        "remaining": 205,
+        "limit": 250,
+        "pctRemaining": 82,
+        "knownFreeTierLimit": 250,
+        "detail": {
+          "plan": "Free Plan",
+          "planSearchesLeft": 205,
+          "extraCredits": 0,
+          "rateLimitPerHour": 250
+        },
+        "error": null
+      },
+      {
+        "service": "firecrawl",
+        "envVars": [
+          "FIRECRAWL_API_KEY"
+        ],
+        "configured": true,
+        "unit": "pages",
+        "used": null,
+        "remaining": 19306,
+        "limit": 1000,
+        "pctRemaining": null,
+        "knownFreeTierLimit": 500,
+        "detail": {
+          "planCredits": 1000,
+          "rolloverOrGrantExceedsPlan": true,
+          "note": "remaining exceeds plan_credits (rollover/grant credits) — usage and % withheld rather than computed negative",
+          "billingPeriodStart": "2026-07-18T07:01:54.231Z",
+          "billingPeriodEnd": "2026-08-18T07:01:54.231Z"
+        },
+        "error": null
+      },
+      {
+        "service": "dataforseo",
+        "envVars": [
+          "DATAFORSEO_USERNAME",
+          "DATAFORSEO_LOGIN",
+          "DATAFORSEO_PASSWORD"
+        ],
+        "configured": true,
+        "unit": "usd",
+        "used": null,
+        "remaining": 50.4798,
+        "limit": null,
+        "pctRemaining": null,
+        "knownFreeTierLimit": null,
+        "detail": {
+          "login": "jackson.a.christopher@gmail.com",
+          "limits": null
+        },
+        "error": null
+      }
+    ],
+    "configured": 3,
+    "live": 3,
+    "low": []
+  },
+  "meta": {
+    "collectedAt": "2026-08-06T06:54:09.480Z",
+    "rowCount": 3,
+    "healthy": true,
+    "reason": null
+  }
+}

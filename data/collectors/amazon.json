@@ -1,0 +1,96 @@
+{
+  "data": {
+    "pullable": false,
+    "reason": "Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2). This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.",
+    "searchedPaths": [
+      "raw/affiliate",
+      "raw/amazon",
+      "data/affiliate",
+      "raw",
+      "data"
+    ],
+    "nagThresholdDays": 7,
+    "matchCount": 27,
+    "newest": {
+      "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
+      "date": "2026-08-04",
+      "dateSource": "filename",
+      "ageDays": 2,
+      "sizeBytes": 4380,
+      "dataRows": null
+    },
+    "recent": [
+      {
+        "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
+        "date": "2026-08-04",
+        "dateSource": "filename",
+        "ageDays": 2,
+        "sizeBytes": 4380,
+        "dataRows": null
+      },
+      {
+        "path": "raw/affiliate/2026-08-04-amazon-csv/linked-product.csv",
+        "date": "2026-08-04",
+        "dateSource": "filename",
+        "ageDays": 2,
+        "sizeBytes": 1047,
+        "dataRows": 4
+      },
+      {
+        "path": "raw/affiliate/2026-08-04-amazon-csv/category.csv",
+        "date": "2026-08-04",
+        "dateSource": "filename",
+        "ageDays": 2,
+        "sizeBytes": 496,
+        "dataRows": 2
+      },
+      {
+        "path": "raw/affiliate/2026-08-04-amazon-csv/tracking-id.csv",
+        "date": "2026-08-04",
+        "dateSource": "filename",
+        "ageDays": 2,
+        "sizeBytes": 263,
+        "dataRows": 1
+      },
+      {
+        "path": "raw/affiliate/2026-08-04-amazon-csv/top-sellers.csv",
+        "date": "2026-08-04",
+        "dateSource": "filename",
+        "ageDays": 2,
+        "sizeBytes": 47,
+        "dataRows": 0
+      },
+      {
+        "path": "raw/affiliate/2026-08-03-amazon-associates-report.md",
+        "date": "2026-08-03",
+        "dateSource": "filename",
+        "ageDays": 3,
+        "sizeBytes": 6860,
+        "dataRows": null
+      },
+      {
+        "path": "raw/affiliate/2026-08-03-amazon-csv/linked-product.csv",
+        "date": "2026-08-03",
+        "dateSource": "filename",
+        "ageDays": 3,
+        "sizeBytes": 1046,
+        "dataRows": 4
+      },
+      {
+        "path": "raw/affiliate/2026-08-03-amazon-csv/category.csv",
+        "date": "2026-08-03",
+        "dateSource": "filename",
+        "ageDays": 3,
+        "sizeBytes": 494,
+        "dataRows": 2
+      }
+    ],
+    "overdue": false
+  },
+  "meta": {
+    "collectedAt": "2026-08-06T06:54:08.635Z",
+    "rowCount": 27,
+    "healthy": true,
+    "reason": null
+  }
+}

@@ -1,0 +1,1219 @@
+{
+  "collectedAt": "2026-08-06T06:54:08.599Z",
+  "finishedAt": "2026-08-06T07:00:13.741Z",
+  "durationMs": 365142,
+  "healthy": false,
+  "healthyCount": 6,
+  "total": 7,
+  "coveragePct": 86,
+  "unhealthy": [
+    {
+      "name": "cloudflare",
+      "reason": "CLOUDFLARE_API_TOKEN not set — see PRD §10.1 (token needs Account → Cloudflare Pages:Read, Zone → Analytics:Read, and Zone → Firewall Services:Read; add it to .env locally and as a repo secret so nightly.yml can pass it)"
+    }
+  ],
+  "ledger": {
+    "available": true,
+    "filed": 1,
+    "failed": 0,
+    "note": "filed 1 collector finding(s)"
+  },
+  "collectors": {
+    "gsc": {
+      "data": {
+        "credential": {
+          "source": "credentials/gsc-service-account.json",
+          "clientEmail": "gsc-reader@capable-fuze-481604-j1.iam.gserviceaccount.com",
+          "propertyVerified": true,
+          "permissionLevel": "siteFullUser"
+        },
+        "performance": {
+          "pulledAt": "2026-08-03T11:30:12.853Z",
+          "ageHours": 67.4,
+          "dateRange": {
+            "start": "2026-05-05",
+            "end": "2026-08-03",
+            "days": 90
+          },
+          "totals": {
+            "clicks": 230,
+            "impressions": 98003,
+            "ctr": 0.23,
+            "avgPosition": 8.1
+          },
+          "pageCount": 44,
+          "queryCount": 200
+        },
+        "analysis": {
+          "generatedAt": "2026-08-03T11:30:13.162Z",
+          "ageHours": 67.4,
+          "opportunityCount": 38,
+          "ctrLeakCount": 17,
+          "decayAlertCount": 0
+        },
+        "indexInspection": {
+          "siteUrl": "https://tallchairadvisor.com/",
+          "eligible": 49,
+          "requested": 49,
+          "inspected": 49,
+          "failed": 0,
+          "quotaExceeded": false,
+          "coveragePct": 100,
+          "verdicts": {
+            "PASS": 45,
+            "NEUTRAL": 4
+          },
+          "coverageStates": {
+            "Submitted and indexed": 45,
+            "Discovered - currently not indexed": 2,
+            "URL is unknown to Google": 1,
+            "Crawled - currently not indexed": 1
+          },
+          "notIndexed": [
+            "https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/",
+            "https://tallchairadvisor.com/lumbar-support-tall-people/",
+            "https://tallchairadvisor.com/office-chair-return-policy/",
+            "https://tallchairadvisor.com/standing-desk-height-tall-people/"
+          ],
+          "pages": [
+            {
+              "url": "https://tallchairadvisor.com/about/",
+              "file": "src/pages/about.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-02T21:26:30Z",
+              "googleCanonical": "https://tallchairadvisor.com/about/",
+              "userCanonical": "https://tallchairadvisor.com/about/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
+              "file": "src/pages/aeron-size-c-vs-leap-plus.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T06:13:05Z",
+              "googleCanonical": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
+              "userCanonical": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/aeron-vs-gesture/",
+              "file": "src/pages/aeron-vs-gesture.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-27T18:13:21Z",
+              "googleCanonical": "https://tallchairadvisor.com/aeron-vs-gesture/",
+              "userCanonical": "https://tallchairadvisor.com/aeron-vs-gesture/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
+              "file": "src/pages/aeron-vs-leap-plus.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-22T09:31:57Z",
+              "googleCanonical": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
+              "userCanonical": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/back-pain-spine-height/",
+              "file": "src/pages/back-pain-spine-height.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-04T06:22:41Z",
+              "googleCanonical": "https://tallchairadvisor.com/back-pain-spine-height/",
+              "userCanonical": "https://tallchairadvisor.com/back-pain-spine-height/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
+              "file": "src/pages/best-big-and-tall-office-chairs.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-26T08:08:27Z",
+              "googleCanonical": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
+              "userCanonical": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/best-office-chairs-under-500/",
+              "file": "src/pages/best-office-chairs-under-500.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-13T21:59:28Z",
+              "googleCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
+              "userCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chair-headrest-tall-people/",
+              "file": "src/pages/chair-headrest-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T06:11:05Z",
+              "googleCanonical": "https://tallchairadvisor.com/chair-headrest-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/chair-headrest-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
+              "file": "src/pages/chairs/herman-miller-aeron/index.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-02T18:56:40Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/",
+              "file": "src/pages/chairs/herman-miller-aeron/size-guide.astro",
+              "verdict": "NEUTRAL",
+              "coverageState": "Discovered - currently not indexed",
+              "indexingState": "INDEXING_STATE_UNSPECIFIED",
+              "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+              "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+              "lastCrawlTime": null,
+              "googleCanonical": null,
+              "userCanonical": null,
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
+              "file": "src/pages/chairs/herman-miller-aeron/tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-22T14:08:00Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
+              "file": "src/pages/chairs/steelcase-gesture/index.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-02T18:19:09Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
+              "file": "src/pages/chairs/steelcase-gesture/seat-depth.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-23T17:36:07Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
+              "file": "src/pages/chairs/steelcase-gesture/weight-limit.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-14T07:57:23Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/",
+              "file": "src/pages/chairs/steelcase-leap-plus/index.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-03T03:05:37Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/",
+              "file": "src/pages/chairs/steelcase-leap-plus/seat-height.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-06-08T06:31:19Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/",
+              "file": "src/pages/chairs/steelcase-leap-plus/tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-14T20:14:33Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/",
+              "file": "src/pages/chairs/steelcase-leap-plus/weight-limit.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-03T10:56:15Z",
+              "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/",
+              "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/correct-chair-dimensions/",
+              "file": "src/pages/correct-chair-dimensions.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-28T10:51:43Z",
+              "googleCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
+              "userCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/fit-guides/",
+              "file": "src/pages/fit-guides.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-19T14:17:35Z",
+              "googleCanonical": "https://tallchairadvisor.com/fit-guides/",
+              "userCanonical": "https://tallchairadvisor.com/fit-guides/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
+              "file": "src/pages/gesture-vs-leap-plus.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-31T15:00:40Z",
+              "googleCanonical": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
+              "userCanonical": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
+              "file": "src/pages/heavy-duty-ergonomic-chairs-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T06:13:05Z",
+              "googleCanonical": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/how-to-adjust-chair/",
+              "file": "src/pages/how-to-adjust-chair.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-28T17:54:15Z",
+              "googleCanonical": "https://tallchairadvisor.com/how-to-adjust-chair/",
+              "userCanonical": "https://tallchairadvisor.com/how-to-adjust-chair/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/",
+              "file": "src/pages/index.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-30T20:38:41Z",
+              "googleCanonical": "https://tallchairadvisor.com/",
+              "userCanonical": "https://tallchairadvisor.com/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
+              "file": "src/pages/keyboard-tray-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T06:13:05Z",
+              "googleCanonical": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/knee-pain-seat-depth/",
+              "file": "src/pages/knee-pain-seat-depth.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T09:45:15Z",
+              "googleCanonical": "https://tallchairadvisor.com/knee-pain-seat-depth/",
+              "userCanonical": "https://tallchairadvisor.com/knee-pain-seat-depth/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/leg-pain-circulation/",
+              "file": "src/pages/leg-pain-circulation.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-26T16:44:38Z",
+              "googleCanonical": "https://tallchairadvisor.com/leg-pain-circulation/",
+              "userCanonical": "https://tallchairadvisor.com/leg-pain-circulation/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/lumbar-support-tall-people/",
+              "file": "src/pages/lumbar-support-tall-people.astro",
+              "verdict": "NEUTRAL",
+              "coverageState": "URL is unknown to Google",
+              "indexingState": "INDEXING_STATE_UNSPECIFIED",
+              "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+              "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+              "lastCrawlTime": null,
+              "googleCanonical": null,
+              "userCanonical": null,
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/monitor-arm-tall-people/",
+              "file": "src/pages/monitor-arm-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-31T18:50:37Z",
+              "googleCanonical": "https://tallchairadvisor.com/monitor-arm-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/monitor-arm-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/",
+              "file": "src/pages/office-chair-lower-back-pain-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-31T16:57:55Z",
+              "googleCanonical": "https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chair-return-policy/",
+              "file": "src/pages/office-chair-return-policy.astro",
+              "verdict": "NEUTRAL",
+              "coverageState": "Discovered - currently not indexed",
+              "indexingState": "INDEXING_STATE_UNSPECIFIED",
+              "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+              "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+              "lastCrawlTime": null,
+              "googleCanonical": null,
+              "userCanonical": null,
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
+              "file": "src/pages/office-chairs-for-6-foot-3.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-25T21:15:53Z",
+              "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
+              "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
+              "file": "src/pages/office-chairs-for-6-foot-4.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-31T20:05:37Z",
+              "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
+              "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
+              "file": "src/pages/office-chairs-for-6-foot-5.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-31T21:58:55Z",
+              "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
+              "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-6/",
+              "file": "src/pages/office-chairs-for-6-foot-6.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-02T16:26:32Z",
+              "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-6/",
+              "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-6/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
+              "file": "src/pages/office-chairs-for-6-foot-7.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-21T11:05:15Z",
+              "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
+              "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
+              "file": "src/pages/office-chairs-for-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-31T09:03:51Z",
+              "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/pain-ergonomics/",
+              "file": "src/pages/pain-ergonomics.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-23T12:52:54Z",
+              "googleCanonical": "https://tallchairadvisor.com/pain-ergonomics/",
+              "userCanonical": "https://tallchairadvisor.com/pain-ergonomics/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
+              "file": "src/pages/refurbished-steelcase-leap-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T06:13:05Z",
+              "googleCanonical": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/review/aeron-size-c/",
+              "file": "src/pages/review/aeron-size-c.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-30T21:16:11Z",
+              "googleCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
+              "userCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/review/gesture/",
+              "file": "src/pages/review/gesture.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-28T16:39:12Z",
+              "googleCanonical": "https://tallchairadvisor.com/review/gesture/",
+              "userCanonical": "https://tallchairadvisor.com/review/gesture/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/review/leap-plus/",
+              "file": "src/pages/review/leap-plus.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-28T12:07:00Z",
+              "googleCanonical": "https://tallchairadvisor.com/review/leap-plus/",
+              "userCanonical": "https://tallchairadvisor.com/review/leap-plus/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
+              "file": "src/pages/review/sihoo-doro-s300.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-03T09:19:40Z",
+              "googleCanonical": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
+              "userCanonical": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
+              "file": "src/pages/seat-cushion-height-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T06:13:05Z",
+              "googleCanonical": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
+              "file": "src/pages/shoulder-pain-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-06-12T18:27:16Z",
+              "googleCanonical": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
+              "file": "src/pages/standing-desk-converter-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T14:39:42Z",
+              "googleCanonical": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
+              "file": "src/pages/standing-desk-height-tall-people.astro",
+              "verdict": "NEUTRAL",
+              "coverageState": "Crawled - currently not indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-03T09:38:25Z",
+              "googleCanonical": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
+              "file": "src/pages/why-standard-chairs-dont-fit.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-07-30T04:33:42Z",
+              "googleCanonical": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
+              "userCanonical": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
+              "error": null
+            },
+            {
+              "url": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
+              "file": "src/pages/wide-seat-office-chairs-tall-people.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-05T06:13:05Z",
+              "googleCanonical": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
+              "userCanonical": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
+              "error": null
+            }
+          ]
+        }
+      },
+      "meta": {
+        "collectedAt": "2026-08-06T07:00:13.698Z",
+        "rowCount": 49,
+        "healthy": true,
+        "reason": null
+      }
+    },
+    "ga4": {
+      "data": {
+        "source": "data/ga4/latest.json",
+        "propertyId": "516318682",
+        "propertyIdEnvMatches": true,
+        "pulledAt": "2026-08-03T11:30:19.800Z",
+        "ageHours": 67.4,
+        "slaHours": 192,
+        "dateRange": {
+          "start": "2026-07-06",
+          "end": "2026-08-03",
+          "days": 28
+        },
+        "totals": {
+          "sessions": 303,
+          "activeUsers": 286,
+          "pageViews": 367,
+          "engagementRate": 0.356,
+          "avgSessionDuration": 107.7,
+          "bounceRate": 0.644
+        },
+        "pageCount": 39,
+        "channelGroups": [
+          {
+            "channel": "Direct",
+            "sessions": 170,
+            "pct": 0.561
+          },
+          {
+            "channel": "Organic Search",
+            "sessions": 65,
+            "pct": 0.215
+          },
+          {
+            "channel": "AI Assistant",
+            "sessions": 47,
+            "pct": 0.155
+          },
+          {
+            "channel": "Unassigned",
+            "sessions": 26,
+            "pct": 0.086
+          },
+          {
+            "channel": "Organic Video",
+            "sessions": 1,
+            "pct": 0.003
+          },
+          {
+            "channel": "Referral",
+            "sessions": 1,
+            "pct": 0.003
+          }
+        ],
+        "affiliateClickTotal": 26,
+        "zeroSessionDays": [],
+        "aiReferralSessions": 54
+      },
+      "meta": {
+        "collectedAt": "2026-08-06T06:54:08.610Z",
+        "rowCount": 39,
+        "healthy": true,
+        "reason": null
+      }
+    },
+    "clarity": {
+      "data": {
+        "source": "data/clarity/latest.json",
+        "pulledAt": "2026-08-05T12:00:55.968Z",
+        "ageHours": 18.9,
+        "slaHours": 192,
+        "numOfDays": 2,
+        "pageCount": 31,
+        "deviceSplit": {
+          "mobile": 0.229,
+          "pc": 0.771,
+          "other": 0
+        },
+        "alertCount": 14,
+        "alertsByIssue": {
+          "low-scroll-depth": 14
+        },
+        "credential": {
+          "envVar": "CLARITY_TOKEN",
+          "present": true,
+          "live": true,
+          "checkedAt": "2026-08-06T06:54:08.610Z",
+          "detail": null
+        }
+      },
+      "meta": {
+        "collectedAt": "2026-08-06T06:54:09.443Z",
+        "rowCount": 31,
+        "healthy": true,
+        "reason": null
+      }
+    },
+    "cloudflare": {
+      "data": null,
+      "meta": {
+        "collectedAt": "2026-08-06T06:54:08.625Z",
+        "rowCount": 0,
+        "healthy": false,
+        "reason": "CLOUDFLARE_API_TOKEN not set — see PRD §10.1 (token needs Account → Cloudflare Pages:Read, Zone → Analytics:Read, and Zone → Firewall Services:Read; add it to .env locally and as a repo secret so nightly.yml can pass it)"
+      }
+    },
+    "github-actions": {
+      "data": {
+        "repo": "Videostarlord/tallchairadvisor",
+        "defaultBranch": "main",
+        "ghVersion": "gh version 2.83.2 (2025-12-10)",
+        "authAccount": "Videostarlord",
+        "workflows": [
+          {
+            "name": "Clarity — Behavioral History",
+            "path": ".github/workflows/clarity-history.yml",
+            "state": "active",
+            "cron": "0 10 */2 * *",
+            "expectedCadenceDays": 2,
+            "lastRun": {
+              "runNumber": 27,
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-08-05T12:00:26Z",
+              "finishedAt": "2026-08-05T12:01:01Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31003768185",
+              "headSha": "0827a7254bc37f4cc9a9fd78b5f1a966cebe553f",
+              "event": "schedule"
+            },
+            "committedDuringRun": 1,
+            "commitSubjects": [
+              "[skip cd] data: Clarity history 2026-08-05"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-05T12:00:26Z) and run end + 15min (2026-08-05T12:16:01.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Friday — New Content (Conditional)",
+            "path": ".github/workflows/friday.yml",
+            "state": "active",
+            "cron": "0 8 * * 5",
+            "expectedCadenceDays": 7,
+            "lastRun": {
+              "runNumber": 19,
+              "status": "completed",
+              "conclusion": "failure",
+              "startedAt": "2026-07-31T10:29:17Z",
+              "finishedAt": "2026-07-31T10:34:57Z",
+              "daysAgo": 5,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30623712382",
+              "headSha": "af4936b2e02f788aa62f5776697885ec5bbc7e85",
+              "event": "schedule"
+            },
+            "committedDuringRun": 0,
+            "commitSubjects": [],
+            "commitInferenceMethod": "bot commits on main between run start (2026-07-31T10:29:17Z) and run end + 15min (2026-07-31T10:49:57.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Keywords — Monthly Discovery",
+            "path": ".github/workflows/keywords-monthly.yml",
+            "state": "active",
+            "cron": "0 8 1 * *",
+            "expectedCadenceDays": 31,
+            "lastRun": {
+              "runNumber": 3,
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-08-01T09:50:38Z",
+              "finishedAt": "2026-08-01T09:52:05Z",
+              "daysAgo": 4,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
+              "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
+              "event": "schedule"
+            },
+            "committedDuringRun": 1,
+            "commitSubjects": [
+              "[skip cd] data: monthly keyword discovery 2026-08-01"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-01T09:50:38Z) and run end + 15min (2026-08-01T10:07:05.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Monday — Data & Competitor Intelligence",
+            "path": ".github/workflows/monday.yml",
+            "state": "active",
+            "cron": "0 8 * * 1",
+            "expectedCadenceDays": 7,
+            "lastRun": {
+              "runNumber": 23,
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-08-03T11:29:55Z",
+              "finishedAt": "2026-08-03T11:57:02Z",
+              "daysAgo": 2,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30809767811",
+              "headSha": "a0af2bd03d3fc11b5ce0c299fe9ad10a9a71104f",
+              "event": "schedule"
+            },
+            "committedDuringRun": 1,
+            "commitSubjects": [
+              "[skip cd] data: Monday pull + index fixes 2026-08-03"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-03T11:29:55Z) and run end + 15min (2026-08-03T12:12:02.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Saturday — Verify & Deploy",
+            "path": ".github/workflows/saturday.yml",
+            "state": "active",
+            "cron": "0 9 * * 6",
+            "expectedCadenceDays": 7,
+            "lastRun": {
+              "runNumber": 23,
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-08-01T10:24:20Z",
+              "finishedAt": "2026-08-01T10:25:03Z",
+              "daysAgo": 4,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30695642014",
+              "headSha": "3898b88b650aeb2caff71cfd22e8036673f3ff9e",
+              "event": "schedule"
+            },
+            "committedDuringRun": 2,
+            "commitSubjects": [
+              "deploy: Weekly cycle 2026-08-01",
+              "chore: sync main into staging before deploy"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-01T10:24:20Z) and run end + 15min (2026-08-01T10:40:03.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Thursday — Execute Fixes",
+            "path": ".github/workflows/thursday.yml",
+            "state": "active",
+            "cron": "0 8 * * 4",
+            "expectedCadenceDays": 7,
+            "lastRun": {
+              "runNumber": 22,
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-07-30T10:07:57Z",
+              "finishedAt": "2026-07-30T10:08:23Z",
+              "daysAgo": 6,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30533486641",
+              "headSha": "af4936b2e02f788aa62f5776697885ec5bbc7e85",
+              "event": "schedule"
+            },
+            "committedDuringRun": 1,
+            "commitSubjects": [
+              "[skip cd] data: Thursday wiki + reports 2026-07-30"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-07-30T10:07:57Z) and run end + 15min (2026-07-30T10:23:23.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Tuesday — Full Site Audit",
+            "path": ".github/workflows/tuesday.yml",
+            "state": "active",
+            "cron": "0 8 * * 2",
+            "expectedCadenceDays": 7,
+            "lastRun": {
+              "runNumber": 18,
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-08-04T10:37:26Z",
+              "finishedAt": "2026-08-04T10:39:33Z",
+              "daysAgo": 1,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30901415489",
+              "headSha": "a991c6cc147a587d3dde7f83288eed2a283b411a",
+              "event": "schedule"
+            },
+            "committedDuringRun": 1,
+            "commitSubjects": [
+              "[skip cd] report: Tuesday audit 2026-08-04"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-04T10:37:26Z) and run end + 15min (2026-08-04T10:54:33.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Wednesday — Strategy & Planning",
+            "path": ".github/workflows/wednesday.yml",
+            "state": "active",
+            "cron": "0 8 * * 3",
+            "expectedCadenceDays": 7,
+            "lastRun": {
+              "runNumber": 21,
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-08-05T10:39:45Z",
+              "finishedAt": "2026-08-05T10:40:53Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30998314806",
+              "headSha": "c2a9427696ac19f95558197bd536f3693c56fe6c",
+              "event": "schedule"
+            },
+            "committedDuringRun": 1,
+            "commitSubjects": [
+              "[skip cd] plan: Week of 2026-08-05"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-05T10:39:45Z) and run end + 15min (2026-08-05T10:55:53.000Z) — inferred, not authoritative",
+            "stale": false
+          }
+        ],
+        "failing": [
+          "Friday — New Content (Conditional)"
+        ],
+        "stale": [],
+        "neverRan": [],
+        "wroteNothing": []
+      },
+      "meta": {
+        "collectedAt": "2026-08-06T06:54:16.039Z",
+        "rowCount": 8,
+        "healthy": true,
+        "reason": null
+      }
+    },
+    "quotas": {
+      "data": {
+        "services": [
+          {
+            "service": "serpapi",
+            "envVars": [
+              "SERP_API_KEY",
+              "SERPAPI_KEY"
+            ],
+            "configured": true,
+            "unit": "credits",
+            "used": 45,
+            "remaining": 205,
+            "limit": 250,
+            "pctRemaining": 82,
+            "knownFreeTierLimit": 250,
+            "detail": {
+              "plan": "Free Plan",
+              "planSearchesLeft": 205,
+              "extraCredits": 0,
+              "rateLimitPerHour": 250
+            },
+            "error": null
+          },
+          {
+            "service": "firecrawl",
+            "envVars": [
+              "FIRECRAWL_API_KEY"
+            ],
+            "configured": true,
+            "unit": "pages",
+            "used": null,
+            "remaining": 19306,
+            "limit": 1000,
+            "pctRemaining": null,
+            "knownFreeTierLimit": 500,
+            "detail": {
+              "planCredits": 1000,
+              "rolloverOrGrantExceedsPlan": true,
+              "note": "remaining exceeds plan_credits (rollover/grant credits) — usage and % withheld rather than computed negative",
+              "billingPeriodStart": "2026-07-18T07:01:54.231Z",
+              "billingPeriodEnd": "2026-08-18T07:01:54.231Z"
+            },
+            "error": null
+          },
+          {
+            "service": "dataforseo",
+            "envVars": [
+              "DATAFORSEO_USERNAME",
+              "DATAFORSEO_LOGIN",
+              "DATAFORSEO_PASSWORD"
+            ],
+            "configured": true,
+            "unit": "usd",
+            "used": null,
+            "remaining": 50.4798,
+            "limit": null,
+            "pctRemaining": null,
+            "knownFreeTierLimit": null,
+            "detail": {
+              "login": "jackson.a.christopher@gmail.com",
+              "limits": null
+            },
+            "error": null
+          }
+        ],
+        "configured": 3,
+        "live": 3,
+        "low": []
+      },
+      "meta": {
+        "collectedAt": "2026-08-06T06:54:09.480Z",
+        "rowCount": 3,
+        "healthy": true,
+        "reason": null
+      }
+    },
+    "amazon": {
+      "data": {
+        "pullable": false,
+        "reason": "Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2). This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.",
+        "searchedPaths": [
+          "raw/affiliate",
+          "raw/amazon",
+          "data/affiliate",
+          "raw",
+          "data"
+        ],
+        "nagThresholdDays": 7,
+        "matchCount": 27,
+        "newest": {
+          "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
+          "date": "2026-08-04",
+          "dateSource": "filename",
+          "ageDays": 2,
+          "sizeBytes": 4380,
+          "dataRows": null
+        },
+        "recent": [
+          {
+            "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
+            "date": "2026-08-04",
+            "dateSource": "filename",
+            "ageDays": 2,
+            "sizeBytes": 4380,
+            "dataRows": null
+          },
+          {
+            "path": "raw/affiliate/2026-08-04-amazon-csv/linked-product.csv",
+            "date": "2026-08-04",
+            "dateSource": "filename",
+            "ageDays": 2,
+            "sizeBytes": 1047,
+            "dataRows": 4
+          },
+          {
+            "path": "raw/affiliate/2026-08-04-amazon-csv/category.csv",
+            "date": "2026-08-04",
+            "dateSource": "filename",
+            "ageDays": 2,
+            "sizeBytes": 496,
+            "dataRows": 2
+          },
+          {
+            "path": "raw/affiliate/2026-08-04-amazon-csv/tracking-id.csv",
+            "date": "2026-08-04",
+            "dateSource": "filename",
+            "ageDays": 2,
+            "sizeBytes": 263,
+            "dataRows": 1
+          },
+          {
+            "path": "raw/affiliate/2026-08-04-amazon-csv/top-sellers.csv",
+            "date": "2026-08-04",
+            "dateSource": "filename",
+            "ageDays": 2,
+            "sizeBytes": 47,
+            "dataRows": 0
+          },
+          {
+            "path": "raw/affiliate/2026-08-03-amazon-associates-report.md",
+            "date": "2026-08-03",
+            "dateSource": "filename",
+            "ageDays": 3,
+            "sizeBytes": 6860,
+            "dataRows": null
+          },
+          {
+            "path": "raw/affiliate/2026-08-03-amazon-csv/linked-product.csv",
+            "date": "2026-08-03",
+            "dateSource": "filename",
+            "ageDays": 3,
+            "sizeBytes": 1046,
+            "dataRows": 4
+          },
+          {
+            "path": "raw/affiliate/2026-08-03-amazon-csv/category.csv",
+            "date": "2026-08-03",
+            "dateSource": "filename",
+            "ageDays": 3,
+            "sizeBytes": 494,
+            "dataRows": 2
+          }
+        ],
+        "overdue": false
+      },
+      "meta": {
+        "collectedAt": "2026-08-06T06:54:08.635Z",
+        "rowCount": 27,
+        "healthy": true,
+        "reason": null
+      }
+    }
+  }
+}
