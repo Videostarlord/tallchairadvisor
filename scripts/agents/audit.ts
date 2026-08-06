@@ -9,19 +9,41 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry } from './wiki-utils.js';
+import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const BASE_URL = 'https://tallchairadvisor.com';
 
+/**
+ * Fetch a page's <head> signals.
+ *
+ * redirect: 'manual' is REQUIRED and must not be removed. Default `fetch()`
+ * follows redirects silently, which on 2026-08-05 produced a false "CRITICAL
+ * duplicate content crisis": /best-office-chairs/ is a 301 to
+ * /office-chairs-for-tall-people/, so following the redirect compared the
+ * destination page against itself and reported identical titles + canonicals.
+ * A redirect source has no <head> of its own and must never be meta-audited.
+ */
 async function fetchMeta(path: string) {
   const url = `${BASE_URL}${path}`;
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0' },
       signal: AbortSignal.timeout(10000),
+      redirect: 'manual',
     });
+
+    if (res.status >= 300 && res.status < 400) {
+      return {
+        url,
+        status: res.status,
+        isRedirect: true,
+        redirectTo: res.headers.get('location') ?? '(unknown)',
+      };
+    }
+
     const html = await res.text();
     const title = html.match(/<title[^>]*>(.*?)<\/title>/i)?.[1]?.trim() ?? null;
     const desc = html.match(/<meta\s+name=["']description["']\s+content="([^"]*)"/i)?.[1] ?? null;
@@ -34,7 +56,7 @@ async function fetchMeta(path: string) {
     for (const m of schemaMatches) {
       try { JSON.parse(m[1]); schemaBlocks.push(m[1].trim()); } catch { schemaBlocks.push('PARSE_ERROR'); }
     }
-    return { url, status: res.status, title, desc, canonical, ogTitle, ogDesc, hasSchema, schemaBlocks,
+    return { url, status: res.status, isRedirect: false, title, desc, canonical, ogTitle, ogDesc, hasSchema, schemaBlocks,
       titleLen: title?.length ?? 0, descLen: desc?.length ?? 0 };
   } catch (e: any) {
     return { url, status: 0, error: e.message };
@@ -61,21 +83,53 @@ async function main() {
   // Reconcile intervention outcomes now that fresh GSC data is available
   reconcileInterventions(ROOT);
 
-  // Focus on pages with meaningful impressions
-  const pagesToAudit = gsc.pages
+  // Redirect sources are not pages. They keep producing GSC impressions for
+  // ~90 days after a merge, so they surface in this list and MUST be excluded
+  // before any meta/duplicate analysis — see scripts/redirect-map.ts for the
+  // 2026-08-05 incident this prevents.
+  const redirectMap = loadRedirectMap(ROOT);
+
+  const candidatePages = gsc.pages
     .filter((p: any) => p.impressions >= 10 && !p.page.includes('/assets/') && !p.page.includes('/images/'))
-    .sort((a: any, b: any) => b.impressions - a.impressions)
+    .sort((a: any, b: any) => b.impressions - a.impressions);
+
+  const redirectPages = candidatePages.filter((p: any) =>
+    isRedirectSource(redirectMap, (p.page as string).replace(BASE_URL, '')));
+
+  const pagesToAudit = candidatePages
+    .filter((p: any) => !isRedirectSource(redirectMap, (p.page as string).replace(BASE_URL, '')))
     .slice(0, 20);
+
+  if (redirectPages.length > 0) {
+    console.log(`[audit] Excluded ${redirectPages.length} redirect source(s) from the audit set:`);
+    for (const p of redirectPages) {
+      const from = (p.page as string).replace(BASE_URL, '');
+      console.log(`  ${from} -> ${resolveRedirect(redirectMap, withTrailingSlash(from))} (${p.impressions} residual impr)`);
+    }
+  }
 
   console.log(`Auditing ${pagesToAudit.length} pages...`);
 
-  const pageResults = [];
+  const pageResults: Array<{ gsc: any; meta: any }> = [];
   for (const page of pagesToAudit) {
     const path = page.page.startsWith('/') ? page.page : `/${page.page}`;
     const meta = await fetchMeta(path);
+    // Belt-and-braces: if a live 3xx shows up that _redirects didn't predict
+    // (e.g. a Cloudflare-level rule), drop it rather than meta-auditing it.
+    if ((meta as any).isRedirect) {
+      console.log(`[audit] Skipping ${path} — live ${meta.status} to ${(meta as any).redirectTo}`);
+      continue;
+    }
     pageResults.push({ gsc: page, meta });
     await new Promise(r => setTimeout(r, 1000));
   }
+
+  // Every redirect source, so the model can never mistake one for a page.
+  // Not just the ones with impressions — a merge target comparison could
+  // reference any of them.
+  const redirectListForPrompt = redirectMap.size === 0
+    ? '  (none)'
+    : [...redirectMap.entries()].map(([from, to]) => `  ${from} -> ${to}`).join('\n');
 
   // Read wiki context for historical comparison
   const wikiContext = readConceptContext(ROOT, ['ctr-optimization', 'statistical-confidence-policy', 'meta-descriptions', 'schema-markup']);
@@ -94,6 +148,16 @@ CRITICAL: Jackson has ONLY personally tested the Steelcase Gesture. All other ch
 Affiliate tag: tag=tallchairadvi-20 (must be on all Amazon links).
 Meta descriptions: 130-155 chars ideal. Titles: 50-60 chars.
 CTR leak = position ≤ 10 with 0 or very low clicks.
+
+REDIRECT SOURCES — DO NOT FLAG AS DUPLICATE CONTENT.
+These URLs are 301 redirects, not pages. They have been excluded from the data below,
+but they still appear in GSC with residual impressions for ~90 days after a merge:
+${redirectListForPrompt}
+Never report a canonical/duplicate/cannibalization issue between a redirect source and
+its target — that is the merge working as intended, not a problem. On 2026-08-05 this
+exact false positive was reported as CRITICAL and nearly caused an agent to recreate a
+deliberately consolidated page. If you believe two URLs are duplicates, first confirm
+neither appears in the list above.
 
 HISTORICAL CONTEXT FROM WIKI (compare this week against prior findings):
 ${wikiContext.slice(0, 2000)}

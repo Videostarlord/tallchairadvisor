@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSy
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
+import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -109,12 +110,18 @@ function injectMandatoryRoadmapItems(
   roadmapTopics: Array<{ title: string; keyword: string; slug: string; status: string; priority: number; notes: string }>,
   existingSlugs: Set<string>,
   failedSlugs: Set<string>,
+  redirectMap: Map<string, string>,
 ): { plan: string; injected: string[] } {
   const injected: string[] = [];
   let plan = planText;
 
   const pendingTopics = roadmapTopics
-    .filter(t => (t.status === 'pending' || t.status === 'in-progress') && !existingSlugs.has(t.slug) && !failedSlugs.has(t.slug))
+    .filter(t => (t.status === 'pending' || t.status === 'in-progress')
+      && !existingSlugs.has(t.slug)
+      && !failedSlugs.has(t.slug)
+      // A roadmap topic can also name a redirected slug — this injection path
+      // bypasses enforcePlanConstraints, so it needs the same guard.
+      && !isRedirectSource(redirectMap, t.slug))
     .sort((a, b) => a.priority - b.priority)
     .slice(0, 2);
 
@@ -139,6 +146,8 @@ function enforcePlanConstraints(
   fileToSlug: Map<string, string>,
   gscAnalysis: any,
   gscLatest: any,
+  redirectMap: Map<string, string>,
+  existingSlugs: Set<string>,
 ): { plan: string; dropped: string[] } {
   const lines = planText.split('\n');
   const dropped: string[] = [];
@@ -169,8 +178,26 @@ function enforcePlanConstraints(
     if (!taskMatch) { result.push(line); continue; }
     const type = taskMatch[1] as 'FIX' | 'REWRITE' | 'NEW';
 
-    // NEW content: no file-existence or cooldown constraint
-    if (type === 'NEW') { result.push(line); continue; }
+    // NEW content: no file-existence or cooldown constraint, BUT the target
+    // slug must not already be spoken for. On 2026-08-05 the plan proposed a
+    // NEW page at /best-office-chairs/ — a 301 redirect source since the
+    // 2026-07-04 consolidation. Building it would have collided with the
+    // redirect rule and recreated the cannibalization the merge fixed.
+    if (type === 'NEW') {
+      const slugMatch = line.match(/\|\s*(\/[a-z0-9/-]*\/)\s*\|/i);
+      const slug = slugMatch ? withTrailingSlash(slugMatch[1]) : null;
+
+      if (slug && isRedirectSource(redirectMap, slug)) {
+        dropped.push(`NEW ${slug} — slug is a 301 redirect source (-> ${resolveRedirect(redirectMap, slug)}). Building a page here would collide with public/_redirects and undo a deliberate consolidation.`);
+        continue;
+      }
+      if (slug && existingSlugs.has(slug)) {
+        dropped.push(`NEW ${slug} — page already exists; route to REWRITE instead of duplicating.`);
+        continue;
+      }
+      result.push(line);
+      continue;
+    }
 
     const fileMatch = line.match(/FILE:\s*(src\/pages\/\S+\.astro)/);
     if (!fileMatch) {
@@ -351,6 +378,9 @@ async function main() {
   const existingPages = getExistingPages(ROOT);
   const existingFilePaths = existingPages.map(p => `  ${p.filePath}`).join('\n');
   const existingSlugs = new Set(existingPages.map(p => p.slug));
+  // Redirect sources are not available slugs — a NEW page at one would collide
+  // with public/_redirects. See scripts/redirect-map.ts (2026-08-05 incident).
+  const redirectMap = loadRedirectMap(ROOT);
   const existingFilePathSet = new Set(existingPages.map(p => p.filePath));
   const fileToSlug = new Map(existingPages.map(p => [p.filePath, p.slug]));
 
@@ -560,11 +590,12 @@ Output a structured weekly plan in this EXACT format so the execution agents can
   // ── Post-generation enforcement: drop tasks that violate hard constraints ──
   const { plan: enforced, dropped } = enforcePlanConstraints(
     output2, pagesOnCooldown, existingFilePathSet, fileToSlug, gscAnalysis, gsc,
+    redirectMap, existingSlugs,
   );
 
   // Inject mandatory roadmap items — deterministic, not LLM-dependent
   const { plan: withRoadmap, injected: roadmapInjected } = injectMandatoryRoadmapItems(
-    enforced, contentRoadmap, existingSlugs, failedSlugs,
+    enforced, contentRoadmap, existingSlugs, failedSlugs, redirectMap,
   );
   if (roadmapInjected.length > 0) {
     console.log(`\nRoadmap injection: added ${roadmapInjected.length} mandatory item(s): ${roadmapInjected.join(', ')}`);
