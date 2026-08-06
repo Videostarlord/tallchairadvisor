@@ -45,6 +45,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 | Page | Summary |
 |------|---------|
+| [[godseye-nightly]] | **BUILT 2026-08-06, unpushed.** Observation layer over the Mon–Sat pipeline: contracts, ledger with closure predicates, collectors, Playwright probes, nightly report, dead-man's switch, bounded corrector. Fixed the reconciler that reconciled nothing for months. Blocked on `CLOUDFLARE_API_TOKEN` + `NTFY_TOPIC` + second-repo watcher. |
 | [[ctr-optimization]] | #1 site bottleneck. 0.23% CTR (May 2026). Cause A: AIO suppression (80%). Cause B: carousels. Build geo-optimize.ts to fix. |
 | [[geo-optimize-plan]] | **COMPLETE (May 11).** Integrated into competitor-intelligence.ts v2.3. 3 capsules applied (gesture, best-office-chairs, leap-plus). SERP cache live (72h). 3 pages pending (page_token — unfixable). Strategy.ts reads AIO context. |
 | [[meta-descriptions]] | Length constraints, regex bug, current status per page. |
