@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-06T07:00:48.870Z",
+  "generatedAt": "2026-08-06T08:02:06.675Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
   "counts": {
-    "open": 5,
-    "closed": 3,
+    "open": 4,
+    "closed": 4,
     "escalated": 0,
     "regressed": 0,
     "total": 8,
@@ -25,22 +25,7 @@
       "firstSeen": "2026-08-06",
       "lastSeen": "2026-08-06",
       "verdict": "pass",
-      "reason": "collector gsc healthy, 49 row(s) at 2026-08-06T07:00:13.698Z"
-    },
-    {
-      "id": "d0c52e63b8fe",
-      "kind": "finding",
-      "page": "collector:clarity",
-      "issueClass": "collector-unhealthy",
-      "severity": "high",
-      "summary": "collector \"clarity\" reported healthy:false — CLARITY_TOKEN unset (or empty) — the Microsoft Clarity export credential is missing, so behavioral data cannot be refreshed and the on-disk snapshot cannot be verified as live. Set CLARITY_TOKEN from Clarity → Settings → Data Export (and as a repo secret for the nightly workflow).",
-      "predicate": "collector-healthy clarity",
-      "ageDays": 0,
-      "attempts": 0,
-      "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
-      "verdict": "pass",
-      "reason": "collector clarity healthy, 31 row(s) at 2026-08-06T06:54:09.443Z"
+      "reason": "collector gsc healthy, 49 row(s) at 2026-08-06T08:02:06.008Z"
     }
   ],
   "regressed": [],
@@ -105,27 +90,12 @@
       "lastSeen": "2026-08-06",
       "verdict": "fail",
       "reason": "position 8.4 does not satisfy < 8.1"
-    },
-    {
-      "id": "205a75e80e2a",
-      "kind": "finding",
-      "page": "collector:cloudflare",
-      "issueClass": "collector-unhealthy",
-      "severity": "high",
-      "summary": "collector \"cloudflare\" reported healthy:false — CLOUDFLARE_API_TOKEN not set — see PRD §10.1 (token needs Account → Cloudflare Pages:Read, Zone → Analytics:Read, and Zone → Firewall Services:Read; add it to .env locally and as a repo secret so nightly.yml can pass it)",
-      "predicate": "collector-healthy cloudflare",
-      "ageDays": 0,
-      "attempts": 1,
-      "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
-      "verdict": "fail",
-      "reason": "collector cloudflare unhealthy — CLOUDFLARE_API_TOKEN not set — see PRD §10.1 (token needs Account → Cloudflare Pages:Read, Zone → Analytics:Read, and Zone → Firewall Services:Read; add it to .env locally and as a repo secret so nightly.yml can pass it)"
     }
   ],
   "coverage": {
     "evaluated": 8,
-    "pass": 3,
-    "fail": 5,
+    "pass": 4,
+    "fail": 4,
     "unevaluable": 0,
     "coveragePercent": 100,
     "openUnevaluable": 0,
@@ -151,15 +121,9 @@
   "transitions": [
     {
       "id": "50f198fb99b2",
-      "from": "open",
+      "from": "regressed",
       "to": "closed",
-      "reason": "collector gsc healthy, 49 row(s) at 2026-08-06T07:00:13.698Z"
-    },
-    {
-      "id": "d0c52e63b8fe",
-      "from": "open",
-      "to": "closed",
-      "reason": "collector clarity healthy, 31 row(s) at 2026-08-06T06:54:09.443Z"
+      "reason": "collector gsc healthy, 49 row(s) at 2026-08-06T08:02:06.008Z"
     }
   ],
   "retractedSkipped": []

@@ -166,11 +166,8 @@ const WafGraphSchema = z.object({
       viewer: z.object({
         zones: z.array(
           z.object({
-            firewallEventsAdaptiveGroups: z.array(
-              z.object({
-                count: z.number(),
-                dimensions: z.object({ action: z.string(), source: z.string() }),
-              })
+            firewallEventsAdaptive: z.array(
+              z.object({ action: z.string(), source: z.string() })
             ),
           })
         ),
@@ -273,13 +270,24 @@ query CacheHitRate($zoneTag: String!, $since: Date!, $until: Date!) {
   }
 }`;
 
+/**
+ * Uses `firewallEventsAdaptive`, NOT `firewallEventsAdaptiveGroups`.
+ *
+ * The Groups variant is plan-gated: on a free zone it returns "zone does not
+ * have access to the path", which reads like a token-scope failure and sent me
+ * chasing a permissions problem that did not exist. The ungrouped dataset is
+ * available on the free plan, so we aggregate by action/source client-side.
+ *
+ * The window must also stay strictly under 1 day — the free plan rejects a
+ * wider range outright, naming the span in the error.
+ */
 const WAF_QUERY = `
 query WafEvents($zoneTag: String!, $since: Time!, $until: Time!) {
   viewer {
     zones(filter: { zoneTag: $zoneTag }) {
-      firewallEventsAdaptiveGroups(limit: 20, filter: { datetime_geq: $since, datetime_leq: $until }, orderBy: [count_DESC]) {
-        count
-        dimensions { action source }
+      firewallEventsAdaptive(limit: 1000, filter: { datetime_geq: $since, datetime_leq: $until }, orderBy: [datetime_DESC]) {
+        action
+        source
       }
     }
   }
@@ -443,20 +451,26 @@ export async function collect(): Promise<CollectorResult<CloudflareCollected>> {
       unavailable.push({ capability: 'waf-events', reason: 'no zone resolved — cannot query firewall events' });
     } else {
       try {
-        const since = new Date(Date.now() - MS_PER_DAY).toISOString();
+        // 23h, not 24h. The free plan rejects a range "wider than 1d", and an
+        // exact 24h span sits on the boundary where request latency and clock
+        // skew tip it over — producing an error that reads like a permission
+        // problem rather than a window problem.
         const until = new Date().toISOString();
+        const since = new Date(Date.now() - MS_PER_DAY + 60 * 60 * 1000).toISOString();
         const result = await cfGraphql(token, WAF_QUERY, { zoneTag: zone.id, since, until }, WafGraphSchema);
         const gqlError = graphqlErrors(result.errors);
         if (gqlError !== null) throw new Error(gqlError);
-        const groups = result.data?.viewer.zones[0]?.firewallEventsAdaptiveGroups;
-        if (groups === undefined) throw new Error('firewallEventsAdaptiveGroups unavailable for this zone/plan');
+        const events = result.data?.viewer.zones[0]?.firewallEventsAdaptive;
+        if (events === undefined) throw new Error('firewallEventsAdaptive unavailable for this zone/plan');
         const byAction: Record<string, number> = {};
         const bySource: Record<string, number> = {};
-        for (const g of groups) {
-          byAction[g.dimensions.action] = (byAction[g.dimensions.action] === undefined ? 0 : byAction[g.dimensions.action]) + g.count;
-          bySource[g.dimensions.source] = (bySource[g.dimensions.source] === undefined ? 0 : bySource[g.dimensions.source]) + g.count;
+        for (const e of events) {
+          byAction[e.action] = (byAction[e.action] === undefined ? 0 : byAction[e.action]) + 1;
+          bySource[e.source] = (bySource[e.source] === undefined ? 0 : bySource[e.source]) + 1;
         }
-        waf = { windowDays: 1, totalEvents: groups.reduce((s, g) => s + g.count, 0), byAction, bySource };
+        // An empty list is a real, healthy observation (no firewall events in
+        // the window), not a gap — it must not be reported as unavailable.
+        waf = { windowDays: 1, totalEvents: events.length, byAction, bySource };
       } catch (error) {
         unavailable.push({ capability: 'waf-events', reason: describeError(error) });
       }
