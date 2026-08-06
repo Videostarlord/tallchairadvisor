@@ -2,7 +2,7 @@
   "data": {
     "source": "data/clarity/latest.json",
     "pulledAt": "2026-08-05T12:00:55.968Z",
-    "ageHours": 19.9,
+    "ageHours": 20.9,
     "slaHours": 192,
     "numOfDays": 2,
     "pageCount": 31,
@@ -18,15 +18,15 @@
     "credential": {
       "envVar": "CLARITY_TOKEN",
       "present": true,
-      "live": true,
-      "checkedAt": "2026-08-06T07:56:02.513Z",
-      "detail": null
+      "live": false,
+      "checkedAt": "2026-08-06T08:55:14.955Z",
+      "detail": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
     }
   },
   "meta": {
-    "collectedAt": "2026-08-06T07:56:03.480Z",
+    "collectedAt": "2026-08-06T08:55:15.270Z",
     "rowCount": 31,
-    "healthy": true,
-    "reason": null
+    "healthy": false,
+    "reason": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
   }
 }

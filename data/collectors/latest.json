@@ -1,17 +1,22 @@
 {
-  "collectedAt": "2026-08-06T07:56:02.501Z",
-  "finishedAt": "2026-08-06T08:02:06.013Z",
-  "durationMs": 363512,
-  "healthy": true,
-  "healthyCount": 7,
+  "collectedAt": "2026-08-06T08:55:14.933Z",
+  "finishedAt": "2026-08-06T09:01:21.541Z",
+  "durationMs": 366608,
+  "healthy": false,
+  "healthyCount": 6,
   "total": 7,
-  "coveragePct": 100,
-  "unhealthy": [],
+  "coveragePct": 86,
+  "unhealthy": [
+    {
+      "name": "clarity",
+      "reason": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
+    }
+  ],
   "ledger": {
     "available": true,
-    "filed": 0,
+    "filed": 1,
     "failed": 0,
-    "note": "no unhealthy collectors to file"
+    "note": "filed 1 collector finding(s)"
   },
   "collectors": {
     "gsc": {
@@ -24,7 +29,7 @@
         },
         "performance": {
           "pulledAt": "2026-08-03T11:30:12.853Z",
-          "ageHours": 68.4,
+          "ageHours": 69.4,
           "dateRange": {
             "start": "2026-05-05",
             "end": "2026-08-03",
@@ -41,7 +46,7 @@
         },
         "analysis": {
           "generatedAt": "2026-08-03T11:30:13.162Z",
-          "ageHours": 68.4,
+          "ageHours": 69.4,
           "opportunityCount": 38,
           "ctrLeakCount": 17,
           "decayAlertCount": 0
@@ -712,7 +717,7 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T08:02:06.008Z",
+        "collectedAt": "2026-08-06T09:01:21.475Z",
         "rowCount": 49,
         "healthy": true,
         "reason": null
@@ -724,7 +729,7 @@
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
         "pulledAt": "2026-08-03T11:30:19.800Z",
-        "ageHours": 68.4,
+        "ageHours": 69.4,
         "slaHours": 192,
         "dateRange": {
           "start": "2026-07-06",
@@ -777,7 +782,7 @@
         "aiReferralSessions": 54
       },
       "meta": {
-        "collectedAt": "2026-08-06T07:56:02.512Z",
+        "collectedAt": "2026-08-06T08:55:14.954Z",
         "rowCount": 39,
         "healthy": true,
         "reason": null
@@ -787,7 +792,7 @@
       "data": {
         "source": "data/clarity/latest.json",
         "pulledAt": "2026-08-05T12:00:55.968Z",
-        "ageHours": 19.9,
+        "ageHours": 20.9,
         "slaHours": 192,
         "numOfDays": 2,
         "pageCount": 31,
@@ -803,16 +808,16 @@
         "credential": {
           "envVar": "CLARITY_TOKEN",
           "present": true,
-          "live": true,
-          "checkedAt": "2026-08-06T07:56:02.513Z",
-          "detail": null
+          "live": false,
+          "checkedAt": "2026-08-06T08:55:14.955Z",
+          "detail": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T07:56:03.480Z",
+        "collectedAt": "2026-08-06T08:55:15.270Z",
         "rowCount": 31,
-        "healthy": true,
-        "reason": null
+        "healthy": false,
+        "reason": "429 Too Many Requests from Clarity export API — daily request limit reached (10/day/project; the Monday pull spends 2) — credential state is unproven tonight: Exceeded daily limit"
       }
     },
     "cloudflare": {
@@ -829,30 +834,30 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "9b2cf56f-95bc-4fa8-91b7-9705b7da3ec4",
-          "shortId": "9b2cf56f",
+          "deploymentId": "5664e0a6-d6f9-4645-9f4b-55d4145ffaae",
+          "shortId": "5664e0a6",
           "environment": "production",
-          "url": "https://9b2cf56f.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-06T04:19:16.255551Z",
+          "url": "https://5664e0a6.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-06T08:45:43.384367Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "7beb3aa1cac685a8704f1a0dc8053269f8f2c3f8",
-          "commitMessage": "docs(wiki): log agent trust architecture Phases 1-4\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+          "commitHash": "ddb05795b56539e090db28361ba236953bb85185",
+          "commitMessage": "Merge: God's-Eye Nightly — observation layer for the Mon-Sat pipeline\n\n[skip cd] No files under src/, public/, or astro.config.mjs are touched, so\nthe deployed site is byte-identical. package.json gains npm scripts, zod,\nand playwright only.\n\nImplements raw/strategy/2026-08-05-godseye-PRD.md in full — all 7 steps.\nThe goal, in Jackson's words: \"When you open Claude Code, there is nothing\nleft to check.\"\n\n  L0 contracts   readValidated + 14 schemas; a missing key throws naming\n                 the file, the key, and a \"did you mean\" suggestion\n  L1 collectors  7 sources incl. GSC URL Inspection (R6); an unhealthy\n                 collector reports a reason, never an empty section\n  L2 probes      Playwright asserts tags actually FIRE — the June 16 CSP\n                 incident hid for a month because gtag.js still loaded 200\n  L3 ledger      append-only; no finding may exist without a machine-\n                 evaluable closure predicate; regressions detected\n  L4 cost        every LLM call priced at write time\n  L5 report      one Sonnet call, no truncation, states its own coverage\n  L6 dead-man    alarms on ABSENCE, from a separate repo\n  L7 corrector   bounded deterministic auto-fixes; no LLM, by design\n\nThe headline fix: reconcileInterventions read `raw.pages ?? []` from GSC\nhistory snapshots that have no `pages` key, so it rewrote\ndata/interventions.jsonl byte-identically for months under a green\ncheckmark. It now enriches 8 of 8 entries — every one of which was past\nits 14-day gate the entire time.\n\nVerified on real data: 7/7 collectors healthy, 100% report coverage, 245\ntests passing, architecture lint green, site builds 54 pages unchanged.\n\nDefects found by the system on its first runs, still open: the Friday\nworkflow failed 2026-07-31 and committed nothing; two pages 404 their own\nhero images; 4 URLs are not indexed by Google.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
         },
         "cache": {
           "windowDays": 7,
-          "requests": 20161,
+          "requests": 20201,
           "cachedRequests": 1862,
           "hitRatePct": 9.2,
-          "bytes": 209721633,
-          "cachedBytes": 74869548,
+          "bytes": 210091890,
+          "cachedBytes": 75136086,
           "byDay": [
             {
               "date": "2026-08-06",
-              "requests": 1854,
+              "requests": 1894,
               "cachedRequests": 857,
-              "hitRatePct": 46.2
+              "hitRatePct": 45.2
             },
             {
               "date": "2026-08-05",
@@ -901,7 +906,7 @@
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T07:56:05.200Z",
+        "collectedAt": "2026-08-06T08:55:17.159Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -911,8 +916,8 @@
       "data": {
         "repo": "Videostarlord/tallchairadvisor",
         "defaultBranch": "main",
-        "ghVersion": "gh version 2.83.2 (2025-12-10)",
-        "authAccount": "Videostarlord",
+        "ghVersion": "gh version 2.96.0 (2026-07-02)",
+        "authAccount": "github-actions[bot]",
         "workflows": [
           {
             "name": "Clarity — Behavioral History",
@@ -1006,6 +1011,28 @@
               "[skip cd] data: Monday pull + index fixes 2026-08-03"
             ],
             "commitInferenceMethod": "bot commits on main between run start (2026-08-03T11:29:55Z) and run end + 15min (2026-08-03T12:12:02.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Nightly — God's-Eye",
+            "path": ".github/workflows/nightly.yml",
+            "state": "active",
+            "cron": "0 10 * * *",
+            "expectedCadenceDays": 1,
+            "lastRun": {
+              "runNumber": 1,
+              "status": "in_progress",
+              "conclusion": null,
+              "startedAt": "2026-08-06T08:54:47Z",
+              "finishedAt": "2026-08-06T08:54:53Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31086852912",
+              "headSha": "ddb05795b56539e090db28361ba236953bb85185",
+              "event": "workflow_dispatch"
+            },
+            "committedDuringRun": 0,
+            "commitSubjects": [],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T08:54:47Z) and run end + 15min (2026-08-06T09:09:53.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1114,8 +1141,8 @@
         "wroteNothing": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T07:56:11.235Z",
-        "rowCount": 8,
+        "collectedAt": "2026-08-06T08:55:22.616Z",
+        "rowCount": 9,
         "healthy": true,
         "reason": null
       }
@@ -1191,7 +1218,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T07:56:03.206Z",
+        "collectedAt": "2026-08-06T08:55:15.714Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1287,7 +1314,7 @@
         "overdue": false
       },
       "meta": {
-        "collectedAt": "2026-08-06T07:56:02.544Z",
+        "collectedAt": "2026-08-06T08:55:14.989Z",
         "rowCount": 27,
         "healthy": true,
         "reason": null

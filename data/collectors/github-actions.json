@@ -2,8 +2,8 @@
   "data": {
     "repo": "Videostarlord/tallchairadvisor",
     "defaultBranch": "main",
-    "ghVersion": "gh version 2.83.2 (2025-12-10)",
-    "authAccount": "Videostarlord",
+    "ghVersion": "gh version 2.96.0 (2026-07-02)",
+    "authAccount": "github-actions[bot]",
     "workflows": [
       {
         "name": "Clarity — Behavioral History",
@@ -97,6 +97,28 @@
           "[skip cd] data: Monday pull + index fixes 2026-08-03"
         ],
         "commitInferenceMethod": "bot commits on main between run start (2026-08-03T11:29:55Z) and run end + 15min (2026-08-03T12:12:02.000Z) — inferred, not authoritative",
+        "stale": false
+      },
+      {
+        "name": "Nightly — God's-Eye",
+        "path": ".github/workflows/nightly.yml",
+        "state": "active",
+        "cron": "0 10 * * *",
+        "expectedCadenceDays": 1,
+        "lastRun": {
+          "runNumber": 1,
+          "status": "in_progress",
+          "conclusion": null,
+          "startedAt": "2026-08-06T08:54:47Z",
+          "finishedAt": "2026-08-06T08:54:53Z",
+          "daysAgo": 0,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31086852912",
+          "headSha": "ddb05795b56539e090db28361ba236953bb85185",
+          "event": "workflow_dispatch"
+        },
+        "committedDuringRun": 0,
+        "commitSubjects": [],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-06T08:54:47Z) and run end + 15min (2026-08-06T09:09:53.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -205,8 +227,8 @@
     "wroteNothing": []
   },
   "meta": {
-    "collectedAt": "2026-08-06T07:56:11.235Z",
-    "rowCount": 8,
+    "collectedAt": "2026-08-06T08:55:22.616Z",
+    "rowCount": 9,
     "healthy": true,
     "reason": null
   }
