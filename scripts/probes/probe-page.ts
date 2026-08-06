@@ -135,6 +135,7 @@ async function extract(page: Page): Promise<RawExtract> {
       const raw = (script.textContent ?? '').trim();
       let parsed: unknown;
       try {
+        // lint-architecture-allow R4 -- parsing untrusted JSON-LD out of the live DOM; failures are captured into jsonLdParseErrors below, never swallowed
         parsed = JSON.parse(raw);
       } catch (err) {
         // The raw snippet rides along so a predicate can still be named for the block.

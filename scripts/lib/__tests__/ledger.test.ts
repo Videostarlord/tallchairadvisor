@@ -109,6 +109,7 @@ assertThrows(
   const path = tempLedger();
   try {
     fileFinding({ page: '/a/', issueClass: 'x', closurePredicate: null, ledgerPath: path });
+    // lint-architecture-allow R3 -- the throw IS the assertion; the next line proves nothing was written
   } catch {
     /* expected */
   }

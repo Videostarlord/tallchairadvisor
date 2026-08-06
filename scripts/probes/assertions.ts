@@ -61,7 +61,9 @@ export function faqPageValidity(rawBlocks: string[]): boolean | null {
   for (const raw of rawBlocks) {
     let parsed: unknown;
     try {
+      // lint-architecture-allow R4 -- parsing untrusted JSON-LD scraped from a live page, not a data file; malformed blocks are the expected case
       parsed = JSON.parse(raw);
+      // lint-architecture-allow R3 -- an unparseable block is reported separately by probe-page.ts jsonLdParseErrors; skipping it here is the handled path
     } catch {
       continue;
     }

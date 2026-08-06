@@ -106,6 +106,7 @@ export function filesystemUrls(repoRoot: string): { urls: string[]; excluded: Se
   let excluded = new Set<string>();
   try {
     excluded = parseSitemapExcludedPaths(readFileSync(resolve(repoRoot, 'astro.config.mjs'), 'utf-8'));
+    // lint-architecture-allow R3 -- fallback is assigned before the try and the caller surfaces this as a run note; the live robots meta check still catches noindex
   } catch {
     // Config unreadable: fall through with an empty exclusion set. The caller records
     // this as a note; the live `<meta name="robots">` check still catches noindex pages.

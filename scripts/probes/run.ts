@@ -69,6 +69,7 @@ async function main(): Promise<void> {
   let sitemapExcluded = new Set<string>();
   try {
     sitemapExcluded = parseSitemapExcludedPaths(readFileSync(resolve(root, 'astro.config.mjs'), 'utf-8'));
+    // lint-architecture-allow R3 -- recorded in `notes` below rather than treated as "nothing is excluded"
   } catch {
     // Recorded as a note below rather than silently treated as "nothing is excluded".
   }
