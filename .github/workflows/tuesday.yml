@@ -52,4 +52,9 @@ jobs:
           git add reports/audit-report.md raw/ wiki/
           [ -e data/token-log.jsonl ] && git add data/token-log.jsonl || true
           git diff --staged --quiet || git commit -m "[skip cd] report: Tuesday audit $(date +%Y-%m-%d)"
-          git push || { sleep 15 && git push; } || { sleep 30 && git push; }
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main || true
+            git push && break
+            echo "::warning::push attempt $attempt failed; rebasing and retrying"
+            sleep $((attempt * 15))
+          done

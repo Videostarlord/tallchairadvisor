@@ -116,4 +116,9 @@ jobs:
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: Monday pull + index fixes $(date +%Y-%m-%d)"
-          git push || { sleep 15 && git push; } || { sleep 30 && git push; }
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main || true
+            git push && break
+            echo "::warning::push attempt $attempt failed; rebasing and retrying"
+            sleep $((attempt * 15))
+          done

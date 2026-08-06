@@ -51,4 +51,9 @@ jobs:
           git config user.email "bot@tallchairadvisor.com"
           git add data/keywords/ wiki/pages/concepts/ wiki/log.md wiki/index.md
           git diff --staged --quiet || git commit -m "[skip cd] data: monthly keyword discovery $(date +%Y-%m-%d)"
-          git push
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main || true
+            git push && break
+            echo "::warning::push attempt $attempt failed; rebasing and retrying"
+            sleep $((attempt * 15))
+          done

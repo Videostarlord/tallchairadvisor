@@ -54,4 +54,9 @@ jobs:
           git add reports/weekly-summary.md raw/ wiki/
           git diff --staged --quiet || git commit -m "deploy: Weekly cycle $(date +%Y-%m-%d)"
           git push origin staging || { sleep 15 && git push origin staging; } || { sleep 30 && git push origin staging; }
-          git push origin HEAD:main || { sleep 15 && git push origin HEAD:main; } || { sleep 30 && git push origin HEAD:main; }
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main || true
+            git push origin HEAD:main && break
+            echo "::warning::push attempt $attempt failed; rebasing and retrying"
+            sleep $((attempt * 15))
+          done
