@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, archiveToRaw, today, appendIntervention } from './wiki-utils.js';
+import { assertSafeToAct } from '../assert-safe-to-act.js';
 import type { IntentType } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -103,7 +104,9 @@ function parsePlan(plan: string): FixTask[] {
 
   const allLines = [...fixSection.split('\n'), ...rewriteSection.split('\n')];
   for (const line of allLines) {
-    const match = line.match(/- \[[ x]\] (?:FIX|REWRITE): (.+?) \| (.+?) \| (.+?) \| FILE: (src\/pages\/.+\.astro)/);
+    // Only UNCHECKED tasks. The previous `[[ x]]` class re-parsed completed and
+    // manually-struck tasks on every run, re-executing work already done.
+    const match = line.match(/- \[ \] (?:FIX|REWRITE): (.+?) \| (.+?) \| (.+?) \| FILE: (src\/pages\/.+\.astro)/);
     if (match) {
       tasks.push({ description: match[1], whatToChange: match[2], why: match[3], filePath: match[4], raw: line });
     }
@@ -227,8 +230,14 @@ Write the new title (50-60 chars):`,
 
 async function applyFix(task: FixTask, gscData: Map<string, { impressions: number; position: number; clicks: number }>): Promise<{ success: boolean; summary: string }> {
   const fullPath = resolve(ROOT, task.filePath);
-  if (!existsSync(fullPath)) {
-    return { success: false, summary: `File not found: ${task.filePath}` };
+
+  // Deterministic preflight — runs before any Anthropic spend and covers both
+  // write branches below (targeted meta/title, and full-file). Subsumes the
+  // previous existsSync check and additionally rejects edits to pages whose URL
+  // 301s away, which serve no live traffic.
+  const verdict = assertSafeToAct(ROOT, { kind: 'edit', filePath: task.filePath });
+  if (!verdict.safe) {
+    return { success: false, summary: verdict.reason! };
   }
 
   const fileContent = readFileSync(fullPath, 'utf-8');
@@ -259,6 +268,11 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
     const updated = await applyTargetedFix(task, fileContent, fixType);
     if (updated === fileContent) {
       return { success: false, summary: `Targeted fix produced no change in ${task.filePath} — Layout prop may not be present` };
+    }
+    // Re-check generated content: a meta/title rewrite can introduce an affiliate link.
+    const contentVerdictA = assertSafeToAct(ROOT, { kind: 'edit', filePath: task.filePath, content: updated });
+    if (!contentVerdictA.safe) {
+      return { success: false, summary: `REJECTED (${task.filePath}): ${contentVerdictA.reason}` };
     }
     writeFileSync(fullPath, updated);
     return { success: true, summary: `Fixed [${fixType}]: ${task.description} in ${task.filePath}` };
@@ -334,6 +348,13 @@ Output the complete updated file content only. Make ONLY the requested change.`,
     };
   }
 
+  // Re-check generated content — the full-file path regularly adds affiliate CTAs,
+  // and an invented ASIN here is exactly the 2026-07-20 incident.
+  const contentVerdictB = assertSafeToAct(ROOT, { kind: 'edit', filePath: task.filePath, content: sanitized });
+  if (!contentVerdictB.safe) {
+    return { success: false, summary: `REJECTED (${task.filePath}): ${contentVerdictB.reason}` };
+  }
+
   writeFileSync(fullPath, sanitized);
   return { success: true, summary: `Fixed [complex]: ${task.description} in ${task.filePath} (words: ${originalWordCount} → ${newWordCount})` };
 }
@@ -359,11 +380,15 @@ async function main() {
   console.log(`Applying ${tasks.length} fixes... (GSC data: ${gscData.size} pages loaded)`);
   const results: string[] = [`# Fixes Log — ${new Date().toISOString().split('T')[0]}\n`];
 
+  const applied: FixTask[] = [];
+  const rejected: Array<{ task: FixTask; reason: string }> = [];
+
   for (const task of tasks) {
     console.log(`  → ${task.description} (${task.filePath})`);
     const result = await applyFix(task, gscData);
     results.push(`- [${result.success ? '✅' : '❌'}] ${result.summary}`);
     if (result.success) {
+      applied.push(task);
       const slug = '/' + task.filePath.replace(/^src\/pages\//, '').replace(/\.astro$/, '') + '/';
       const fullUrl = 'https://tallchairadvisor.com' + slug;
       const gscRow = gscData.get(fullUrl) ?? gscData.get(slug);
@@ -389,7 +414,10 @@ async function main() {
         intentType: slugIntentMap.get(slug) ?? slugIntentMap.get(fullUrl),
       });
     }
-    if (!result.success) console.warn(`    FAILED: ${result.summary}`);
+    if (!result.success) {
+      rejected.push({ task, reason: result.summary });
+      console.warn(`    FAILED: ${result.summary}`);
+    }
     await new Promise(r => setTimeout(r, 1000));
   }
 
@@ -400,8 +428,18 @@ async function main() {
   // Archive fixes log and update wiki
   archiveToRaw(ROOT, 'audits', `${today()}-fixes-log.md`, fixesReport);
 
-  const fixSummaries = tasks.map(t => `- ${t.description} → ${t.filePath}`).join('\n');
-  appendWikiLog(ROOT, `## [${today()}] execute-fixes | Thursday Fixes Applied\n\n${fixSummaries}\n`);
+  // Log what actually happened. This previously recorded every PARSED task as
+  // applied regardless of result, so the wiki claimed fixes that were rejected.
+  const appliedSummaries = applied.length > 0
+    ? applied.map(t => `- ${t.description} → ${t.filePath}`).join('\n')
+    : '- (none)';
+  const rejectedSummaries = rejected.length > 0
+    ? `\n\n**Rejected (${rejected.length}):**\n` + rejected.map(r => `- ${r.task.filePath} — ${r.reason}`).join('\n')
+    : '';
+  appendWikiLog(
+    ROOT,
+    `## [${today()}] execute-fixes | Thursday Fixes\n\n**Applied (${applied.length}):**\n${appliedSummaries}${rejectedSummaries}\n`,
+  );
 
   console.log(`\nFixes complete → reports/fixes-log.md`);
 }

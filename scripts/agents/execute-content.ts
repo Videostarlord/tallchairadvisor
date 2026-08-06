@@ -10,6 +10,7 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Script as VmScript } from 'vm';
 import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today, logCacheUsage, readSynthesisContext, withRetry } from './wiki-utils.js';
+import { assertSafeToAct } from '../assert-safe-to-act.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -644,12 +645,14 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
   const filePath = `src/pages/${slugParts.join('/')}.astro`;
   const fullPath = resolve(ROOT, filePath);
 
-  if (existsSync(fullPath)) {
-    return {
-      success: false,
-      filePath,
-      summary: `SKIPPED: ${filePath} already exists — use REWRITE in the plan to update existing pages, not NEW CONTENT`,
-    };
+  // Deterministic preflight — the last gate before a write. Covers BOTH task
+  // sources: the weekly plan and the roadmap fallback in main(), which bypasses
+  // every strategy.ts constraint and fires exactly when strategy dropped the
+  // plan's NEW items. Runs before mkdirSync so a rejection leaves no directory.
+  // Subsumes the previous existsSync collision check.
+  const verdict = assertSafeToAct(ROOT, { kind: 'create', slug: task.slug, content: cleaned });
+  if (!verdict.safe) {
+    return { success: false, filePath, summary: verdict.reason! };
   }
 
   mkdirSync(dirname(fullPath), { recursive: true });
