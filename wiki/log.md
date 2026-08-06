@@ -2913,3 +2913,13 @@ Chronological record of wiki operations. Append new entries at the top.
 - Top-Sellers CSV present this time but still empty (header only) — populates only on direct-link purchases.
 - Accessory pages shipped 2026-08-04 cannot affect this period (not indexed at snapshot time). Earliest revenue impact: October report.
 - Updated [[affiliate-performance]] (August row, Aug 4 export section), [[index]].
+
+## [2026-08-05] manual session | 🛑 Blocked a destructive weekly plan — audit false positive propagated into agent work
+
+- The Wednesday agent (2026-08-05) planned two items derived from audit finding **C-1, which is a false positive**: (1) CREATE a new page at `/best-office-chairs/`, and (2) REWRITE the money hub `/office-chairs-for-tall-people/` to "differentiate" from it.
+- **`/best-office-chairs/` is not a page — it is a live 301 redirect** to `/office-chairs-for-tall-people/` (`public/_redirects:7`, verified HTTP 301 on 2026-08-05). The audit tool followed the redirect and compared the destination page to itself, which is why titles and canonicals appeared identical. Same WebFetch-follows-redirects failure mode CLAUDE.md already warns about for meta-tag auditing.
+- **Executing it would have been actively destructive:** creating that page collides with the redirect rule and UNDOES the 2026-07-04 consolidation, recreating the exact cannibalization the merge fixed. The paired rewrite would have stripped the money hub's commercial angle. **The Friday agent would have run it on 2026-08-07.**
+- Blocked both items in `reports/weekly-plan.md` and `raw/strategy/2026-08-05-weekly-plan.md` with an explanatory banner; retracted C-1 at source in `reports/audit-report.md` so it stops propagating.
+- **Systemic lesson:** documenting a correction in [[decisions-log]] was NOT enough. The strategy agent reads `reports/audit-report.md` as primary input, so an uncorrected finding there outranked the correction in the wiki. **Corrections must be written back into the report file the downstream agent actually reads, not only into the wiki.**
+- **Two agent fixes still needed (not yet built):** (a) the audit agent must check redirect status with a no-follow request before flagging duplicate content; (b) the strategy agent must validate that a NEW-CONTENT slug is not an existing redirect source before planning a page at it. The plan template already warns "no invented paths" for FIXES but has no such guard for NEW.
+- Positive signal: the Wednesday agent's strategy notes correctly cited the Aug 4 decision-log entry ("the constraint has moved to traffic"), confirming the wiki ingest reaches the agents.

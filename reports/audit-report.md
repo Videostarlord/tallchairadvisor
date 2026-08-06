@@ -39,7 +39,20 @@ The site has scaled impressively to 98,003 impressions across 90 days but is con
 
 ---
 
-**C-1: Canonical/Duplicate Page Crisis — `/best-office-chairs/` mirrors `/office-chairs-for-tall-people/`**
+**C-1: ~~Canonical/Duplicate Page Crisis~~ — FALSE POSITIVE — RETRACTED 2026-08-05**
+
+> **This finding is wrong and must not be acted on.** `/best-office-chairs/` is not
+> a page — it is a live 301 redirect to `/office-chairs-for-tall-people/`
+> (`public/_redirects:7`, verified HTTP 301 on 2026-08-05). The audit followed the
+> redirect and compared the destination page to itself, which is why titles and
+> canonicals appeared identical. The 2026-07-04 consolidation deliberately merged
+> this URL into the money hub. Acting on this finding would recreate the
+> cannibalization that merge fixed.
+>
+> **Audit-agent fix required:** check redirect status with a no-follow request
+> before comparing two URLs for duplicate content.
+
+*Original (incorrect) finding retained below for the audit trail:*
 
 *Pages:* `/best-office-chairs/` and `/office-chairs-for-tall-people/`
 
