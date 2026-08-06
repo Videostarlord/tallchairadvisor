@@ -8,6 +8,26 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## [2026-08-06] Strategy enforcement moved from prompt to code
+
+**PROBLEM:** The audit filed findings recommending meta rewrites on `/knee-pain-seat-depth/` and `/correct-chair-dimensions/` — pages the kill list has forbidden touching since 2026-07-24. Jackson caught it while reviewing the generated task list.
+
+**ROOT CAUSE — truncation, and the result was inverted context rather than absent context.** `readSynthesisContext()` sliced each of four synthesis files to 1500 chars, then `audit.ts` sliced the *combined* result to 1500 again: **1,500 of 107,601 bytes — 1.4%.** Because slicing is positional it always keeps the top of a file, so the surviving fragment came entirely from `what-works.md`, whose lead entries celebrate knee-pain as the first affiliate commission. The agent was handed the case FOR the abandoned strategy and none of the decision that replaced it. It reasoned correctly from bad input.
+
+`strategy.ts` escaped by luck — `decisionsLog.slice(0, 4000)` on a newest-first log happened to include the kill-list language, which is why Wednesday planned a schema fix on a money page rather than a meta sweep.
+
+**DECISION 1 — remove every context truncation; fail loudly instead.** Eight removed across `audit.ts`, `strategy.ts`, `wiki-utils.ts`, including the `auditReport.slice(0, 3000)` fallback that had silently discarded every high and medium finding for months. Replaced with `assertPromptBudget()`, which throws at 120K tokens. **The truncations were saving ~$0.21/month** — full synthesis is ~27K tokens, $0.008/call at cache-read rates, less than one nightly report. Context grew 9,586 → 43,670 tokens. *(Note: `input_tokens` stays ~6,730 because cached content is counted separately; reading that field alone suggests nothing changed.)*
+
+**DECISION 2 — enforce the directive in code, not in the prompt.** With the FULL directive in context, three violations still landed. Confirms the rule already recorded for `assert-safe-to-act.ts`: guarding upstream is an optimization, the deterministic gate is the guarantee.
+
+**DECISION 3 — the classifier SEPARATES, it does not delete.** Jackson pushed back on the first design, which dropped findings by rule, and was right: a rule-based delete is indistinguishable from an audit that never found the problem, and leaves no record if the strategy shifts. Every finding now stays in `data/audit-findings.json`; classified ones move to `outOfStrategy[]` with the rule id and verbatim directive, render in the report under "Held Back by the Current Strategy", and are withheld only from the planner's five slots. Rules live in `data/strategy-rules.json`, editable and citing the thesis line each encodes. Reversal is one line and findings return on the next audit.
+
+Three safety properties: `alwaysInScope` (spec-error, affiliate-missing, schema-*, canonical-*, cannibalization, internal-linking, aio-suppression) beats every rule; an unknown GSC position never classifies a page into silence; an unreadable rules file **fails open**, showing everything.
+
+**RESULT:** 28 findings → 14 in-scope + 14 held back, **28 preserved, zero lost**. Kill-list violations reaching the planner **3 → 0**. In-scope is now spec-error ×2, schema-invalid ×5, aio-suppression ×3, affiliate-missing, internal-linking — correctness and revenue work.
+
+**STANDING RULE:** a constraint that governs what an agent may recommend cannot live behind a character budget, and cannot be enforced by asking. Full context, then a deterministic gate.
+
 ## [2026-08-06] God's-Eye Nightly — seven architectural decisions
 
 Full context: [[godseye-nightly]], spec `raw/strategy/2026-08-05-godseye-PRD.md`.
