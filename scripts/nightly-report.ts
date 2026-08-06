@@ -172,6 +172,7 @@ const probeFileSchema = z.object({ generatedAt: z.string(), results: z.array(z.u
  * guard correctly refused to run and the night degraded to a mechanical report.
  */
 function summarizeProbes(raw: string, path: string): string {
+  // lint-architecture-allow R4 -- the file already passed probeFileSchema in load(); this re-reads the validated text to shape it
   const parsed = JSON.parse(raw) as { generatedAt?: string; results?: unknown[] };
   const results = Array.isArray(parsed.results) ? (parsed.results as Record<string, any>[]) : [];
 
@@ -186,7 +187,8 @@ function summarizeProbes(raw: string, path: string): string {
       continue;
     }
     if (r.healthy === false) {
-      failing.push(`${r.url}: PROBE UNHEALTHY — ${(r.errors ?? []).join('; ')}`);
+      const why = Array.isArray(r.errors) && r.errors.length > 0 ? r.errors.join('; ') : 'no reason recorded';
+      failing.push(`${r.url}: PROBE UNHEALTHY — ${why}`);
       continue;
     }
     healthy++;
@@ -194,28 +196,38 @@ function summarizeProbes(raw: string, path: string): string {
 
     const issues: string[] = [];
     if (r.status !== 200) issues.push(`status ${r.status}`);
-    const n = r.network ?? {};
-    if (n.gtagFired === false) issues.push('gtag NOT firing');
-    if (n.clarityLoaded === false) issues.push('clarity NOT loading');
-    if (n.affiliateHandlerAttached === false) issues.push('affiliate handler not attached');
+    // An ABSENT network record is not the same as one reporting healthy tags.
+    // Defaulting it to {} would make every `=== false` check silently pass and
+    // report "no issues" for a page nothing was measured on — the exact bug
+    // class this whole build exists to remove.
+    const n = r.network;
+    if (n === undefined || n === null) issues.push('network NOT MEASURED — tag firing unknown');
+    else {
+      if (n.gtagFired === false) issues.push('gtag NOT firing');
+      if (n.clarityLoaded === false) issues.push('clarity NOT loading');
+      if (n.affiliateHandlerAttached === false) issues.push('affiliate handler not attached');
+    }
     const ce = Array.isArray(r.consoleErrors) ? r.consoleErrors.length : 0;
     if (ce > 0) issues.push(`${ce} console error(s): ${r.consoleErrors.map((e: any) => e.text).slice(0, 3).join(' | ')}`);
     if (Array.isArray(r.unhandledRejections) && r.unhandledRejections.length > 0) issues.push(`${r.unhandledRejections.length} unhandled rejection(s)`);
-    const h = r.head ?? {};
-    const mdLen = typeof h.metaDescription === 'string' ? h.metaDescription.length : null;
+    const h = r.head;
+    if (h === undefined || h === null) issues.push('head NOT MEASURED');
+    const mdLen = h && typeof h.metaDescription === 'string' ? h.metaDescription.length : null;
     if (mdLen !== null && (mdLen < 130 || mdLen > 165)) issues.push(`meta description ${mdLen} chars (want 130-165)`);
-    if (h.canonical && r.url && !String(h.canonical).endsWith(String(r.url))) issues.push(`canonical points elsewhere: ${h.canonical}`);
-    if (Array.isArray(h.jsonLdParseErrors) && h.jsonLdParseErrors.length > 0) issues.push(`${h.jsonLdParseErrors.length} JSON-LD parse error(s)`);
-    const g = r.geo ?? {};
-    const geoMissing = [
-      g.directAnswerPresent === false ? 'direct answer' : null,
-      g.citationCapsulePresent === false ? 'citation capsule' : null,
-      g.faqPageSchemaValid === false ? 'valid FAQPage' : null,
-    ].filter(Boolean);
+    if (h && h.canonical && r.url && !String(h.canonical).endsWith(String(r.url))) issues.push(`canonical points elsewhere: ${h.canonical}`);
+    if (h && Array.isArray(h.jsonLdParseErrors) && h.jsonLdParseErrors.length > 0) issues.push(`${h.jsonLdParseErrors.length} JSON-LD parse error(s)`);
+    const g = r.geo;
+    const geoMissing = g
+      ? [
+          g.directAnswerPresent === false ? 'direct answer' : null,
+          g.citationCapsulePresent === false ? 'citation capsule' : null,
+          g.faqPageSchemaValid === false ? 'valid FAQPage' : null,
+        ].filter(Boolean)
+      : [];
     if (geoMissing.length > 0) issues.push(`GEO missing: ${geoMissing.join(', ')}`);
-    const v = r.vitals ?? {};
-    if (typeof v.lcp === 'number' && v.lcp > 2500) issues.push(`LCP ${Math.round(v.lcp)}ms`);
-    if (typeof v.cls === 'number' && v.cls > 0.1) issues.push(`CLS ${v.cls}`);
+    const v = r.vitals;
+    if (v && typeof v.lcp === 'number' && v.lcp > 2500) issues.push(`LCP ${Math.round(v.lcp)}ms`);
+    if (v && typeof v.cls === 'number' && v.cls > 0.1) issues.push(`CLS ${v.cls}`);
 
     if (issues.length > 0) failing.push(`${r.url}: ${issues.join(' · ')}`);
   }
