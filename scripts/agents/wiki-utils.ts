@@ -176,7 +176,7 @@ export function readSynthesisContext(repoRoot: string): string {
     'synthesis/decisions-log.md',
   ]);
   return Object.entries(pages)
-    .map(([path, content]) => `--- ${path} ---\n${content.slice(0, 1500)}`)
+    .map(([path, content]) => `--- ${path} ---\n${content}`)
     .join('\n\n');
 }
 
@@ -185,8 +185,38 @@ export function readConceptContext(repoRoot: string, concepts: string[]): string
   const paths = concepts.map(c => `pages/concepts/${c}.md`);
   const pages = readWikiPages(repoRoot, paths);
   return Object.entries(pages)
-    .map(([path, content]) => `--- ${path} ---\n${content.slice(0, 1000)}`)
+    .map(([path, content]) => `--- ${path} ---\n${content}`)
     .join('\n\n');
+}
+
+/**
+ * Guard the prompt budget WITHOUT truncating.
+ *
+ * Every context truncation in this pipeline began as a sensible cost control
+ * and became a silent data leak. The worst case: the audit received 1.4% of the
+ * synthesis, and because slicing always keeps the TOP of a file, what survived
+ * argued FOR a strategy that had been formally abandoned. The agent was not
+ * uninformed, it was misinformed.
+ *
+ * Full context now costs ~$0.008/call at cache-read rates — about $0.21/month
+ * across every agent run. The truncations were saving pennies and costing the
+ * strategy.
+ *
+ * But "no limit" is not the answer either: decisions-log.md grows forever. So
+ * the budget still exists — it simply FAILS LOUDLY instead of silently dropping
+ * the newest entries. If this throws, compact or archive the wiki; do not
+ * reintroduce a slice.
+ */
+export function assertPromptBudget(label: string, text: string, maxTokens = 120_000): void {
+  const approx = text.length / 4;
+  if (approx > maxTokens) {
+    throw new Error(
+      `${label}: prompt context is ~${Math.round(approx).toLocaleString()} tokens, over the ` +
+        `${maxTokens.toLocaleString()} budget. REFUSING to truncate — silently dropping the tail is ` +
+        `how the audit came to recommend a strategy that had been abandoned. ` +
+        `Archive old decisions-log entries or narrow the page set instead.`,
+    );
+  }
 }
 
 /** Append a token-usage entry to data/token-log.jsonl */

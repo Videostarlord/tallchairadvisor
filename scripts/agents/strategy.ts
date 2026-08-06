@@ -9,7 +9,7 @@ import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
+import { readWikiIndex, readSynthesisContext, assertPromptBudget, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 import { renderDigest, type AuditFindingsFile } from '../audit-findings.js';
 
@@ -327,8 +327,13 @@ async function main() {
     : null;
   const auditDigest = auditFindings
     ? `EXECUTIVE SUMMARY: ${auditFindings.executiveSummary}\n\nFINDINGS (${auditFindings.findings.length}, severity-ordered; retracted findings already removed):\n${renderDigest(auditFindings.findings, 3000)}`
-    // Fallback for the first run before audit.ts has produced structured findings.
-    : auditReport.slice(0, 3000);
+    // Fallback for the first run before audit.ts has produced structured
+    // findings. NOT truncated: this exact `.slice(0, 3000)` is the bug that
+    // silently discarded every high and medium finding on a 13,851-char report,
+    // and it stayed live for months because a shorter prompt still looks
+    // plausible. The full report goes through; the budget assertion below
+    // catches genuine overgrowth loudly.
+    : auditReport;
   const prevPlan = readIfExists(resolve(ROOT, 'reports/weekly-plan.md'), 'No previous plan.');
 
   // Prefer v2 intelligence.json (page-specific, query-grounded gaps) over old latest.json
@@ -404,6 +409,8 @@ async function main() {
 
   const recentOutcomes = loadRecentOutcomes(ROOT).slice(-20);  // last 90 days, max 20 entries
 
+  assertPromptBudget('strategy', `${thesis}${decisionsLog}${conceptContext}${auditDigest}`);
+
   const response = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
@@ -422,13 +429,13 @@ CRITICAL RULES:
 Content pillars: Chair Reviews, Height-Specific Guides, Ergonomics & Pain, Comparisons, Workstation Setup.
 
 WIKI — STRATEGIC THESIS:
-${thesis.slice(0, 1500)}
+${thesis}
 
 WIKI — WHAT WORKS (proven patterns):
-${(readWikiPage(ROOT, 'synthesis/what-works.md') || '').slice(0, 1500)}
+${readWikiPage(ROOT, 'synthesis/what-works.md') || ''}
 
 WIKI — WHAT FAILED (don't repeat):
-${(readWikiPage(ROOT, 'synthesis/what-failed.md') || '').slice(0, 1500)}
+${readWikiPage(ROOT, 'synthesis/what-failed.md') || ''}
 
 INTERVENTION OUTCOMES (structured — use this instead of what-works.md for outcome reasoning):
 ${formatOutcomesForPrompt(recentOutcomes)}
@@ -443,10 +450,10 @@ READING GUIDE FOR OUTCOMES:
 - Rows with 'pending' delta have no afterMetric yet — note the fix date and wait for reconciliation.
 
 WIKI — RECENT DECISIONS:
-${decisionsLog.slice(0, 4000)}
+${decisionsLog}
 
 WIKI — OPEN ISSUES (CTR, content gaps, internal linking):
-${conceptContext.slice(0, 2000)}`,
+${conceptContext}`,
         cache_control: { type: 'ephemeral' },
       },
     ],
@@ -516,7 +523,7 @@ Context: When Google shows an AI Overview for a query and TCA is not cited, clic
 ${aioSuppressionLines || '(none — no AIO suppression detected this cycle)'}
 
 PREVIOUS PLAN (for continuity):
-${prevPlan.slice(0, 500)}
+${prevPlan}
 
 CONTENT ROADMAP (priority topics Jackson has queued — suggest 1-2 per week as NEW entries even if they have zero GSC impressions):
 ${topRoadmapTopics.length > 0

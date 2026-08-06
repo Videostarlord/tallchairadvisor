@@ -8,7 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readStrategicDirective, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
+import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readStrategicDirective, assertPromptBudget, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 import { ISSUE_CLASSES, makeFindingId, renderReport, sortFindings, type AuditFinding, type AuditFindingsFile, type IssueClass, type Severity } from '../audit-findings.js';
 
@@ -139,6 +139,8 @@ async function main() {
   const strategicDirective = readStrategicDirective(ROOT);
 
   // Call Claude for analysis
+  assertPromptBudget('audit', `${wikiContext}${synthesisContext}${strategicDirective}`);
+
   const response = await withRetry(() => client.messages.create({
     model: 'claude-sonnet-4-6',
     // 4000 was too small and had been silently truncating the findings array
@@ -173,7 +175,7 @@ so re-raising one wastes the slot; the standing rule is given so you can general
 ${formatRetractionRules(retractions)}
 
 HISTORICAL CONTEXT FROM WIKI (compare this week against prior findings):
-${wikiContext.slice(0, 2000)}
+${wikiContext}
 
 STANDING STRATEGIC DIRECTIVE — THIS OVERRIDES ANY HISTORICAL CONTEXT ABOVE.
 This is sent in full and is never truncated. Where the historical context and
@@ -193,7 +195,7 @@ HOW TO APPLY IT WHEN CHOOSING FINDINGS:
   pagesNotNeedingAction rather than filing it.
 
 STRATEGIC CONTEXT (historical, truncated — subordinate to the directive above):
-${synthesisContext.slice(0, 1500)}`,
+${synthesisContext}`,
         cache_control: { type: 'ephemeral' },
       },
     ],
