@@ -129,6 +129,24 @@ async function checkReportFile(): Promise<Signal> {
   }
 }
 
+/**
+ * HTTP header values are ByteStrings — Latin-1 only. A single non-ASCII
+ * character makes fetch() throw before the request is sent.
+ *
+ * This bit hard: the title read `TCA DEAD — no nightly report`, and the em-dash
+ * meant the alarm detected death correctly and then threw while delivering it.
+ * The one notification that must never fail was the only one guaranteed to.
+ * Body text is unaffected (it is UTF-8), so only headers need this.
+ */
+function headerSafe(value: string): string {
+  return value
+    .replace(/[—–]/g, '-')       // em/en dash
+    .replace(/[‘’]/g, "'")       // curly single quotes
+    .replace(/[“”]/g, '"')       // curly double quotes
+    .replace(/[…]/g, '...')           // ellipsis
+    .replace(/[^\x20-\x7E]/g, '');         // anything else non-ASCII
+}
+
 async function alert(signals: Signal[]): Promise<void> {
   const dead = signals.filter(s => !s.alive);
   const body = [
@@ -151,7 +169,7 @@ async function alert(signals: Signal[]): Promise<void> {
     const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
       headers: {
-        Title: `TCA DEAD — no nightly report ${localDateString()}`,
+        Title: headerSafe(`TCA DEAD - no nightly report ${localDateString()}`),
         Priority: 'urgent',
         Tags: 'skull,rotating_light',
       },

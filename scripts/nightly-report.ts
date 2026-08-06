@@ -301,6 +301,24 @@ function fallbackReport(sources: Source[], error: string): string {
   return lines.join('\n');
 }
 
+/**
+ * HTTP header values are ByteStrings — Latin-1 only — and fetch() throws on any
+ * non-ASCII character before the request leaves. This matters more here than it
+ * looks: the title is assembled from MODEL-GENERATED prose, which reaches for
+ * em-dashes and curly quotes constantly. An unguarded title would fail on a
+ * normal night, not an exotic one.
+ *
+ * Only headers need this. The body is UTF-8 and passes through untouched.
+ */
+function headerSafe(value: string): string {
+  return value
+    .replace(/[—–]/g, '-')
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[…]/g, '...')
+    .replace(/[^\x20-\x7E]/g, '');
+}
+
 async function push(title: string, body: string): Promise<void> {
   if (!NTFY_TOPIC) {
     console.error('[nightly] NTFY_TOPIC unset — no phone push sent (PRD §11 default transport is ntfy.sh).');
@@ -309,7 +327,7 @@ async function push(title: string, body: string): Promise<void> {
   try {
     const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
-      headers: { Title: title, Priority: 'default', Tags: 'telescope' },
+      headers: { Title: headerSafe(title), Priority: 'default', Tags: 'telescope' },
       body,
     });
     if (!res.ok) console.error(`[nightly] ntfy push failed: HTTP ${res.status}`);
