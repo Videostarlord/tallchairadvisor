@@ -100,16 +100,32 @@ Fixed by rewinding the reconciliation fields in the fixture (`unreconciled()`), 
 
 **Known coupling, deliberate:** `read-validated.test.ts` validates real `data/` files including freshness. SLAs are 8 days (`maxAgeHours: 8 * 24`), so this only trips if collection has been dead over a week. That is worth a red check — do not loosen the SLA to make it quiet.
 
-### A12. Nothing has ever run on cron — unattended operation is unproven
-`gh run list` shows **only `workflow_dispatch` runs** for both `nightly.yml` and the watchdog. Every green check to date was a human pressing a button. The entire premise of the build — that opening Claude Code to check on TCA should be unnecessary — has never once been demonstrated without a human present.
+### A15. The dead-man's switch has never successfully run on its own schedule — NEW, A-CRITICAL
+Found 2026-08-06 while checking A12. **Every scheduled watchdog run fails.**
 
-Unexercised: the cron expression itself, the PDT→PST drift the workflow comments acknowledge, the watchdog's 08:00 deadline logic against a real scheduled nightly, and whether the nightly's commit-and-push step behaves when it is not attached to a dispatch.
+| Run | Event | Result | Duration |
+|---|---|---|---|
+| 31086240840 | `workflow_dispatch` | success | 17s |
+| 31121600761 | `schedule` | **failure** | 15m03s |
+| 31124748581 | `schedule` | **failure** | 15m02s |
 
-- [ ] Let one scheduled 10:00 UTC nightly run with no human, then read the report cold the next morning
-- [ ] Confirm the watchdog's 15:10 UTC run sees that nightly and stays quiet
-- [ ] Separately confirm the alarm path works by skipping one night on purpose — a dead-man's switch that has never fired is a hypothesis, not a switch
+Both failures are `conclusion: cancelled` with **zero steps executed**. The job never got a runner; GitHub gave up after ~15 minutes. This is not a code fault — `watchdog.yml` sets `timeout-minutes: 5`, which cannot produce a 15-minute cancellation, because that clock only starts once a job is actually running. The scheduled start times are also badly delayed: crons are `10 15` and `10 16` UTC, but the runs registered at 16:57 and 17:59 — roughly 1h50m late, itself a symptom of the same problem.
 
-**Everything else in section A is theoretical until this passes.** Blockers are all cleared (secrets set, `Videostarlord/tca-godseye-watchdog` live); this needs a calendar day, not work.
+**Most likely cause — needs Jackson to confirm, I cannot read billing with this token:** `tca-godseye-watchdog` is a **private** repo. Private-repo Actions minutes are metered on the Free plan (2,000/month) with a default $0 spending limit; public repos are unlimited. `tallchairadvisor` is public, which is exactly why its nightly keeps running while the watchdog cannot get a runner.
+
+- [ ] **Check GitHub → Settings → Billing → Actions.** If minutes are exhausted or the spending limit is $0, that is the whole story
+- [ ] **Recommended fix: make `tca-godseye-watchdog` public.** It holds one deliberately dependency-free script and no proprietary logic; repo secrets stay secret in public repos, so `NTFY_TOPIC` is unaffected. Public repos get unlimited Actions minutes, which removes the failure mode permanently rather than resetting it monthly
+- [ ] Alternative if it must stay private: raise the spending limit, or move the check off Actions entirely (an external cron / uptime service pinging for the nightly artifact)
+
+**Why this is the most serious item on the list.** The switch exists because "a watcher inside the repo it watches cannot report its own death" (PRD §7.7). But a watcher that never runs emits no alarm — and no alarm is indistinguishable from all-clear. The build moved silent failure up one level, and this is where it landed. It has been in this state since the switch was deployed, and nothing surfaced it: **A13's argument, live.**
+
+### A12. ~~Nothing has ever run on cron~~ — HALF PROVEN 2026-08-06
+- [x] **The nightly ran unattended.** Run `31099962422`, `event: schedule`, `conclusion: success`, 8m10s, started 2026-08-06T12:05:50Z with no human involved. The cron expression, the collectors, the probe, the ledger, the report, and the commit-and-push step all work when nobody is watching. **This was the premise of the entire build and it now holds.**
+- [ ] Read that report cold and confirm it is actually useful, not merely produced
+- [ ] **The watchdog half FAILS — see A15.** Both of its scheduled runs were cancelled before executing a single step
+- [ ] Confirm the alarm path by skipping one night on purpose. A dead-man's switch that has never fired is a hypothesis, not a switch — and per A15 this one currently cannot fire at all
+
+Net: the observed half works, the *watching* half does not. A15 is now the blocker.
 
 ### A13. No health check on the detectors themselves
 Every incident in this system's history is a **measurement** failing quietly, not a page failing loudly: CSP killed GA4 behind healthy dashboards for a month; Friday's workflow committed nothing for 5 days; the auditor ran at `max_tokens: 4000` on 1.4% of the strategy synthesis for a month. **Jackson caught the last one, not the system.**
@@ -313,7 +329,7 @@ Mostly meta/title length on pages ranking worse than position 8 — where rank, 
 
 # SUGGESTED ORDER
 
-0. **A12** — let one nightly run on cron, unattended. Costs a calendar day and no work, and everything below is theoretical until it passes.
+0. **A15** — the dead-man's switch cannot get a runner and has never fired on schedule. Likely one click (make the watchdog repo public). Until then nothing is watching the watcher, and silence means nothing. ~~A12~~ is half done: the nightly proved itself on cron 2026-08-06; the watchdog is what remains.
 1. **B11** — the false Leap Plus seat height on 31 more pages, starting with the five height landing pages. A 6'5"–6'7" buyer is being told to buy a chair that does not fit them, and the site is the source AI assistants are quoting it from. Nothing else on this list costs a reader money.
 2. **A1** — unblock the pipeline. Nothing ships until fixes can land.
 3. ~~**B1 + B2**~~ — done 2026-08-06. Root fact established from the Steelcase spec guide; B11 is the remainder.
