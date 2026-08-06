@@ -3071,3 +3071,32 @@ Follow-on to the build entry above. The system moved from "built" to **running**
 - **`nightly.yml` referenced three secrets that do not exist.** All fail *silently*: GitHub substitutes an empty string, so the collector reports "no key set" and the check goes quietly blind — the exact failure class this build targets, in the build's own CI. `SERPAPI_KEY`→`SERP_API_KEY`, `DATAFORSEO_LOGIN`→`DATAFORSEO_USERNAME` (vendor naming vs. the names actually created years ago), and `GA4_SERVICE_ACCOUNT_JSON` removed. **The worst was structural:** the workflow passed `GSC_SERVICE_ACCOUNT_JSON` as an env var, but `gsc-pull.ts` and `ga4-pull.ts` both read the account from `credentials/gsc-service-account.json` (`ga4-pull.ts:27` hardcodes it; GA4 reuses the GSC account). The file was never written, so **both collectors would have failed in CI while working perfectly locally**, where the file exists on disk. Restore step added, mirroring `monday.yml`, with a `JSON.parse` assertion so a malformed secret fails at the top of the run rather than as two unexplained failures ten minutes later.
 - **The regression detector caught the operator.** Capping `GSC_INSPECT_LIMIT=2` for a fast test made the GSC collector unhealthy *after* it had already closed; the ledger flagged it `regressed` rather than filing a new finding, then re-closed it on the next full run. Full lifecycle — closed → regressed → closed — observed on real data without intervention.
 - **Open, unresolved:** the 7-day Cloudflare cache hit rate is **9.2%** (20,161 requests, 1,862 cached), though today alone is 46.2%. Low for a static Astro site and not yet investigated.
+
+## [2026-08-06] manual session | Full-week stress test — 6 real bugs found
+
+Ran the entire Mon–Sat pipeline plus God's-Eye end-to-end in CI, bracketed by nightly runs. Every workflow now passes. Six real bugs surfaced, four of which had been silently degrading the pipeline for weeks.
+
+**1. Audit findings truncated every week for a month (CRITICAL).** `audit.ts` used `max_tokens: 4000`; `data/token-log.jsonl` shows **five logged runs, all five hitting exactly 4000**. The model spent its budget on the executive summary and ran out before emitting the findings array, and `raw.findings ?? []` rendered that truncation as `_No findings this week._` — a clean bill of health. Today's run wrote a summary naming `/knee-pain-seat-depth/` (41% of site impressions at 0.04% CTR) and a spec contradiction on `/chairs/steelcase-leap-plus/seat-height/` (title says 15.5"–22.5", body says 15.5"–20.5") while reporting **zero findings**. Fixed: `max_tokens` → 16000, `stop_reason === 'max_tokens'` now throws, and the `?? []` is gone (absent array throws; empty array is a legitimate clean audit). Re-ran: **29 findings** — 4 critical, 12 high, 11 medium — at 6,405 output tokens.
+
+**2. `data/audit-findings.json` was never committed.** `tuesday.yml` committed `reports/ raw/ wiki/` but not the structured findings file that `strategy.ts:324` reads. On a fresh Wednesday checkout it never existed, so strategy took its fallback branch — `auditReport.slice(0, 3000)` — **the exact truncation bug the structured-findings work shipped to remove.** Dead on arrival in CI since it shipped: correct locally, never correct in the pipeline.
+
+**3. `data/interventions.jsonl` was never committed either.** `execute-fixes.ts:406` appends to it; `thursday.yml` never persisted it. `git log` shows the file touched exactly once, by a manual July commit. So `reconcileInterventions` had **two independent reasons to do nothing** — the `raw.pages ?? []` bug fixed earlier, and no interventions to reconcile at all.
+
+**4. Workflows discarded entire runs on any concurrent push.** Monday completed every agent — GSC pull, analysis, Clarity, GA4, competitor intelligence, index fixes — then threw it all away. The retry re-pushed the same stale ref three times (`git push || sleep 15 && git push || …`) with no fetch or rebase. Six workflows fixed to rebase before each attempt. `keywords-monthly.yml` had a bare `git push` with no retry at all.
+
+**5. Nightly report exceeded its token budget once probes existed.** 470KB/night of probe data pushed the payload to ~164K tokens against a 150K budget; `assertNoTruncation()` correctly refused and degraded to a mechanical dump. Fixed by summarizing probe *evidence* — raw JSON-LD the narrative never quotes, 80% of the file — while keeping every URL and failing assertion, and naming the file the omitted bytes live in.
+
+**6. My own probe summarizer read absent data as healthy.** `r.network ?? {}` meant a probe record with no network block passed every `=== false` check and summarized as clean. Caught by `lint:architecture`, which flagged 6 violations in code I had written minutes earlier.
+
+**What worked, verified under real conditions:**
+- **The trust layer blocked a fabricated ASIN.** Friday's new page scored **100/100 on quality** and was rejected at the last gate for containing unverified ASIN `B006H1QYBA`. Same failure class that put 8 invented ASINs on the live site in July.
+- **Friday's 3-week failure is root-caused and resolved.** It had been creating a page at `/best-office-chairs/` — a 301 redirect source — breaking the build. `assertSafeToAct` now rejects it by name. Friday succeeded for the first time since 2026-07-17.
+- **Regression detection fired on real data**, including on the operator: capping `GSC_INSPECT_LIMIT` made a closed collector finding go `regressed`, then re-close on the next full run.
+- **Live site unchanged throughout** — HTTP 200, 93 pages before and after.
+
+**Open, not fixed:**
+- **The cooldown gate blocks factual corrections.** 29 findings → 6 planned → 5 dropped at plan time, 1 at execution time → **zero fixes applied**. The critical spec contradiction waits 12 more days behind a 14-day timer. The strategy agent argued for bypassing on technical grounds; deterministic enforcement overrode it. Correct behaviour, arguably wrong prioritisation — a factual error should not queue behind a thrash guard.
+- **The nightly cannot see the agents' own execution logs.** `reports/content-log.md` and `fixes-log.md` are not among its sources, so the ASIN rejection — the week's most important event — appears nowhere in the report.
+- **Clarity quota architecture.** 10 requests/day/project; Monday spends 2 and the nightly then hits 429. The report correctly diagnosed this as "a quota architecture problem, not a missing token."
+
+**Cost of the full stress test: $3.62 across 29 metered LLM calls.**
