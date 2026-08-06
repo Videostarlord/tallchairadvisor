@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-08-06] audit | Weekly Site Audit
+
+- Pages audited: 20
+- Clicks: 236 | Impressions: 99415
+- Full report archived to raw/audits/2026-08-06-weekly-audit.md
+
+
 ## [2026-08-06] audit | SKIPPED
 
 - Reason: duplicate dispatch detected — report already existed
