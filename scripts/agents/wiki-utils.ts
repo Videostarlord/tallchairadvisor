@@ -367,3 +367,90 @@ export function computeIntentWeightAdjustments(repoRoot: string): Record<IntentT
   }
   return result;
 }
+
+// ─── Retraction Ledger ────────────────────────────────────────────────────────
+// A finding proven wrong must never be re-raised or acted upon again.
+//
+// WHY THIS IS A DATA FILE AND NOT PROSE: on 2026-08-04 the C-1 duplicate-content
+// false positive was documented in the wiki, and on 2026-08-05 the strategy agent
+// planned the destructive work anyway. Two reasons it could not work as prose —
+// strategy.ts reads the audit report with .slice(0, 3000), so a retraction below
+// the first critical finding is silently truncated away; and both agents rewrite
+// their report files unconditionally, so a hand-added banner is destroyed on the
+// next run. Retractions must be applied as deterministic filtering in code, the
+// way data/content-failed.json already suppresses failed slugs.
+//
+// APPEND-ONLY, mirroring the contract in scripts/agents/clarity-history.ts:
+// appendFileSync only, never writeFileSync; malformed lines are skipped rather
+// than allowed to corrupt the rest of the file.
+
+export interface RetractionEntry {
+  /** Discriminator, so un-retractions can be added later without a schema change. */
+  type: 'retraction';
+  date: string;
+  /** sha1(page|issueClass) from scripts/audit-findings.ts. */
+  findingId: string;
+  page: string;
+  issueClass: string;
+  /** The wrong claim, verbatim enough to recognise. */
+  claim: string;
+  /** Why it is wrong — the evidence. */
+  why: string;
+  /** Standing rule injected into the audit prompt so the model stops re-deriving it. */
+  rule: string;
+  /** Set when a retraction is itself withdrawn. Immutability latch, mirrors reconciledAt. */
+  supersededAt: string | null;
+}
+
+/** Load all live retractions. Returns [] if the ledger does not exist (no throw). */
+export function loadRetractions(repoRoot: string): RetractionEntry[] {
+  const filePath = resolve(repoRoot, 'data/retractions.jsonl');
+  if (!existsSync(filePath)) return [];
+  const out: RetractionEntry[] = [];
+  for (const line of readFileSync(filePath, 'utf-8').split('\n')) {
+    if (!line.trim()) continue;
+    try {
+      const entry = JSON.parse(line) as RetractionEntry;
+      if (entry.type === 'retraction' && entry.supersededAt === null) out.push(entry);
+    } catch {
+      // malformed line — skip, do not corrupt the rest of the file
+    }
+  }
+  return out;
+}
+
+/**
+ * Match on findingId first; fall back to (page, issueClass) so a retraction still
+ * applies if an ID scheme ever changes.
+ */
+export function isRetracted(
+  retractions: RetractionEntry[],
+  findingId: string,
+  page: string,
+  issueClass: string,
+): RetractionEntry | null {
+  const normalize = (p: string) => {
+    const path = p.replace(/^https?:\/\/[^/]+/, '');
+    return path === '/' ? '/' : `/${path.replace(/^\/|\/$/g, '')}/`;
+  };
+  const target = normalize(page);
+  return (
+    retractions.find(r => r.findingId === findingId) ??
+    retractions.find(r => normalize(r.page) === target && r.issueClass === issueClass) ??
+    null
+  );
+}
+
+/** Append one retraction. NEVER call writeFileSync on this path. */
+export function appendRetraction(repoRoot: string, entry: Omit<RetractionEntry, 'type' | 'supersededAt'>): void {
+  const dir = resolve(repoRoot, 'data');
+  mkdirSync(dir, { recursive: true });
+  const full: RetractionEntry = { type: 'retraction', ...entry, supersededAt: null };
+  appendFileSync(resolve(dir, 'retractions.jsonl'), JSON.stringify(full) + '\n');
+}
+
+/** Standing rules from the ledger, for injection into the audit prompt. */
+export function formatRetractionRules(retractions: RetractionEntry[]): string {
+  if (retractions.length === 0) return '  (none)';
+  return retractions.map(r => `  - ${r.page} [${r.issueClass}]: ${r.rule}`).join('\n');
+}

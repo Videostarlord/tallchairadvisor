@@ -11,6 +11,7 @@ import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { readWikiIndex, readSynthesisContext, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
+import { renderDigest, type AuditFindingsFile } from '../audit-findings.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -311,6 +312,23 @@ async function main() {
   const clarityData = existsSync(clarityPath) ? JSON.parse(readFileSync(clarityPath, 'utf-8')) : null;
 
   const auditReport = readIfExists(resolve(ROOT, 'reports/audit-report.md'));
+
+  // Audit findings as a compact digest, not truncated prose.
+  //
+  // This previously did `auditReport.slice(0, 3000)` on the rendered markdown.
+  // Measured on a real 13,851-char report: the first critical finding sat at char
+  // 2356 and reached the model, while H-1 (char 5600) and M-1 (char 11005) NEVER
+  // DID — most of every audit was silently discarded before planning. One line per
+  // finding fits ~25-30 findings in the same budget, and retracted findings are
+  // already removed upstream by audit.ts.
+  const auditFindingsPath = resolve(ROOT, 'data/audit-findings.json');
+  const auditFindings: AuditFindingsFile | null = existsSync(auditFindingsPath)
+    ? JSON.parse(readFileSync(auditFindingsPath, 'utf-8'))
+    : null;
+  const auditDigest = auditFindings
+    ? `EXECUTIVE SUMMARY: ${auditFindings.executiveSummary}\n\nFINDINGS (${auditFindings.findings.length}, severity-ordered; retracted findings already removed):\n${renderDigest(auditFindings.findings, 3000)}`
+    // Fallback for the first run before audit.ts has produced structured findings.
+    : auditReport.slice(0, 3000);
   const prevPlan = readIfExists(resolve(ROOT, 'reports/weekly-plan.md'), 'No previous plan.');
 
   // Prefer v2 intelligence.json (page-specific, query-grounded gaps) over old latest.json
@@ -425,7 +443,7 @@ READING GUIDE FOR OUTCOMES:
 - Rows with 'pending' delta have no afterMetric yet — note the fix date and wait for reconciliation.
 
 WIKI — RECENT DECISIONS:
-${decisionsLog.slice(0, 1000)}
+${decisionsLog.slice(0, 4000)}
 
 WIKI — OPEN ISSUES (CTR, content gaps, internal linking):
 ${conceptContext.slice(0, 2000)}`,
@@ -486,7 +504,7 @@ ${clarityData ? (() => {
 })() : '(clarity-pull.ts not yet run — add CLARITY_TOKEN secret to enable)'}
 
 AUDIT REPORT:
-${auditReport.slice(0, 3000)}
+${auditDigest}
 
 COMPETITOR GAPS (v2 intelligence — attributed per TCA page, SERP-grounded; use the page path to assign each gap to its exact FIX or REWRITE target):
 ${competitorSummary}

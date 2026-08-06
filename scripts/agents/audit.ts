@@ -8,8 +8,9 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry } from './wiki-utils.js';
+import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
+import { ISSUE_CLASSES, makeFindingId, renderReport, sortFindings, type AuditFinding, type AuditFindingsFile, type IssueClass, type Severity } from '../audit-findings.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -88,6 +89,7 @@ async function main() {
   // before any meta/duplicate analysis — see scripts/redirect-map.ts for the
   // 2026-08-05 incident this prevents.
   const redirectMap = loadRedirectMap(ROOT);
+  const retractions = loadRetractions(ROOT);
 
   const candidatePages = gsc.pages
     .filter((p: any) => p.impressions >= 10 && !p.page.includes('/assets/') && !p.page.includes('/images/'))
@@ -159,6 +161,11 @@ exact false positive was reported as CRITICAL and nearly caused an agent to recr
 deliberately consolidated page. If you believe two URLs are duplicates, first confirm
 neither appears in the list above.
 
+RETRACTED FINDINGS — these claims were investigated and proven FALSE.
+Do not raise them again. They are filtered out deterministically after you respond,
+so re-raising one wastes the slot; the standing rule is given so you can generalise:
+${formatRetractionRules(retractions)}
+
 HISTORICAL CONTEXT FROM WIKI (compare this week against prior findings):
 ${wikiContext.slice(0, 2000)}
 
@@ -167,6 +174,36 @@ ${synthesisContext.slice(0, 1500)}`,
         cache_control: { type: 'ephemeral' },
       },
     ],
+    tools: [{
+      name: 'report_findings',
+      description: 'Report every audit finding as a structured record. Call exactly once.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          executiveSummary: { type: 'string', description: '3-4 sentences on overall site health.' },
+          findings: {
+            type: 'array',
+            description: 'One entry per distinct issue. One page may have several, but never two with the same issueClass.',
+            items: {
+              type: 'object',
+              properties: {
+                page: { type: 'string', description: 'Page path, e.g. /review/gesture/' },
+                issueClass: { type: 'string', enum: [...ISSUE_CLASSES], description: 'Closest matching class. Use "other" only when nothing fits.' },
+                severity: { type: 'string', enum: ['critical', 'high', 'medium', 'low'] },
+                summary: { type: 'string', description: 'One sentence stating what is wrong.' },
+                recommendation: { type: 'string', description: 'Specific fix — exact meta text, exact schema error, etc.' },
+                evidence: { type: 'string', description: 'Compact metrics, e.g. "40,195 impr, pos 5.7, 0.04% CTR".' },
+              },
+              required: ['page', 'issueClass', 'severity', 'summary', 'recommendation'],
+            },
+          },
+          weeklyFocus: { type: 'array', items: { type: 'string' }, description: 'Top 3 fixes with the most impact.' },
+          pagesNotNeedingAction: { type: 'array', items: { type: 'string' }, description: 'Pages that look healthy.' },
+        },
+        required: ['executiveSummary', 'findings', 'weeklyFocus'],
+      },
+    }],
+    tool_choice: { type: 'tool', name: 'report_findings' },
     messages: [{
       role: 'user',
       content: `Audit these pages and identify all issues. For each issue assign severity: critical/high/medium/low.
@@ -202,28 +239,88 @@ Schema blocks: ${r.meta.schemaBlocks?.join(' | ').slice(0, 200) || 'none'}
 `;
 }).join('\n---\n')}
 
-Output a structured markdown audit report with:
-1. Executive summary (3-4 sentences, overall health)
-2. Critical CTR leaks (pages with position ≤ 10 and 0 clicks — top priority)
-3. Issues by severity (critical/high/medium/low) with specific fixes
-4. Pages not needing action
-5. Week's recommended focus (top 3 fixes that will have most impact)
+Call report_findings exactly once with every issue you find.
 
-Be specific: include exact meta descriptions to rewrite, exact schema errors to fix, etc.`,
+Rules:
+- One finding per (page, issueClass) pair — never emit the same class twice for one page.
+- Prioritise CTR leaks: position <= 10 with zero or near-zero clicks.
+- Be specific in "recommendation": exact meta description text to use, the exact schema error, the exact spec discrepancy.
+- Put metrics in "evidence", not in "summary".
+- Do not emit a duplicate-content or cannibalization finding for any URL in the REDIRECT SOURCES list above.`,
     }],
   }));
 
   logCacheUsage('audit', response.usage, ROOT);
 
-  const report = response.content[0].type === 'text' ? response.content[0].text : 'Audit failed.';
-  const output = `# TCA Weekly Audit Report
-**Generated:** ${new Date().toISOString()}
-**Data range:** ${gsc.dateRange.start} → ${gsc.dateRange.end}
+  // Structured output — the model is forced through the report_findings tool, so
+  // findings are records rather than prose. Everything downstream reads the JSON;
+  // the markdown is a render for humans.
+  const toolUse = response.content.find(b => b.type === 'tool_use');
+  if (!toolUse || toolUse.type !== 'tool_use') {
+    throw new Error(`Audit did not return structured findings (stop_reason: ${response.stop_reason}). No report written.`);
+  }
+  const raw = toolUse.input as {
+    executiveSummary: string;
+    findings: Array<Omit<AuditFinding, 'findingId'>>;
+    weeklyFocus?: string[];
+    pagesNotNeedingAction?: string[];
+  };
 
-${report}`;
+  const validClasses = new Set<string>(ISSUE_CLASSES);
+  const seen = new Set<string>();
+  const allFindings: AuditFinding[] = [];
+
+  for (const f of raw.findings ?? []) {
+    // Defensive: the enum is in the schema, but an out-of-set class would break
+    // ID stability, so coerce rather than trust.
+    const issueClass: IssueClass = validClasses.has(f.issueClass) ? (f.issueClass as IssueClass) : 'other';
+    const findingId = makeFindingId(f.page, issueClass);
+    if (seen.has(findingId)) continue; // one finding per (page, class)
+    seen.add(findingId);
+    allFindings.push({
+      findingId,
+      page: f.page,
+      issueClass,
+      severity: (['critical', 'high', 'medium', 'low'] as Severity[]).includes(f.severity) ? f.severity : 'low',
+      summary: f.summary,
+      recommendation: f.recommendation,
+      evidence: f.evidence,
+    });
+  }
+
+  // Retraction filter — deterministic, applied AFTER the model responds and
+  // BEFORE anything is written. A retracted finding never reaches the JSON, the
+  // report, or the planner, no matter how confidently the model re-derives it.
+  const findings: AuditFinding[] = [];
+  const suppressed: AuditFindingsFile['suppressed'] = [];
+  for (const f of allFindings) {
+    const hit = isRetracted(retractions, f.findingId, f.page, f.issueClass);
+    if (hit) {
+      suppressed.push({ findingId: f.findingId, page: f.page, issueClass: f.issueClass, retractedOn: hit.date });
+      console.log(`[audit] SUPPRESSED ${f.findingId} ${f.page} [${f.issueClass}] — retracted ${hit.date}: ${hit.why}`);
+      continue;
+    }
+    findings.push(f);
+  }
+
+  const findingsFile: AuditFindingsFile = {
+    generatedAt: new Date().toISOString(),
+    dateRange: { start: gsc.dateRange.start, end: gsc.dateRange.end },
+    executiveSummary: raw.executiveSummary,
+    weeklyFocus: raw.weeklyFocus ?? [],
+    pagesNotNeedingAction: raw.pagesNotNeedingAction ?? [],
+    findings: sortFindings(findings),
+    suppressed,
+  };
+
+  mkdirSync(resolve(ROOT, 'data'), { recursive: true });
+  writeFileSync(resolve(ROOT, 'data/audit-findings.json'), JSON.stringify(findingsFile, null, 2));
+
+  const output = renderReport(findingsFile);
 
   mkdirSync(resolve(ROOT, 'reports'), { recursive: true });
   writeFileSync(resolve(ROOT, 'reports/audit-report.md'), output);
+  console.log(`[audit] ${findings.length} finding(s) written to data/audit-findings.json${suppressed.length ? `, ${suppressed.length} suppressed by retraction` : ''}`);
 
   // Archive to wiki raw layer
   archiveToRaw(ROOT, 'audits', `${today()}-weekly-audit.md`, output);
