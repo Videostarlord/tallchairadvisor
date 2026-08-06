@@ -50,7 +50,9 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/weekly-plan.md raw/ wiki/
-          [ -e data/token-log.jsonl ] && git add data/token-log.jsonl || true
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl; do
+            [ -e "$f" ] && git add "$f" || true
+          done
           git diff --staged --quiet || git commit -m "[skip cd] plan: Week of $(date +%Y-%m-%d)"
           for attempt in 1 2 3; do
             git pull --rebase --autostash origin main || true

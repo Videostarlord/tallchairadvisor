@@ -50,7 +50,13 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/audit-report.md raw/ wiki/
-          [ -e data/token-log.jsonl ] && git add data/token-log.jsonl || true
+          # data/audit-findings.json is the STRUCTURED source of truth that
+          # Wednesday's strategy agent reads. Without it committed, Wednesday
+          # falls back to auditReport.slice(0, 3000) — the exact truncation bug
+          # the structured-findings work shipped to remove.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl; do
+            [ -e "$f" ] && git add "$f" || true
+          done
           git diff --staged --quiet || git commit -m "[skip cd] report: Tuesday audit $(date +%Y-%m-%d)"
           for attempt in 1 2 3; do
             git pull --rebase --autostash origin main || true

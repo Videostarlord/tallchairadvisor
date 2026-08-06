@@ -98,5 +98,11 @@ jobs:
       - name: Commit data + wiki updates
         run: |
           git add reports/fixes-log.md raw/ wiki/
+          # interventions.jsonl records what was changed and when — it is the
+          # ONLY input to reconcileInterventions. Never committing it is why
+          # attribution has had nothing to reconcile since the pipeline began.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl; do
+            [ -e "$f" ] && git add "$f" || true
+          done
           git diff --staged --quiet || git commit -m "[skip cd] data: Thursday wiki + reports $(date +%Y-%m-%d)"
           git push origin HEAD:staging --force || { sleep 15 && git push origin HEAD:staging --force; } || { sleep 30 && git push origin HEAD:staging --force; }
