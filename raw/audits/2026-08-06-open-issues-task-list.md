@@ -100,8 +100,8 @@ Fixed by rewinding the reconciliation fields in the fixture (`unreconciled()`), 
 
 **Known coupling, deliberate:** `read-validated.test.ts` validates real `data/` files including freshness. SLAs are 8 days (`maxAgeHours: 8 * 24`), so this only trips if collection has been dead over a week. That is worth a red check — do not loosen the SLA to make it quiet.
 
-### A15. The dead-man's switch has never successfully run on its own schedule — NEW, A-CRITICAL
-Found 2026-08-06 while checking A12. **Every scheduled watchdog run fails.**
+### A15. The watchdog has never completed a scheduled run — but the cause was a GitHub outage, not a defect
+Found 2026-08-06 while checking A12. Every scheduled watchdog run so far has failed:
 
 | Run | Event | Result | Duration |
 |---|---|---|---|
@@ -111,13 +111,29 @@ Found 2026-08-06 while checking A12. **Every scheduled watchdog run fails.**
 
 Both failures are `conclusion: cancelled` with **zero steps executed**. The job never got a runner; GitHub gave up after ~15 minutes. This is not a code fault — `watchdog.yml` sets `timeout-minutes: 5`, which cannot produce a 15-minute cancellation, because that clock only starts once a job is actually running. The scheduled start times are also badly delayed: crons are `10 15` and `10 16` UTC, but the runs registered at 16:57 and 17:59 — roughly 1h50m late, itself a symptom of the same problem.
 
-**Most likely cause — needs Jackson to confirm, I cannot read billing with this token:** `tca-godseye-watchdog` is a **private** repo. Private-repo Actions minutes are metered on the Free plan (2,000/month) with a default $0 spending limit; public repos are unlimited. `tallchairadvisor` is public, which is exactly why its nightly keeps running while the watchdog cannot get a runner.
+**CAUSE IDENTIFIED — GITHUB ACTIONS OUTAGE, NOT A DEFECT IN THIS REPO.**
 
-- [ ] **Check GitHub → Settings → Billing → Actions.** If minutes are exhausted or the spending limit is $0, that is the whole story
-- [ ] **Recommended fix: make `tca-godseye-watchdog` public.** It holds one deliberately dependency-free script and no proprietary logic; repo secrets stay secret in public repos, so `NTFY_TOPIC` is unaffected. Public repos get unlimited Actions minutes, which removes the failure mode permanently rather than resetting it monthly
-- [ ] Alternative if it must stay private: raise the spending limit, or move the check off Actions entirely (an external cron / uptime service pinging for the nightly artifact)
+> **Incident with Actions** — githubstatus.com, `impact: critical`, opened **2026-08-06T15:22:49Z**:
+> *"Workflow runs are failing or delayed in starting, and some queued jobs may time out."*
 
-**Why this is the most serious item on the list.** The switch exists because "a watcher inside the repo it watches cannot report its own death" (PRD §7.7). But a watcher that never runs emits no alarm — and no alarm is indistinguishable from all-clear. The build moved silent failure up one level, and this is where it landed. It has been in this state since the switch was deployed, and nothing surfaced it: **A13's argument, live.**
+Every observation fits the incident window and nothing else is needed to explain it:
+
+| Time (UTC) | What | Result |
+|---|---|---|
+| 12:05 | Nightly, `schedule` | **success** — before the incident |
+| 15:22 | **GitHub Actions incident opens** | |
+| 16:57, 17:59 | Watchdog, `schedule` | cancelled, 0 steps — "queued jobs may time out" |
+| 18:31 | Tests, `workflow_dispatch` (public repo) | still queued, never started |
+
+**An earlier revision of this entry blamed private-repo Actions minutes. That was wrong and is withdrawn.** The decisive counter-evidence is the Tests run: `tallchairadvisor` is *public*, where minutes are unlimited, and it is stuck in exactly the same way. A billing ceiling cannot do that. The `timeout-minutes: 5` reasoning above still holds — the job never got a runner — but the reason is GitHub's, not this account's.
+
+**What is actually true, and it is much weaker than "the switch is broken":** `tca-godseye-watchdog` was created 2026-08-06T08:27Z, and its crons are 15:10/16:10 UTC. **Its first-ever scheduled firing landed inside the outage window.** There is no evidence the watchdog is defective — only that it has never yet completed a scheduled run under normal conditions.
+
+- [ ] **Re-check after the incident resolves.** If a scheduled run succeeds, close this and A12's remaining half with it
+- [ ] Only if it still fails on a healthy day: investigate for real. Do **not** change repo visibility or billing on the strength of the withdrawn hypothesis
+- [ ] Independent of all this — **confirm the alarm actually fires** by skipping one night deliberately. That remains untested and is not affected by the outage
+
+**The genuine lesson stands, and it is A13's.** For several hours the honest state of the system was "unknown — the platform is down," and nothing in the stack could say so. The nightly reports what it observes; neither it nor the ledger has any concept of *the CI substrate itself being unavailable*, so an outage and a healthy quiet night produce the same silence. A13's proposed floor check — refuse to report success when a thing could not be measured — should extend to the runner layer.
 
 ### A12. ~~Nothing has ever run on cron~~ — HALF PROVEN 2026-08-06
 - [x] **The nightly ran unattended.** Run `31099962422`, `event: schedule`, `conclusion: success`, 8m10s, started 2026-08-06T12:05:50Z with no human involved. The cron expression, the collectors, the probe, the ledger, the report, and the commit-and-push step all work when nobody is watching. **This was the premise of the entire build and it now holds.**
@@ -329,7 +345,7 @@ Mostly meta/title length on pages ranking worse than position 8 — where rank, 
 
 # SUGGESTED ORDER
 
-0. **A15** — the dead-man's switch cannot get a runner and has never fired on schedule. Likely one click (make the watchdog repo public). Until then nothing is watching the watcher, and silence means nothing. ~~A12~~ is half done: the nightly proved itself on cron 2026-08-06; the watchdog is what remains.
+0. **A15** — re-check the watchdog once GitHub's Actions incident (opened 2026-08-06T15:22Z, critical) resolves. Its first-ever scheduled firing landed inside the outage, so it is *unproven*, not broken — no action until a healthy day proves otherwise. ~~A12~~ is half done: the nightly proved itself on cron 2026-08-06 at 12:05Z, before the incident.
 1. **B11** — the false Leap Plus seat height on 31 more pages, starting with the five height landing pages. A 6'5"–6'7" buyer is being told to buy a chair that does not fit them, and the site is the source AI assistants are quoting it from. Nothing else on this list costs a reader money.
 2. **A1** — unblock the pipeline. Nothing ships until fixes can land.
 3. ~~**B1 + B2**~~ — done 2026-08-06. Root fact established from the Steelcase spec guide; B11 is the remainder.
