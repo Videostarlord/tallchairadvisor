@@ -709,3 +709,17 @@ The PRD lists it as auto-fixable, but `astro.config.mjs` also governs canonical 
 
 **7. The architecture lint ratchets rather than blocking.**
 172 pre-existing violations are baselined: KNOWN passes, NEW fails. A lint that failed on all 172 on day one would be disabled on day one. Escape hatches require a written reason — a bare `lint-architecture-allow` is itself reported — so suppressions grep in one command and never look like ordinary debt. It immediately caught 6 violations in the God's-Eye files themselves, which were fixed rather than baselined.
+
+## [2026-08-06] Operational decisions — turning God's-Eye on
+
+**8. The watchdog is a separate private repo, and the duplication is deliberate.**
+`Videostarlord/tca-godseye-watchdog` holds a *copy* of `deadmans-switch.ts`, not a shared import. Factoring out the common code would reintroduce exactly the coupling the second repo exists to break — the file is written dependency-free (raw `fetch`, hand-validated JSON) specifically so it can be copied. If it changes in `tallchairadvisor/scripts/`, copy it across by hand.
+
+**9. Cloudflare collectors target free-tier datasets, not the documented default.**
+`firewallEventsAdaptiveGroups` is Pro-gated and, on a free zone, fails with "zone does not have access to the path" — wording that reads as a token-scope error and cost real diagnostic time. The ungrouped `firewallEventsAdaptive` works on free; we aggregate client-side and hold the window to 23h, since the free plan rejects anything "wider than 1d" and an exact 24h span sits on the boundary. **Rule for future collectors: when an API error says "access", confirm the plan tier before touching token scopes.**
+
+**10. HTTP header values must be ASCII-sanitized at every push site.**
+Headers are ByteStrings; `fetch()` throws on any character over 255. An em dash in the dead-man's alarm title meant that alarm could never have been delivered — detected correctly, then thrown while announcing, silently, and only on nights something was already wrong. `headerSafe()` now guards both senders. This matters most where text is model-generated, since prose reaches for em dashes and curly quotes by default.
+
+**11. CI secret names are a silent-failure surface and must be cross-checked, not assumed.**
+GitHub substitutes an empty string for a secret that does not exist, so a misspelled name never errors — the collector reports "no key set" and the check goes blind. `nightly.yml` referenced three that did not exist. **Verify with `gh secret list` against the workflow's actual references; do not trust the vendor's naming convention to match what was created years earlier.** Related: a credential consumed from a *file* (`credentials/gsc-service-account.json`) cannot be supplied as an env var, which is why GSC and GA4 would have failed in CI while passing locally.

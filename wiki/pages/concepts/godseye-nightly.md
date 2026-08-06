@@ -1,6 +1,6 @@
 # God's-Eye Nightly
 
-**Type:** concept · **Status:** built, unpushed · **Created:** 2026-08-06
+**Type:** concept · **Status:** operational · **Created:** 2026-08-06 · **Updated:** 2026-08-06
 **Spec:** `raw/strategy/2026-08-05-godseye-PRD.md` · **Branch:** `feat/godseye-nightly`
 
 The observation layer over the Mon–Sat pipeline. It does not replace that pipeline — it watches it, proves what it claims, and alarms when it goes quiet.
@@ -65,13 +65,32 @@ npm run correct -- --dry-run
 
 CI: `.github/workflows/nightly.yml` at 10:00 UTC (03:00 PT). Almost every step is `continue-on-error` and the report is `if: always()` — **an unhealthy collector is a successful run of the observation system.** A nightly that aborted on the first bad collector would recreate the silent-failure class it exists to kill.
 
+## Status — operational as of 2026-08-06
+
+All three launch blockers are cleared:
+
+| Was blocking | Now |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | ✅ set; **7/7 collectors healthy, 100% coverage**. Only `Account → Cloudflare Pages:Read` was genuinely missing — beware the two decoys named "Custom Pages" and "Access: Custom Pages". |
+| `NTFY_TOPIC` | ✅ set; both the nightly push and the dead-man's alarm verified delivering |
+| Second-repo watchdog | ✅ [`Videostarlord/tca-godseye-watchdog`](https://github.com/Videostarlord/tca-godseye-watchdog) (private), verified firing from CI |
+
+`CLOUDFLARE_ACCOUNT_ID` must be set explicitly in both `.env` and repo secrets — the token carries zone scopes but **cannot list accounts**, so auto-discovery fails.
+
 ## Open items
 
-- **`CLOUDFLARE_API_TOKEN` is the only blocking credential** (PRD §10.1). Needs Account → Pages:Read, Zone → Analytics:Read, Zone → Firewall Services:Read. Finding `205a75e80e2a` auto-closes once set.
-- **`NTFY_TOPIC` is unset**, so the phone push and the dead-man's alarm have no delivery channel. The switch says so loudly, but until it is set, absence alarms nowhere.
-- **The dead-man's switch is not yet deployed to a second repo.** Until it is, the build has only moved silent failure up one level. See `scripts/deadmans-switch.README.md`.
+- **Cache hit rate is 9.2% over 7 days** (20,161 requests, 1,862 cached), though today alone is 46.2%. Low for a static Astro site; not yet investigated.
 - **Architecture lint baseline is 172.** New violations fail today; the backlog ratchets down as call sites migrate to `readValidated`. `--strict` is the end-state gate.
 - **Probe files are ~470KB/night** (~14MB/month), 52% of it retained JSON-LD used as closure evidence. No retention policy set — a decision for Jackson.
+- **Three defects the first runs surfaced, all unfixed:** the Friday — New Content workflow failed 2026-07-31 and committed nothing; `/review/sihoo-doro-s300/` and `/shoulder-pain-tall-people/` each 404 their own hero image; 4 URLs are not indexed by Google.
+
+## Bugs that only appeared once it ran
+
+Each of these was invisible until the component was actually used, which is the argument for turning things on rather than declaring them done:
+
+- **The dead-man's alarm could never have been delivered.** HTTP headers are Latin-1 only; the title contained a U+2014 em dash, so `fetch()` threw before sending. The switch detected death correctly and then failed to announce it — silently, and only ever on nights something had already gone wrong.
+- **`nightly.yml` never wrote `credentials/gsc-service-account.json`.** It passed the JSON as an env var, but both pull scripts read it from that file. GSC and GA4 would have failed in CI while working perfectly on the machine where the file happens to exist.
+- **Two CI secret names were wrong** (`SERPAPI_KEY`, `DATAFORSEO_LOGIN`). GitHub substitutes an empty string for a nonexistent secret, so nothing errors — the quota check just goes blind.
 
 ## Related
 
