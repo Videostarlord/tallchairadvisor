@@ -29,7 +29,13 @@ import 'dotenv/config';
 import { writeFileSync, mkdirSync, existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { z } from 'zod';
 import { meteredCreate } from './lib/metered-client.js';
+import { readValidated, readValidatedJsonl, ContractViolation, type ReadOptions } from './lib/read-validated.js';
+import { ledgerRecordSchema, ledgerOptions } from './schemas/ledger.js';
+import { pipelineStatusSchema, pipelineStatusOptions } from './schemas/pipeline-status.js';
+import { interventionSchema, interventionsOptions } from './schemas/interventions.js';
+import { retractionSchema, retractionsOptions } from './schemas/retractions.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -75,28 +81,54 @@ function ageHoursOf(path: string): number | null {
 /**
  * Load a source. `trust` is the honest answer to "does anything guarantee this
  * is correct?" — a file that merely exists is `unverified`.
+ *
+ * A `contract` is REQUIRED to earn `verified`, and it is actually executed here
+ * rather than asserted. Trusting a file because a schema exists somewhere else
+ * in the repo would be precisely the unearned claim this rule exists to stop:
+ * the report would state as fact a value nothing had checked. If validation
+ * fails, the source degrades to `unverified` carrying the violation as its
+ * reason — the content is still shown, but the report may not treat it as true.
  */
-function load(name: string, relPath: string, verified: boolean): Source {
+function load(
+  name: string,
+  relPath: string,
+  contract: { schema: z.ZodTypeAny; opts?: ReadOptions; jsonl?: boolean; absenceIsHealthy?: boolean } | null,
+): Source {
   const path = resolve(ROOT, relPath);
   if (!existsSync(path)) {
+    // Exception logs (cost drift) are absent exactly when nothing is wrong.
+    // Counting that as blindness would understate coverage and, worse, train
+    // Jackson to read a healthy 89% as a broken 100% — the report must not cry
+    // wolf about its own completeness any more than about the site's.
+    if (contract?.absenceIsHealthy) {
+      return { name, path: relPath, trust: 'verified', reason: 'absent, which is the healthy state — nothing to report', content: null, ageHours: null };
+    }
     return { name, path: relPath, trust: 'missing', reason: `${relPath} does not exist`, content: null, ageHours: null };
   }
+
+  let content: string;
   try {
-    const content = readFileSync(path, 'utf-8');
-    if (content.trim().length === 0) {
-      return { name, path: relPath, trust: 'missing', reason: `${relPath} is empty`, content: null, ageHours: ageHoursOf(path) };
-    }
-    return {
-      name,
-      path: relPath,
-      trust: verified ? 'verified' : 'unverified',
-      reason: verified ? null : `${relPath} has no schema contract or closure predicate behind it`,
-      content,
-      ageHours: ageHoursOf(path),
-    };
+    content = readFileSync(path, 'utf-8');
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
     return { name, path: relPath, trust: 'missing', reason: `${relPath} unreadable: ${reason}`, content: null, ageHours: ageHoursOf(path) };
+  }
+  if (content.trim().length === 0) {
+    return { name, path: relPath, trust: 'missing', reason: `${relPath} is empty`, content: null, ageHours: ageHoursOf(path) };
+  }
+
+  const ageHours = ageHoursOf(path);
+  if (!contract) {
+    return { name, path: relPath, trust: 'unverified', reason: `${relPath} has no schema contract or closure predicate behind it`, content, ageHours };
+  }
+
+  try {
+    if (contract.jsonl) readValidatedJsonl(relPath, contract.schema, contract.opts);
+    else readValidated(relPath, contract.schema, contract.opts);
+    return { name, path: relPath, trust: 'verified', reason: null, content, ageHours };
+  } catch (error) {
+    const detail = error instanceof ContractViolation ? error.message : error instanceof Error ? error.message : String(error);
+    return { name, path: relPath, trust: 'unverified', reason: `contract FAILED — ${detail}`, content, ageHours };
   }
 }
 
@@ -113,25 +145,27 @@ function latestDated(dir: string): string | null {
   }
 }
 
+/** Loose envelopes for artifacts whose shape is owned by the script that writes them. */
+const ledgerStateSchema = z.object({ generatedAt: z.string() }).passthrough();
+const collectorsRollupSchema = z.object({ collectedAt: z.string() }).passthrough();
+const costSummarySchema = z.object({ generatedAt: z.string() }).passthrough();
+const probeFileSchema = z.object({ generatedAt: z.string(), results: z.array(z.unknown()) }).passthrough();
+
 function gatherSources(): Source[] {
   const sources: Source[] = [
-    // Behind a predicate evaluator — verified.
-    load('ledger', 'data/ledger.jsonl', true),
-    load('ledger-state', 'data/ledger-state.json', true),
-    // Behind collector health records — verified.
-    load('collectors', 'data/collectors/latest.json', true),
-    // Priced at write time from a closed model table — verified.
-    load('cost-summary', 'data/cost-summary.json', true),
-    load('cost-drift', 'data/cost-drift.jsonl', true),
-    // No contract yet — these are the honest `unverified` set.
-    load('pipeline-status', 'data/pipeline-status.json', false),
-    load('interventions', 'data/interventions.jsonl', false),
-    load('retractions', 'data/retractions.jsonl', false),
+    load('ledger', 'data/ledger.jsonl', { schema: ledgerRecordSchema, opts: ledgerOptions, jsonl: true }),
+    load('ledger-state', 'data/ledger-state.json', { schema: ledgerStateSchema }),
+    load('collectors', 'data/collectors/latest.json', { schema: collectorsRollupSchema }),
+    load('cost-summary', 'data/cost-summary.json', { schema: costSummarySchema }),
+    load('cost-drift', 'data/cost-drift.jsonl', { schema: z.object({}).passthrough(), jsonl: true, absenceIsHealthy: true }),
+    load('pipeline-status', 'data/pipeline-status.json', { schema: pipelineStatusSchema, opts: pipelineStatusOptions }),
+    load('interventions', 'data/interventions.jsonl', { schema: interventionSchema, opts: interventionsOptions, jsonl: true }),
+    load('retractions', 'data/retractions.jsonl', { schema: retractionSchema, opts: retractionsOptions, jsonl: true }),
   ];
   const probes = latestDated('data/probes');
   sources.push(
     probes
-      ? load('probes', probes, true)
+      ? load('probes', probes, { schema: probeFileSchema })
       : { name: 'probes', path: 'data/probes/', trust: 'missing', reason: 'no probe run has ever completed (step 6 may not be built yet)', content: null, ageHours: null },
   );
   return sources;
