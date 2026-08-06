@@ -1,7 +1,7 @@
 ---
 type: concept
-last_updated: 2026-08-04
-sources: [raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
+last_updated: 2026-08-05
+sources: [raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
@@ -19,7 +19,7 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 
 | Month | Clicks | Orders | CVR | Ordered Revenue | Shipped Revenue | Net Earnings | Status |
 |--------|--------|--------|-----|-----------------|-----------------|--------------|--------|
-| **2026-08** | — | 1 (partial) | — | $7.99 | — | **+$0.24** | Days 1–3 only, derived from the Aug 3 rolling export. Confirming month for the kill-list gate; closes 2026-09-01. |
+| **2026-08** | — | 2 (partial) | — | $227.98 | — | **+$6.84** | Days 1–4 only, derived from the Aug 4 rolling export. Naive run rate ~$53/mo — below the $100 gate — but n=2 with one order at 96% of revenue, so the projection carries no weight. Confirming month for the kill-list gate; closes 2026-09-01. |
 | **2026-07** | 92 | 5 (1 direct) | 5.4% | $3,109.76 | $3,109.76 | **+$92.06** | Best month in site history (~2.5x prior best). 66% from a single order. Return window open. |
 | 2026-06 | 70 | 7 | 10.0% | $578.08 | $578.08 | **−$0.41** | 1 return ($610) wiped earnings. |
 
@@ -32,6 +32,27 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 | Jul 17 | 82 | $1,252.11 | — | +$36.06 | 6 items ordered (later restated to 5) |
 
 *Correction 2026-08-01: the Jul 28 ingest treated these as discrete periods and favored a "not cumulative" reading based on items ordered falling 6 → 5. That was wrong — the 6 → 5 change was an order restatement, not a new window. There is **one** positive month on record (July), not three positive periods. The Jul 3 kill-list gate ("2–3 consecutive positive revenue months") therefore stands at 1 of 2–3. August is the confirming period.*
+
+### Aug 4 export — rolling 30-day (inferred), Jul 6 – Aug 4
+
+**Window NOT confirmed.** Inferred rolling because the $3,337.74 total still contains July's ~$3,109.76 base including the single ~$2,048.80 order from the Jul 31 close — a month-to-date August export covering Aug 1–4 could not contain it.
+
+| Metric | Aug 4 | Aug 3 | Δ |
+|---|---|---|---|
+| Clicks | 108 | 101 | +7 |
+| Orders | 7 | 6 | +1 |
+| Ordered revenue | $3,337.74 | $3,117.75 | **+$219.99** |
+| Net earnings | $98.90 | $92.30 | **+$6.60** |
+
+$6.60 / $219.99 = 3.00%, furniture tier. One new order on Aug 4. Subtracting the July final gives **August 1–4 = $227.98 ordered / $6.84 net / 2 orders**.
+
+**The $98.90 headline is 93% July's money.** Only $6.84 is August.
+
+Click movement worth watching: **Leap Plus flat at 49** while Gesture +2 (28) and Aeron +2 (15). Leap Plus has been the top click generator all summer (47% of site affiliate clicks at one point) — single-day data, but watch for a plateau.
+
+Fifth consecutive export with **0 chair orders on 92 named-chair clicks (85% of traffic)**. All 7 orders in `others`, $477 average item. Top-Sellers present but still empty (header only).
+
+Raw: `raw/affiliate/2026-08-04-amazon-associates-report.md`.
 
 ### Aug 3 export — ROLLING 30-DAY window (not a month; excluded from the log above)
 

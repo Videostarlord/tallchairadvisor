@@ -2877,3 +2877,15 @@ Chronological record of wiki operations. Append new entries at the top.
 - **🔴 ORPHAN PAGES = NOT INDEXED.** Inbound internal link count predicts indexing almost perfectly here: 0 links → "URL is unknown to Google" (wide-seat, heavy-duty); 3 → still unknown after a month (refurbished-leap); 5 → "Crawled - not indexed"; 13+ → indexed. Three Jul 4 pages were invisible to Google for a month despite being in the sitemap. Added nav blocks from the highest-authority pages; new pages now 4-8 inbound, the three orphans 5-8. **Rule: requesting indexing on a page nothing links to does not work — add internal links first.**
 - Also pushed 5 previously-unpushed local commits, including `27b556d` — the Friday compile-gate fix written Jul 25 but never pushed, which is why Friday kept failing through Jul 31.
 - Updated [[affiliate-performance]], [[decisions-log]], [[index]], + 5 new site-page entities.
+
+## [2026-08-05] manual session | Aug 4 Amazon ingest — August tracking ~$53/mo run rate, 5th straight export with 0 chair orders
+
+- Ingested Aug 4 snapshot (4 CSVs → `raw/affiliate/2026-08-04-amazon-csv/` + summary md). Headline 108 clicks / 7 orders / $3,337.74 ordered / **+$98.90 net**.
+- **Window inferred rolling-30d (Jul 6 – Aug 4), NOT confirmed.** Basis: the total still contains July's ~$3,109.76 base including the single ~$2,048.80 order from the Jul 31 close, which an Aug 1–4 MTD export could not contain. Confirm the selected range on the next download.
+- **The $98.90 headline is 93% July's money.** Delta vs the Aug 3 export: +7 clicks, +1 order, +$219.99 revenue, +$6.60 net (3.00% = furniture tier). Subtracting the July final gives **August 1–4 = $227.98 ordered / $6.84 net / 2 orders.**
+- **August naive run rate ~$53/mo — below the $100 kill-list threshold**, and below July's $92.06. Weak projection: n=2 orders, one at 96% of revenue. Per [[statistical-confidence-policy]] 4 days supports no conclusion. Gate stays **1 of 2–3**; August closes 2026-09-01.
+- **Leap Plus clicks FLAT at 49** while Gesture +2 (28) and Aeron +2 (15). Leap Plus has been the top click generator all summer (47% of site affiliate clicks at peak). Single-day movement — watch for a plateau in the next export.
+- **5th consecutive export with 0 chair orders** on 92 named-chair clicks (85% of traffic). All 7 orders and all $100.40 shipped earnings in the `others` row; $477 average item. Unknown attribution holds at 0% (5th straight) — the Jul 4 ASIN fix is durable, no further link work warranted.
+- Top-Sellers CSV present this time but still empty (header only) — populates only on direct-link purchases.
+- Accessory pages shipped 2026-08-04 cannot affect this period (not indexed at snapshot time). Earliest revenue impact: October report.
+- Updated [[affiliate-performance]] (August row, Aug 4 export section), [[index]].
