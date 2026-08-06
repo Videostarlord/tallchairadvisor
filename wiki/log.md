@@ -2,6 +2,30 @@
 type: log
 ---
 
+## [2026-08-05] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-08-05
+- Pages recorded: 31
+- Device split: {"mobile":0.229,"pc":0.771,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/knee-pain-seat-depth/: 39% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 38% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/: 32% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-5/?utm_source=chatgpt.com: 23% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 22% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 30
+
+
+## [2026-08-05] strategy | Weekly Plan Generated
+
+- Plan archived to raw/strategy/2026-08-05-weekly-plan.md
+- 0 fixes, 1 rewrites, 1 new pages (5 tasks dropped by enforcement)
+- Wiki context used: thesis, what-works, what-failed, decisions-log, CTR, content-gaps, internal-linking, AI citation
+- Decay alerts injected: 0 (none — threshold requires 9+ snapshots)
+- Link gaps injected: 0 high-impression underlinked pages
+- Roadmap items force-injected: 0
+
+
 ## [2026-07-25] manual session | Step A triage + Step C affiliate research + disclosure compliance sweep
 
 - **Step A:** money-page triage built from live GSC (`raw/strategy/2026-07-25-money-page-triage.md`). Tier 1 = leap-plus, office-chairs-for-tall-people, aeron-size-c, gesture. ~56k of 95k impr are unmonetizable Tier 3.
