@@ -21,7 +21,7 @@
  *   - zero `?? []` on external input remain    → scripts/lint-architecture.mjs
  */
 
-import { copyFileSync, cpSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'fs';
+import { cpSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { resolve } from 'path';
 import { z } from 'zod';
@@ -96,11 +96,50 @@ function violationFrom(fn: () => unknown): string {
   throw new Error('expected a ContractViolation; the call succeeded');
 }
 
+/**
+ * Rewind the reconciliation fields to their pre-reconciliation values.
+ *
+ * WHY THIS EXISTS (2026-08-06). Every test below replays the reconciler over a copy
+ * of the REAL data/interventions.jsonl — deliberately, per the header note. But the
+ * reconciler skips any entry with `reconciledAt !== null` (read-validated.ts:385),
+ * and the nightly has now reconciled all 8 real entries. Replaying against that file
+ * verbatim is a guaranteed no-op, which:
+ *
+ *   - made the headline test fail permanently, reporting the original bug as "still
+ *     present" when the reconciler is in fact working; and
+ *   - made the contract-violation test at the bottom pass VACUOUSLY — `before === after`
+ *     was true because there was nothing to reconcile, not because a failed contract
+ *     was correctly refused.
+ *
+ * A one-shot acceptance assertion ("prove the bug is fixed today") became order-dependent
+ * the moment production data moved past it. Rewinding here restores the original intent
+ * and makes it permanent: the fixture is always genuinely unreconciled, whatever the
+ * nightly has since done to data/.
+ */
+function unreconciled(jsonl: string): string {
+  return jsonl
+    .split('\n')
+    .filter(Boolean)
+    .map((line) => {
+      // lint-architecture-allow R4 -- rewinding a test fixture, not reading pipeline input; the tests below re-read it through readValidatedJsonl, which is where the contract is enforced
+      const entry = JSON.parse(line) as Record<string, unknown>;
+      entry.reconciledAt = null;
+      entry.afterMetric = null;
+      entry.deltaPercent = null;
+      entry.confidenceLevel = 'none';
+      return JSON.stringify(entry);
+    })
+    .join('\n') + '\n';
+}
+
 /** A throwaway repo root containing real data, safe to mutate. */
 function tempRootWithData(): string {
   const root = mkdtempSync(resolve(tmpdir(), 'tca-contract-test-'));
   mkdirSync(resolve(root, 'data/gsc'), { recursive: true });
-  copyFileSync(resolve(REPO_ROOT, 'data/interventions.jsonl'), resolve(root, 'data/interventions.jsonl'));
+  writeFileSync(
+    resolve(root, 'data/interventions.jsonl'),
+    unreconciled(readFileSync(resolve(REPO_ROOT, 'data/interventions.jsonl'), 'utf-8')),
+  );
   cpSync(resolve(REPO_ROOT, 'data/gsc/history'), resolve(root, 'data/gsc/history'), { recursive: true });
   return root;
 }

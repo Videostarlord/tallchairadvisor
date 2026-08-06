@@ -1,0 +1,57 @@
+name: Tests
+
+# The 11 test files under scripts/ existed for months without anything running them
+# (open-issues task list A11). They cover the layers everything else trusts: the ledger
+# that decides whether a finding closes, the predicate evaluators, read-validated's
+# contract enforcement, and the probe's tag/vitals classification.
+#
+# UNLIKE nightly.yml, THIS WORKFLOW IS ALLOWED TO FAIL LOUDLY. The nightly observes a
+# live site, where "the site has a problem" must never be conflated with "the harness
+# broke". Here there is no such ambiguity: a red run means the code is wrong. No
+# continue-on-error anywhere in this file, deliberately.
+#
+# ONE KNOWN COUPLING: read-validated.test.ts validates the REAL data/ files against
+# their contracts, including freshness. Those SLAs are 8 days (`maxAgeHours: 8 * 24`),
+# sized for the Mon–Sat pipeline, so this only trips if collection has been dead for
+# over a week — which is worth a red check. It is not flakiness; do not "fix" it by
+# loosening the SLA. Fix the pipeline.
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # A newer push makes an in-flight run irrelevant. Unlike the nightly, cancelling
+  # here loses nothing — the tests are pure and take ~6s.
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - run: npm ci
+
+      # No secrets. Every test reads committed data/ files or builds its own fixtures
+      # in a temp dir; none makes a network call. If a test ever needs a secret, that
+      # is a sign it became an integration test and belongs in the nightly instead.
+      - name: Run tests
+        run: npm test
+
+      - name: Architecture lint (ratchet — new violations fail)
+        run: npm run lint:architecture
+
+      - name: Content lint (gates every affiliate link)
+        run: npm run lint:content
