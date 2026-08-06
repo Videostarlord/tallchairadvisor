@@ -70,6 +70,15 @@ export interface AuditFindingsFile {
   findings: AuditFinding[];
   /** Findings dropped because they match an entry in data/retractions.jsonl. */
   suppressed: Array<{ findingId: string; page: string; issueClass: string; retractedOn: string }>;
+  /**
+   * Findings the current strategy is not acting on. NOT deleted and NOT wrong —
+   * withheld from the planner by data/strategy-rules.json, each carrying the
+   * directive that classified it. See scripts/strategy-filter.ts.
+   */
+  outOfStrategy?: Array<{
+    findingId: string; page: string; issueClass: string; severity: string;
+    summary: string; ruleId: string; directive: string; why: string;
+  }>;
 }
 
 /**
@@ -160,6 +169,20 @@ export function renderReport(data: AuditFindingsFile): string {
   }
 
   if (data.findings.length === 0) parts.push(`_No findings this week._`, ``);
+
+  if (data.outOfStrategy && data.outOfStrategy.length > 0) {
+    parts.push(`## Held Back by the Current Strategy`, ``);
+    parts.push(
+      `These are real findings, recorded in \`data/audit-findings.json\` under \`outOfStrategy\` —`,
+      `withheld from the planner by \`data/strategy-rules.json\`, not deleted. Edit that file to act on them.`,
+      ``,
+    );
+    for (const e of data.outOfStrategy) {
+      parts.push(`- \`${e.findingId}\` **${e.page}** — ${e.issueClass} (${e.severity}) — _${e.ruleId}_`);
+      parts.push(`  ${e.summary}`);
+    }
+    parts.push(``);
+  }
 
   parts.push(`## Week's Recommended Focus`, ``);
   data.weeklyFocus.forEach((w, i) => parts.push(`${i + 1}. ${w}`));

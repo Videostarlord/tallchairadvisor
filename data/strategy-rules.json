@@ -1,0 +1,55 @@
+{
+  "_README": "Machine-enforceable form of the ROUTING DIRECTIVE in wiki/synthesis/thesis.md. Findings matching a rule are NOT deleted — they are moved to outOfStrategy[] in data/audit-findings.json with the directive line that classified them, so they stay auditable and reversible. Edit this file to change what the pipeline works on.",
+  "_WHY": "On 2026-08-06 the audit filed findings recommending meta rewrites on pages the kill list has forbidden touching since 2026-07-24. Sending the full thesis in the prompt reduced but did not eliminate this — 3 violations survived with the complete directive in context. A rule that governs what the pipeline may act on has to be enforced in code, not requested in a prompt.",
+  "_HOW_TO_REVERSE": "Delete a rule, or add the page to its `exceptPages`. Findings reappear on the next audit — nothing was destroyed.",
+
+  "adoptedOn": "2026-07-24",
+  "source": "wiki/synthesis/thesis.md — ROUTING DIRECTIVE (Profit Audit)",
+  "lastReviewed": "2026-08-06",
+  "reviewBy": "2026-09-01",
+
+  "alwaysInScope": {
+    "_why": "Correctness and revenue-capture findings are never filtered, whatever the current growth strategy. A factual error on a spec page is wrong regardless of where traffic is coming from, and a missing affiliate link is money already on the table.",
+    "issueClasses": [
+      "spec-error",
+      "affiliate-missing",
+      "schema-missing",
+      "schema-invalid",
+      "canonical-missing",
+      "canonical-wrong",
+      "duplicate-content",
+      "cannibalization",
+      "internal-linking",
+      "aio-suppression"
+    ]
+  },
+
+  "rules": [
+    {
+      "id": "no-snippet-work-on-aio-eaten-informational",
+      "directive": "Absolutely stop: ... farming AI-Overview-eaten informational queries (knee-pain, correct-dimensions, spec pages); meta-tweaking suppressed pages",
+      "why": "These pages rank well for informational queries that AI Overviews answer in-place. The click is taken before the SERP is read, so a snippet rewrite cannot recover it. /knee-pain-seat-depth/ carries 41% of site impressions at 0.04% CTR and has already absorbed multiple meta rewrites without moving.",
+      "issueClasses": ["meta-length", "meta-quality", "title-length", "title-quality", "ctr-leak"],
+      "pages": [
+        "/knee-pain-seat-depth/",
+        "/correct-chair-dimensions/"
+      ],
+      "exceptPages": []
+    },
+    {
+      "id": "no-ctr-iteration-below-position-8",
+      "directive": "no meta/CTR iteration below pos 8",
+      "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04.",
+      "issueClasses": ["meta-length", "meta-quality", "title-length", "title-quality", "ctr-leak"],
+      "positionWorseThan": 8,
+      "exceptPages": []
+    },
+    {
+      "id": "no-thin-content-expansion-during-content-freeze",
+      "directive": "freeze new content ~30 days ... ship the monetization pivot before writing anything new",
+      "why": "Expanding a thin page is new content work in disguise. Flag it, do not schedule it, until the freeze lifts.",
+      "issueClasses": ["thin-content"],
+      "exceptPages": []
+    }
+  ]
+}

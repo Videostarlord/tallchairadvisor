@@ -78,6 +78,15 @@ tags: [gsc, performance, metrics, tracking]
 | Avg CTR | 0.24% |
 | Avg position | 8.1 |
 
+### 2026-08-06
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 99415 |
+| Total clicks | 236 |
+| Avg CTR | 0.24% |
+| Avg position | 8.1 |
+
 ### 2026-08-04
 
 | Metric | Value |
@@ -93,14 +102,5 @@ tags: [gsc, performance, metrics, tracking]
 |--------|-------|
 | Total impressions | 98003 |
 | Total clicks | 230 |
-| Avg CTR | 0.23% |
-| Avg position | 8.1 |
-
-### 2026-07-28
-
-| Metric | Value |
-|--------|-------|
-| Total impressions | 97131 |
-| Total clicks | 221 |
 | Avg CTR | 0.23% |
 | Avg position | 8.1 |

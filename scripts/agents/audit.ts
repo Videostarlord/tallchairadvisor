@@ -10,6 +10,7 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { archiveToRaw, appendWikiLog, logCacheUsage, readConceptContext, readSynthesisContext, readStrategicDirective, assertPromptBudget, readWikiPage, writeWikiPage, today, reconcileInterventions, withRetry , loadRetractions, isRetracted, formatRetractionRules } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
+import { loadStrategyRules, loadPositions, classifyFindings, renderOutOfStrategy } from '../strategy-filter.js';
 import { ISSUE_CLASSES, makeFindingId, renderReport, sortFindings, type AuditFinding, type AuditFindingsFile, type IssueClass, type Severity } from '../audit-findings.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -364,6 +365,20 @@ Rules:
   };
 
   mkdirSync(resolve(ROOT, 'data'), { recursive: true });
+  // Deterministic strategy enforcement. Separates, never deletes — every
+  // finding stays in the file; classified ones move to outOfStrategy[] with the
+  // directive that held them back, so the planner spends its five slots on work
+  // the current strategy wants and nothing becomes invisible.
+  const strategyRules = loadStrategyRules(ROOT);
+  const positions = loadPositions(ROOT);
+  const split = classifyFindings(findingsFile.findings, strategyRules, positions);
+  findingsFile.findings = split.inScope;
+  findingsFile.outOfStrategy = split.outOfStrategy;
+  if (split.outOfStrategy.length > 0) {
+    console.log(`[audit] ${split.outOfStrategy.length} finding(s) held back by data/strategy-rules.json (recorded, not deleted):`);
+    for (const e of split.outOfStrategy) console.log(`  ${e.findingId} ${e.page} [${e.issueClass}] — ${e.ruleId}`);
+  }
+
   writeFileSync(resolve(ROOT, 'data/audit-findings.json'), JSON.stringify(findingsFile, null, 2));
 
   const output = renderReport(findingsFile);
