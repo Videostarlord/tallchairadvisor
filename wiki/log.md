@@ -2,6 +2,15 @@
 type: log
 ---
 
+## [2026-08-06] execute-fixes | Thursday Fixes
+
+**Applied (0):**
+- (none)
+
+**Rejected (1):**
+- src/pages/best-office-chairs-under-500.astro — SKIPPED: src/pages/best-office-chairs-under-500.astro edited 1d ago. Non-technical fixes require 14-day cooldown.
+
+
 ## [2026-08-06] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-08-06-weekly-plan.md
