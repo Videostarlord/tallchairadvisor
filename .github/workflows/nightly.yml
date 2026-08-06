@@ -1,0 +1,168 @@
+name: Nightly — God's-Eye
+
+# God's-Eye Nightly (PRD raw/strategy/2026-08-05-godseye-PRD.md).
+#
+# This workflow OBSERVES the Mon–Sat pipeline; it does not replace it (PRD §4).
+# Its contract with the rest of the system is unusual and load-bearing:
+#
+#   An unhealthy collector, a failing probe, or a regressed finding is a
+#   SUCCESSFUL run. The observation system did its job. Only the harness
+#   itself falling over is a failure.
+#
+# That is why almost every step is `continue-on-error: true` and the report
+# step is `if: always()`. A nightly that aborts on the first bad collector
+# would reproduce exactly the silent-failure class this build exists to kill.
+
+on:
+  schedule:
+    # 10:00 UTC = 03:00 America/Los_Angeles during PDT (PRD §11 default).
+    # GitHub cron is UTC-only and does not observe DST, so this drifts to
+    # 02:00 local during PST (Nov–Mar). The dead-man's switch deadline
+    # (08:00 local) has margin for both; do not "fix" this by adding a
+    # second cron, which would double-run for half the year.
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+    inputs:
+      skip_probes:
+        description: 'Skip Playwright probes (faster dry run)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "${{ github.workflow }}"
+  cancel-in-progress: false
+
+jobs:
+  godseye:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      RUN_DATE: ${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The reconciler and the ledger compare against history; a shallow
+          # clone hides it. Also: file mtime is meaningless after checkout,
+          # which is why readValidated() prefers embedded timestamps.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - run: npm ci
+
+      # ── L1 collectors ───────────────────────────────────────────────────
+      # Exits non-zero only if the harness crashed. Unhealthy collectors are
+      # recorded as findings with reasons and the run continues (PRD §7.4).
+      - name: Collect (GSC / GA4 / Clarity / Cloudflare / Actions / quotas / Amazon)
+        id: collect
+        continue-on-error: true
+        run: npm run collect:all
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          CLARITY_TOKEN: ${{ secrets.CLARITY_TOKEN }}
+          # PRD §10.1 — the one credential blocking collectors/cloudflare.ts.
+          # Absent, that collector reports healthy:false with a reason; it
+          # does not fabricate a deployment status.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── L2 probes ───────────────────────────────────────────────────────
+      - name: Install chromium
+        if: ${{ !inputs.skip_probes }}
+        continue-on-error: true
+        run: npx playwright install --with-deps chromium
+
+      - name: Probe live site (tags fire, head truth, CWV, GEO)
+        id: probe
+        if: ${{ !inputs.skip_probes }}
+        continue-on-error: true
+        run: npm run probe
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      # ── L3 ledger ───────────────────────────────────────────────────────
+      # Re-evaluates every open closure predicate against tonight's L1/L2
+      # data: auto-closes with evidence, escalates after N failing nights,
+      # and surfaces passed-then-failed as `regressed` (PRD §7.3).
+      - name: Evaluate closure predicates
+        id: ledger
+        continue-on-error: true
+        run: npm run ledger:evaluate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      # ── L4 cost ─────────────────────────────────────────────────────────
+      - name: Roll up spend
+        continue-on-error: true
+        run: npm run cost:rollup
+
+      # ── L5 report ───────────────────────────────────────────────────────
+      # `always()` is deliberate. If collection and probing both failed, THAT
+      # is the report — "what the system could not see tonight" is a required
+      # section (PRD §7.6), and a missing report is what the dead-man's switch
+      # alarms on. Never let an upstream failure suppress the nightly.
+      - name: Write nightly report
+        id: report
+        if: always()
+        run: npm run nightly
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+
+      - name: Architecture lint (ratchet — new violations fail)
+        if: always()
+        continue-on-error: true
+        run: npm run lint:architecture
+
+      - name: Commit nightly artifacts
+        if: always()
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          # [skip cd] — data-only commit, must not trigger a Cloudflare build.
+          for p in wiki/nightly data/ledger.jsonl data/ledger-state.json \
+                   data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
+                   data/collectors data/probes data/interventions.jsonl; do
+            [ -e "$p" ] && git add "$p" || true
+          done
+          git diff --staged --quiet || git commit -m "[skip cd] nightly: god's-eye $(date -u +%Y-%m-%d)"
+          git pull --rebase --autostash || true
+          git push || { sleep 15 && git push; } || { sleep 30 && git push; }
+
+      # Surfaces the run's own state to the dead-man's switch and to Jackson
+      # without requiring him to open anything.
+      - name: Step summary
+        if: always()
+        run: |
+          {
+            echo "## God's-Eye $(date -u +%Y-%m-%d)"
+            echo ""
+            echo "| stage | outcome |"
+            echo "|---|---|"
+            echo "| collect | ${{ steps.collect.outcome }} |"
+            echo "| probe | ${{ steps.probe.outcome }} |"
+            echo "| ledger | ${{ steps.ledger.outcome }} |"
+            echo "| report | ${{ steps.report.outcome }} |"
+            echo ""
+            if [ -f data/ledger-state.json ]; then
+              echo '```json'
+              cat data/ledger-state.json
+              echo '```'
+            else
+              echo "_No ledger state written — the ledger step did not complete._"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
