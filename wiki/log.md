@@ -2,6 +2,11 @@
 type: log
 ---
 
+## [2026-08-06] audit | SKIPPED
+
+- Reason: duplicate dispatch detected — report already existed
+
+
 ## [2026-08-06] audit | Weekly Site Audit
 
 - Pages audited: 20
