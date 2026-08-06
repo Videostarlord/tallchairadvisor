@@ -56,6 +56,22 @@ jobs:
 
       - run: npm ci
 
+      # gsc-pull.ts and ga4-pull.ts both read the service account from THIS
+      # FILE, not from an environment variable — ga4-pull.ts:27 hardcodes
+      # credentials/gsc-service-account.json, and GA4 deliberately reuses the
+      # GSC account rather than having one of its own. Passing the JSON as an
+      # env var (as this workflow originally did) leaves the file absent, so
+      # both collectors fail in CI while working perfectly on Jackson's
+      # machine, where the file exists on disk. Mirrors monday.yml.
+      - name: Restore GSC/GA4 service account credentials
+        env:
+          CREDS: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          mkdir -p credentials
+          echo "$CREDS" > credentials/gsc-service-account.json
+          node -e "JSON.parse(require('fs').readFileSync('credentials/gsc-service-account.json','utf-8'))" \
+            || { echo "::error::GSC_SERVICE_ACCOUNT_JSON is not valid JSON — GSC and GA4 will both fail"; exit 1; }
+
       # ── L1 collectors ───────────────────────────────────────────────────
       # Exits non-zero only if the harness crashed. Unhealthy collectors are
       # recorded as findings with reasons and the run continues (PRD §7.4).
@@ -65,18 +81,23 @@ jobs:
         run: npm run collect:all
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
-          GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
+          # GA4 has no separate service account — ga4-pull.ts authenticates from
+          # credentials/gsc-service-account.json, restored in the step above.
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
           CLARITY_TOKEN: ${{ secrets.CLARITY_TOKEN }}
-          # PRD §10.1 — the one credential blocking collectors/cloudflare.ts.
-          # Absent, that collector reports healthy:false with a reason; it
-          # does not fabricate a deployment status.
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # Required, not optional: the token carries zone scopes but cannot
+          # list accounts, so the account id has to be supplied explicitly.
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          # These names must match the secrets as they actually exist in this
+          # repo (SERP_API_KEY, DATAFORSEO_USERNAME) — NOT the vendors' own
+          # naming. A wrong name here does not fail: Actions substitutes an
+          # empty string, the collector reports "no key set", and the quota
+          # check goes quietly blind. quotas.ts accepts either spelling, so
+          # passing the right secret under either env name works.
+          SERP_API_KEY: ${{ secrets.SERP_API_KEY }}
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
-          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_USERNAME: ${{ secrets.DATAFORSEO_USERNAME }}
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
