@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-06T12:12:57.476Z",
+  "generatedAt": "2026-08-07T11:05:36.721Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
   "counts": {
-    "open": 54,
-    "closed": 4,
+    "open": 52,
+    "closed": 6,
     "escalated": 0,
     "regressed": 0,
     "total": 58,
@@ -13,19 +13,34 @@
   },
   "closedTonight": [
     {
-      "id": "d0c52e63b8fe",
+      "id": "9764cf8c99c4",
       "kind": "finding",
-      "page": "collector:clarity",
-      "issueClass": "collector-unhealthy",
-      "severity": "high",
-      "summary": "collector \"clarity\" reported healthy:false — CLARITY_TOKEN unset (or empty) — the Microsoft Clarity export credential is missing, so behavioral data cannot be refreshed and the on-disk snapshot cannot be verified as live. Set CLARITY_TOKEN from Clarity → Settings → Data Export (and as a repo secret for the nightly workflow).",
-      "predicate": "collector-healthy clarity",
-      "ageDays": 0,
+      "page": "/review/sihoo-doro-s300/",
+      "issueClass": "console-errors",
+      "severity": "medium",
+      "summary": "1 console error(s), 0 unhandled rejection(s): Failed to load resource: the server responded with a status of 404 ()",
+      "predicate": "no-console-errors /review/sihoo-doro-s300/",
+      "ageDays": 1,
       "attempts": 0,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "pass",
-      "reason": "collector clarity healthy, 31 row(s) at 2026-08-06T12:06:16.962Z"
+      "reason": "probe recorded zero console errors"
+    },
+    {
+      "id": "b5cbab622428",
+      "kind": "finding",
+      "page": "/shoulder-pain-tall-people/",
+      "issueClass": "console-errors",
+      "severity": "medium",
+      "summary": "1 console error(s), 0 unhandled rejection(s): Failed to load resource: the server responded with a status of 404 ()",
+      "predicate": "no-console-errors /shoulder-pain-tall-people/",
+      "ageDays": 1,
+      "attempts": 0,
+      "firstSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
+      "verdict": "pass",
+      "reason": "probe recorded zero console errors"
     }
   ],
   "regressed": [],
@@ -39,10 +54,10 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 17,
-      "attempts": 1,
+      "ageDays": 18,
+      "attempts": 2,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "position 8.8 does not satisfy < 8.7"
     },
@@ -54,10 +69,10 @@
       "severity": null,
       "summary": "/chairs/herman-miller-aeron/tall-people/",
       "predicate": "gsc-position /chairs/herman-miller-aeron/tall-people/ < 8.1 after 14d",
-      "ageDays": 17,
-      "attempts": 1,
+      "ageDays": 18,
+      "attempts": 2,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "position 8.2 does not satisfy < 8.1"
     },
@@ -69,10 +84,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 17,
-      "attempts": 1,
+      "ageDays": 18,
+      "attempts": 2,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "position 9.6 does not satisfy < 9.6"
     },
@@ -84,10 +99,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 17,
-      "attempts": 1,
+      "ageDays": 18,
+      "attempts": 2,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "position 8.5 does not satisfy < 8.1"
     },
@@ -99,10 +114,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -114,10 +129,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /about/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -129,10 +144,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /aeron-size-c-vs-leap-plus/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -144,10 +159,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /aeron-vs-gesture/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -159,10 +174,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /aeron-vs-leap-plus/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -174,10 +189,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /back-pain-spine-height/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -189,10 +204,10 @@
       "severity": "medium",
       "summary": "Meta description is 167 chars, outside 130–165.",
       "predicate": "meta-length /best-big-and-tall-office-chairs/ ∈ [130, 165]",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "meta description is 167 chars, outside [130, 165]"
     },
@@ -204,10 +219,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /best-big-and-tall-office-chairs/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -219,10 +234,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chair-headrest-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -234,10 +249,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/herman-miller-aeron/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -249,10 +264,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/herman-miller-aeron/size-guide/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -264,10 +279,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/herman-miller-aeron/tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -279,10 +294,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/steelcase-gesture/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -294,10 +309,10 @@
       "severity": "medium",
       "summary": "Meta description is 108 chars, outside 130–165.",
       "predicate": "meta-length /chairs/steelcase-gesture/seat-depth/ ∈ [130, 165]",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "meta description is 108 chars, outside [130, 165]"
     },
@@ -309,10 +324,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/steelcase-gesture/seat-depth/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -324,10 +339,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/steelcase-gesture/weight-limit/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -339,10 +354,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/steelcase-leap-plus/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -354,10 +369,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/steelcase-leap-plus/seat-height/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -369,10 +384,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/steelcase-leap-plus/tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -384,10 +399,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /chairs/steelcase-leap-plus/weight-limit/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -399,10 +414,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -414,10 +429,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /fit-guides/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -429,10 +444,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /gesture-vs-leap-plus/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -444,10 +459,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /heavy-duty-ergonomic-chairs-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -459,10 +474,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /how-to-adjust-chair/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -474,10 +489,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /keyboard-tray-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -489,10 +504,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /knee-pain-seat-depth/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -504,10 +519,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /leg-pain-circulation/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -519,10 +534,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /lumbar-support-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -534,10 +549,10 @@
       "severity": "medium",
       "summary": "Meta description is 168 chars, outside 130–165.",
       "predicate": "meta-length /monitor-arm-tall-people/ ∈ [130, 165]",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "meta description is 168 chars, outside [130, 165]"
     },
@@ -549,10 +564,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /monitor-arm-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -564,10 +579,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chair-lower-back-pain-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -579,10 +594,10 @@
       "severity": "medium",
       "summary": "Meta description is 187 chars, outside 130–165.",
       "predicate": "meta-length /office-chair-return-policy/ ∈ [130, 165]",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "meta description is 187 chars, outside [130, 165]"
     },
@@ -594,10 +609,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chair-return-policy/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -609,10 +624,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chairs-for-6-foot-3/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -624,10 +639,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chairs-for-6-foot-4/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -639,10 +654,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chairs-for-6-foot-5/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -654,10 +669,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chairs-for-6-foot-6/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -669,10 +684,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chairs-for-6-foot-7/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -684,10 +699,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /office-chairs-for-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -699,10 +714,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /pain-ergonomics/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -714,27 +729,12 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /refurbished-steelcase-leap-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
-    },
-    {
-      "id": "9764cf8c99c4",
-      "kind": "finding",
-      "page": "/review/sihoo-doro-s300/",
-      "issueClass": "console-errors",
-      "severity": "medium",
-      "summary": "1 console error(s), 0 unhandled rejection(s): Failed to load resource: the server responded with a status of 404 ()",
-      "predicate": "no-console-errors /review/sihoo-doro-s300/",
-      "ageDays": 0,
-      "attempts": 1,
-      "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
-      "verdict": "fail",
-      "reason": "probe recorded 1 console error(s) and 0 unhandled rejection(s)"
     },
     {
       "id": "d47ebf410a4c",
@@ -744,27 +744,12 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /review/sihoo-doro-s300/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
-    },
-    {
-      "id": "b5cbab622428",
-      "kind": "finding",
-      "page": "/shoulder-pain-tall-people/",
-      "issueClass": "console-errors",
-      "severity": "medium",
-      "summary": "1 console error(s), 0 unhandled rejection(s): Failed to load resource: the server responded with a status of 404 ()",
-      "predicate": "no-console-errors /shoulder-pain-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
-      "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
-      "verdict": "fail",
-      "reason": "probe recorded 1 console error(s) and 0 unhandled rejection(s)"
     },
     {
       "id": "dce60c9a2cc0",
@@ -774,10 +759,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /shoulder-pain-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -789,10 +774,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /standing-desk-converter-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -804,10 +789,10 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /standing-desk-height-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     },
@@ -819,10 +804,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block and citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /why-standard-chairs-dont-fit/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing Direct Answer block and citation capsule"
     },
@@ -834,18 +819,18 @@
       "severity": "low",
       "summary": "Missing citation capsule (<!-- tca-aio-capsule -->) — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /wide-seat-office-chairs-tall-people/",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-06",
+      "lastSeen": "2026-08-07",
       "verdict": "fail",
       "reason": "missing citation capsule"
     }
   ],
   "coverage": {
     "evaluated": 58,
-    "pass": 4,
-    "fail": 54,
+    "pass": 6,
+    "fail": 52,
     "unevaluable": 0,
     "coveragePercent": 100,
     "openUnevaluable": 0,
@@ -854,7 +839,7 @@
   },
   "blindSpots": {
     "probes": null,
-    "probeSource": "probe:2026-08-06",
+    "probeSource": "probe:2026-08-07",
     "collectors": [
       "amazon",
       "clarity",
@@ -870,10 +855,328 @@
   },
   "transitions": [
     {
-      "id": "d0c52e63b8fe",
-      "from": "regressed",
+      "id": "8aeed43a09a6",
+      "from": "open",
+      "to": "open",
+      "reason": "position 8.8 does not satisfy < 8.7"
+    },
+    {
+      "id": "7429ec085c29",
+      "from": "open",
+      "to": "open",
+      "reason": "position 8.2 does not satisfy < 8.1"
+    },
+    {
+      "id": "65336bac6935",
+      "from": "open",
+      "to": "open",
+      "reason": "position 9.6 does not satisfy < 9.6"
+    },
+    {
+      "id": "c76d198a75bc",
+      "from": "open",
+      "to": "open",
+      "reason": "position 8.5 does not satisfy < 8.1"
+    },
+    {
+      "id": "6fe567efcc25",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "cfa769ca15d0",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "8e1267f81ddd",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "e973afe8c47a",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "856151a641de",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "a31c0ae7c96e",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "0af010d9ff42",
+      "from": "open",
+      "to": "open",
+      "reason": "meta description is 167 chars, outside [130, 165]"
+    },
+    {
+      "id": "fe43f91b2cff",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "a0644854732b",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "18476ce2a477",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "7c39064977d4",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "a644f50f8e3e",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block"
+    },
+    {
+      "id": "e913db5b8b81",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "e5065a55dd76",
+      "from": "open",
+      "to": "open",
+      "reason": "meta description is 108 chars, outside [130, 165]"
+    },
+    {
+      "id": "d752f95fe6e0",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block"
+    },
+    {
+      "id": "228097d18169",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "06ab95ac87bf",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "aa4dcbd801fb",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "2ed76c20a748",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "0c488dea3c05",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "aba4112ac066",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block"
+    },
+    {
+      "id": "4e2f932dbc09",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "549d7cb2f403",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block"
+    },
+    {
+      "id": "253776607edf",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "3eace232b417",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "2e0e71126c2a",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "a769566d65fe",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block"
+    },
+    {
+      "id": "4a49169aa240",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "9596576838ff",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "397535e4e9a2",
+      "from": "open",
+      "to": "open",
+      "reason": "meta description is 168 chars, outside [130, 165]"
+    },
+    {
+      "id": "6b1985b06dca",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "719ed31af11c",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "546494da2ee8",
+      "from": "open",
+      "to": "open",
+      "reason": "meta description is 187 chars, outside [130, 165]"
+    },
+    {
+      "id": "60372dedc68b",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "21dd0efe443d",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "d6364d41a759",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "6e09f175c6d6",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "d0e29c63f06a",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "acbe5b6b19cb",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "3f1e0b936cdc",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block"
+    },
+    {
+      "id": "b8f94d6e6b62",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "bfd9d5169e2e",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "9764cf8c99c4",
+      "from": "open",
       "to": "closed",
-      "reason": "collector clarity healthy, 31 row(s) at 2026-08-06T12:06:16.962Z"
+      "reason": "probe recorded zero console errors"
+    },
+    {
+      "id": "d47ebf410a4c",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "b5cbab622428",
+      "from": "open",
+      "to": "closed",
+      "reason": "probe recorded zero console errors"
+    },
+    {
+      "id": "dce60c9a2cc0",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "2203e49b2ae3",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "7eae6de23445",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
+    },
+    {
+      "id": "beb011616150",
+      "from": "open",
+      "to": "open",
+      "reason": "missing Direct Answer block and citation capsule"
+    },
+    {
+      "id": "7ca9c3448f9e",
+      "from": "open",
+      "to": "open",
+      "reason": "missing citation capsule"
     }
   ],
   "retractedSkipped": []

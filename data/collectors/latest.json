@@ -1,7 +1,7 @@
 {
-  "collectedAt": "2026-08-06T12:06:14.510Z",
-  "finishedAt": "2026-08-06T12:12:16.994Z",
-  "durationMs": 362484,
+  "collectedAt": "2026-08-07T10:58:36.396Z",
+  "finishedAt": "2026-08-07T11:04:42.926Z",
+  "durationMs": 366530,
   "healthy": true,
   "healthyCount": 7,
   "total": 7,
@@ -24,7 +24,7 @@
         },
         "performance": {
           "pulledAt": "2026-08-06T09:29:38.159Z",
-          "ageHours": 2.6,
+          "ageHours": 25.5,
           "dateRange": {
             "start": "2026-05-08",
             "end": "2026-08-06",
@@ -41,7 +41,7 @@
         },
         "analysis": {
           "generatedAt": "2026-08-06T09:29:38.651Z",
-          "ageHours": 2.6,
+          "ageHours": 25.5,
           "opportunityCount": 38,
           "ctrLeakCount": 17,
           "decayAlertCount": 0
@@ -60,8 +60,8 @@
           },
           "coverageStates": {
             "Submitted and indexed": 45,
-            "Discovered - currently not indexed": 1,
-            "URL is unknown to Google": 2,
+            "Discovered - currently not indexed": 2,
+            "URL is unknown to Google": 1,
             "Crawled - currently not indexed": 1
           },
           "notIndexed": [
@@ -157,7 +157,7 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-07-13T21:59:28Z",
+              "lastCrawlTime": "2026-08-07T01:44:09Z",
               "googleCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
               "userCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
               "error": null
@@ -465,7 +465,7 @@
               "url": "https://tallchairadvisor.com/office-chair-return-policy/",
               "file": "src/pages/office-chair-return-policy.astro",
               "verdict": "NEUTRAL",
-              "coverageState": "URL is unknown to Google",
+              "coverageState": "Discovered - currently not indexed",
               "indexingState": "INDEXING_STATE_UNSPECIFIED",
               "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
               "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -534,7 +534,7 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-07-21T11:05:15Z",
+              "lastCrawlTime": "2026-08-07T02:29:51Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
               "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
               "error": null
@@ -712,7 +712,7 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T12:12:16.993Z",
+        "collectedAt": "2026-08-07T11:04:42.925Z",
         "rowCount": 49,
         "healthy": true,
         "reason": null
@@ -724,7 +724,7 @@
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
         "pulledAt": "2026-08-06T09:29:42.271Z",
-        "ageHours": 2.6,
+        "ageHours": 25.5,
         "slaHours": 192,
         "dateRange": {
           "start": "2026-07-09",
@@ -782,7 +782,7 @@
         "aiReferralSessions": 60
       },
       "meta": {
-        "collectedAt": "2026-08-06T12:06:14.534Z",
+        "collectedAt": "2026-08-07T10:58:36.415Z",
         "rowCount": 50,
         "healthy": true,
         "reason": null
@@ -791,14 +791,14 @@
     "clarity": {
       "data": {
         "source": "data/clarity/latest.json",
-        "pulledAt": "2026-08-05T12:00:55.968Z",
-        "ageHours": 24.1,
+        "pulledAt": "2026-08-07T10:55:05.166Z",
+        "ageHours": 0.1,
         "slaHours": 192,
         "numOfDays": 2,
-        "pageCount": 31,
+        "pageCount": 64,
         "deviceSplit": {
-          "mobile": 0.229,
-          "pc": 0.771,
+          "mobile": 0.205,
+          "pc": 0.795,
           "other": 0
         },
         "alertCount": 14,
@@ -809,13 +809,13 @@
           "envVar": "CLARITY_TOKEN",
           "present": true,
           "live": true,
-          "checkedAt": "2026-08-06T12:06:14.535Z",
-          "detail": null
+          "checkedAt": "2026-08-07T10:55:05.166Z",
+          "detail": "not re-pinged — data/clarity/latest.json was pulled 0.1h ago, which is itself proof the credential was live. Conserves the 10/day quota (A3)."
         }
       },
       "meta": {
-        "collectedAt": "2026-08-06T12:06:16.962Z",
-        "rowCount": 31,
+        "collectedAt": "2026-08-07T10:58:36.416Z",
+        "rowCount": 64,
         "healthy": true,
         "reason": null
       }
@@ -834,30 +834,36 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "5331c6bc-da19-4024-b464-533568befea7",
-          "shortId": "5331c6bc",
+          "deploymentId": "df7a7a6a-54c4-4566-adb6-e64102efd4fa",
+          "shortId": "df7a7a6a",
           "environment": "production",
-          "url": "https://5331c6bc.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-06T11:34:24.748528Z",
+          "url": "https://df7a7a6a.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-07T10:55:08.292122Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "04e75e9f7f287dca4350f61ca3310be698b757c4",
-          "commitMessage": "docs: regenerate task list against strategy-aligned findings\n\n[skip cd] v1 was contaminated — built from findings produced while the\nauditor saw 1.4% of the synthesis, so it recommended meta rewrites on\nAIO-suppressed pages and called /knee-pain-seat-depth/ the largest traffic\nlever, which is the exact page the directive names as a trap.\n\nv2 is built from the 14 in-scope findings after deterministic filtering.\nThe 14 held-back ones are listed in section C with the rule that classified\nthem and how to reverse it — visible, not hidden.\n\nAlso logs the decision in decisions-log.md, at the TOP where newest entries\nbelong.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+          "commitHash": "7d04376f8391ef9e439cf87e8bdf05d2dd6518e9",
+          "commitMessage": "[skip cd] data: Clarity history 2026-08-07"
         },
         "cache": {
           "windowDays": 7,
-          "requests": 21292,
-          "cachedRequests": 2161,
-          "hitRatePct": 10.1,
-          "bytes": 224024612,
-          "cachedBytes": 81852226,
+          "requests": 20495,
+          "cachedRequests": 2295,
+          "hitRatePct": 11.2,
+          "bytes": 215421157,
+          "cachedBytes": 84601060,
           "byDay": [
             {
+              "date": "2026-08-07",
+              "requests": 861,
+              "cachedRequests": 31,
+              "hitRatePct": 3.6
+            },
+            {
               "date": "2026-08-06",
-              "requests": 2985,
-              "cachedRequests": 1156,
-              "hitRatePct": 38.7
+              "requests": 3925,
+              "cachedRequests": 1430,
+              "hitRatePct": 36.4
             },
             {
               "date": "2026-08-05",
@@ -888,25 +894,23 @@
               "requests": 5177,
               "cachedRequests": 107,
               "hitRatePct": 2.1
-            },
-            {
-              "date": "2026-07-31",
-              "requests": 2598,
-              "cachedRequests": 171,
-              "hitRatePct": 6.6
             }
           ]
         },
         "waf": {
           "windowDays": 1,
-          "totalEvents": 0,
-          "byAction": {},
-          "bySource": {}
+          "totalEvents": 2,
+          "byAction": {
+            "block": 2
+          },
+          "bySource": {
+            "firewallManaged": 2
+          }
         },
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T12:06:16.094Z",
+        "collectedAt": "2026-08-07T10:58:37.456Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -916,7 +920,7 @@
       "data": {
         "repo": "Videostarlord/tallchairadvisor",
         "defaultBranch": "main",
-        "ghVersion": "gh version 2.97.0 (2026-07-31)",
+        "ghVersion": "gh version 2.96.0 (2026-07-02)",
         "authAccount": "github-actions[bot]",
         "workflows": [
           {
@@ -926,21 +930,21 @@
             "cron": "0 10 */2 * *",
             "expectedCadenceDays": 2,
             "lastRun": {
-              "runNumber": 27,
+              "runNumber": 28,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-05T12:00:26Z",
-              "finishedAt": "2026-08-05T12:01:01Z",
-              "daysAgo": 1,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31003768185",
-              "headSha": "0827a7254bc37f4cc9a9fd78b5f1a966cebe553f",
+              "startedAt": "2026-08-07T10:54:43Z",
+              "finishedAt": "2026-08-07T10:55:10Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31171964347",
+              "headSha": "eee42b972f532715e7e263235578c7ce467fe936",
               "event": "schedule"
             },
             "committedDuringRun": 1,
             "commitSubjects": [
-              "[skip cd] data: Clarity history 2026-08-05"
+              "[skip cd] data: Clarity history 2026-08-07"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-05T12:00:26Z) and run end + 15min (2026-08-05T12:16:01.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-07T10:54:43Z) and run end + 15min (2026-08-07T11:10:10.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -950,23 +954,19 @@
             "cron": "0 8 * * 5",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 20,
+              "runNumber": 21,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-06T10:31:40Z",
-              "finishedAt": "2026-08-06T10:35:42Z",
+              "startedAt": "2026-08-07T08:47:23Z",
+              "finishedAt": "2026-08-07T08:51:19Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31093605243",
-              "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
-              "event": "workflow_dispatch"
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31163161497",
+              "headSha": "eee42b972f532715e7e263235578c7ce467fe936",
+              "event": "schedule"
             },
-            "committedDuringRun": 3,
-            "commitSubjects": [
-              "[skip cd] nightly: god's-eye 2026-08-06",
-              "deploy: Weekly cycle 2026-08-06",
-              "[skip cd] data: No pages written 2026-08-06 — see content-log.md"
-            ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:31:40Z) and run end + 15min (2026-08-06T10:50:42.000Z) — inferred, not authoritative",
+            "committedDuringRun": 0,
+            "commitSubjects": [],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-07T08:47:23Z) and run end + 15min (2026-08-07T09:06:19.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -981,7 +981,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-01T09:50:38Z",
               "finishedAt": "2026-08-01T09:52:05Z",
-              "daysAgo": 5,
+              "daysAgo": 6,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
               "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
               "event": "schedule"
@@ -1005,7 +1005,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T09:29:16Z",
               "finishedAt": "2026-08-06T09:50:05Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31089302906",
               "headSha": "ffaf52aac297148ca7350d7219d6b8bad645a8d7",
               "event": "workflow_dispatch"
@@ -1028,19 +1028,19 @@
             "cron": "0 10 * * *",
             "expectedCadenceDays": 1,
             "lastRun": {
-              "runNumber": 3,
+              "runNumber": 4,
               "status": "in_progress",
               "conclusion": null,
-              "startedAt": "2026-08-06T12:05:50Z",
-              "finishedAt": "2026-08-06T12:05:52Z",
+              "startedAt": "2026-08-07T10:58:10Z",
+              "finishedAt": "2026-08-07T10:58:13Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31099962422",
-              "headSha": "04e75e9f7f287dca4350f61ca3310be698b757c4",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31172187101",
+              "headSha": "7d04376f8391ef9e439cf87e8bdf05d2dd6518e9",
               "event": "schedule"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T12:05:50Z) and run end + 15min (2026-08-06T12:20:52.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-07T10:58:10Z) and run end + 15min (2026-08-07T11:13:13.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1055,7 +1055,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T10:39:41Z",
               "finishedAt": "2026-08-06T10:40:30Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31094135025",
               "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
               "event": "workflow_dispatch"
@@ -1066,6 +1066,28 @@
               "deploy: Weekly cycle 2026-08-06"
             ],
             "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:39:41Z) and run end + 15min (2026-08-06T10:55:30.000Z) — inferred, not authoritative",
+            "stale": false
+          },
+          {
+            "name": "Tests",
+            "path": ".github/workflows/tests.yml",
+            "state": "active",
+            "cron": null,
+            "expectedCadenceDays": null,
+            "lastRun": {
+              "runNumber": 1,
+              "status": "completed",
+              "conclusion": "failure",
+              "startedAt": "2026-08-06T18:31:22Z",
+              "finishedAt": "2026-08-06T18:46:27Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31126010518",
+              "headSha": "c6e5f93b370c01736f8dc7edde6cbfad9159b0e7",
+              "event": "workflow_dispatch"
+            },
+            "committedDuringRun": 0,
+            "commitSubjects": [],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T18:31:22Z) and run end + 15min (2026-08-06T19:01:27.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1080,7 +1102,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T10:21:46Z",
               "finishedAt": "2026-08-06T10:22:16Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092944439",
               "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
               "event": "schedule"
@@ -1129,7 +1151,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T10:13:28Z",
               "finishedAt": "2026-08-06T10:14:41Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092381683",
               "headSha": "1f93f9dfc08725d1dd639857364f0332c69bc01d",
               "event": "workflow_dispatch"
@@ -1143,14 +1165,18 @@
             "stale": false
           }
         ],
-        "failing": [],
+        "failing": [
+          "Tests"
+        ],
         "stale": [],
         "neverRan": [],
-        "wroteNothing": []
+        "wroteNothing": [
+          "Friday — New Content (Conditional)"
+        ]
       },
       "meta": {
-        "collectedAt": "2026-08-06T12:06:21.282Z",
-        "rowCount": 9,
+        "collectedAt": "2026-08-07T10:58:46.961Z",
+        "rowCount": 10,
         "healthy": true,
         "reason": null
       }
@@ -1226,7 +1252,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-06T12:06:15.171Z",
+        "collectedAt": "2026-08-07T10:58:37.268Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1249,7 +1275,7 @@
           "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
           "date": "2026-08-04",
           "dateSource": "filename",
-          "ageDays": 2,
+          "ageDays": 3,
           "sizeBytes": 4380,
           "dataRows": null
         },
@@ -1258,7 +1284,7 @@
             "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
             "date": "2026-08-04",
             "dateSource": "filename",
-            "ageDays": 2,
+            "ageDays": 3,
             "sizeBytes": 4380,
             "dataRows": null
           },
@@ -1266,7 +1292,7 @@
             "path": "raw/affiliate/2026-08-04-amazon-csv/linked-product.csv",
             "date": "2026-08-04",
             "dateSource": "filename",
-            "ageDays": 2,
+            "ageDays": 3,
             "sizeBytes": 1047,
             "dataRows": 4
           },
@@ -1274,7 +1300,7 @@
             "path": "raw/affiliate/2026-08-04-amazon-csv/category.csv",
             "date": "2026-08-04",
             "dateSource": "filename",
-            "ageDays": 2,
+            "ageDays": 3,
             "sizeBytes": 496,
             "dataRows": 2
           },
@@ -1282,7 +1308,7 @@
             "path": "raw/affiliate/2026-08-04-amazon-csv/tracking-id.csv",
             "date": "2026-08-04",
             "dateSource": "filename",
-            "ageDays": 2,
+            "ageDays": 3,
             "sizeBytes": 263,
             "dataRows": 1
           },
@@ -1290,7 +1316,7 @@
             "path": "raw/affiliate/2026-08-04-amazon-csv/top-sellers.csv",
             "date": "2026-08-04",
             "dateSource": "filename",
-            "ageDays": 2,
+            "ageDays": 3,
             "sizeBytes": 47,
             "dataRows": 0
           },
@@ -1298,7 +1324,7 @@
             "path": "raw/affiliate/2026-08-03-amazon-associates-report.md",
             "date": "2026-08-03",
             "dateSource": "filename",
-            "ageDays": 3,
+            "ageDays": 4,
             "sizeBytes": 6860,
             "dataRows": null
           },
@@ -1306,7 +1332,7 @@
             "path": "raw/affiliate/2026-08-03-amazon-csv/linked-product.csv",
             "date": "2026-08-03",
             "dateSource": "filename",
-            "ageDays": 3,
+            "ageDays": 4,
             "sizeBytes": 1046,
             "dataRows": 4
           },
@@ -1314,7 +1340,7 @@
             "path": "raw/affiliate/2026-08-03-amazon-csv/category.csv",
             "date": "2026-08-03",
             "dateSource": "filename",
-            "ageDays": 3,
+            "ageDays": 4,
             "sizeBytes": 494,
             "dataRows": 2
           }
@@ -1322,7 +1348,7 @@
         "overdue": false
       },
       "meta": {
-        "collectedAt": "2026-08-06T12:06:14.578Z",
+        "collectedAt": "2026-08-07T10:58:36.494Z",
         "rowCount": 27,
         "healthy": true,
         "reason": null

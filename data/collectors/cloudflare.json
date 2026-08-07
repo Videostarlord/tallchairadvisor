@@ -12,30 +12,36 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "5331c6bc-da19-4024-b464-533568befea7",
-      "shortId": "5331c6bc",
+      "deploymentId": "df7a7a6a-54c4-4566-adb6-e64102efd4fa",
+      "shortId": "df7a7a6a",
       "environment": "production",
-      "url": "https://5331c6bc.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-06T11:34:24.748528Z",
+      "url": "https://df7a7a6a.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-07T10:55:08.292122Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "04e75e9f7f287dca4350f61ca3310be698b757c4",
-      "commitMessage": "docs: regenerate task list against strategy-aligned findings\n\n[skip cd] v1 was contaminated — built from findings produced while the\nauditor saw 1.4% of the synthesis, so it recommended meta rewrites on\nAIO-suppressed pages and called /knee-pain-seat-depth/ the largest traffic\nlever, which is the exact page the directive names as a trap.\n\nv2 is built from the 14 in-scope findings after deterministic filtering.\nThe 14 held-back ones are listed in section C with the rule that classified\nthem and how to reverse it — visible, not hidden.\n\nAlso logs the decision in decisions-log.md, at the TOP where newest entries\nbelong.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+      "commitHash": "7d04376f8391ef9e439cf87e8bdf05d2dd6518e9",
+      "commitMessage": "[skip cd] data: Clarity history 2026-08-07"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 21292,
-      "cachedRequests": 2161,
-      "hitRatePct": 10.1,
-      "bytes": 224024612,
-      "cachedBytes": 81852226,
+      "requests": 20495,
+      "cachedRequests": 2295,
+      "hitRatePct": 11.2,
+      "bytes": 215421157,
+      "cachedBytes": 84601060,
       "byDay": [
         {
+          "date": "2026-08-07",
+          "requests": 861,
+          "cachedRequests": 31,
+          "hitRatePct": 3.6
+        },
+        {
           "date": "2026-08-06",
-          "requests": 2985,
-          "cachedRequests": 1156,
-          "hitRatePct": 38.7
+          "requests": 3925,
+          "cachedRequests": 1430,
+          "hitRatePct": 36.4
         },
         {
           "date": "2026-08-05",
@@ -66,25 +72,23 @@
           "requests": 5177,
           "cachedRequests": 107,
           "hitRatePct": 2.1
-        },
-        {
-          "date": "2026-07-31",
-          "requests": 2598,
-          "cachedRequests": 171,
-          "hitRatePct": 6.6
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 0,
-      "byAction": {},
-      "bySource": {}
+      "totalEvents": 2,
+      "byAction": {
+        "block": 2
+      },
+      "bySource": {
+        "firewallManaged": 2
+      }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-06T12:06:16.094Z",
+    "collectedAt": "2026-08-07T10:58:37.456Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
