@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-08-07] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-08-07
+- Pages recorded: 64
+- Device split: {"mobile":0.205,"pc":0.795,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=perplexity: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-big-and-tall-office-chairs/?utm_source=chatgpt.com: 30% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/seat-cushion-height-tall-people/: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 21% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 31
+
+
 ## [2026-08-06] fix | Leap Plus seat-height spec correction
 
 - **Error:** Site published "Leap Plus seat height 15.5"–22.5", a 7-inch range, standard / out of the box." That configuration does not exist — it welded the standard cylinder's minimum to the optional cylinder's maximum.
