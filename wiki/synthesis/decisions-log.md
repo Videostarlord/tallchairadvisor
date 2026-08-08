@@ -8,6 +8,32 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## [2026-08-08] Cleared the nightly's 52-item escalated queue
+
+**CONTEXT:** The 2026-08-08 nightly escalated 52 items to a human — `open: 0` in the ledger meant "the automation gave up on everything", not "done". Worked the list in integration order: deploy blocker, then content, then ledger.
+
+**DECISIONS:**
+
+1. **Append-only telemetry logs get the `union` merge driver; keyed ledgers do not.** `.gitattributes` now covers `data/token-log.jsonl`, `cost-ledger.jsonl`, and `cost-drift.jsonl`. `ledger.jsonl` and `interventions.jsonl` are deliberately excluded — a duplicate line there is a semantic defect (three intervention slugs are already double-filed), so a conflict in those should stop and get human eyes. Verified lossless before adopting: 16 + 17 lines merged to 19, zero markers, all JSON valid.
+
+2. **A closure predicate must clear the noise floor, not the baseline.** The backfill filed `op:'<', value: beforeMetric` — "any improvement at all". Average position drifts ±0.1–0.5 between weekly pulls, so a page wandering 8.70 → 8.69 filed as a *successful* intervention and fed `what-works.md` a lesson that never happened. Now requires clearing 5%, reusing the floor `assignConfidence` already applies. **Existing filed records keep their original predicate** — rewriting filed evidence is the thing this system exists to prevent.
+
+3. **One summary box per page, labeled "Direct Answer".** Where a page already carried a qualifying box it was relabeled rather than given a second one. A first pass that stacked a new box on top of an existing "Quick Answer" was reverted.
+
+4. **Utility pages are out of scope for GEO.** `/404/`, `/contact/`, `/privacy-policy/`, `/affiliate-disclosure/`, `/author/` get no capsule. This is why the count is 44 content pages, not 49.
+
+**DEFERRED, with reasons:**
+
+- **The 4 escalated position interventions stay escalated.** They are genuine failed experiments, not defects — `/review/leap-plus/` 8.8 vs 8.7, `/chairs/herman-miller-aeron/tall-people/` 8.2 vs 8.1, `/correct-chair-dimensions/` flat at 9.6, `/office-chairs-for-tall-people/` 8.5 vs 8.1. None improved. Retracting them would misuse a mechanism meant for findings that were *wrong to raise*, and would corrupt the system's record of what works. These need a content decision from Jackson.
+- **`/lumbar-support-tall-people/` needs no fix.** Created 2026-08-04; "unknown to Google" is expected at four days old with 6 inbound links and sitemap presence.
+- **The Tests workflow was never broken.** Its single red run was the 2026-08-06 Actions outage — "job was not acquired by Runner", 0/0 steps.
+
+**SURPRISES:**
+
+- The Saturday deploy had been failing this way since **2026-07-25**, not just once. Same 12-second signature, invisible because the failure predates every step that produces output.
+- `/office-chair-return-policy/` had **zero** inbound internal links after three months — a true orphan, and the only one of the four "not indexed" URLs with a real, fixable cause.
+- `/chairs/herman-miller-aeron/tall-people/` states the Aeron seat depth as ~18.5" in body copy and 18.25" in its meta description. **Unresolved internal inconsistency** — the capsule avoids the number rather than propagating either value. Needs Jackson to pick the correct figure.
+
 ## [2026-08-06] Leap Plus seat height: state the configuration, not just the number
 
 **PROBLEM:** The site published a Leap Plus seat height of 15.5"–22.5" as a standard "7-inch range" available "out of the box." No such configuration exists. The figure spliced the standard cylinder's minimum (15.5") onto the optional cylinder's maximum (22.5"). One meta description carried 15.5"–20.5", which is the *standard Leap v2* spec cross-contaminated from another model.

@@ -64,3 +64,25 @@ TCA's precise height-specific data is ideal AI citation material. Spec-driven co
 - [[correct-chair-dimensions]] — citation capsule candidate
 - [[schema-markup]] — supports rich results
 - [[competitor-landscape]] — no competitor has height-bracket tables
+
+## 2026-08-08 — Site-wide GEO marker rollout complete
+
+The nightly escalated 48 `aio-suppression` findings across 44 pages. All are now closed at source: **49/49 crawled pages satisfy the `geo-capsule` predicate**, with 0 answer-first ordering warnings.
+
+What the predicate actually requires (`scripts/probes/probe-page.ts` `extract()`, mirrored in a verifier run against `dist/`):
+
+| Marker | Requirement |
+|---|---|
+| Direct Answer | an element inside `<article>` whose text is exactly `Direct Answer`, whose **parent** holds another `<p>` of ≥80 chars |
+| Citation capsule | an HTML comment matching `tca-aio-capsule` whose **next element sibling** carries ≥80 chars |
+| Answer-first | the Direct Answer element precedes the article's first `<h2>` |
+
+Three traps found the hard way:
+
+1. **A label that is itself an `<h2>` breaks answer-first ordering** — it becomes the article's own first `<h2>`. `/gesture-vs-leap-plus/` had exactly this, so its box was left as "Quick Answer" and a proper block was added above it.
+2. **A `<ul>` does not satisfy the ≥80-char `<p>` requirement**, however substantial its content.
+3. **`<p class="citation-capsule">` is invisible to the probe without the sentinel comment.** `/aeron-size-c-vs-leap-plus/` and `/office-chair-return-policy/` had the capsule prose all along and were failing only for the missing marker.
+
+Utility pages (`/404/`, `/contact/`, `/privacy-policy/`, `/affiliate-disclosure/`, `/author/`) are excluded by design — hence 44 content pages against 49 crawled.
+
+Capsules are written in third-person attributable register ("TCA's X analysis reports that…") so a model can quote them intact. Per the voice rules, first-person appears only where Jackson has genuinely used the chair; `/review/sihoo-doro-s300/` states explicitly that its assessment is from published specifications.

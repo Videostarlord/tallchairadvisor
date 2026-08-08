@@ -3153,3 +3153,16 @@ Jackson reported no nightly report from ntfy. Investigation found the opposite: 
 Root cause: `.github/workflows/nightly.yml` omitted `data/nightly-heartbeat.json` from its commit loop, so the heartbeat never reached `main` where the watchdog reads it. Stale past the 29h limit → alarm. 4 false alarms total (2026-08-07 ×2, 2026-08-08 ×2).
 
 Fixed in `nightly.yml`. Effective on the next scheduled run — the nightly commits at ~10:47Z, the watchdog reads at 15:10Z, so the heartbeat is ~4.4h old and reads alive. Ingested into [[godseye-nightly]].
+
+## 2026-08-08 — Worked the nightly's 52-item escalated queue to zero open items
+
+Fixed, verified, pushed to `main` (`a2f809f`) and `staging` (`4a6b449`), CI green on both:
+
+- **Saturday deploy** — `git merge` conflict on `data/token-log.jsonl` had killed the run in 12s since 2026-07-25. `.gitattributes` union driver for append-only telemetry logs; bootstrapped onto `staging` too, since git reads it from the checked-out branch. The previously-failing merge now succeeds.
+- **GEO** — 49/49 pages satisfy the `geo-capsule` predicate. See [[ai-citation-readiness]].
+- **Closure predicate** — position interventions now need a 5% move, not any move. See [[godseye-nightly]] and [[decisions-log]].
+- **Meta descriptions** — 4 pages back inside 130–165, measured on rendered HTML.
+- **Orphan** — `/office-chair-return-policy/` went from 0 to 3 inbound internal links.
+- **`pageLastmod`** — bumped for 42 revised pages.
+
+Left open deliberately: the 4 failed position interventions (need a content decision, not code), `/lumbar-support-tall-people/` (4 days old), and the Tests workflow (never broken — its red run was the 2026-08-06 Actions outage). Flagged for Jackson: the Aeron seat depth is 18.5" in body copy and 18.25" in a meta description on the same page.

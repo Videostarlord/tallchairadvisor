@@ -100,6 +100,17 @@ Each of these was invisible until the component was actually used, which is the 
 | Date | Issue | Fix |
 |---|---|---|
 | 2026-08-08 | Watchdog fired 4 false "TCA DEAD" alarms across 2 nights; heartbeat on `main` frozen at 2026-08-06 | Added `data/nightly-heartbeat.json` to the `Commit nightly artifacts` loop in `.github/workflows/nightly.yml` |
+| 2026-08-08 | Closure predicate for position interventions closed on noise — `op:'<', value: beforeMetric` meant a 8.70 → 8.69 drift filed as a success, and a page on its exact baseline could never close | `ledger-evaluate.ts` now files `positionClosureTarget(beforeMetric)`, requiring a 5% move (the floor `assignConfidence` already uses). Existing records unchanged. 10 assertions added to `ledger.test.ts` |
+| 2026-08-08 | 48 GEO findings across 44 pages — missing Direct Answer blocks and capsule sentinels | Rolled out to all 44; 49/49 pages now satisfy the `geo-capsule` predicate with 0 answer-first ordering warnings, verified against built HTML |
+
+## The seam problem
+
+Two of this system's worst defects lived in the *seam between* components rather than inside one:
+
+- The **heartbeat** — nightly wrote it, watchdog read it, neither was buggy, and it never crossed between them because `nightly.yml` didn't commit it.
+- The **Saturday deploy** — Friday appends `data/token-log.jsonl` on `staging`, the weekday agents append it on `main`, and `saturday.yml`'s bare `git merge` conflicted on the overlap. Dead in 12 seconds since 2026-07-25, before any step that produces output.
+
+Neither is reachable by unit tests of either side. The generalizable rule, now recorded in the workflow itself: **any file a downstream component reads from `main` must be in `nightly.yml`'s commit loop**, and any file two branches append to needs a merge strategy declared in `.gitattributes`.
 
 ## Related
 
