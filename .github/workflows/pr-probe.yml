@@ -1,0 +1,125 @@
+name: PR — Preview Probe
+
+# A9. The nightly probe reports damage; this prevents it.
+#
+# `npm run probe` runs at 03:00 against production, so a change that kills a tag, a
+# canonical, or throws in the console ships, sits live for up to 24 hours, and THEN
+# gets reported. The June 16 CSP incident is the reference case: a header change no
+# source-level review could have caught, which a probe against a preview URL would
+# have caught in seconds.
+#
+# THIS IS A GATE, NOT AN OBSERVER. Unlike nightly.yml there is no `continue-on-error`
+# anywhere in this file, deliberately. The nightly's job is to see; this file's job is
+# to say no.
+#
+# ── TWO CLOUDFLARE SETTINGS THIS DEPENDS ON ───────────────────────────────────────
+# Neither is verifiable from CI, and each fails in a distinct, readable way:
+#
+#  1. PREVIEW DEPLOYMENTS MUST BE ENABLED for non-production branches. If Pages only
+#     builds the production branch, no preview exists for the PR head and the
+#     "Resolve preview URL" step times out saying exactly that. Fix in the Cloudflare
+#     dashboard (Pages → project → Settings → Builds & deployments → preview branches),
+#     not by loosening this workflow.
+#
+#  2. `PUBLIC_GA_MEASUREMENT_ID` MUST BE SET IN THE **PREVIEW** ENVIRONMENT, not only
+#     production. Astro inlines it at build time (src/layouts/Layout.astro:33), so a
+#     preview built without it renders no gtag, and `tag-not-firing-gtag` will fail
+#     every PR. That failure is real — the preview genuinely has no analytics — but the
+#     cause is configuration, not the PR. Set the variable; do not remove the check.
+#
+# Cloudflare Pages does NOT create GitHub deployments on this repo (verified
+# 2026-08-08: the deployments API returns one record, from railway-app[bot] in March),
+# which is why the preview URL is resolved through Cloudflare's own API by commit SHA
+# rather than read from a `deployment_status` event.
+
+on:
+  pull_request:
+    branches: [main, staging]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: Commit SHA to resolve a preview deployment for
+        required: true
+
+concurrency:
+  # A newer push makes an in-flight run irrelevant, and the old preview URL is about to
+  # be superseded anyway.
+  group: "${{ github.workflow }}-${{ github.event.pull_request.number || inputs.sha }}"
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  probe-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - run: npm ci
+
+      # Waits for Pages to finish building THIS commit. Matching on commit_hash rather
+      # than branch is load-bearing: a branch alias keeps serving the previous build,
+      # and a gate that probes the previous build and reports green is worse than none.
+      - name: Resolve preview URL
+        id: preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ secrets.CLOUDFLARE_PAGES_PROJECT }}
+        run: |
+          SHA="${{ github.event.pull_request.head.sha || inputs.sha }}"
+          URL="$(npx tsx scripts/probes/preview-url.ts --sha "$SHA" --timeout-sec 900)"
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "Preview: $URL" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Install chromium
+        run: npx playwright install --with-deps chromium
+
+      # The money pages, listed explicitly rather than `--limit 10`: --limit takes the
+      # first N of the inventory in sitemap order, which is not the same set and would
+      # drift silently as pages are added.
+      #
+      # --no-ledger is belt-and-braces. `isSynthetic()` (probes/cli.ts) already refuses
+      # to file findings or write the nightly coverage file whenever --base is not
+      # production, so a preview run cannot open or close claims about the live site.
+      - name: Probe preview
+        run: |
+          npm run probe -- \
+            --base "${{ steps.preview.outputs.url }}" \
+            --no-ledger \
+            --out probe-pr.json \
+            --concurrency 4 \
+            --url / \
+            --url /review/gesture/ \
+            --url /review/leap-plus/ \
+            --url /review/aeron-size-c/ \
+            --url /office-chairs-for-tall-people/ \
+            --url /best-office-chairs-under-500/ \
+            --url /correct-chair-dimensions/ \
+            --url /best-big-and-tall-office-chairs/ \
+            --url /aeron-vs-gesture/ \
+            --url /gesture-vs-leap-plus/
+
+      # Fails on tag-not-firing-*, canonical-not-self, console-errors — and on a run
+      # that observed nothing, which must never read as a pass. GEO and meta findings
+      # are reported but never block: those are strategy calls owned by the kill list
+      # and the nightly, and letting a content directive gate a merge is the coupling
+      # data/strategy-rules.json exists to prevent.
+      - name: Gate on regressions
+        run: npx tsx scripts/probes/pr-gate.ts --in probe-pr.json --expect-pages 10
+
+      - name: Upload probe artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: probe-pr-${{ github.event.pull_request.number || inputs.sha }}
+          path: probe-pr.json
+          retention-days: 14
+          if-no-files-found: warn
