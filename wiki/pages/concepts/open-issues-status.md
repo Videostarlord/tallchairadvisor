@@ -20,6 +20,7 @@ tags: [open-issues, status, tracking]
 | **A11** CI runs none of the test files | done | Confirmed: `tests.yml` green. Its one red run (2026-08-06) was the GitHub Actions outage — "job was not acquired by Runner", 0/0 steps. Not a code failure. |
 | **A15** Watchdog never completed a scheduled run | unproven | **Proven — by false positive.** Fired 2026-08-07 (×2) and 2026-08-08 (×2). Cause was an uncommitted heartbeat, fixed. Alarm path works end to end; still untested on a genuinely dead night. |
 | **A4** Architecture lint backlog | 163 | Unchanged at 163, 0 new violations. |
+| **A9** Probe only runs against production | open | **DONE 2026-08-08.** `pr-probe.yml` probes the Cloudflare preview build of the PR's own commit and blocks on A9's three classes. Matches on commit SHA, not branch — a branch alias serves the previous build. Two Cloudflare settings it depends on are unverifiable from CI and documented in the workflow header. |
 | — | not in snapshot | **NEW: Saturday deploy dead since 2026-07-25.** `git merge` conflict on `data/token-log.jsonl`. Fixed via `.gitattributes` union driver, bootstrapped onto `staging`. |
 | — | not in snapshot | **NEW: closure predicate closed on noise.** `op:'<', value: beforeMetric` meant a 8.70 → 8.69 drift filed as a success. Now requires a 5% move. |
 
@@ -59,7 +60,7 @@ Until decided, treat "49/49 pages pass `geo-capsule`" as **23/23 sanctioned + 22
 
 - **A1** (A-CRITICAL) Cooldown gate applies zero fixes — the pipeline finds problems competently and ships none. Everything else is downstream.
 - **A2** Nightly cannot see the agents' own execution logs · **A5–A8** (medium) · **A13** No health check on the detectors themselves
-- **A9** Probe only runs against production · **A10** Nothing checks affiliate links still resolve
+- **A10** Nothing checks affiliate links still resolve — and Playwright is the wrong tool for it: Amazon hard-blocks datacenter IPs, so this needs Firecrawl, not the probe
 - **B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0
 - **B7** `/office-chairs-for-6-foot-4/` "under-linked" claim — re-verify what it measured; it already has 7 inbound links
 - **B11** the Leap Plus spec sweep across 31 files (pre-existing instances)

@@ -3183,3 +3183,15 @@ New page: [[open-issues-status]], now the living truth over the frozen `raw/` sn
 Reading `data/strategy-rules.json` to answer "what is the kill list" surfaced that the 2026-07-24 clause **"no AIO capsules on informational queries" was never codified**, and that `aio-suppression` sits in `alwaysInScope` — so the enforced gate says the opposite of the prose directive.
 
 This corrects the earlier write-up, which called the GEO rollout a kill-list violation. Under the gate it is sanctioned work on an always-in-scope class. Recorded in [[decisions-log]] and [[open-issues-status]]; not resolved, because choosing a side is a strategy call.
+
+## 2026-08-08 — A9 shipped: PRs now probe the preview build before merge
+
+`pr-probe.yml` + `scripts/probes/preview-url.ts` + `scripts/probes/pr-gate.ts` (`c96db76`).
+
+Resolves the Cloudflare preview deployment for the PR's own commit — matched on commit SHA, because a branch alias keeps serving the previous build — probes 10 money pages, and blocks on `console-errors`, `tag-not-firing-gtag`, `tag-not-firing-clarity`, `canonical-not-self`. GEO and meta findings are reported but never block.
+
+Two invariants preserved deliberately: `run.ts`'s exit contract is untouched (it still means "did the observation work", not "may this ship"), and findings are re-derived via `deriveFindings()` rather than re-implemented. A run that observed nothing fails rather than passing.
+
+**Two Cloudflare settings this depends on, neither verifiable from CI** — both documented in the workflow header: preview deployments must be enabled for non-production branches, and `PUBLIC_GA_MEASUREMENT_ID` must be set in the **preview** environment or every PR fails `tag-not-firing-gtag` for a config reason. Untested against a real PR; the first one to open is the proof.
+
+A10 remains open and is explicitly *not* a Playwright job — Amazon blocks datacenter IPs, so it needs Firecrawl.
