@@ -155,9 +155,14 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           # [skip cd] — data-only commit, must not trigger a Cloudflare build.
+          # data/nightly-heartbeat.json is REQUIRED here. The dead-man's switch
+          # reads it from main via the GitHub API — a heartbeat that only ever
+          # exists inside the runner is invisible to the watcher, goes stale at
+          # 29h, and fires "TCA DEAD" on a night that ran perfectly.
           for p in wiki/nightly data/ledger.jsonl data/ledger-state.json \
                    data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
-                   data/collectors data/probes data/interventions.jsonl; do
+                   data/collectors data/probes data/interventions.jsonl \
+                   data/nightly-heartbeat.json; do
             [ -e "$p" ] && git add "$p" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] nightly: god's-eye $(date -u +%Y-%m-%d)"

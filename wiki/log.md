@@ -3145,3 +3145,11 @@ Ran the entire Mon–Sat pipeline plus God's-Eye end-to-end in CI, bracketed by 
 - **Clarity quota architecture.** 10 requests/day/project; Monday spends 2 and the nightly then hits 429. The report correctly diagnosed this as "a quota architecture problem, not a missing token."
 
 **Cost of the full stress test: $3.62 across 29 metered LLM calls.**
+
+## 2026-08-08 — False "TCA DEAD" alarm traced to uncommitted heartbeat
+
+Jackson reported no nightly report from ntfy. Investigation found the opposite: the nightly ran (`31253244746`, schedule, success, 8m5s) and delivered to ntfy at 10:47:09Z — the message is still in the topic cache. What he received was the **dead-man's switch false-alarming** at 15:39Z and 16:50Z.
+
+Root cause: `.github/workflows/nightly.yml` omitted `data/nightly-heartbeat.json` from its commit loop, so the heartbeat never reached `main` where the watchdog reads it. Stale past the 29h limit → alarm. 4 false alarms total (2026-08-07 ×2, 2026-08-08 ×2).
+
+Fixed in `nightly.yml`. Effective on the next scheduled run — the nightly commits at ~10:47Z, the watchdog reads at 15:10Z, so the heartbeat is ~4.4h old and reads alive. Ingested into [[godseye-nightly]].

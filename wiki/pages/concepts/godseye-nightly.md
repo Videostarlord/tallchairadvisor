@@ -91,6 +91,15 @@ Each of these was invisible until the component was actually used, which is the 
 - **The dead-man's alarm could never have been delivered.** HTTP headers are Latin-1 only; the title contained a U+2014 em dash, so `fetch()` threw before sending. The switch detected death correctly and then failed to announce it — silently, and only ever on nights something had already gone wrong.
 - **`nightly.yml` never wrote `credentials/gsc-service-account.json`.** It passed the JSON as an env var, but both pull scripts read it from that file. GSC and GA4 would have failed in CI while working perfectly on the machine where the file happens to exist.
 - **Two CI secret names were wrong** (`SERPAPI_KEY`, `DATAFORSEO_LOGIN`). GitHub substitutes an empty string for a nonexistent secret, so nothing errors — the quota check just goes blind.
+- **The heartbeat never left the runner — 4 false "TCA DEAD" alarms.** `nightly-report.ts` writes `data/nightly-heartbeat.json` last on success, and the dead-man's switch reads it *from `main` via the GitHub API*. But `nightly.yml`'s commit loop never listed the file, so every scheduled run wrote a fresh heartbeat into the runner and threw it away. The copy on `main` stayed frozen at `2026-08-06T09:07:29Z` — a hand-commit from a dev fix, not a run. At 29h it went stale and the switch fired on 2026-08-07 (16:04Z, 17:05Z) and 2026-08-08 (15:38Z, 16:50Z), every one of them on a night the nightly had succeeded. Fixed 2026-08-08 by adding the path to the commit loop.
+
+  Worth keeping in view: **both halves were behaving exactly as specified.** The nightly ran (8m5s, 100% coverage, pushed to ntfy at 10:47Z); the watchdog correctly reported a stale heartbeat. The defect lived in the seam between them — the one place neither component's tests look. The alarm body was accurate and said so (`✗ heartbeat: … 54.5h ago` beside `✓ report: … present`); only the title, which is all a lock screen shows, read as total death.
+
+## Fix History
+
+| Date | Issue | Fix |
+|---|---|---|
+| 2026-08-08 | Watchdog fired 4 false "TCA DEAD" alarms across 2 nights; heartbeat on `main` frozen at 2026-08-06 | Added `data/nightly-heartbeat.json` to the `Commit nightly artifacts` loop in `.github/workflows/nightly.yml` |
 
 ## Related
 
