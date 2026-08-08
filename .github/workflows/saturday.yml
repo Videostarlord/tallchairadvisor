@@ -28,7 +28,17 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git fetch origin main
-          git merge origin/main --no-edit -m "chore: sync main into staging before deploy"
+          # Append-only telemetry logs are resolved by the union merge driver
+          # (.gitattributes). Anything that still conflicts is a real source
+          # conflict and SHOULD stop the deploy — but it must say so, rather
+          # than exiting 1 nine seconds in and leaving a bare red X.
+          if ! git merge origin/main --no-edit -m "chore: sync main into staging before deploy"; then
+            echo "::error title=staging merge conflict::Cannot sync main into staging. Deploy aborted before build."
+            echo "Conflicted paths:"
+            git diff --name-only --diff-filter=U | sed 's/^/  /'
+            git merge --abort || true
+            exit 1
+          fi
 
       - uses: actions/setup-node@v4
         with:

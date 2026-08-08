@@ -64,6 +64,29 @@ import {
 
 const DEFAULT_ESCALATE_AFTER = 3;
 
+/**
+ * The relative improvement a position intervention must clear to count as having
+ * worked at all.
+ *
+ * This is not a new number. `assignConfidence` (scripts/agents/wiki-utils.ts)
+ * already refuses to rate any delta under 5% better than 'low' confidence — the
+ * system has always held that a sub-5% move is indistinguishable from drift. The
+ * backfill just wasn't using that standard when it wrote the closure predicate.
+ */
+const MEANINGFUL_POSITION_DELTA = 0.05;
+
+/**
+ * The average position an intervention must beat for its closure to mean anything.
+ * Lower is better in GSC, so the target sits below the baseline by the margin above.
+ *
+ * Exported because this is the number that decides whether a content change is
+ * recorded as a win, and a number with that much downstream reach should be
+ * assertable without running the CLI.
+ */
+export function positionClosureTarget(beforeMetric: number): number {
+  return Number((beforeMetric * (1 - MEANINGFUL_POSITION_DELTA)).toFixed(2));
+}
+
 // ─── CLI ───────────────────────────────────────────────────────────────────────
 
 interface Options {
@@ -292,7 +315,7 @@ function backfill(opts: Options): BackfillReport {
       // value it was trying to beat. `position` + a numeric beforeMetric says exactly
       // one thing: this page should rank better than it did. Anything else — a null
       // baseline, a metric with no comparison — states no test and is left unfiled.
-      if (entry.targetMetric !== 'position' || entry.beforeMetric === null) {
+      if (entry.targetMetric !== 'position' || entry.beforeMetric === null || entry.beforeMetric <= 0) {
         report.refused.push({
           id,
           page: entry.slug,
@@ -310,11 +333,22 @@ function backfill(opts: Options): BackfillReport {
           summary: entry.description,
           // afterDays=14 is not invented: wiki-utils.assignConfidence already treats
           // anything under 14 days as confidence 'none'.
+          // The bar has to clear GSC's noise, not merely the baseline. `value:
+          // beforeMetric` asked only "is it any better at all", and average
+          // position drifts ±0.1–0.5 between weekly pulls on pages with modest
+          // impressions. That made closure a coin flip in the wrong direction:
+          // a page wandering 8.70 → 8.69 filed as a SUCCESSFUL intervention and
+          // taught what-works.md a lesson that never happened. Requiring the
+          // move to clear MEANINGFUL_POSITION_DELTA means a close is evidence.
+          //
+          // It also removes a predicate that could never pass: an intervention
+          // filed at beforeMetric 9.6 got `< 9.6`, so a page sitting exactly on
+          // its baseline failed forever without ever having regressed.
           closurePredicate: {
             kind: 'gsc-position',
             url: entry.slug,
             op: '<',
-            value: entry.beforeMetric,
+            value: positionClosureTarget(entry.beforeMetric),
             afterDays: 14,
           },
           firstSeen: entry.appliedDate,

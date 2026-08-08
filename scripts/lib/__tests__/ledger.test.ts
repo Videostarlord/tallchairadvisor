@@ -29,7 +29,7 @@ import {
   type Evidence,
   type LedgerRecord,
 } from '../ledger.js';
-import { decide } from '../../ledger-evaluate.js';
+import { decide, positionClosureTarget } from '../../ledger-evaluate.js';
 import { fail, pass, unevaluable } from '../predicates/types.js';
 
 // ─── harness ───────────────────────────────────────────────────────────────────
@@ -393,6 +393,53 @@ console.log('\n[7] appendLedger validates what it writes');
   }
   assert('a record whose predicate is malformed cannot be appended', threw);
   assert('nothing was written', !existsSync(path));
+}
+
+// ─── 8. a position intervention must beat noise, not just its own baseline ─────
+//
+// The backfill used to file `op:'<', value: beforeMetric`, i.e. "any improvement
+// at all". GSC average position drifts ±0.1–0.5 between weekly pulls, so that
+// closed on noise in both directions: a page wandering 8.70 → 8.69 was recorded
+// as a successful intervention and fed to what-works.md, and a page sitting
+// exactly on its baseline (9.6 against `< 9.6`) could never close no matter what.
+{
+  assert(
+    'the target is strictly better than the baseline, never equal to it',
+    positionClosureTarget(9.6) < 9.6,
+    `got ${positionClosureTarget(9.6)}`,
+  );
+
+  assert(
+    'a baseline of 9.6 targets 9.12, not 9.6',
+    positionClosureTarget(9.6) === 9.12,
+    `got ${positionClosureTarget(9.6)}`,
+  );
+
+  // The four interventions escalated on 2026-08-08, with the positions they
+  // actually reached. None of them improved; every one must still read as a fail.
+  const stuck: Array<{ page: string; before: number; actual: number }> = [
+    { page: '/review/leap-plus/', before: 8.7, actual: 8.8 },
+    { page: '/chairs/herman-miller-aeron/tall-people/', before: 8.1, actual: 8.2 },
+    { page: '/correct-chair-dimensions/', before: 9.6, actual: 9.6 },
+    { page: '/office-chairs-for-tall-people/', before: 8.1, actual: 8.5 },
+  ];
+  for (const s of stuck) {
+    assert(
+      `${s.page} at ${s.actual} does not satisfy the recalibrated target`,
+      !(s.actual < positionClosureTarget(s.before)),
+    );
+  }
+
+  // The point of the change: drift no longer buys a close.
+  assert(
+    'a 0.01 drift in the right direction is NOT a close',
+    !(8.69 < positionClosureTarget(8.7)),
+  );
+  assert(
+    'a genuine move well past the noise floor IS a close',
+    7.9 < positionClosureTarget(8.7),
+    `target ${positionClosureTarget(8.7)}`,
+  );
 }
 
 // ─── done ──────────────────────────────────────────────────────────────────────

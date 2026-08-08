@@ -1,0 +1,21 @@
+# Append-only telemetry logs.
+#
+# Two workflows on two branches append to the tail of the same file in the same
+# week — Friday writes data/token-log.jsonl on `staging`, the weekday agents
+# write it on `main` — and a normal 3-way merge reports that as a content
+# conflict. That is what killed `Saturday — Verify & Deploy` on 2026-07-25 and
+# again on 2026-08-08: the run died in 12 seconds at the `Merge main into
+# staging` step, before build, content lint, verification, or deploy ever ran.
+#
+# `union` keeps the lines from both sides instead of writing conflict markers.
+# That is the correct semantic here and only here: every line is an independent
+# timestamped event, order carries no meaning beyond append time, and a repeated
+# line costs nothing downstream.
+#
+# Deliberately NOT applied to data/ledger.jsonl or data/interventions.jsonl.
+# Those are keyed by id, and a duplicated line there is a semantic defect rather
+# than a harmless repeat — three intervention slugs are already double-filed.
+# A merge conflict in those files should stop the run and get human eyes.
+data/token-log.jsonl    merge=union
+data/cost-ledger.jsonl  merge=union
+data/cost-drift.jsonl   merge=union
