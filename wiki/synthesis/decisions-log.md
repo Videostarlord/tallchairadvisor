@@ -8,6 +8,22 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## [2026-08-08] The kill list's prose and its code disagree — one clause never made the trip
+
+**FINDING.** `data/strategy-rules.json` was adopted 2026-08-06 to move the kill list out of prose and into a deterministic gate, on the standing rule that *"a constraint that governs what an agent may recommend cannot live behind a character budget, and cannot be enforced by asking."* Three rules were codified: `no-snippet-work-on-aio-eaten-informational`, `no-ctr-iteration-below-position-8`, `no-thin-content-expansion-during-content-freeze`. Between them they cover `meta-*`, `title-*`, `ctr-leak`, and `thin-content`.
+
+**The 2026-07-24 clause "no AIO capsules on informational queries" was not among them.** Worse than merely absent: `aio-suppression` is listed in `alwaysInScope`, the set no rule may override — so the enforced gate states the *opposite* of the prose, that capsule findings are never withheld, on any page.
+
+This surfaced because the 2026-08-08 GEO rollout applied capsules to 45 pages, 22 of them informational. Checked against B10's prose it is a violation; checked against the gate it is sanctioned work on an `alwaysInScope` class. Both readings are defensible, which is the problem.
+
+**No decision made — this is Jackson's.** Recorded rather than resolved, because picking a side changes what the site spends the next month on:
+- **If the prose is the intent:** add a capsule rule scoped to informational pages, and decide whether to strip the 22 already deployed.
+- **If the code is the intent:** strike the clause from the directive and from B10, and treat the rollout as in-scope.
+
+**What is NOT in question:** the codification itself was correct and remains so. This is a gap in coverage, not an argument against the mechanism — and it is exactly the kind of gap the mechanism was supposed to make impossible, which is why it is worth a log entry rather than a quiet patch.
+
+**STANDING RULE, extended.** Moving a directive into code is only complete when *every* clause has either a rule or an explicit written decision not to encode it. A partially codified directive is more dangerous than an uncodified one, because the gate's silence now reads as permission. Suggested follow-up: an assertion that every clause of the thesis ROUTING DIRECTIVE maps to a rule id or a recorded waiver.
+
 ## [2026-08-08] Cleared the nightly's 52-item escalated queue
 
 **CONTEXT:** The 2026-08-08 nightly escalated 52 items to a human — `open: 0` in the ledger meant "the automation gave up on everything", not "done". Worked the list in integration order: deploy blocker, then content, then ledger.

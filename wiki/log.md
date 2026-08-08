@@ -3177,3 +3177,9 @@ Cross-checked the day's work against `raw/audits/2026-08-06-open-issues-task-lis
 Also confirmed the 52 ledger findings must **not** be closed by hand — they close on fresh probe evidence in tonight's nightly. Verified the real Playwright probe returns 0 failing assertions against the live site.
 
 New page: [[open-issues-status]], now the living truth over the frozen `raw/` snapshot.
+
+## 2026-08-08 (later still) — Kill list: prose vs. code discrepancy recorded
+
+Reading `data/strategy-rules.json` to answer "what is the kill list" surfaced that the 2026-07-24 clause **"no AIO capsules on informational queries" was never codified**, and that `aio-suppression` sits in `alwaysInScope` — so the enforced gate says the opposite of the prose directive.
+
+This corrects the earlier write-up, which called the GEO rollout a kill-list violation. Under the gate it is sanctioned work on an always-in-scope class. Recorded in [[decisions-log]] and [[open-issues-status]]; not resolved, because choosing a side is a strategy call.

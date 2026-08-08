@@ -23,7 +23,24 @@ tags: [open-issues, status, tracking]
 | — | not in snapshot | **NEW: Saturday deploy dead since 2026-07-25.** `git merge` conflict on `data/token-log.jsonl`. Fixed via `.gitattributes` union driver, bootstrapped onto `staging`. |
 | — | not in snapshot | **NEW: closure predicate closed on noise.** `op:'<', value: beforeMetric` meant a 8.70 → 8.69 drift filed as a success. Now requires a 5% move. |
 
-## ⚠️ Open deviation from the kill list — needs a decision
+## ⚠️ The prose kill list and the enforced kill list disagree — needs a decision
+
+**Corrected 2026-08-08.** This was first written up as "the GEO rollout violated the kill list." That framing is wrong, and the real finding is more useful.
+
+`data/strategy-rules.json` — the deterministic gate adopted 2026-08-06 precisely so a strategy constraint would stop living in prose — contains **three** rules, covering `meta-length`, `meta-quality`, `title-length`, `title-quality`, `ctr-leak`, and `thin-content`. **None covers capsules.** And `aio-suppression` sits in `alwaysInScope`, the list no rule can override, meaning capsule findings are never withheld from the planner on any page.
+
+So:
+
+| Source | Says |
+|---|---|
+| Prose directive (decisions-log 2026-07-24; task list header; B10) | "no AIO capsules on informational queries" — B10: *"the exact thing 2026-07-24 forbade"* |
+| Enforced code (`data/strategy-rules.json`) | `aio-suppression` is `alwaysInScope` — never filtered, on any page |
+
+**The clause that would have blocked the rollout is the one clause never translated into code.** That is the same failure the 2026-08-06 codification was built to eliminate ("a constraint that governs what an agent may recommend cannot live behind a character budget, and cannot be enforced by asking"), still live in the one rule that did not make the trip.
+
+The decision is therefore **not** "was a rule broken" but **which of the two is the real intent** — then make them agree. Either add an `aio-capsule` / `geo-capsule` rule scoped to informational pages, or strike the clause from the prose directive. Leaving them contradictory hands the same trap to the next agent, human or otherwise.
+
+### The scope facts, for whichever way it goes
 
 B10 scopes the GEO rollout to **money pages only**, and says of the informational pages: *"adding capsules there is the exact thing 2026-07-24 forbade."*
 
