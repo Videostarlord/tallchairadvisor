@@ -45,12 +45,13 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 | Page | Summary |
 |------|---------|
-| [[godseye-nightly]] | **OPERATIONAL 2026-08-06.** Observation layer over the Mon-Sat pipeline. 7/7 collectors healthy, phone alerts live, watchdog in a second private repo. Full-week stress test found 6 real bugs (audit truncating findings for a month; 2 state files never committed; workflows discarding runs on push conflict). **Open task list: `raw/audits/2026-08-06-open-issues-task-list.md`.** Top blocker: cooldown gate applies zero fixes. |
+| [[godseye-nightly]] | **OPERATIONAL 2026-08-06.** Observation layer over the Mon-Sat pipeline. 7/7 collectors healthy, phone alerts live, watchdog in a second private repo. Full-week stress test found 6 real bugs (audit truncating findings for a month; 2 state files never committed; workflows discarding runs on push conflict). **Open task list: `raw/audits/2026-08-06-open-issues-task-list.md` (frozen snapshot) — current status in [[open-issues-status]].** Top blocker: cooldown gate applies zero fixes (A1). |
 | [[ctr-optimization]] | #1 site bottleneck. 0.23% CTR (May 2026). Cause A: AIO suppression (80%). Cause B: carousels. Build geo-optimize.ts to fix. |
 | [[geo-optimize-plan]] | **COMPLETE (May 11).** Integrated into competitor-intelligence.ts v2.3. 3 capsules applied (gesture, best-office-chairs, leap-plus). SERP cache live (72h). 3 pages pending (page_token — unfixable). Strategy.ts reads AIO context. |
 | [[meta-descriptions]] | Length constraints, regex bug, current status per page. |
 | [[schema-markup]] | Types in use, JSON-LD parse error on money page, aggregateRating issues. |
-| [[ai-citation-readiness]] | GEO score 71/100. Missing: citation capsules, verdict table. |
+| [[ai-citation-readiness]] | **2026-08-08: 49/49 pages satisfy the `geo-capsule` predicate.** Documents the exact marker contract and the three traps found rolling it out. Caveat: 22 of the 45 pages touched were outside B10's sanctioned money-page scope — see [[open-issues-status]]. |
+| [[open-issues-status]] | **Living status of the open-issues task list.** Read this before the frozen `raw/` snapshot. Tracks what changed 2026-08-08, what is still open, and one unresolved kill-list deviation awaiting Jackson's decision. |
 | [[internal-linking]] | Hub-and-spoke architecture. Verified + unverified link inventory. |
 | [[competitor-landscape]] | 5 direct competitors. TCA advantage: height specificity. |
 | [[gsc-performance]] | 12,209 impr, 29 clicks, 0.24% CTR (May 4, 90-day). Page-level rankings. KPI targets. |

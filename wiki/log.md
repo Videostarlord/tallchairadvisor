@@ -3166,3 +3166,14 @@ Fixed, verified, pushed to `main` (`a2f809f`) and `staging` (`4a6b449`), CI gree
 - **`pageLastmod`** — bumped for 42 revised pages.
 
 Left open deliberately: the 4 failed position interventions (need a content decision, not code), `/lumbar-support-tall-people/` (4 days old), and the Tests workflow (never broken — its red run was the 2026-08-06 Actions outage). Flagged for Jackson: the Aeron seat depth is 18.5" in body copy and 18.25" in a meta description on the same page.
+
+## 2026-08-08 (later) — Open-issues status reconciled; two errors in my own rollout found and one left for Jackson
+
+Cross-checked the day's work against `raw/audits/2026-08-06-open-issues-task-list.md`, which I had not read when doing the GEO rollout. Two problems surfaced:
+
+1. **B11 regression, fixed (`fe06db6`).** The rollout wrote 17 unqualified "22.5-inch seat height ceiling" claims for the Leap Plus — the exact error B11 is tracking — and put them inside citation capsules built to be quoted verbatim by an LLM. Two also asserted the inverted "highest ceiling of any major ergonomic chair", which is false on the default cylinder. All 17 corrected to state the optional 5" cylinder condition.
+2. **Kill-list scope deviation, NOT fixed — needs Jackson.** B10 scopes GEO capsules to money pages only. The rollout covered 45 pages: 23 in scope, 22 outside. Both sides of the argument recorded in [[open-issues-status]].
+
+Also confirmed the 52 ledger findings must **not** be closed by hand — they close on fresh probe evidence in tonight's nightly. Verified the real Playwright probe returns 0 failing assertions against the live site.
+
+New page: [[open-issues-status]], now the living truth over the frozen `raw/` snapshot.
