@@ -34,6 +34,81 @@ try {
   process.exit(1);
 }
 
+// Chair spec registry. Some published figures are TRUE but MISLEADING ALONE,
+// because they require an option the buyer selects at order time. The Leap
+// Plus reaches 22.5" only with the optional 5" cylinder; the default chair
+// stops at 19.5". That distinction was lost on 33 pages, and the height
+// landing pages told 6'5"-6'7" buyers the default chair fit them. This gate
+// does not ban the number — it requires the qualifier to travel with it.
+const SPEC_REGISTRY_PATH = join(ROOT, 'data', 'chair-specs.json');
+
+let GUARDED_SPECS = [];
+try {
+  const registry = JSON.parse(readFileSync(SPEC_REGISTRY_PATH, 'utf-8'));
+  GUARDED_SPECS = registry.guarded || [];
+} catch (err) {
+  console.error(`\n❌ Cannot read chair spec registry at data/chair-specs.json — ${err.message}`);
+  console.error('   This file gates every spec claim on the site. Restore it before shipping.\n');
+  process.exit(1);
+}
+
+// Normalize the many ways a measurement gets written in .astro source:
+// escaped quotes (22.5\"), the prime character (22.5″), and en/em dashes in
+// ranges. Comparing on a normalized string keeps the rule from being defeated
+// by punctuation that renders identically.
+function normalizeMeasurements(text) {
+  return text
+    .replace(/[–—−]/g, '-')   // en dash, em dash, minus → hyphen
+    .replace(/[″”“]/g, '"')   // double prime, curly quotes → "
+    .replace(/\\"/g, '"')                     // JSX/JSON escaped quote
+    .replace(/&#34;|&quot;/g, '"')            // HTML entities
+    .replace(/\s*-\s*/g, '-')                 // tighten spaced ranges
+    .toLowerCase();
+}
+
+// A qualifier may sit on the neighbouring line when markup wraps a sentence,
+// so each line is judged against a small window rather than itself alone.
+function guardedSpecViolations(content, relPath) {
+  const violations = [];
+  const rawLines = content.split('\n');
+  const normLines = rawLines.map(normalizeMeasurements);
+
+  rawLines.forEach((rawLine, i) => {
+    if (rawLine.trim().startsWith('<!--')) return;
+    const line = normLines[i];
+    const window = normLines.slice(Math.max(0, i - 1), i + 2).join(' ');
+
+    for (const spec of GUARDED_SPECS) {
+      const value = normalizeMeasurements(spec.value);
+      if (!line.includes(value)) continue;
+
+      if (spec.banned) {
+        violations.push(
+          `  ${relPath}:${i + 1} — BANNED SPEC "${spec.value}": ${spec.message}\n` +
+          `      ${rawLine.trim().slice(0, 120)}`
+        );
+        continue;
+      }
+
+      // Only a spec claim is in scope. "22.5" inside an unrelated sentence is not.
+      const inContext = (spec.context || []).some(c => line.includes(c.toLowerCase()));
+      if (!inContext) continue;
+
+      const qualified = (spec.qualifiers || []).some(q =>
+        window.includes(normalizeMeasurements(q))
+      );
+      if (!qualified) {
+        violations.push(
+          `  ${relPath}:${i + 1} — UNQUALIFIED SPEC "${spec.value}": ${spec.message}\n` +
+          `      ${rawLine.trim().slice(0, 120)}`
+        );
+      }
+    }
+  });
+
+  return violations;
+}
+
 // Placeholder patterns that must not appear in shipped content
 const PLACEHOLDER_PATTERNS = [
   { pattern: /\[IMAGE:/g,              label: '[IMAGE: placeholder]' },
@@ -113,6 +188,8 @@ function checkFile(filePath) {
       }
     }
   });
+
+  violations.push(...guardedSpecViolations(content, relPath));
 
   return violations;
 }

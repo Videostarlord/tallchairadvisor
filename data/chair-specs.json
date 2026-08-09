@@ -1,0 +1,81 @@
+{
+  "_README": "Canonical chair dimensions for every spec claim in src/pages/**/*.astro. Each figure carries the source it came from. Enforced by scripts/lint-content.mjs: any page stating a value listed under `guarded` must state it together with its qualifier, or the build FAILS.",
+  "_WHY": "The Leap Plus seat height was published as 15.5\"-22.5\" across 33 pages. That range exists in no Steelcase configuration — it welds the standard cylinder's minimum to the optional cylinder's maximum. The site told 6'5\"-6'7\" buyers the default chair reaches 22.5\"; it stops at 19.5\". A reader who followed that advice bought a chair that does not fit, and AI assistants repeated the figure because they were citing this site as the authority. The root cause was that no canonical spec source existed: the wiki chair page was the only internal source of truth, it was wrong, and it was uncited, so every page that quoted it inherited the error.",
+  "_HOW_TO_ADD": "1. Find the figure in the manufacturer's own specification PDF, not a retailer listing and not a review. 2. Record the URL and the edition/date of the document. 3. If the figure is only true in a non-default configuration, put it under `guarded` with the qualifier a page must state alongside it. Do NOT record a number you have not seen in a primary source.",
+  "_GUARDED_MEANS": "A `guarded` value is TRUE but MISLEADING ALONE, because it requires an option the buyer must select at order time. The linter does not ban these values — it requires the qualifier to travel with them. This is the check that would have caught B11 on the day it was introduced.",
+
+  "chairs": {
+    "steelcase-leap-plus": {
+      "product": "Steelcase Leap Plus",
+      "seatHeight": {
+        "default": { "min": 15.5, "max": 19.5, "unit": "in", "note": "Standard cylinder. This is what ships unless the 5\" cylinder is specified at order time." },
+        "optional": { "min": 17.5, "max": 22.5, "unit": "in", "note": "Optional 5\" cylinder (~$63). The floor RISES to 17.5\" — this is not a superset of the default range." },
+        "source": "Steelcase Seating Specification Guide — https://www.steelcase.com/content/uploads/2020/10/Seating-Leap-Seat.pdf",
+        "sourceEditions": ["2020-10", "2017"],
+        "verified": "2026-08-06",
+        "by": "Jackson",
+        "sourceNote": "Both editions agree, and each states the figure in three places internally."
+      },
+      "seatDepth": { "min": 15.75, "max": 19.75, "unit": "in", "source": "Steelcase Seating Specification Guide", "verified": "2026-08-06" },
+      "backHeight": { "value": 25.5, "unit": "in", "source": "Steelcase Seating Specification Guide", "verified": "2026-08-06" },
+      "weightCapacity": { "value": 500, "unit": "lb", "source": "Steelcase product page", "verified": "2026-08-06" }
+    },
+
+    "steelcase-leap-v2": {
+      "product": "Steelcase Leap V2 (standard Leap)",
+      "seatHeight": {
+        "default": { "min": 15.5, "max": 20.5, "unit": "in", "note": "5\" adjustment range. NOTE: the standard Leap's ceiling is HIGHER than the Leap Plus's default ceiling. The Plus trades seat-height range for width, back height, and capacity." },
+        "source": "Steelcase Seating Specification Guide — https://www.steelcase.com/content/uploads/2020/10/Seating-Leap-Seat.pdf",
+        "sourceEditions": ["2020-10", "2017"],
+        "verified": "2026-08-06",
+        "by": "Jackson"
+      },
+      "_COMMON_ERROR": "This chair's 15.5\"-20.5\" range was cross-contaminated onto Leap Plus pages, including the v2's \"(5\" adjustment)\" parenthetical copied verbatim. Also frequently misquoted as a 20\" maximum; the spec guide says 20.5\"."
+    },
+
+    "steelcase-gesture": {
+      "product": "Steelcase Gesture",
+      "seatHeight": {
+        "default": { "min": 16, "max": 21, "unit": "in" },
+        "source": "Steelcase Seating Specification Guide",
+        "verified": "2026-08-06",
+        "by": "Jackson",
+        "sourceNote": "Higher available with an optional cylinder; the default ceiling is 21\"."
+      },
+      "seatDepth": { "min": 15.75, "max": 18.75, "unit": "in", "source": "Steelcase Seating Specification Guide", "verified": "2026-08-06" }
+    },
+
+    "herman-miller-aeron-size-c": {
+      "product": "Herman Miller Aeron Size C",
+      "seatHeight": {
+        "default": { "min": 16, "max": 20.5, "unit": "in", "note": "Hard limit — no optional cylinder raises this." },
+        "source": "Herman Miller Aeron product specification sheet",
+        "verified": "2026-08-06",
+        "by": "Jackson"
+      },
+      "seatDepth": { "value": null, "unit": "in", "note": "Fixed by size; Size C is not depth-adjustable." }
+    }
+  },
+
+  "guarded": [
+    {
+      "id": "leap-plus-22-5-seat-height",
+      "value": "22.5",
+      "appliesTo": "steelcase-leap-plus",
+      "context": ["seat height", "seat-height", "seatHeight", "height ceiling", "maximum height", "max seat"],
+      "qualifiers": ["optional", "5\" cylinder", "5-inch cylinder", "5in cylinder", "upgraded cylinder", "cylinder upgrade", "specified at order", "order time", "not the default", "standard cylinder stops"],
+      "message": "The Leap Plus reaches 22.5\" ONLY with the optional 5\" cylinder. The default chair stops at 19.5\". State the qualifier on the same line, or use 19.5\".",
+      "since": "2026-08-09"
+    },
+    {
+      "id": "leap-plus-fabricated-range",
+      "value": "15.5–22.5",
+      "appliesTo": "steelcase-leap-plus",
+      "context": [],
+      "qualifiers": [],
+      "banned": true,
+      "message": "15.5\"-22.5\" is not a real Steelcase configuration. It welds the standard cylinder's minimum (15.5\") to the optional cylinder's maximum (22.5\"). Use 15.5\"-19.5\" (standard) or 17.5\"-22.5\" (optional 5\" cylinder).",
+      "since": "2026-08-09"
+    }
+  ]
+}

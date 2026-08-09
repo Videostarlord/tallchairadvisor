@@ -38,7 +38,7 @@ const schema = [
         "name": "What is the best office chair for a 6'4\" person?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Steelcase Leap Plus is the safest default for a 6'4\" user. Its seat height maxes out at 22.5 inches, seat depth reaches 19.75 inches (adjustable), and back height is 25.5 inches — all of which comfortably clear the dimensional minimums for most 6'4\" proportions. The Steelcase Gesture is a viable alternative if you pass the knee clearance test, but its seat depth ceiling of 18.75 inches is a tighter margin."
+          "text": "The Steelcase Leap Plus is the safest default for a 6'4\" user — provided it is ordered with the optional 5 inch cylinder, which puts its seat height range at 17.5 to 22.5 inches. With the standard cylinder it stops at 19.5 inches, below what most 6'4\" users need and lower than both the Gesture and the Aeron Size C. Configured with that cylinder, its 22.5 inch seat height, 19.75 inch adjustable seat depth, and 25.5 inch back height comfortably clear the dimensional minimums for most 6'4\" proportions. The Steelcase Gesture is a viable alternative if you pass the knee clearance test, but its seat depth ceiling of 18.75 inches is a tighter margin."
         }
       },
       {
@@ -62,7 +62,7 @@ const schema = [
         "name": "What seat height do I need at 6'4\"?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Most 6'4\" users have a popliteal height (floor to knee crease, seated) between 19.5 and 21 inches. Your chair's maximum seat height must meet or exceed this number. The Leap Plus tops out at 22.5 inches, the Gesture at 21 inches, and the Aeron Size C at 20.5 inches. Measure your own popliteal height before comparing chairs — individual leg proportions vary considerably at the same standing height."
+          "text": "Most 6'4\" users have a popliteal height (floor to knee crease, seated) between 19.5 and 21 inches. Your chair's maximum seat height must meet or exceed this number. The Gesture tops out at 21 inches and the Aeron Size C at 20.5 inches. The Leap Plus depends entirely on which gas cylinder was ordered: 19.5 inches with the standard cylinder — the lowest of the three — or 22.5 inches with the optional 5 inch cylinder, the highest of the three. Measure your own popliteal height before comparing chairs, and confirm the cylinder before ordering a Leap Plus."
         }
       },
       {
@@ -80,7 +80,7 @@ const schema = [
 
 <Layout
   title={`Best Office Chair for 6'4" | Tall Chair Advisor`}
-  description={`At 6'4", the Leap Plus is the safest default: 22.5" seat height, 19.75" depth. Full comparison with Gesture and Aeron — height-by-height verdict.`}
+  description={`At 6'4", the Leap Plus is the safest default — but only with the optional 5" cylinder. Standard stops at 19.5". Full Gesture and Aeron comparison.`}
   ogType="article"
   schema={schema}
 >
@@ -118,7 +118,7 @@ const schema = [
           <tbody class="divide-y divide-border">
             <tr class="bg-card">
               <td class="px-4 py-3 font-medium text-heading">Steelcase Leap Plus</td>
-              <td class="px-4 py-3 text-muted-foreground">15.5–22.5"</td>
+              <td class="px-4 py-3 text-muted-foreground">15.5–19.5" std<br /><span class="text-xs">17.5–22.5" w/ optional 5" cylinder</span></td>
               <td class="px-4 py-3 text-muted-foreground">15.75–19.75" (adj)</td>
               <td class="px-4 py-3 text-muted-foreground">25.5"</td>
               <td class="px-4 py-3 text-muted-foreground">500 lbs</td>
@@ -149,7 +149,7 @@ const schema = [
       <div class="bg-secondary/40 border border-border rounded-lg px-6 py-5 mb-8">
         <p class="font-semibold text-heading mb-2">Quick Answer: Best Office Chair for 6'4"</p>
         <p class="text-sm text-muted-foreground mb-0">
-          The <strong>Steelcase Leap Plus</strong> is the recommended default at this height. It offers a 22.5" seat height ceiling, 19.75" adjustable seat depth, and a 25.5" back height — the most dimensional margin of the three main options. The <strong>Steelcase Gesture</strong> is viable if you pass the knee clearance test below. The <strong>Herman Miller Aeron Size C</strong> fits many 6'4" users but its fixed 18.5" seat depth is a constraint worth measuring against your thigh length first.
+          The <strong>Steelcase Leap Plus</strong> is the recommended default at this height, <strong>ordered with the optional 5" cylinder</strong>. That configuration offers a 22.5" seat height ceiling, 19.75" adjustable seat depth, and a 25.5" back height — the most dimensional margin of the three main options. With the standard cylinder the chair stops at 19.5" and has the least margin of the three, so the cylinder is the single most important thing to get right when ordering. The <strong>Steelcase Gesture</strong> is viable if you pass the knee clearance test below. The <strong>Herman Miller Aeron Size C</strong> fits many 6'4" users but its fixed 18.5" seat depth is a constraint worth measuring against your thigh length first.
         </p>
       </div>
 
@@ -229,13 +229,13 @@ const schema = [
 
         <h3>Steelcase Leap Plus</h3>
         <p>
-          The Leap Plus is Steelcase's purpose-built big-and-tall variant of the Leap V2. At 6'4", it's the only chair of the three that clears all critical dimensions without requiring a proportions-specific judgment call. The seat height tops out at 22.5 inches — giving you meaningful headroom above most 6'4" popliteal heights. Seat depth reaches 19.75 inches. Back height is 25.5 inches.
+          The Leap Plus is Steelcase's purpose-built big-and-tall variant of the Leap V2 — though "big and tall" describes its width, back height, and 500 lb capacity, not its seat height, which is actually lower than the standard Leap V2's unless you order the optional cylinder. At 6'4", correctly configured, it's the only chair of the three that clears all critical dimensions without requiring a proportions-specific judgment call. The seat height tops out at 22.5 inches with the optional 5 inch cylinder, giving meaningful headroom above most 6'4" popliteal heights; with the standard cylinder it stops at 19.5 inches and clears almost none of them. Seat depth reaches 19.75 inches. Back height is 25.5 inches.
         </p>
         <p>
           The Leap Plus's 1-inch seat depth advantage over the Gesture sounds minor on a spec sheet. In practice, that inch is the difference between 1.5 finger-widths of clearance and a full 2.5–3 finger-widths — which crosses from "borderline" to "comfortably correct." At 6'4", that's a meaningful distinction over an 8-hour day.
         </p>
         <p>
-          <strong>Specs:</strong> Seat height 15.5–22.5", seat depth 15.75–19.75" (adjustable), back height 25.5", weight capacity 500 lbs.
+          <strong>Specs:</strong> Seat height 15.5–19.5" with the standard cylinder, 17.5–22.5" with the optional 5" cylinder; seat depth 15.75–19.75" (adjustable), back height 25.5", weight capacity 500 lbs.
         </p>
         <p>
           Read the <a href="/review/leap-plus/" class="link-internal">full Steelcase Leap Plus review</a> and the <a href="/chairs/steelcase-leap-plus/tall-people/" class="link-internal">Leap Plus fit guide for tall people</a> for detailed testing notes.
@@ -265,7 +265,7 @@ const schema = [
                 <td class="px-4 py-3 text-muted-foreground font-medium">Seat Height Range</td>
                 <td class="px-4 py-3 text-muted-foreground">16–20.5"</td>
                 <td class="px-4 py-3 text-muted-foreground">16–21"</td>
-                <td class="px-4 py-3 text-muted-foreground">15.5–22.5"</td>
+                <td class="px-4 py-3 text-muted-foreground">15.5–19.5" std<br /><span class="text-xs">17.5–22.5" w/ optional 5" cylinder</span></td>
               </tr>
               <tr class="bg-secondary/20">
                 <td class="px-4 py-3 text-muted-foreground font-medium">Seat Depth</td>
@@ -393,7 +393,7 @@ const schema = [
 
         <h3>What is the best office chair for a 6'4" person?</h3>
         <p>
-          The Steelcase Leap Plus is the safest default. Its seat height maxes out at 22.5 inches, seat depth reaches 19.75 inches adjustable, and back height is 25.5 inches — all of which comfortably clear the dimensional minimums for most 6'4" proportions. The Gesture is viable if you pass the knee clearance test, but its 18.75-inch seat depth ceiling is a tighter margin at this height. See the <a href="/review/leap-plus/" class="link-internal">Leap Plus review</a> for full fit data.
+          The Steelcase Leap Plus is the safest default, ordered with the optional 5 inch cylinder. Its seat height then maxes out at 22.5 inches, seat depth reaches 19.75 inches adjustable, and back height is 25.5 inches — all of which comfortably clear the dimensional minimums for most 6'4" proportions. With the standard cylinder the seat height stops at 19.5 inches and clears almost none of them, so specify the cylinder at order time. The Gesture is viable if you pass the knee clearance test, but its 18.75-inch seat depth ceiling is a tighter margin at this height. See the <a href="/review/leap-plus/" class="link-internal">Leap Plus review</a> for full fit data.
         </p>
 
         <h3>Is the Steelcase Gesture a good fit for 6'4"?</h3>
@@ -408,7 +408,7 @@ const schema = [
 
         <h3>What seat height do I need at 6'4"?</h3>
         <p>
-          Most 6'4" users have a popliteal height (floor to knee crease, seated) between 19.5 and 21 inches. Your chair's maximum seat height must meet or exceed that number. The Leap Plus tops out at 22.5 inches, the Gesture at 21 inches, and the Aeron Size C at 20.5 inches. Measure your actual popliteal height — individual leg proportions vary considerably at the same standing height. See the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> for how to measure.
+          Most 6'4" users have a popliteal height (floor to knee crease, seated) between 19.5 and 21 inches. Your chair's maximum seat height must meet or exceed that number. The Gesture tops out at 21 inches and the Aeron Size C at 20.5 inches. The Leap Plus depends on its gas cylinder: 19.5 inches as standard, which is the lowest of the three, or 22.5 inches with the optional 5 inch cylinder, which is the highest. Measure your actual popliteal height — individual leg proportions vary considerably at the same standing height. See the <a href="/correct-chair-dimensions/" class="link-internal">correct chair dimensions guide</a> for how to measure.
         </p>
 
         <h3>What back height does a 6'4" person need?</h3>
