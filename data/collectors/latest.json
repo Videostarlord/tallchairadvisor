@@ -1,7 +1,7 @@
 {
-  "collectedAt": "2026-08-09T08:04:53.995Z",
-  "finishedAt": "2026-08-09T08:11:05.616Z",
-  "durationMs": 371621,
+  "collectedAt": "2026-08-09T10:41:10.754Z",
+  "finishedAt": "2026-08-09T10:47:13.435Z",
+  "durationMs": 362681,
   "healthy": true,
   "healthyCount": 7,
   "total": 7,
@@ -24,7 +24,7 @@
         },
         "performance": {
           "pulledAt": "2026-08-06T09:29:38.159Z",
-          "ageHours": 70.6,
+          "ageHours": 73.2,
           "dateRange": {
             "start": "2026-05-08",
             "end": "2026-08-06",
@@ -41,7 +41,7 @@
         },
         "analysis": {
           "generatedAt": "2026-08-06T09:29:38.651Z",
-          "ageHours": 70.6,
+          "ageHours": 73.2,
           "opportunityCount": 38,
           "ctrLeakCount": 17,
           "decayAlertCount": 0
@@ -712,7 +712,7 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:11:05.615Z",
+        "collectedAt": "2026-08-09T10:47:13.434Z",
         "rowCount": 49,
         "healthy": true,
         "reason": null
@@ -724,7 +724,7 @@
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
         "pulledAt": "2026-08-06T09:29:42.271Z",
-        "ageHours": 70.6,
+        "ageHours": 73.2,
         "slaHours": 192,
         "dateRange": {
           "start": "2026-07-09",
@@ -782,7 +782,7 @@
         "aiReferralSessions": 60
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:04:54.014Z",
+        "collectedAt": "2026-08-09T10:41:10.774Z",
         "rowCount": 50,
         "healthy": true,
         "reason": null
@@ -791,31 +791,33 @@
     "clarity": {
       "data": {
         "source": "data/clarity/latest.json",
-        "pulledAt": "2026-08-07T10:55:05.166Z",
-        "ageHours": 45.2,
+        "pulledAt": "2026-08-09T10:37:37.352Z",
+        "ageHours": 0.1,
         "slaHours": 192,
         "numOfDays": 2,
-        "pageCount": 64,
+        "pageCount": 58,
         "deviceSplit": {
-          "mobile": 0.205,
-          "pc": 0.795,
+          "mobile": 0.355,
+          "pc": 0.645,
           "other": 0
         },
-        "alertCount": 14,
+        "alertCount": 11,
         "alertsByIssue": {
-          "low-scroll-depth": 14
+          "high-dead-clicks": 2,
+          "high-rage-clicks": 1,
+          "low-scroll-depth": 8
         },
         "credential": {
           "envVar": "CLARITY_TOKEN",
           "present": true,
           "live": true,
-          "checkedAt": "2026-08-09T08:04:54.016Z",
-          "detail": null
+          "checkedAt": "2026-08-09T10:37:37.352Z",
+          "detail": "not re-pinged — data/clarity/latest.json was pulled 0.1h ago, which is itself proof the credential was live. Conserves the 10/day quota (A3)."
         }
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:04:54.730Z",
-        "rowCount": 64,
+        "collectedAt": "2026-08-09T10:41:10.776Z",
+        "rowCount": 58,
         "healthy": true,
         "reason": null
       }
@@ -834,30 +836,30 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "73264e69-cb4c-465b-aa99-02be07701873",
-          "shortId": "73264e69",
+          "deploymentId": "7e7cadb6-8721-4b85-bc36-b044ac5a60ee",
+          "shortId": "7e7cadb6",
           "environment": "production",
-          "url": "https://73264e69.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-09T08:03:58.439275Z",
+          "url": "https://7e7cadb6.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-09T10:37:40.675999Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
-          "commitMessage": "fix(nightly): pull affiliate revenue BEFORE the collectors read it\n\nOrdering bug found by running it. collectors/amazon.ts reads\ndata/affiliate/latest.json, but the pull was sitting in the L2 probe\nblock — after collect:all. So the collector reported on the PREVIOUS\nnight's snapshot every night, permanently one day stale.\n\nThe first live run showed the sharp version: the collector logged\n\"latest.json does not exist yet — the automated pull has not run\nsuccessfully\" while the pull wrote that exact file minutes later in the\nsame job.\n\nMoved chromium install + the affiliate pull ahead of the collectors. The\npull is data acquisition, not a probe; it only sat with the probes\nbecause that is where chromium happened to be installed. Both steps now\nshare the one install, so this costs nothing."
+          "commitHash": "8030f4b7ccc153579ca0cf4288d9217eb8510aed",
+          "commitMessage": "[skip cd] data: Clarity history 2026-08-09"
         },
         "cache": {
           "windowDays": 7,
-          "requests": 19738,
-          "cachedRequests": 3329,
-          "hitRatePct": 16.9,
-          "bytes": 221642485,
-          "cachedBytes": 99787255,
+          "requests": 20692,
+          "cachedRequests": 3669,
+          "hitRatePct": 17.7,
+          "bytes": 234207061,
+          "cachedBytes": 105730596,
           "byDay": [
             {
               "date": "2026-08-09",
-              "requests": 1665,
-              "cachedRequests": 485,
-              "hitRatePct": 29.1
+              "requests": 2619,
+              "cachedRequests": 825,
+              "hitRatePct": 31.5
             },
             {
               "date": "2026-08-08",
@@ -910,7 +912,7 @@
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:04:55.254Z",
+        "collectedAt": "2026-08-09T10:41:14.254Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -930,19 +932,21 @@
             "cron": "0 8 * * 0",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 1,
+              "runNumber": 2,
               "status": "completed",
-              "conclusion": "success",
-              "startedAt": "2026-08-09T07:31:38Z",
-              "finishedAt": "2026-08-09T07:32:37Z",
+              "conclusion": "failure",
+              "startedAt": "2026-08-09T08:40:01Z",
+              "finishedAt": "2026-08-09T08:40:56Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31301354596",
-              "headSha": "d460f7f0e3c54be4b62032bf5f19d05981492241",
-              "event": "workflow_dispatch"
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31304060725",
+              "headSha": "42e67c134ff28ab8fc7d5b0c14520b79588a2a3e",
+              "event": "schedule"
             },
-            "committedDuringRun": 0,
-            "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T07:31:38Z) and run end + 15min (2026-08-09T07:47:37.000Z) — inferred, not authoritative",
+            "committedDuringRun": 1,
+            "commitSubjects": [
+              "[skip cd] data: Amazon Associates export 2026-08-09"
+            ],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:40:01Z) and run end + 15min (2026-08-09T08:55:56.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -964,22 +968,21 @@
             "cron": "0 10 */2 * *",
             "expectedCadenceDays": 2,
             "lastRun": {
-              "runNumber": 28,
+              "runNumber": 29,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-07T10:54:43Z",
-              "finishedAt": "2026-08-07T10:55:10Z",
-              "daysAgo": 1,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31171964347",
-              "headSha": "eee42b972f532715e7e263235578c7ce467fe936",
+              "startedAt": "2026-08-09T10:37:19Z",
+              "finishedAt": "2026-08-09T10:37:42Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31308776533",
+              "headSha": "f5bb44b92e9a07741a68993e74fae1efd6650ac2",
               "event": "schedule"
             },
-            "committedDuringRun": 2,
+            "committedDuringRun": 1,
             "commitSubjects": [
-              "[skip cd] nightly: god's-eye 2026-08-07",
-              "[skip cd] data: Clarity history 2026-08-07"
+              "[skip cd] data: Clarity history 2026-08-09"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-07T10:54:43Z) and run end + 15min (2026-08-07T11:10:10.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T10:37:19Z) and run end + 15min (2026-08-09T10:52:42.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -994,7 +997,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-07T08:47:23Z",
               "finishedAt": "2026-08-07T08:51:19Z",
-              "daysAgo": 1,
+              "daysAgo": 2,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31163161497",
               "headSha": "eee42b972f532715e7e263235578c7ce467fe936",
               "event": "schedule"
@@ -1016,7 +1019,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-01T09:50:38Z",
               "finishedAt": "2026-08-01T09:52:05Z",
-              "daysAgo": 7,
+              "daysAgo": 8,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
               "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
               "event": "schedule"
@@ -1040,7 +1043,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T09:29:16Z",
               "finishedAt": "2026-08-06T09:50:05Z",
-              "daysAgo": 2,
+              "daysAgo": 3,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31089302906",
               "headSha": "ffaf52aac297148ca7350d7219d6b8bad645a8d7",
               "event": "workflow_dispatch"
@@ -1063,19 +1066,19 @@
             "cron": "0 10 * * *",
             "expectedCadenceDays": 1,
             "lastRun": {
-              "runNumber": 7,
+              "runNumber": 8,
               "status": "in_progress",
               "conclusion": null,
-              "startedAt": "2026-08-09T08:03:59Z",
-              "finishedAt": "2026-08-09T08:04:02Z",
+              "startedAt": "2026-08-09T10:40:19Z",
+              "finishedAt": "2026-08-09T10:40:22Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302622644",
-              "headSha": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
-              "event": "workflow_dispatch"
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31308899040",
+              "headSha": "8030f4b7ccc153579ca0cf4288d9217eb8510aed",
+              "event": "schedule"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:03:59Z) and run end + 15min (2026-08-09T08:19:02.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T10:40:19Z) and run end + 15min (2026-08-09T10:55:22.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1122,19 +1125,19 @@
             "cron": null,
             "expectedCadenceDays": null,
             "lastRun": {
-              "runNumber": 16,
+              "runNumber": 17,
               "status": "completed",
-              "conclusion": "failure",
-              "startedAt": "2026-08-09T08:03:59Z",
-              "finishedAt": "2026-08-09T08:04:30Z",
+              "conclusion": "success",
+              "startedAt": "2026-08-09T08:21:18Z",
+              "finishedAt": "2026-08-09T08:21:52Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302622763",
-              "headSha": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31303321375",
+              "headSha": "42e67c134ff28ab8fc7d5b0c14520b79588a2a3e",
               "event": "push"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:03:59Z) and run end + 15min (2026-08-09T08:19:30.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:21:18Z) and run end + 15min (2026-08-09T08:36:52.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1149,7 +1152,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T10:21:46Z",
               "finishedAt": "2026-08-06T10:22:16Z",
-              "daysAgo": 2,
+              "daysAgo": 3,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092944439",
               "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
               "event": "schedule"
@@ -1198,7 +1201,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T10:13:28Z",
               "finishedAt": "2026-08-06T10:14:41Z",
-              "daysAgo": 2,
+              "daysAgo": 3,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092381683",
               "headSha": "1f93f9dfc08725d1dd639857364f0332c69bc01d",
               "event": "workflow_dispatch"
@@ -1213,7 +1216,7 @@
           }
         ],
         "failing": [
-          "Tests"
+          "Amazon — Weekly Associates Pull"
         ],
         "stale": [],
         "neverRan": [
@@ -1221,12 +1224,12 @@
           "PR — Preview Probe"
         ],
         "wroteNothing": [
-          "Amazon — Weekly Associates Pull",
-          "Friday — New Content (Conditional)"
+          "Friday — New Content (Conditional)",
+          "Tests"
         ]
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:05:01.485Z",
+        "collectedAt": "2026-08-09T10:41:17.762Z",
         "rowCount": 13,
         "healthy": true,
         "reason": null
@@ -1303,7 +1306,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:04:54.636Z",
+        "collectedAt": "2026-08-09T10:41:11.359Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1332,7 +1335,7 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:04:54.043Z",
+        "collectedAt": "2026-08-09T10:41:10.801Z",
         "rowCount": 25,
         "healthy": true,
         "reason": null

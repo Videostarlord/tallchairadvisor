@@ -12,30 +12,30 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "73264e69-cb4c-465b-aa99-02be07701873",
-      "shortId": "73264e69",
+      "deploymentId": "7e7cadb6-8721-4b85-bc36-b044ac5a60ee",
+      "shortId": "7e7cadb6",
       "environment": "production",
-      "url": "https://73264e69.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-09T08:03:58.439275Z",
+      "url": "https://7e7cadb6.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-09T10:37:40.675999Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
-      "commitMessage": "fix(nightly): pull affiliate revenue BEFORE the collectors read it\n\nOrdering bug found by running it. collectors/amazon.ts reads\ndata/affiliate/latest.json, but the pull was sitting in the L2 probe\nblock — after collect:all. So the collector reported on the PREVIOUS\nnight's snapshot every night, permanently one day stale.\n\nThe first live run showed the sharp version: the collector logged\n\"latest.json does not exist yet — the automated pull has not run\nsuccessfully\" while the pull wrote that exact file minutes later in the\nsame job.\n\nMoved chromium install + the affiliate pull ahead of the collectors. The\npull is data acquisition, not a probe; it only sat with the probes\nbecause that is where chromium happened to be installed. Both steps now\nshare the one install, so this costs nothing."
+      "commitHash": "8030f4b7ccc153579ca0cf4288d9217eb8510aed",
+      "commitMessage": "[skip cd] data: Clarity history 2026-08-09"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 19738,
-      "cachedRequests": 3329,
-      "hitRatePct": 16.9,
-      "bytes": 221642485,
-      "cachedBytes": 99787255,
+      "requests": 20692,
+      "cachedRequests": 3669,
+      "hitRatePct": 17.7,
+      "bytes": 234207061,
+      "cachedBytes": 105730596,
       "byDay": [
         {
           "date": "2026-08-09",
-          "requests": 1665,
-          "cachedRequests": 485,
-          "hitRatePct": 29.1
+          "requests": 2619,
+          "cachedRequests": 825,
+          "hitRatePct": 31.5
         },
         {
           "date": "2026-08-08",
@@ -88,7 +88,7 @@
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-09T08:04:55.254Z",
+    "collectedAt": "2026-08-09T10:41:14.254Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
