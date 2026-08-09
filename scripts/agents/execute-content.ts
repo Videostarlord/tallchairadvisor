@@ -11,6 +11,7 @@ import { Script as VmScript } from 'vm';
 import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today, readSynthesisContext, withRetry } from './wiki-utils.js';
 import { assertSafeToAct } from '../assert-safe-to-act.js';
 import { meteredCreate } from '../lib/metered-client.js';
+import { recordEdit } from '../lib/edit-log.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -655,6 +656,10 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
 
   mkdirSync(dirname(fullPath), { recursive: true });
   writeFileSync(fullPath, cleaned);
+
+  // A whole new page is the most substantive edit there is. Recording it here is
+  // what stops next week's plan proposing a rewrite of a page published days ago.
+  recordEdit(ROOT, filePath, 'substantive', 'execute-content', `Created page targeting "${task.keyword}"`);
 
   return { success: true, filePath, summary: `Created: ${filePath} targeting "${task.keyword}"` };
 }
