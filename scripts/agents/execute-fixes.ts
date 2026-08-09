@@ -12,6 +12,8 @@ import { assertSafeToAct } from '../assert-safe-to-act.js';
 import { meteredCreate } from '../lib/metered-client.js';
 import { isCooldownExempt, classifyEdit, cooldownVerdict } from '../lib/cooldown.js';
 import { daysSinceSubstantiveEdit, recordEdit, type DaysSince } from '../lib/edit-log.js';
+import { readValidated } from '../lib/read-validated.js';
+import { gscLatestSchema, gscLatestOptions } from '../schemas/index.js';
 import type { IntentType } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -30,18 +32,22 @@ function classifyIntentForQuery(query: string): IntentType {
   return 'informational';
 }
 
+/**
+ * A4: was a raw JSON.parse behind `catch { return new Map() }`. An unreadable,
+ * stale or truncated pull produced an EMPTY intent map, and an empty intent map
+ * is indistinguishable from "every page is informational" — which is precisely
+ * the classification that suppresses buyer-intent handling downstream. The read
+ * now goes through the contract and throws; main()'s catch turns that into a
+ * non-zero exit with the file, key and expectation named.
+ */
 function getSlugIntentMap(root: string): Map<string, IntentType> {
-  const latestPath = resolve(root, 'data/gsc/latest.json');
-  if (!existsSync(latestPath)) return new Map();
-  try {
-    const gsc = JSON.parse(readFileSync(latestPath, 'utf-8'));
-    const map = new Map<string, IntentType>();
-    // pageQueries are sorted by impressions desc — first entry per slug is the primary query
-    for (const pq of (gsc.pageQueries ?? [])) {
-      if (!map.has(pq.page)) map.set(pq.page, classifyIntentForQuery(pq.query));
-    }
-    return map;
-  } catch { return new Map(); }
+  const gsc = readValidated(resolve(root, 'data/gsc/latest.json'), gscLatestSchema, gscLatestOptions);
+  const map = new Map<string, IntentType>();
+  // pageQueries are sorted by impressions desc — first entry per slug is the primary query
+  for (const pq of gsc.pageQueries) {
+    if (!map.has(pq.page)) map.set(pq.page, classifyIntentForQuery(pq.query));
+  }
+  return map;
 }
 
 interface FixTask {
@@ -74,17 +80,19 @@ function classifiableText(task: FixTask): string {
   return [task.raw, task.description, task.whatToChange, task.why].filter(Boolean).join(' | ');
 }
 
+/**
+ * A4: same migration as getSlugIntentMap, and the more dangerous of the two.
+ * An empty map made `isCriticalPage` return false for EVERY page, which silently
+ * removed the cooldown exemption that lets a 400-impression / zero-click page be
+ * fixed. The failure looked exactly like "no page is critical this week".
+ */
 function getGscPageData(root: string): Map<string, { impressions: number; position: number; clicks: number }> {
-  const gscPath = resolve(root, 'data/gsc/latest.json');
-  if (!existsSync(gscPath)) return new Map();
-  try {
-    const gsc = JSON.parse(readFileSync(gscPath, 'utf-8'));
-    const map = new Map<string, { impressions: number; position: number; clicks: number }>();
-    for (const page of gsc.pages ?? []) {
-      map.set(page.page, { impressions: page.impressions ?? 0, position: page.position ?? 99, clicks: page.clicks ?? 0 });
-    }
-    return map;
-  } catch { return new Map(); }
+  const gsc = readValidated(resolve(root, 'data/gsc/latest.json'), gscLatestSchema, gscLatestOptions);
+  const map = new Map<string, { impressions: number; position: number; clicks: number }>();
+  for (const page of gsc.pages) {
+    map.set(page.page, { impressions: page.impressions, position: page.position, clicks: page.clicks });
+  }
+  return map;
 }
 
 // CRITICAL: 400+ impressions, pos ≤10, 0 clicks — visible but completely failing to convert

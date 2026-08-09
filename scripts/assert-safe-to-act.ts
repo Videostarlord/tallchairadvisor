@@ -23,9 +23,11 @@
  * both executors already use.
  */
 
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { resolve } from 'path';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from './redirect-map.js';
+import { readValidated } from './lib/read-validated.js';
+import { verifiedAsinsSchema, verifiedAsinsOptions, type VerifiedAsins } from './schemas/index.js';
 
 export type Action =
   | { kind: 'create'; slug: string; content?: string }
@@ -51,16 +53,28 @@ export function slugToFilePath(slug: string): string {
   return `src/pages/${parts.join('/')}.astro`;
 }
 
-interface AsinRegistry {
-  asins: Record<string, unknown>;
-  known_dead: Record<string, string>;
-}
-
-function loadAsinRegistry(root: string): AsinRegistry | null {
+/**
+ * A4: was a raw JSON.parse cast to an interface. A cast is not a check — a
+ * registry whose `asins` key had been renamed parsed cleanly, `asins ?? {}` made
+ * the verified set empty, and the gate then rejected every page carrying a
+ * perfectly good ASIN while reporting "UNVERIFIED ASIN" rather than "the
+ * registry is broken". Under `verifiedAsinsSchema` that state is unrepresentable
+ * and the failure names itself.
+ *
+ * This file's stated contract is NEVER THROWS, so the ContractViolation is
+ * caught here and converted into the same fail-closed verdict — but carrying the
+ * contract's message instead of a bare "unreadable".
+ */
+function loadAsinRegistry(root: string): { registry: VerifiedAsins | null; failure: string | null } {
   try {
-    return JSON.parse(readFileSync(resolve(root, 'data/verified-asins.json'), 'utf-8')) as AsinRegistry;
-  } catch {
-    return null;
+    const registry = readValidated(
+      resolve(root, 'data/verified-asins.json'),
+      verifiedAsinsSchema,
+      verifiedAsinsOptions,
+    );
+    return { registry, failure: null };
+  } catch (error) {
+    return { registry: null, failure: error instanceof Error ? error.message : String(error) };
   }
 }
 
@@ -72,16 +86,18 @@ function loadAsinRegistry(root: string): AsinRegistry | null {
  * bad task. Checking here rejects just the offending page, on the day it is written.
  */
 function checkAsins(root: string, content: string): Verdict {
-  const registry = loadAsinRegistry(root);
-  if (!registry) {
+  const { registry, failure } = loadAsinRegistry(root);
+  if (registry === null) {
     // Registry unreadable: do not silently allow unverified ASINs through.
     return content.includes('/dp/')
-      ? { safe: false, reason: 'ASIN registry data/verified-asins.json is unreadable and the content contains /dp/ links — refusing to write unverifiable affiliate links' }
+      ? { safe: false, reason: `ASIN registry data/verified-asins.json failed its contract (${failure}) and the content contains /dp/ links — refusing to write unverifiable affiliate links` }
       : { safe: true };
   }
 
-  const verified = new Set(Object.keys(registry.asins ?? {}));
-  const dead = registry.known_dead ?? {};
+  // No `?? {}` here: the contract guarantees both keys are present, and `asins`
+  // is guaranteed non-empty. A default would re-create the bug described above.
+  const verified = new Set(Object.keys(registry.asins));
+  const dead = registry.known_dead;
   const seen = new Set<string>();
 
   ASIN_LINK_PATTERN.lastIndex = 0;
