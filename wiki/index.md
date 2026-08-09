@@ -52,6 +52,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[schema-markup]] | Types in use, JSON-LD parse error on money page, aggregateRating issues. |
 | [[ai-citation-readiness]] | **2026-08-08: 49/49 pages satisfy the `geo-capsule` predicate.** Documents the exact marker contract and the three traps found rolling it out. Caveat: 22 of the 45 pages touched were outside B10's sanctioned money-page scope — see [[open-issues-status]]. |
 | [[open-issues-status]] | **Living status of the open-issues task list.** Read this before the frozen `raw/` snapshot. Tracks what changed 2026-08-08, what is still open, and one unresolved kill-list deviation awaiting Jackson's decision. |
+| [[autonomous-data-layer]] | **Build plan, not started.** Autonomous dashboard/data control + visual regression. Claude-in-Chrome cannot run unattended, so: APIs first, scripted Playwright second, Firecrawl for IP-blocked hosts. Scroll attention is ALREADY collected — do not rebuild it. Order: A1 → P1 visual regression → P3 Amazon → P2 sitemap → P4 dead ASINs. |
 | [[internal-linking]] | Hub-and-spoke architecture. Verified + unverified link inventory. |
 | [[competitor-landscape]] | 5 direct competitors. TCA advantage: height specificity. |
 | [[gsc-performance]] | 12,209 impr, 29 clicks, 0.24% CTR (May 4, 90-day). Page-level rankings. KPI targets. |

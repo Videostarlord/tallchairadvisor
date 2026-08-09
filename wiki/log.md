@@ -3214,3 +3214,15 @@ A10 remains open and is explicitly *not* a Playwright job — Amazon blocks data
 **The failure it caught is the important part.** The preview has no `PUBLIC_GA_MEASUREMENT_ID` (production has it, preview `env_vars` is empty — confirmed via the Cloudflare API). Without gtag, the probe cannot evaluate the affiliate handler, so every record is `healthy:false` and `deriveFindings` returns **nothing**. All 4 pages → 0 findings. Without the `unevaluable` guard the gate would have reported "0 blocking" and **passed green over a page it never saw**. The guard is the only reason it fails.
 
 **Blocked on one thing:** the Cloudflare token is Pages:**Read**, so `PATCH` to add the preview env var returns auth error 10000. Needs either Pages:Edit on the token or 30 seconds in the dashboard. Preview deployments themselves are already enabled for all branches — that half of the earlier ask was unnecessary.
+
+## 2026-08-09 — Autonomous data-layer plan written; A9 verified green end to end
+
+**A9 is fully operational.** Set `PUBLIC_GA_MEASUREMENT_ID` on the Cloudflare **preview** environment via API (the token now carries Pages:Edit). Re-ran the whole chain against preview build `1e079f8` → `https://9a84506b.tallchairadvisor.pages.dev`: the same 4 pages that were **all `healthy:false`** an hour earlier now probe clean, gate exit **0**. Throwaway branch deleted.
+
+**Saturday deploy proven fixed** earlier the same session: manual dispatch succeeded in **41s** against the 12s failure of 2026-08-08.
+
+**New plan written:** `raw/strategy/2026-08-09-autonomous-data-layer-plan.md`, summarised in [[autonomous-data-layer]], decisions in [[decisions-log]].
+
+Two of Jackson's three asks turned out not to need a browser at all — sitemap submission has an API endpoint, and scroll attention is already collected by `clarity-pull.ts`. The genuinely valuable new build is **visual regression in the existing probe**, including a mobile viewport that has zero coverage today.
+
+**Process note for future sessions:** never `git commit -a` in this repo while an unrelated refactor is dirty. It swept 10 in-flight `meteredCreate` files into a throwaway branch today; fully recovered from the dangling commit, but use explicit pathspecs.

@@ -8,6 +8,22 @@ tags: [decisions, history]
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 
+## [2026-08-09] Autonomous dashboard control: API-first, Playwright-in-CI second, Claude-in-Chrome last
+
+**CONTEXT:** Jackson asked for a system that autonomously controls GSC, GA4, Clarity, Cloudflare, and GitHub, and that visits the live site to confirm it works and looks right. Full spec: `raw/strategy/2026-08-09-autonomous-data-layer-plan.md`, summarised in [[autonomous-data-layer]].
+
+**DECISION 1 — Claude in Chrome is not an automation tier.** It requires an open browser and a live model session, so it cannot fire at 03:00 unattended, which is the whole requirement. It is also the most expensive per action, since every screenshot is image tokens. It stays as the interactive fallback for one-off dashboard changes and for re-capturing Playwright auth — never scheduled, never on the critical path.
+
+**DECISION 2 — verify API coverage before building any scraper.** Two of the three things asked for turned out not to need a browser: sitemap submission has a Search Console endpoint (the service account just holds `webmasters.readonly`), and **scroll attention is already collected** by `clarity-pull.ts` as `scrollDepthAvg` with a <40% flag. A heatmap scraper would have rebuilt an existing field.
+
+**DECISION 3 — the Clarity sample size, not the instrumentation, is the problem.** Scroll numbers exist but rest on 1–2 sessions per page. That is a traffic problem. Heatmap capture is deferred until pages sustain 50+ sessions, where the *shape* of the drop-off starts carrying information the average does not.
+
+**DECISION 4 — visual regression is deterministic; aesthetic judgment is threshold-triggered.** Playwright captures every page nightly for free; a vision model looks only when a diff exceeds threshold or the page changed in that PR. Reviewing 49 pages nightly with a model would cost more than the rest of the pipeline combined to mostly report "still fine". Mobile (375×812) is added because it currently has **zero** coverage and is where wide spec tables break.
+
+**DECLINED — automating GSC "Request Indexing".** No API (the Indexing API is restricted to `JobPosting`/`BroadcastEvent`), ~10/day quota, Google states it does not reliably accelerate indexing, and automating clicks in Google's own UI is a gray area under their automated-access policy with Jackson's account as the exposure. Two URLs are affected, both ordinary crawl-priority cases. Recorded rather than silently skipped so the reasoning survives.
+
+**STANDING TENSION restated: A1 outranks every item in this plan.** The cooldown gate applied zero fixes across a full-week stress test (29 findings → 0). Adding observation to a pipeline that ships nothing produces better-documented stagnation. Build order is A1 → P1 → P3 → P2 → P4.
+
 ## [2026-08-08] The kill list's prose and its code disagree — one clause never made the trip
 
 **FINDING.** `data/strategy-rules.json` was adopted 2026-08-06 to move the kill list out of prose and into a deterministic gate, on the standing rule that *"a constraint that governs what an agent may recommend cannot live behind a character budget, and cannot be enforced by asking."* Three rules were codified: `no-snippet-work-on-aio-eaten-informational`, `no-ctr-iteration-below-position-8`, `no-thin-content-expansion-during-content-freeze`. Between them they cover `meta-*`, `title-*`, `ctr-leak`, and `thin-content`.
