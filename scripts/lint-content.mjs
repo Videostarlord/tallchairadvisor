@@ -66,8 +66,27 @@ function normalizeMeasurements(text) {
     .toLowerCase();
 }
 
+// A bare table cell — <td>22.5"</td> — states a spec with no words around it.
+// The dimension it describes is a row header and the chair is a column header,
+// both many lines away, so a one-line window sees nothing and waves it through.
+// That blind spot hid 28 real instances of the Leap Plus error inside
+// comparison tables while the prose on the same pages was already fixed.
+const TABLE_WINDOW = 30;
+
+// A range may be written 15.5"-22.5", 15.5 – 22.5, or 15.5&ndash;22.5". Matching
+// a literal string missed every table that put inch marks inside the range,
+// which is exactly where the fabricated figure was hiding. Build a regex from
+// the two endpoints instead, tolerant of quotes, entities and spacing.
+function rangeRegex(value) {
+  const [lo, hi] = value.split(/[-–—]/).map(s => s.trim().replace(/"/g, ''));
+  const gap = '\\s*(?:"|&#34;|&quot;|in|inches)?\\s*(?:-|&ndash;|&mdash;)\\s*';
+  const esc = s => s.replace(/\./g, '\\.');
+  return new RegExp(esc(lo) + gap + esc(hi));
+}
+
 // A qualifier may sit on the neighbouring line when markup wraps a sentence,
-// so each line is judged against a small window rather than itself alone.
+// so each line is judged against a window rather than itself alone. Table cells
+// get a much wider one, in both directions, because their context is structural.
 function guardedSpecViolations(content, relPath) {
   const violations = [];
   const rawLines = content.split('\n');
@@ -76,11 +95,16 @@ function guardedSpecViolations(content, relPath) {
   rawLines.forEach((rawLine, i) => {
     if (rawLine.trim().startsWith('<!--')) return;
     const line = normLines[i];
-    const window = normLines.slice(Math.max(0, i - 1), i + 2).join(' ');
+    const window = normLines
+      .slice(Math.max(0, i - TABLE_WINDOW), i + TABLE_WINDOW + 1)
+      .join(' ');
 
     for (const spec of GUARDED_SPECS) {
       const value = normalizeMeasurements(spec.value);
-      if (!line.includes(value)) continue;
+      const hit = spec.banned
+        ? rangeRegex(spec.value).test(line)
+        : line.includes(value);
+      if (!hit) continue;
 
       if (spec.banned) {
         violations.push(
@@ -90,9 +114,31 @@ function guardedSpecViolations(content, relPath) {
         continue;
       }
 
-      // Only a spec claim is in scope. "22.5" inside an unrelated sentence is not.
-      const inContext = (spec.context || []).some(c => line.includes(c.toLowerCase()));
-      if (!inContext) continue;
+      // Some pages state 22.5" about a different chair or a different
+      // dimension entirely — the Gesture's backrest, a seat WIDTH, a required
+      // range. Those are not this rule's business and must not be "corrected".
+      //
+      // A comparison table usually has BOTH a "seat height" row and a "back
+      // height" row, so asking whether the window mentions seat height would
+      // match every cell in the table. What decides a cell is the nearest row
+      // label ABOVE it: walk back until the first line that names a dimension,
+      // and let that line — and only it — say which row this cell belongs to.
+      const dimensionOf = (start) => {
+        for (let j = start; j >= Math.max(0, start - TABLE_WINDOW); j--) {
+          const l = normLines[j];
+          if ((spec.excludeContext || []).some(x => l.includes(normalizeMeasurements(x)))) return 'excluded';
+          if ((spec.context || []).some(c => l.includes(c.toLowerCase()))) return 'context';
+        }
+        return null;
+      };
+
+      // Resolved the same way for prose and for table cells. A prose line
+      // naming the dimension resolves on its own first iteration; a bare cell
+      // walks back to its row label. One rule, no dependence on markup shape —
+      // the previous shape-sniffing version passed 26 real instances because
+      // their markup did not match the cell pattern it expected.
+      if (dimensionOf(i) !== 'context') continue;
+      if (spec.requires && !spec.requires.some(r => window.includes(normalizeMeasurements(r)))) continue;
 
       const qualified = (spec.qualifiers || []).some(q =>
         window.includes(normalizeMeasurements(q))

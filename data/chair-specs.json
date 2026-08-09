@@ -63,7 +63,9 @@
       "value": "22.5",
       "appliesTo": "steelcase-leap-plus",
       "context": ["seat height", "seat-height", "seatHeight", "height ceiling", "maximum height", "max seat"],
-      "qualifiers": ["optional", "5\" cylinder", "5-inch cylinder", "5in cylinder", "upgraded cylinder", "cylinder upgrade", "specified at order", "order time", "not the default", "standard cylinder stops"],
+      "requires": ["leap plus"],
+      "excludeContext": ["seat width", "width", "back height", "backrest", "headrest", "at least", "≥"],
+      "qualifiers": ["optional", "5\" cylinder", "5-inch cylinder", "5in cylinder", "opt. cylinder", "optional cylinder", "upgraded cylinder", "cylinder upgrade", "specified at order", "order time", "not the default", "standard cylinder stops", "std;", "w/ optional"],
       "message": "The Leap Plus reaches 22.5\" ONLY with the optional 5\" cylinder. The default chair stops at 19.5\". State the qualifier on the same line, or use 19.5\".",
       "since": "2026-08-09"
     },
