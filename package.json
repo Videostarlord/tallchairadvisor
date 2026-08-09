@@ -15,6 +15,8 @@
         "gsc:pull:16m": "tsx scripts/gsc-pull.ts --days=16m",
         "gsc:analyze": "tsx scripts/gsc-analyze.ts",
         "gsc:full": "npm run gsc:pull && npm run gsc:analyze",
+        "gsc:sitemap": "tsx scripts/gsc-sitemap.ts",
+        "gsc:sitemap:dry": "tsx scripts/gsc-sitemap.ts --dry-run",
         "agent:index-monitor": "tsx scripts/agents/index-monitor.ts",
         "agent:competitor": "tsx scripts/agents/competitor-monitor.ts",
         "agent:audit": "tsx scripts/agents/audit.ts",
