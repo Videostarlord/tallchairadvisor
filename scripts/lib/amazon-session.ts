@@ -122,6 +122,15 @@ export function classifyCsv(text: string, expectedHeaderFragment?: string): CsvV
     return { kind: 'invalid', reason: 'file is HTML, not CSV — the download almost certainly served a sign-in or error page' };
   }
 
+  // A JSON document where a CSV should be means the URL hit an API endpoint rather
+  // than a download. Caught explicitly because it nearly slipped through as `empty`:
+  // Associates Central's SPA payload is one 249KB line with no newlines, so the
+  // line-count check below read it as "header row only" — reporting a wrong-endpoint
+  // bug as an empty report, one step from reading it as no earnings.
+  if (/^\s*[[{]/.test(trimmed)) {
+    return { kind: 'invalid', reason: 'file is JSON, not CSV — the URL hit an API endpoint, not a report download' };
+  }
+
   const lines = trimmed.split(/\r?\n/).filter((l) => l.trim() !== '');
   const header = lines[0] ?? '';
 

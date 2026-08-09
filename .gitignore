@@ -30,3 +30,9 @@ credentials/
 
 # Claude Code session scratch — worktrees, local settings. Never committed.
 .claude/
+
+# Playwright storageState for Amazon Associates (P3).
+# A LIVE BEARER CREDENTIAL for a financial account — never commit it.
+# Captured by hand, uploaded via `gh secret set AMAZON_STORAGE_STATE`, then deleted.
+amazon-state.json
+*-storage-state.json
