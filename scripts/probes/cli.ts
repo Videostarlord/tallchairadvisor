@@ -18,6 +18,10 @@ export interface CliArgs {
   tagWaitMs: number;
   csp: string | null;
   block: string[];
+  /** P1: capture screenshots and compare against raw/visual/baseline. Off by default. */
+  visual: boolean;
+  /** Where to write current+diff PNGs when a page exceeds the threshold. */
+  visualArtifacts: string | null;
 }
 
 export function parseArgs(argv: string[]): CliArgs {
@@ -34,6 +38,8 @@ export function parseArgs(argv: string[]): CliArgs {
     tagWaitMs: 12_000,
     csp: null,
     block: [],
+    visual: false,
+    visualArtifacts: null,
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -55,6 +61,8 @@ export function parseArgs(argv: string[]): CliArgs {
       case '--tag-wait': args.tagWaitMs = Number.parseInt(next(), 10); break;
       case '--csp': args.csp = next(); break;
       case '--block': args.block.push(next()); break;
+      case '--visual': args.visual = true; break;
+      case '--visual-artifacts': args.visualArtifacts = next(); break;
       default:
         if (a.startsWith('--')) throw new Error(`unknown flag ${a}`);
     }

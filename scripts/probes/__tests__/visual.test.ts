@@ -1,0 +1,148 @@
+/**
+ * visual.test.ts — P1.
+ *
+ * The rule under test is the one every other detector in this repo also obeys:
+ * a measurement that did not happen must be distinguishable from a measurement
+ * that came back clean. For visual diffs the tempting bug is to treat
+ * `diffPct: null` as 0% — "no difference detected" — when it actually means no
+ * comparison occurred. That would close a rendering claim on a page nobody drew.
+ *
+ * Backwards compatibility is tested for real here, because it already broke once
+ * during this change: every probe artifact written before P1 has no `visual` key
+ * at all, and pr-gate.ts re-derives findings from stored artifacts.
+ */
+
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { deriveFindings, VISUAL_DIFF_THRESHOLD_PCT } from '../assertions.js';
+import { slugForPath } from '../visual.js';
+import type { ProbeResult, ProbeVisual } from '../types.js';
+
+/** A healthy record with everything else passing, so only visual findings appear. */
+function healthy(over: Partial<ProbeResult> = {}): ProbeResult {
+  return {
+    url: '/review/gesture/',
+    status: 200,
+    redirectedTo: null,
+    skipped: null,
+    consoleErrors: [],
+    unhandledRejections: [],
+    network: { gtagFired: true, clarityLoaded: true, affiliateHandlerAttached: true, requests: [] },
+    head: {
+      title: 'x',
+      metaDescription: 'y'.repeat(140),
+      canonical: 'https://tallchairadvisor.com/review/gesture/',
+      og: {}, twitter: {}, jsonLd: [], jsonLdParseErrors: [],
+    },
+    vitals: { lcp: 1000, cls: 0, inp: 50 },
+    geo: { directAnswerPresent: true, citationCapsulePresent: true, faqPageSchemaValid: true, answerFirstOrdering: true },
+    errors: [],
+    healthy: true,
+    observedAt: new Date().toISOString(),
+    tags: { gtag: true, clarity: true, affiliate: true },
+    visual: null,
+    ...over,
+  };
+}
+
+const vis = (over: Partial<ProbeVisual> = {}): ProbeVisual => ({
+  desktop: { diffPct: 0, note: null, baselineCreated: false },
+  mobile: { diffPct: 0, note: null, baselineCreated: false },
+  ...over,
+});
+
+const visualFindings = (r: ProbeResult) => deriveFindings(r).filter((f) => f.issueClass === 'visual-regression');
+
+// ─── slug ──────────────────────────────────────────────────────────────────────
+
+test('slugForPath produces a safe, collision-free filename', () => {
+  assert.equal(slugForPath('/'), 'index');
+  assert.equal(slugForPath('/review/gesture/'), 'review-gesture');
+  assert.equal(slugForPath('/chairs/herman-miller-aeron/tall-people/'), 'chairs-herman-miller-aeron-tall-people');
+  assert.equal(slugForPath('/office-chairs-for-6-foot-7/'), 'office-chairs-for-6-foot-7');
+});
+
+// ─── the null rule ─────────────────────────────────────────────────────────────
+
+test('diffPct null files NOTHING — no baseline is not "no difference"', () => {
+  const r = healthy({ visual: vis({
+    desktop: { diffPct: null, note: 'no desktop baseline', baselineCreated: false },
+    mobile: { diffPct: null, note: 'screenshot failed', baselineCreated: false },
+  }) });
+  assert.equal(visualFindings(r).length, 0);
+});
+
+test('a freshly created baseline files nothing — it would be comparing with itself', () => {
+  const r = healthy({ visual: vis({
+    desktop: { diffPct: null, note: 'baseline created', baselineCreated: true },
+    mobile: { diffPct: null, note: 'baseline created', baselineCreated: true },
+  }) });
+  assert.equal(visualFindings(r).length, 0);
+});
+
+// ─── the threshold ─────────────────────────────────────────────────────────────
+
+test('a diff under the threshold does not file', () => {
+  const under = VISUAL_DIFF_THRESHOLD_PCT - 0.001;
+  const r = healthy({ visual: vis({ desktop: { diffPct: under, note: null, baselineCreated: false } }) });
+  assert.equal(visualFindings(r).length, 0);
+});
+
+test('a diff at or over the threshold files, naming the viewport', () => {
+  const r = healthy({ visual: vis({
+    mobile: { diffPct: VISUAL_DIFF_THRESHOLD_PCT + 5, note: null, baselineCreated: false },
+  }) });
+  const found = visualFindings(r);
+  assert.equal(found.length, 1);
+  assert.match(found[0].summary, /mobile/);
+  assert.deepEqual(found[0].closurePredicate, {
+    kind: 'visual-diff',
+    url: '/review/gesture/',
+    viewport: 'mobile',
+    maxPct: VISUAL_DIFF_THRESHOLD_PCT,
+  });
+});
+
+test('both viewports regressing files two separate findings', () => {
+  const bad = { diffPct: 40, note: null, baselineCreated: false };
+  const r = healthy({ visual: { desktop: bad, mobile: bad } });
+  assert.equal(visualFindings(r).length, 2);
+});
+
+// ─── failing closed ────────────────────────────────────────────────────────────
+
+test('an unhealthy record files no visual finding — the probe could not see', () => {
+  const r = healthy({ healthy: false, visual: vis({ mobile: { diffPct: 90, note: null, baselineCreated: false } }) });
+  assert.equal(deriveFindings(r).length, 0, 'deriveFindings returns nothing at all for healthy:false');
+});
+
+test('a skipped record files no visual finding', () => {
+  const r = healthy({ skipped: 'noindex', visual: vis({ mobile: { diffPct: 90, note: null, baselineCreated: false } }) });
+  assert.equal(deriveFindings(r).length, 0);
+});
+
+// ─── backwards compatibility — this exact case broke during the build ──────────
+
+test('a probe artifact predating P1 has no `visual` key and must not crash', () => {
+  const legacy = healthy();
+  // Reproduce an artifact written before the field existed: absent, not null.
+  delete (legacy as Partial<ProbeResult>).visual;
+
+  assert.doesNotThrow(
+    () => deriveFindings(legacy),
+    'pr-gate re-derives findings from stored artifacts, so undefined must be tolerated',
+  );
+  assert.equal(visualFindings(legacy).length, 0);
+});
+
+test('a malformed visual section is ignored rather than throwing', () => {
+  for (const broken of [
+    { desktop: null, mobile: null },
+    { desktop: { diffPct: 'lots' }, mobile: undefined },
+    {},
+  ]) {
+    const r = healthy({ visual: broken as unknown as ProbeVisual });
+    assert.doesNotThrow(() => deriveFindings(r));
+    assert.equal(visualFindings(r).length, 0);
+  }
+});

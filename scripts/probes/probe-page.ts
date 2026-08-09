@@ -23,6 +23,7 @@ import type { Browser, BrowserContext, Page, Request, Response } from 'playwrigh
 import { toVitals, INSTRUMENT_SOURCE, type RawVitals } from './instrument.js';
 import { faqPageValidity } from './assertions.js';
 import { normalizePath } from './inventory.js';
+import { captureAndCompare } from './visual.js';
 import type { ProbeGeo, ProbeHead, ProbeRequest, ProbeResult } from './types.js';
 
 export const USER_AGENT =
@@ -38,6 +39,17 @@ export interface ProbeOptions {
   cspOverride: string | null;
   /** URL substrings to abort at the network layer. Acceptance-test only. */
   blockPatterns: string[];
+  /** P1: capture screenshots and compare against baselines. null = capture disabled. */
+  visual: VisualOptions | null;
+}
+
+/** P1 capture settings, threaded from run.ts so probe-page stays free of policy. */
+export interface VisualOptions {
+  root: string;
+  /** False on synthetic/preview runs — they must never redefine what "correct" looks like. */
+  allowBaselineWrite: boolean;
+  thresholdPct: number;
+  artifactDir: string | null;
 }
 
 // ─── Network classification ────────────────────────────────────────────────────
@@ -360,6 +372,7 @@ export function emptyResult(path: string): ProbeResult {
     healthy: true,
     observedAt: new Date().toISOString(),
     tags: { gtag: null, clarity: null, affiliate: null },
+    visual: null,
   };
 }
 
@@ -530,6 +543,30 @@ export async function probeUrl(browser: Browser, path: string, opts: ProbeOption
     if (extracted.robots !== null && /noindex/i.test(extracted.robots)) {
       result.skipped = 'noindex';
       result.errors.push(`meta robots = "${extracted.robots}" — not audited as an indexable page`);
+    }
+
+    // ── P1 visual capture ──────────────────────────────────────────────────────
+    // LAST, deliberately. Capture resizes the viewport to reach mobile width, and
+    // a resize provokes layout shifts. Every vital above is already read off the
+    // page by this point, so those shifts land nowhere — do this any earlier and
+    // CLS would be measuring the probe's own resize instead of the site.
+    //
+    // A noindex page is skipped: deriveFindings files nothing for a skipped
+    // record, so capturing one would write a baseline nothing will ever read.
+    if (opts.visual !== null && result.skipped === null) {
+      try {
+        result.visual = await captureAndCompare(page, {
+          root: opts.visual.root,
+          path,
+          allowBaselineWrite: opts.visual.allowBaselineWrite,
+          thresholdPct: opts.visual.thresholdPct,
+          artifactDir: opts.visual.artifactDir,
+        });
+      } catch (error) {
+        // A capture failure is a failure to LOOK, not a finding about the page.
+        // Leave `visual` null and say why, exactly as the tag path does.
+        result.errors.push(`visual capture failed: ${(error as Error).message}`);
+      }
     }
 
     result.observedAt = new Date().toISOString();

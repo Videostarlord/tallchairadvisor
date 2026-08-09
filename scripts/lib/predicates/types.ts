@@ -42,7 +42,9 @@ export type ClosurePredicate =
   /** network assertion confirms the tag fired. Probe-only. */
   | { kind: 'tag-fires'; url: string; tag: string }
   /** data/collectors/<collector>.json reports meta.healthy === true. */
-  | { kind: 'collector-healthy'; collector: string };
+  | { kind: 'collector-healthy'; collector: string }
+  /** the page renders within maxPct of its stored baseline at this viewport. Probe-only. */
+  | { kind: 'visual-diff'; url: string; viewport: 'desktop' | 'mobile'; maxPct: number };
 
 export type PredicateKind = ClosurePredicate['kind'];
 

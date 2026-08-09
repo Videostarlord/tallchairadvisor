@@ -107,13 +107,35 @@ jobs:
         continue-on-error: true
         run: npx playwright install --with-deps chromium
 
-      - name: Probe live site (tags fire, head truth, CWV, GEO)
+      # --visual (P1) captures desktop 1366x900 + mobile 375x812 and diffs each
+      # against raw/visual/baseline/. The page is already open and already
+      # measured, so this costs no extra navigation and no model tokens.
+      #
+      # Mobile had ZERO coverage before P1, on a site whose pages are full of wide
+      # spec tables — the likeliest place to break and the place nothing looked.
+      #
+      # This run is against production and is not synthetic, so it MAY write a
+      # baseline for a page that has none yet. That is how new pages enrol. It
+      # cannot overwrite an existing baseline: only a deliberate re-baseline does.
+      - name: Probe live site (tags fire, head truth, CWV, GEO, visual)
         id: probe
         if: ${{ !inputs.skip_probes }}
         continue-on-error: true
-        run: npm run probe
+        run: npm run probe -- --visual --visual-artifacts visual-diffs
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      # Only written when a page exceeded the threshold, so an empty upload is the
+      # normal case and means "nothing moved".
+      - name: Upload visual diffs
+        if: ${{ !inputs.skip_probes }}
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs-${{ github.run_id }}
+          path: visual-diffs
+          retention-days: 14
+          if-no-files-found: ignore
 
       # ── L3 ledger ───────────────────────────────────────────────────────
       # Re-evaluates every open closure predicate against tonight's L1/L2
@@ -159,9 +181,14 @@ jobs:
           # reads it from main via the GitHub API — a heartbeat that only ever
           # exists inside the runner is invisible to the watcher, goes stale at
           # 29h, and fires "TCA DEAD" on a night that ran perfectly.
+          # raw/visual/baseline is included so a NEW page's first-sight baseline
+          # survives the runner. Without it every night would rediscover that the
+          # page has no baseline, write one into a container, throw it away, and
+          # never once compare — a detector that runs forever and observes nothing.
           for p in wiki/nightly data/ledger.jsonl data/ledger-state.json \
                    data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
                    data/collectors data/probes data/interventions.jsonl \
+                   data/edit-log.jsonl raw/visual/baseline \
                    data/nightly-heartbeat.json; do
             [ -e "$p" ] && git add "$p" || true
           done
