@@ -22,6 +22,8 @@
  *   data/retractions.jsonl      none ≥0                 retractions.ts
  *   data/verified-asins.json    none asins ≥1           verified-asins.ts
  *   data/content-roadmap.json   none ≥0                 content-roadmap.ts
+ *   data/content-failed.json    none ≥0                 content-failed.ts
+ *   data/gsc/link-audit.json    none gaps present       link-audit.ts    ← see module header re: SLA
  *   data/pipeline-status.json   8d   —                  pipeline-status.ts
  *   data/cost-ledger.jsonl      none ≥0                 cost-ledger.ts
  *   data/ledger.jsonl           none ≥0                 ledger.ts
@@ -45,6 +47,8 @@ export * from './interventions.js';
 export * from './retractions.js';
 export * from './verified-asins.js';
 export * from './content-roadmap.js';
+export * from './content-failed.js';
+export * from './link-audit.js';
 export * from './pipeline-status.js';
 export * from './cost-ledger.js';
 export * from './ledger.js';

@@ -13,6 +13,16 @@ import { renderDigest, type AuditFindingsFile } from '../audit-findings.js';
 import { meteredCreate } from '../lib/metered-client.js';
 import { isCooldownExempt, COOLDOWN_DAYS } from '../lib/cooldown.js';
 import { pagesWithRecentSubstantiveEdit } from '../lib/edit-log.js';
+import { readValidated, readValidatedIfExists } from '../lib/read-validated.js';
+import {
+  gscLatestSchema, gscLatestOptions, type GscLatest,
+  gscAnalysisSchema, gscAnalysisOptions, type GscAnalysis,
+  contentRoadmapSchema, contentRoadmapOptions,
+  contentFailedSchema, contentFailedOptions,
+  linkAuditSchema, linkAuditOptions,
+  clarityLatestSchema, clarityLatestOptions,
+  auditFindingsSchema, auditFindingsOptions,
+} from '../schemas/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
@@ -108,14 +118,22 @@ function hasConditionalLanguage(line: string): boolean {
   return CONDITIONAL_PATTERNS.some(p => p.test(line));
 }
 
-function lookupImpressions(slug: string, gscAnalysis: any, gscLatest: any): number | null {
-  if (gscAnalysis) {
-    const opp = (gscAnalysis.opportunities ?? []).find((o: any) => o.page === slug);
+/**
+ * A4: the three `?? []`s here were the load-bearing ones in this file. This
+ * feeds the impression threshold that decides whether a task survives
+ * enforcement, so an empty array here does not read as "no data" — it reads as
+ * "zero impressions", and every task on the plan gets dropped for being below
+ * threshold. Both inputs are now contract-typed: `opportunities`, `ctrLeaks` and
+ * `pages` are all guaranteed present by their schemas.
+ */
+function lookupImpressions(slug: string, gscAnalysis: GscAnalysis | null, gscLatest: GscLatest): number | null {
+  if (gscAnalysis !== null) {
+    const opp = gscAnalysis.opportunities.find(o => o.page === slug);
     if (opp?.impressions != null) return opp.impressions;
-    const leak = (gscAnalysis.ctrLeaks ?? []).find((l: any) => l.page === slug);
+    const leak = gscAnalysis.ctrLeaks.find(l => l.page === slug);
     if (leak?.impressions != null) return leak.impressions;
   }
-  const row = (gscLatest.pages ?? []).find((p: any) => p.page === slug);
+  const row = gscLatest.pages.find(p => p.page === slug);
   return row?.impressions ?? null;
 }
 
@@ -159,8 +177,8 @@ function enforcePlanConstraints(
   pagesOnCooldown: Set<string> | 'unknown',
   existingFilePathSet: Set<string>,
   fileToSlug: Map<string, string>,
-  gscAnalysis: any,
-  gscLatest: any,
+  gscAnalysis: GscAnalysis | null,
+  gscLatest: GscLatest,
   redirectMap: Map<string, string>,
   existingSlugs: Set<string>,
 ): { plan: string; dropped: string[] } {
@@ -177,9 +195,11 @@ function enforcePlanConstraints(
 
   // CONT-02: Decay-flagged pages bypass cooldown (but NOT impression threshold)
   const decayExemptFiles = new Set<string>(
-    (gscAnalysis?.decayAlerts ?? []).map((a: any) => {
+    // `decayAlerts` is required by gscAnalysisSchema, so the only branch left is
+    // "there is no analysis file at all" — not "the key quietly disappeared".
+    (gscAnalysis === null ? [] : gscAnalysis.decayAlerts).map((a) => {
       // Convert slug to file path: /review/gesture/ → src/pages/review/gesture.astro
-      const stripped = (a.page as string).replace(/^\/|\/$/g, '');
+      const stripped = a.page.replace(/^\/|\/$/g, '');
       if (stripped === '') return 'src/pages/index.astro';
       return `src/pages/${stripped}.astro`;
     })
@@ -299,43 +319,52 @@ async function main() {
     }
   }
 
-  const gsc = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
-  const analysisPath = resolve(ROOT, 'data/gsc/analysis.json');
-  const gscAnalysis = existsSync(analysisPath) ? JSON.parse(readFileSync(analysisPath, 'utf-8')) : null;
-
-  const failedContentPath = resolve(ROOT, 'data/content-failed.json');
-  const failedSlugs: Set<string> = new Set(
-    existsSync(failedContentPath)
-      ? Object.keys(JSON.parse(readFileSync(failedContentPath, 'utf-8')))
-      : []
+  // A4: every read below went through a raw JSON.parse and defaulted its way
+  // past a missing key. `?? []` on any of these produces a plan that is
+  // syntactically fine and strategically empty — the exact failure mode of the
+  // reconciler bug, one layer up. They now go through their contracts; a
+  // ContractViolation lands in main()'s catch, which exits non-zero with the
+  // file, the key and the expectation named.
+  const gsc: GscLatest = readValidated(resolve(ROOT, 'data/gsc/latest.json'), gscLatestSchema, gscLatestOptions);
+  // Absent analysis.json is a real first-run state and yields null; a PRESENT
+  // one that is stale, truncated, or missing a module now throws rather than
+  // planning a week off data that silently lost its opportunities.
+  const gscAnalysis: GscAnalysis | null = readValidatedIfExists(
+    resolve(ROOT, 'data/gsc/analysis.json'), gscAnalysisSchema, gscAnalysisOptions,
   );
 
+  const failedContent = readValidatedIfExists(
+    resolve(ROOT, 'data/content-failed.json'), contentFailedSchema, contentFailedOptions,
+  );
+  // lint-architecture-allow R2 -- file absent means no slug has ever failed; the empty suppression set is the honest reading, and a present-but-broken file throws above rather than reaching here
+  const failedSlugs: Set<string> = new Set(Object.keys(failedContent ?? {}));
+
   // CONT-01: Content roadmap — human-editable priority topic list
-  const roadmapPath = resolve(ROOT, 'data/content-roadmap.json');
-  const contentRoadmap: Array<{
-    title: string; keyword: string; slug: string;
-    priority: number; status: string; notes: string;
-  }> = existsSync(roadmapPath)
-    ? (JSON.parse(readFileSync(roadmapPath, 'utf-8')) as any[])
-        .filter((t: any) => t.status === 'pending' || t.status === 'in-progress')
-        .sort((a: any, b: any) => a.priority - b.priority)
-    : [];
+  const roadmapFile = readValidatedIfExists(
+    resolve(ROOT, 'data/content-roadmap.json'), contentRoadmapSchema, contentRoadmapOptions,
+  );
+  // lint-architecture-allow R1 -- an absent roadmap file is "nothing is planned", which is a real state; a present one is fully validated above
+  const contentRoadmap = (roadmapFile ?? [])
+    .filter(t => t.status === 'pending' || t.status === 'in-progress')
+    .sort((a, b) => a.priority - b.priority);
   const topRoadmapTopics = contentRoadmap.slice(0, 2);
 
   // CONT-02: Decay alerts — from analysis.json (added by gsc-analyze.ts in Phase 5 Plan 02)
-  // Null-safe: gscAnalysis may be null if analysis.json predates this feature
-  const decayAlerts: any[] = gscAnalysis?.decayAlerts ?? [];
+  // gscAnalysis is null only when analysis.json does not exist at all. When it
+  // does exist, gscAnalysisSchema REQUIRES decayAlerts, so there is no third
+  // state where the key silently vanished and the plan carried on regardless.
+  const decayAlerts = gscAnalysis === null ? [] : gscAnalysis.decayAlerts;
 
   // CONT-03: Internal link gaps — from data/gsc/link-audit.json (generated by gsc-analyze.ts Mondays)
-  const linkAuditPath = resolve(ROOT, 'data/gsc/link-audit.json');
-  const linkAudit = existsSync(linkAuditPath)
-    ? JSON.parse(readFileSync(linkAuditPath, 'utf-8'))
-    : { gaps: [] };
-  const linkGaps: any[] = linkAudit.gaps ?? [];
+  const linkAudit = readValidatedIfExists(
+    resolve(ROOT, 'data/gsc/link-audit.json'), linkAuditSchema, linkAuditOptions,
+  );
+  const linkGaps = linkAudit === null ? [] : linkAudit.gaps;
 
   // Clarity behavioral data — optional, only available if clarity-pull.ts ran this Monday
-  const clarityPath = resolve(ROOT, 'data/clarity/latest.json');
-  const clarityData = existsSync(clarityPath) ? JSON.parse(readFileSync(clarityPath, 'utf-8')) : null;
+  const clarityData = readValidatedIfExists(
+    resolve(ROOT, 'data/clarity/latest.json'), clarityLatestSchema, clarityLatestOptions,
+  );
 
   const auditReport = readIfExists(resolve(ROOT, 'reports/audit-report.md'));
 
@@ -347,10 +376,9 @@ async function main() {
   // DID — most of every audit was silently discarded before planning. One line per
   // finding fits ~25-30 findings in the same budget, and retracted findings are
   // already removed upstream by audit.ts.
-  const auditFindingsPath = resolve(ROOT, 'data/audit-findings.json');
-  const auditFindings: AuditFindingsFile | null = existsSync(auditFindingsPath)
-    ? JSON.parse(readFileSync(auditFindingsPath, 'utf-8'))
-    : null;
+  const auditFindings = readValidatedIfExists(
+    resolve(ROOT, 'data/audit-findings.json'), auditFindingsSchema, auditFindingsOptions,
+  ) as AuditFindingsFile | null;
   const auditDigest = auditFindings
     ? `EXECUTIVE SUMMARY: ${auditFindings.executiveSummary}\n\nFINDINGS (${auditFindings.findings.length}, severity-ordered; retracted findings already removed):\n${renderDigest(auditFindings.findings, 3000)}`
     // Fallback for the first run before audit.ts has produced structured
@@ -518,21 +546,25 @@ ${gscAnalysis.cannibalization.slice(0, 3).map((c: any) =>
 DEVICE SPLIT: ${gscAnalysis.deviceIntelligence?.summaryLine ?? 'Device data not yet available'}
 
 CONTENT GAPS VS COMPETITORS (TCA ranks 10-50, competitor ranks top-3):
-${(gscAnalysis.contentGap ?? []).slice(0, 6).map((g: any) =>
+${gscAnalysis.contentGap.slice(0, 6).map((g) =>
   `- [${g.gapSeverity}] "${g.query}" — TCA: ${g.tcaPage} pos ${g.tcaPosition}, ${g.competitorDomain} pos ${g.competitorPosition} | ${g.impressions} impr`
 ).join('\n') || '- No content gaps detected this week'}` : `(analysis.json not yet available — running without query-level intelligence)
 Top pages: ${gsc.pages.slice(0, 5).map((p: any) => `${p.page} (${p.impressions} impr, pos ${p.position}, ${p.clicks} clicks)`).join(', ')}`}
 
 CLARITY BEHAVIORAL SIGNALS (last ${clarityData?.numOfDays ?? 0} days — rage clicks, dead clicks, scroll depth):
 ${clarityData ? (() => {
-  const alerts = (clarityData.behavioralAlerts ?? []).slice(0, 8);
+  // clarityLatestSchema guarantees behavioralAlerts, pages (≥1) and deviceSplit,
+  // so the former `?? []` / `?? {}` here could only ever have hidden a Clarity
+  // pull that came back shaped wrong — printed to the planner as "no behavioural
+  // problems on any page", which is the most flattering possible lie.
+  const alerts = clarityData.behavioralAlerts.slice(0, 8);
   const alertLines = alerts.length > 0
-    ? alerts.map((a: any) => `- [${a.issue}] ${a.url}: ${a.note}`).join('\n')
+    ? alerts.map(a => `- [${a.issue}] ${a.url}: ${a.note}`).join('\n')
     : '(no behavioral alerts above threshold)';
-  const topPages = (clarityData.pages ?? []).slice(0, 8).map((p: any) =>
+  const topPages = clarityData.pages.slice(0, 8).map(p =>
     `- ${p.url} | ${p.sessions ?? '?'} sessions | scroll ${p.scrollDepthAvg != null ? Math.round(p.scrollDepthAvg * 100) + '%' : '?'} | rage ${p.rageClicks ?? '?'} | dead ${p.deadClicks ?? '?'}`
   ).join('\n');
-  const device = Object.entries(clarityData.deviceSplit ?? {}).map(([k, v]) => `${k}: ${Math.round((v as number) * 100)}%`).join(', ');
+  const device = Object.entries(clarityData.deviceSplit).map(([k, v]) => `${k}: ${Math.round((v as number) * 100)}%`).join(', ');
   return `Device split: ${device || 'n/a'}\n\nTop pages by sessions:\n${topPages}\n\nAlerts:\n${alertLines}`;
 })() : '(clarity-pull.ts not yet run — add CLARITY_TOKEN secret to enable)'}
 
