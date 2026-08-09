@@ -66,7 +66,7 @@ Branch `feat/autonomous-data-layer`. Full detail in [[autonomous-data-layer]].
 | **A10** Nothing checks affiliate links resolve | open | **BUILT.** `scripts/asin-check.ts`, monthly via Firecrawl. Found a false positive on its first live run — see below, it is the useful part. |
 | — | not in snapshot | **NEW: P1 visual regression.** 98 baselines, and the first mobile (375×812) coverage the site has ever had. Advisory until the threshold is calibrated. |
 | — | not in snapshot | **NEW: P2 sitemap submit** on Saturday's deploy, with read-back verification. |
-| — | not in snapshot | **NEW: P3 Amazon Associates** scraper — ships inert, blocked on one human step (see below). |
+| — | not in snapshot | **NEW: P3 Amazon Associates — LIVE 2026-08-09.** Session captured, secret set, verified in CI. Daily pull into `data/affiliate/`, weekly archive to `raw/affiliate/`. ASIN-level attribution still manual. |
 | — | not in snapshot | **NEW: a cost-metering refactor** was recovered from the working tree, where it had sat uncommitted since 2026-08-09. Drives `lint:architecture` R5 from 15 → 0. |
 
 ### A1's real mechanism, because "the cooldown was too strict" is the wrong lesson
@@ -83,16 +83,14 @@ The first live run reported `B0CQ4K1KXT` (Hbada E3 Pro, on `/best-office-chairs-
 
 Soft unavailability markers now only count when the page offers **no way to buy anything**. Findings stay advisory — a human confirms before any link is removed.
 
-## Needs Jackson — one step, and it is deliberate
+## Nothing is waiting on Jackson
 
-**P3 Amazon Associates** cannot activate until the session is captured. An agent must never handle this login; it is a live credential for a financial account.
+**P3 activated 2026-08-09.** Session captured by hand, `AMAZON_STORAGE_STATE` set, verified end-to-end from CI. The affiliate export was the last irreducible manual load in the pipeline; it is now automated — daily into `data/affiliate/`, weekly archive into `raw/affiliate/`.
 
-```
-npx playwright codegen --save-storage=amazon-state.json https://affiliate-program.amazon.com/home/reports
-gh secret set AMAZON_STORAGE_STATE < amazon-state.json && rm amazon-state.json
-```
+Two corrections came out of activating it, neither reachable without a live session: **there was no CSV endpoint** (the guessed URL returned the SPA's own JSON payload, which the CSV classifier read as an *empty report* — one step from recording a wrong endpoint as no earnings), and the reporting API **401s a plain cookie request**, needing per-page-load Bearer and CSRF tokens now harvested from the app's own request rather than constructed.
 
-Until then the weekly workflow exits 0 silently and `collectors/amazon.ts` keeps nagging at 7 days, so the gap stays tracked rather than forgotten.
+**Still manual, and stated rather than hidden:** ASIN-level attribution. The linked-product / category / top-sellers tables need query parameters that could not be established before HTTP 429 appeared, so probing was stopped rather than risk the account. The "0 chair orders on 92 named-chair clicks" pattern still needs a hand export.
+
 
 **P2 needed nothing.** It was predicted to need `siteOwner`; a real submit succeeded under the existing `siteFullUser` with `lastSubmitted` advancing and zero errors. Recorded so it does not become a phantom blocker.
 

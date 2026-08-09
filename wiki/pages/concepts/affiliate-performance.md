@@ -75,11 +75,11 @@ Raw: `raw/affiliate/2026-08-03-amazon-associates-report.md` (+ CSVs in `raw/affi
 
 ---
 
-## Automated pulling — P3, built 2026-08-09, NOT YET ACTIVE
+## Automated pulling — P3, LIVE since 2026-08-09
 
 Amazon Associates has no reporting API, so hand-downloading these CSVs was the last real manual load in the pipeline. `scripts/amazon-pull.ts` replays a `storageState` session Jackson captures once and downloads the same four reports.
 
-**Inert until `AMAZON_STORAGE_STATE` exists as a GitHub secret.** Until then `.github/workflows/amazon-weekly.yml` (Sundays 08:00 UTC) exits 0 silently and `collectors/amazon.ts` keeps nagging at 7 days, so the gap stays tracked rather than forgotten. Capturing the session is a human act — an agent must never handle a login to a financial account.
+**Active.** The session was captured by hand on 2026-08-09 and `AMAZON_STORAGE_STATE` is set; verified end-to-end from CI. Capturing it is a human act — an agent must never handle a login to a financial account — but nothing else here is manual. Runs nightly (live layer) and Sundays 08:00 UTC (archive snapshot).
 
 **The design point that matters for this page: it will never write a `$0` row.** On an expired session it files `amazon-session-expired` and writes **no report at all**. A zero produced by a failed login is indistinguishable, in this log, from a month that genuinely earned nothing — and **the kill-list gate that decides whether this site continues is measured in months above $100.** A fabricated zero could retire a site that was earning fine.
 

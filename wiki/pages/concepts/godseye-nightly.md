@@ -111,7 +111,15 @@ Two of this system's worst defects lived in the *seam between* components rather
 - The **heartbeat** — nightly wrote it, watchdog read it, neither was buggy, and it never crossed between them because `nightly.yml` didn't commit it.
 - The **Saturday deploy** — Friday appends `data/token-log.jsonl` on `staging`, the weekday agents append it on `main`, and `saturday.yml`'s bare `git merge` conflicted on the overlap. Dead in 12 seconds since 2026-07-25, before any step that produces output.
 
-Neither is reachable by unit tests of either side. The generalizable rule, now recorded in the workflow itself: **any file a downstream component reads from `main` must be in `nightly.yml`'s commit loop**, and any file two branches append to needs a merge strategy declared in `.gitattributes`.
+- The **affiliate pull ordering** (2026-08-09) — `collectors/amazon.ts` reads `data/affiliate/latest.json`, but the pull was placed in the L2 probe block, which runs *after* `collect:all`. Both components were correct in isolation; the collector simply always read the previous night's file. The first live run showed the sharp version: the collector logged *"latest.json does not exist yet — the automated pull has not run successfully"* while the pull wrote that exact file minutes later **in the same job**. Fixed by moving the pull ahead of the collectors.
+
+None of these is reachable by unit tests of either side. Three generalizable rules, all now recorded in the workflow itself:
+
+1. **Any file a downstream component reads from `main` must be in `nightly.yml`'s commit loop.**
+2. **Any file two branches append to needs a merge strategy in `.gitattributes`.**
+3. **Any step that WRITES a file must run before the step that READS it** — obvious stated plainly, invisible when the writer is grouped with the probes because that is where its browser happened to be installed.
+
+**A fourth, learned the same day and cutting across all of them: never let a file's mtime decide anything.** A CI checkout stamps every file it writes with "now", so mtime-derived freshness reads as current on every run — including the runs where the producing step failed and wrote nothing. This has now been caught in three separate components: the Amazon collector matching its own output, `readValidated()` preferring embedded timestamps, and `data/affiliate/latest.json`, where the fix is an explicit `fetchedAt` field inside the file.
 
 **Both halves of that rule were applied again on 2026-08-09**, before they could bite:
 

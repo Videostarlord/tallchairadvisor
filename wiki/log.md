@@ -3269,3 +3269,11 @@ Split along CLAUDE.md's own `data/` (live) vs `raw/` (immutable archive) line: `
 Both seam rules applied pre-emptively: `data/affiliate` added to the nightly commit loop, `history.jsonl` given a `merge=union` driver.
 
 Wiki updated: [[affiliate-performance]], [[godseye-nightly]].
+
+## [2026-08-09] nightly | Affiliate pull ordering — the seam problem, third instance
+
+`collectors/amazon.ts` reads `data/affiliate/latest.json`, but the pull was placed in the L2 probe block — after `collect:all`. Both components correct in isolation; the collector simply read the previous night's file every night. The first live run showed it sharply: the collector logged *"latest.json does not exist yet — the automated pull has not run successfully"* while the pull wrote that exact file minutes later **in the same job**. Fixed by moving chromium install + pull ahead of the collectors; both steps now share the one install, so it costs nothing.
+
+Recorded in [[godseye-nightly]] alongside the heartbeat and token-log failures, and the workflow's rule list grew a third entry: **any step that WRITES a file must run before the step that READS it.** Plus a fourth cutting across all of them — **never let mtime decide anything**, since CI checkout stamps every file "now"; caught in three components to date.
+
+Also marked P3 LIVE across the wiki — five pages still said "inert / blocked on Jackson" after activation: [[open-issues-status]], [[autonomous-data-layer]], [[affiliate-performance]], [[index]].

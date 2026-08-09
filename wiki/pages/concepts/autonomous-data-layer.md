@@ -103,7 +103,7 @@ Runs from Saturday's deploy, not the nightly. Submits, then reads back `sitemaps
 
 Expectations: this will not move traffic. Google already refetches on its own schedule. It closes a loop cheaply.
 
-## P3 — Amazon Associates, inert until Jackson acts
+## P3 — Amazon Associates — LIVE since 2026-08-09
 
 The design point is the failure path. On an expired session it files `amazon-session-expired` and writes **no report** — it must never report `$0`. A zero from a failed login is indistinguishable downstream from a genuinely zero month, and **the kill-list gate that decides whether this site continues reads that number.** A fabricated zero could retire a site that was earning fine.
 
@@ -125,7 +125,7 @@ Verified by reproducing the 2026-08-04 archive export exactly: $3,337.74 ordered
 
 **Scope: daily overview only.** ASIN-level tables need different `query[type]` values whose parameters were not established — probing started returning HTTP 429 and was stopped rather than risk the account. Click-to-ASIN attribution still needs a manual export, and the report states that in its own body rather than looking complete.
 
-**Blocked on one human step**, by design — an agent must never handle this login:
+**Activated 2026-08-09.** Jackson captured the session by hand and set the secret; verified end-to-end from CI. That step is human by design — an agent must never handle a login to a financial account:
 
 ```
 npx playwright codegen --save-storage=amazon-state.json https://affiliate-program.amazon.com/home/reports
@@ -133,6 +133,14 @@ gh secret set AMAZON_STORAGE_STATE < amazon-state.json && rm amazon-state.json
 ```
 
 Until then it exits 0 silently; `collectors/amazon.ts` keeps nagging at 7 days. The selector layer could not be exercised without the secret and wants one supervised `--dry-run` — safe to get wrong, since a bad selector yields `invalid` and no report.
+
+### Cadence, corrected 2026-08-09: daily live data, weekly archive
+
+Shipped weekly because the plan said "weekly workflow" — a default taken without re-deriving it. Revenue was then the only major signal the nightly could not see, despite being the number the kill-list gate decides on.
+
+Now `--mode daily` runs in the nightly (`data/affiliate/latest.json` + `history.jsonl`) and `--mode weekly` keeps writing the dated `raw/affiliate/` snapshot. The archive stays weekly because `raw/` is an archive of evidence, not a log; ~30 near-identical dated files a month would bury the signal in its own copies.
+
+**Freshness is `fetchedAt` inside the file, never mtime** — see [[godseye-nightly]], where that distinction has now been caught in three separate components.
 
 ## P4 / A10 — dead ASINs, and the false positive that shaped it
 
