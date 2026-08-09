@@ -4,18 +4,17 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
 import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { readWikiIndex, readSynthesisContext, assertPromptBudget, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
+import { readWikiIndex, readSynthesisContext, assertPromptBudget, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 import { renderDigest, type AuditFindingsFile } from '../audit-findings.js';
+import { meteredCreate } from '../lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 function readIfExists(path: string, fallback = 'Not available.'): string {
   return existsSync(path) ? readFileSync(path, 'utf-8') : fallback;
@@ -411,7 +410,7 @@ async function main() {
 
   assertPromptBudget('strategy', `${thesis}${decisionsLog}${conceptContext}${auditDigest}`);
 
-  const response = await withRetry(() => client.messages.create({
+  const response = await withRetry(() => meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
     system: [
@@ -583,9 +582,7 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 ## STRATEGY NOTES
 [2-3 sentences on the week's focus and why]`,
     }],
-  }));
-
-  logCacheUsage('strategy', response.usage, ROOT);
+  }, { agent: 'strategy', run: today(), purpose: 'weekly-plan' }));
 
   const plan = response.content[0].type === 'text' ? response.content[0].text : '# Plan generation failed.';
   const todayStr = new Date().toISOString().split('T')[0];

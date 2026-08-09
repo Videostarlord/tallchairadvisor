@@ -4,18 +4,17 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
 import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, archiveToRaw, today, appendIntervention } from './wiki-utils.js';
 import { assertSafeToAct } from '../assert-safe-to-act.js';
+import { meteredCreate } from '../lib/metered-client.js';
 import type { IntentType } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // Mirrors classifyIntent in gsc-analyze.ts — kept in sync manually
 const BUYER_TERMS = ['best', 'buy', 'vs', 'review', 'alternative', 'worth', 'price', 'cheap', 'under $', 'affordable', 'budget', 'top'];
@@ -163,7 +162,7 @@ async function applyTargetedFix(task: FixTask, fileContent: string, fixType: 'me
 
   if (fixType === 'meta' || fixType === 'meta+title') {
     const current = extractLayoutProp(fileContent, 'description');
-    const res = await client.messages.create({
+    const res = await meteredCreate({
       model: 'claude-sonnet-4-6',
       max_tokens: 300,
       system: [{ type: 'text', text: `Write a single meta description for tallchairadvisor.com.
@@ -183,7 +182,7 @@ Why: ${task.why}
 
 Write the new meta description:`,
       }],
-    });
+    }, { agent: 'execute-fixes', run: today(), purpose: 'targeted-meta' });
     const rawMeta = (res.content[0].type === 'text' ? res.content[0].text : '').trim().replace(/^["']|["']$/g, '');
     // Encode any literal " characters so they don't break the HTML attribute value
     const newMeta = rawMeta.replace(/"/g, '&quot;');
@@ -196,7 +195,7 @@ Write the new meta description:`,
 
   if (fixType === 'title' || fixType === 'meta+title') {
     const current = extractLayoutProp(fileContent, 'title');
-    const res = await client.messages.create({
+    const res = await meteredCreate({
       model: 'claude-sonnet-4-6',
       max_tokens: 150,
       system: [{ type: 'text', text: `Write a title tag for tallchairadvisor.com.
@@ -215,7 +214,7 @@ Why: ${task.why}
 
 Write the new title (50-60 chars):`,
       }],
-    });
+    }, { agent: 'execute-fixes', run: today(), purpose: 'targeted-title' });
     const newTitle = (res.content[0].type === 'text' ? res.content[0].text : '').trim().replace(/^["']|["']$/g, '');
     if (newTitle.length >= 20 && newTitle.length <= 70) {
       result = applyLayoutPropReplace(result, 'title', newTitle);
@@ -285,7 +284,7 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
   // and fixes add content on top — an 8k cap truncated them mid-file, which the
   // word-count guard then rejected. This silently blocked every fix on the biggest,
   // highest-opportunity pages. 20k gives headroom for current pages + growth.
-  const response = await client.messages.create({
+  const response = await meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 20000,
     system: [{ type: 'text', text: `You are an SEO implementation agent for tallchairadvisor.com (Astro SSG site).
@@ -314,7 +313,7 @@ ${fileContent}
 
 Output the complete updated file content only. Make ONLY the requested change.`,
     }],
-  });
+  }, { agent: 'execute-fixes', run: today(), purpose: 'full-file-fix' });
 
   // If generation hit the token ceiling the file is truncated mid-content — report
   // it distinctly so it isn't misdiagnosed as Claude deliberately shortening the page.

@@ -4,15 +4,14 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { archiveJsonToRaw, appendWikiLog, readWikiPage, writeWikiPage, today } from './wiki-utils.js';
+import { meteredCreate } from '../lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 interface CompetitorPage {
   name: string;
@@ -77,7 +76,7 @@ async function main() {
   const gscData = JSON.parse(readFileSync(resolve(ROOT, 'data/gsc/latest.json'), 'utf-8'));
   const topPages = gscData.pages.slice(0, 10);
 
-  const response = await client.messages.create({
+  const response = await meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 2000,
     messages: [{
@@ -109,7 +108,7 @@ Output a brief JSON with:
   "summary": "2-3 sentence strategic summary"
 }`,
     }],
-  });
+  }, { agent: 'competitor-monitor', run: today(), purpose: 'legacy-gap-analysis' });
 
   let analysis = { gaps: [], summary: 'Analysis unavailable.' };
   try {

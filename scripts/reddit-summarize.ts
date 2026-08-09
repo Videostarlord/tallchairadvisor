@@ -12,12 +12,12 @@
  *   npm run reddit:summarize all
  */
 
-import Anthropic from '@anthropic-ai/sdk';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import 'dotenv/config';
 import { CHAIR_REGISTRY } from './chair-registry.js';
+import { meteredCreate } from './lib/metered-client.js';
 import type {
   ChairRedditInsights,
   ChairRegistryEntry,
@@ -128,7 +128,6 @@ function validateInsights(
 
 async function summarizeChair(
   chair: ChairRegistryEntry,
-  anthropic: Anthropic,
   normalizedDir: string,
   llmDir: string,
   publishedDir: string,
@@ -152,11 +151,11 @@ async function summarizeChair(
 
   console.log(`  Sending ${Math.min(evidence.items.length, 60)} items to Claude...`);
 
-  const message = await anthropic.messages.create({
+  const message = await meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 2000,
     messages: [{ role: 'user', content: buildPrompt(chair, evidence) }],
-  });
+  }, { agent: 'reddit-summarize', run: new Date().toISOString().slice(0, 10), purpose: chair.chairId });
 
   const rawText =
     message.content[0].type === 'text' ? message.content[0].text.trim() : '';
@@ -223,8 +222,6 @@ async function main() {
     process.exit(1);
   }
 
-  const anthropic = new Anthropic({ apiKey });
-
   const normalizedDir = path.join(ROOT, 'data', 'reddit', 'normalized');
   const llmDir = path.join(ROOT, 'data', 'reddit', 'llm');
   const publishedDir = path.join(ROOT, 'data', 'reddit', 'published');
@@ -232,7 +229,7 @@ async function main() {
   fs.mkdirSync(publishedDir, { recursive: true });
 
   for (const chair of chairs) {
-    await summarizeChair(chair, anthropic, normalizedDir, llmDir, publishedDir);
+    await summarizeChair(chair, normalizedDir, llmDir, publishedDir);
   }
 }
 
