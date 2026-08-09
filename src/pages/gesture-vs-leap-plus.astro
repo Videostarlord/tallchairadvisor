@@ -47,7 +47,7 @@ const schema = [
         "name": "Is the Steelcase Gesture good for tall people?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, within a range. The Gesture works well for tall users between 6'0\" and 6'4\". Its seat depth reaches 18.75\" and seat height reaches 21\", covering most users in that range. Above 6'4\", the Leap Plus is usually the better fit due to its additional seat depth (19.75\") and higher seat height ceiling (22.5\")."
+          "text": "Yes, within a range. The Gesture works well for tall users between 6'0\" and 6'4\". Its seat depth reaches 18.75\" and seat height reaches 21\", covering most users in that range. Above 6'4\", the Leap Plus is usually the better fit due to its additional seat depth (19.75\") and — when ordered with the optional 5-inch cylinder — its higher seat height ceiling (22.5\" versus the Gesture's 21\"). With the standard cylinder the Leap Plus stops at 19.5\", below the Gesture, so that cylinder is what makes it the taller chair."
         }
       },
       {
@@ -63,7 +63,7 @@ const schema = [
         "name": "Is the Leap Plus worth the extra cost over the Gesture?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "For users 6'4\" and above, yes. The Leap Plus adds an inch of seat depth, raises the seat height ceiling to 22.5\" (vs 21\" on the Gesture), and increases weight capacity to 500 lbs. For users 6'0\"–6'3\" with average builds, the Gesture's 360-degree armrests may justify the lower price if multi-device arm support matters."
+          "text": "For users 6'4\" and above, yes — provided the optional 5-inch cylinder is ordered. The Leap Plus adds an inch of seat depth and increases weight capacity to 500 lbs in every configuration, but it only raises the seat height ceiling to 22.5\" (vs 21\" on the Gesture) with that cylinder. As standard it tops out at 19.5\", which is 1.5\" <em>below</em> the Gesture, so an unspecified Leap Plus is the worse chair for height. For users 6'0\"–6'3\" with average builds, the Gesture's 360-degree armrests may justify the lower price if multi-device arm support matters."
         }
       },
       {
@@ -71,7 +71,7 @@ const schema = [
         "name": "Which Steelcase chair is better for a 6'5\" person?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Steelcase Leap Plus. At 6'5\", the Gesture's 21\" seat height ceiling and 18.75\" maximum seat depth are likely to feel limiting. The Leap Plus reaches 22.5\" seat height and 19.75\" seat depth, better accommodating longer torso and femur length."
+          "text": "The Steelcase Leap Plus, ordered with the optional 5-inch cylinder. At 6'5\", the Gesture's 21\" seat height ceiling and 18.75\" maximum seat depth are likely to feel limiting. So configured, the Leap Plus reaches 22.5\" seat height and 19.75\" seat depth, better accommodating longer torso and femur length. Ordered with the standard cylinder it stops at 19.5\" — below the Gesture — so at this height the cylinder is the deciding specification, not the model name."
         }
       },
       {
@@ -164,7 +164,7 @@ const schema = [
               <tr>
                 <td class="py-2 px-3 font-medium">Seat height</td>
                 <td class="py-2 px-3">16" – 21"</td>
-                <td class="py-2 px-3">15.5" – 22.5"</td>
+                <td class="py-2 px-3">15.5" &ndash; 19.5" std<br /><span class="text-xs">17.5" &ndash; 22.5" w/ optional 5" cyl.</span></td>
               </tr>
               <tr>
                 <td class="py-2 px-3 font-medium">Seat width</td>
@@ -308,9 +308,10 @@ const schema = [
             gives you more headroom.
           </li>
           <li>
-            <strong>6'4"–6'6":</strong> Lean toward the Leap Plus. The Gesture's 18.75" max depth
-            and 21" seat height ceiling are likely to feel tight. The Leap Plus's 22.5" seat height
-            ceiling matters here.
+            <strong>6'4"–6'6":</strong> Lean toward the Leap Plus, ordered with the optional 5"
+            cylinder. The Gesture's 18.75" max depth and 21" seat height ceiling are likely to feel
+            tight. The Leap Plus's optional-5"-cylinder 22.5" seat height ceiling matters here; as
+            standard it stops at 19.5" and is tighter than the Gesture.
           </li>
           <li>
             <strong>6'6" and above:</strong> Leap Plus. The Gesture is not designed for this height range.
@@ -344,7 +345,7 @@ const schema = [
         <p>The most relevant tall-user finding: a 6'5" user considering the Gesture over the Leap V2 cited the Gesture's armrests as better for shoulder pain, with community responses noting the Gesture's back height covers the shoulder-blade area well for tall torsos. However, no Gesture owner in the corpus explicitly reports using the chair at 6'5"+ — the positive tall-user signals max out around 6'4".</p>
 
         <h3>On the Leap Plus (insufficient Reddit data)</h3>
-        <p>The single Reddit post mentioning the Leap Plus describes it as one of the few chairs with dedicated tall sizing, alongside the Aeron Size C — but the poster was researching for a 6'6" husband and was unsure whether the Leap Plus was designed for tall users, heavy users, or both. This sizing confusion is worth acknowledging: the Leap Plus is marketed as a "big and tall" chair, which creates ambiguity. The specs answer it clearly — 22.5" seat height and 19.75" seat depth directly address height, not just weight.</p>
+        <p>The single Reddit post mentioning the Leap Plus describes it as one of the few chairs with dedicated tall sizing, alongside the Aeron Size C — but the poster was researching for a 6'6" husband and was unsure whether the Leap Plus was designed for tall users, heavy users, or both. That confusion is worth acknowledging because it turns out to be well founded. The Leap Plus is marketed as a "big and tall" chair, and as it ships it is mostly the "big" half: seat width, back height, and a 500 lb capacity all grow, while its standard seat height range (15.5"–19.5") is actually <em>lower</em> than the standard Leap V2's. Height is addressed only by the optional 5" cylinder, which lifts the range to 17.5"–22.5" and has to be specified at order time. So the specs do answer the poster's question — the answer is "heavy by default, tall only if you order it that way," and for a 6'6" husband that distinction is the entire purchase.</p>
       </section>
 
       <section>
@@ -397,9 +398,12 @@ const schema = [
 
         <h3>Which Steelcase chair is better for a 6'5" person?</h3>
         <p>
-          The Steelcase Leap Plus. At 6'5", the Gesture's 21" seat height ceiling and 18.75" maximum
-          seat depth are likely to feel limiting. The Leap Plus reaches 22.5" seat height and 19.75"
-          seat depth, better accommodating longer torso and femur length.
+          The Steelcase Leap Plus, ordered with the optional 5" cylinder. At 6'5", the Gesture's 21"
+          seat height ceiling and 18.75" maximum seat depth are likely to feel limiting. So
+          configured with that optional 5" cylinder, the Leap Plus reaches 22.5" seat height and
+          19.75" seat depth, better accommodating longer torso and femur length.
+          With the standard cylinder it stops at 19.5",
+          below the Gesture, so the cylinder is the deciding specification at this height.
         </p>
       </section>
 

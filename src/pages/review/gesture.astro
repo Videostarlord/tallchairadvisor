@@ -131,7 +131,7 @@ const schema = [
         "name": "Steelcase Gesture vs Leap Plus — which is better for tall people?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "For users 6'0\"–6'3\", the Gesture is competitive and wins on armrest flexibility — its 360-degree system has no equivalent in the Leap Plus. For users 6'4\" and above, the Leap Plus is the stronger dimensional fit: 22.5\" seat height ceiling, 19.75\" seat depth, and 25.5\" back height give more margin at the tall end of the range."
+          "text": "For users 6'0\"–6'3\", the Gesture is competitive and wins on armrest flexibility — its 360-degree system has no equivalent in the Leap Plus. For users 6'4\" and above, the Leap Plus is the stronger dimensional fit on the published specifications: 19.75\" seat depth, 25.5\" back height, and a 22.5\" seat height ceiling that requires its optional 5-inch cylinder. So configured it gives more margin at the tall end of the range; with the standard cylinder it reaches only 19.5\", below the Gesture's 21\"."
         }
       },
       {
@@ -178,7 +178,7 @@ const schema = [
 
     <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
-      <p class="text-sm text-muted-foreground">The Steelcase Gesture fits tall users between 6'0" and 6'3" well, with an 18.75" maximum seat depth, 21" seat height ceiling, and 24" backrest. At 6'4", seat depth is a borderline fit — a knee clearance check (2–3 finger-widths between the seat edge and the back of the knee) is the deciding test. Above 6'4", the Steelcase Leap Plus is the stronger dimensional fit: 19.75" seat depth, 22.5" seat height ceiling, and 25.5" back height at a similar price point.</p>
+      <p class="text-sm text-muted-foreground">The Steelcase Gesture fits tall users between 6'0" and 6'3" well, with an 18.75" maximum seat depth, 21" seat height ceiling, and 24" backrest. At 6'4", seat depth is a borderline fit — a knee clearance check (2–3 finger-widths between the seat edge and the back of the knee) is the deciding test. Above 6'4", the Steelcase Leap Plus is the stronger dimensional fit on paper: 19.75" seat depth, 25.5" back height, and a 22.5" seat height ceiling that requires its optional 5" cylinder — 19.5" without it, below the Gesture — at a similar price point.</p>
     </div>
 
     <p class="mb-6">
@@ -270,7 +270,7 @@ const schema = [
               <tr class="border-b border-border/50">
                 <td class="py-2 pr-4 font-medium text-heading">Seat height (max)</td>
                 <td class="py-2 pr-4">21"</td>
-                <td class="py-2 pr-4">22.5"</td>
+                <td class="py-2 pr-4">22.5" <span class="text-xs font-normal">(w/ optional 5" cyl.; 19.5" std)</span></td>
                 <td class="py-2">20.5"</td>
               </tr>
               <tr class="border-b border-border/50">
@@ -338,9 +338,9 @@ const schema = [
             <text x="414" y="65" font-size="10" fill="#374151" font-weight="500">18.75"</text>
             <!-- Leap Plus (rows 3-4) -->
             <text x="135" y="103" text-anchor="end" font-size="11" font-weight="600" fill="#374151" font-family="system-ui">Leap Plus</text>
-            <!-- Seat height max: 22.5" × 14.4 = 324 -->
+            <!-- Seat height max: 22.5" (Leap Plus w/ optional 5" cylinder; 19.5" std) × 14.4 = 324 -->
             <rect x="140" y="89" width="324" height="13" fill="#10b981" rx="2"/>
-            <text x="468" y="100" font-size="10" fill="#374151" font-weight="500">22.5"</text>
+            <text x="468" y="100" font-size="10" fill="#374151" font-weight="500">22.5"*</text>
             <!-- Seat depth max: 19.75" × 14.4 = 284.4 -->
             <rect x="140" y="105" width="284" height="13" fill="#6ee7b7" rx="2"/>
             <text x="428" y="116" font-size="10" fill="#374151" font-weight="500">19.75"</text>
@@ -358,10 +358,11 @@ const schema = [
             <rect x="280" y="178" width="10" height="8" fill="#9ca3af" rx="1"/>
             <text x="294" y="186" font-size="10" fill="#6b7280">Seat depth max</text>
             <!-- Source -->
+            <text x="140" y="204" font-size="9" fill="#9ca3af">* Leap Plus 22.5" requires the optional 5" cylinder; standard is 19.5"</text>
             <text x="140" y="220" font-size="9" fill="#9ca3af">Source: Steelcase, Herman Miller official specifications</text>
           </svg>
           <figcaption class="text-center text-sm text-muted-foreground mt-2">
-            The Leap Plus has the widest dimensional range; the Aeron Size C has the tightest seat height ceiling of the three.
+            The Leap Plus has the widest dimensional range &mdash; but only when ordered with the optional 5" cylinder. On its standard cylinder its seat height ceiling is 19.5", the lowest of the three, below the Aeron Size C.
           </figcaption>
         </figure>
       </section>
@@ -419,7 +420,7 @@ const schema = [
         <p>At the upper end of this range, the Gesture still works for most body types but the margin gets smaller. The 21" seat height ceiling can feel limiting with taller desk configurations, and the 24" back height may leave upper shoulder blades without full contact. The optional taller gas cylinder helps with seat height. If you can't test the chair in person and you're on the taller end with long legs, the Leap Plus's extra inch of seat depth removes the guesswork at a similar price point.</p>
 
         <h3>6'5"–6'7": Leap Plus recommended</h3>
-        <p>The Gesture is not well-suited for this range without aftermarket modifications. The Steelcase Leap Plus — 19.75" seat depth, 22.5" seat height, 25.5" back height — is purpose-built for this range and the better choice without question.</p>
+        <p>The Gesture is not well-suited for this range without aftermarket modifications. The Steelcase Leap Plus — 19.75" seat depth, 25.5" back height, and 22.5" seat height with its optional 5" cylinder — is purpose-built for this range on the published specifications and the better choice, provided that cylinder is specified at order time. A standard-cylinder Leap Plus tops out at 19.5" and does not fit this range at all.</p>
       </section>
 
       <section>

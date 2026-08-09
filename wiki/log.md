@@ -3287,3 +3287,20 @@ The `collector-healthy` member one line earlier in that same file documents this
 The nightly's own steps stayed green. It was caught by `read-validated.test.ts`'s *"every real data file satisfies its own contract right now"*, which is why that assertion runs against real on-disk data rather than fixtures.
 
 Fixed, plus a new test asserting the two discriminator lists are identical — the two cannot be merged (`schemas/` must stay free of the predicate layer's imports), so drift is made loud instead. Recorded in [[godseye-nightly]] as the fourth seam defect and a fifth workflow rule.
+
+## 2026-08-09 — B11 closed, and the gate that closes it
+
+The Leap Plus spec sweep is done: **146 statements across 29 files**, against a hand count of "~31 files, 250+ statements". The count was wrong in both directions, which is the argument for the gate rather than a checklist.
+
+**The cause, not just the instances.** `data/chair-specs.json` is now the canonical spec source, every figure carrying the primary document it came from, and `lint-content.mjs` enforces it: a figure that is true only in a non-default configuration must state its qualifier alongside it, and the fabricated `15.5"–22.5"` range fails the build outright. This is the same argument `verified-asins.json` already makes about hallucinated ASINs, applied to specs.
+
+**The gate passed real instances twice before it was right, and both misses are worth recording:**
+
+1. **Line-scoped context is blind to tables.** A bare `<td>22.5"</td>` names no dimension — its row label and column header are structural, lines away. **26 real instances sat inside comparison tables on pages whose prose was already corrected.** Context is now resolved by walking back to the nearest preceding row label, so prose and table cells go through one rule.
+2. **Literal matching missed ranges containing inch marks.** `15.5"-22.5"` does not contain the substring `15.5-22.5`, so the fabricated range survived precisely in the tables where it did the most damage. Banned ranges are now matched by a regex built from their endpoints.
+
+**What caught both: checking the rendered HTML, not the source.** The source-level gate reported clean while the shipped pages still carried the error. A detector that only reads inputs cannot see what its own transform emits — [[open-issues-status]] A13's argument, appearing again in a new place, and this time the detector was one I had just written.
+
+Not closed: **A5**. `scripts/lib/retention.ts` exists, measured and reasoned, but **nothing calls it** — probe files still accumulate at ~490 KB/night. Labelled in the file header rather than left to read as done.
+
+Related: [[steelcase-leap-plus]] · [[open-issues-status]] · [[godseye-nightly]]
