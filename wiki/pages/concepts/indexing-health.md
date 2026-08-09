@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-06
+last_updated: 2026-08-09
 sources: [raw/audits/2026-08-06-index-monitor.md]
 tags: [indexing, gsc, coverage, technical-seo]
 ---
@@ -58,3 +58,15 @@ Last checked: **2026-08-06**
 | Date | Page | Fix Type | Result |
 |------|------|----------|--------|
 | 2026-08-06 | — | — | No fixes needed |
+
+## Sitemap submission is now automated — P2, 2026-08-09
+
+Two entries above say "Sitemap resubmission will help". That is now a step in Saturday's deploy rather than a manual action: `scripts/gsc-sitemap.ts` (`npm run gsc:sitemap`) submits `sitemap-index.xml` and then reads back `sitemaps.get` to assert `lastSubmitted` advanced and that errors and warnings are zero — `sitemaps.submit` returns 204, which proves only that a request was accepted, not that Google recorded anything.
+
+It runs from the deploy, not the nightly: resubmitting is only meaningful after a deploy changes the sitemap, and the nightly changes no pages.
+
+**`siteFullUser` is sufficient — verified, not assumed.** The service account holds `siteFullUser`, and the common reading of Google's docs is that `sitemaps.submit` requires `siteOwner`. A real submit on 2026-08-09 succeeded, advancing `lastSubmitted` from `2026-08-06T09:49:58Z` to `2026-08-09T06:42:02Z` with zero errors. No permission change is needed; recorded here so it does not become a phantom blocker.
+
+**Set expectations: this will not fix the two "Discovered - currently not indexed" URLs.** The sitemap was already submitted and Google refetches on its own schedule. Those are crawl-priority cases — a content-authority problem, not a submission problem. Automating "Request Indexing" was considered and rejected: no public API (the Indexing API is restricted to `JobPosting`/`BroadcastEvent`), and automating clicks in Google's own UI sits in a gray area under their automated-access policy, with Jackson's account as the thing at risk.
+
+Also observed on 2026-08-09: two legacy sitemaps are still registered on the property — `sitemap.xml` (submitted 2026-03-12) and `sitemap-0.xml` (2026-03-02). Both report zero errors and neither is referenced by the current build. Not acted on; `sitemap-index.xml` is the live one.

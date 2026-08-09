@@ -23,11 +23,11 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { archiveJsonToRaw, appendWikiLog, readWikiPage, writeWikiPage, today } from './agents/wiki-utils.js';
+import { meteredCreate, meterExternal } from './lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -762,6 +762,16 @@ async function fetchSerp(keyword: string, auth: string, serpCache?: Map<string, 
 
     if (!res.ok) { console.warn(`  DataForSEO ${res.status} for "${keyword}"`); return { results: [], aio: null }; }
     const data = await res.json() as any;
+    if (typeof data?.cost === 'number' && data.cost > 0) {
+      meterExternal({
+        agent: 'competitor-intelligence',
+        run: today(),
+        purpose: 'serp-query',
+        service: 'dataforseo',
+        unit: 'usd',
+        amount: data.cost,
+      });
+    }
     const task = data.tasks?.[0];
     if (!task || task.status_code !== 20000) {
       console.warn(`  DataForSEO task error ${task?.status_code}: ${task?.status_message} for "${keyword}"`);
@@ -887,6 +897,14 @@ async function crawlUrl(url: string, apiKey: string, lane: SerpLane): Promise<Co
     }
 
     const data = await res.json() as any;
+    meterExternal({
+      agent: 'competitor-intelligence',
+      run: today(),
+      purpose: 'scrape',
+      service: 'firecrawl',
+      unit: 'pages',
+      amount: 1,
+    });
     if (!data.success) {
       return { url, domain, title: '', markdown: '', wordCount: 0, fetchedAt, lane, fromCache: false, error: data.error ?? 'success:false' };
     }
@@ -1025,7 +1043,6 @@ function extractTcaContent(root: string, page: string): { content: string; cover
 // ─── Layer 4: Role-Specific Gap Analysis ──────────────────────────────────────
 
 async function analyzeGaps(
-  client: Anthropic,
   role: PageRole,
   tcaPage: string,
   query: string,
@@ -1078,12 +1095,12 @@ Respond with a JSON array of 3–5 gap findings. Be specific — name the missin
 ]`;
 
   try {
-    const response = await client.messages.create({
+    const response = await meteredCreate({
       model: 'claude-sonnet-4-6',
       max_tokens: 1200,
       system: [{ type: 'text', text: systemPrompt, cache_control: { type: 'ephemeral' } }],
       messages: [{ role: 'user', content: userPrompt }],
-    });
+    }, { agent: 'competitor-intelligence', run: today(), purpose: 'gap-analysis' });
 
     const text = response.content[0].type === 'text' ? response.content[0].text : '';
     const match = text.match(/\[[\s\S]*\]/);
@@ -1196,11 +1213,10 @@ function synthesizeGaps(allQueryGaps: { query: string; gaps: RawGapFinding[] }[]
 
 async function generateFallbackCapsule(
   query: string,
-  pageContent: string,
-  client: Anthropic
+  pageContent: string
 ): Promise<{ capsule: string; heading: string } | null> {
   try {
-    const response = await client.messages.create({
+    const response = await meteredCreate({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 256,
       system: [{ type: 'text', text: `You are a citation capsule writer for tallchairadvisor.com, a niche ergonomic chair site for tall people (6'+). Write concise, self-contained passages optimized for AI citation. Always include specific measurements in inches and height context (6ft 3in+ users). Return only XML-tagged output.`, cache_control: { type: 'ephemeral' } }],
@@ -1208,7 +1224,7 @@ async function generateFallbackCapsule(
         role: 'user',
         content: `Write a 40-60 word standalone citation capsule for the query: "${query}"\n\nBase it ONLY on TCA page content below. Include specific measurements and height context (6ft 3in+ users).\n\n${pageContent.slice(0, 2000)}\n\nReturn:\n<capsule>your 40-60 word capsule here</capsule>\n<heading>closest matching H2 or H3 heading from the page</heading>`,
       }],
-    });
+    }, { agent: 'competitor-intelligence', run: today(), purpose: 'fallback-capsule' });
     const text = (response.content[0] as any).text ?? '';
     const capsule = text.match(/<capsule>([\s\S]*?)<\/capsule>/)?.[1]?.trim();
     const heading = text.match(/<heading>([\s\S]*?)<\/heading>/)?.[1]?.trim() ?? '';
@@ -1251,8 +1267,6 @@ async function main() {
   const configTargetQueries: string[] = existsSync(configPath)
     ? (JSON.parse(readFileSync(configPath, 'utf-8')).targetQueries ?? [])
     : [];
-
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
   // Select top pages from opportunities (near-p1 first, then content-depth)
   const opportunities: Opportunity[] = (analysis.opportunities ?? [])
@@ -1308,7 +1322,7 @@ async function main() {
         if (aio.passageText.length < 50) {
           // AIO passage too short — attempt fallback capsule from TCA's own page content
           console.log(`    Passage too short (${aio.passageText.length} chars) — attempting fallback capsule from page content`);
-          const fallback = await generateFallbackCapsule(query, tcaExtracted.content, client);
+          const fallback = await generateFallbackCapsule(query, tcaExtracted.content);
           if (fallback) {
             aioTasks.push({
               page: opp.page, query, aioFormat: aio.passageFormat,
@@ -1327,7 +1341,7 @@ async function main() {
           }
         } else {
           try {
-            const capsuleMsg = await client.messages.create({
+            const capsuleMsg = await meteredCreate({
               model: 'claude-sonnet-4-6',
               max_tokens: 512,
               system: [{ type: 'text', text: `You are a citation capsule writer for tallchairadvisor.com, a niche ergonomic chair site for tall people (6'+). Write concise, self-contained passages optimized for Google AI Overview citation. Always include specific measurements in inches and height context (6ft 3in+ users). Match the AIO tone and format exactly. Return only XML-tagged output.`, cache_control: { type: 'ephemeral' } }],
@@ -1335,7 +1349,7 @@ async function main() {
                 role: 'user',
                 content: `The Google AI Overview for "${query}" uses ${aio.passageFormat} format (${aio.wordCount} words).\nAIO sample: "${aio.passageText.slice(0, 400)}"\nTCA page content (${opp.page}):\n${tcaExtracted.content.slice(0, 2000)}\n\nWrite a 40-60 word standalone citation capsule in ${aio.passageFormat} format for TCA's page on "${query}".\nRules: include specific measurements in inches, include height context (6ft 3in+ users), be self-contained (readable without surrounding context), match the AIO tone exactly.\nReturn your answer using exactly these XML tags and nothing else:\n<capsule>your 40-60 word capsule here</capsule>\n<heading>closest matching H2 or H3 heading from the page</heading>`,
               }],
-            });
+            }, { agent: 'competitor-intelligence', run: today(), purpose: 'aio-capsule' });
             const rawText: string = (capsuleMsg.content[0] as any).text ?? '';
             const capsule = rawText.match(/<capsule>([\s\S]*?)<\/capsule>/)?.[1]?.trim();
             const heading = rawText.match(/<heading>([\s\S]*?)<\/heading>/)?.[1]?.trim();
@@ -1438,7 +1452,7 @@ async function main() {
 
       // Gap analysis
       console.log(`    analyzing gaps...`);
-      const rawGaps = await analyzeGaps(client, role, opp.page, query, type, tcaExtracted.content, crawledContent, tcaExtracted.coverage);
+      const rawGaps = await analyzeGaps(role, opp.page, query, type, tcaExtracted.content, crawledContent, tcaExtracted.coverage);
       console.log(`    gaps: ${rawGaps.length}`);
 
       queryAnalyses.push({ query, queryType: type, editorialTargets, brandTargets, crawledContent: crawledContent.map(c => ({ ...c, markdown: c.markdown.slice(0, 400) })), gateStatus: 'passed', rawGaps });

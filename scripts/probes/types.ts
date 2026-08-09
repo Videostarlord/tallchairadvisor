@@ -85,6 +85,25 @@ export interface ProbeTagMirror {
   affiliate: boolean | null;
 }
 
+/**
+ * P1. One viewport's comparison against its stored baseline.
+ *
+ * `diffPct: null` means NO COMPARISON HAPPENED — no baseline yet, capture failed,
+ * or the dimensions changed. It never means "no difference". `note` always says
+ * which. Same rule as the rest of this file: a field that could not be measured
+ * is null, never a plausible default, and 0% is a very plausible default.
+ */
+export interface ProbeVisualViewport {
+  diffPct: number | null;
+  note: string | null;
+  baselineCreated: boolean;
+}
+
+export interface ProbeVisual {
+  desktop: ProbeVisualViewport;
+  mobile: ProbeVisualViewport;
+}
+
 export interface ProbeResult {
   /** Path form, trailing slash: '/review/gesture/'. */
   url: string;
@@ -107,6 +126,8 @@ export interface ProbeResult {
   observedAt: string;
   /** Mirror consumed by predicates/tag-fires.ts. See ProbeTagMirror. */
   tags: ProbeTagMirror;
+  /** P1 visual regression. null = capture was not requested for this run (--visual off). */
+  visual: ProbeVisual | null;
 }
 
 export interface ProbeFile {

@@ -11,11 +11,26 @@
  * module simply never produces a finding without one.
  */
 
-import type { ProbeResult } from './types.js';
+import type { ProbeResult, ProbeVisualViewport } from './types.js';
 
 /** Google truncates around 155–160; the site's own audit rule is 130–155 ideal. */
 export const META_MIN = 130;
 export const META_MAX = 165;
+
+/**
+ * P1. Percentage of changed pixels above which a page is reported as visually
+ * regressed.
+ *
+ * Lives HERE, not in visual.ts, so this module keeps its promise to import
+ * neither Playwright nor `fs` — visual.ts imports the constant from here rather
+ * than the other way round, and the dependency runs pure -> impure.
+ *
+ * 2% is the plan's starting guess and is NOT calibrated. `visual-regression` is
+ * therefore absent from BLOCKING_CLASSES in pr-gate.ts and stays advisory until a
+ * week of real diffs justifies a number. Wiring an uncalibrated threshold to a
+ * merge gate is how a gate becomes noise everyone clicks through.
+ */
+export const VISUAL_DIFF_THRESHOLD_PCT = 2;
 
 export interface ProbeFinding {
   page: string;
@@ -209,6 +224,35 @@ export function deriveFindings(result: ProbeResult): ProbeFinding[] {
       summary: `Missing ${missing.join(' and ')} — page is not answer-first for AI Overviews.`,
       closurePredicate: { kind: 'geo-capsule', url },
     });
+  }
+
+  // ── P1 visual regression ─────────────────────────────────────────────────────
+  // Reads numbers the probe already computed rather than doing I/O here, which
+  // keeps deriveFindings pure AND means the skipped/unhealthy guard at the top of
+  // this function covers visual findings for free. A page that failed to load
+  // files no visual finding — the `unevaluable` guard in pr-gate.ts is what stops
+  // that reading as a pass, exactly as for every other class.
+  //
+  // `diffPct === null` NEVER files. It means no comparison happened (no baseline,
+  // capture failed, dimensions changed) and a finding would assert something
+  // nobody measured.
+  // `visual` is absent entirely on every probe artifact written before P1, and
+  // pr-gate.ts re-derives findings from stored artifacts — so this must tolerate
+  // `undefined`, not just `null`, or the gate crashes on any older file.
+  if (result.visual !== null && typeof result.visual === 'object') {
+    for (const viewport of ['desktop', 'mobile'] as const) {
+      const v = result.visual[viewport] as ProbeVisualViewport | undefined;
+      if (v === undefined || v === null || typeof v !== 'object') continue;
+      if (typeof v.diffPct !== 'number') continue;
+      if (v.diffPct < VISUAL_DIFF_THRESHOLD_PCT) continue;
+      out.push({
+        page: url,
+        issueClass: 'visual-regression',
+        severity: 'medium',
+        summary: `${viewport} rendering differs from baseline by ${v.diffPct}% (threshold ${VISUAL_DIFF_THRESHOLD_PCT}%). Re-baseline if the change was intended.`,
+        closurePredicate: { kind: 'visual-diff', url, viewport, maxPct: VISUAL_DIFF_THRESHOLD_PCT },
+      });
+    }
   }
 
   return out;

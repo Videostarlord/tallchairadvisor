@@ -19,3 +19,9 @@
 data/token-log.jsonl    merge=union
 data/cost-ledger.jsonl  merge=union
 data/cost-drift.jsonl   merge=union
+
+# The cooldown gate reads this. Every line is an independent timestamped edit
+# event and the gate takes the most recent per page, so a duplicated line is a
+# harmless repeat rather than a semantic defect — union is correct here, for the
+# same reason it is correct for token-log.jsonl and wrong for ledger.jsonl.
+data/edit-log.jsonl      merge=union

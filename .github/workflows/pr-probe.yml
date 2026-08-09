@@ -101,11 +101,25 @@ jobs:
       # --no-ledger is belt-and-braces. `isSynthetic()` (probes/cli.ts) already refuses
       # to file findings or write the nightly coverage file whenever --base is not
       # production, so a preview run cannot open or close claims about the live site.
+      #
+      # P1: --visual compares this PR's preview render against the production
+      # baselines, so layout breakage is caught before merge rather than reported
+      # the night after. A preview run is SYNTHETIC, so it may READ baselines but
+      # never WRITE them (run.ts passes allowBaselineWrite: !synthetic) — a branch
+      # writing baselines would redefine "correct" as "whatever this unmerged
+      # branch renders", which is the exact inversion of a regression test. A page
+      # with no production baseline yet reports "not compared", never "clean".
+      #
+      # visual-regression is ADVISORY here, not in BLOCKING_CLASSES: the 2%
+      # threshold is uncalibrated until a week of real diffs justifies it, and an
+      # uncalibrated gate teaches everyone to click through red.
       - name: Probe preview
         run: |
           npm run probe -- \
             --base "${{ steps.preview.outputs.url }}" \
             --no-ledger \
+            --visual \
+            --visual-artifacts visual-diffs \
             --out probe-pr.json \
             --concurrency 4 \
             --url / \
@@ -135,3 +149,15 @@ jobs:
           path: probe-pr.json
           retention-days: 14
           if-no-files-found: warn
+
+      # The current render and a highlighted pixel diff for any page over the
+      # threshold. This is the artifact that makes an advisory finding actionable:
+      # "3.4% changed on mobile" is a number, the PNG is the answer.
+      - name: Upload visual diffs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs-${{ github.event.pull_request.number || inputs.sha }}
+          path: visual-diffs
+          retention-days: 14
+          if-no-files-found: ignore

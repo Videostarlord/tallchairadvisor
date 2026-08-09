@@ -1,12 +1,47 @@
 ---
 type: synthesis
-last_updated: 2026-08-06
+last_updated: 2026-08-09
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## [2026-08-09] Cooldown governs substantive revision, not deterministic defects (A1)
+
+**Decision.** A page edit is one of two kinds, and only one of them waits.
+
+- **Deterministic** — exactly one correct value exists and the current one is provably not it: title/meta length, wrong or contradictory specs, broken schema, bad canonical, noindex, 404s, redirects, missing or dead affiliate tags, voice violations, missing alt text, orphaned pages. **Never subject to cooldown, at any cadence.**
+- **Substantive** — adding or rewriting sections, changing a page's angle, reworking body copy. **Subject to the 14-day window (7 for critical pages).**
+
+**Why.** Cooldown exists for two real reasons: repeated rewrites look like thrash to Google, and two content changes inside one measurement window make attribution impossible. Both are arguments about *substance*. Neither justifies leaving a 73-character title or a wrong seat-height spec live for another two weeks.
+
+**What it replaced, and the actual root cause.** The gate had applied **zero fixes across a full week** (29 findings → 6 planned → 0 applied). The diagnosis "cooldown is too strict" was wrong. Cooldown asked `git log --since=14d -- <file>` — *any* commit touching the page — and most commits touching a page are the pipeline's own mechanical sweeps. One link injection across 8 orphans, one GEO rollout across 45 pages, one spec qualification across 17: **each re-armed a 14-day lockout on everything it touched.** The gate tightened in proportion to how much the system did. Measured: 49 of 54 pages locked, now 0.
+
+`data/edit-log.jsonl` now records what agents actually changed, classified at the moment of the write, and cooldown reads that instead of git.
+
+**Deliberately not loosened.** "Add a Fit Verdict callout block" and "Expand the Compare With section" still wait. Exempting those would have been a removal disguised as a fix.
+
+**Second-order lesson.** Two copies of the same classifier had drifted apart (11 keywords in `strategy.ts`, 8 different ones in `execute-fixes.ts`), so a task could clear the planner and die on application for a reason the planner could not see. Any rule enforced in two places will eventually be two different rules.
+
+## [2026-08-09] A detector that cannot see must never report a clean result
+
+**Decision.** Every detector added in the autonomous data layer distinguishes "I could not measure" from "I measured, and it was fine", and the former is never representable as the latter.
+
+Concretely: `diffPct: null` is not 0% · a failed Amazon login is not `$0` · a bot wall is not a dead product · an HTTP 204 is not a recorded sitemap submission · an unreadable edit log is not "nothing on cooldown".
+
+**Why this is a strategy decision and not a coding style.** Two of the three worst incidents in this project's history were measurement failures that looked healthy: the June 16 CSP block (GA4 dead for a month behind green dashboards) and the truncated auditor (a month of recommendations produced from 1.4% of the strategy synthesis). Both were silent because a system that could not see reported normally.
+
+**The most expensive version of this, and it happened during the build.** The dead-ASIN detector's first live run reported the Hbada E3 Pro dead because "Currently unavailable" appeared on the page — in the *cross-sell block* advertising a newer model. The product itself showed Add to Cart and In Stock. Acting on the finding would have stripped a working affiliate link off a money page: **the detector destroying the revenue it exists to protect.** Unavailability now only counts when the page also offers no way to buy anything.
+
+**Applied to money, this is a kill-list issue.** The Amazon scraper must file `amazon-session-expired` rather than report `$0`, because the gate that decides whether this site continues is measured in months above $100 — and a fabricated zero from a failed login is indistinguishable from a genuinely zero month. It could retire a site that was earning fine.
+
+## [2026-08-09] Verify claims about permissions before recording them as blockers
+
+**Decision.** P2's sitemap submission was written expecting a 403 — the common reading of Google's docs is that `sitemaps.submit` requires `siteOwner`, and the service account holds `siteFullUser`. A real submit was run instead of assuming: it **succeeded**, `lastSubmitted` advanced 2026-08-06T09:49:58Z → 2026-08-09T06:42:02Z, zero errors.
+
+**Why it is worth logging.** Had the prediction been written up unverified, "blocked on Jackson granting Owner in Search Console" would have entered the wiki as a standing task for a capability that already worked, and every future agent reading this would have inherited it. A predicted blocker is not a blocker.
 
 ## [2026-08-09] Autonomous dashboard control: API-first, Playwright-in-CI second, Claude-in-Chrome last
 

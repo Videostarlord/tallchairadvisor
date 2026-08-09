@@ -24,6 +24,7 @@ import * as metaLength from './meta-length.js';
 import * as noConsoleErrors from './no-console-errors.js';
 import * as schemaValid from './schema-valid.js';
 import * as tagFires from './tag-fires.js';
+import * as visualDiff from './visual-diff.js';
 import {
   MissingPredicateError,
   unevaluable,
@@ -108,12 +109,18 @@ export const PREDICATE_REGISTRY: Record<PredicateKind, RegistryEntry> = {
     requires: 'data/collectors/<name>.json',
     fetchFallback: false,
   },
+  'visual-diff': {
+    schema: visualDiff.schema,
+    evaluate: visualDiff.evaluate,
+    requires: 'Playwright probe run with --visual — rendering cannot be read from HTML',
+    fetchFallback: false,
+  },
 };
 
 export const PREDICATE_KINDS = Object.keys(PREDICATE_REGISTRY) as PredicateKind[];
 
 /**
- * The same ten schemas as one discriminated union, for validating a predicate
+ * The same eleven schemas as one discriminated union, for validating a predicate
  * embedded in a larger record (the ledger line). Listed explicitly rather than
  * mapped out of the registry so TypeScript can see each literal `kind` and infer
  * the real ClosurePredicate union instead of a bag of unknown fields.
@@ -129,6 +136,7 @@ export const closurePredicateSchema = z.discriminatedUnion('kind', [
   geoCapsule.schema,
   tagFires.schema,
   collectorHealthy.schema,
+  visualDiff.schema,
 ]);
 
 export function isPredicateKind(value: unknown): value is PredicateKind {
@@ -233,6 +241,8 @@ export function describePredicate(p: ClosurePredicate): string {
       return `tag-fires ${p.url} tag=${p.tag}`;
     case 'collector-healthy':
       return `collector-healthy ${p.collector}`;
+    case 'visual-diff':
+      return `visual-diff ${p.url} ${p.viewport} < ${p.maxPct}%`;
     default:
       return `${p.kind} ${p.url}`;
   }

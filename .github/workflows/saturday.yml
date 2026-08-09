@@ -57,6 +57,27 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
+      # P2. Here and not in the nightly: resubmitting is only meaningful after a
+      # deploy has changed the sitemap, and the nightly changes no pages.
+      #
+      # continue-on-error because this is the LEAST consequential step in the
+      # workflow — Google refetches the sitemap on its own schedule regardless,
+      # and a submission hiccup must never fail a deploy that already built,
+      # linted and verified. It submits and then reads back, so a green here
+      # means Google recorded it with zero errors, not merely that a request was
+      # accepted (submit returns 204 and proves nothing on its own).
+      # Credential restored via env, matching monday.yml and nightly.yml — never
+      # interpolated into the shell, where a key containing a quote would break
+      # the line and could echo secret material into the log.
+      - name: Submit sitemap to Search Console
+        continue-on-error: true
+        env:
+          CREDS: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          mkdir -p credentials
+          echo "$CREDS" > credentials/gsc-service-account.json
+          npx tsx scripts/gsc-sitemap.ts
+
       - name: Commit weekly summary + wiki updates and push
         run: |
           git config user.name "tca-bot"

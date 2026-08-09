@@ -1,0 +1,100 @@
+
+# A10 / P4. Do the affiliate links still resolve?
+#
+# lint:content checks ASINs against an offline allowlist at build time, the probe
+# only ever clicks a SYNTHETIC Amazon link, and verify-deploy checks presence not
+# liveness. So a delisted ASIN keeps rendering, keeps taking clicks, and earns
+# nothing — indefinitely, with nothing watching.
+#
+# MONTHLY, NOT NIGHTLY. Listings do not die daily, and the Firecrawl free tier is
+# 500 pages/month. ~24 ASINs once a month is under 5% of it, leaving the rest for
+# competitor-intelligence, which shares the same quota. Every call is metered
+# through meterExternal so `cost:rollup` sees it.
+#
+# FIRECRAWL, NOT PLAYWRIGHT. Amazon hard-blocks datacenter IPs; a Playwright run
+# from Actions would collect bot walls and report them as findings.
+#
+# THIS WORKFLOW CANNOT FAIL A BUILD, AND ITS FINDINGS ARE ADVISORY. A dead-link
+# verdict is a claim about a money page, and the first live run of this detector
+# produced a FALSE POSITIVE — it read a "Currently unavailable" notice from a
+# cross-sell block as the linked product being dead. That is fixed and pinned by
+# a test, but the lesson stands: a human confirms before an affiliate link that
+# might be earning is removed.
+
+name: ASIN — Monthly Liveness Check
+
+on:
+  schedule:
+    - cron: '0 7 1 * *' # 07:00 UTC on the 1st = midnight PDT
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Max ASINs to check (quota guard)'
+        required: false
+        default: '25'
+      dry_run:
+        description: 'List what would be checked without spending quota'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "${{ github.workflow }}"
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - run: npm ci
+
+      - name: Check ASIN liveness
+        id: check
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        run: |
+          npx tsx scripts/asin-check.ts \
+            --limit "${{ github.event.inputs.limit || '25' }}" \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+
+      # Committed so the nightly and the weekly agents can read it, and so a run
+      # where every check was inconclusive stays visible as "did not look" rather
+      # than being thrown away with the container.
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "tca-bot"
+          git config user.email "bot@tallchairadvisor.com"
+          for p in data/collectors/asin-liveness.json data/cost-ledger.jsonl; do
+            [ -e "$p" ] && git add "$p" || true
+          done
+          git diff --staged --quiet || git commit -m "[skip cd] data: ASIN liveness $(date -u +%Y-%m-%d)"
+          git pull --rebase --autostash || true
+          git push || { sleep 15 && git push; } || { sleep 30 && git push; }
+
+      - name: Summarise
+        if: always()
+        run: |
+          if [ -f data/collectors/asin-liveness.json ]; then
+            node -e "
+              const r = JSON.parse(require('fs').readFileSync('data/collectors/asin-liveness.json','utf-8'));
+              const m = r.meta;
+              const lines = ['### ASIN liveness — ' + m.observedAt.slice(0,10), '',
+                '| alive | dead | inconclusive | deferred |', '|---|---|---|---|',
+                '| ' + m.alive + ' | ' + m.dead + ' | ' + m.unknown + ' | ' + m.deferred + ' |', '', m.note, ''];
+              if (r.findings.length > 0) {
+                lines.push('#### Dead links — CONFIRM BY HAND before removing anything', '');
+                for (const f of r.findings) lines.push('- ' + f.summary);
+              }
+              require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n');
+            "
+          fi

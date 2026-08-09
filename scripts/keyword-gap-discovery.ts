@@ -39,6 +39,8 @@ import {
   extractCompetitorTargets,
   flattenRankedKeywordResponse,
 } from './keyword-gap-discovery-logic.ts';
+import { meterExternal } from './lib/metered-client.js';
+import { today } from './agents/wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -121,6 +123,16 @@ for (const task of tasks) {
   }
 
   const body = await response.json() as any;
+  if (typeof body?.cost === 'number' && body.cost > 0) {
+    meterExternal({
+      agent: 'keyword-gap-discovery',
+      run: today(),
+      purpose: 'ranked-keywords',
+      service: 'dataforseo',
+      unit: 'usd',
+      amount: body.cost,
+    });
+  }
   if (body?.status_code !== 20000) {
     console.error(`[keyword-gap-discovery] ABORT: DataForSEO top-level status ${body?.status_code} ${body?.status_message}`);
     process.exit(1);

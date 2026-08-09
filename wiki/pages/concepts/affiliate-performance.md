@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-05
+last_updated: 2026-08-09
 sources: [raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
@@ -16,6 +16,8 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 > **Read this first — two rules.**
 > 1. **Snapshots within a month supersede each other — never add them.** Amazon month-to-date snapshots are cumulative. Proven 2026-08-01: Jul 28 and Jul 31 carry an identical order set and identical ordered revenue ($3,109.76), shipped catching up to ordered, clicks rising monotonically (82 → 87 → 92).
 > 2. **Check the window type before logging any export.** The window is whatever was selected in Associates Central and is *not* recorded in the CSV. Month-to-date and rolling-30-day exports look identical in the file. A rolling window cannot be appended to this monthly log — see the Aug 3 export below, which was 99.7% July's money re-reported and briefly read as a second positive month. **Record the selected range on every download.**
+>
+> **Rule 2 stops applying to automated exports (2026-08-09).** `scripts/amazon-pull.ts` (P3) chooses the window itself and writes it into the report as a stated fact, so exports it produces are never ambiguous. Hand-downloaded exports still need the range recorded.
 
 | Month | Clicks | Orders | CVR | Ordered Revenue | Shipped Revenue | Net Earnings | Status |
 |--------|--------|--------|-----|-----------------|-----------------|--------------|--------|
@@ -70,6 +72,20 @@ $0.24 / $7.99 = 3.00%, exactly the furniture tier. Window algebra `(Jul 5–Aug 
 **The $92.30 headline is July's earnings through a shifted window — not a second positive month, not acceleration.** Kill-list gate remains **1 of 2–3**; August closes 2026-09-01.
 
 Raw: `raw/affiliate/2026-08-03-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-08-03-amazon-csv/`).
+
+---
+
+## Automated pulling — P3, built 2026-08-09, NOT YET ACTIVE
+
+Amazon Associates has no reporting API, so hand-downloading these CSVs was the last real manual load in the pipeline. `scripts/amazon-pull.ts` replays a `storageState` session Jackson captures once and downloads the same four reports.
+
+**Inert until `AMAZON_STORAGE_STATE` exists as a GitHub secret.** Until then `.github/workflows/amazon-weekly.yml` (Sundays 08:00 UTC) exits 0 silently and `collectors/amazon.ts` keeps nagging at 7 days, so the gap stays tracked rather than forgotten. Capturing the session is a human act — an agent must never handle a login to a financial account.
+
+**The design point that matters for this page: it will never write a `$0` row.** On an expired session it files `amazon-session-expired` and writes **no report at all**. A zero produced by a failed login is indistinguishable, in this log, from a month that genuinely earned nothing — and **the kill-list gate that decides whether this site continues is measured in months above $100.** A fabricated zero could retire a site that was earning fine.
+
+Expiry is detected positively (a sign-in URL, challenge text, or an HTML document where a CSV should be), never by trusting a parsed zero. An `empty` CSV is recorded as empty, never as `$0` — Top-Sellers legitimately has no rows most weeks, as every export in this archive shows.
+
+Its selector layer could not be exercised without the credential, so the first run should be watched with `npm run amazon:pull:dry`. Safe to get wrong: a bad selector yields an unreadable CSV and the run fails with no report written — "no data", never "zero dollars".
 
 ---
 

@@ -4,17 +4,17 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Script as VmScript } from 'vm';
-import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today, logCacheUsage, readSynthesisContext, withRetry } from './wiki-utils.js';
+import { appendWikiLog, archiveToRaw, writeWikiPage, readWikiPage, today, readSynthesisContext, withRetry } from './wiki-utils.js';
 import { assertSafeToAct } from '../assert-safe-to-act.js';
+import { meteredCreate } from '../lib/metered-client.js';
+import { recordEdit } from '../lib/edit-log.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 interface ContentTask {
   title: string;
@@ -311,13 +311,13 @@ async function scoreContent(content: string, keyword: string): Promise<{ score: 
   let answerPoints = 15; // benefit of the doubt if the scorer call fails — structure checks carry the gate
   let answerFeedback = '';
   try {
-    const response = await withRetry(() => client.messages.create({
+    const response = await withRetry(() => meteredCreate({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 200,
       system: `Score 0-20: does this tallchairadvisor.com page open answer-first? Full points when a verdict box or TL;DR stating the direct answer appears in the first visible section (before any H2) with no "In this guide we'll explore..." preamble. You are given only the TOP of a longer page — the excerpt may cut off mid-sentence; do not penalize anything about the ending or anything that would appear later in the page.
 Return only JSON: {"points": <0-20>, "feedback": "<one sentence>"}`,
       messages: [{ role: 'user', content: `Keyword: "${keyword}"\n\n${content.slice(0, 5000)}` }],
-    }));
+    }, { agent: 'execute-content', run: today(), purpose: 'answer-first-score' }));
     const raw = (response.content[0].type === 'text' ? response.content[0].text : '').replace(/```[a-z]*/g, '').trim();
     const parsed = JSON.parse(raw.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
     const p = Number(parsed.points);
@@ -429,7 +429,7 @@ async function scoreCompetitiveDepth(
   }
 
   try {
-    const response = await withRetry(() => client.messages.create({
+    const response = await withRetry(() => meteredCreate({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 400,
       system: `You are a content depth auditor comparing a TCA draft against a competitor page. Score TCA 0-100 on competitive depth. Return only JSON.`,
@@ -448,7 +448,7 @@ ${bestContent.slice(0, 2000)}
 
 Return JSON only: {"ratio": <0-100>, "missingSections": ["...", "..."], "rationale": "<one sentence>"}`,
       }],
-    }));
+    }, { agent: 'execute-content', run: today(), purpose: 'competitive-depth-score' }));
 
     const text = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
     const parsed = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] ?? '{}');
@@ -533,7 +533,7 @@ Write the complete Astro page. Output the file content only — no markdown fenc
   }];
 
   const diffAssets = buildDifferentiationAssets(task.slug, ROOT);
-  const response = await withRetry(() => client.messages.create({
+  const response = await withRetry(() => meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 12000,
     system: [
@@ -551,9 +551,7 @@ Write the complete Astro page. Output the file content only — no markdown fenc
       },
     ],
     messages,
-  }));
-  logCacheUsage('execute-content', response.usage, ROOT);
-
+  }, { agent: 'execute-content', run: today(), purpose: extraInstruction ? 'generate-page-retry' : 'generate-page' }));
   if (response.stop_reason === 'max_tokens') {
     // Truncated generation — the file will be missing </Layout> and fail validation.
     // Surface the real cause so the retry correction message is accurate.
@@ -600,13 +598,14 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
   }
 
   if (!validation.valid) {
-    console.warn(`    VALIDATION FAILED (attempt 2) for ${task.slug}: ${validation.reason}`);
+    const failureReason = validation.reason ?? 'Unknown validation failure';
+    console.warn(`    VALIDATION FAILED (attempt 2) for ${task.slug}: ${failureReason}`);
     const rejectSlug = task.slug.replace(/^\/|\/$/g, '').replace(/\//g, '-');
     if (cleaned && cleaned.length >= 500) {
       archiveToRaw(ROOT, 'content-rejected', `${today()}-${rejectSlug}-validation-fail.md`, cleaned);
     }
-    markSlugFailed(ROOT, task.slug, validation.reason);
-    return { success: false, filePath: '', summary: `Validation failed after 2 attempts for ${task.slug}: ${validation.reason}` };
+    markSlugFailed(ROOT, task.slug, failureReason);
+    return { success: false, filePath: '', summary: `Validation failed after 2 attempts for ${task.slug}: ${failureReason}` };
   }
 
   // Quality gate: score content before writing — reject if below 80/100
@@ -657,6 +656,10 @@ async function writeNewPage(task: ContentTask): Promise<{ success: boolean; file
 
   mkdirSync(dirname(fullPath), { recursive: true });
   writeFileSync(fullPath, cleaned);
+
+  // A whole new page is the most substantive edit there is. Recording it here is
+  // what stops next week's plan proposing a rewrite of a page published days ago.
+  recordEdit(ROOT, filePath, 'substantive', 'execute-content', `Created page targeting "${task.keyword}"`);
 
   return { success: true, filePath, summary: `Created: ${filePath} targeting "${task.keyword}"` };
 }

@@ -29,7 +29,7 @@ import { isRedirectSource, loadRedirectMap } from '../redirect-map.js';
 import { buildInventory, parseSitemapExcludedPaths } from './inventory.js';
 import { defaultOutPath, isSynthetic, parseArgs } from './cli.js';
 import { emptyResult, probeUrl, unhealthyResult, checkStatus, type ProbeOptions } from './probe-page.js';
-import { deriveFindings, summarise, type ProbeFinding } from './assertions.js';
+import { deriveFindings, summarise, VISUAL_DIFF_THRESHOLD_PCT, type ProbeFinding } from './assertions.js';
 import { fileFindings } from './ledger-bridge.js';
 import type { ProbeFile } from './types.js';
 
@@ -93,9 +93,28 @@ async function main(): Promise<void> {
     tagWaitMs: args.tagWaitMs,
     cspOverride: args.csp,
     blockPatterns: args.block,
+    // P1. `allowBaselineWrite: !synthetic` is the load-bearing line. A preview or
+    // CSP-overridden run writing baselines would redefine "correct" as "whatever
+    // this unmerged branch renders" — the exact inversion of a regression test.
+    // isSynthetic() already governs findings and the output filename for the same
+    // reason; baselines join that list.
+    visual: args.visual
+      ? {
+          root,
+          allowBaselineWrite: !synthetic,
+          thresholdPct: VISUAL_DIFF_THRESHOLD_PCT,
+          artifactDir: args.visualArtifacts,
+        }
+      : null,
   };
 
   console.log(`[probe] ${paths.length} URL(s) against ${args.base}${synthetic ? '  (SYNTHETIC RUN)' : ''}`);
+  if (args.visual) {
+    console.log(
+      `[probe] visual capture ON — desktop 1366x900 + mobile 375x812, threshold ${VISUAL_DIFF_THRESHOLD_PCT}%` +
+        (synthetic ? '; baselines READ-ONLY (synthetic run)' : '; missing baselines will be written'),
+    );
+  }
   if (args.csp !== null) console.log('[probe] CSP override active — the document policy is being replaced in-flight');
   if (args.block.length > 0) console.log(`[probe] blocking requests matching: ${args.block.join(', ')}`);
 
@@ -144,11 +163,23 @@ async function main(): Promise<void> {
 
       const result = await probeUrl(browser, path, opts);
       const flag = !result.healthy ? 'UNHEALTHY' : result.errors.length > 0 ? 'partial' : 'ok';
+      // `new` and `-` are distinguishable from a number on purpose: a baseline
+      // that was just written and a comparison that did not happen must never
+      // print as "0%", which would read as "verified identical".
+      const vis = result.visual === null
+        ? ''
+        : ` vis=${(['desktop', 'mobile'] as const)
+            .map((v) => {
+              const r = result.visual![v];
+              if (r.baselineCreated) return `${v[0]}:new`;
+              return `${v[0]}:${r.diffPct === null ? '-' : `${r.diffPct}%`}`;
+            })
+            .join(' ')}`;
       console.log(
         `[probe] ${pad(flag, 10)}${pad(path, 52)} ${result.status} ` +
           `gtag=${result.network.gtagFired} clarity=${result.network.clarityLoaded} ` +
           `aff=${result.tags.affiliate ?? 'null'} err=${result.consoleErrors.length} ` +
-          `lcp=${result.vitals.lcp ?? 'null'} cls=${result.vitals.cls ?? 'null'} inp=${result.vitals.inp ?? 'null'}`,
+          `lcp=${result.vitals.lcp ?? 'null'} cls=${result.vitals.cls ?? 'null'} inp=${result.vitals.inp ?? 'null'}${vis}`,
       );
       return result;
     } catch (error) {

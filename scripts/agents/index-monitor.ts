@@ -18,16 +18,15 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
 import { google } from 'googleapis';
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, archiveToRaw, writeWikiPage, today } from './wiki-utils.js';
+import { meteredCreate } from '../lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const SITE_URL = 'https://tallchairadvisor.com/';
 const CREDENTIALS_PATH = resolve(ROOT, 'credentials/gsc-service-account.json');
@@ -235,7 +234,7 @@ RULES:
 - For thin-content: expand the main content section with relevant, research-based material.
 - The file MUST start with --- frontmatter, use valid JS operators (&&/||, not and/or), and end with </Layout>.`;
 
-  const response = await client.messages.create({
+  const response = await meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 8000,
     system: systemPrompt,
@@ -253,7 +252,7 @@ ${source}
 
 Output the complete fixed file.`,
     }],
-  });
+  }, { agent: 'index-monitor', run: today(), purpose: `fix-${inspection.fixType}` });
 
   const fixed = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
 

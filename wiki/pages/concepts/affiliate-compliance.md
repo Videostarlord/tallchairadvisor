@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-07-25
+last_updated: 2026-08-09
 sources: [raw/audits/2026-05-10-full-seo-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md]
 tags: [compliance, ftc, affiliate, legal]
 ---
@@ -47,3 +47,17 @@ All Amazon links must use: `tag=tallchairadvi-20`
 - [[best-office-chairs]] — Quick Picks CTA fix + disclosure
 - [[aeron-vs-gesture]] — CTA placement
 - [[correct-chair-dimensions]] — disclosure needed
+
+## Link liveness — A10/P4, built 2026-08-09
+
+Compliance covers *disclosure*; this covers whether the disclosed link still works. `scripts/asin-check.ts` runs monthly (`.github/workflows/asin-monthly.yml`) via Firecrawl, checking every `/dp/<ASIN>` actually linked from a page — 24 as of 2026-08-09.
+
+Firecrawl rather than the Playwright probe because Amazon hard-blocks datacenter IPs; a probe run from Actions collects bot walls, not listings.
+
+**This does not replace `data/verified-asins.json`.** That allowlist is deliberately offline (`_NOT_AN_HTTP_CHECK`) and catches *invented* ASINs at build time. This catches ones that were real and later died. Different failure, different tool.
+
+**Findings are advisory and a human confirms before any link is removed**, because the first live run produced a false positive: it read "Currently unavailable" from a **"Newer Version Available" cross-sell block** and reported the Hbada E3 Pro (`B0CQ4K1KXT`, on `/best-office-chairs-under-500/`) as dead. The product itself showed Add to Cart and In Stock. Acting on it would have stripped a working affiliate link off a money page.
+
+Fixed by splitting the markers: hard-dead signals (404, "couldn't find that page") describe the whole document and are trusted alone; soft signals ("currently unavailable", "no longer available", "discontinued") count **only when the page also offers no way to buy anything**. A failed fetch, bot wall or timeout is `unknown` and files nothing.
+
+Known-dead ASINs stay in the `known_dead` block of `data/verified-asins.json` and are excluded from checks — no quota spent rediscovering known facts.

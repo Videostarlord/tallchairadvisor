@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 sources: [raw/audits/2026-08-06-open-issues-task-list.md, data/ledger-state.json, wiki/nightly/2026-08-08.md]
 tags: [open-issues, status, tracking]
 ---
@@ -56,11 +56,49 @@ The 2026-08-08 rollout covered **45 pages: 23 inside that scope, 22 outside it.*
 
 Until decided, treat "49/49 pages pass `geo-capsule`" as **23/23 sanctioned + 22 unsanctioned**, not as a clean win.
 
+## Changed on 2026-08-09 — the autonomous data layer build
+
+Branch `feat/autonomous-data-layer`. Full detail in [[autonomous-data-layer]].
+
+| Item | Status | Now |
+|---|---|---|
+| **A1** Cooldown gate applies zero fixes | A-CRITICAL, open | **FIXED.** Root cause was not the threshold — cooldown counted *any* commit touching a page, so the pipeline's own bulk sweeps armed the lockout that blocked its next work. **49 of 54 pages were locked; now 0.** |
+| **A10** Nothing checks affiliate links resolve | open | **BUILT.** `scripts/asin-check.ts`, monthly via Firecrawl. Found a false positive on its first live run — see below, it is the useful part. |
+| — | not in snapshot | **NEW: P1 visual regression.** 98 baselines, and the first mobile (375×812) coverage the site has ever had. Advisory until the threshold is calibrated. |
+| — | not in snapshot | **NEW: P2 sitemap submit** on Saturday's deploy, with read-back verification. |
+| — | not in snapshot | **NEW: P3 Amazon Associates** scraper — ships inert, blocked on one human step (see below). |
+| — | not in snapshot | **NEW: a cost-metering refactor** was recovered from the working tree, where it had sat uncommitted since 2026-08-09. Drives `lint:architecture` R5 from 15 → 0. |
+
+### A1's real mechanism, because "the cooldown was too strict" is the wrong lesson
+
+The 14-day window was never the problem. `git log --since=14d -- <file>` cannot distinguish "the strategist rewrote this page's argument" from "a sweep added one inbound link to 8 orphans". Because the pipeline's own fixes land as commits, **every sweep re-armed a lockout on everything it touched**, and the gate got tighter the more the system did.
+
+Two classifiers had also drifted apart (`strategy.ts` exempted 11 keywords, `execute-fixes.ts` 8 different ones), and **neither covered the defects the system actually finds** — which is why the 2026-08-06 plan dropped its own spec correction while its prose said that fix bypassed cooldown on technical grounds.
+
+Cooldown now governs **substantive revision** only. **Deterministic defects** — title/meta length, wrong specs, schema, canonical, redirects, dead affiliate tags, alt text, orphans — are exempt at any cadence. Content churn ("add a Fit Verdict callout") still waits, deliberately.
+
+### A10's false positive is the finding, not the footnote
+
+The first live run reported `B0CQ4K1KXT` (Hbada E3 Pro, on `/best-office-chairs-under-500/`) as DEAD on "Currently unavailable". That text belonged to the **"Newer Version Available" cross-sell block**; the product itself showed Add to Cart and In Stock. Acting on it would have stripped a working affiliate link off a money page.
+
+Soft unavailability markers now only count when the page offers **no way to buy anything**. Findings stay advisory — a human confirms before any link is removed.
+
+## Needs Jackson — one step, and it is deliberate
+
+**P3 Amazon Associates** cannot activate until the session is captured. An agent must never handle this login; it is a live credential for a financial account.
+
+```
+npx playwright codegen --save-storage=amazon-state.json https://affiliate-program.amazon.com/home/reports
+gh secret set AMAZON_STORAGE_STATE < amazon-state.json && rm amazon-state.json
+```
+
+Until then the weekly workflow exits 0 silently and `collectors/amazon.ts` keeps nagging at 7 days, so the gap stays tracked rather than forgotten.
+
+**P2 needed nothing.** It was predicted to need `siteOwner`; a real submit succeeded under the existing `siteFullUser` with `lastSubmitted` advancing and zero errors. Recorded so it does not become a phantom blocker.
+
 ## Still open, unchanged
 
-- **A1** (A-CRITICAL) Cooldown gate applies zero fixes — the pipeline finds problems competently and ships none. Everything else is downstream.
 - **A2** Nightly cannot see the agents' own execution logs · **A5–A8** (medium) · **A13** No health check on the detectors themselves
-- **A10** Nothing checks affiliate links still resolve — and Playwright is the wrong tool for it: Amazon hard-blocks datacenter IPs, so this needs Firecrawl, not the probe
 - **B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0
 - **B7** `/office-chairs-for-6-foot-4/` "under-linked" claim — re-verify what it measured; it already has 7 inbound links
 - **B11** the Leap Plus spec sweep across 31 files (pre-existing instances)

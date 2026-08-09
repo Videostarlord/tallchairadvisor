@@ -4,18 +4,18 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
-import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, archiveToRaw, today, appendIntervention } from './wiki-utils.js';
 import { assertSafeToAct } from '../assert-safe-to-act.js';
+import { meteredCreate } from '../lib/metered-client.js';
+import { isCooldownExempt, classifyEdit, cooldownVerdict } from '../lib/cooldown.js';
+import { daysSinceSubstantiveEdit, recordEdit, type DaysSince } from '../lib/edit-log.js';
 import type { IntentType } from './wiki-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // Mirrors classifyIntent in gsc-analyze.ts — kept in sync manually
 const BUYER_TERMS = ['best', 'buy', 'vs', 'review', 'alternative', 'worth', 'price', 'cheap', 'under $', 'affordable', 'budget', 'top'];
@@ -52,14 +52,26 @@ interface FixTask {
   raw: string;
 }
 
-function daysSinceLastEdit(filePath: string): number {
-  try {
-    const lastDate = execSync(
-      `git log -1 --format=%ai -- "${filePath}"`, { cwd: ROOT }
-    ).toString().trim();
-    if (!lastDate) return Infinity;
-    return Math.floor((Date.now() - new Date(lastDate).getTime()) / 86400000);
-  } catch { return Infinity; }
+/**
+ * A1: was `git log -1 --format=%ai -- <file>` — the timestamp of ANY commit
+ * touching the page, so a link sweep or a spec qualification read as a content
+ * rewrite and started a fresh 14-day clock. Now reads the edit log, which
+ * records only what the agents actually changed and how it was classified.
+ */
+function daysSinceLastSubstantiveEdit(filePath: string): DaysSince {
+  return daysSinceSubstantiveEdit(ROOT, filePath);
+}
+
+/**
+ * Everything the classifier should see about a task.
+ *
+ * `raw` is the original plan line and carries the most context; the structured
+ * fields are concatenated too because the defect noun and its qualifier are
+ * routinely split across them ("Correct the spec contradiction" in description,
+ * "seat height says 22.5\"" in whatToChange).
+ */
+function classifiableText(task: FixTask): string {
+  return [task.raw, task.description, task.whatToChange, task.why].filter(Boolean).join(' | ');
 }
 
 function getGscPageData(root: string): Map<string, { impressions: number; position: number; clicks: number }> {
@@ -163,7 +175,7 @@ async function applyTargetedFix(task: FixTask, fileContent: string, fixType: 'me
 
   if (fixType === 'meta' || fixType === 'meta+title') {
     const current = extractLayoutProp(fileContent, 'description');
-    const res = await client.messages.create({
+    const res = await meteredCreate({
       model: 'claude-sonnet-4-6',
       max_tokens: 300,
       system: [{ type: 'text', text: `Write a single meta description for tallchairadvisor.com.
@@ -183,7 +195,7 @@ Why: ${task.why}
 
 Write the new meta description:`,
       }],
-    });
+    }, { agent: 'execute-fixes', run: today(), purpose: 'targeted-meta' });
     const rawMeta = (res.content[0].type === 'text' ? res.content[0].text : '').trim().replace(/^["']|["']$/g, '');
     // Encode any literal " characters so they don't break the HTML attribute value
     const newMeta = rawMeta.replace(/"/g, '&quot;');
@@ -196,7 +208,7 @@ Write the new meta description:`,
 
   if (fixType === 'title' || fixType === 'meta+title') {
     const current = extractLayoutProp(fileContent, 'title');
-    const res = await client.messages.create({
+    const res = await meteredCreate({
       model: 'claude-sonnet-4-6',
       max_tokens: 150,
       system: [{ type: 'text', text: `Write a title tag for tallchairadvisor.com.
@@ -215,7 +227,7 @@ Why: ${task.why}
 
 Write the new title (50-60 chars):`,
       }],
-    });
+    }, { agent: 'execute-fixes', run: today(), purpose: 'targeted-title' });
     const newTitle = (res.content[0].type === 'text' ? res.content[0].text : '').trim().replace(/^["']|["']$/g, '');
     if (newTitle.length >= 20 && newTitle.length <= 70) {
       result = applyLayoutPropReplace(result, 'title', newTitle);
@@ -243,19 +255,27 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
   const fileContent = readFileSync(fullPath, 'utf-8');
   const originalWordCount = fileContent.split(/\s+/).filter(w => w.length > 0).length;
 
-  // Cooldown guard: CRITICAL pages (400+ impr, pos ≤10, 0 clicks) use 7-day minimum.
-  // All others use 14-day. Technical fixes (schema/canonical/404/etc) bypass both.
-  const daysSince = daysSinceLastEdit(fullPath);
-  const isTechnical = /schema|canonical|noindex|404|broken|redirect|voice|affiliate/i.test(task.description);
+  // Cooldown guard (A1). The classifier and the windows are lib/cooldown.ts, shared
+  // with strategy.ts — this used to be a local regex with a different keyword list,
+  // so a task the planner had cleared could still die here for a reason the planner
+  // could not have predicted. Deterministic defects bypass the gate entirely.
+  const text = classifiableText(task);
   const critical = isCriticalPage(task.filePath, gscData);
-  const cooldownRequired = critical ? 7 : 14;
-  if (daysSince < cooldownRequired && !isTechnical) {
-    return {
-      success: false,
-      summary: critical
-        ? `SKIPPED: ${task.filePath} edited ${daysSince}d ago. CRITICAL pages require 7-day minimum (too recent).`
-        : `SKIPPED: ${task.filePath} edited ${daysSince}d ago. Non-technical fixes require 14-day cooldown.`,
-    };
+
+  if (!isCooldownExempt(text)) {
+    const daysSince = daysSinceLastSubstantiveEdit(task.filePath);
+    if (daysSince === 'unknown') {
+      // The log could not be read. Defer rather than guess — a substantive rewrite
+      // is discretionary and next week is a fine time for it.
+      return {
+        success: false,
+        summary: `SKIPPED: ${task.filePath} — data/edit-log.jsonl is unreadable, so time since the last substantive revision is unknown. Deferring rather than assuming it is safe.`,
+      };
+    }
+    const verdict = cooldownVerdict({ text, daysSince, critical });
+    if (verdict.blocked) {
+      return { success: false, summary: `SKIPPED: ${task.filePath} ${verdict.reason}.` };
+    }
   }
 
   // ── Targeted edit path (meta description / title) ──────────────────────────
@@ -275,6 +295,11 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
       return { success: false, summary: `REJECTED (${task.filePath}): ${contentVerdictA.reason}` };
     }
     writeFileSync(fullPath, updated);
+    // Record at the moment of the write, never reconstructed afterwards — that is
+    // the property that makes the log worth reading. A meta/title rewrite is
+    // deterministic by construction (it is bounded by a character count), so this
+    // will not arm a cooldown; it is logged for audit.
+    recordEdit(ROOT, task.filePath, classifyEdit(text), 'execute-fixes', `[${fixType}] ${task.description}`);
     return { success: true, summary: `Fixed [${fixType}]: ${task.description} in ${task.filePath}` };
   }
   // ──────────────────────────────────────────────────────────────────────────
@@ -285,7 +310,7 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
   // and fixes add content on top — an 8k cap truncated them mid-file, which the
   // word-count guard then rejected. This silently blocked every fix on the biggest,
   // highest-opportunity pages. 20k gives headroom for current pages + growth.
-  const response = await client.messages.create({
+  const response = await meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 20000,
     system: [{ type: 'text', text: `You are an SEO implementation agent for tallchairadvisor.com (Astro SSG site).
@@ -314,7 +339,7 @@ ${fileContent}
 
 Output the complete updated file content only. Make ONLY the requested change.`,
     }],
-  });
+  }, { agent: 'execute-fixes', run: today(), purpose: 'full-file-fix' });
 
   // If generation hit the token ceiling the file is truncated mid-content — report
   // it distinctly so it isn't misdiagnosed as Claude deliberately shortening the page.
@@ -356,6 +381,9 @@ Output the complete updated file content only. Make ONLY the requested change.`,
   }
 
   writeFileSync(fullPath, sanitized);
+  // The full-file path reproduces the whole page, so it can move body copy even
+  // when the task reads as deterministic. Classify honestly rather than assuming.
+  recordEdit(ROOT, task.filePath, classifyEdit(text), 'execute-fixes', `[complex] ${task.description}`);
   return { success: true, summary: `Fixed [complex]: ${task.description} in ${task.filePath} (words: ${originalWordCount} → ${newWordCount})` };
 }
 

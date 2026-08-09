@@ -17,6 +17,7 @@ import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, writeWikiPage, readWikiPage, today } from './agents/wiki-utils.js';
+import { meterExternal } from './lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');  // scripts/ → tall-chair-advisor/ (one level up)
@@ -177,6 +178,16 @@ if (!res.ok) {
 }
 
 const body = (await res.json()) as any;
+if (typeof body?.cost === 'number' && body.cost > 0) {
+  meterExternal({
+    agent: 'keyword-discovery',
+    run: today(),
+    purpose: 'keyword-overview',
+    service: 'dataforseo',
+    unit: 'usd',
+    amount: body.cost,
+  });
+}
 const json: unknown[] = Array.isArray(body) ? body : (body?.tasks ?? []);
 
 // ─── 10.5. Save raw response ──────────────────────────────────────────────────

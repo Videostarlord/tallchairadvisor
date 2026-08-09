@@ -15,6 +15,8 @@
         "gsc:pull:16m": "tsx scripts/gsc-pull.ts --days=16m",
         "gsc:analyze": "tsx scripts/gsc-analyze.ts",
         "gsc:full": "npm run gsc:pull && npm run gsc:analyze",
+        "gsc:sitemap": "tsx scripts/gsc-sitemap.ts",
+        "gsc:sitemap:dry": "tsx scripts/gsc-sitemap.ts --dry-run",
         "agent:index-monitor": "tsx scripts/agents/index-monitor.ts",
         "agent:competitor": "tsx scripts/agents/competitor-monitor.ts",
         "agent:audit": "tsx scripts/agents/audit.ts",
@@ -34,6 +36,10 @@
         "ga4:pull": "tsx scripts/ga4-pull.ts",
         "ga4:pull:force": "tsx scripts/ga4-pull.ts --force",
         "ga4:full": "npm run ga4:pull && npm run gsc:analyze",
+        "amazon:pull": "tsx scripts/amazon-pull.ts",
+        "amazon:pull:dry": "tsx scripts/amazon-pull.ts --dry-run",
+        "asin:check": "tsx scripts/asin-check.ts",
+        "asin:check:dry": "tsx scripts/asin-check.ts --dry-run",
         "cost:rollup": "tsx scripts/cost-rollup.ts",
         "cost:reconcile": "tsx scripts/cost-rollup.ts --reconcile",
         "lint:architecture": "node scripts/lint-architecture.mjs",
@@ -60,7 +66,10 @@
         "zod": "^3.25.76"
     },
     "devDependencies": {
+        "@types/pngjs": "^6.0.5",
+        "pixelmatch": "^7.2.0",
         "playwright": "^1.62.1",
+        "pngjs": "^7.0.0",
         "tsx": "^4.19.2"
     }
 }

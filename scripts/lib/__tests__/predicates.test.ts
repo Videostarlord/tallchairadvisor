@@ -126,9 +126,18 @@ assert('canonical-self, complete → accepted', isValidClosurePredicate({ kind: 
 assert('schema-valid, complete → accepted', isValidClosurePredicate({ kind: 'schema-valid', url: '/a/', type: 'FAQPage' }));
 assert('asin-registered without optional minLinks → accepted', isValidClosurePredicate({ kind: 'asin-registered', url: '/a/' }));
 assert('collector-healthy, complete → accepted', isValidClosurePredicate({ kind: 'collector-healthy', collector: 'gsc' }));
+assert('visual-diff, complete → accepted', isValidClosurePredicate({ kind: 'visual-diff', url: '/a/', viewport: 'mobile', maxPct: 2 }));
+rejects('visual-diff with an unknown viewport', { kind: 'visual-diff', url: '/a/', viewport: 'tablet', maxPct: 2 });
+rejects('visual-diff with no maxPct', { kind: 'visual-diff', url: '/a/', viewport: 'mobile' });
+
+// The count is asserted deliberately so registering a kind is a visible diff,
+// exactly like BLOCKING_CLASSES in pr-gate. 11 = the PRD's 9 + collector-healthy
+// + visual-diff (P1).
 assert(
-  'every PRD kind plus collector-healthy is registered',
-  PREDICATE_KINDS.length === 10 && PREDICATE_KINDS.includes('collector-healthy'),
+  'every PRD kind plus collector-healthy and visual-diff is registered',
+  PREDICATE_KINDS.length === 11
+    && PREDICATE_KINDS.includes('collector-healthy')
+    && PREDICATE_KINDS.includes('visual-diff'),
   PREDICATE_KINDS.join(','),
 );
 

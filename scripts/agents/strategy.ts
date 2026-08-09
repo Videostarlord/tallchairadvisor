@@ -4,44 +4,59 @@
  */
 
 import 'dotenv/config';
-import Anthropic from '@anthropic-ai/sdk';
-import { execSync } from 'child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { readWikiIndex, readSynthesisContext, assertPromptBudget, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, logCacheUsage, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
+import { readWikiIndex, readSynthesisContext, assertPromptBudget, readConceptContext, readWikiPage, archiveToRaw, appendWikiLog, today, loadRecentOutcomes, formatOutcomesForPrompt, withRetry } from './wiki-utils.js';
 import { loadRedirectMap, isRedirectSource, resolveRedirect, withTrailingSlash } from '../redirect-map.js';
 import { renderDigest, type AuditFindingsFile } from '../audit-findings.js';
+import { meteredCreate } from '../lib/metered-client.js';
+import { isCooldownExempt, COOLDOWN_DAYS } from '../lib/cooldown.js';
+import { pagesWithRecentSubstantiveEdit } from '../lib/edit-log.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '../..');
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 function readIfExists(path: string, fallback = 'Not available.'): string {
   return existsSync(path) ? readFileSync(path, 'utf-8') : fallback;
 }
 
+/**
+ * Pages to show the planner as "recently revised" (21-day display window).
+ *
+ * A1, upstream half. This was `git log --since=21d`, which listed 49 of 54 pages
+ * — so the prompt told the model to avoid essentially the whole site, and the
+ * model duly proposed almost nothing. The enforcement gate downstream was only
+ * the second place work died; this is where it stopped being written at all.
+ *
+ * Reading the edit log instead means the list names pages whose SUBSTANCE
+ * actually changed, which is the only thing the cadence rule was ever about.
+ */
+const DISPLAY_WINDOW_DAYS = 21;
+
 function getRecentlyEditedPages(): string[] {
-  try {
-    const since = new Date(Date.now() - 21 * 86400000).toISOString().split('T')[0];
-    const output = execSync(
-      `git log --since="${since}" --name-only --pretty=format: -- src/pages/`,
-      { cwd: ROOT }
-    ).toString();
-    return [...new Set(output.split('\n').filter(f => f.endsWith('.astro')))];
-  } catch { return []; }
+  const recent = pagesWithRecentSubstantiveEdit(ROOT, DISPLAY_WINDOW_DAYS);
+  // Unreadable log: show nothing rather than a fabricated list. The enforcement
+  // gate independently defers substantive tasks in this case, so the omission
+  // cannot let churn through — it only avoids lying to the planner.
+  if (recent === 'unknown') return [];
+  return [...recent];
 }
 
-// 14-day cooldown set — stricter than the 21-day prompt window used for display
-function getPagesOnCooldown(): Set<string> {
-  try {
-    const since = new Date(Date.now() - 14 * 86400000).toISOString().split('T')[0];
-    const output = execSync(
-      `git log --since="${since}" --name-only --pretty=format: -- src/pages/`,
-      { cwd: ROOT }
-    ).toString();
-    return new Set(output.split('\n').filter(f => f.endsWith('.astro')));
-  } catch { return new Set(); }
+/**
+ * Pages that had a SUBSTANTIVE revision inside the cooldown window (A1).
+ *
+ * This used to be `git log --since=14d -- src/pages/`, which counted any commit
+ * touching the file — including the pipeline's own mechanical sweeps. Because a
+ * single sweep touches dozens of pages, the system's own work armed the lockout
+ * that blocked its next work: 49 of 54 pages were on cooldown on 2026-08-09.
+ *
+ * The edit log records what the agents actually did, classified at the moment
+ * they did it, so a link injection no longer masquerades as a rewrite. See
+ * lib/edit-log.ts for the failure posture behind the 'unknown' branch.
+ */
+function getPagesOnCooldown(): Set<string> | 'unknown' {
+  return pagesWithRecentSubstantiveEdit(ROOT, COOLDOWN_DAYS);
 }
 
 function getExistingPages(root: string): { filePath: string; slug: string }[] {
@@ -74,14 +89,12 @@ function getExistingPages(root: string): { filePath: string; slug: string }[] {
 // Drops tasks that violate hard constraints BEFORE saving the plan.
 // Strategy: drop bad tasks and keep valid ones — only hard-fail if zero valid tasks remain.
 
-const TECHNICAL_KEYWORDS = [
-  'schema', 'canonical', 'noindex', '404', 'broken link', 'voice violation',
-  'affiliate tag', 'redirect', 'json-ld', 'structured data', 'parse error',
-];
-function isTechnicalFix(line: string): boolean {
-  const l = line.toLowerCase();
-  return TECHNICAL_KEYWORDS.some(kw => l.includes(kw));
-}
+// A1: the technical/deterministic classifier used to live here as an 11-keyword
+// list, and a DIFFERENT 8-keyword list lived in execute-fixes.ts. A task could
+// pass one and fail the other, so the planner could not predict what would
+// actually apply. Both are now lib/cooldown.ts, imported by both call sites.
+// Neither old list covered spec corrections, which is why the 2026-08-06 plan
+// dropped its own Leap Plus spec fix to cooldown.
 
 // Tasks with conditional language require human judgment and are unsafe for autonomous execution
 const CONDITIONAL_PATTERNS = [
@@ -142,7 +155,8 @@ function injectMandatoryRoadmapItems(
 
 function enforcePlanConstraints(
   planText: string,
-  pagesOnCooldown: Set<string>,
+  /** 'unknown' = the edit log was unreadable; every substantive task is deferred. */
+  pagesOnCooldown: Set<string> | 'unknown',
   existingFilePathSet: Set<string>,
   fileToSlug: Map<string, string>,
   gscAnalysis: any,
@@ -225,12 +239,24 @@ function enforcePlanConstraints(
       continue;
     }
 
-    const technical = isTechnicalFix(line);
+    // A1: 'technical' is now 'deterministic' — a defect with exactly one correct
+    // value, verifiable by machine. Shared with execute-fixes.ts so a task that
+    // survives planning cannot be dropped for a different reason at apply time.
+    const technical = isCooldownExempt(line);
 
-    // Cooldown: 14-day window — exempt if technical fix OR decay-flagged page
-    if (pagesOnCooldown.has(filePath) && !technical && !decayExemptFiles.has(filePath)) {
-      dropped.push(`[cooldown: ${filePath} edited within 14d] ${line.trim().slice(0, 80)}`);
-      continue;
+    // Cooldown: exempt if the defect is deterministic OR the page is decaying.
+    // An unreadable edit log defers substantive work rather than permitting it —
+    // a gate that cannot see must not approve. Deterministic fixes still pass,
+    // because they never consult the log at all.
+    if (!technical && !decayExemptFiles.has(filePath)) {
+      if (pagesOnCooldown === 'unknown') {
+        dropped.push(`[cooldown indeterminate: data/edit-log.jsonl unreadable] ${line.trim().slice(0, 80)}`);
+        continue;
+      }
+      if (pagesOnCooldown.has(filePath)) {
+        dropped.push(`[cooldown: ${filePath} substantively edited within ${COOLDOWN_DAYS}d] ${line.trim().slice(0, 80)}`);
+        continue;
+      }
     }
 
     // Impression threshold: non-technical FIX tasks need 300+ impressions
@@ -411,7 +437,7 @@ async function main() {
 
   assertPromptBudget('strategy', `${thesis}${decisionsLog}${conceptContext}${auditDigest}`);
 
-  const response = await withRetry(() => client.messages.create({
+  const response = await withRetry(() => meteredCreate({
     model: 'claude-sonnet-4-6',
     max_tokens: 4000,
     system: [
@@ -545,7 +571,9 @@ ${linkGaps.length > 0
   : '(none — either link-audit.json not yet generated or all high-impression pages sufficiently linked)'}
 
 EDIT CADENCE RULES — CRITICAL:
-- Do NOT schedule FIXES or REWRITES for pages edited in the last 14 days UNLESS the issue is technical (broken schema, bad canonical, 404 link, noindex error, voice violation, affiliate tag).
+- Cooldown governs SUBSTANTIVE revision only: adding or rewriting sections, changing a page's angle or argument, reworking body copy. Do NOT schedule those for a page listed as recently revised below.
+- DETERMINISTIC defects are ALWAYS in scope, on any page, at any time — they have exactly one correct value and the current one is provably wrong. Schedule them freely: title or meta description length, wrong or contradictory specs (seat height, seat depth, weight limit, dimensions), broken schema or JSON-LD, bad canonical, noindex error, 404 or broken link, redirect, missing or dead affiliate tag or ASIN, voice violation, missing alt text, orphaned or under-linked pages.
+- A page being recently revised is NOT a reason to leave a factual error or a 73-character title in place. Waiting does not make those righter.
 - New content pages can be published freely every week.
 - IMPRESSION THRESHOLDS FOR ACTION:
   - <100 impressions: noise — do not optimize, let it index
@@ -553,8 +581,8 @@ EDIT CADENCE RULES — CRITICAL:
   - 300+ impressions: actionable signal — CTR/meta changes are worth trying
   - 400+ impressions at pos ≤10 with 0 clicks: CRITICAL — fix regardless of cooldown
 
-RECENTLY EDITED PAGES (do not re-edit unless technical fix):
-${recentlyEdited.length > 0 ? recentlyEdited.map(f => `- ${f}`).join('\n') : '(none in last 21 days)'}
+RECENTLY REVISED PAGES — substantive content changes only (no new REWRITE here; deterministic fixes are still fine):
+${recentlyEdited.length > 0 ? recentlyEdited.map(f => `- ${f}`).join('\n') : `(none substantively revised in the last ${DISPLAY_WINDOW_DAYS} days)`}
 
 EXISTING PAGES — authoritative file list (execution agents can only edit these files):
 ${existingFilePaths}
@@ -583,9 +611,7 @@ Output a structured weekly plan in this EXACT format so the execution agents can
 ## STRATEGY NOTES
 [2-3 sentences on the week's focus and why]`,
     }],
-  }));
-
-  logCacheUsage('strategy', response.usage, ROOT);
+  }, { agent: 'strategy', run: today(), purpose: 'weekly-plan' }));
 
   const plan = response.content[0].type === 'text' ? response.content[0].text : '# Plan generation failed.';
   const todayStr = new Date().toISOString().split('T')[0];

@@ -3226,3 +3226,16 @@ A10 remains open and is explicitly *not* a Playwright job — Amazon blocks data
 Two of Jackson's three asks turned out not to need a browser at all — sitemap submission has an API endpoint, and scroll attention is already collected by `clarity-pull.ts`. The genuinely valuable new build is **visual regression in the existing probe**, including a mobile viewport that has zero coverage today.
 
 **Process note for future sessions:** never `git commit -a` in this repo while an unrelated refactor is dirty. It swept 10 in-flight `meteredCreate` files into a throwaway branch today; fully recovered from the dangling commit, but use explicit pathspecs.
+
+## [2026-08-09] autonomous-data-layer | All five workstreams built (A1, P1, P2, P3, P4)
+
+Branch `feat/autonomous-data-layer`. 7 commits. Tests 12 → 17 files, all passing; `lint:architecture` no new violations; build green (54 pages).
+
+- **A1 cooldown gate FIXED.** Root cause was not the threshold: `git log --since=14d` counted any commit, so the pipeline's own bulk sweeps armed the lockout blocking its next work. **49/54 pages locked → 0.** New `lib/cooldown.ts` (one shared classifier, replacing two that had drifted) + `data/edit-log.jsonl` (records what agents actually changed, seeded from interventions.jsonl). Verified against the 5 real task lines the 2026-08-06 plan dropped — all 5 now pass.
+- **P1 visual regression.** `raw/visual/baseline/` — 98 baselines, 49 pages × desktop 1366×900 + **mobile 375×812, the first mobile coverage the site has ever had.** Advisory (absent from `BLOCKING_CLASSES`) until the 2% threshold is calibrated. Stability verified: two independent production runs, 0.000% on all comparisons.
+- **P2 sitemap submit** on Saturday's deploy, with `sitemaps.get` read-back. **`siteFullUser` turned out to be sufficient** — the predicted need for `siteOwner` was wrong, verified by a real submit.
+- **P3 Amazon Associates** — ships inert; files `amazon-session-expired` rather than ever reporting `$0`. Blocked on Jackson capturing `AMAZON_STORAGE_STATE` (an agent must never handle that login).
+- **P4/A10 dead ASINs** via Firecrawl, monthly. **First live run produced a false positive** (cross-sell "Currently unavailable" read as the linked product being dead) — fixed, pinned as a test fixture from the real page.
+- **Recovered** a cost-metering refactor that had been sitting uncommitted in the working tree; drives `lint:architecture` R5 from 15 → 0.
+
+Wiki updated: [[autonomous-data-layer]] (full build record), [[open-issues-status]] (A1/A10 status), [[decisions-log]] (3 new decisions).
