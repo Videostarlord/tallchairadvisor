@@ -3277,3 +3277,13 @@ Wiki updated: [[affiliate-performance]], [[godseye-nightly]].
 Recorded in [[godseye-nightly]] alongside the heartbeat and token-log failures, and the workflow's rule list grew a third entry: **any step that WRITES a file must run before the step that READS it.** Plus a fourth cutting across all of them — **never let mtime decide anything**, since CI checkout stamps every file "now"; caught in three components to date.
 
 Also marked P3 LIVE across the wiki — five pages still said "inert / blocked on Jackson" after activation: [[open-issues-status]], [[autonomous-data-layer]], [[affiliate-performance]], [[index]].
+
+## [2026-08-09] ledger | visual-diff was filable but not readable — the ledger broke when P1 started working
+
+`visual-diff` was registered in `scripts/lib/predicates/` (the WRITE path) but not in `scripts/schemas/ledger.ts` (the READ path). The probe filed 10 real visual-regression findings, and the next validated read of `data/ledger.jsonl` threw on all of them. **The ledger went unreadable the moment a new detector started working.**
+
+The `collector-healthy` member one line earlier in that same file documents this exact trap — *"the ledger would throw precisely when something had gone wrong, which is the worst possible time for the observation system to go blind"* — and it still happened, four commits after the identical class (A1's two cooldown classifiers) was fixed elsewhere.
+
+The nightly's own steps stayed green. It was caught by `read-validated.test.ts`'s *"every real data file satisfies its own contract right now"*, which is why that assertion runs against real on-disk data rather than fixtures.
+
+Fixed, plus a new test asserting the two discriminator lists are identical — the two cannot be merged (`schemas/` must stay free of the predicate layer's imports), so drift is made loud instead. Recorded in [[godseye-nightly]] as the fourth seam defect and a fifth workflow rule.
