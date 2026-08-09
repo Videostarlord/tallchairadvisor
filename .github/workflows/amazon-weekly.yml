@@ -74,6 +74,7 @@ jobs:
         id: pull
         run: |
           npx tsx scripts/amazon-pull.ts \
+            --mode weekly \
             --days "${{ github.event.inputs.days || '30' }}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
@@ -85,7 +86,7 @@ jobs:
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          for p in raw/affiliate data/collectors/amazon-session.json; do
+          for p in raw/affiliate data/affiliate data/collectors/amazon-session.json; do
             [ -e "$p" ] && git add "$p" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: Amazon Associates export $(date -u +%Y-%m-%d)"

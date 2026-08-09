@@ -56,6 +56,12 @@ import {
   describeWindow,
   type ExportWindow,
 } from './lib/amazon-session.js';
+import {
+  writeSnapshot,
+  LATEST_PATH,
+  HISTORY_PATH,
+  type AffiliateSnapshot,
+} from './lib/affiliate-store.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -81,10 +87,16 @@ const OVERVIEW_COLUMNS = [
   'total_revenue', 'total_earnings',
 ].join(',');
 
-interface Args { days: number; dryRun: boolean; statePath: string | null }
+/**
+ * `daily` refreshes the live layer only. `weekly` does that AND writes the dated
+ * archive snapshot. See lib/affiliate-store.ts for why the two clocks differ.
+ */
+type Mode = 'daily' | 'weekly';
+
+interface Args { days: number; dryRun: boolean; statePath: string | null; mode: Mode }
 
 function parseArgs(argv: string[]): Args {
-  const a: Args = { days: 30, dryRun: false, statePath: null };
+  const a: Args = { days: 30, dryRun: false, statePath: null, mode: 'weekly' };
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i];
     const next = (): string => {
@@ -96,6 +108,12 @@ function parseArgs(argv: string[]): Args {
       case '--days': a.days = Number.parseInt(next(), 10); break;
       case '--dry-run': a.dryRun = true; break;
       case '--state': a.statePath = next(); break;
+      case '--mode': {
+        const m = next();
+        if (m !== 'daily' && m !== 'weekly') throw new Error(`--mode must be 'daily' or 'weekly', got '${m}'`);
+        a.mode = m;
+        break;
+      }
       default: if (flag.startsWith('--')) throw new Error(`unknown flag ${flag}`);
     }
   }
@@ -459,8 +477,26 @@ async function main(): Promise<void> {
       return;
     }
 
-    const reportPath = writeExport(result, window);
-    console.log(`[amazon-pull] wrote ${reportPath}`);
+    // The live layer, on every run. `fetchedAt` is the authoritative freshness
+    // signal — written into the file precisely so no consumer has to stat it.
+    writeSnapshot(ROOT, {
+      fetchedAt: new Date().toISOString(),
+      window: { start: window.start, end: window.end, kind: window.kind },
+      totals: result.totals,
+      rows: result.rows as unknown as AffiliateSnapshot['rows'],
+      mode: args.mode,
+    });
+    console.log(`[amazon-pull] wrote ${LATEST_PATH} (+ appended ${HISTORY_PATH})`);
+
+    // The dated archive snapshot, weekly only. Writing it daily would put ~30
+    // near-identical reports a month into raw/, which is an archive of evidence
+    // and decisions rather than a log.
+    if (args.mode === 'weekly') {
+      const reportPath = writeExport(result, window);
+      console.log(`[amazon-pull] wrote ${reportPath}`);
+    } else {
+      console.log('[amazon-pull] daily mode — no raw/ archive snapshot written (weekly does that).');
+    }
   } catch (error) {
     if ((error as { sessionInvalid?: boolean }).sessionInvalid === true) {
       writeSessionExpired((error as Error).message);

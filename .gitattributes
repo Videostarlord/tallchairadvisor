@@ -25,3 +25,10 @@ data/cost-drift.jsonl   merge=union
 # harmless repeat rather than a semantic defect — union is correct here, for the
 # same reason it is correct for token-log.jsonl and wrong for ledger.jsonl.
 data/edit-log.jsonl      merge=union
+
+# Affiliate pull history — one appended line per run, daily on `main` via the
+# nightly and weekly on `staging` via amazon-weekly. Same append-only shape as
+# token-log.jsonl: every line is an independent timestamped pull, order carries
+# no meaning, and a duplicate is a harmless repeat. Without union this is the
+# token-log conflict that killed the Saturday deploy, in a new file.
+data/affiliate/history.jsonl  merge=union

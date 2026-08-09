@@ -107,6 +107,30 @@ jobs:
         continue-on-error: true
         run: npx playwright install --with-deps chromium
 
+      # Affiliate revenue into the LIVE layer, daily. Chromium is already
+      # installed above for the probe, so this costs one page load.
+      #
+      # --mode daily writes data/affiliate/latest.json + history.jsonl and NOT a
+      # raw/ snapshot: running the weekly archive report daily would put ~30
+      # near-identical dated files a month into raw/, which is an archive of
+      # evidence rather than a log. amazon-weekly.yml still writes that snapshot.
+      #
+      # This is what finally puts revenue in the nightly's field of view, next to
+      # GSC, GA4 and Clarity. continue-on-error because an affiliate hiccup must
+      # not take down the observation run — collectors/amazon.ts reads the
+      # snapshot's own `fetchedAt` and reports staleness as a finding, so a
+      # silent failure surfaces within 3 days instead of vanishing.
+      # No secret guard on the `if`: a step's own `env:` block is not in scope for
+      # that step's own `if`, so `env.AMAZON_STORAGE_STATE != ''` would silently
+      # evaluate false and skip this every night. The script already exits 0 with
+      # a setup notice when the secret is absent, which is the correct no-op.
+      - name: Pull affiliate revenue (daily)
+        if: ${{ !inputs.skip_probes }}
+        continue-on-error: true
+        env:
+          AMAZON_STORAGE_STATE: ${{ secrets.AMAZON_STORAGE_STATE }}
+        run: npm run amazon:pull:daily
+
       # --visual (P1) captures desktop 1366x900 + mobile 375x812 and diffs each
       # against raw/visual/baseline/. The page is already open and already
       # measured, so this costs no extra navigation and no model tokens.
@@ -189,6 +213,7 @@ jobs:
                    data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
                    data/collectors data/probes data/interventions.jsonl \
                    data/edit-log.jsonl raw/visual/baseline \
+                   data/affiliate \
                    data/nightly-heartbeat.json; do
             [ -e "$p" ] && git add "$p" || true
           done
