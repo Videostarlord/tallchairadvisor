@@ -1,6 +1,17 @@
 /**
  * retention.ts — a bounded on-disk footprint for the nightly's own artifacts (A5).
  *
+ * ⚠️  NOT WIRED IN. Nothing calls this module yet. A5 is NOT closed.
+ *
+ * The measurements and the evidence-safety argument below are done and stand on
+ * their own, but no workflow invokes `pruneProbeArtifacts()`, so probe files are
+ * still accumulating at ~490 KB/night exactly as before. Wiring it into
+ * nightly.yml (after `ledger:evaluate`, so the pinning set is current) is the
+ * remaining step. Recorded here rather than in a commit message because a
+ * library with no caller reads as finished work to everyone who finds it later,
+ * and this codebase has already been burned once by a component that looked
+ * healthy while doing nothing.
+ *
  * WHAT WAS ACTUALLY MEASURED, 2026-08-09, before any policy was written:
  *
  *   data/probes/         1.9 MB   4 dated files, 484–500 KB each, one per night

@@ -94,13 +94,30 @@ Two corrections came out of activating it, neither reachable without a live sess
 
 **P2 needed nothing.** It was predicted to need `siteOwner`; a real submit succeeded under the existing `siteFullUser` with `lastSubmitted` advancing and zero errors. Recorded so it does not become a phantom blocker.
 
+## Changed on 2026-08-09 (second session) — B11 closed
+
+| Item | Status | Now |
+|---|---|---|
+| **B11** Leap Plus spec sweep | B-CRITICAL, open since 2026-08-06 | **CLOSED.** 146 statements across 29 files, verified against the rendered HTML. Cause fixed too: `data/chair-specs.json` + a `guarded` rule in `lint-content.mjs` fails the build on any unqualified `22.5"` claim. Detail in [[steelcase-leap-plus]] and [[log]]. |
+| **B7** "under-linked" claim | open, flagged questionable | **Was a fabricated task, like B7's other half.** Measured directly: `/office-chairs-for-6-foot-4/` has **7 distinct inbound internal links** and 15 unique outbound, which is neither under-linked nor orphaned. Nothing in `scripts/` computes an "under-linked" metric — grep finds no such detector. The finding came from an LLM audit narrating a plausible-sounding deficiency, not from a measurement. **No action; the item is the lesson.** |
+
+### The gate I wrote to close B11 passed real instances twice
+
+Worth recording because it is A13's argument arriving in a new place, and this time the blind detector was one written *for* this task:
+
+1. **Line-scoped context is blind to tables.** A bare `<td>22.5"</td>` names no dimension — its row label is structural, lines away. **26 real instances sat inside comparison tables on pages whose prose was already corrected.**
+2. **Literal matching missed ranges containing inch marks.** `15.5"-22.5"` does not contain `15.5-22.5`, so the fabricated range survived exactly where it did the most damage.
+
+**Both were caught by checking the rendered HTML rather than the source.** The source-level gate reported clean while the shipped pages still carried the error — a detector that reads only its inputs cannot see what its own transform emits. That is the strongest concrete argument yet for **A13**, and it now has a worked example rather than a rationale.
+
 ## Still open, unchanged
 
-- **A2** Nightly cannot see the agents' own execution logs · **A5–A8** (medium) · **A13** No health check on the detectors themselves
+- **A2** Nightly cannot see the agents' own execution logs · **A6** cost reconcile · **A13** No health check on the detectors themselves
+- **A5** — `scripts/lib/retention.ts` is written, measured and reasoned, but **nothing calls it**. Probe files still accumulate at ~490 KB/night. The file header says so; do not read its existence as closure.
+- **A7 / A8** — untouched this session (the agents working them were killed mid-task by a spend limit).
 - **B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0
-- **B7** `/office-chairs-for-6-foot-4/` "under-linked" claim — re-verify what it measured; it already has 7 inbound links
-- **B11** the Leap Plus spec sweep across 31 files (pre-existing instances)
 - **C** 14 findings held back by strategy
+- **A4** architecture lint backlog, 163
 
 ## Ledger findings are not closed by hand
 
