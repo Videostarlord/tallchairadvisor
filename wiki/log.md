@@ -3304,3 +3304,22 @@ The Leap Plus spec sweep is done: **146 statements across 29 files**, against a 
 Not closed: **A5**. `scripts/lib/retention.ts` exists, measured and reasoned, but **nothing calls it** — probe files still accumulate at ~490 KB/night. Labelled in the file header rather than left to read as done.
 
 Related: [[steelcase-leap-plus]] · [[open-issues-status]] · [[godseye-nightly]]
+
+## 2026-08-09 — B5 closed: the flagship page never said the one thing only it could say
+
+`/review/gesture/` carried **8,415 impressions at 0.12% CTR, position 8.0** — the highest-impression page on the site that is not AIO-suppressed, and the only page where Jackson has actually sat in the chair. Its title said `Tall User Fit Analysis`. Its meta mentioned "a 6'4" owner" at word four. **The single asset no competitor on that SERP can copy was absent from the title and buried in the snippet**, and the page was competing on the same generic spec language as aggregators who have never touched a Gesture.
+
+Title and meta both rewritten to lead with ownership (58 ch / 146 ch, verified on the rendered HTML rather than the source). The meta trades abstract nouns for a measured knee clearance, a pain outcome, and a named exclusion — telling 6'5"+ readers to look at the Leap Plus instead, which is both the honest answer and a route to a page that fits them.
+
+**Two desyncs surfaced while doing it, and neither was in the ledger:**
+
+1. **The old meta advertised a range the page contradicted.** It promised a fit verdict for `6'1"–6'7"` while the body has told 6'5"+ to buy the Leap Plus since May 25. The snippet was selling something the content then refused — a plausible contributor to the 0.12% it was filed under, and invisible to any check that reads the meta alone.
+2. **The Direct Answer box was the last survivor of the pre-May-25 framing** — still "at 6'4", seat depth is a borderline fit", still capping the range at 6'3". The TL;DR box, the seat-depth section, the verdict list, the FAQ, the FAQPage schema and the Review `reviewBody` had all been corrected to ~3 finger-widths. **One box, six corrected copies of the same fact, and the box is the one above the fold.** It survived because the May 25 rewrite fixed the body and the box sits above it.
+
+The general shape: a content rewrite that corrects a fact in the prose does not necessarily correct the *summary* of that prose, and summary boxes are read first. Worth a detector — the same argument as [[open-issues-status]] A13, one layer up.
+
+`dateModified`, Byline `updatedDate`, and `pageLastmod` synced to 2026-08-09. Lint clean (54 pages), build clean (54 pages), JSON-LD parses, og/twitter derive from the same props so no snippet drift is possible.
+
+Scope held deliberately: this treatment is sanctioned **only** because the page is *at* position 8.0, not below it. It was not extended to any other page.
+
+Related: [[review-gesture]] · [[open-issues-status]] · [[ctr-optimization]] · [[steelcase-gesture]]

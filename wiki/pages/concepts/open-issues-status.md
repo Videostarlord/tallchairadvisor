@@ -115,7 +115,7 @@ Worth recording because it is A13's argument arriving in a new place, and this t
 - **A2** Nightly cannot see the agents' own execution logs · **A6** cost reconcile · **A13** No health check on the detectors themselves
 - **A5** — `scripts/lib/retention.ts` is written, measured and reasoned, but **nothing calls it**. Probe files still accumulate at ~490 KB/night. The file header says so; do not read its existence as closure.
 - **A7 / A8** — untouched this session (the agents working them were killed mid-task by a spend limit).
-- **B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0
+- ~~**B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0~~ — **title/meta rewritten 2026-08-09.** Ledger `018c617c0678`. Both now lead with the fact that this is the one chair Jackson owns and sits in. See [[review-gesture]]. Sanctioned only because the page sits *at* pos 8.0 — the kill list bars this treatment below it, and this remains the single CTR task in scope.
 - **C** 14 findings held back by strategy
 - **A4** architecture lint backlog, 163
 

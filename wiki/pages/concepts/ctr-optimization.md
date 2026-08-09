@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-05-10
+last_updated: 2026-08-09
 sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-04-22-serp-analysis.md, data/gsc/latest.json]
 tags: [ctr, meta-descriptions, serp, high-priority]
 ---
@@ -28,13 +28,23 @@ Two distinct suppression mechanisms explain the 0% CTR:
 
 | Page | Impressions | Position | CTR | Actual Cause |
 |------|------------|----------|-----|-------------|
-| [[review-gesture]] | 2529 | 8.2 | 0.12% | Meta rewrite test ran May 7 — awaiting data signal |
+| [[review-gesture]] | 2529 → **8415** | 8.2 → **8.0** | 0.12% → **0.12%** | **The May 7 verdict-first rewrite did nothing.** Impressions 3.3×'d, CTR did not move. Re-rewritten 2026-08-09 on a different thesis — see below |
 | /knee-pain-seat-depth/ | 1925 | 8.6 | 0.16% | Meta rewrite test ran May 7 — awaiting data signal |
 | /correct-chair-dimensions/ | 1658 | 16.1 | 0.18% | Low position — content depth is primary lever |
 | [[aeron-tall-people]] | 1353 | 7.4 | 0.30% | Some clicks landing; meta rewrite ran May 7 |
 | /review/leap-plus/ | 971 | 8.5 | 0.31% | Comparable to Gesture — editorial SERP, meta is actionable |
 | [[aeron-vs-gesture]] | 385 | 8.5 | 0% | 0-click despite solid position — meta rewrite queued W19 |
 | /best-office-chairs/ | 755 | 22.8 | 0% | Low position + shopping carousels — position is the fix |
+
+## Verdict-first did not work on /review/gesture/ (2026-08-09)
+
+The May 7 rewrite was verdict-first, lever #5 below. Three months and **8,415 impressions** later, CTR is **0.12% — unchanged**, at a position that also barely moved (8.2 → 8.0). The impression base tripled, so this is not a small-sample result any more.
+
+**The read: verdict-first is table stakes, not differentiation.** Every aggregator on that SERP also leads with a verdict. A snippet that competes on the same axis as eight competitors cannot win on that axis; it has to compete on an axis they cannot enter.
+
+The 2026-08-09 rewrite therefore leads with **ownership** — `I'm 6'4" and Use It Daily` in the title, a measured knee clearance and a pain outcome in the meta. Not a better verdict, a *different kind of claim*: the one thing on this SERP that a spec-scraper cannot fabricate. This is the site's only first-person-tested page, so this test cannot be replicated elsewhere — but if it moves CTR, it argues that **first-hand-evidence signals in the snippet** beat verdict phrasing on review SERPs, which changes what the remaining research-based pages should lead with (community data, ME spec analysis) instead of another verdict.
+
+Baseline to beat: **0.12% at pos 8.0, 8,415 impressions.** Next GSC pull is the readout.
 
 ## What Can Actually Move CTR
 

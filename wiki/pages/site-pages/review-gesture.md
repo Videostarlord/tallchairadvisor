@@ -2,7 +2,7 @@
 type: entity
 entity: site-page
 url: /review/gesture/
-last_updated: 2026-06-14
+last_updated: 2026-08-09
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-19-blog-audit.md, raw/audits/2026-05-10-full-seo-audit.md, data/gsc/latest.json, data/competitors/intelligence.json]
 tags: [page, review, gesture, first-person, flagship]
 ---
@@ -16,13 +16,35 @@ tags: [page, review, gesture, first-person, flagship]
 | Metric | Value |
 |--------|-------|
 | Blog audit score (May 10 pre-rewrite) | 90/100 — best content page on site |
-| Impressions | 2,529 |
-| Position | 8.2 |
-| CTR | 0.09% — primary rewrite motivation |
-| Meta description | 146 chars ✅ |
+| Impressions | 2,529 (→ **8,415** by the 2026-08-06 audit) |
+| Position | 8.2 (→ **8.0**) |
+| CTR | 0.09% — primary rewrite motivation (→ **0.12%**, still the B5 problem) |
+| Meta description | 146 chars ✅ (rewritten 2026-08-09, still 146) |
 | Schema | Product + FAQPage + BreadcrumbList + aggregateRating + itemReviewed ✅ |
 | Word count | 3,000+ (post-rewrite) |
 | sitemap lastmod | 2026-05-25 ✅ |
+
+## Title & Meta (B5, 2026-08-09)
+
+**Before**
+- Title (55) — `Steelcase Gesture Review (2026): Tall User Fit Analysis`
+- Meta (146) — `Independent review by a 6'4" owner. Seat depth, armrests, back height verdict for tall users 6'1"–6'7". Who the Gesture fits — and who it doesn't.`
+
+**After**
+- Title (58) — `Steelcase Gesture Review (2026): I'm 6'4" and Use It Daily`
+- Meta (146) — `I'm 6'4" and the Steelcase Gesture is my daily chair. Real knee clearance measured, back-pain results, and why 6'5"+ should look at the Leap Plus.`
+
+**The reasoning.** The old snippet was not wrong, it was *generic* — "Independent review by a 6'4" owner" was buried at word four of the meta and absent from the title entirely, and "Tall User Fit Analysis" is a phrase any spec-scraper could write. The SERP at this query is aggregators who have never sat in the chair. **The only thing this page has that none of them have is that Jackson owns it**, so ownership moved into the title. First-person is legitimate here and on no other review page.
+
+The meta swaps abstract nouns ("seat depth, armrests, back height") for the specific things a buyer cannot get from a spec sheet: a measured knee clearance, a pain outcome, and an honest exclusion. The exclusion is deliberate — naming who should *not* buy it is the highest-trust move available in a snippet, and it routes 6'5"+ traffic to the Leap Plus rather than bouncing it.
+
+**Also corrected: the old meta advertised a range the page contradicts.** It promised a verdict for `6'1"–6'7"`, while the body has said since the May 25 rewrite that 6'5"+ should buy the Leap Plus. The snippet was selling a fit the page then refused — plausibly its own CTR drag, since it drew clicks the content immediately disappointed.
+
+## Desync found and fixed (2026-08-09)
+
+The Direct Answer box was the **last survivor of the pre-May-25 framing**: it still read *"At 6'4", seat depth is a borderline fit"* and capped the good-fit range at 6'3". Every other statement of the same fact on the page — the TL;DR box, the seat-depth section, the verdict list, the FAQ, the FAQPage schema, and the Review `reviewBody` — had already been corrected to ~3 finger-widths and "not a borderline fit."
+
+It survived because the May 25 rewrite corrected the *body* and the box sits above it. Rewritten to match, which was also required to keep the new title honest: a title asserting confident daily use at 6'4" over a box calling that height borderline is exactly the title/content mismatch this work is supposed to avoid.
 
 ## Open Issues
 
@@ -67,6 +89,7 @@ tags: [page, review, gesture, first-person, flagship]
 | 2026-05-12 | AIO citation capsule inserted after "Seat Depth" H2 | Spec-validated (18.75") |
 | 2026-05-25 | Full first-person rewrite from Jackson Q&A session. Intro rewritten with real pain story + "woah" moment. Seat depth corrected 1.5–2 → 3 fingers. Break-in story replaced (was AI-generated). Armrests section honest account. Backrest section adds pain improvement + nap story. Height guide: 6'4" no longer "borderline". Verdict updated to 4.5/5 through 6'4". CTA added after Direct Answer box. itemReviewed schema added. sitemap lastmod updated. | All 4 major open issues resolved |
 | 2026-06-14 | TL;DR Verdict Box moved before hero image — now appears immediately after the Disclosure notice, before the `<figure>`. Fixes ChatGPT bounce problem (3% scroll, visitors left before seeing Best for/Not ideal for). | Hero image no longer gates the verdict |
+| 2026-08-09 | **B5 — title/meta rewritten to lead with first-person ownership.** Title `Tall User Fit Analysis` → `I'm 6'4" and Use It Daily` (58 ch). Meta rewritten to 146 ch, dropping the false `6'1"–6'7"` range. H1 subhead restated in first person. Direct Answer box de-desynced (see below). `dateModified`, Byline `updatedDate`, and sitemap `pageLastmod` all synced to 2026-08-09. | Awaiting GSC. Baseline to beat: 0.12% CTR, 8,415 impressions, pos 8.0 |
 
 ## Links
 
