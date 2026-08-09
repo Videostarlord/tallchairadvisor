@@ -116,7 +116,7 @@ Worth recording because it is A13's argument arriving in a new place, and this t
 |---|---|---|
 | **A5** Probe retention | A-MEDIUM, open — module written, nothing called it | **CLOSED.** `scripts/retention-prune.ts` (`npm run retention:prune`) runs in `nightly.yml` immediately after `ledger:evaluate`, and in the `godseye` script at the same position. 30-night window; `data/ledger.jsonl` is sized but never pruned. |
 | **A8** `.env` name drift | A-MEDIUM, open — "quotas.ts accepts both, which masks it" | **CLOSED as a masking problem.** The aliases still work; they are no longer silent. Canonical names documented in `.env.example`; `collect-all.ts` prints a drift banner before the collectors run. |
-| **A7** GSC URL Inspection ~6 min | A-MEDIUM, open | **BLOCKED, not deferred** — it lives in a file another agent owns this session. See below; the audit also names the wrong file. |
+| **A7** GSC URL Inspection ~6 min | A-MEDIUM, open | **NO LONGER BLOCKED — now half-built.** `scripts/lib/gsc-rotation.ts` is written (cycle tracking; `new`/`changed`/`due` priority so a new URL is never starved) but **nothing calls it**. `collectors/gsc.ts:307` still takes the prefix slice, so the nightly still spends ~6 min. The session building it hit its limit before wiring. |
 
 ### A5's real risk was not deletion — it was a pruner that reclaims nothing
 
@@ -177,8 +177,8 @@ Its first caller found a live instance of the same class inside this file. `summ
 
 ## Still open, unchanged
 
-- **A6** cost reconcile
-- **A7** — blocked on `scripts/collectors/gsc.ts` ownership, see above. Nothing else stands in the way.
+- **A6** cost reconcile — **and the figure is an undercount.** `data/cost-ledger.jsonl` is committed **only** by `nightly.yml`, so every Tue–Sat agent writes its spend into the runner and it is discarded. "$3.62 across 29 calls" excludes every weekday LLM call ever made. One line per workflow to fix. Separately, `data/agent-health.jsonl` has no retention policy — A5's pruner covers `data/probes/` only.
+- **A7** — the module exists, unwired. Remaining: the `collectors/gsc.ts` edit (read state → `planRotation()` in place of the slice → `applyResults()` → write state), tests, and a decision about what a deliberately-partial night reports now that `lib/agent-health.ts` distinguishes `unevaluable` from zero. A rotation working as designed is not a blind collector — and must not silently become `healthy: true` either.
 - ~~**B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0~~ — **title/meta rewritten 2026-08-09.** Ledger `018c617c0678`. Both now lead with the fact that this is the one chair Jackson owns and sits in. See [[review-gesture]]. Sanctioned only because the page sits *at* pos 8.0 — the kill list bars this treatment below it, and this remains the single CTR task in scope.
 - **C** 14 findings held back by strategy
 - **A4** architecture lint backlog, 163
