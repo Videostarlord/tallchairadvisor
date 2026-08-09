@@ -9,7 +9,7 @@ tags: [automation, playwright, api, visual-regression, architecture]
 
 **Full build spec: `raw/strategy/2026-08-09-autonomous-data-layer-plan.md`.** This page is the durable summary; the spec is the executable detail.
 
-**Status: not started** as of 2026-08-09.
+**Status: ALL FIVE BUILT 2026-08-09**, branch `feat/autonomous-data-layer`. A1, P1, P2, P3, P4 — see "What shipped" below for what each one actually does and what it cost to learn.
 
 ## The question
 
@@ -54,6 +54,92 @@ The real limit there is sample size: 1–2 sessions per page as of 2026-08-07, s
 ## The dependency that outranks all of it
 
 **A1 — the cooldown gate applies zero fixes** (29 findings → 0 applied across a full-week stress test). Every item here adds *observation* to a pipeline that ships nothing it finds. More instrumentation without A1 produces better-documented stagnation.
+
+**Resolved 2026-08-09 — and the root cause was not the threshold.** See below.
+
+---
+
+# What shipped, 2026-08-09
+
+## A1 — the pipeline was blocking itself
+
+Cooldown asked `git log --since=14d -- <file>`: **any** commit touching a page. But most commits touching a page are the pipeline's own mechanical sweeps — one inbound-link injection across 8 orphans (`66bc44c`), one GEO capsule rollout across 45 pages (`a2f809f`), one spec qualification across 17 (`fe06db6`). Each sweep re-armed a 14-day lockout on everything it touched.
+
+**The gate tightened in proportion to how much the system did.** Measured before the fix: **49 of 54 pages locked.** After: **0.**
+
+Three defects, all fixed:
+
+1. **Wrong signal.** `data/edit-log.jsonl` now records what agents actually changed, classified at the moment of the write. Cooldown reads that, not git. Seeded from `interventions.jsonl` — deliberately not from git, the signal being retired.
+2. **Two classifiers that disagreed.** `strategy.ts` exempted 11 keywords at plan time; `execute-fixes.ts` exempted 8 different ones at apply time, so a task could clear the planner and die on application for a reason the planner could not see. Both are now `lib/cooldown.ts`.
+3. **Neither list covered the defects the system finds.** The 2026-08-06 plan dropped its own Leap Plus spec correction to cooldown — the same plan whose prose said that fix *"bypasses the cooldown gate on technical grounds"*. "Correct the spec contradiction" matched no keyword in either list.
+
+**The distinction now encoded:** cooldown governs *substantive revision* (thrash looks bad to Google; two content changes in one measurement window make attribution impossible). It does not govern *deterministic defects* — title/meta length, wrong specs, schema, canonical, redirects, dead affiliate tags, alt text, orphans — which have exactly one correct value and are machine-verifiable. Waiting does not make a 73-character title righter.
+
+**Deliberately not loosened:** "Add a Fit Verdict callout block" and "Expand the Compare With section" remain substantive and still wait. Exempting those too would be a removal, not a fix.
+
+Verified against the five real task lines the 2026-08-06 plan dropped: all five now pass — three as deterministic, two because those pages genuinely had no substantive revision inside 14 days.
+
+Also fixed the upstream half: the planner's prompt listed all 49 pages as "do not re-edit", suppressing work before the gate ever saw it.
+
+## P1 — visual regression, and the first mobile coverage at all
+
+`raw/visual/baseline/` holds **98 baselines: 49 pages × desktop 1366×900 + mobile 375×812.** Mobile had **zero** coverage before this, on a site whose pages are full of wide spec tables.
+
+Zero model tokens and zero extra navigations — the page is already open and measured; mobile is reached by resizing, so CSS media queries re-evaluate without a reload. Honest limit: `srcset` does not re-fetch and load-time JS does not re-run, so this catches CSS layout breakage and would miss a JS-driven mobile layout.
+
+Load-bearing design points:
+
+- **Capture runs LAST** in `probeUrl`, after every vital is read. Resizing provokes layout shifts; any earlier and CLS would measure the probe's own resize.
+- **Synthetic runs may not write baselines.** A preview build writing baselines would redefine "correct" as "whatever this unmerged branch renders" — the inversion of a regression test.
+- **`diffPct: null` never files.** No baseline, failed screenshot and changed dimensions are all "no comparison happened", not "no difference". A freshly written baseline is `unevaluable` — it would be comparing with itself.
+
+**Advisory, not blocking.** `visual-regression` is absent from `BLOCKING_CLASSES`: 2% is a guess until a week of real diffs calibrates it. Stability verified — two independent full production runs, **0.000% on all comparisons**.
+
+## P2 — sitemap submission, and a prediction that was wrong
+
+Runs from Saturday's deploy, not the nightly. Submits, then reads back `sitemaps.get` to assert `lastSubmitted` advanced past the run's start (captured *before* the submit) and that errors and warnings are zero — `sitemaps.submit` returns 204, which proves only that a request was accepted.
+
+**`siteFullUser` is enough.** The service account holds `siteFullUser`, and the common reading of Google's docs is that `sitemaps.submit` needs `siteOwner`. That was predicted here and it is wrong: a real submit succeeded, `lastSubmitted` advanced 2026-08-06T09:49:58Z → 2026-08-09T06:42:02Z, zero errors. **No permission change is needed** — this would otherwise have become a permanent false blocker.
+
+Expectations: this will not move traffic. Google already refetches on its own schedule. It closes a loop cheaply.
+
+## P3 — Amazon Associates, inert until Jackson acts
+
+The design point is the failure path. On an expired session it files `amazon-session-expired` and writes **no report** — it must never report `$0`. A zero from a failed login is indistinguishable downstream from a genuinely zero month, and **the kill-list gate that decides whether this site continues reads that number.** A fabricated zero could retire a site that was earning fine.
+
+Expiry is detected positively (sign-in URL, challenge text, HTML where a CSV should be), never by trusting a parsed zero. Sign-in detection deliberately beats report-marker detection, because Amazon's login chrome can retain destination-page text. An `empty` CSV is recorded as empty, never as `$0` — Top-Sellers legitimately has no rows most weeks.
+
+The export window is chosen by the script and written into the report as a stated fact, closing the month-to-date/rolling-30 ambiguity that already caused one misreading in this archive.
+
+**Blocked on one human step**, by design — an agent must never handle this login:
+
+```
+npx playwright codegen --save-storage=amazon-state.json https://affiliate-program.amazon.com/home/reports
+gh secret set AMAZON_STORAGE_STATE < amazon-state.json && rm amazon-state.json
+```
+
+Until then it exits 0 silently; `collectors/amazon.ts` keeps nagging at 7 days. The selector layer could not be exercised without the secret and wants one supervised `--dry-run` — safe to get wrong, since a bad selector yields `invalid` and no report.
+
+## P4 / A10 — dead ASINs, and the false positive that shaped it
+
+Monthly, capped at 25 ASINs, Firecrawl (Amazon hard-blocks datacenter IPs, so Playwright cannot). Under 5% of the 500/mo free tier, metered through `meterExternal`.
+
+**The first live run produced a false positive, and it is the most useful thing this build learned.** It reported `B0CQ4K1KXT` (Hbada E3 Pro, linked from `/best-office-chairs-under-500/`) as DEAD on "Currently unavailable". The phrase was real — it belonged to the **"Newer Version Available" cross-sell block** advertising the E3 Ultra. The E3 Pro itself showed Add to Cart, Buy Now and In Stock. **Acting on it would have removed a working affiliate link from a money page: the detector destroying the revenue it exists to protect.**
+
+An Amazon page is a page about many products. Markers are now split:
+
+- **HARD dead** (404, "couldn't find that page", dog page) — describes the whole document, trusted alone.
+- **SOFT dead** (currently unavailable, no longer available, discontinued) — counts **only** when the page also offers no way to buy anything.
+
+Purchasability is checked before soft-dead for that reason; bot walls before everything. A failed fetch is `unknown` and files nothing. The false positive is pinned as a test fixture from the real page.
+
+Product names come from `data/verified-asins.json`, not the scrape — three attempts to read a title off the markdown returned "Product summary presents key product information", "Customers who viewed this item also viewed", and "3-Year Furniture Protection Plan".
+
+Findings are advisory; a human confirms before any affiliate link is removed.
+
+## The thread running through all five
+
+Every one of these landed on the same rule, and it is the rule this codebase keeps re-learning: **a measurement that did not happen must never be representable as a clean result.** `diffPct: null` is not 0%. A failed Amazon login is not `$0`. A bot wall is not a dead product. A 204 is not a recorded submission. An unreadable edit log is not "nothing on cooldown".
 
 ## Related
 
