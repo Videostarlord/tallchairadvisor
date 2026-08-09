@@ -25,6 +25,9 @@
  *   data/pipeline-status.json   8d   —                  pipeline-status.ts
  *   data/cost-ledger.jsonl      none ≥0                 cost-ledger.ts
  *   data/ledger.jsonl           none ≥0                 ledger.ts
+ *   data/agent-health.jsonl     none ≥0                 agent-health.ts
+ *   data/collectors/latest.json 8d   —                  collectors-rollup.ts
+ *   reports/{fixes,content}-log.md 8d ≥1 outcome        execution-log.ts  ← markdown; text contract, not zod
  *
  * A "≥1" floor is written into the SCHEMA (`z.array(...).min(1)`), not into
  * `minRows`. `minRows` counts top-level array elements or object KEYS, so on a
@@ -45,3 +48,6 @@ export * from './content-roadmap.js';
 export * from './pipeline-status.js';
 export * from './cost-ledger.js';
 export * from './ledger.js';
+export * from './agent-health.js';
+export * from './collectors-rollup.js';
+export * from './execution-log.js';
