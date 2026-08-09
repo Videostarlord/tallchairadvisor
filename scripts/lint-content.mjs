@@ -44,6 +44,10 @@ const SPEC_REGISTRY_PATH = join(ROOT, 'data', 'chair-specs.json');
 
 let GUARDED_SPECS = [];
 try {
+  // A standalone .mjs build gate cannot import readValidated (TypeScript, and this
+  // runs before compilation). The file is a hand-maintained registry, not pipeline
+  // state, so the freshness SLA does not apply. Same as verified-asins.json above.
+  // lint-architecture-allow R4 -- standalone .mjs gate; hand-maintained registry, no freshness SLA
   const registry = JSON.parse(readFileSync(SPEC_REGISTRY_PATH, 'utf-8'));
   GUARDED_SPECS = registry.guarded || [];
 } catch (err) {
