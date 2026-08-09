@@ -110,11 +110,40 @@ Worth recording because it is A13's argument arriving in a new place, and this t
 
 **Both were caught by checking the rendered HTML rather than the source.** The source-level gate reported clean while the shipped pages still carried the error — a detector that reads only its inputs cannot see what its own transform emits. That is the strongest concrete argument yet for **A13**, and it now has a worked example rather than a rationale.
 
+## Changed on 2026-08-09 (third session) — A5 closed, A8 made visible, A7 blocked
+
+| Item | Status | Now |
+|---|---|---|
+| **A5** Probe retention | A-MEDIUM, open — module written, nothing called it | **CLOSED.** `scripts/retention-prune.ts` (`npm run retention:prune`) runs in `nightly.yml` immediately after `ledger:evaluate`, and in the `godseye` script at the same position. 30-night window; `data/ledger.jsonl` is sized but never pruned. |
+| **A8** `.env` name drift | A-MEDIUM, open — "quotas.ts accepts both, which masks it" | **CLOSED as a masking problem.** The aliases still work; they are no longer silent. Canonical names documented in `.env.example`; `collect-all.ts` prints a drift banner before the collectors run. |
+| **A7** GSC URL Inspection ~6 min | A-MEDIUM, open | **BLOCKED, not deferred** — it lives in a file another agent owns this session. See below; the audit also names the wrong file. |
+
+### A5's real risk was not deletion — it was a pruner that reclaims nothing
+
+Wiring the module in exposed a defect that would have made it a no-op. `pruneProbeArtifacts()` derived its pin set from `readLedger()`, the raw append-only file, which holds every **transition** rather than one row per finding — 291 rows for 63 findings. A finding opened on 08-06 and closed on 08-09 leaves its open row in the file forever, so the raw history pins every probe date that ever backed a non-closed transition.
+
+Measured against the real ledger: **4 of the 4 probe dates in existence were pinned**, cited by 50, 48, 48 and 5 non-closed rows respectively. It would have shipped, gone green every night, and freed zero bytes — *a component that looks healthy while doing nothing*, which is the exact failure its own header was written to warn about. Fixed by folding to current state first (`foldToCurrent()`, the same fold `ledger.currentState()` performs). A `--keep=2` dry run now plans to reclaim 949.5 KB where it previously planned zero.
+
+Nothing is lost by folding: an older transition's evidence detail is already written inline on its own ledger line, so the probe file was never the only copy of what was observed.
+
+**The safety property is asserted against the filesystem, not against the plan.** `scripts/lib/__tests__/retention.test.ts` writes real probe files to a temp root, runs a real non-dry-run prune, and checks that a file cited by a still-open finding survives while an unpinned file **of the same age** is deleted. A plan object that said "keep" while the unlink loop removed the file anyway would satisfy a plan-level assertion and still lose the evidence.
+
+### A8: the documentation of the drift had itself drifted
+
+Canonical is `SERP_API_KEY` and `DATAFORSEO_USERNAME`, decided by what CI actually sets rather than by preference — `nightly.yml`, `monday.yml` and `keywords-monthly.yml` all pass the repo spellings, and **no workflow sets a vendor spelling**. Making the vendor name canonical would mean renaming three GitHub secrets, and Actions substitutes an empty string for a name that does not exist, so a typo in that rename fails silently and the quota check goes blind. That is the 2026-08-06 failure, repeated.
+
+`.env.example` had claimed `SERPAPI_KEY` was accepted "because nightly.yml passes that spelling" and that `DATAFORSEO_LOGIN` is "the name nightly.yml uses". **Both were false** — nightly.yml was corrected on 2026-08-06 and the comments never were. The documentation of the masking was itself stale, which is the most reliable way for a masked problem to stay masked.
+
+### A7 is blocked on file ownership, and the task list names the wrong file
+
+The nightly's URL Inspection loop is `scripts/collectors/gsc.ts:307` — 49 eligible URLs. It is **not** in `gsc-pull.ts`, and `index-monitor.ts` (which also inspects) runs Monday only, so it is not what costs the nightly its ~6 minutes. Rotating ~10/night means changing the `eligible.slice(0, limit)` selection in `collectors/gsc.ts`.
+
+`GSC_INSPECT_LIMIT` is not a workaround: it slices a **prefix**, so the tail of the list is starved permanently rather than rotated — and that is worse than the slow run, because partial coverage is currently reported honestly as `healthy: false` with a named cause.
+
 ## Still open, unchanged
 
 - **A2** Nightly cannot see the agents' own execution logs · **A6** cost reconcile · **A13** No health check on the detectors themselves
-- **A5** — `scripts/lib/retention.ts` is written, measured and reasoned, but **nothing calls it**. Probe files still accumulate at ~490 KB/night. The file header says so; do not read its existence as closure.
-- **A7 / A8** — untouched this session (the agents working them were killed mid-task by a spend limit).
+- **A7** — blocked on `scripts/collectors/gsc.ts` ownership, see above. Nothing else stands in the way.
 - ~~**B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0~~ — **title/meta rewritten 2026-08-09.** Ledger `018c617c0678`. Both now lead with the fact that this is the one chair Jackson owns and sits in. See [[review-gesture]]. Sanctioned only because the page sits *at* pos 8.0 — the kill list bars this treatment below it, and this remains the single CTR task in scope.
 - **C** 14 findings held back by strategy
 - **A4** architecture lint backlog, 163

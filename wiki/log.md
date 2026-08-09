@@ -3323,3 +3323,33 @@ The general shape: a content rewrite that corrects a fact in the prose does not 
 Scope held deliberately: this treatment is sanctioned **only** because the page is *at* position 8.0, not below it. It was not extended to any other page.
 
 Related: [[review-gesture]] · [[open-issues-status]] · [[ctr-optimization]] · [[steelcase-gesture]]
+
+## 2026-08-09 — A5 closed: the pruner was wired in, and folding the ledger is what made it do anything
+
+`scripts/lib/retention.ts` had been written, measured and reasoned, and **nothing called it**. It now has a caller: `scripts/retention-prune.ts` (`npm run retention:prune`), run by `nightly.yml` in the step immediately after `ledger:evaluate` and by the `godseye` npm script in the same position.
+
+The ordering is a correctness requirement, not tidiness. `pinnedProbeDates()` decides what to keep from the ledger's statuses, so a finding opened by tonight's evaluation must already be written before the pruner runs. Earlier in the pipeline, the pin set is silently narrower than it should be.
+
+**Wiring it in exposed a second defect that would have made the whole thing a no-op.** `pruneProbeArtifacts()` derived pins from `readLedger()` — the raw append-only file, which holds every *transition*, not one row per finding (291 rows for 63 findings). A finding opened on 08-06 and closed on 08-09 leaves its open row in the file forever, so the raw history pins **every probe date that ever backed an open transition**. Measured against the real ledger: **4 of the 4 probe dates in existence were pinned**, cited by 50, 48, 48 and 5 non-closed rows. The pruner would have shipped, gone green every night, and reclaimed nothing — *a component that looks healthy while doing nothing*, which is precisely what its own header was written to warn about.
+
+Fixed by folding to current state before pinning (`foldToCurrent()`, the same fold `ledger.currentState()` performs). Nothing is lost: per fact 2 of the module header, an older transition's evidence detail is already written inline on its own ledger line, so the probe file was never the only copy. Post-fix, a `--keep=2` dry run plans to reclaim 949.5 KB where before it planned zero.
+
+**The safety property is asserted against the filesystem, not against the plan.** `scripts/lib/__tests__/retention.test.ts` (43 assertions) writes real probe files to a temp root, runs a real non-dry-run prune, and checks that a file cited by a still-open finding is *still on disk* while an unpinned file **of the same age** is gone. A plan object that said "keep" while the unlink loop removed the file anyway would pass a plan-level assertion and still lose the evidence, and that gap is where this class of bug lives.
+
+`data/ledger.jsonl` is still never pruned or compacted — invariant 3 holds. It is only sized, with a loud alarm if it crosses 25 MB, so the decision gets re-argued against a number instead of being assumed correct forever.
+
+## 2026-08-09 — A8: the aliases stay, the silence goes
+
+`SERP_API_KEY` and `DATAFORSEO_USERNAME` are now **canonical**, documented in `.env.example` with the vendor spellings (`SERPAPI_KEY`, `DATAFORSEO_LOGIN`) recorded as deprecated aliases.
+
+Canonical was decided by what CI actually sets, not by preference. Every workflow that passes these credentials passes the repo spellings — `nightly.yml`, `monday.yml`, `keywords-monthly.yml`. **No workflow sets a vendor spelling.** Making the vendor name canonical would mean renaming three GitHub secrets, and Actions substitutes an empty string for a secret name that does not exist, so a typo in that rename fails silently and the collector just goes blind. That already happened on 2026-08-06.
+
+The aliases still work. What changed is that they are no longer invisible: `scripts/lib/env-names.ts` classifies drift as `alias-only` / `redundant` / `conflict`, `collect-all.ts` prints a banner naming the variable and the rename before the collectors run, and the finding is recorded (names only, never values) on `data/collectors/latest.json`. The three scripts that read the canonical name and do **not** accept an alias — `keyword-discovery.ts`, `keyword-gap-discovery.ts`, `competitor-intelligence.ts` — now append a hint to their abort, because "DATAFORSEO_USERNAME must be set" is actively misleading when the credential is sitting in the environment under its other name.
+
+**Two false statements were removed from `.env.example` in the process.** It claimed `SERPAPI_KEY` was accepted "because nightly.yml passes that spelling" and that `DATAFORSEO_LOGIN` is "the name nightly.yml uses". Neither is true — nightly.yml was corrected to the repo spellings on 2026-08-06 and the comments were never updated. The documentation of the drift was itself drifted, which is the most reliable way for a masked problem to stay masked.
+
+The warning deliberately does not overstate. `SERP_API_KEY` has exactly one reader, so its message says nothing is broken today; `DATAFORSEO_USERNAME` names the three scripts that will abort. A warning that claims damage it cannot demonstrate earns the right to be ignored, and there is a test asserting each message stays honest about that.
+
+**A7 was NOT done — it is blocked, not deferred.** The nightly's URL Inspection loop is `scripts/collectors/gsc.ts:307` (49 eligible URLs), not `gsc-pull.ts` or `index-monitor.ts` — `index-monitor.ts` runs Monday only. Rotating ~10/night means changing the `eligible.slice(0, limit)` selection in that file, which is owned by another agent this session. `GSC_INSPECT_LIMIT` is not a substitute: it slices a *prefix*, so the tail of the list is starved permanently rather than rotated.
+
+Related: [[open-issues-status]] · [[godseye-nightly]]
