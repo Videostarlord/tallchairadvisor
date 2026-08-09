@@ -3239,3 +3239,19 @@ Branch `feat/autonomous-data-layer`. 7 commits. Tests 12 → 17 files, all passi
 - **Recovered** a cost-metering refactor that had been sitting uncommitted in the working tree; drives `lint:architecture` R5 from 15 → 0.
 
 Wiki updated: [[autonomous-data-layer]] (full build record), [[open-issues-status]] (A1/A10 status), [[decisions-log]] (3 new decisions).
+
+## [2026-08-09] amazon-pull | P3 corrected against a live session — there was no CSV endpoint
+
+The selector layer flagged as untested when P3 shipped was wrong, and the first real session proved it. Associates Central is an SPA with no CSV download URL; the guessed `?format=csv` returned its own 249KB JSON payload, which `classifyCsv` read as **"header row only" — an empty report**. One step from recording a wrong endpoint as a period with no earnings.
+
+Real endpoint is `/reporting/table`, which **401s a plain cookie-authenticated request** — it also needs a per-page-load `authorization: Bearer` JWT and `x-csrf-token`, neither a cookie, both rotating per page load. Fixed by **harvesting** the headers from the app's own first request and replaying them with the wanted date range, rather than constructing an auth scheme.
+
+Verified by reproducing the 2026-08-04 archive export exactly: $3,337.74 ordered revenue, 7 items, 108 clicks.
+
+Corrections found by that comparison: `total_earnings` is *shipped* not net ($100.40 vs $98.90 — a $1.50 clawback absent from the column set); days without activity are omitted, not zero-filled (25 rows / 30-day window).
+
+Scope is the daily overview only — ASIN-level tables need query params that could not be established before HTTP 429 appeared, so probing was stopped. Click-to-ASIN attribution stays manual.
+
+Also: `amazon-state.json` is now gitignored — a live bearer credential for a financial account had been sitting untracked in the repo root. Confirmed never committed.
+
+Wiki updated: [[affiliate-performance]], [[autonomous-data-layer]], [[index]].

@@ -111,6 +111,20 @@ Expiry is detected positively (sign-in URL, challenge text, HTML where a CSV sho
 
 The export window is chosen by the script and written into the report as a stated fact, closing the month-to-date/rolling-30 ambiguity that already caused one misreading in this archive.
 
+### Corrected 2026-08-09 — the untested selector layer WAS wrong
+
+Flagged as unverified when shipped, and the first live session proved it. **There is no CSV endpoint.** The guessed `?format=csv` URL returned Associates Central's own 249KB JSON payload, which the CSV classifier read as *"header row only"* — an empty report. A wrong endpoint was one step from being recorded as a period with no earnings, which is the precise failure this component exists to prevent. JSON is now rejected explicitly, like HTML.
+
+The real endpoint is `/reporting/table`, and it returns **401 to a plain cookie-authenticated request**: it also needs a per-page-load `authorization: Bearer` JWT and an `x-csrf-token`, neither a cookie, both rotating each page load, so neither can live in `storageState`.
+
+**The fix is to harvest, not construct.** Open the page, intercept the app's own first request to `/reporting/table`, capture its headers, replay them with this run's date range. It never guesses an auth scheme — it borrows the one the application just used. That is also why it degrades honestly: if the app stops calling that endpoint, no headers are harvested and the run fails saying so, rather than inventing a total.
+
+Verified by reproducing the 2026-08-04 archive export exactly: $3,337.74 ordered revenue, 7 items, 108 clicks.
+
+**Two corrections that fell out of that comparison**, both now in the generated report: `total_earnings` is *shipped* earnings, not net ($100.40 vs the archive's $98.90 — a $1.50 clawback not present in the column set), and days without activity are omitted rather than zero-filled (25 rows for a 30-day window), so sparse is normal and only a wholly empty window is a failure.
+
+**Scope: daily overview only.** ASIN-level tables need different `query[type]` values whose parameters were not established — probing started returning HTTP 429 and was stopped rather than risk the account. Click-to-ASIN attribution still needs a manual export, and the report states that in its own body rather than looking complete.
+
 **Blocked on one human step**, by design — an agent must never handle this login:
 
 ```

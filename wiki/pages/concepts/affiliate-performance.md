@@ -85,7 +85,26 @@ Amazon Associates has no reporting API, so hand-downloading these CSVs was the l
 
 Expiry is detected positively (a sign-in URL, challenge text, or an HTML document where a CSV should be), never by trusting a parsed zero. An `empty` CSV is recorded as empty, never as `$0` — Top-Sellers legitimately has no rows most weeks, as every export in this archive shows.
 
-Its selector layer could not be exercised without the credential, so the first run should be watched with `npm run amazon:pull:dry`. Safe to get wrong: a bad selector yields an unreadable CSV and the run fails with no report written — "no data", never "zero dollars".
+### Corrected 2026-08-09 against a live session — there is no CSV endpoint
+
+The first version guessed a `?format=csv` download URL. Associates Central is an SPA and has none: that URL returned the page's own 249KB JSON payload, which the CSV classifier read as **"header row only" — an empty report.** A wrong endpoint was one step from being recorded as a period with no earnings.
+
+The data actually comes from `/reporting/table`, which returns **401 to a plain cookie-authenticated request**. It also needs a per-page-load `authorization: Bearer` JWT and an `x-csrf-token` — neither is a cookie, both rotate every page load, so neither can live in `storageState`.
+
+**The fix is to harvest, not construct.** The script opens the reporting page, intercepts the app's OWN first request to `/reporting/table`, captures its headers, and replays them with the date range this run wants. It never guesses an auth scheme; it borrows the one the application just used.
+
+**Verified against this archive:** summing the daily rows over 2026-07-11 → 2026-08-09 reproduces the 2026-08-04 export exactly — $3,337.74 ordered revenue, 7 items ordered, 108 clicks.
+
+### Two things that comparison corrected
+
+- **`total_earnings` from the API is SHIPPED earnings, not net.** It returns **$100.40** where the 2026-08-04 headline net was **$98.90** — a $1.50 returned-item clawback. The clawback *value* is not in the column set (only the returned-item count is). **Do not copy the automated figure into the monthly table above as net earnings** — it is an upper bound, and the gap is the clawback.
+- **Days without activity are omitted, not zero-filled.** A 30-day window returned 25 rows. Sparse is normal; only a completely empty window indicates failure, and that is refused rather than recorded as $0.
+
+### What this does NOT pull
+
+The **daily overview only**. The ASIN-level tables (linked-product, category, top-sellers) use different `query[type]` values whose parameters were not established — probing began returning HTTP 429, so it was stopped rather than risk the account.
+
+**Consequence:** click-to-ASIN attribution — the "0 chair orders on 92 named-chair clicks" pattern tracked below, now five consecutive exports old — is **not** in the automated pull and still needs a manual export to update. The generated report says so in its own body rather than appearing complete.
 
 ---
 
