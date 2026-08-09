@@ -48,7 +48,7 @@ It survived because the May 25 rewrite corrected the *body* and the box sits abo
 
 ## Open Issues
 
-3. **FTC affiliate disclosure absent from body** — only footer link present. Fix: add inline disclosure sentence near top of page. See [[affiliate-compliance]].
+3. ~~**FTC affiliate disclosure absent from body**~~ — **RETRACTED 2026-08-09. The claim was false.** A disclosure box sits in the body at `src/pages/review/gesture.astro:191` ("We may earn a commission from purchases made through links on this page…" plus a `/affiliate-disclosure/` link), and the 2026-06-14 Fix History row in this very page refers to it — the TL;DR box was positioned *relative to* the Disclosure notice. The item contradicted its own page. Verified by reading the source, not by re-running an audit. Same species as B7: a plausible-sounding deficiency that no measurement supports, left standing long enough to look like a task. See [[affiliate-compliance]].
 
 **Resolved (May 25):**
 - ~~`itemReviewed` missing from Review schema~~ — fixed ✅
