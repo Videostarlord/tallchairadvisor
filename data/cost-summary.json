@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-08T10:46:14.375Z",
+  "generatedAt": "2026-08-09T08:02:12.083Z",
   "ledger": "data/cost-ledger.jsonl",
   "records": {
-    "total": 35,
-    "llm": 11,
-    "external": 24
+    "total": 49,
+    "llm": 12,
+    "external": 37
   },
   "note": null,
   "totals": {
-    "records": 11,
-    "input": 1240851,
-    "output": 23692,
+    "records": 12,
+    "input": 1333523,
+    "output": 26380,
     "cacheWrite": 0,
     "cacheRead": 0,
-    "usd": 4.077933
+    "usd": 4.396269
   },
   "byRun": {
     "2026-08-05": {
@@ -39,16 +39,24 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.244869
+    },
+    "2026-08-08": {
+      "records": 1,
+      "input": 92672,
+      "output": 2688,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.318336
     }
   },
   "byAgent": {
     "nightly-report": {
-      "records": 11,
-      "input": 1240851,
-      "output": 23692,
+      "records": 12,
+      "input": 1333523,
+      "output": 26380,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 4.077933
+      "usd": 4.396269
     }
   },
   "byDay": {
@@ -67,40 +75,54 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.244869
+    },
+    "2026-08-08": {
+      "records": 1,
+      "input": 92672,
+      "output": 2688,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.318336
     }
   },
   "byMonth": {
     "2026-08": {
-      "records": 11,
-      "input": 1240851,
-      "output": 23692,
+      "records": 12,
+      "input": 1333523,
+      "output": 26380,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 4.077933
+      "usd": 4.396269
     }
   },
   "externalByService": {
     "clarity-export-api": {
-      "records": 11,
+      "records": 12,
       "usd": 0,
-      "credits": 11,
+      "credits": 12,
       "pages": 0
     },
     "gsc-url-inspection": {
-      "records": 13,
+      "records": 14,
       "usd": 0,
-      "credits": 447,
+      "credits": 496,
       "pages": 0
+    },
+    "firecrawl": {
+      "records": 11,
+      "usd": 0,
+      "credits": 0,
+      "pages": 11
     }
   },
   "models": {
     "claude-sonnet-4-6": {
-      "records": 11,
-      "input": 1240851,
-      "output": 23692,
+      "records": 12,
+      "input": 1333523,
+      "output": 26380,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 4.077933
+      "usd": 4.396269
     }
   }
 }

@@ -12,30 +12,36 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "f10b9c63-a80e-4d86-bfe2-6b2bea8c8501",
-      "shortId": "f10b9c63",
+      "deploymentId": "7bf05753-362c-4158-9760-52780ebdc97b",
+      "shortId": "7bf05753",
       "environment": "production",
-      "url": "https://f10b9c63.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-07T11:06:29.052175Z",
+      "url": "https://7bf05753.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-09T07:54:28.113994Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "e5b7b62962c791da2ad654948654778cb8a27d07",
-      "commitMessage": "[skip cd] nightly: god's-eye 2026-08-07"
+      "commitHash": "59ada36f079c9ae0857ffecfcef17510e7ee7c0a",
+      "commitMessage": "docs(wiki): ingest the daily/weekly affiliate split\n\nRecords the cadence table, why the archive stays weekly, and the mtime\ntrap that would have made the staleness nag permanently green — the third\ncomponent in which that failure mode has been caught, so it is recorded\nas a pattern rather than an incident."
     },
     "cache": {
       "windowDays": 7,
-      "requests": 17943,
-      "cachedRequests": 2522,
-      "hitRatePct": 14.1,
-      "bytes": 201196614,
-      "cachedBytes": 89043105,
+      "requests": 19298,
+      "cachedRequests": 3156,
+      "hitRatePct": 16.4,
+      "bytes": 215972890,
+      "cachedBytes": 96892599,
       "byDay": [
         {
+          "date": "2026-08-09",
+          "requests": 1225,
+          "cachedRequests": 312,
+          "hitRatePct": 25.5
+        },
+        {
           "date": "2026-08-08",
-          "requests": 730,
-          "cachedRequests": 38,
-          "hitRatePct": 5.2
+          "requests": 2867,
+          "cachedRequests": 420,
+          "hitRatePct": 14.6
         },
         {
           "date": "2026-08-07",
@@ -66,29 +72,23 @@
           "requests": 2062,
           "cachedRequests": 160,
           "hitRatePct": 7.8
-        },
-        {
-          "date": "2026-08-02",
-          "requests": 2007,
-          "cachedRequests": 60,
-          "hitRatePct": 3
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 2,
+      "totalEvents": 3,
       "byAction": {
-        "block": 2
+        "block": 3
       },
       "bySource": {
-        "firewallManaged": 2
+        "firewallManaged": 3
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-08T10:39:30.525Z",
+    "collectedAt": "2026-08-09T07:55:06.024Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
