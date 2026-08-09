@@ -34,7 +34,7 @@ Concretely, and each of these is enforced rather than documented:
 | Layer | Lives in | Does |
 |---|---|---|
 | L0 contracts | `scripts/lib/read-validated.ts`, `scripts/schemas/` | every read validates; throws `ContractViolation` with a "did you mean" hint |
-| L1 collectors | `scripts/collectors/` | GSC (incl. URL Inspection), GA4, Clarity, Cloudflare, GitHub Actions, quotas, Amazon |
+| L1 collectors | `scripts/collectors/` | GSC (incl. URL Inspection), GA4, Clarity, Cloudflare, GitHub Actions, quotas, **Amazon affiliate revenue (daily since 2026-08-09)** |
 | L2 probes | `scripts/probes/` | Playwright: tags actually firing, `<head>` truth, CWV, GEO markup, **visual regression at desktop + mobile (P1, 2026-08-09)** |
 | L3 ledger | `scripts/lib/ledger.ts`, `scripts/lib/predicates/` | append-only state per finding + nightly predicate re-evaluation |
 | L4 cost | `scripts/lib/metered-client.ts`, `pricing.ts` | every LLM call priced at write time |
@@ -117,6 +117,14 @@ Neither is reachable by unit tests of either side. The generalizable rule, now r
 
 - `raw/visual/baseline/` was added to the commit loop. Without it, every night would rediscover that a new page has no baseline, write one into the container, throw it away, and never once compare — a detector that runs forever and observes nothing. Exactly the heartbeat failure, in a new component.
 - `data/edit-log.jsonl` was added to the commit loop *and* given a `merge=union` driver in `.gitattributes`, because the weekday agents append it on `main` while Friday's content agent appends it on `staging` — the token-log conflict that killed the Saturday deploy, in a new file.
+
+## Revenue entered the nightly's field of view (2026-08-09)
+
+The nightly saw traffic, behaviour, infrastructure and rendering every night — and affiliate revenue once a week, despite that being the number the kill-list gate decides on. `scripts/amazon-pull.ts --mode daily` now runs as a nightly step, refreshing `data/affiliate/latest.json` and appending `data/affiliate/history.jsonl`. The dated `raw/` snapshot stays weekly, because `raw/` is an archive rather than a log.
+
+**Both seam rules were applied again, pre-emptively:** `data/affiliate` is in the nightly commit loop (or the snapshot would live and die inside the runner, exactly like the heartbeat), and `history.jsonl` has a `merge=union` driver (the nightly appends it on `main` while `amazon-weekly` appends on `staging` — the token-log overlap that killed the Saturday deploy).
+
+**And the mtime trap was avoided by design.** `latest.json` has no date in its name, so `collectors/amazon.ts` would have dated it by mtime — which a CI checkout resets to "now" — reporting the data fresh on every run forever, including runs where the pull failed. `fetchedAt` is written inside the file and the collector reads it from there. This is the third distinct component in which that failure mode has been caught; it is not an accident, it is what CI checkout does to every file.
 
 ## What P1 added to L2 (2026-08-09)
 

@@ -100,6 +100,22 @@ The data actually comes from `/reporting/table`, which returns **401 to a plain 
 - **`total_earnings` from the API is SHIPPED earnings, not net.** It returns **$100.40** where the 2026-08-04 headline net was **$98.90** — a $1.50 returned-item clawback. The clawback *value* is not in the column set (only the returned-item count is). **Do not copy the automated figure into the monthly table above as net earnings** — it is an upper bound, and the gap is the clawback.
 - **Days without activity are omitted, not zero-filled.** A 30-day window returned 25 rows. Sparse is normal; only a completely empty window indicates failure, and that is refused rather than recorded as $0.
 
+### Cadence: daily live data, weekly archive (2026-08-09)
+
+Revenue used to be invisible to the nightly — the god's-eye run saw GSC, GA4, Clarity and the probe every night, and affiliate earnings once a week. That was backwards for the one number the kill-list gate actually decides on.
+
+| Layer | Written | By |
+|---|---|---|
+| `data/affiliate/latest.json` | **daily**, overwritten | the nightly |
+| `data/affiliate/history.jsonl` | **daily**, one appended line per pull | the nightly |
+| `raw/affiliate/<date>-...` | **weekly**, dated snapshot | `amazon-weekly.yml` |
+
+The archive report stays weekly on purpose: writing it daily would put ~30 near-identical dated files a month into `raw/`, which is an archive of evidence and decisions, not a log. Cost of the daily half is one page load — the nightly already installs chromium for the probe.
+
+**Freshness is read from `fetchedAt` inside the file, never from its mtime.** `latest.json` has no date in its filename, so a timestamp-based check would fall back to the filesystem — and a CI checkout stamps every file it writes with "now". The staleness nag would have read *0 days old* on every run forever, including runs where the pull failed and wrote nothing. [[godseye-nightly]] records the same bug hitting this collector once already, when its own output matched its own scan.
+
+`collectors/amazon.ts` now reports on the automated pull with a **3-day** SLA (a daily job — two silent failures should show), falling back to the old 7-day disk-scan nag for hand-dropped exports. A stale snapshot reports as stale, a malformed one as unreadable, and **neither as zero**.
+
 ### What this does NOT pull
 
 The **daily overview only**. The ASIN-level tables (linked-product, category, top-sellers) use different `query[type]` values whose parameters were not established — probing began returning HTTP 429, so it was stopped rather than risk the account.

@@ -3255,3 +3255,17 @@ Scope is the daily overview only — ASIN-level tables need query params that co
 Also: `amazon-state.json` is now gitignored — a live bearer credential for a financial account had been sitting untracked in the repo root. Confirmed never committed.
 
 Wiki updated: [[affiliate-performance]], [[autonomous-data-layer]], [[index]].
+
+## [2026-08-09] amazon-pull | Daily live data + weekly archive split
+
+Revenue was the one signal the nightly could not see — GSC, GA4, Clarity and the probe ran nightly; affiliate earnings weekly, despite being what the kill-list gate decides on.
+
+Split along CLAUDE.md's own `data/` (live) vs `raw/` (immutable archive) line: `data/affiliate/latest.json` + `history.jsonl` written **daily** by the nightly; the dated `raw/affiliate/` snapshot stays **weekly**. Writing the archive report daily would bury the signal under ~30 near-identical copies a month. Cost is one page load — chromium is already installed for the probe.
+
+**The trap avoided: freshness is `fetchedAt` inside the file, never mtime.** `latest.json` has no date in its filename, so a mtime check would read a CI checkout's fresh timestamp and report the data current on every run forever — including runs where the pull failed and wrote nothing. `collectors/amazon.ts` had already hit that exact bug once (its own output matching its own scan). Pinned by a test that stamps a 9-day-old snapshot with a fresh mtime and asserts the age still reads 9.
+
+`collectors/amazon.ts` is no longer "THE ONE COLLECTOR THAT CANNOT PULL" — that framing was true until today. It now asks "did the automated pull run recently and succeed" (3-day SLA), falling back to the 7-day hand-dropped-export nag when no snapshot exists.
+
+Both seam rules applied pre-emptively: `data/affiliate` added to the nightly commit loop, `history.jsonl` given a `merge=union` driver.
+
+Wiki updated: [[affiliate-performance]], [[godseye-nightly]].
