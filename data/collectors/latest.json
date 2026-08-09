@@ -1,7 +1,7 @@
 {
-  "collectedAt": "2026-08-09T07:55:00.401Z",
-  "finishedAt": "2026-08-09T08:01:05.798Z",
-  "durationMs": 365397,
+  "collectedAt": "2026-08-09T08:04:53.995Z",
+  "finishedAt": "2026-08-09T08:11:05.616Z",
+  "durationMs": 371621,
   "healthy": true,
   "healthyCount": 7,
   "total": 7,
@@ -24,7 +24,7 @@
         },
         "performance": {
           "pulledAt": "2026-08-06T09:29:38.159Z",
-          "ageHours": 70.4,
+          "ageHours": 70.6,
           "dateRange": {
             "start": "2026-05-08",
             "end": "2026-08-06",
@@ -41,7 +41,7 @@
         },
         "analysis": {
           "generatedAt": "2026-08-06T09:29:38.651Z",
-          "ageHours": 70.4,
+          "ageHours": 70.6,
           "opportunityCount": 38,
           "ctrLeakCount": 17,
           "decayAlertCount": 0
@@ -712,7 +712,7 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-09T08:01:05.797Z",
+        "collectedAt": "2026-08-09T08:11:05.615Z",
         "rowCount": 49,
         "healthy": true,
         "reason": null
@@ -724,7 +724,7 @@
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
         "pulledAt": "2026-08-06T09:29:42.271Z",
-        "ageHours": 70.4,
+        "ageHours": 70.6,
         "slaHours": 192,
         "dateRange": {
           "start": "2026-07-09",
@@ -782,7 +782,7 @@
         "aiReferralSessions": 60
       },
       "meta": {
-        "collectedAt": "2026-08-09T07:55:00.420Z",
+        "collectedAt": "2026-08-09T08:04:54.014Z",
         "rowCount": 50,
         "healthy": true,
         "reason": null
@@ -792,7 +792,7 @@
       "data": {
         "source": "data/clarity/latest.json",
         "pulledAt": "2026-08-07T10:55:05.166Z",
-        "ageHours": 45,
+        "ageHours": 45.2,
         "slaHours": 192,
         "numOfDays": 2,
         "pageCount": 64,
@@ -809,12 +809,12 @@
           "envVar": "CLARITY_TOKEN",
           "present": true,
           "live": true,
-          "checkedAt": "2026-08-09T07:55:00.422Z",
+          "checkedAt": "2026-08-09T08:04:54.016Z",
           "detail": null
         }
       },
       "meta": {
-        "collectedAt": "2026-08-09T07:55:01.325Z",
+        "collectedAt": "2026-08-09T08:04:54.730Z",
         "rowCount": 64,
         "healthy": true,
         "reason": null
@@ -834,30 +834,30 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "7bf05753-362c-4158-9760-52780ebdc97b",
-          "shortId": "7bf05753",
+          "deploymentId": "73264e69-cb4c-465b-aa99-02be07701873",
+          "shortId": "73264e69",
           "environment": "production",
-          "url": "https://7bf05753.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-09T07:54:28.113994Z",
+          "url": "https://73264e69.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-09T08:03:58.439275Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "59ada36f079c9ae0857ffecfcef17510e7ee7c0a",
-          "commitMessage": "docs(wiki): ingest the daily/weekly affiliate split\n\nRecords the cadence table, why the archive stays weekly, and the mtime\ntrap that would have made the staleness nag permanently green — the third\ncomponent in which that failure mode has been caught, so it is recorded\nas a pattern rather than an incident."
+          "commitHash": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
+          "commitMessage": "fix(nightly): pull affiliate revenue BEFORE the collectors read it\n\nOrdering bug found by running it. collectors/amazon.ts reads\ndata/affiliate/latest.json, but the pull was sitting in the L2 probe\nblock — after collect:all. So the collector reported on the PREVIOUS\nnight's snapshot every night, permanently one day stale.\n\nThe first live run showed the sharp version: the collector logged\n\"latest.json does not exist yet — the automated pull has not run\nsuccessfully\" while the pull wrote that exact file minutes later in the\nsame job.\n\nMoved chromium install + the affiliate pull ahead of the collectors. The\npull is data acquisition, not a probe; it only sat with the probes\nbecause that is where chromium happened to be installed. Both steps now\nshare the one install, so this costs nothing."
         },
         "cache": {
           "windowDays": 7,
-          "requests": 19298,
-          "cachedRequests": 3156,
-          "hitRatePct": 16.4,
-          "bytes": 215972890,
-          "cachedBytes": 96892599,
+          "requests": 19738,
+          "cachedRequests": 3329,
+          "hitRatePct": 16.9,
+          "bytes": 221642485,
+          "cachedBytes": 99787255,
           "byDay": [
             {
               "date": "2026-08-09",
-              "requests": 1225,
-              "cachedRequests": 312,
-              "hitRatePct": 25.5
+              "requests": 1665,
+              "cachedRequests": 485,
+              "hitRatePct": 29.1
             },
             {
               "date": "2026-08-08",
@@ -910,7 +910,7 @@
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-09T07:55:06.024Z",
+        "collectedAt": "2026-08-09T08:04:55.254Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1063,19 +1063,19 @@
             "cron": "0 10 * * *",
             "expectedCadenceDays": 1,
             "lastRun": {
-              "runNumber": 6,
+              "runNumber": 7,
               "status": "in_progress",
               "conclusion": null,
-              "startedAt": "2026-08-09T07:54:34Z",
-              "finishedAt": "2026-08-09T07:54:38Z",
+              "startedAt": "2026-08-09T08:03:59Z",
+              "finishedAt": "2026-08-09T08:04:02Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302246377",
-              "headSha": "59ada36f079c9ae0857ffecfcef17510e7ee7c0a",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302622644",
+              "headSha": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
               "event": "workflow_dispatch"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T07:54:34Z) and run end + 15min (2026-08-09T08:09:38.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:03:59Z) and run end + 15min (2026-08-09T08:19:02.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1122,19 +1122,19 @@
             "cron": null,
             "expectedCadenceDays": null,
             "lastRun": {
-              "runNumber": 15,
+              "runNumber": 16,
               "status": "completed",
-              "conclusion": "success",
-              "startedAt": "2026-08-09T07:54:28Z",
-              "finishedAt": "2026-08-09T07:55:00Z",
+              "conclusion": "failure",
+              "startedAt": "2026-08-09T08:03:59Z",
+              "finishedAt": "2026-08-09T08:04:30Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302242911",
-              "headSha": "59ada36f079c9ae0857ffecfcef17510e7ee7c0a",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302622763",
+              "headSha": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
               "event": "push"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T07:54:28Z) and run end + 15min (2026-08-09T08:10:00.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:03:59Z) and run end + 15min (2026-08-09T08:19:30.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1212,7 +1212,9 @@
             "stale": false
           }
         ],
-        "failing": [],
+        "failing": [
+          "Tests"
+        ],
         "stale": [],
         "neverRan": [
           "ASIN — Monthly Liveness Check",
@@ -1220,12 +1222,11 @@
         ],
         "wroteNothing": [
           "Amazon — Weekly Associates Pull",
-          "Friday — New Content (Conditional)",
-          "Tests"
+          "Friday — New Content (Conditional)"
         ]
       },
       "meta": {
-        "collectedAt": "2026-08-09T07:55:10.317Z",
+        "collectedAt": "2026-08-09T08:05:01.485Z",
         "rowCount": 13,
         "healthy": true,
         "reason": null
@@ -1302,7 +1303,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-09T07:55:01.191Z",
+        "collectedAt": "2026-08-09T08:04:54.636Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1310,8 +1311,8 @@
     },
     "amazon": {
       "data": {
-        "pullable": false,
-        "reason": "Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2). This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.",
+        "pullable": true,
+        "reason": "Pulled automatically from the Associates reporting API by scripts/amazon-pull.ts. Daily overview only — ASIN-level attribution still requires a manual export.",
         "searchedPaths": [
           "raw/affiliate",
           "raw/amazon",
@@ -1320,91 +1321,19 @@
           "data"
         ],
         "nagThresholdDays": 7,
-        "matchCount": 29,
-        "newest": {
-          "path": "raw/affiliate/2026-08-09-amazon-json/overview-daily.json",
-          "date": "2026-08-09",
-          "dateSource": "filename",
-          "ageDays": 0,
-          "sizeBytes": 7342,
-          "dataRows": null
-        },
-        "recent": [
-          {
-            "path": "raw/affiliate/2026-08-09-amazon-json/overview-daily.json",
-            "date": "2026-08-09",
-            "dateSource": "filename",
-            "ageDays": 0,
-            "sizeBytes": 7342,
-            "dataRows": null
-          },
-          {
-            "path": "raw/affiliate/2026-08-09-amazon-associates-report.md",
-            "date": "2026-08-09",
-            "dateSource": "filename",
-            "ageDays": 0,
-            "sizeBytes": 3172,
-            "dataRows": null
-          },
-          {
-            "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
-            "date": "2026-08-04",
-            "dateSource": "filename",
-            "ageDays": 5,
-            "sizeBytes": 4380,
-            "dataRows": null
-          },
-          {
-            "path": "raw/affiliate/2026-08-04-amazon-csv/linked-product.csv",
-            "date": "2026-08-04",
-            "dateSource": "filename",
-            "ageDays": 5,
-            "sizeBytes": 1047,
-            "dataRows": 4
-          },
-          {
-            "path": "raw/affiliate/2026-08-04-amazon-csv/category.csv",
-            "date": "2026-08-04",
-            "dateSource": "filename",
-            "ageDays": 5,
-            "sizeBytes": 496,
-            "dataRows": 2
-          },
-          {
-            "path": "raw/affiliate/2026-08-04-amazon-csv/tracking-id.csv",
-            "date": "2026-08-04",
-            "dateSource": "filename",
-            "ageDays": 5,
-            "sizeBytes": 263,
-            "dataRows": 1
-          },
-          {
-            "path": "raw/affiliate/2026-08-04-amazon-csv/top-sellers.csv",
-            "date": "2026-08-04",
-            "dateSource": "filename",
-            "ageDays": 5,
-            "sizeBytes": 47,
-            "dataRows": 0
-          },
-          {
-            "path": "raw/affiliate/2026-08-03-amazon-associates-report.md",
-            "date": "2026-08-03",
-            "dateSource": "filename",
-            "ageDays": 6,
-            "sizeBytes": 6860,
-            "dataRows": null
-          }
-        ],
+        "matchCount": 0,
+        "newest": null,
+        "recent": [],
         "overdue": false,
         "automatedPull": {
-          "present": false,
-          "ageDays": null,
-          "note": "data/affiliate/latest.json does not exist yet — the automated pull has not run successfully"
+          "present": true,
+          "ageDays": 0,
+          "note": "window 2026-07-11..2026-08-09 (rolling-30-day, mode=daily); 108 clicks, 7 ordered, $3337.74 ordered revenue, $100.40 SHIPPED earnings (pre-clawback, not net)"
         }
       },
       "meta": {
-        "collectedAt": "2026-08-09T07:55:00.456Z",
-        "rowCount": 29,
+        "collectedAt": "2026-08-09T08:04:54.043Z",
+        "rowCount": 25,
         "healthy": true,
         "reason": null
       }

@@ -145,19 +145,19 @@
         "cron": "0 10 * * *",
         "expectedCadenceDays": 1,
         "lastRun": {
-          "runNumber": 6,
+          "runNumber": 7,
           "status": "in_progress",
           "conclusion": null,
-          "startedAt": "2026-08-09T07:54:34Z",
-          "finishedAt": "2026-08-09T07:54:38Z",
+          "startedAt": "2026-08-09T08:03:59Z",
+          "finishedAt": "2026-08-09T08:04:02Z",
           "daysAgo": 0,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302246377",
-          "headSha": "59ada36f079c9ae0857ffecfcef17510e7ee7c0a",
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302622644",
+          "headSha": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
           "event": "workflow_dispatch"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-09T07:54:34Z) and run end + 15min (2026-08-09T08:09:38.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:03:59Z) and run end + 15min (2026-08-09T08:19:02.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -204,19 +204,19 @@
         "cron": null,
         "expectedCadenceDays": null,
         "lastRun": {
-          "runNumber": 15,
+          "runNumber": 16,
           "status": "completed",
-          "conclusion": "success",
-          "startedAt": "2026-08-09T07:54:28Z",
-          "finishedAt": "2026-08-09T07:55:00Z",
+          "conclusion": "failure",
+          "startedAt": "2026-08-09T08:03:59Z",
+          "finishedAt": "2026-08-09T08:04:30Z",
           "daysAgo": 0,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302242911",
-          "headSha": "59ada36f079c9ae0857ffecfcef17510e7ee7c0a",
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31302622763",
+          "headSha": "33e58ba18d748b8f470a6dd98eadb8a4055c5be5",
           "event": "push"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-09T07:54:28Z) and run end + 15min (2026-08-09T08:10:00.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:03:59Z) and run end + 15min (2026-08-09T08:19:30.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -294,7 +294,9 @@
         "stale": false
       }
     ],
-    "failing": [],
+    "failing": [
+      "Tests"
+    ],
     "stale": [],
     "neverRan": [
       "ASIN — Monthly Liveness Check",
@@ -302,12 +304,11 @@
     ],
     "wroteNothing": [
       "Amazon — Weekly Associates Pull",
-      "Friday — New Content (Conditional)",
-      "Tests"
+      "Friday — New Content (Conditional)"
     ]
   },
   "meta": {
-    "collectedAt": "2026-08-09T07:55:10.317Z",
+    "collectedAt": "2026-08-09T08:05:01.485Z",
     "rowCount": 13,
     "healthy": true,
     "reason": null

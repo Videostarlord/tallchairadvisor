@@ -1,7 +1,7 @@
 {
   "data": {
-    "pullable": false,
-    "reason": "Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2). This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.",
+    "pullable": true,
+    "reason": "Pulled automatically from the Associates reporting API by scripts/amazon-pull.ts. Daily overview only — ASIN-level attribution still requires a manual export.",
     "searchedPaths": [
       "raw/affiliate",
       "raw/amazon",
@@ -10,91 +10,19 @@
       "data"
     ],
     "nagThresholdDays": 7,
-    "matchCount": 29,
-    "newest": {
-      "path": "raw/affiliate/2026-08-09-amazon-json/overview-daily.json",
-      "date": "2026-08-09",
-      "dateSource": "filename",
-      "ageDays": 0,
-      "sizeBytes": 7342,
-      "dataRows": null
-    },
-    "recent": [
-      {
-        "path": "raw/affiliate/2026-08-09-amazon-json/overview-daily.json",
-        "date": "2026-08-09",
-        "dateSource": "filename",
-        "ageDays": 0,
-        "sizeBytes": 7342,
-        "dataRows": null
-      },
-      {
-        "path": "raw/affiliate/2026-08-09-amazon-associates-report.md",
-        "date": "2026-08-09",
-        "dateSource": "filename",
-        "ageDays": 0,
-        "sizeBytes": 3172,
-        "dataRows": null
-      },
-      {
-        "path": "raw/affiliate/2026-08-04-amazon-associates-report.md",
-        "date": "2026-08-04",
-        "dateSource": "filename",
-        "ageDays": 5,
-        "sizeBytes": 4380,
-        "dataRows": null
-      },
-      {
-        "path": "raw/affiliate/2026-08-04-amazon-csv/linked-product.csv",
-        "date": "2026-08-04",
-        "dateSource": "filename",
-        "ageDays": 5,
-        "sizeBytes": 1047,
-        "dataRows": 4
-      },
-      {
-        "path": "raw/affiliate/2026-08-04-amazon-csv/category.csv",
-        "date": "2026-08-04",
-        "dateSource": "filename",
-        "ageDays": 5,
-        "sizeBytes": 496,
-        "dataRows": 2
-      },
-      {
-        "path": "raw/affiliate/2026-08-04-amazon-csv/tracking-id.csv",
-        "date": "2026-08-04",
-        "dateSource": "filename",
-        "ageDays": 5,
-        "sizeBytes": 263,
-        "dataRows": 1
-      },
-      {
-        "path": "raw/affiliate/2026-08-04-amazon-csv/top-sellers.csv",
-        "date": "2026-08-04",
-        "dateSource": "filename",
-        "ageDays": 5,
-        "sizeBytes": 47,
-        "dataRows": 0
-      },
-      {
-        "path": "raw/affiliate/2026-08-03-amazon-associates-report.md",
-        "date": "2026-08-03",
-        "dateSource": "filename",
-        "ageDays": 6,
-        "sizeBytes": 6860,
-        "dataRows": null
-      }
-    ],
+    "matchCount": 0,
+    "newest": null,
+    "recent": [],
     "overdue": false,
     "automatedPull": {
-      "present": false,
-      "ageDays": null,
-      "note": "data/affiliate/latest.json does not exist yet — the automated pull has not run successfully"
+      "present": true,
+      "ageDays": 0,
+      "note": "window 2026-07-11..2026-08-09 (rolling-30-day, mode=daily); 108 clicks, 7 ordered, $3337.74 ordered revenue, $100.40 SHIPPED earnings (pre-clawback, not net)"
     }
   },
   "meta": {
-    "collectedAt": "2026-08-09T07:55:00.456Z",
-    "rowCount": 29,
+    "collectedAt": "2026-08-09T08:04:54.043Z",
+    "rowCount": 25,
     "healthy": true,
     "reason": null
   }
