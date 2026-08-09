@@ -27,6 +27,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { archiveJsonToRaw, appendWikiLog, readWikiPage, writeWikiPage, today } from './agents/wiki-utils.js';
+import { aliasHint } from './lib/env-names.js';
 import { meteredCreate, meterExternal } from './lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -1244,7 +1245,12 @@ async function main() {
 
   if (!dfsUser || !dfsPass || !firecrawlApiKey) {
     console.error('Missing required env vars:');
-    if (!dfsUser) console.error('  DATAFORSEO_USERNAME — get from dataforseo.com');
+    if (!dfsUser) {
+      console.error('  DATAFORSEO_USERNAME — get from dataforseo.com');
+      // A8: quotas.ts also accepts DATAFORSEO_LOGIN, this script does not.
+      const hint = aliasHint('DATAFORSEO_USERNAME');
+      if (hint !== null) console.error(`    ${hint}`);
+    }
     if (!dfsPass) console.error('  DATAFORSEO_PASSWORD — get from dataforseo.com');
     if (!firecrawlApiKey) console.error('  FIRECRAWL_API_KEY — get from firecrawl.dev');
     process.exit(1);

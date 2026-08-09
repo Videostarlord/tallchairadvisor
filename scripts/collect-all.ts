@@ -29,6 +29,7 @@
 import 'dotenv/config';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { warnOnEnvNameDrift } from './lib/env-names.js';
 import { REPO_ROOT } from './lib/read-validated.js';
 import * as amazon from './collectors/amazon.js';
 import * as clarity from './collectors/clarity.js';
@@ -164,6 +165,17 @@ async function fileFindings(unhealthy: Array<{ name: string; reason: string }>):
 
 async function main(): Promise<void> {
   const startedAt = new Date();
+
+  // A8. collectors/quotas.ts resolves SerpAPI and DataForSEO over BOTH the repo
+  // spelling and the vendor's, which is what has kept the drift invisible: a
+  // machine configured entirely under the vendor names looks healthy here and
+  // then aborts in keyword-discovery.ts, which accepts only the canonical name.
+  // Backward compatibility is kept — the aliases still work — but it stops being
+  // silent. Reported before the collectors run so the warning is at the top of
+  // the log rather than buried under seven parallel collectors' interleaved
+  // output, and recorded on the roll-up so it survives the runner.
+  const envDrift = warnOnEnvNameDrift();
+
   console.log(`[collect-all] ${startedAt.toISOString()} — running ${COLLECTORS.length} collectors in parallel\n`);
 
   const settled = await Promise.all(
@@ -214,6 +226,9 @@ async function main(): Promise<void> {
     total: settled.length,
     coveragePct: Math.round((healthyCount / settled.length) * 100),
     unhealthy,
+    // Name-only. Values are never recorded here — data/collectors/latest.json is
+    // committed to the repo every night.
+    envNameDrift: envDrift.map((d) => ({ kind: d.kind, canonical: d.canonical, alias: d.alias })),
     ledger,
     collectors: Object.fromEntries(settled.map((s) => [s.name, s.result])),
   };

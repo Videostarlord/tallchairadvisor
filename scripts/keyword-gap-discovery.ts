@@ -39,6 +39,7 @@ import {
   extractCompetitorTargets,
   flattenRankedKeywordResponse,
 } from './keyword-gap-discovery-logic.ts';
+import { aliasHint } from './lib/env-names.js';
 import { meterExternal } from './lib/metered-client.js';
 import { today } from './agents/wiki-utils.js';
 
@@ -50,6 +51,11 @@ const DATAFORSEO_PASSWORD = process.env.DATAFORSEO_PASSWORD;
 
 if (!DATAFORSEO_USERNAME || !DATAFORSEO_PASSWORD) {
   console.error('[keyword-gap-discovery] ABORT: DATAFORSEO_USERNAME and DATAFORSEO_PASSWORD must be set in .env');
+  // A8 — see keyword-discovery.ts. quotas.ts accepts DATAFORSEO_LOGIN; this
+  // script does not, and saying so is the difference between a two-minute fix
+  // and an hour spent proving a variable that is set is not set.
+  const hint = aliasHint('DATAFORSEO_USERNAME');
+  if (hint !== null) console.error(`[keyword-gap-discovery] ${hint}`);
   process.exit(1);
 }
 

@@ -17,6 +17,7 @@ import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, writeWikiPage, readWikiPage, today } from './agents/wiki-utils.js';
+import { aliasHint } from './lib/env-names.js';
 import { meterExternal } from './lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -29,6 +30,11 @@ const DATAFORSEO_PASSWORD = process.env.DATAFORSEO_PASSWORD;
 
 if (!DATAFORSEO_USERNAME || !DATAFORSEO_PASSWORD) {
   console.error('[keyword-discovery] ABORT: DATAFORSEO_USERNAME and DATAFORSEO_PASSWORD must be set in .env');
+  // A8. This script reads the canonical name only, while collectors/quotas.ts
+  // also accepts DATAFORSEO_LOGIN. Without this line the abort claims a variable
+  // is unset while the credential sits in the environment under its other name.
+  const hint = aliasHint('DATAFORSEO_USERNAME');
+  if (hint !== null) console.error(`[keyword-discovery] ${hint}`);
   process.exit(1);
 }
 
