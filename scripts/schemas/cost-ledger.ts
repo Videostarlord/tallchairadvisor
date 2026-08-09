@@ -51,6 +51,16 @@ export const llmCostRecordSchema = z
     cacheWrite: z.number(),
     cacheRead: z.number(),
     usd: costBreakdownSchema,
+    /**
+     * A13, added 2026-08-09. OPTIONAL, not required, and that is deliberate:
+     * the ~29 records written before this date genuinely do not know their own
+     * stop reason. Requiring the key would make the contract throw on real
+     * history; defaulting it to 'end_turn' would fabricate evidence that every
+     * historical call completed cleanly — which is exactly the claim the audit
+     * truncation disproves. Absent means unknown, and unknown is the truth.
+     */
+    stopReason: z.string().nullable().optional(),
+    maxTokens: z.number().nullable().optional(),
   })
   .passthrough();
 

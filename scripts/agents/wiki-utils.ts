@@ -11,6 +11,13 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, appen
 import { resolve, dirname } from 'path';
 import { ContractViolation, parseValidated, readValidated } from '../lib/read-validated.js';
 import {
+  approxTokens,
+  assertInputFloor,
+  makeEvaluated,
+  makeUnevaluable,
+  recordAgentHealth,
+} from '../lib/agent-health.js';
+import {
   gscHistoryOptions,
   gscHistorySchema,
   normalizePageKey,
@@ -190,6 +197,32 @@ export function readConceptContext(repoRoot: string, concepts: string[]): string
 }
 
 /**
+ * A13 — per-agent CONTEXT FLOORS, in approximate tokens.
+ *
+ * On 2026-07 `audit` was called with 1.4% of the strategy synthesis — roughly
+ * 610 tokens of a 43,670-token context — every week for a month, and produced a
+ * confident report arguing for a strategy that had been formally abandoned.
+ * Nothing anywhere held an opinion about how much context an agent had been
+ * handed. `assertPromptBudget` was already the one function both agents call
+ * with their full assembled context, so the floor belongs here rather than in a
+ * parallel mechanism.
+ *
+ * SET FAR BELOW A HEALTHY RUN, NOT NEAR IT. A healthy `audit` context is ~43k
+ * tokens and a healthy `strategy` context is comparable; 5,000 catches anything
+ * under ~12% of normal while leaving 8x headroom for a legitimately quiet week
+ * (a freshly compacted decisions-log, a wiki page deliberately retired). A
+ * floor tuned close to normal would fire on a normal week, get raised to shut
+ * it up, and stop meaning anything — which is how the 4000-token max_tokens
+ * ceiling came to be tolerated for a month.
+ *
+ * An agent absent from this table has no floor and is recorded, not blocked.
+ */
+export const CONTEXT_FLOORS: Record<string, number> = {
+  audit: 5_000,
+  strategy: 5_000,
+};
+
+/**
  * Guard the prompt budget WITHOUT truncating.
  *
  * Every context truncation in this pipeline began as a sensible cost control
@@ -206,8 +239,16 @@ export function readConceptContext(repoRoot: string, concepts: string[]): string
  * the budget still exists — it simply FAILS LOUDLY instead of silently dropping
  * the newest entries. If this throws, compact or archive the wiki; do not
  * reintroduce a slice.
+ *
+ * A13: it now guards BOTH ends. See CONTEXT_FLOORS above for why an
+ * under-filled prompt is the more dangerous of the two.
  */
-export function assertPromptBudget(label: string, text: string, maxTokens = 120_000): void {
+export function assertPromptBudget(
+  label: string,
+  text: string,
+  maxTokens = 120_000,
+  floorTokens: number = CONTEXT_FLOORS[label] ?? 0,
+): void {
   const approx = text.length / 4;
   if (approx > maxTokens) {
     throw new Error(
@@ -217,6 +258,33 @@ export function assertPromptBudget(label: string, text: string, maxTokens = 120_
         `Archive old decisions-log entries or narrow the page set instead.`,
     );
   }
+
+  // A13: the same guard from the other side. A ceiling breach is loud by
+  // construction — the prompt is enormous and something obviously changed. A
+  // FLOOR breach is silent: the agent runs, costs less, returns faster, and
+  // answers confidently from a fragment. That is the failure that survived a
+  // month. Recorded either way, so a healthy input size is evidence rather
+  // than an assumption.
+  const tokens = approxTokens(text);
+  if (floorTokens > 0) {
+    try {
+      assertInputFloor(label, text, floorTokens);
+    } catch (error) {
+      recordAgentHealth(
+        makeUnevaluable(error instanceof Error ? error.message : String(error), {
+          run: today(),
+          agent: label,
+          purpose: 'input-floor',
+          inputTokens: tokens,
+          floorTokens,
+        }),
+      );
+      throw error;
+    }
+  }
+  recordAgentHealth(
+    makeEvaluated({ run: today(), agent: label, purpose: 'input-floor', inputTokens: tokens, floorTokens: floorTokens > 0 ? floorTokens : null }),
+  );
 }
 
 /** Append a token-usage entry to data/token-log.jsonl */

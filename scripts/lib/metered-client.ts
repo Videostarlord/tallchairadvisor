@@ -16,6 +16,21 @@
  * Ledger append never breaks the caller's LLM call — but it is never silent
  * either: a failed append prints a LOUD warning to stderr naming the file and
  * the error, so the loss shows up in CI logs instead of vanishing.
+ *
+ * A13 ADDENDUM — WHY stop_reason IS CAPTURED HERE AND NOWHERE ELSE
+ * Four call sites already checked `response.stop_reason === 'max_tokens'` by
+ * hand; eleven did not. The audit was one of the eleven, and it stopped at
+ * exactly its 4000-token ceiling on five consecutive weekly runs while every
+ * dashboard stayed green. A per-call-site check is a convention, and this
+ * codebase's signature failure is a convention that one new call site forgets.
+ *
+ * This function is already the ONE place every LLM call in the repo passes
+ * through — lint rule R5 guarantees it. So truncation detection belongs here
+ * for exactly the reason cost accounting does: it is the only chokepoint where
+ * "every agent" is enforceable rather than hoped for. Every call now writes an
+ * `evaluated` / `unevaluable` record to data/agent-health.jsonl, and the
+ * nightly refuses to report a clean night while any `unevaluable` record sits
+ * in tonight's window.
  */
 
 import 'dotenv/config';
@@ -24,6 +39,7 @@ import { appendFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { costOf, type CostBreakdown, type TokenUsage } from './pricing.js';
+import { classifyStop, makeEvaluated, makeUnevaluable, recordAgentHealth } from './agent-health.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -46,6 +62,13 @@ export interface MeterContext {
  * One LLM call, exactly the PRD §7.1 record shape:
  * {"ts","agent","run","purpose","model","input","output","cacheWrite","cacheRead","usd":{...}}
  * `purpose` is omitted (not null) when unset — JSON.stringify drops undefined.
+ *
+ * A13 additions: `stopReason` and `maxTokens`. Together they are the proof of
+ * truncation — `stop_reason: 'max_tokens'` with `output === maxTokens` is the
+ * signature of the month-long audit failure, and neither field alone shows it.
+ * Both are `null` when unknown, never a plausible default, and both are
+ * OPTIONAL on the schema so the ~29 records already on disk still validate:
+ * back-filling them with 'end_turn' would be inventing evidence.
  */
 export interface LlmCostRecord {
   ts: string;
@@ -58,6 +81,10 @@ export interface LlmCostRecord {
   cacheWrite: number;
   cacheRead: number;
   usd: CostBreakdown;
+  /** Verbatim `stop_reason`. null = the response carried none. */
+  stopReason: string | null;
+  /** The ceiling the call requested. null = not recorded. */
+  maxTokens: number | null;
 }
 
 /**
@@ -109,13 +136,20 @@ export function detectCacheTtl(params: unknown): '5m' | '1h' {
   return hasOneHourCacheControl(params) ? '1h' : '5m';
 }
 
-/** Build the ledger record for one priced LLM call. Pure — no I/O. */
+/**
+ * Build the ledger record for one priced LLM call. Pure — no I/O.
+ *
+ * `completion` is optional so the existing four-argument call shape keeps
+ * working; omitting it records `null`/`null`, which reads as "not observed"
+ * rather than "completed normally".
+ */
 export function buildLlmRecord(
   model: string,
   usage: TokenUsage,
   ctx: MeterContext,
   cacheTtl: '5m' | '1h',
-  at: Date = new Date()
+  at: Date = new Date(),
+  completion: { stopReason: string | null; maxTokens: number | null } = { stopReason: null, maxTokens: null }
 ): LlmCostRecord {
   const usd = costOf(model, usage, { cacheTtl, at });
   const record: LlmCostRecord = {
@@ -123,6 +157,8 @@ export function buildLlmRecord(
     agent: ctx.agent,
     run: ctx.run,
     model,
+    stopReason: completion.stopReason,
+    maxTokens: completion.maxTokens,
     input: usage.input_tokens,
     output: usage.output_tokens,
     cacheWrite:
@@ -255,10 +291,25 @@ export async function meteredCreate(
     cache_read_input_tokens: message.usage.cache_read_input_tokens,
   };
 
+  const stopReason = typeof message.stop_reason === 'string' ? message.stop_reason : null;
+  const maxTokens = typeof params.max_tokens === 'number' ? params.max_tokens : null;
+
+  // A13. Recorded BEFORE pricing, and outside its try/catch, because a truncated
+  // response is a correctness fact and an unpriceable model is an accounting
+  // fact. Losing the first because of the second is how the audit truncation
+  // could have hidden a second time.
+  const stop = classifyStop({ stopReason, outputTokens: usage.output_tokens, maxTokens });
+  const health = { run: ctx.run, agent: ctx.agent, purpose: ctx.purpose, inputTokens: usage.input_tokens, outputTokens: usage.output_tokens, maxTokens, stopReason };
+  recordAgentHealth(
+    stop.status === 'evaluated'
+      ? makeEvaluated(health)
+      : makeUnevaluable(stop.reason ?? 'unevaluable completion', health)
+  );
+
   // Pricing failures (unknown model) must be loud too, but must not discard a
   // response the caller already paid for.
   try {
-    const record = buildLlmRecord(model, usage, ctx, detectCacheTtl(params));
+    const record = buildLlmRecord(model, usage, ctx, detectCacheTtl(params), new Date(), { stopReason, maxTokens });
     appendRecordSafely(record);
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
