@@ -45,11 +45,13 @@
         "cost:reconcile": "tsx scripts/cost-rollup.ts --reconcile",
         "lint:architecture": "node scripts/lint-architecture.mjs",
         "ledger:evaluate": "tsx scripts/ledger-evaluate.ts",
+        "retention:prune": "tsx scripts/retention-prune.ts",
+        "retention:prune:dry": "tsx scripts/retention-prune.ts --dry-run",
         "collect:all": "tsx scripts/collect-all.ts",
         "probe": "tsx scripts/probes/run.ts",
         "nightly": "tsx scripts/nightly-report.ts",
         "correct": "tsx scripts/corrector.ts",
-        "godseye": "npm run collect:all && npm run ledger:evaluate && npm run nightly"
+        "godseye": "npm run collect:all && npm run ledger:evaluate && npm run retention:prune && npm run nightly"
     },
     "dependencies": {
         "@anthropic-ai/sdk": "^0.36.3",

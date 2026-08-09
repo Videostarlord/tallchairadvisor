@@ -1,13 +1,16 @@
 /**
  * retention.ts — a bounded on-disk footprint for the nightly's own artifacts (A5).
  *
- * ⚠️  NOT WIRED IN. Nothing calls this module yet. A5 is NOT closed.
+ * WIRED IN 2026-08-09. `scripts/retention-prune.ts` (`npm run retention:prune`)
+ * is the caller; .github/workflows/nightly.yml runs it as the step immediately
+ * after `ledger:evaluate`, and the `godseye` npm script does the same locally.
  *
- * The measurements and the evidence-safety argument below are done and stand on
- * their own, but no workflow invokes `pruneProbeArtifacts()`, so probe files are
- * still accumulating at ~490 KB/night exactly as before. Wiring it into
- * nightly.yml (after `ledger:evaluate`, so the pinning set is current) is the
- * remaining step. Recorded here rather than in a commit message because a
+ * That ordering is a correctness requirement, not tidiness: `pinnedProbeDates()`
+ * reads the ledger's CURRENT statuses, so a finding opened by tonight's
+ * evaluation must already be written before the pruner decides what is still
+ * under adjudication. Moving this step earlier would silently narrow the pin
+ * set. The previous version of this header recorded that NOTHING called this
+ * module — worth remembering as the reason the note existed at all, since a
  * library with no caller reads as finished work to everyone who finds it later,
  * and this codebase has already been burned once by a component that looked
  * healthy while doing nothing.
@@ -57,7 +60,10 @@
  *     closed (open / escalated / regressed) is PINNED and kept. Those are the
  *     findings still under active adjudication, the ones a human is most likely
  *     to want to open the raw record for. Closed records are already settled and
- *     already carry their detail inline, so they pin nothing.
+ *     already carry their detail inline, so they pin nothing. Status is read
+ *     from the FOLDED ledger, not the raw append-only history — see
+ *     `foldToCurrent()` for why that distinction is the difference between a
+ *     working policy and one that reclaims nothing.
  *
  * The ledger itself is deliberately NOT pruned or compacted. Invariant 3 in
  * ledger.ts is that the file is append-only and never rewritten — folding it is
@@ -72,7 +78,7 @@
 import { readdirSync, statSync, unlinkSync } from 'fs';
 import { existsSync } from 'node:fs';
 import { resolve } from 'path';
-import { readLedger, type LedgerRecord } from './ledger.js';
+import { currentState, readLedger, type LedgerRecord } from './ledger.js';
 import { REPO_ROOT } from './read-validated.js';
 
 /** Nights of probe history kept on disk. ~490 KB each → ~15 MB steady state. */
@@ -110,7 +116,7 @@ export interface PrunePlan {
  */
 export function pinnedProbeDates(records: LedgerRecord[]): Set<string> {
   const pinned = new Set<string>();
-  for (const record of records) {
+  for (const record of foldToCurrent(records)) {
     if (record.status === 'closed') continue;
     if (record.evidence === null) continue;
     const match = PROBE_SOURCE.exec(record.evidence.source);
@@ -118,6 +124,33 @@ export function pinnedProbeDates(records: LedgerRecord[]): Set<string> {
     pinned.add(match[1]);
   }
   return pinned;
+}
+
+/**
+ * Last transition per id — the same fold `ledger.currentState()` performs.
+ * Idempotent, so handing this an already-folded array is safe.
+ *
+ * WHY THE FOLD IS NOT OPTIONAL, measured 2026-08-09 against the real ledger
+ * data/ledger.jsonl is append-only and holds every TRANSITION, not one row per
+ * finding: 291 rows for 63 findings. A finding that was open on 2026-08-06 and
+ * closed on 2026-08-09 leaves its open row in the file forever. Pinning off the
+ * raw history therefore pins every probe date that ever backed an open
+ * transition — which at the time of writing was 4 dates out of the 4 that have
+ * ever existed, cited by 50, 48, 48 and 5 non-closed rows respectively.
+ *
+ * That is a pruner that reclaims nothing, forever: wired in, green, and doing
+ * exactly as much as it did when nothing called it. Folding is what makes
+ * "still being adjudicated" mean the finding's CURRENT status, which is what
+ * this policy has always said it meant.
+ *
+ * Nothing is lost by folding. Per fact 2 in the header, an older transition's
+ * evidence detail is already written inline on its own ledger line, so the
+ * probe file was never the only copy of what was observed.
+ */
+export function foldToCurrent(records: LedgerRecord[]): LedgerRecord[] {
+  const latest = new Map<string, LedgerRecord>();
+  for (const record of records) latest.set(record.id, record);
+  return [...latest.values()];
 }
 
 /**
@@ -174,7 +207,11 @@ export interface PruneOptions {
   repoRoot?: string;
   keep?: number;
   dryRun?: boolean;
-  /** Ledger records to derive pins from. Defaults to the real data/ledger.jsonl. */
+  /**
+   * Ledger records to derive pins from. Defaults to the folded current state of
+   * the real data/ledger.jsonl. Raw history is accepted too — pinnedProbeDates()
+   * folds whatever it is given.
+   */
   ledger?: LedgerRecord[];
 }
 
@@ -191,7 +228,7 @@ export function pruneProbeArtifacts(opts: PruneOptions = {}): PruneResult {
   const repoRoot = opts.repoRoot === undefined ? REPO_ROOT : opts.repoRoot;
   const keep = opts.keep === undefined ? DEFAULT_PROBE_KEEP : opts.keep;
   const dryRun = opts.dryRun === true;
-  const records = opts.ledger === undefined ? readLedger() : opts.ledger;
+  const records = opts.ledger === undefined ? [...currentState().values()] : opts.ledger;
 
   const plan = planProbePruning(probeDatesOnDisk(repoRoot), keep, pinnedProbeDates(records));
 
@@ -235,7 +272,11 @@ export function inspectLedgerSize(repoRoot: string = REPO_ROOT, path = 'data/led
     path,
     exists: true,
     bytes,
-    records: readLedger().length,
+    // `file`, not the module default: sizing one path while counting the records
+    // of another produces a report that is internally inconsistent in exactly the
+    // case (a non-default repoRoot) where someone is checking it deliberately.
+    // Identical in production, where both resolve to data/ledger.jsonl.
+    records: readLedger(file).length,
     overAlarm: bytes > LEDGER_ALARM_BYTES,
   };
 }

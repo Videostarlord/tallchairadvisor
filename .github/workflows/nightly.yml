@@ -126,12 +126,19 @@ jobs:
           # Required, not optional: the token carries zone scopes but cannot
           # list accounts, so the account id has to be supplied explicitly.
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # These names must match the secrets as they actually exist in this
-          # repo (SERP_API_KEY, DATAFORSEO_USERNAME) — NOT the vendors' own
-          # naming. A wrong name here does not fail: Actions substitutes an
-          # empty string, the collector reports "no key set", and the quota
-          # check goes quietly blind. quotas.ts accepts either spelling, so
-          # passing the right secret under either env name works.
+          # CANONICAL NAMES (A8). SERP_API_KEY and DATAFORSEO_USERNAME are the
+          # names the secrets actually have in this repo, and therefore the
+          # canonical spellings — see the table in .env.example. The vendors'
+          # own names (SERPAPI_KEY, DATAFORSEO_LOGIN) are deprecated aliases
+          # that only scripts/collectors/quotas.ts still resolves.
+          #
+          # Do not "correct" these to the vendor spellings. A wrong name here
+          # does not fail: Actions substitutes an empty string, the collector
+          # reports "no key set", and the quota check goes quietly blind. That
+          # is exactly what happened on 2026-08-06.
+          #
+          # collect-all.ts now prints an ENV NAME DRIFT block if anything is
+          # supplied under an alias, so a future rename cannot go unnoticed.
           SERP_API_KEY: ${{ secrets.SERP_API_KEY }}
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
           DATAFORSEO_USERNAME: ${{ secrets.DATAFORSEO_USERNAME }}
@@ -181,6 +188,25 @@ jobs:
         run: npm run ledger:evaluate
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      # ── Retention (A5) ──────────────────────────────────────────────────
+      # MUST come after ledger:evaluate, and the reason is a correctness one.
+      # scripts/lib/retention.ts pins any probe date cited as evidence by a
+      # finding that is still open/escalated/regressed, and it reads those
+      # statuses from data/ledger.jsonl. Run before the evaluation and tonight's
+      # newly-opened finding has not been written yet, so its probe file looks
+      # unpinned and becomes eligible for deletion the moment it ages out.
+      #
+      # Only data/probes/ is pruned. data/ledger.jsonl is append-only and is
+      # never rewritten (ledger.ts invariant 3) — this step only SIZES it and
+      # says so if it crosses the alarm threshold.
+      #
+      # The deletions reach the repo via the `git add data/probes` in the commit
+      # step below: `git add <dir>` stages removals as well as additions, so the
+      # pruned files leave main on the same night they leave the runner.
+      - name: Prune probe artifacts (retention)
+        continue-on-error: true
+        run: npm run retention:prune
 
       # ── L4 cost ─────────────────────────────────────────────────────────
       - name: Roll up spend
