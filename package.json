@@ -38,6 +38,8 @@
         "ga4:full": "npm run ga4:pull && npm run gsc:analyze",
         "amazon:pull": "tsx scripts/amazon-pull.ts",
         "amazon:pull:dry": "tsx scripts/amazon-pull.ts --dry-run",
+        "asin:check": "tsx scripts/asin-check.ts",
+        "asin:check:dry": "tsx scripts/asin-check.ts --dry-run",
         "cost:rollup": "tsx scripts/cost-rollup.ts",
         "cost:reconcile": "tsx scripts/cost-rollup.ts --reconcile",
         "lint:architecture": "node scripts/lint-architecture.mjs",
