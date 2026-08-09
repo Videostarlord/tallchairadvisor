@@ -140,9 +140,44 @@ The nightly's URL Inspection loop is `scripts/collectors/gsc.ts:307` — 49 elig
 
 `GSC_INSPECT_LIMIT` is not a workaround: it slices a **prefix**, so the tail of the list is starved permanently rather than rotated — and that is worse than the slow run, because partial coverage is currently reported honestly as `healthy: false` with a named cause.
 
+## Changed on 2026-08-09 (fourth session) — A2 and A13 closed
+
+| Item | Status | Now |
+|---|---|---|
+| **A2** Nightly cannot see the agents' own execution logs | A-HIGH, open | **CLOSED.** `reports/fixes-log.md` and `reports/content-log.md` are nightly sources with a real contract (`scripts/schemas/execution-log.ts`). |
+| **A13** No health check on the detectors themselves | A-HIGH, open | **CLOSED.** `scripts/lib/agent-health.ts` + `detectorHealth()` in `nightly-report.ts`. All three sub-items done, plus the surface-mismatch rule the B11 gate argued for. |
+
+### A2: the contract is what makes them sources rather than text
+
+Adding two `readFileSync` calls would have satisfied the letter of the task and nothing else. The obligations the other twelve sources carry apply here too, and markdown has no zod schema, so `execution-log.ts` is a **text contract** run in the same place `readValidated` is:
+
+- **Shape** — the dated H1 both writers emit (`# Content Log — 2026-08-07`).
+- **Freshness from the HEADER DATE, never mtime.** mtime lies after a CI clone, and this matters more here than anywhere: `execute-content.ts` exits *without writing* when it has no tasks, so a stale content log is the live evidence of the Friday-produced-nothing-for-5-days failure. An 8-day SLA — one weekly cadence plus a day.
+- **Non-vacuity** — at least one `- [✅]` / `- [❌]` outcome line, or the explicit `No fixes needed this week.` A header with nothing under it is an agent that ran and told nobody anything, and it must not read as a quiet success.
+
+The event that motivated A2 — the trust layer refusing fabricated ASIN `B000VNLYYS` on a page scoring 100/100 — is now a parsed `refused` entry, and the report has a mandatory **"What the agents did"** section that names applied, skipped, rolled-back and refused separately. What the pipeline *refused* is as much an observation as what it applied.
+
+### A13: `unevaluable` is the third state the system was missing
+
+`probes/types.ts` already enforced null-not-zero for a page and `collectors/types.ts` for a collector. Nothing enforced it for the **agents**. `scripts/lib/agent-health.ts` does, and `data/agent-health.jsonl` is its append-only log.
+
+1. **stop_reason on every call.** Captured in `meteredCreate` — the one chokepoint lint rule R5 already guarantees every LLM call passes through. Four call sites checked `max_tokens` by hand; eleven did not, and the audit was one of the eleven. A per-call-site convention is exactly what one new call site forgets. `max_tokens`, `refusal`, an absent stop reason and an **unrecognised** one are all `unevaluable`.
+2. **Input floor.** `assertPromptBudget()` now guards both ends; `CONTEXT_FLOORS` sets 5,000 tokens for `audit` and `strategy`. The 1.4% run was ~610 tokens of 43,670 and now throws. The floor is deliberately far below normal rather than near it — a floor that fires on a quiet week gets raised to shut it up and stops meaning anything, which is how a 4,000-token ceiling came to be tolerated for a month.
+3. **The nightly refuses to report success while blind.** `detectorHealth()` assesses agents, collectors, quotas and sources in one place; the model is forbidden from calling a blind night clean; the count is restated mechanically in the footer below the narrative and in the **phone-push title** (`God's-Eye 2026-08-09 (92% coverage, 2 BLIND)`), because the lock screen is often the whole report.
+
+**A collector returning `rowCount: 0` under `healthy: true` is now flagged.** The credential worked, the request succeeded, and it came back with nothing — an empty observation, not a healthy one, and in a summary table it was previously indistinguishable from a full one.
+
+### The B11 lesson is now a rule, not a rationale
+
+`judgeVerdict()` encodes what the source-only content gate proved on 2026-08-09: **a detector that reads only its inputs cannot see what its own transform emits.** A verdict declares which surface it *read* (`source` / `rendered` / `live`) and which it *claims to cover*. A **clean** verdict where those differ is `unevaluable`. A verdict that *found* violations is still believed — the bug was that "no violations" was wrong, not that its findings were, and suppressing real findings on a surface mismatch would trade one silent failure for another.
+
+Its first caller found a live instance of the same class inside this file. `summarizeProbes()` could emit *"No failing assertions. Every probed page fired its tags"* over a results array in which every entry was skipped or unhealthy — a clean verdict over zero inspected units. It now says `NOTHING WAS PROBED` and the source's trust degrades to `unevaluable`.
+
+**The nightly still exits 0 and still writes its heartbeat when detectors are blind.** That is the §7.6 contract, not an oversight: failing here would suppress the heartbeat and fire "TCA DEAD" on a night whose only fault was one empty collector — replacing a blind report with no report at all.
+
 ## Still open, unchanged
 
-- **A2** Nightly cannot see the agents' own execution logs · **A6** cost reconcile · **A13** No health check on the detectors themselves
+- **A6** cost reconcile
 - **A7** — blocked on `scripts/collectors/gsc.ts` ownership, see above. Nothing else stands in the way.
 - ~~**B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0~~ — **title/meta rewritten 2026-08-09.** Ledger `018c617c0678`. Both now lead with the fact that this is the one chair Jackson owns and sits in. See [[review-gesture]]. Sanctioned only because the page sits *at* pos 8.0 — the kill list bars this treatment below it, and this remains the single CTR task in scope.
 - **C** 14 findings held back by strategy

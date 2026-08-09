@@ -3353,3 +3353,29 @@ The warning deliberately does not overstate. `SERP_API_KEY` has exactly one read
 **A7 was NOT done — it is blocked, not deferred.** The nightly's URL Inspection loop is `scripts/collectors/gsc.ts:307` (49 eligible URLs), not `gsc-pull.ts` or `index-monitor.ts` — `index-monitor.ts` runs Monday only. Rotating ~10/night means changing the `eligible.slice(0, limit)` selection in that file, which is owned by another agent this session. `GSC_INSPECT_LIMIT` is not a substitute: it slices a *prefix*, so the tail of the list is starved permanently rather than rotated.
 
 Related: [[open-issues-status]] · [[godseye-nightly]]
+
+## 2026-08-09 — A2 + A13: the nightly now holds an opinion about its own eyesight
+
+Two items that look separate and are the same item. A2 said the nightly could not see the agents' own execution logs; A13 said nothing anywhere checked whether the detectors themselves had gone blind. Both are the same sentence: *the observation layer observed everything except itself.*
+
+**A2.** `reports/fixes-log.md` and `reports/content-log.md` are now nightly sources. They are markdown, so no zod schema applies — `scripts/schemas/execution-log.ts` is a **text contract** executed in exactly the place `readValidated` is, carrying the same three obligations: a dated H1, freshness from the header date rather than mtime, and at least one outcome line or an explicit no-op.
+
+Freshness-from-header is not pedantry here. `execute-content.ts` exits *without writing* when it has no tasks, so the content log going stale is the only on-disk evidence that Friday produced nothing — and mtime, which is seconds old for every file after a CI clone, cannot tell that apart from a healthy run. The event that motivated A2 (the trust layer refusing fabricated ASIN `B000VNLYYS` on a page scoring 100/100) parses as a `refused` entry, and the report gained a mandatory **"What the agents did"** section that names applied, skipped, rolled-back and refused separately.
+
+**A13.** `scripts/lib/agent-health.ts` applies `probes/types.ts`'s null-not-zero rule one level up, to the agents, writing `data/agent-health.jsonl`.
+
+- `stop_reason` is captured in `meteredCreate`, not at the call sites. Four of fifteen call sites checked `max_tokens` by hand and the audit was one of the eleven that did not — a per-call-site check is a convention, and this codebase's signature failure is a convention one new call site forgets. `meteredCreate` is the one chokepoint lint rule R5 already guarantees. An **unrecognised** stop reason is unevaluable too: a value this code has never seen is precisely where assuming success is unearned.
+- `assertPromptBudget()` now guards the floor as well as the ceiling (`CONTEXT_FLOORS`: 5,000 tokens for `audit` and `strategy`). The 1.4%-of-synthesis run was ~610 tokens and now throws. Set far below normal rather than near it — a floor that fires on a quiet week gets raised to shut it up and stops meaning anything, which is exactly how a 4,000-token ceiling survived a month.
+- `detectorHealth()` in `nightly-report.ts` assesses agents, collectors, quotas and sources in one pass. A collector reporting `rowCount: 0` under `healthy: true` is flagged: the credential worked, the request succeeded, and it came back with nothing, which is an empty observation and not a healthy one.
+
+**The refusal is enforced three ways, deliberately redundantly.** The prompt forbids the model from calling a blind night clean; the blind table is restated *mechanically* in the footer below whatever prose the model wrote; and the count goes in the **phone-push title**, because a lock-screen notification is often the entire report that gets read, and "88% coverage" beside a reassuring TL;DR is precisely how a month of truncated audits felt fine.
+
+**The strongest piece is the one B11 argued for.** `judgeVerdict()` makes a verdict declare which surface it *read* (`source` / `rendered` / `live`) and which it *claims to cover*, and refuses a **clean** verdict when those differ — the 2026-08-09 content gate that reported "no violations" on `.astro` source while `dist/` carried 26. A verdict that *found* violations is still believed: the bug was that the absence was wrong, not the presence, and suppressing real findings on a surface mismatch would trade one silent failure for another.
+
+Its first caller immediately found the same bug class inside `nightly-report.ts` itself. `summarizeProbes()` could emit *"No failing assertions. Every probed page fired its tags"* over a results array where every entry was skipped or unhealthy — a clean verdict over zero inspected units. It now says `NOTHING WAS PROBED` and the source degrades to `unevaluable`.
+
+**What deliberately did not change:** the nightly still exits 0 and still writes its heartbeat when detectors are blind. Failing there would suppress the heartbeat and fire "TCA DEAD" on a night whose only fault was one empty collector — replacing a blind report with no report, which is the worse of the two.
+
+34 new assertions across `scripts/lib/__tests__/agent-health.test.ts` and `scripts/schemas/__tests__/execution-log.test.ts`; the execution-log fixtures are the verbatim contents of both real logs. 23/23 test files pass; `lint:architecture` reports no new violations.
+
+Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]
