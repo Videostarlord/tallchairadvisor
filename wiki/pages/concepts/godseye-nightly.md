@@ -1,6 +1,6 @@
 # God's-Eye Nightly
 
-**Type:** concept · **Status:** operational · **Created:** 2026-08-06 · **Updated:** 2026-08-06
+**Type:** concept · **Status:** operational · **Created:** 2026-08-06 · **Updated:** 2026-08-09
 **Spec:** `raw/strategy/2026-08-05-godseye-PRD.md` · **Branch:** `feat/godseye-nightly`
 
 The observation layer over the Mon–Sat pipeline. It does not replace that pipeline — it watches it, proves what it claims, and alarms when it goes quiet.
@@ -35,7 +35,7 @@ Concretely, and each of these is enforced rather than documented:
 |---|---|---|
 | L0 contracts | `scripts/lib/read-validated.ts`, `scripts/schemas/` | every read validates; throws `ContractViolation` with a "did you mean" hint |
 | L1 collectors | `scripts/collectors/` | GSC (incl. URL Inspection), GA4, Clarity, Cloudflare, GitHub Actions, quotas, Amazon |
-| L2 probes | `scripts/probes/` | Playwright: tags actually firing, `<head>` truth, CWV, GEO markup |
+| L2 probes | `scripts/probes/` | Playwright: tags actually firing, `<head>` truth, CWV, GEO markup, **visual regression at desktop + mobile (P1, 2026-08-09)** |
 | L3 ledger | `scripts/lib/ledger.ts`, `scripts/lib/predicates/` | append-only state per finding + nightly predicate re-evaluation |
 | L4 cost | `scripts/lib/metered-client.ts`, `pricing.ts` | every LLM call priced at write time |
 | L5 report | `scripts/nightly-report.ts` | one Sonnet call over the whole ledger → `wiki/nightly/` + phone |
@@ -55,6 +55,7 @@ Concretely, and each of these is enforced rather than documented:
 ```bash
 npm run collect:all      # L1 — writes data/collectors/
 npm run probe            # L2 — writes data/probes/YYYY-MM-DD.json
+npm run probe -- --visual   # L2 + P1 screenshots vs raw/visual/baseline/ (what the nightly runs)
 npm run ledger:evaluate  # L3 — re-runs every open predicate, writes data/ledger-state.json
 npm run cost:rollup      # L4 — writes data/cost-summary.json
 npm run nightly          # L5 — writes wiki/nightly/YYYY-MM-DD.md + heartbeat
@@ -111,6 +112,22 @@ Two of this system's worst defects lived in the *seam between* components rather
 - The **Saturday deploy** — Friday appends `data/token-log.jsonl` on `staging`, the weekday agents append it on `main`, and `saturday.yml`'s bare `git merge` conflicted on the overlap. Dead in 12 seconds since 2026-07-25, before any step that produces output.
 
 Neither is reachable by unit tests of either side. The generalizable rule, now recorded in the workflow itself: **any file a downstream component reads from `main` must be in `nightly.yml`'s commit loop**, and any file two branches append to needs a merge strategy declared in `.gitattributes`.
+
+**Both halves of that rule were applied again on 2026-08-09**, before they could bite:
+
+- `raw/visual/baseline/` was added to the commit loop. Without it, every night would rediscover that a new page has no baseline, write one into the container, throw it away, and never once compare — a detector that runs forever and observes nothing. Exactly the heartbeat failure, in a new component.
+- `data/edit-log.jsonl` was added to the commit loop *and* given a `merge=union` driver in `.gitattributes`, because the weekday agents append it on `main` while Friday's content agent appends it on `staging` — the token-log conflict that killed the Saturday deploy, in a new file.
+
+## What P1 added to L2 (2026-08-09)
+
+`npm run probe -- --visual` captures each page at **desktop 1366×900 and mobile 375×812** and diffs against `raw/visual/baseline/`. Mobile had **zero** coverage before this.
+
+It obeys the same rules as the rest of the layer:
+
+- **Capture runs last** in `probeUrl`, after every vital is read — resizing the viewport provokes layout shifts, and doing it earlier would make CLS measure the probe's own resize.
+- **`diffPct: null` never files a finding.** No baseline, a failed screenshot and changed dimensions are all "no comparison happened", not "no difference" — and a freshly written baseline is `unevaluable`, since it would be comparing against itself.
+- **Synthetic runs may not write baselines** (`allowBaselineWrite: !synthetic`). A preview build writing baselines would redefine "correct" as whatever an unmerged branch renders.
+- **Advisory, not blocking.** `visual-regression` is deliberately absent from `BLOCKING_CLASSES` until the 2% threshold is calibrated on a week of real diffs.
 
 ## Related
 
