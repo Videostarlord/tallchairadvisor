@@ -61,6 +61,25 @@ export const closurePredicateSchema = z.discriminatedUnion('kind', [
    * time for the observation system to go blind.
    */
   z.object({ kind: z.literal('collector-healthy'), collector: z.string() }).passthrough(),
+  /**
+   * P1 visual regression. Added 2026-08-09 — LATE, and the delay proved the
+   * warning above word for word.
+   *
+   * `visual-diff` was registered in scripts/lib/predicates/ (the WRITE path) but
+   * not here (the READ path). The probe promptly filed 10 real visual-regression
+   * findings, and the very next validated read of data/ledger.jsonl threw:
+   * "'closurePredicate.kind' must have a discriminator ... found 'visual-diff'".
+   * The ledger went unreadable the moment the detector started working.
+   *
+   * The two lists are now cross-checked by a test, because keeping them in sync
+   * by remembering is exactly what failed here.
+   */
+  z.object({
+    kind: z.literal('visual-diff'),
+    url: z.string(),
+    viewport: z.enum(['desktop', 'mobile']),
+    maxPct: z.number(),
+  }).passthrough(),
 ]);
 
 export type ClosurePredicate = z.infer<typeof closurePredicateSchema>;
