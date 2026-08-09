@@ -3379,3 +3379,18 @@ Its first caller immediately found the same bug class inside `nightly-report.ts`
 34 new assertions across `scripts/lib/__tests__/agent-health.test.ts` and `scripts/schemas/__tests__/execution-log.test.ts`; the execution-log fixtures are the verbatim contents of both real logs. 23/23 test files pass; `lint:architecture` reports no new violations.
 
 Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]
+
+## 2026-08-09 — the module-with-no-caller shape, twice in one day
+
+`lib/retention.ts` (A5) and `lib/gsc-rotation.ts` (A7) were both authored complete and both landed with **nothing calling them**. A5 got wired later and, in the wiring, turned out to have a defect that would have shipped green: it derived its "do not delete" pins from the raw append-only ledger, which stores every *transition* rather than one row per finding, so it pinned **4 of the 4 probe dates in existence** and would have reclaimed zero bytes every night, forever, while reporting success.
+
+That is the same shape as this session's other two defects:
+
+- the content spec gate reported **clean on the source** while 26 real instances survived in the rendered HTML
+- `data/cost-ledger.jsonl` is written by every agent but **committed only by `nightly.yml`**, so weekday spend is discarded and A6's total is an undercount of unknown size
+
+In all four cases the component worked and the *seam* lost the result. A library with no caller is that failure in its purest form, because it looks finished. Both files now say so in their own headers — the only place a future reader is guaranteed to look.
+
+A7 remains open: `collectors/gsc.ts:307` still takes the prefix slice.
+
+Related: [[open-issues-status]] · [[godseye-nightly]]
