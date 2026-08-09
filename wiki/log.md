@@ -3202,3 +3202,15 @@ Two invariants preserved deliberately: `run.ts`'s exit contract is untouched (it
 **Two Cloudflare settings this depends on, neither verifiable from CI** — both documented in the workflow header: preview deployments must be enabled for non-production branches, and `PUBLIC_GA_MEASUREMENT_ID` must be set in the **preview** environment or every PR fails `tag-not-firing-gtag` for a config reason. Untested against a real PR; the first one to open is the proof.
 
 A10 remains open and is explicitly *not* a Playwright job — Amazon blocks datacenter IPs, so it needs Firecrawl.
+
+## 2026-08-09 — A9 verified against a real preview build; Saturday deploy proven fixed
+
+**Saturday deploy: FIXED, proven.** Manual dispatch `31296673712` succeeded in **41s**. The 2026-08-08 scheduled run died at 12s on the `token-log.jsonl` merge conflict. Two-week silent failure closed.
+
+**A9 chain verified end to end** against preview build `c1a4738` → `https://8aee3af2.tallchairadvisor.pages.dev`:
+- `preview-url.ts` resolved the deployment for the exact commit, polling through `initialize` → `build` → ready.
+- The probe ran against it and the gate exited 1.
+
+**The failure it caught is the important part.** The preview has no `PUBLIC_GA_MEASUREMENT_ID` (production has it, preview `env_vars` is empty — confirmed via the Cloudflare API). Without gtag, the probe cannot evaluate the affiliate handler, so every record is `healthy:false` and `deriveFindings` returns **nothing**. All 4 pages → 0 findings. Without the `unevaluable` guard the gate would have reported "0 blocking" and **passed green over a page it never saw**. The guard is the only reason it fails.
+
+**Blocked on one thing:** the Cloudflare token is Pages:**Read**, so `PATCH` to add the preview env var returns auth error 10000. Needs either Pages:Edit on the token or 30 seconds in the dashboard. Preview deployments themselves are already enabled for all branches — that half of the earlier ask was unnecessary.

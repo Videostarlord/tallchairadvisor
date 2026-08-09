@@ -23,9 +23,21 @@ name: PR — Preview Probe
 #
 #  2. `PUBLIC_GA_MEASUREMENT_ID` MUST BE SET IN THE **PREVIEW** ENVIRONMENT, not only
 #     production. Astro inlines it at build time (src/layouts/Layout.astro:33), so a
-#     preview built without it renders no gtag, and `tag-not-firing-gtag` will fail
-#     every PR. That failure is real — the preview genuinely has no analytics — but the
-#     cause is configuration, not the PR. Set the variable; do not remove the check.
+#     preview built without it renders no gtag at all.
+#
+#     MEASURED 2026-08-09 against a real preview build (commit c1a4738): the effect is
+#     NOT a tag-not-firing finding. The probe cannot evaluate the affiliate handler
+#     without `window.gtag`, so every record comes back `healthy:false` with
+#     "window.gtag is not a function", and deriveFindings returns NOTHING for an
+#     unhealthy record. All 4 pages probed → 0 findings.
+#
+#     That means without the `unevaluable` guard in pr-gate.ts this workflow would
+#     have reported 0 blocking findings and passed — a green check over a page the
+#     probe never actually looked at. The guard is what turns it into exit 1. Set the
+#     variable; do not "fix" a red check here by relaxing either piece.
+#
+#     As of 2026-08-09 the project's preview env_vars are EMPTY while production
+#     carries the variable, so this is the current state, not a hypothetical.
 #
 # Cloudflare Pages does NOT create GitHub deployments on this repo (verified
 # 2026-08-08: the deployments API returns one record, from railway-app[bot] in March),
