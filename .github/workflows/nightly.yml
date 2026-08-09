@@ -245,8 +245,16 @@ jobs:
           # survives the runner. Without it every night would rediscover that the
           # page has no baseline, write one into a container, throw it away, and
           # never once compare — a detector that runs forever and observes nothing.
+          # data/agent-health.jsonl is REQUIRED here for the same reason the
+          # heartbeat is (A13). It records every agent's stop_reason and every
+          # input-floor assertion, and the nightly's detector-health check reads
+          # it from the repo. A record that only ever exists inside the runner
+          # cannot tell tomorrow's nightly that today's agent was truncated —
+          # which is exactly how the audit sat at its max_tokens ceiling for
+          # five weekly runs with every dashboard green.
           for p in wiki/nightly data/ledger.jsonl data/ledger-state.json \
                    data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
+                   data/agent-health.jsonl \
                    data/collectors data/probes data/interventions.jsonl \
                    data/edit-log.jsonl raw/visual/baseline \
                    data/affiliate \

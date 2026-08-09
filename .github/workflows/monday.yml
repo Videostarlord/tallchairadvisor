@@ -112,7 +112,11 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add data/pipeline-status.json data/gsc/latest.json data/gsc/analysis.json data/gsc/history/ data/competitors/ raw/ wiki/ src/
-          for f in "data/clarity/" "data/ga4/" "data/content-roadmap.json" "data/content-failed.json" "reports/index-monitor.md"; do
+          # data/agent-health.jsonl (A13): every agent's stop_reason and
+          # input-floor assertion. Append-only and written inside the runner, so
+          # it must be committed or the nightly can never learn that a weekday
+          # agent was truncated or ran on a fragment of its context.
+          for f in "data/clarity/" "data/ga4/" "data/content-roadmap.json" "data/content-failed.json" "reports/index-monitor.md" "data/agent-health.jsonl"; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: Monday pull + index fixes $(date +%Y-%m-%d)"

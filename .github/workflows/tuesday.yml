@@ -54,7 +54,14 @@ jobs:
           # Wednesday's strategy agent reads. Without it committed, Wednesday
           # falls back to auditReport.slice(0, 3000) — the exact truncation bug
           # the structured-findings work shipped to remove.
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl; do
+          #
+          # data/agent-health.jsonl carries THIS AGENT's stop_reason and its
+          # input-floor assertion (A13). The audit is the agent that ran at
+          # max_tokens:4000 and hit the ceiling on five consecutive Tuesdays
+          # while every dashboard stayed green; the record proving that is
+          # written inside this runner and is worthless unless it survives it.
+          # Uncommitted, the nightly can never see that Tuesday went blind.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] report: Tuesday audit $(date +%Y-%m-%d)"

@@ -76,7 +76,7 @@ jobs:
         if: env.CONTENT_WRITTEN == 'true'
         run: |
           git add reports/content-log.md raw/ wiki/
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl; do
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: Friday wiki + reports $(date +%Y-%m-%d)"
@@ -88,7 +88,7 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/content-log.md raw/ || true
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl; do
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: No pages written $(date +%Y-%m-%d) — see content-log.md"

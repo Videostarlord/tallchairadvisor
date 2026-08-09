@@ -83,6 +83,10 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/weekly-summary.md raw/ wiki/
+          # data/agent-health.jsonl (A13): the weekly summariser's own
+          # stop_reason. Written inside the runner; uncommitted it is lost, and
+          # a truncated weekly summary would look exactly like a short one.
+          [ -e data/agent-health.jsonl ] && git add data/agent-health.jsonl || true
           git diff --staged --quiet || git commit -m "deploy: Weekly cycle $(date +%Y-%m-%d)"
           git push origin staging || { sleep 15 && git push origin staging; } || { sleep 30 && git push origin staging; }
           for attempt in 1 2 3; do
