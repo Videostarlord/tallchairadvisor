@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-06
+last_updated: 2026-08-10
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,16 +70,13 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-08-06. 8 pages analyzed × up to 3 queries each. 4 URLs crawled (48 cache hits). 4 high-priority gaps. Top editorial outrankers: btod.com, forbes.com, thehumansolution.com.*
+*v2 run 2026-08-10. 8 pages analyzed × up to 3 queries each. 29 URLs crawled (39 cache hits). 2 high-priority gaps. Top editorial outrankers: thehumansolution.com, btod.com, forbes.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-08-06 | Fit-range verdict is dispersed across four Height Fit Guide subsections rather t | high | 1q | thehumansolution.com |
-| 2026-08-06 | Warranty and return policy content is functionally absent as a decision-support  | high | 1q | thehumansolution.com |
-| 2026-08-06 | Explicit fit-range verdict with labeled tiers (Best Fit / Marginal / Not Recomme | high | 1q | btod.com |
-| 2026-08-06 | Warranty and return policy section with concrete purchase-anxiety-reducing detai | high | 1q | btod.com |
-| 2026-08-06 | No measurement instruction for users with longer-than-average femurs relative to | medium | 1q | ergo.human.cornell.edu |
-| 2026-08-06 | Compare With section exists in the manifest but the head-to-head comparison visi | medium | 1q | thehumansolution.com |
-| 2026-08-06 | CTA placement relative to the fit verdict — the affiliate CTA is present but the | medium | 1q | btod.com |
-| 2026-08-06 | AggregateRating schema is absent from the schema @types list — ItemList and List | medium | 1q | ck12.org |
-| 2026-08-06 | No explicit 'who should NOT buy this chair' framing exists anywhere on the page  | medium | 1q | btod.com |
+| 2026-08-10 | Explicit fit-range verdict with labeled tiers (Best fit / Marginal / Not recomme | high | 1q | crandalloffice.com |
+| 2026-08-10 | The comparison is framed as Gesture vs Leap Plus throughout, but the target quer | high | 1q | btod.com |
+| 2026-08-10 | No explicit seat-back angle or hip angle specification is included in the proble | medium | 1q | ergo.human.cornell.edu |
+| 2026-08-10 | No desk height and monitor height co-adjustment guidance alongside chair dimensi | medium | 1q | karo.co.za |
+| 2026-08-10 | AggregateRating schema is absent — ItemList and ListItem are present per the sch | medium | 1q | forbes.com |
+| 2026-08-10 | No explicit scoring rubric or weighted criteria framework — the page makes quali | medium | 1q | btod.com |
