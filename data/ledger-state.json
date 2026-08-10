@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T10:47:46.202Z",
+  "generatedAt": "2026-08-10T11:21:05.761Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
@@ -22,10 +22,10 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "position 8.8 does not satisfy < 8.7"
     },
@@ -37,12 +37,12 @@
       "severity": null,
       "summary": "/chairs/herman-miller-aeron/tall-people/",
       "predicate": "gsc-position /chairs/herman-miller-aeron/tall-people/ < 8.1 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
-      "reason": "position 8.2 does not satisfy < 8.1"
+      "reason": "position 8.1 does not satisfy < 8.1"
     },
     {
       "id": "65336bac6935",
@@ -52,10 +52,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "position 9.6 does not satisfy < 9.6"
     },
@@ -67,12 +67,12 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
-      "reason": "position 8.5 does not satisfy < 8.1"
+      "reason": "position 8.6 does not satisfy < 8.1"
     }
   ],
   "stuck": [
@@ -84,10 +84,10 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "position 8.8 does not satisfy < 8.7"
     },
@@ -99,12 +99,12 @@
       "severity": null,
       "summary": "/chairs/herman-miller-aeron/tall-people/",
       "predicate": "gsc-position /chairs/herman-miller-aeron/tall-people/ < 8.1 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
-      "reason": "position 8.2 does not satisfy < 8.1"
+      "reason": "position 8.1 does not satisfy < 8.1"
     },
     {
       "id": "65336bac6935",
@@ -114,10 +114,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "position 9.6 does not satisfy < 9.6"
     },
@@ -129,12 +129,12 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 20,
-      "attempts": 4,
+      "ageDays": 21,
+      "attempts": 5,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
-      "reason": "position 8.5 does not satisfy < 8.1"
+      "reason": "position 8.6 does not satisfy < 8.1"
     },
     {
       "id": "3ed5e84e2ec3",
@@ -144,10 +144,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 2.586% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /chairs/herman-miller-aeron/size-guide/ mobile < 2%",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 2.586% (threshold 2%)"
     },
@@ -159,10 +159,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.064% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /chairs/steelcase-gesture/ mobile < 2%",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.064% (threshold 2%)"
     },
@@ -174,10 +174,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.678% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /monitor-arm-tall-people/ mobile < 2%",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.678% (threshold 2%)"
     },
@@ -189,10 +189,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 2.102% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /review/aeron-size-c/ mobile < 2%",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 2.102% (threshold 2%)"
     },
@@ -204,10 +204,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.098% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /review/gesture/ mobile < 2%",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-09",
+      "lastSeen": "2026-08-10",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.098% (threshold 2%)"
     }
@@ -224,7 +224,7 @@
   },
   "blindSpots": {
     "probes": null,
-    "probeSource": "probe:2026-08-09",
+    "probeSource": "probe:2026-08-10",
     "collectors": [
       "amazon",
       "clarity",
@@ -238,6 +238,61 @@
     "gscSource": "gsc:schemas/gsc-history.pageMetricsFrom",
     "network": null
   },
-  "transitions": [],
+  "transitions": [
+    {
+      "id": "8aeed43a09a6",
+      "from": "escalated",
+      "to": "escalated",
+      "reason": "position 8.8 does not satisfy < 8.7"
+    },
+    {
+      "id": "7429ec085c29",
+      "from": "escalated",
+      "to": "escalated",
+      "reason": "position 8.1 does not satisfy < 8.1"
+    },
+    {
+      "id": "65336bac6935",
+      "from": "escalated",
+      "to": "escalated",
+      "reason": "position 9.6 does not satisfy < 9.6"
+    },
+    {
+      "id": "c76d198a75bc",
+      "from": "escalated",
+      "to": "escalated",
+      "reason": "position 8.6 does not satisfy < 8.1"
+    },
+    {
+      "id": "3ed5e84e2ec3",
+      "from": "open",
+      "to": "open",
+      "reason": "mobile render differs from baseline by 2.586% (threshold 2%)"
+    },
+    {
+      "id": "5f0dd84de34e",
+      "from": "open",
+      "to": "open",
+      "reason": "mobile render differs from baseline by 3.064% (threshold 2%)"
+    },
+    {
+      "id": "b5140fea97f0",
+      "from": "open",
+      "to": "open",
+      "reason": "mobile render differs from baseline by 3.678% (threshold 2%)"
+    },
+    {
+      "id": "33bef3f6cfdf",
+      "from": "open",
+      "to": "open",
+      "reason": "mobile render differs from baseline by 2.102% (threshold 2%)"
+    },
+    {
+      "id": "c401f8c099f6",
+      "from": "open",
+      "to": "open",
+      "reason": "mobile render differs from baseline by 3.098% (threshold 2%)"
+    }
+  ],
   "retractedSkipped": []
 }
