@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-10T11:21:06.371Z",
+  "generatedAt": "2026-08-11T11:03:46.931Z",
   "ledger": "data/cost-ledger.jsonl",
   "records": {
-    "total": 56,
-    "llm": 15,
-    "external": 41
+    "total": 58,
+    "llm": 16,
+    "external": 42
   },
   "note": null,
   "totals": {
-    "records": 15,
-    "input": 1602734,
-    "output": 35545,
+    "records": 16,
+    "input": 1690470,
+    "output": 38086,
     "cacheWrite": 0,
     "cacheRead": 0,
-    "usd": 5.341377
+    "usd": 5.6427
   },
   "byRun": {
     "2026-08-05": {
@@ -55,16 +55,24 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.945108
+    },
+    "2026-08-10": {
+      "records": 1,
+      "input": 87736,
+      "output": 2541,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.301323
     }
   },
   "byAgent": {
     "nightly-report": {
-      "records": 15,
-      "input": 1602734,
-      "output": 35545,
+      "records": 16,
+      "input": 1690470,
+      "output": 38086,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 5.341377
+      "usd": 5.6427
     }
   },
   "byDay": {
@@ -99,16 +107,24 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.945108
+    },
+    "2026-08-10": {
+      "records": 1,
+      "input": 87736,
+      "output": 2541,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.301323
     }
   },
   "byMonth": {
     "2026-08": {
-      "records": 15,
-      "input": 1602734,
-      "output": 35545,
+      "records": 16,
+      "input": 1690470,
+      "output": 38086,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 5.341377
+      "usd": 5.6427
     }
   },
   "externalByService": {
@@ -119,9 +135,9 @@
       "pages": 0
     },
     "gsc-url-inspection": {
-      "records": 17,
+      "records": 18,
       "usd": 0,
-      "credits": 643,
+      "credits": 690,
       "pages": 0
     },
     "firecrawl": {
@@ -133,12 +149,12 @@
   },
   "models": {
     "claude-sonnet-4-6": {
-      "records": 15,
-      "input": 1602734,
-      "output": 35545,
+      "records": 16,
+      "input": 1690470,
+      "output": 38086,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 5.341377
+      "usd": 5.6427
     }
   }
 }
