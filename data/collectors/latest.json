@@ -1,22 +1,17 @@
 {
-  "collectedAt": "2026-08-11T10:56:07.138Z",
-  "finishedAt": "2026-08-11T11:03:15.598Z",
-  "durationMs": 428460,
-  "healthy": false,
-  "healthyCount": 6,
+  "collectedAt": "2026-08-12T11:04:33.618Z",
+  "finishedAt": "2026-08-12T11:10:41.923Z",
+  "durationMs": 368305,
+  "healthy": true,
+  "healthyCount": 7,
   "total": 7,
-  "coveragePct": 86,
-  "unhealthy": [
-    {
-      "name": "gsc",
-      "reason": "URL Inspection covered 47/49 indexable URLs (96%) — 2 inspection call(s) failed. R6 index-error detection is incomplete for the remaining 2 URL(s)."
-    }
-  ],
+  "coveragePct": 100,
+  "unhealthy": [],
   "ledger": {
     "available": true,
-    "filed": 1,
+    "filed": 0,
     "failed": 0,
-    "note": "filed 1 collector finding(s)"
+    "note": "no unhealthy collectors to file"
   },
   "collectors": {
     "gsc": {
@@ -29,7 +24,7 @@
         },
         "performance": {
           "pulledAt": "2026-08-10T09:26:57.479Z",
-          "ageHours": 25.5,
+          "ageHours": 49.6,
           "dateRange": {
             "start": "2026-05-12",
             "end": "2026-08-10",
@@ -46,7 +41,7 @@
         },
         "analysis": {
           "generatedAt": "2026-08-10T09:26:57.919Z",
-          "ageHours": 25.5,
+          "ageHours": 49.6,
           "opportunityCount": 42,
           "ctrLeakCount": 20,
           "decayAlertCount": 0
@@ -55,17 +50,18 @@
           "siteUrl": "https://tallchairadvisor.com/",
           "eligible": 49,
           "requested": 49,
-          "inspected": 47,
-          "failed": 2,
+          "inspected": 49,
+          "failed": 0,
           "quotaExceeded": false,
-          "coveragePct": 96,
+          "coveragePct": 100,
           "verdicts": {
-            "PASS": 43,
+            "PASS": 45,
             "NEUTRAL": 4
           },
           "coverageStates": {
-            "Submitted and indexed": 43,
-            "Discovered - currently not indexed": 3,
+            "Submitted and indexed": 45,
+            "Discovered - currently not indexed": 2,
+            "URL is unknown to Google": 1,
             "Crawled - currently not indexed": 1
           },
           "notIndexed": [
@@ -109,7 +105,7 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-08-07T20:48:34Z",
+              "lastCrawlTime": "2026-08-12T02:21:07Z",
               "googleCanonical": "https://tallchairadvisor.com/aeron-vs-gesture/",
               "userCanonical": "https://tallchairadvisor.com/aeron-vs-gesture/",
               "error": null
@@ -317,7 +313,7 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-08-07T22:03:34Z",
+              "lastCrawlTime": "2026-08-12T06:49:47Z",
               "googleCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
               "userCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
               "error": null
@@ -382,7 +378,7 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-08-08T22:56:08Z",
+              "lastCrawlTime": "2026-08-12T04:19:22Z",
               "googleCanonical": "https://tallchairadvisor.com/",
               "userCanonical": "https://tallchairadvisor.com/",
               "error": null
@@ -469,7 +465,7 @@
               "url": "https://tallchairadvisor.com/office-chair-return-policy/",
               "file": "src/pages/office-chair-return-policy.astro",
               "verdict": "NEUTRAL",
-              "coverageState": "Discovered - currently not indexed",
+              "coverageState": "URL is unknown to Google",
               "indexingState": "INDEXING_STATE_UNSPECIFIED",
               "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
               "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -559,15 +555,15 @@
             {
               "url": "https://tallchairadvisor.com/pain-ergonomics/",
               "file": "src/pages/pain-ergonomics.astro",
-              "verdict": "INSPECTION_FAILED",
-              "coverageState": "unknown",
-              "indexingState": "unknown",
-              "robotsTxtState": "unknown",
-              "pageFetchState": "unknown",
-              "lastCrawlTime": null,
-              "googleCanonical": null,
-              "userCanonical": null,
-              "error": "The operation was aborted."
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-11T01:02:09Z",
+              "googleCanonical": "https://tallchairadvisor.com/pain-ergonomics/",
+              "userCanonical": "https://tallchairadvisor.com/pain-ergonomics/",
+              "error": null
             },
             {
               "url": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
@@ -585,15 +581,15 @@
             {
               "url": "https://tallchairadvisor.com/review/aeron-size-c/",
               "file": "src/pages/review/aeron-size-c.astro",
-              "verdict": "INSPECTION_FAILED",
-              "coverageState": "unknown",
-              "indexingState": "unknown",
-              "robotsTxtState": "unknown",
-              "pageFetchState": "unknown",
-              "lastCrawlTime": null,
-              "googleCanonical": null,
-              "userCanonical": null,
-              "error": "The operation was aborted."
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-08T16:03:23Z",
+              "googleCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
+              "userCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
+              "error": null
             },
             {
               "url": "https://tallchairadvisor.com/review/gesture/",
@@ -629,7 +625,7 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-07-03T09:19:40Z",
+              "lastCrawlTime": "2026-08-12T01:00:48Z",
               "googleCanonical": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
               "userCanonical": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
               "error": null
@@ -694,7 +690,7 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-07-30T04:33:42Z",
+              "lastCrawlTime": "2026-08-12T05:34:42Z",
               "googleCanonical": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
               "userCanonical": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
               "error": null
@@ -716,10 +712,10 @@
         }
       },
       "meta": {
-        "collectedAt": "2026-08-11T11:03:15.527Z",
-        "rowCount": 47,
-        "healthy": false,
-        "reason": "URL Inspection covered 47/49 indexable URLs (96%) — 2 inspection call(s) failed. R6 index-error detection is incomplete for the remaining 2 URL(s)."
+        "collectedAt": "2026-08-12T11:10:41.922Z",
+        "rowCount": 49,
+        "healthy": true,
+        "reason": null
       }
     },
     "ga4": {
@@ -728,7 +724,7 @@
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
         "pulledAt": "2026-08-10T09:27:03.609Z",
-        "ageHours": 25.5,
+        "ageHours": 49.6,
         "slaHours": 192,
         "dateRange": {
           "start": "2026-07-13",
@@ -781,7 +777,7 @@
         "aiReferralSessions": 72
       },
       "meta": {
-        "collectedAt": "2026-08-11T10:56:07.158Z",
+        "collectedAt": "2026-08-12T11:04:33.637Z",
         "rowCount": 50,
         "healthy": true,
         "reason": null
@@ -791,7 +787,7 @@
       "data": {
         "source": "data/clarity/latest.json",
         "pulledAt": "2026-08-11T10:52:06.526Z",
-        "ageHours": 0.1,
+        "ageHours": 24.2,
         "slaHours": 192,
         "numOfDays": 2,
         "pageCount": 51,
@@ -808,12 +804,12 @@
           "envVar": "CLARITY_TOKEN",
           "present": true,
           "live": true,
-          "checkedAt": "2026-08-11T10:52:06.526Z",
-          "detail": "not re-pinged — data/clarity/latest.json was pulled 0.1h ago, which is itself proof the credential was live. Conserves the 10/day quota (A3)."
+          "checkedAt": "2026-08-12T11:04:33.639Z",
+          "detail": null
         }
       },
       "meta": {
-        "collectedAt": "2026-08-11T10:56:07.159Z",
+        "collectedAt": "2026-08-12T11:04:34.458Z",
         "rowCount": 51,
         "healthy": true,
         "reason": null
@@ -833,30 +829,36 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "51037f77-cd64-4f4a-911d-4c9170a0e907",
-          "shortId": "51037f77",
+          "deploymentId": "2d23ff1c-6f93-48ad-93fc-79622a625455",
+          "shortId": "2d23ff1c",
           "environment": "production",
-          "url": "https://51037f77.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-11T10:52:09.650145Z",
+          "url": "https://2d23ff1c.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-12T09:15:29.931577Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "860118c330322bbfd11ce5e9ff6f4e7674aaa064",
-          "commitMessage": "[skip cd] data: Clarity history 2026-08-11"
+          "commitHash": "db8723f78a4d70a65d4ebc612a88fed571309017",
+          "commitMessage": "[skip cd] plan: Week of 2026-08-12"
         },
         "cache": {
           "windowDays": 7,
-          "requests": 20797,
-          "cachedRequests": 3920,
-          "hitRatePct": 18.8,
-          "bytes": 231576957,
-          "cachedBytes": 100875386,
+          "requests": 20383,
+          "cachedRequests": 3955,
+          "hitRatePct": 19.4,
+          "bytes": 223025629,
+          "cachedBytes": 103151901,
           "byDay": [
             {
+              "date": "2026-08-12",
+              "requests": 602,
+              "cachedRequests": 26,
+              "hitRatePct": 4.3
+            },
+            {
               "date": "2026-08-11",
-              "requests": 2089,
-              "cachedRequests": 50,
-              "hitRatePct": 2.4
+              "requests": 3463,
+              "cachedRequests": 343,
+              "hitRatePct": 9.9
             },
             {
               "date": "2026-08-10",
@@ -887,29 +889,23 @@
               "requests": 3925,
               "cachedRequests": 1430,
               "hitRatePct": 36.4
-            },
-            {
-              "date": "2026-08-05",
-              "requests": 2390,
-              "cachedRequests": 284,
-              "hitRatePct": 11.9
             }
           ]
         },
         "waf": {
           "windowDays": 1,
-          "totalEvents": 5,
+          "totalEvents": 2,
           "byAction": {
-            "block": 5
+            "block": 2
           },
           "bySource": {
-            "firewallManaged": 5
+            "firewallManaged": 2
           }
         },
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-11T10:56:08.637Z",
+        "collectedAt": "2026-08-12T11:04:34.782Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -934,7 +930,7 @@
               "conclusion": "failure",
               "startedAt": "2026-08-09T08:40:01Z",
               "finishedAt": "2026-08-09T08:40:56Z",
-              "daysAgo": 2,
+              "daysAgo": 3,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31304060725",
               "headSha": "42e67c134ff28ab8fc7d5b0c14520b79588a2a3e",
               "event": "schedule"
@@ -970,13 +966,14 @@
               "conclusion": "success",
               "startedAt": "2026-08-11T10:51:41Z",
               "finishedAt": "2026-08-11T10:52:12Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31484065833",
               "headSha": "01fb97567570fd3045a16da0d7168d4f8b61a222",
               "event": "schedule"
             },
-            "committedDuringRun": 1,
+            "committedDuringRun": 2,
             "commitSubjects": [
+              "[skip cd] nightly: god's-eye 2026-08-11",
               "[skip cd] data: Clarity history 2026-08-11"
             ],
             "commitInferenceMethod": "bot commits on main between run start (2026-08-11T10:51:41Z) and run end + 15min (2026-08-11T11:07:12.000Z) — inferred, not authoritative",
@@ -994,7 +991,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-07T08:47:23Z",
               "finishedAt": "2026-08-07T08:51:19Z",
-              "daysAgo": 4,
+              "daysAgo": 5,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31163161497",
               "headSha": "eee42b972f532715e7e263235578c7ce467fe936",
               "event": "schedule"
@@ -1016,7 +1013,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-01T09:50:38Z",
               "finishedAt": "2026-08-01T09:52:05Z",
-              "daysAgo": 10,
+              "daysAgo": 11,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
               "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
               "event": "schedule"
@@ -1040,7 +1037,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-10T09:26:29Z",
               "finishedAt": "2026-08-10T09:55:51Z",
-              "daysAgo": 1,
+              "daysAgo": 2,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31374596736",
               "headSha": "b41449857df42baa05c36120041c4d7158813ba3",
               "event": "schedule"
@@ -1059,19 +1056,19 @@
             "cron": "0 10 * * *",
             "expectedCadenceDays": 1,
             "lastRun": {
-              "runNumber": 10,
+              "runNumber": 11,
               "status": "in_progress",
               "conclusion": null,
-              "startedAt": "2026-08-11T10:55:15Z",
-              "finishedAt": "2026-08-11T10:55:18Z",
+              "startedAt": "2026-08-12T11:03:26Z",
+              "finishedAt": "2026-08-12T11:03:36Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31484323494",
-              "headSha": "860118c330322bbfd11ce5e9ff6f4e7674aaa064",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31590146103",
+              "headSha": "db8723f78a4d70a65d4ebc612a88fed571309017",
               "event": "schedule"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-11T10:55:15Z) and run end + 15min (2026-08-11T11:10:18.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-12T11:03:26Z) and run end + 15min (2026-08-12T11:18:36.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1098,7 +1095,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-09T05:26:02Z",
               "finishedAt": "2026-08-09T05:26:43Z",
-              "daysAgo": 2,
+              "daysAgo": 3,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31296673712",
               "headSha": "e4ba4b481c245e5f6c61261befd1e148f4cce18c",
               "event": "workflow_dispatch"
@@ -1123,7 +1120,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-09T08:21:18Z",
               "finishedAt": "2026-08-09T08:21:52Z",
-              "daysAgo": 2,
+              "daysAgo": 3,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31303321375",
               "headSha": "42e67c134ff28ab8fc7d5b0c14520b79588a2a3e",
               "event": "push"
@@ -1145,7 +1142,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-06T10:21:46Z",
               "finishedAt": "2026-08-06T10:22:16Z",
-              "daysAgo": 5,
+              "daysAgo": 6,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092944439",
               "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
               "event": "schedule"
@@ -1170,7 +1167,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-11T08:54:24Z",
               "finishedAt": "2026-08-11T08:57:28Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31475296107",
               "headSha": "55be931d1dbd47a81e546b0196c43f80c0fe44fd",
               "event": "schedule"
@@ -1189,22 +1186,21 @@
             "cron": "0 8 * * 3",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 22,
+              "runNumber": 23,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-06T10:13:28Z",
-              "finishedAt": "2026-08-06T10:14:41Z",
-              "daysAgo": 5,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092381683",
-              "headSha": "1f93f9dfc08725d1dd639857364f0332c69bc01d",
-              "event": "workflow_dispatch"
+              "startedAt": "2026-08-12T09:14:30Z",
+              "finishedAt": "2026-08-12T09:15:31Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31582015970",
+              "headSha": "ca980692a691f56693e86033851ec565bb48ec5e",
+              "event": "schedule"
             },
-            "committedDuringRun": 2,
+            "committedDuringRun": 1,
             "commitSubjects": [
-              "[skip cd] data: Thursday wiki + reports 2026-08-06",
-              "[skip cd] plan: Week of 2026-08-06"
+              "[skip cd] plan: Week of 2026-08-12"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:13:28Z) and run end + 15min (2026-08-06T10:29:41.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-12T09:14:30Z) and run end + 15min (2026-08-12T09:30:31.000Z) — inferred, not authoritative",
             "stale": false
           }
         ],
@@ -1222,7 +1218,7 @@
         ]
       },
       "meta": {
-        "collectedAt": "2026-08-11T10:56:14.641Z",
+        "collectedAt": "2026-08-12T11:04:45.479Z",
         "rowCount": 13,
         "healthy": true,
         "reason": null
@@ -1239,14 +1235,14 @@
             ],
             "configured": true,
             "unit": "credits",
-            "used": 45,
-            "remaining": 205,
+            "used": 60,
+            "remaining": 190,
             "limit": 250,
-            "pctRemaining": 82,
+            "pctRemaining": 76,
             "knownFreeTierLimit": 250,
             "detail": {
               "plan": "Free Plan",
-              "planSearchesLeft": 205,
+              "planSearchesLeft": 190,
               "extraCredits": 0,
               "rateLimitPerHour": 250
             },
@@ -1260,7 +1256,7 @@
             "configured": true,
             "unit": "pages",
             "used": null,
-            "remaining": 19255,
+            "remaining": 19204,
             "limit": 1000,
             "pctRemaining": null,
             "knownFreeTierLimit": 500,
@@ -1299,7 +1295,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-11T10:56:07.738Z",
+        "collectedAt": "2026-08-12T11:04:37.296Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1323,12 +1319,12 @@
         "overdue": false,
         "automatedPull": {
           "present": true,
-          "ageDays": 2,
+          "ageDays": 3,
           "note": "window 2026-07-11..2026-08-09 (rolling-30-day, mode=daily); 108 clicks, 7 ordered, $3337.74 ordered revenue, $100.40 SHIPPED earnings (pre-clawback, not net)"
         }
       },
       "meta": {
-        "collectedAt": "2026-08-11T10:56:07.183Z",
+        "collectedAt": "2026-08-12T11:04:33.680Z",
         "rowCount": 25,
         "healthy": true,
         "reason": null
