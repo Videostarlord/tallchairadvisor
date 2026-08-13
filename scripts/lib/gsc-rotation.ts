@@ -1,23 +1,34 @@
 /**
  * lib/gsc-rotation.ts — A7. Inspecting 10 URLs a night without starving 39.
  *
- * ⚠️  NOT WIRED IN. Nothing calls this module. A7 is NOT closed.
+ * WIRED IN by `collectors/gsc.ts` section 4: it reads state, calls
+ * `planRotation()` where the prefix slice used to be, calls `applyResults()`
+ * after the inspection loop, and writes state back. Authored 2026-08-09 with no
+ * caller; wired 2026-08-09.
  *
- * `collectors/gsc.ts:307` still takes the prefix slice this file exists to
- * replace, so the nightly still spends ~6 minutes inspecting all 49 URLs. The
- * design below is complete and its reasoning stands; what is missing is the
- * edit to the collector — read state, call `planRotation()` in place of the
- * `eligible.slice(0, limit)`, call `applyResults()` after the loop, write state
- * back — plus tests, and a decision about what a deliberately-partial night
- * reports now that `lib/agent-health.ts` distinguishes `unevaluable` from zero.
- * A rotation that is working as designed is NOT the same as a collector that
- * could not see, and it must not silently become `healthy: true` either.
+ * ──────────────────────────────────────────────────────────────────────────────
+ * THE ONE THING THAT CAN STILL BREAK THIS, AND IT IS NOT IN THIS FILE
  *
- * Authored 2026-08-09; the session that wrote it hit its limit before wiring.
- * Stated here rather than in a commit message alone, because this repo has now
- * produced two modules-with-no-caller in one day (`lib/retention.ts` was the
- * other) and a library with no caller reads as finished work to whoever finds
- * it next. That is the A13 failure shape in source form.
+ * The rotation is only as real as the state file. `data/gsc/inspection-rotation.json`
+ * must be staged by the workflow that runs the nightly, and as of this writing
+ * `.github/workflows/nightly.yml` stages `data/collectors`, `data/probes`,
+ * `data/agent-health.jsonl` and friends but NOT `data/gsc`. Until that one line
+ * exists, every CI run reads an absent cursor.
+ *
+ * The collector does not paper over that. `resolveBatchSize` + the collector's
+ * own `sweeping` branch turn an absent, malformed or STALE cursor into a FULL
+ * SWEEP of all 49 URLs — slow, complete, and exactly today's behaviour — never
+ * into a batch, because a batch drawn from an empty cursor is the prefix slice
+ * with extra steps. And the collector reports `healthy: false` naming the file
+ * that is not surviving. Slow-and-honest is the fallback; fast-and-partial is
+ * only earned once the cursor persists.
+ *
+ * STALE is checked as well as absent, and for a reason worth stating: a state
+ * file committed BY HAND, once, is worse than none. Frozen at a moment when
+ * every URL was covered, `planRotation` would find nothing due and the collector
+ * would inspect ZERO URLs every night forever, at 100% recorded coverage, until
+ * the staleness budget finally expired. `STATE_MAX_AGE_HOURS` makes that
+ * self-healing: a cursor nobody wrote back yesterday is not a cursor.
  *
  * ──────────────────────────────────────────────────────────────────────────────
  * WHY THIS FILE EXISTS
@@ -82,9 +93,19 @@
  * The nightly runs on a fresh clone. A rotation cursor that lives only inside the
  * runner is absent on every run, every URL is `new`, `new` sorts by URL, and the
  * batch is the first 10 by path — THE PREFIX SLICE, rebuilt exactly, with extra
- * steps. `data/gsc/inspection-rotation.json` is therefore committed by
- * nightly.yml, and `runs` increments once per run so the failure is observable:
- * a state file that says `runs: 1` every night is one that is not surviving.
+ * steps. `data/gsc/inspection-rotation.json` must therefore be committed by the
+ * nightly workflow, and `runs` increments once per run so the failure is
+ * observable: a state file that says `runs: 1` every night is not surviving.
+ *
+ * Two belts, because that line is one `git add` away from not existing:
+ *
+ *   1. The collector sweeps everything rather than batching when the cursor is
+ *      unusable (above), so the degenerate case is slow, not blind.
+ *   2. `bootstrapOffset()` rotates the START of an all-`new` batch by the day,
+ *      so even the one path that CAN still draw a batch from an empty cursor —
+ *      an operator who set `GSC_INSPECT_LIMIT` explicitly — walks the list
+ *      instead of camping on its first 10 entries. There is no reachable code
+ *      path in which `eligible` is truncated at a fixed prefix.
  */
 
 import { createHash } from 'node:crypto';
@@ -109,7 +130,19 @@ const CYCLE_SLACK_FACTOR = 2;
 /** Floor for the staleness budget, so a tiny eligible set cannot produce a 2-day one. */
 const MIN_STALENESS_DAYS = 3;
 
+/**
+ * How old the cursor may be and still be believed as a cursor.
+ *
+ * The nightly writes it once a day, so 36h is one missed run of slack. Past
+ * that, whatever wrote it is not writing it any more — a runner that discards
+ * it, or a human who committed it once by hand — and a cursor that nobody
+ * advances does not describe where the rotation got to. It is treated as absent,
+ * which means a full sweep and a named reason, not a batch.
+ */
+export const STATE_MAX_AGE_HOURS = 36;
+
 const MS_PER_DAY = 86_400_000;
+const MS_PER_HOUR = 3_600_000;
 
 // ─── Persisted shapes ─────────────────────────────────────────────────────────
 
@@ -235,6 +268,15 @@ export function stalenessBudgetDays(eligible: number, batchSize: number): number
   return Math.max(MIN_STALENESS_DAYS, cycleBudgetNights(eligible, batchSize) * CYCLE_SLACK_FACTOR);
 }
 
+export interface BatchDecision {
+  batchSize: number;
+  /** True when an env var named this size. Only an explicit ask overrides a fallback sweep. */
+  explicit: boolean;
+  /** True when the ask was "every eligible URL in one run". */
+  all: boolean;
+  note: string | null;
+}
+
 /**
  * Batch size from the environment.
  *
@@ -244,30 +286,60 @@ export function stalenessBudgetDays(eligible: number, batchSize: number): number
  * limit of 2 meant "these two URLs, forever"; under this one it means "two a
  * night, every URL in turn". `GSC_INSPECT_ALL` restores the full nightly sweep
  * for a one-off complete pass.
+ *
+ * `explicit` exists because the collector needs to tell a size it was TOLD from a
+ * size it merely defaulted to. With no usable cursor it falls back to a full
+ * sweep — but an operator who typed `GSC_INSPECT_LIMIT=2` asked for two calls and
+ * must not be handed 49.
  */
-export function resolveBatchSize(
-  env: NodeJS.ProcessEnv,
-  eligible: number
-): { batchSize: number; note: string | null } {
+export function resolveBatchSize(env: NodeJS.ProcessEnv, eligible: number): BatchDecision {
   const all = env.GSC_INSPECT_ALL;
   if (typeof all === 'string' && all.trim() !== '' && all.trim() !== '0' && all.trim().toLowerCase() !== 'false') {
-    return { batchSize: Math.max(1, eligible), note: 'GSC_INSPECT_ALL is set — inspecting every eligible URL in one run' };
+    return {
+      batchSize: Math.max(1, eligible),
+      explicit: true,
+      all: true,
+      note: 'GSC_INSPECT_ALL is set — inspecting every eligible URL in one run',
+    };
   }
   for (const name of ['GSC_INSPECT_BATCH', 'GSC_INSPECT_LIMIT']) {
     const raw = env[name];
     if (typeof raw !== 'string' || raw.trim() === '') continue;
     const parsed = Number.parseInt(raw.trim(), 10);
     if (Number.isFinite(parsed) && parsed > 0) {
-      return { batchSize: parsed, note: `${name}=${parsed} sets the nightly rotation batch` };
+      return {
+        batchSize: parsed,
+        explicit: true,
+        all: parsed >= eligible,
+        note: `${name}=${parsed} sets the nightly rotation batch`,
+      };
     }
     return {
       batchSize: DEFAULT_BATCH_SIZE,
+      // Unparseable is NOT an explicit ask. It is a typo, and a typo must not
+      // suppress the full-sweep fallback that protects an absent cursor.
+      explicit: false,
+      all: false,
       note:
         `${name}=${JSON.stringify(raw)} is not a positive integer — falling back to a batch of ` +
         `${DEFAULT_BATCH_SIZE}. It is a per-night batch size, not a prefix length.`,
     };
   }
-  return { batchSize: DEFAULT_BATCH_SIZE, note: null };
+  return { batchSize: DEFAULT_BATCH_SIZE, explicit: false, all: false, note: null };
+}
+
+/**
+ * Is this cursor still being written back?
+ *
+ * The only question that separates "a rotation that knows where it got to" from
+ * "a file that once described one". Absent and malformed are handled by
+ * `readRotationState`; this handles the third, quietest case: present, valid,
+ * and abandoned.
+ */
+export function isStatePersisting(state: RotationState, now: Date, maxAgeHours = STATE_MAX_AGE_HOURS): boolean {
+  const at = epoch(state.updatedAt);
+  if (at === null) return false;
+  return (now.getTime() - at) / MS_PER_HOUR <= maxAgeHours;
 }
 
 // ─── Planning ─────────────────────────────────────────────────────────────────
@@ -305,6 +377,35 @@ export interface RotationPlan {
   entries: RotationEntry[];
   cycleBudgetNights: number;
   stalenessBudgetDays: number;
+}
+
+/**
+ * Where an all-`new` batch should START.
+ *
+ * The last hole through which a prefix slice could reach production. When there
+ * is no cursor at all, every URL is `new`, the priority sort has nothing to
+ * order them by but their URL, and a batch off the front of that list is the
+ * alphabetical prefix — the exact failure this module exists to prevent, and the
+ * one place the collector's full-sweep fallback does not cover, because an
+ * operator who set `GSC_INSPECT_LIMIT` explicitly gets the batch they asked for.
+ *
+ * Advancing the start by one batch per day walks the whole list in `n/batch`
+ * days with no state whatsoever. This is a strictly worse mechanism than the
+ * cursor — it is an index into a sorted array, and the header explains at length
+ * why that is wrong as a PRIMARY design, since the array moves under it. As a
+ * degradation path it only has to beat "never inspect the tail", which it does.
+ */
+export function bootstrapOffset(now: Date, batchSize: number, count: number): number {
+  if (count <= 0 || batchSize <= 0) return 0;
+  const day = Math.floor(now.getTime() / MS_PER_DAY);
+  return ((day * batchSize) % count + count) % count;
+}
+
+/** `[c,d,a,b]` from `[a,b,c,d]` at offset 2. Order-preserving, never lossy. */
+export function rotateBy<T>(items: T[], offset: number): T[] {
+  if (items.length === 0) return items;
+  const k = ((offset % items.length) + items.length) % items.length;
+  return k === 0 ? items : [...items.slice(k), ...items.slice(0, k)];
 }
 
 /** Covered = successfully inspected strictly since the open cycle began. */
@@ -417,12 +518,21 @@ export function planRotation(opts: {
     return a.url < b.url ? -1 : a.url > b.url ? 1 : 0;
   });
 
+  // Bootstrap: nothing distinguishes one `new` URL from another, so the sort
+  // above has fallen through to alphabetical. Taking the front of that list is a
+  // prefix slice. Rotate the start point by the day instead — see bootstrapOffset.
+  const bootstrapped = state === null;
+  const ordered =
+    bootstrapped && selectable.length > batchSize
+      ? rotateBy(selectable, bootstrapOffset(now, batchSize, selectable.length))
+      : selectable;
+
   return {
     batchSize,
     cycle,
     rolled,
-    bootstrapped: state === null,
-    batch: selectable.slice(0, Math.max(0, batchSize)),
+    bootstrapped,
+    batch: ordered.slice(0, Math.max(0, batchSize)),
     dropped,
     coveredBefore: entries.filter((e) => coveredInCycle(e, cycle)).length,
     entries,

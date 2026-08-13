@@ -252,9 +252,16 @@ jobs:
           # cannot tell tomorrow's nightly that today's agent was truncated —
           # which is exactly how the audit sat at its max_tokens ceiling for
           # five weekly runs with every dashboard green.
+          # data/gsc/inspection-rotation.json is the URL-inspection cursor, and
+          # it is the ONE line that makes the rotation real. Without it every CI
+          # run reads an absent cursor, collectors/gsc.ts falls back to a full
+          # 49-URL sweep, and the rotation this repo just wired in never once
+          # takes effect — see the header of scripts/lib/gsc-rotation.ts, which
+          # named this exact missing line before it existed.
           for p in wiki/nightly data/ledger.jsonl data/ledger-state.json \
                    data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
                    data/agent-health.jsonl \
+                   data/gsc/inspection-rotation.json \
                    data/collectors data/probes data/interventions.jsonl \
                    data/edit-log.jsonl raw/visual/baseline \
                    data/affiliate \
