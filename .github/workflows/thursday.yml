@@ -101,7 +101,14 @@ jobs:
           # interventions.jsonl records what was changed and when — it is the
           # ONLY input to reconcileInterventions. Never committing it is why
           # attribution has had nothing to reconcile since the pipeline began.
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
+          #
+          # data/cost-ledger.jsonl: execute-fixes.ts meters every LLM call into
+          # it inside this runner. Committed only by nightly.yml until
+          # 2026-08-09 — see tuesday.yml for the full note. This step pushes to
+          # `staging`, so this is one of the two days that puts cost-ledger on a
+          # second branch; the `merge=union` driver in .gitattributes is what
+          # keeps Saturday's `Merge main into staging` from conflicting on it.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl data/cost-ledger.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: Thursday wiki + reports $(date +%Y-%m-%d)"

@@ -86,7 +86,14 @@ jobs:
           # data/agent-health.jsonl (A13): the weekly summariser's own
           # stop_reason. Written inside the runner; uncommitted it is lost, and
           # a truncated weekly summary would look exactly like a short one.
-          [ -e data/agent-health.jsonl ] && git add data/agent-health.jsonl || true
+          # data/cost-ledger.jsonl: verify-deploy.ts meters its weekly-summary
+          # call. Committed only by nightly.yml until 2026-08-09 — see
+          # tuesday.yml. This step is also where Thursday's and Friday's
+          # staging-side ledger lines reach `main`, which is why the
+          # `merge=union` driver on this path in .gitattributes is load-bearing.
+          for f in data/agent-health.jsonl data/cost-ledger.jsonl; do
+            [ -e "$f" ] && git add "$f" || true
+          done
           git diff --staged --quiet || git commit -m "deploy: Weekly cycle $(date +%Y-%m-%d)"
           git push origin staging || { sleep 15 && git push origin staging; } || { sleep 30 && git push origin staging; }
           for attempt in 1 2 3; do

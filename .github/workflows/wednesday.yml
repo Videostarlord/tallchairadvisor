@@ -50,7 +50,11 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/weekly-plan.md raw/ wiki/
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
+          # data/cost-ledger.jsonl: strategy.ts calls meteredCreate, which
+          # appends this agent's spend inside the runner. Committed only by
+          # nightly.yml until 2026-08-09, so every Wednesday's cost was
+          # discarded with the container — see tuesday.yml for the full note.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl data/cost-ledger.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] plan: Week of $(date +%Y-%m-%d)"

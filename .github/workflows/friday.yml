@@ -76,7 +76,13 @@ jobs:
         if: env.CONTENT_WRITTEN == 'true'
         run: |
           git add reports/content-log.md raw/ wiki/
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
+          # data/cost-ledger.jsonl: execute-content.ts makes THREE metered calls
+          # per page (generate, answer-first score, competitive-depth score) and
+          # is the most expensive agent in the week. Committed only by
+          # nightly.yml until 2026-08-09, so its spend never once reached the
+          # repo — see tuesday.yml. Pushes to `staging`; `merge=union` in
+          # .gitattributes is what keeps Saturday's merge from conflicting.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl data/cost-ledger.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: Friday wiki + reports $(date +%Y-%m-%d)"
@@ -88,7 +94,11 @@ jobs:
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
           git add reports/content-log.md raw/ || true
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
+          # data/cost-ledger.jsonl matters MORE on this path than on the success
+          # one. No page was written, but the generate + score calls still ran
+          # and were still billed. Dropping the ledger here is how a week of
+          # paid-for failures reconciles to $0 and looks free.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl data/cost-ledger.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: No pages written $(date +%Y-%m-%d) — see content-log.md"

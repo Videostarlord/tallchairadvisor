@@ -61,7 +61,14 @@ jobs:
           # while every dashboard stayed green; the record proving that is
           # written inside this runner and is worthless unless it survives it.
           # Uncommitted, the nightly can never see that Tuesday went blind.
-          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl; do
+          #
+          # data/cost-ledger.jsonl is written by meteredCreate() on every LLM
+          # call this agent makes. Until 2026-08-09 ONLY nightly.yml committed
+          # it, so every weekday agent's spend was metered into the runner and
+          # thrown away with it — `cost:rollup` reported 14 llm records, all of
+          # them nightly-report's, and not one from audit/strategy/fixes/
+          # content/verify. The meter worked; the seam lost the result.
+          for f in data/audit-findings.json data/interventions.jsonl data/content-roadmap.json data/content-failed.json data/token-log.jsonl data/agent-health.jsonl data/cost-ledger.jsonl; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] report: Tuesday audit $(date +%Y-%m-%d)"
