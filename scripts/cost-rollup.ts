@@ -53,6 +53,29 @@
  * complete month. A reader seeing "contributing agents: nightly-report" can.
  * So the reconcile now names them, and that line is the difference between a
  * reconciliation and a number that merely looks like one.
+ *
+ * ─── 2026-08-13: AN INVOICE IS PER KEY, NOT PER SITE ──────────────────────────
+ *
+ * Every record now carries `site` (stamped in metered-client.ts, never passed by
+ * a caller). The reason is arithmetic, not tidiness:
+ *
+ *   An Anthropic invoice is issued against an API KEY. Two sites running on one
+ *   key produce ONE bill covering both. The Console cannot divide it — it has
+ *   never heard of these sites. This ledger is the only thing that can.
+ *
+ * Without the field, `cost:reconcile 12.47` on a two-site key compares one
+ * combined metered figure against one combined invoice and prints OK. That is
+ * not wrong, it is just empty: it can never answer "which site costs what",
+ * which is the only question a second site makes worth asking. And the failure
+ * is silent — the number looks exactly as it always did.
+ *
+ * `site` is OPTIONAL on the schema and reported as `(unattributed)` when absent.
+ * The 53 records written before today do not know their site and CANNOT be made
+ * to: the tokens are real, the money is real, and nothing on disk or at
+ * Anthropic remembers which site caused them. Defaulting them to
+ * tallchairadvisor.com would manufacture an attribution that happens to be right
+ * today and becomes silently wrong the first month a second site runs. So they
+ * are counted in the total (the money was spent) and named as unsplittable.
  */
 
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -94,6 +117,19 @@ interface ServiceBucket {
   pages: number;
 }
 
+/**
+ * The key used for records written before `site` existed. Not a site name and
+ * deliberately not a valid domain, so it can never be mistaken for one in a
+ * report, a JSON key, or a `--site` argument.
+ */
+export const UNATTRIBUTED = '(unattributed)';
+
+/** `record.site`, or the unattributed key when the record predates the field. */
+export function siteOf(record: CostRecord): string {
+  const site = (record as { site?: unknown }).site;
+  return typeof site === 'string' && site.trim() !== '' ? site.trim() : UNATTRIBUTED;
+}
+
 interface CostSummary {
   generatedAt: string;
   ledger: string;
@@ -105,6 +141,17 @@ interface CostSummary {
   byAgent: Record<string, Bucket>;
   byDay: Record<string, Bucket>;
   byMonth: Record<string, Bucket>;
+  /**
+   * LLM spend per site. One Anthropic invoice covers every site on the key, so
+   * this is the only thing that can say how a shared bill divides.
+   */
+  bySite: Record<string, Bucket>;
+  /**
+   * External usage per site, then per service. Nested this way round because the
+   * question being asked is "which site ate the SerpAPI quota", and a cap is a
+   * property of the service while the blame is a property of the site.
+   */
+  externalBySite: Record<string, Record<string, ServiceBucket>>;
   externalByService: Record<string, ServiceBucket>;
   models: Record<string, Bucket>;
 }
@@ -214,6 +261,8 @@ function rollup(records: CostRecord[], fileExists: boolean): CostSummary {
     byAgent: {},
     byDay: {},
     byMonth: {},
+    bySite: {},
+    externalBySite: {},
     externalByService: {},
     models: {},
   };
@@ -231,6 +280,11 @@ function rollup(records: CostRecord[], fileExists: boolean): CostSummary {
     if (isExternalRecord(record)) {
       summary.records.external += 1;
       accumulateExternal(summary.externalByService, record);
+      const site = siteOf(record);
+      const perSite = summary.externalBySite[site];
+      const bucket = perSite === undefined ? {} : perSite;
+      accumulateExternal(bucket, record);
+      summary.externalBySite[site] = bucket;
       continue;
     }
     summary.records.llm += 1;
@@ -240,6 +294,7 @@ function rollup(records: CostRecord[], fileExists: boolean): CostSummary {
     addToBucket(summary.byAgent, record.agent, record);
     addToBucket(summary.byDay, day, record);
     addToBucket(summary.byMonth, month, record);
+    addToBucket(summary.bySite, siteOf(record), record);
     addToBucket(summary.models, record.model, record);
 
     summary.totals.records += 1;
@@ -312,8 +367,45 @@ interface DriftRecord {
   driftPercent: number;
   thresholdPercent: number;
   meteredRecords: number;
+  /**
+   * How the month's metered spend divides across sites. Recorded on the finding
+   * itself, not just printed: a drift filed against a shared invoice is only
+   * actionable if whoever reads it later can see which site's stream moved.
+   */
+  bySite: Array<{ site: string; usd: number; records: number }>;
   status: 'open';
   detail: string;
+}
+
+/**
+ * LLM spend for `month`, split by site, sorted by size.
+ *
+ * THE WHOLE POINT: an Anthropic invoice is issued per API KEY. Two sites running
+ * against one key produce ONE bill covering both, and this split is the only
+ * thing in the system that can say how that bill divides — the Console cannot,
+ * because it has never heard of these sites.
+ *
+ * External records are excluded here for the same reason `llmAgentsInMonth`
+ * excludes them: SerpAPI credits are not on an Anthropic invoice. Their per-site
+ * split lives in `summary.externalBySite`, where the question is quota, not bill.
+ */
+export function siteSplitForMonth(
+  records: CostRecord[],
+  month: string
+): Array<{ site: string; usd: number; records: number }> {
+  const totals = new Map<string, { usd: number; records: number }>();
+  for (const record of records) {
+    if (isExternalRecord(record)) continue;
+    if (record.ts.slice(0, 7) !== month) continue;
+    const site = siteOf(record);
+    const entry = totals.get(site) ?? { usd: 0, records: 0 };
+    entry.usd = round8(entry.usd + record.usd.total);
+    entry.records += 1;
+    totals.set(site, entry);
+  }
+  return [...totals.entries()]
+    .map(([site, entry]) => ({ site, usd: entry.usd, records: entry.records }))
+    .sort((a, b) => b.usd - a.usd || a.site.localeCompare(b.site));
 }
 
 /**
@@ -382,6 +474,16 @@ function main(): void {
     for (const month of months) {
       console.log(`  ${month}: $${summary.byMonth[month].usd.toFixed(5)}`);
     }
+    // Always printed, even at one site, so a second one shows up as a NEW ROW
+    // rather than as an unchanged-looking total that quietly covers two sites.
+    const sites = Object.keys(summary.bySite).sort();
+    for (const site of sites) {
+      const bucket = summary.bySite[site];
+      console.log(
+        `  site ${site}: $${bucket.usd.toFixed(5)} across ${bucket.records} record(s)` +
+          (site === UNATTRIBUTED ? ' — written before `site` existed; not assignable' : '')
+      );
+    }
   }
 
   let exitCode = 0;
@@ -425,6 +527,33 @@ function main(): void {
       `  agents:  ${contributors.length === 0 ? '(none)' : contributors.join(', ')}` +
         ` — LLM only; external services are not on an Anthropic invoice`
     );
+    // The invoice figure being reconciled against covers the whole API KEY. If
+    // more than one site ran on it, this line is the only place the shared bill
+    // is divided; the Console cannot do it, because it has never heard of these
+    // sites. Printed even for a single site, so the day a second one appears the
+    // reader sees a new row rather than an unchanged-looking total.
+    const split = siteSplitForMonth(records, reconcile.month);
+    console.log(
+      `  sites:   ${
+        split.length === 0
+          ? '(none)'
+          : split.map((s) => `${s.site} $${s.usd.toFixed(5)} (${s.records} rec)`).join(' · ')
+      }`
+    );
+    const unattributed = split.find((s) => s.site === UNATTRIBUTED);
+    if (unattributed !== undefined) {
+      // Not a failure. Every record written before 2026-08-13 is in this bucket
+      // by construction, so failing here would fail every month containing real
+      // history — and the point is to make the gap legible, not to block on a
+      // fact that can never be fixed.
+      console.error(
+        `  WARNING: $${unattributed.usd.toFixed(5)} across ${unattributed.records} record(s) in ` +
+          `${reconcile.month} carry NO site and never can — they were written before the field ` +
+          `existed (2026-08-13). They are counted in the metered total above because the money was ` +
+          `real, but they cannot be assigned to a site. If a second site ran this month, that ` +
+          `portion of the invoice is unsplittable.`
+      );
+    }
 
     // Zero records is its own refusal, NOT a drift comparison. $0 metered
     // against a $0 invoice is 0% drift and would otherwise print "OK" for a
@@ -456,6 +585,7 @@ function main(): void {
         driftPercent,
         thresholdPercent: DRIFT_THRESHOLD_PERCENT,
         meteredRecords,
+        bySite: split,
         status: 'open',
         detail,
       });

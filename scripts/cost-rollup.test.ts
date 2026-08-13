@@ -33,7 +33,7 @@
 import { existsSync, readFileSync } from 'fs';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
-import { llmAgentsInMonth } from './cost-rollup.js';
+import { llmAgentsInMonth, siteSplitForMonth, siteOf, UNATTRIBUTED } from './cost-rollup.js';
 import type { CostRecord } from './lib/metered-client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -54,11 +54,15 @@ function assert(label: string, condition: boolean, detail = ''): void {
   }
 }
 
-function llm(agent: string, ts: string): CostRecord {
+function llm(agent: string, ts: string, site?: string): CostRecord {
   return {
     ts,
     agent,
     run: ts.slice(0, 10),
+    // Omitted, not null, when no site is given — that is exactly the shape of
+    // the 53 records written before the field existed, and the unattributed
+    // cases below are worthless if the fixture cannot reproduce it.
+    ...(site === undefined ? {} : { site }),
     model: 'claude-sonnet-4-6',
     input: 100,
     output: 10,
@@ -68,11 +72,12 @@ function llm(agent: string, ts: string): CostRecord {
   } as CostRecord;
 }
 
-function external(agent: string, service: string, ts: string): CostRecord {
+function external(agent: string, service: string, ts: string, site?: string): CostRecord {
   return {
     ts,
     agent,
     run: ts.slice(0, 10),
+    ...(site === undefined ? {} : { site }),
     service,
     unit: 'credits',
     amount: 23,
@@ -168,6 +173,78 @@ console.log('\ncost-rollup module import is side-effect free');
   } else {
     assert('data/cost-summary.json was not created by importing the module', !existsSync(summary));
   }
+}
+
+// ─── 5. site attribution — an invoice is per KEY, not per site ────────────────
+//
+// The property: a month's metered spend can be divided between sites, and spend
+// that CANNOT be divided says so instead of being quietly assigned to one.
+
+console.log('\nsiteSplitForMonth — dividing a shared invoice');
+{
+  const records = [
+    llm('nightly-report', '2026-09-01T02:00:00.000Z', 'tallchairadvisor.com'),
+    llm('audit', '2026-09-02T02:00:00.000Z', 'tallchairadvisor.com'),
+    llm('nightly-report', '2026-09-02T03:00:00.000Z', 'standingdeskadvisor.com'),
+    // Not on an Anthropic invoice — must not appear in the split at all.
+    external('collector-gsc', 'dataforseo', '2026-09-02T04:00:00.000Z', 'standingdeskadvisor.com'),
+    // Different month.
+    llm('audit', '2026-08-30T02:00:00.000Z', 'tallchairadvisor.com'),
+  ];
+
+  const split = siteSplitForMonth(records, '2026-09');
+  assert('both sites appear', split.length === 2, JSON.stringify(split.map((s) => s.site)));
+  assert('sorted by spend, largest first', split[0].site === 'tallchairadvisor.com', split[0].site);
+  assert('per-site record counts are the site\'s own', split[0].records === 2 && split[1].records === 1, JSON.stringify(split));
+  assert(
+    'external spend is excluded — it is not on an Anthropic invoice',
+    split.every((s) => s.records <= 2) && split[1].records === 1,
+    JSON.stringify(split)
+  );
+  assert(
+    'the split sums to the month total, so no dollar is lost or double-counted',
+    Math.abs(split.reduce((sum, s) => sum + s.usd, 0) - 0.00045 * 3) < 1e-9,
+    `${split.reduce((sum, s) => sum + s.usd, 0)}`
+  );
+  assert('a different month is not included', siteSplitForMonth(records, '2026-08')[0].records === 1);
+}
+
+console.log('\nunattributed — the pre-2026-08-13 records');
+{
+  // The load-bearing case. These records exist, the money was real, and their
+  // site can never be recovered. They must be COUNTED (the spend happened) and
+  // NAMED as unassignable (the attribution did not).
+  const records = [
+    llm('nightly-report', '2026-08-01T02:00:00.000Z'),
+    llm('audit', '2026-08-02T02:00:00.000Z'),
+    llm('audit', '2026-08-14T02:00:00.000Z', 'tallchairadvisor.com'),
+  ];
+
+  const split = siteSplitForMonth(records, '2026-08');
+  const unattributed = split.find((s) => s.site === UNATTRIBUTED);
+  assert('records with no site are bucketed as unattributed', unattributed !== undefined);
+  assert('and they are COUNTED, not dropped — the money was spent', unattributed?.records === 2, JSON.stringify(unattributed));
+  assert(
+    'they are NOT folded into the real site',
+    split.find((s) => s.site === 'tallchairadvisor.com')?.records === 1,
+    JSON.stringify(split)
+  );
+  assert(
+    'the unattributed key is not a valid domain, so it can never be mistaken for one',
+    !/^[a-z0-9-]+\.[a-z]{2,}$/i.test(UNATTRIBUTED),
+    UNATTRIBUTED
+  );
+}
+
+console.log('\nsiteOf — blank is not attribution');
+{
+  assert('a real site is returned verbatim', siteOf(llm('a', '2026-09-01T00:00:00.000Z', 'x.com')) === 'x.com');
+  assert('an absent site is unattributed', siteOf(llm('a', '2026-09-01T00:00:00.000Z')) === UNATTRIBUTED);
+  // An unset GitHub secret substitutes an empty string. A blank site is not a
+  // site, and treating it as one would create a nameless bucket in every report.
+  assert('an empty site is unattributed', siteOf(llm('a', '2026-09-01T00:00:00.000Z', '')) === UNATTRIBUTED);
+  assert('a whitespace site is unattributed', siteOf(llm('a', '2026-09-01T00:00:00.000Z', '   ')) === UNATTRIBUTED);
+  assert('external records are attributed too', siteOf(external('a', 'serpapi', '2026-09-01T00:00:00.000Z', 'x.com')) === 'x.com');
 }
 
 // ─── done ─────────────────────────────────────────────────────────────────────

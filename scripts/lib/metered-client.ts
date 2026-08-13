@@ -40,6 +40,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { costOf, type CostBreakdown, type TokenUsage } from './pricing.js';
 import { classifyStop, makeEvaluated, makeUnevaluable, recordAgentHealth } from './agent-health.js';
+import { siteDomain } from './site.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -75,6 +76,24 @@ export interface LlmCostRecord {
   agent: string;
   run: string;
   purpose?: string;
+  /**
+   * Which site this spend belongs to (`site.ts`). Added 2026-08-13, and it is
+   * NOT the caller's to pass — every one of the ~15 call sites would have to
+   * remember, and this codebase's signature failure is a convention that one new
+   * call site forgets. It is stamped here, at the one chokepoint lint rule R5
+   * guarantees every LLM call passes through, for the same reason `agent` and
+   * `stopReason` are.
+   *
+   * WHY IT COULD NOT WAIT. An Anthropic invoice is per API KEY, not per site.
+   * The moment a second site runs against this key the invoice covers both and
+   * the ledger is the ONLY thing that can say how it divides — and a record
+   * written without this field can never be attributed afterwards. There is no
+   * backfill: the token counts are real, the money is real, and nothing on disk
+   * or at Anthropic remembers which site caused them. Every record written
+   * before today is permanently unattributable, which is the entire argument
+   * for adding it before the second site exists rather than after.
+   */
+  site: string;
   model: string;
   input: number;
   output: number;
@@ -98,6 +117,14 @@ export interface ExternalCostRecord {
   agent: string;
   run: string;
   purpose?: string;
+  /**
+   * Same field and same reason as on `LlmCostRecord`, with one sharper edge:
+   * these services meter against HARD FREE-TIER CAPS — SerpAPI 250 credits a
+   * month, Firecrawl 500 pages — and the cap belongs to the key, not the site.
+   * Two sites sharing it exhaust it together, and without this field the run
+   * that ate the quota is indistinguishable from the run that was starved by it.
+   */
+  site: string;
   service: string;
   unit: 'usd' | 'credits' | 'pages';
   amount: number;
@@ -156,6 +183,7 @@ export function buildLlmRecord(
     ts: at.toISOString(),
     agent: ctx.agent,
     run: ctx.run,
+    site: siteDomain(),
     model,
     stopReason: completion.stopReason,
     maxTokens: completion.maxTokens,
@@ -197,6 +225,7 @@ export function buildExternalRecord(
     ts: at.toISOString(),
     agent: rec.agent,
     run: rec.run,
+    site: siteDomain(),
     service: rec.service,
     unit: rec.unit,
     amount: rec.amount,

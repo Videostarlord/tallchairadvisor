@@ -61,6 +61,20 @@ export const llmCostRecordSchema = z
      */
     stopReason: z.string().nullable().optional(),
     maxTokens: z.number().nullable().optional(),
+    /**
+     * Added 2026-08-13, OPTIONAL for the same reason `stopReason` is and with a
+     * blunter consequence. The 53 records written before that date do not know
+     * which site they belong to and CANNOT be made to: an Anthropic invoice is
+     * per API key, the token counts carry no site, and nothing anywhere else
+     * remembers. Requiring the key would throw on real history. Defaulting it to
+     * `tallchairadvisor.com` would be worse — it would look like attribution
+     * while being a guess, and the first month a second site runs is exactly the
+     * month that guess becomes wrong and invisible.
+     *
+     * Absent means UNATTRIBUTABLE, and cost-rollup says so in those words rather
+     * than silently folding those dollars into whichever site is asking.
+     */
+    site: z.string().optional(),
   })
   .passthrough();
 
@@ -74,6 +88,8 @@ export const externalCostRecordSchema = z
     service: z.string(),
     unit: z.enum(['usd', 'credits', 'pages']),
     amount: z.number(),
+    /** See `site` on llmCostRecordSchema — optional for the same reason. */
+    site: z.string().optional(),
   })
   .passthrough();
 
