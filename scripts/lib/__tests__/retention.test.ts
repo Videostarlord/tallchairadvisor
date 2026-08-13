@@ -24,14 +24,16 @@
  * setLedgerPath() at a scratch copy and restores it afterwards.
  */
 
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, statSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { resolve } from 'path';
 import {
+  AGENT_HEALTH_ALARM_BYTES,
   DEFAULT_PROBE_KEEP,
   LEDGER_ALARM_BYTES,
   foldToCurrent,
   formatBytes,
+  inspectAgentHealthSize,
   inspectLedgerSize,
   pinnedProbeDates,
   planProbePruning,
@@ -312,6 +314,78 @@ console.log('\ninspectLedgerSize');
   }
 
   assert('the alarm threshold is a real size, not a placeholder', LEDGER_ALARM_BYTES === 25 * 1024 * 1024);
+}
+
+// ─── 8b. agent-health.jsonl is watched and NEVER pruned ───────────────────────
+//
+// THE PROPERTY UNDER TEST, and it is the same one as section 8 with higher
+// stakes. A probe file may be deleted because the ledger already holds a copy of
+// what it observed. Nothing anywhere copies an agent-health record, so that line
+// is the ONLY evidence that an agent went blind on a given night. The load-bearing
+// assertion here is therefore not "the size is reported", it is:
+//
+//     a real, non-dry-run prune leaves data/agent-health.jsonl byte-for-byte intact.
+//
+// If someone later points the pruner at this file, that assertion fails and the
+// argument in retention.ts's header gets re-read before the evidence is gone.
+
+console.log('\ninspectAgentHealthSize');
+{
+  const root = resolve(scratch, 'agent-health-size');
+  mkdirSync(resolve(root, 'data', 'probes'), { recursive: true });
+
+  const absent = inspectAgentHealthSize(root, 'data/agent-health.jsonl');
+  assert(
+    'an absent agent-health log reports exists:false, not 0 records as fact',
+    !absent.exists && absent.bytes === 0 && absent.records === 0
+  );
+  assert('an absent agent-health log cannot trip the alarm', !absent.overAlarm);
+
+  const file = resolve(root, 'data/agent-health.jsonl');
+  const health = [
+    { ts: '2026-08-09T01:00:00.000Z', run: '2026-08-09', agent: 'audit', status: 'evaluated', reason: null },
+    { ts: '2026-08-09T02:00:00.000Z', run: '2026-08-09', agent: 'strategy', status: 'unevaluable', reason: 'TRUNCATED' },
+  ];
+  // A blank line and a trailing newline, because real JSONL has both and a
+  // record count that drifts on whitespace is not a record count.
+  writeFileSync(file, `${JSON.stringify(health[0])}\n\n${JSON.stringify(health[1])}\n`);
+  const bytesBefore = statSync(file).size;
+
+  const report = inspectAgentHealthSize(root, 'data/agent-health.jsonl');
+  assert('a present agent-health log is sized', report.exists && report.bytes > 0, `${report.bytes}`);
+  assert('blank lines are not counted as records', report.records === 2, `${report.records}`);
+  assert('a 2-record health log is nowhere near the alarm', !report.overAlarm);
+
+  // Counting lines rather than parsing them is the deliberate difference from
+  // inspectLedgerSize. A malformed line must not make the file look smaller than
+  // it is — "the log stopped growing" is the wrong answer to "how big is it".
+  writeFileSync(file, `${JSON.stringify(health[0])}\n{ this is not json\n`);
+  const malformed = inspectAgentHealthSize(root, 'data/agent-health.jsonl');
+  assert(
+    'a malformed line still counts toward size, rather than silently vanishing',
+    malformed.exists && malformed.records === 2,
+    `${malformed.records}`
+  );
+
+  // The safety property. Give the pruner something it WILL delete, then prove it
+  // left the health log alone.
+  writeFileSync(file, `${JSON.stringify(health[0])}\n\n${JSON.stringify(health[1])}\n`);
+  for (const date of ['2026-07-01', '2026-07-02', '2026-08-08', '2026-08-09']) {
+    writeFileSync(resolve(root, 'data/probes', `${date}.json`), '{}');
+  }
+  const pruned = pruneProbeArtifacts({ repoRoot: root, keep: 1, ledger: [], dryRun: false });
+  assert('the prune under test actually deleted something', pruned.deleted.length > 0, `${pruned.deleted.length}`);
+  assert('a real prune does not delete data/agent-health.jsonl', existsSync(file));
+  assert(
+    'a real prune does not rewrite or truncate data/agent-health.jsonl',
+    statSync(file).size === bytesBefore,
+    `${statSync(file).size} vs ${bytesBefore}`
+  );
+
+  assert(
+    'the agent-health alarm threshold is a real size, not a placeholder',
+    AGENT_HEALTH_ALARM_BYTES === 25 * 1024 * 1024
+  );
 }
 
 // ─── 9. formatBytes ───────────────────────────────────────────────────────────

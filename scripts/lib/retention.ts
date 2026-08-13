@@ -73,9 +73,42 @@
  * this module does instead is watch it: if it ever crosses LEDGER_ALARM_BYTES
  * the run says so, so the decision gets revisited against a real number instead
  * of being assumed correct forever.
+ *
+ * ─── data/agent-health.jsonl IS WATCHED, NOT PRUNED (added 2026-08-09) ────────
+ *
+ * A13 landed that file hours before this paragraph was written, append-only and
+ * with no policy. The obvious move was to point the probe pruner at it. That is
+ * wrong, and the three facts above are exactly why — every one of them is FALSE
+ * for agent-health records:
+ *
+ *   1. OLD RECORDS ARE READ. `nightly-report.ts` loads the WHOLE file, and its
+ *      `checked += records.length` makes the full history the denominator of a
+ *      detector-health verdict. Only the ALERTING pass is windowed to
+ *      AGENT_HEALTH_WINDOW_HOURS; the read is not.
+ *
+ *   2. NOTHING COPIES THE EVIDENCE ANYWHERE ELSE. A probe file may be deleted
+ *      because the ledger line already carries its `evidence.detail` inline. No
+ *      such second copy exists here. The agent-health line IS the observation.
+ *      Delete it and the fact that an agent went blind that night is gone from
+ *      the system, with nothing left to reconstruct it from.
+ *
+ *   3. THE PATTERN LIVES IN THE HISTORY, NOT THE LATEST RECORD. The founding
+ *      incident of A13 was `audit.ts` hitting its max_tokens ceiling on FIVE OF
+ *      FIVE weekly runs across a month. "Tonight was truncated" is one record;
+ *      "this agent has been truncating for a month" is only visible across five
+ *      weeks of them. A pruner sized to the nightly's alert window would delete
+ *      precisely the records that make the chronic case provable — which is the
+ *      case A13 exists to catch.
+ *
+ * So this file gets the ledger's treatment and not the probes': measured, alarmed
+ * on, and never deleted. Silently dropping evidence about detector blindness
+ * would be the same class of failure A13 was built to end, committed by the
+ * cleanup code. Growth is slow enough for that to be free — ~400 B/record at
+ * roughly 30 metered calls/week is ~600 KB/year, the same order as ledger.jsonl
+ * and nowhere near the alarm.
  */
 
-import { readdirSync, statSync, unlinkSync } from 'fs';
+import { readFileSync, readdirSync, statSync, unlinkSync } from 'fs';
 import { existsSync } from 'node:fs';
 import { resolve } from 'path';
 import { currentState, readLedger, type LedgerRecord } from './ledger.js';
@@ -91,6 +124,19 @@ export const DEFAULT_PROBE_KEEP = 30;
  * in the nightly rather than a silently enormous file.
  */
 export const LEDGER_ALARM_BYTES = 25 * 1024 * 1024;
+
+/**
+ * data/agent-health.jsonl is not pruned either — see the header for why deleting
+ * it would be the exact failure A13 exists to catch.
+ *
+ * Same threshold as the ledger, deliberately, because the two files are in the
+ * same growth class and a second invented number would imply a distinction that
+ * has not been measured. At ~400 B/record this is ~65,000 records; at the
+ * current ~30 metered calls/week that is roughly forty years. Crossing it means
+ * the call volume changed by orders of magnitude — worth a line in the nightly
+ * and a fresh look at this decision, not a silent 25 MB file.
+ */
+export const AGENT_HEALTH_ALARM_BYTES = 25 * 1024 * 1024;
 
 const PROBE_DIR = 'data/probes';
 const DATED_JSON = /^(\d{4}-\d{2}-\d{2})\.json$/;
@@ -279,6 +325,36 @@ export function inspectLedgerSize(repoRoot: string = REPO_ROOT, path = 'data/led
     records: readLedger(file).length,
     overAlarm: bytes > LEDGER_ALARM_BYTES,
   };
+}
+
+/**
+ * Size-only, exactly like `inspectLedgerSize` — nothing here deletes or rewrites
+ * an agent-health line, and the header says at length why it must not.
+ *
+ * Records are counted as NON-EMPTY LINES rather than by parsing each one against
+ * `agentHealthRecordSchema`. That is a deliberate difference from
+ * `inspectLedgerSize`, which counts validated records: a size report whose job is
+ * to answer "how big has this got" must not fail, or silently under-count, on the
+ * day a malformed line appears. Under-counting there would read as "the file
+ * stopped growing" — the wrong answer to the only question this function asks.
+ * Validation of these records is `nightly-report.ts`'s job, and it already does
+ * it loudly.
+ */
+export function inspectAgentHealthSize(
+  repoRoot: string = REPO_ROOT,
+  path = 'data/agent-health.jsonl'
+): LedgerSizeReport {
+  const file = resolve(repoRoot, path);
+  if (!existsSync(file)) {
+    return { path, exists: false, bytes: 0, records: 0, overAlarm: false };
+  }
+  const bytes = statSync(file).size;
+  const contents = readFileSync(file, 'utf-8');
+  let records = 0;
+  for (const line of contents.split('\n')) {
+    if (line.trim().length > 0) records++;
+  }
+  return { path, exists: true, bytes, records, overAlarm: bytes > AGENT_HEALTH_ALARM_BYTES };
 }
 
 export function formatBytes(bytes: number): string {

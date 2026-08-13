@@ -25,8 +25,10 @@
 import {
   DEFAULT_PROBE_KEEP,
   formatBytes,
+  inspectAgentHealthSize,
   inspectLedgerSize,
   pruneProbeArtifacts,
+  type LedgerSizeReport,
 } from './lib/retention.js';
 
 interface Options {
@@ -83,23 +85,39 @@ function main(): void {
     console.error(`[retention] could NOT remove ${error}`);
   }
 
-  const ledger = inspectLedgerSize();
-  if (!ledger.exists) {
-    console.log(`[retention] ${ledger.path} absent — nothing to size`);
-  } else {
-    console.log(
-      `[retention] ${ledger.path}: ${formatBytes(ledger.bytes)} across ${ledger.records} record(s) — not pruned, by design`
+  reportWatchedFile(inspectLedgerSize(), 'LEDGER');
+  // A13's log gets the ledger's treatment, not the probes': sized every night,
+  // never pruned. scripts/lib/retention.ts says at length why deleting evidence
+  // about detector blindness would be the failure A13 was built to end.
+  reportWatchedFile(inspectAgentHealthSize(), 'AGENT-HEALTH');
+}
+
+/**
+ * An append-only file this module watches but deliberately never prunes.
+ *
+ * Absence is reported as absence, not as zero — an agent-health log that does not
+ * exist means no agent has recorded a stop_reason yet, which is UNMONITORED
+ * rather than healthy, and the nightly says so in its own words.
+ */
+function reportWatchedFile(report: LedgerSizeReport, alarmLabel: string): void {
+  if (!report.exists) {
+    console.log(`[retention] ${report.path} absent — nothing to size`);
+    return;
+  }
+
+  console.log(
+    `[retention] ${report.path}: ${formatBytes(report.bytes)} across ${report.records} record(s) — not pruned, by design`
+  );
+
+  if (report.overAlarm) {
+    // Deliberately not an exit code. The decision to never compact these files
+    // was made against a measured growth rate; crossing this means the rate
+    // changed and the decision is due a re-argument, not that tonight failed.
+    console.error(
+      `[retention] ${alarmLabel} ALARM — ${report.path} is ${formatBytes(report.bytes)}, past the ` +
+        `threshold that says the growth model in scripts/lib/retention.ts is out of date. ` +
+        `Re-derive it before assuming append-only is still free.`
     );
-    if (ledger.overAlarm) {
-      // Deliberately not an exit code. The decision to never compact the ledger
-      // was made against a measured growth rate; crossing this means the rate
-      // changed and the decision is due a re-argument, not that tonight failed.
-      console.error(
-        `[retention] LEDGER ALARM — ${ledger.path} is ${formatBytes(ledger.bytes)}, past the ` +
-          `threshold that says the growth model in scripts/lib/retention.ts is out of date. ` +
-          `Re-derive it before assuming append-only is still free.`
-      );
-    }
   }
 }
 
