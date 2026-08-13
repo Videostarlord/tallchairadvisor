@@ -84,7 +84,12 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
           window.gtag('config', gaMeasurementId);
         </script>
         <script is:inline>
-          const AFFILIATE_TAG = 'tallchairadvi-20';
+          // All four IDs, because the check below decides whether a click is
+          // TRACKED AT ALL. Left at the single legacy value it would have gone
+          // silently blind on 2026-08-13: every product link now carries a
+          // class-specific ID, so nothing would have matched and GA4 would have
+          // recorded zero affiliate clicks site-wide while looking healthy.
+          const AFFILIATE_TAGS = ['tallchairadvi-20', 'tcachair-20', 'tcaaccessory-20', 'tcadesk-20'];
 
           // Direct affiliate programs (non-Amazon). Domain suffix → program name.
           const DIRECT_PROGRAMS = {
@@ -116,7 +121,7 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
               const url = new URL(link.href, window.location.origin);
               if (matchDirectProgram(url)) return true;
               return normalizeDomain(url.hostname).endsWith('amazon.com')
-                && url.searchParams.get('tag') === AFFILIATE_TAG;
+                && AFFILIATE_TAGS.includes(url.searchParams.get('tag'));
             } catch {
               return false;
             }
@@ -184,6 +189,12 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
               page_title: document.title,
               destination_domain: normalizeDomain(url.hostname),
               affiliate_program: getAffiliateProgram(link, url),
+              // The product class the link's tracking ID also encodes. This is
+              // the join key: GA4 gives clicks per class, Amazon gives orders
+              // per tracking ID, and revenue-per-1000-clicks falls out of the
+              // pair. Amazon stopped disclosing WHAT an indirect order was, so
+              // this is the only per-class conversion signal that still exists.
+              affiliate_class: link.getAttribute('data-affiliate-class') || 'unclassified',
               cta_label: getCtaLabel(link),
               cta_position: ctaPosition,
               link_url: url.href,

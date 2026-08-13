@@ -376,10 +376,10 @@ const schema = [
         <p class="text-sm font-semibold text-heading mb-2">Chairs with enough seat depth for tall users</p>
         <p class="text-sm text-muted-foreground mb-4">The Steelcase Leap Plus reaches 19.75" of adjustable seat depth — the widest range of any mainstream ergonomic chair. The Steelcase Gesture adjusts to 18.75". The Herman Miller Aeron Size C has a fixed 18.5" depth. Match against your measured thigh length before buying.</p>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="https://www.amazon.com/dp/B00TYE4QXU?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm">
+          <a href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm" data-affiliate-class="chair">
             View Steelcase Leap Plus on Amazon →
           </a>
-          <a href="https://www.amazon.com/dp/B016OIF2JU?tag=tallchairadvi-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 border border-border text-heading px-5 py-3 rounded-md font-medium hover:bg-accent transition-colors text-sm">
+          <a href="https://www.amazon.com/dp/B016OIF2JU?tag=tcachair-20" target="_blank" rel="noopener noreferrer sponsored" class="inline-flex items-center gap-2 border border-border text-heading px-5 py-3 rounded-md font-medium hover:bg-accent transition-colors text-sm" data-affiliate-class="chair">
             View Steelcase Gesture on Amazon →
           </a>
         </div>
@@ -454,21 +454,21 @@ const schema = [
       depth: '15.75–19.75″ (adjustable)',
       maxDepth: 19.75,
       url: '/review/leap-plus/',
-      amazon: 'https://www.amazon.com/dp/B00TYE4QXU?tag=tallchairadvi-20',
+      amazon: 'https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20',
     },
     {
       name: 'Steelcase Gesture',
       depth: '15.75–18.75″ (adjustable)',
       maxDepth: 18.75,
       url: '/review/gesture/',
-      amazon: 'https://www.amazon.com/dp/B016OIF2JU?tag=tallchairadvi-20',
+      amazon: 'https://www.amazon.com/dp/B016OIF2JU?tag=tcachair-20',
     },
     {
       name: 'Herman Miller Aeron Size C',
       depth: '~18.5″ (fixed)',
       maxDepth: 18.5,
       url: '/review/aeron-size-c/',
-      amazon: 'https://www.amazon.com/dp/B01N32UFNT?tag=tallchairadvi-20',
+      amazon: 'https://www.amazon.com/dp/B01N32UFNT?tag=tcachair-20',
     },
   ];
 
@@ -500,7 +500,7 @@ const schema = [
           <p class="font-medium text-heading text-sm mt-0.5"><a href="${c.url}" class="link-internal">${c.name}</a></p>
           <p class="text-xs text-muted-foreground">${c.depth}</p>
         </div>
-        <a href="${c.amazon}" target="_blank" rel="noopener noreferrer sponsored" class="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-md font-medium hover:bg-primary/90 transition-colors">View on Amazon &rarr;</a>
+        <a href="${c.amazon}" target="_blank" rel="noopener noreferrer sponsored" data-affiliate-cta="true" data-affiliate-program="amazon" data-affiliate-class="chair" data-cta-label="View ${c.name} on Amazon" data-cta-position="calculator-result" class="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-md font-medium hover:bg-primary/90 transition-colors">View on Amazon &rarr;</a>
       </div>`;
     });
     notMatching.forEach((c) => {
