@@ -57,6 +57,7 @@ import {
   buildEvalContext,
   describePredicate,
   evaluatePredicate,
+  validateClosurePredicate,
   type ClosurePredicate,
   type EvalContext,
   type PredicateVerdict,
@@ -222,10 +223,21 @@ interface BackfillReport {
   refused: Array<{ id: string; page: string; issueClass: string; why: string }>;
   retracted: string[];
   violations: string[];
+  /**
+   * Already-filed interventions whose closure predicate no longer matches what
+   * `positionClosureTarget()` would produce today.
+   *
+   * Reported, NEVER rewritten. Moving the goalposts on a filed record after the
+   * fact would make its history unreadable — an intervention that failed for 23
+   * nights against one bar would suddenly show as failing against a different
+   * one, with nothing saying when it changed. The honest handling is to say the
+   * bar is stale and let a human decide, which is what `escalated` already means.
+   */
+  staleTargets: Array<{ id: string; page: string; filed: number; current: number }>;
 }
 
 function backfill(opts: Options): BackfillReport {
-  const report: BackfillReport = { seeded: 0, alreadyFiled: 0, refused: [], retracted: [], violations: [] };
+  const report: BackfillReport = { seeded: 0, alreadyFiled: 0, refused: [], retracted: [], violations: [], staleTargets: [] };
   const ledgerPath = opts.ledgerPath === null ? undefined : opts.ledgerPath;
   const retractions = loadRetractions();
   const before = currentState(ledgerPath);
@@ -285,6 +297,7 @@ function backfill(opts: Options): BackfillReport {
           ledgerPath,
         },
         report,
+        opts.dryRun,
       );
     }
   }
@@ -308,6 +321,32 @@ function backfill(opts: Options): BackfillReport {
       const id = makeFindingId(entry.slug, issueClass);
       if (before.has(id) || seenIds.has(id)) {
         report.alreadyFiled += 1;
+        // The formula that computes a position target changed on 2026-08-09
+        // (MEANINGFUL_POSITION_DELTA), and this branch is where that change
+        // stopped: a record already on disk is skipped, so its predicate keeps
+        // whatever bar was current the day it was filed. Four interventions from
+        // 2026-07-20 still carried `op:'<', value: beforeMetric` — the exact
+        // shape the new formula replaced — and nothing anywhere said so.
+        //
+        // The fix is visibility, not a rewrite. See `staleTargets`.
+        const filedPredicate = before.get(id)?.closurePredicate;
+        if (
+          entry.targetMetric === 'position' &&
+          entry.beforeMetric !== null &&
+          entry.beforeMetric > 0 &&
+          filedPredicate !== undefined &&
+          filedPredicate.kind === 'gsc-position'
+        ) {
+          const current = positionClosureTarget(entry.beforeMetric);
+          // Deduped on id: interventions.jsonl contains exact duplicate rows, and
+          // the same stale bar reported twice reads as two problems.
+          if (
+            Math.abs(filedPredicate.value - current) > 1e-9 &&
+            !report.staleTargets.some((stale) => stale.id === id)
+          ) {
+            report.staleTargets.push({ id, page: entry.slug, filed: filedPredicate.value, current });
+          }
+        }
         continue;
       }
       seenIds.add(id);
@@ -355,6 +394,7 @@ function backfill(opts: Options): BackfillReport {
           ledgerPath,
         },
         report,
+        opts.dryRun,
       );
     }
   }
@@ -362,9 +402,27 @@ function backfill(opts: Options): BackfillReport {
   return report;
 }
 
-function seed(input: Parameters<typeof fileFinding>[0], report: BackfillReport): void {
+/**
+ * `dryRun` is honoured HERE and not only in the evaluate path.
+ *
+ * It was not, until 2026-08-13: `--backfill --dry-run` printed a plan and then
+ * wrote every seeded record to data/ledger.jsonl anyway. Found by running it —
+ * two findings were appended to the live ledger by a command whose entire
+ * purpose is to append nothing. A dry run that mutates is worse than no dry run,
+ * because it is the flag people reach for precisely when they are unsure.
+ *
+ * The predicate is still VALIDATED on a dry run (fileFinding throws
+ * MissingPredicateError before writing), so `refused` stays accurate — the plan
+ * would be worthless if it could not say which records will be rejected.
+ */
+function seed(input: Parameters<typeof fileFinding>[0], report: BackfillReport, dryRun: boolean): void {
   try {
-    fileFinding(input);
+    if (dryRun) {
+      // Validate without writing: same rejection path, no append.
+      validateClosurePredicate(input.closurePredicate);
+    } else {
+      fileFinding(input);
+    }
     report.seeded += 1;
   } catch (error) {
     if (error instanceof MissingPredicateError) {
@@ -393,6 +451,20 @@ function printBackfill(report: BackfillReport): void {
   console.log('─── backfill ───────────────────────────────────────────────');
   console.log(`seeded:            ${report.seeded}`);
   console.log(`already filed:     ${report.alreadyFiled}`);
+  if (report.staleTargets.length > 0) {
+    // stderr, not stdout: this is the one line in the backfill summary that says
+    // a record is being judged by a rule the codebase no longer uses.
+    console.error(
+      `\nSTALE CLOSURE TARGETS: ${report.staleTargets.length} filed intervention(s) carry a position ` +
+        `target that positionClosureTarget() would no longer produce. They are NOT rewritten — a bar ` +
+        `moved after the fact makes the record's own history unreadable. Decide per record.`
+    );
+    for (const stale of report.staleTargets) {
+      console.error(
+        `  ${stale.page}: filed < ${stale.filed}, current formula would say < ${stale.current}`
+      );
+    }
+  }
   console.log(`suppressed:        ${report.retracted.length} (retracted)`);
   console.log(`refused:           ${report.refused.length} (no unambiguous predicate)`);
   if (report.refused.length > 0) {
