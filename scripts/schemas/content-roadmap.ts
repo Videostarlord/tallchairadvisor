@@ -36,6 +36,8 @@ export const roadmapEntrySchema = z
   })
   .passthrough();
 
+export type RoadmapEntry = z.infer<typeof roadmapEntrySchema>;
+
 export const contentRoadmapSchema = z.array(roadmapEntrySchema);
 
 export type ContentRoadmap = z.infer<typeof contentRoadmapSchema>;

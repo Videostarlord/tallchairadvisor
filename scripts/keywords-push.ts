@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, renameSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { appendWikiLog, today } from './agents/wiki-utils.js';
+import type { RoadmapEntry as SchemaRoadmapEntry } from './schemas/content-roadmap.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -30,15 +31,15 @@ interface Opportunity {
   pushed_at?: string;
 }
 
-interface RoadmapEntry {
-  title: string;
-  keyword: string;
-  slug: string;
-  priority: number;
-  status: string;
-  notes: string;
-  addedDate: string;
-}
+/**
+ * A4: was a local interface with no `publishedDate`, so every entry this script
+ * appended was missing a key that every hand-written entry on disk carries. The
+ * roadmap is now read through `contentRoadmapSchema`, which requires it — so the
+ * omission would have become a hard read failure on the very next agent to open
+ * the file. Using the schema's own inferred type makes writer and reader the
+ * same shape by construction rather than by agreement.
+ */
+type RoadmapEntry = SchemaRoadmapEntry;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -115,6 +116,10 @@ const built: RoadmapEntry[] = newEntries.map((opp, i) => {
     status: 'pending',
     notes: opp.reason,
     addedDate: today(),
+    // Required by roadmapEntrySchema and nullable, not optional: an unpublished
+    // entry has to SAY it is unpublished. Omitting the key is what made every
+    // row this script wrote fail the contract every hand-written row satisfies.
+    publishedDate: null,
   };
 });
 
