@@ -49,6 +49,7 @@ import { z } from 'zod';
 import { meteredCreate } from './lib/metered-client.js';
 import { readValidated, readValidatedJsonl, readValidatedIfExists, readValidatedJsonlIfExists, ContractViolation, type ReadOptions } from './lib/read-validated.js';
 import { judgeVerdict, type DetectorVerdict } from './lib/agent-health.js';
+import { siteDomain, siteLabel } from './lib/site.js';
 import { ledgerRecordSchema, ledgerOptions } from './schemas/ledger.js';
 import { pipelineStatusSchema, pipelineStatusOptions } from './schemas/pipeline-status.js';
 import { interventionSchema, interventionsOptions } from './schemas/interventions.js';
@@ -597,7 +598,10 @@ function buildPrompt(sources: Source[], health: DetectorHealth): string {
   const parts: string[] = [];
 
   parts.push(
-    `You are writing the God's-Eye nightly report for tallchairadvisor.com, a live affiliate site`,
+    // The domain comes from lib/site.ts rather than a literal: this prompt is
+    // the model's ONLY statement of which site the numbers below describe, and a
+    // hardcoded one silently relabels a second site's data as this one's.
+    `You are writing the God's-Eye nightly report for ${siteDomain()}, a live affiliate site`,
     `running an autonomous Mon–Sat SEO pipeline. You are the only thing standing between Jackson`,
     `and having to open Claude Code to check whether his system is working.`,
     ``,
@@ -655,7 +659,7 @@ function buildPrompt(sources: Source[], health: DetectorHealth): string {
     ``,
     ...blindTable(health),
     ``,
-    `Write GitHub-flavored markdown. Start with an H1 \`# God's-Eye — ${TODAY}\` and a 2-3 line`,
+    `Write GitHub-flavored markdown. Start with an H1 \`# God's-Eye — ${siteLabel()} — ${TODAY}\` and a 2-3 line`,
     `TL;DR that a person can act on from a lock screen. Be terse. No preamble, no filler,`,
     `no congratulating the system for running.`,
     ``,
@@ -689,7 +693,10 @@ function buildPrompt(sources: Source[], health: DetectorHealth): string {
 function fallbackReport(sources: Source[], health: DetectorHealth, error: string): string {
   const cov = coverage(sources);
   const lines = [
-    `# God's-Eye — ${TODAY}`,
+    // The degraded path names the site too. This is the report that gets written
+    // on the worst nights, which is exactly when "whose site is this about?" is
+    // least safe to leave to the reader's assumption.
+    `# God's-Eye — ${siteLabel()} — ${TODAY}`,
     ``,
     `> **DEGRADED REPORT.** The narrative model call failed, so this is the raw source`,
     `> state with no interpretation. Everything below is mechanically derived.`,
@@ -873,11 +880,25 @@ async function main(): Promise<void> {
   // is often the entire report Jackson reads, and "88% coverage" alongside a
   // reassuring TL;DR is precisely how a month of truncated audits felt fine.
   const blindTag = health.selfFailure !== null
-    ? ', DETECTOR CHECK FAILED'
+    ? 'DETECTOR CHECK FAILED'
     : health.blind.length === 0
       ? ''
-      : `, ${health.blind.length} BLIND`;
-  await push(`God's-Eye ${TODAY} (${cov.pct}% coverage${blindTag})`, tldr);
+      : `${health.blind.length} BLIND`;
+  // Both signals that must survive truncation are moved to the FRONT, in the
+  // order they get acted on: WHICH SITE, then IS IT BLIND. A lock-screen title
+  // is cut off around 30-40 characters, so anything that has to be read has to
+  // be early — putting the site name in front of an unchanged title would have
+  // pushed the blind count past the cut and quietly undone the paragraph above.
+  // `God's-Eye` and the date stay, but they move behind both: the date is the
+  // one field a notification arriving tonight does not need to state, and the
+  // name is decoration once the site is already named.
+  // `siteLabel()` and not the full domain — `.com` costs four characters of that
+  // budget and distinguishes nothing.
+  const alarm = blindTag === '' ? '' : `${blindTag} — `;
+  await push(
+    `${siteLabel()}: ${alarm}God's-Eye ${TODAY} (${cov.pct}% coverage)`,
+    tldr,
+  );
 }
 
 main().catch(error => {
