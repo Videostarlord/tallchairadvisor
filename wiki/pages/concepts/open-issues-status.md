@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-09
+last_updated: 2026-08-13
 sources: [raw/audits/2026-08-06-open-issues-task-list.md, data/ledger-state.json, wiki/nightly/2026-08-08.md]
 tags: [open-issues, status, tracking]
 ---
@@ -24,7 +24,7 @@ tags: [open-issues, status, tracking]
 | — | not in snapshot | **NEW: Saturday deploy dead since 2026-07-25.** `git merge` conflict on `data/token-log.jsonl`. Fixed via `.gitattributes` union driver, bootstrapped onto `staging`. |
 | — | not in snapshot | **NEW: closure predicate closed on noise.** `op:'<', value: beforeMetric` meant a 8.70 → 8.69 drift filed as a success. Now requires a 5% move. |
 
-## ⚠️ The prose kill list and the enforced kill list disagree — needs a decision
+## ✅ RESOLVED 2026-08-13 — the prose kill list and the enforced kill list disagreed
 
 **Corrected 2026-08-08.** This was first written up as "the GEO rollout violated the kill list." That framing is wrong, and the real finding is more useful.
 
@@ -49,12 +49,71 @@ The 2026-08-08 rollout covered **45 pages: 23 inside that scope, 22 outside it.*
 
 `/` · `/about/` · `/back-pain-spine-height/` · `/chair-headrest-tall-people/` · `/correct-chair-dimensions/` · `/fit-guides/` · `/how-to-adjust-chair/` · `/keyboard-tray-tall-people/` · `/knee-pain-seat-depth/` · `/leg-pain-circulation/` · `/lumbar-support-tall-people/` · `/monitor-arm-tall-people/` · `/office-chair-lower-back-pain-tall-people/` · `/office-chair-return-policy/` · `/pain-ergonomics/` · `/review/sihoo-doro-s300/` · `/seat-cushion-height-tall-people/` · `/shoulder-pain-tall-people/` · `/standing-desk-converter-tall-people/` · `/standing-desk-height-tall-people/` · `/why-standard-chairs-dont-fit/` · `/wide-seat-office-chairs-tall-people/`
 
-**Not reverted, deliberately — this is Jackson's call.** The argument each way:
+**DECIDED 2026-08-13: keep the capsules, strike the prose clause.** Full reasoning in [[decisions-log]]. In short — a capsule is not a snippet rewrite, and the directive's own logic is what separates them: it forbids meta/CTR iteration on AIO-eaten pages because the click is taken before the SERP is read, and a capsule does not chase that click at all. It feeds the assistant surface (~16% of sessions), the one surface AI Overviews cannot erode. Reverting 22 deployed capsules would have cost more than it recovered.
+
+`data/strategy-rules.json` now carries `alwaysInScope._aio_suppression_is_deliberate` so the next agent does not "fix" the missing rule by adding it back. Meta/title/CTR work on those pages remains forbidden and enforced — that half of the directive is untouched.
+
+**"49/49 pages pass `geo-capsule`" now reads as a clean number.** The argument that was weighed:
 
 - **Keep:** the kill list is a directive about *where to spend effort*, and that effort is already spent and deployed. Removing 22 capsules costs more effort than leaving them. AI assistants are ~16% of sessions and are the one surface AI Overviews cannot erode; a capsule on an informational page still feeds that surface.
 - **Revert:** the directive exists because informational-query clicks are structurally suppressed, and leaving the capsules in place normalizes ignoring the kill list. It also inflates the apparent GEO coverage number, hiding how much of it was sanctioned.
 
-Until decided, treat "49/49 pages pass `geo-capsule`" as **23/23 sanctioned + 22 unsanctioned**, not as a clean win.
+~~Until decided, treat "49/49 pages pass `geo-capsule`" as 23/23 sanctioned + 22 unsanctioned.~~ **Decided 2026-08-13 — all 49 are sanctioned.**
+
+## Changed on 2026-08-13 — the escalation queue, and what was actually wrong with it
+
+Nine items had been escalated. Neither half was the thing it looked like.
+
+### The 5 visual regressions were ONE bug, not five
+
+Not a design change and not drift. **The 98 baselines were captured on a MacBook (commit `05703fa`, authored from `Jacksons-MacBook-Air.local`) and every comparison since has run on a GitHub Actions ubuntu runner.** macOS and Linux rasterise fonts differently, which adds a constant, text-proportional diff to every page.
+
+The evidence is in the distribution, not in any one page:
+
+| | mobile | desktop |
+|---|---|---|
+| pages with a non-zero diff | 49 / 49 | 49 / 49 |
+| min | 1.309% | — |
+| median | 1.554% | 0.660% |
+| max | 3.678% | 1.901% |
+| identical to 3 d.p. on 08-09, 08-10, 08-11, 08-12 | yes | yes |
+
+Four nights of byte-identical numbers is a **constant offset**. The five escalated pages crossed the 2% line only because they are the most text-dense on mobile. **The other forty-four sit just under it having already spent most of their 2% budget on font rendering** — so a genuine regression on those pages would have had to be enormous to trip, and the dashboard would have stayed green. The mobile gate was effectively off site-wide.
+
+**Re-baselining the five loudest pages — the obvious fix — would have removed the symptom and left the disabled gate exactly as it was.**
+
+Fixed by recording provenance next to the images (`raw/visual/baseline/provenance.json`), attaching the cause to every diff when the platform disagrees, and adding `--rebaseline` as the only way to overwrite a baseline. **The re-baseline must run where the comparison runs**, so it is a `workflow_dispatch` input on `nightly.yml` (`rebaseline_visual`), not a local command. Running it on the laptop would recreate the fault.
+
+**Still open until that dispatch is run.** One click clears all 5 escalations *and* the 44 hidden ones.
+
+### The 4 position interventions all FAILED — none is a threshold artifact
+
+| Page | Baseline (2026-07-20) | Position now | Verdict |
+|---|---|---|---|
+| `/review/leap-plus/` | 8.7 | 8.8 | worse |
+| `/office-chairs-for-tall-people/` | 8.1 | 8.6 | worse |
+| `/chairs/herman-miller-aeron/tall-people/` | 8.1 | 8.1 | did not move |
+| `/correct-chair-dimensions/` | 9.6 | 9.6 | did not move |
+
+**A `<=` tweak was considered and rejected.** It would have closed the two exact-baseline rows as *successes* — and those two are the pages that did not move at all. That is precisely the fabricated win `MEANINGFUL_POSITION_DELTA` was introduced to prevent ("a page wandering 8.70 → 8.69 filed as a SUCCESSFUL intervention and taught what-works.md a lesson that never happened"). 23 days, 7 attempts, zero movement is a **failed intervention**, and the ledger should keep saying so.
+
+**What WAS broken: the closure-target fix never reached the filed records.** `positionClosureTarget()` changed on 2026-08-09, but the backfill skips an already-filed id, so five interventions still carry `op:'<', value: beforeMetric` — the exact shape the new formula replaced:
+
+| Page | filed | current formula |
+|---|---|---|
+| `/review/leap-plus/` | < 8.7 | < 8.26 |
+| `/chairs/herman-miller-aeron/tall-people/` | < 8.1 | < 7.69 |
+| `/best-office-chairs-under-500/` | < 9.1 | < 8.64 |
+| `/correct-chair-dimensions/` | < 9.6 | < 9.12 |
+| `/office-chairs-for-tall-people/` | < 8.1 | < 7.69 |
+
+Now **reported** by the backfill, deliberately **not** rewritten: moving a bar after the fact makes a record's own history unreadable. Note the new targets are *harder*, so this changes no verdict — the four still fail. It changes whether anyone can see which rule they are being judged by.
+
+**These four need content work, not a code change.** That is what `escalated` means and the status is correct.
+
+### Also found: `--backfill --dry-run` was writing to the ledger
+
+Found by running it. Two findings were appended to the live `data/ledger.jsonl` by a command whose entire purpose is to append nothing. Reverted and fixed. A dry run that mutates is worse than no dry run, because it is the flag people reach for when they are unsure.
 
 ## Changed on 2026-08-09 — the autonomous data layer build
 

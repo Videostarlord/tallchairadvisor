@@ -1,12 +1,28 @@
 ---
 type: synthesis
-last_updated: 2026-08-09
+last_updated: 2026-08-13
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## [2026-08-13] The capsules stay; the prose clause goes (kill-list contradiction resolved)
+
+**Decision.** The 2026-07-24 clause *"no AIO capsules on informational queries"* is **struck**. `aio-suppression` stays in `alwaysInScope`. The 22 unsanctioned capsules deployed on 2026-08-08 stay deployed.
+
+**The contradiction being resolved.** For two weeks the enforced gate said the opposite of the written directive. `data/strategy-rules.json` — adopted 2026-08-06 *precisely* so strategy constraints would stop living in prose — codified three rules covering meta, title, CTR and thin-content. The capsule clause was the one clause that never made the trip, and `aio-suppression` sat in `alwaysInScope`, the set no rule may override. So the code said capsule findings are never withheld, on any page, while the prose said the opposite.
+
+**Why the code was right and the prose was wrong.** A capsule is not a snippet rewrite, and the directive's own reasoning is what separates them. It forbids meta/CTR iteration on AIO-eaten pages because *the click is taken before the SERP is read* — a title rewrite chases a click that no longer exists. A capsule does not chase that click at all. It feeds the assistant surface, which is ~16% of sessions and the one surface AI Overviews cannot erode. The clause bundled two different actions under one prohibition because, in July, both were called "GEO work".
+
+**Why not revert.** Removing 22 capsules costs more effort than it recovers, on pages where the capsule is already deployed and already being read. Reverting would also have been a decision to spend the freeze on undoing work rather than on the monetization pivot the same directive prioritises.
+
+**What was actually wrong, and is now fixed.** Not the rollout — the fact that a governing constraint existed in two places that disagreed, with nothing detecting it. `data/strategy-rules.json` now carries `alwaysInScope._aio_suppression_is_deliberate`, an explicit note saying the absence of a capsule rule is a decision and not an oversight, so the next agent does not "fix" it by adding one back.
+
+**What this does not license.** Meta rewrites, title rewrites and CTR iteration on AIO-eaten informational pages remain forbidden, enforced by `no-snippet-work-on-aio-eaten-informational` and `no-ctr-iteration-below-position-8`. Those rules are untouched.
+
+**Cost of the ambiguity:** two weeks in which "49/49 pages pass `geo-capsule`" could not be read as a clean number, because 22 of the 49 were in dispute. It now reads as 49/49.
 
 ## [2026-08-09] Cooldown governs substantive revision, not deterministic defects (A1)
 

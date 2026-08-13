@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-05-10
+last_updated: 2026-08-13
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-04-22-serp-analysis.md]
 tags: [patterns, failures, lessons]
 ---
@@ -8,6 +8,25 @@ tags: [patterns, failures, lessons]
 # What Failed (or Hasn't Worked Yet)
 
 Fixes and approaches that didn't produce the expected result. Knowing what doesn't work is as valuable as knowing what does.
+
+## Position Interventions of 2026-07-20 — all four failed, measured
+
+Filed 2026-07-20, evaluated nightly for 23 days across 7 attempts, escalated 2026-08-12. **None produced any improvement.**
+
+| Page | Baseline | Position 2026-08-12 | Result |
+|---|---|---|---|
+| `/review/leap-plus/` | 8.7 | 8.8 | slightly worse |
+| `/office-chairs-for-tall-people/` | 8.1 | 8.6 | worse |
+| `/chairs/herman-miller-aeron/tall-people/` | 8.1 | 8.1 | flat |
+| `/correct-chair-dimensions/` | 9.6 | 9.6 | flat |
+
+For contrast, `/best-office-chairs-under-500/` (baseline 9.1) from the same batch **did** close — so the closure machinery works and this is a real negative result, not a broken measurement.
+
+**Lesson.** Two of the four did not move by a single tenth in over three weeks. That is not "needs more time"; a page whose average position is *identical* three weeks after an intervention did not respond to it. `/correct-chair-dimensions/` is on the kill list as an AIO-eaten informational query, and its flatness is consistent with that diagnosis: the page ranks where it ranks and the SERP is answering above it.
+
+**What was nearly recorded instead.** A `<=` threshold tweak would have closed the two flat rows as successes, because their position exactly equals their baseline. That would have written two fabricated wins into what-works.md — the precise failure `MEANINGFUL_POSITION_DELTA` exists to prevent. Rejected 2026-08-13.
+
+**Open question this raises.** Four of five position interventions in one batch failed. Either the interventions were too small to move a ranking, or position is the wrong target metric for pages in this band. Worth answering before filing a sixth.
 
 ## Fixes That Haven't Moved the Needle
 

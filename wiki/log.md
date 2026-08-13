@@ -3550,3 +3550,23 @@ Deliberately **not** a config framework. ~56 files in `scripts/` name the domain
 27/27 test files pass; `lint:architecture` reports no new violations.
 
 Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]
+
+## 2026-08-13 (second session) — site attribution, and two escalations that were not what they looked like
+
+**Cost records now carry `site`.** An Anthropic invoice is issued per API KEY, not per site: two sites on one key produce one bill covering both, and the Console cannot divide it because it has never heard of them. Stamped in `metered-client.ts` from `lib/site.ts` — never passed by a caller, because all ~15 call sites would have to remember and a convention one new call site forgets is this codebase's signature failure. Optional on the schema and reported as `(unattributed)`: the 53 records written before today cannot be attributed and **defaulting them to tallchairadvisor.com would manufacture an attribution that is right today and silently wrong the first month a second site runs.** Live check: 18 LLM records, all `(unattributed)`, $6.27316 for 2026-08.
+
+**Amazon: 122 clicks, $100.40 — and 89 chair clicks that converted zero.** Hand export archived to `raw/affiliate/2026-08-13-amazon-csv/`. Every item ordered and 100% of earnings came from the `others` bucket; Leap Plus (50), Gesture (23) and Aeron (16) took 89 clicks between them and sold nothing. `latest.json` was NOT overwritten — the export does not state its window, and inventing `window.start` is how an export in this archive was already misread once. **Leap Plus pulls more affiliate clicks than Gesture and Aeron combined**, which is direct support for the queued "I almost bought this" reframe.
+
+**The 5 visual regressions were one bug.** The baselines were captured on a MacBook and every comparison since has run on ubuntu. 49/49 mobile pages carried a diff (min 1.309%, median 1.554%, max 3.678%), **identical to three decimals on four consecutive nights.** That is a constant font-rasterisation offset, not drift and not a design change. Five pages crossed the 2% line because they are the most text-dense; the other 44 sat just under it with most of their budget already spent — **the mobile gate was effectively off site-wide while reporting green.** Re-baselining the five loudest pages, which is what I was about to recommend, would have removed the symptom and left the disabled gate exactly as it was.
+
+**The 4 position interventions all genuinely failed.** Two pages flat, two worse, across 23 days and 7 attempts. The `<=` tweak I had recommended would have closed the two FLAT ones as successes — the exact fabricated win `MEANINGFUL_POSITION_DELTA` exists to prevent. Rejected. What *was* broken: the 2026-08-09 closure-target fix never reached the records already on disk, because the backfill skips an already-filed id. Five interventions still carry the superseded `value: beforeMetric` shape. Now reported, deliberately not rewritten — a bar moved after the fact makes a record's history unreadable.
+
+**`--backfill --dry-run` was writing to the ledger.** Found by running it: two findings appended to the live `data/ledger.jsonl` by a command whose whole purpose is to append nothing. Reverted, fixed.
+
+**Kill-list contradiction resolved: capsules stay, prose clause struck.** A capsule is not a snippet rewrite — the directive forbids meta/CTR work on AIO-eaten pages because the click is taken before the SERP is read, and a capsule does not chase that click at all. `data/strategy-rules.json` now says the missing rule is a decision, so the next agent does not add it back. "49/49 pass `geo-capsule`" reads clean for the first time.
+
+Four of six items in this session were the same shape as every entry above: **the component worked, the seam lost or misattributed the result.**
+
+27/27 test files pass; `lint:architecture` reports no new violations.
+
+Related: [[open-issues-status]] · [[decisions-log]] · [[what-failed]] · [[godseye-nightly]]
