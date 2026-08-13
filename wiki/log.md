@@ -3520,3 +3520,17 @@ Same shape as every entry above it: the component worked, the seam lost the resu
 25/25 test files pass (12 new assertions in `scripts/cost-rollup.test.ts`, 10 more in `retention.test.ts`); `lint:architecture` reports no new violations.
 
 Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]
+
+## 2026-08-13 — the working tree was the risk, and A7's last line was in a different file
+
+Nineteen files had sat uncommitted since 2026-08-09 — **the second time the same cost-metering work was recovered from a working tree.** Committed in six logical commits. Two things had to be fixed first, and both are the same shape as everything above them.
+
+**`keywords-push.ts` did not compile.** The A4 fix replaced the local `RoadmapEntry` interface with `type RoadmapEntry = SchemaRoadmapEntry` — and never imported `SchemaRoadmapEntry`. The built entries also still omitted `publishedDate`, which is the *entire* key the fix existed to add. The intent was recorded in a comment; the code did neither thing the comment described. Fixed: real import, `publishedDate: null` on every built row, exported `RoadmapEntry` from `schemas/content-roadmap.ts` so writer and reader are the same type by construction.
+
+**A7 was wired and still could not rotate.** `collectors/gsc.ts` §4 correctly reads state, calls `planRotation()`, calls `applyResults()`, writes state back. But `nightly.yml` stages `data/collectors`, `data/probes`, `data/agent-health.jsonl` and friends — **not `data/gsc/inspection-rotation.json`.** Every CI run would have read an absent cursor and fallen back to the full 49-URL sweep, forever, at correct-looking `healthy: false`. `gsc-rotation.ts`'s own header **names this exact missing line** and it was still missing. A module that predicts its own failure mode in prose is not protected from it. One line added to the nightly's staging list.
+
+Both defects are the seam again — not inside a component, but between the component and the thing that has to carry its result out of the runner. That is now four consecutive sessions with the same diagnosis.
+
+26/26 test files pass; `lint:architecture` reports no new violations.
+
+Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]
