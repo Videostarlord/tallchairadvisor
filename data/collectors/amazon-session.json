@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "healthy": false,
+    "collector": "amazon-session",
+    "observedAt": "2026-08-12T11:04:31.466Z",
+    "note": "session invalid — NO revenue was measured this run. Absence of a figure is not a figure."
+  },
+  "finding": {
+    "page": "/affiliate/amazon-associates/",
+    "issueClass": "amazon-session-expired",
+    "severity": "high",
+    "summary": "The stored Amazon Associates session is no longer valid: URL contains '/ap/signin' — Amazon redirected to authentication. Re-capture it with `npx playwright codegen --save-storage=amazon-state.json https://affiliate-program.amazon.com/home/reports`, then `gh secret set AMAZON_STORAGE_STATE`. NO revenue figure was recorded for this run — a zero here would be indistinguishable from a genuinely zero month, and the kill-list gate reads that number.",
+    "closurePredicate": {
+      "kind": "collector-healthy",
+      "collector": "amazon"
+    }
+  }
+}
