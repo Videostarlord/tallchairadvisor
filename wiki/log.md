@@ -3534,3 +3534,19 @@ Both defects are the seam again — not inside a component, but between the comp
 26/26 test files pass; `lint:architecture` reports no new violations.
 
 Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]
+
+## 2026-08-13 — the alerts did not say which site they were about
+
+Cheap now, unrecoverable later — the same argument as putting `site` on a ledger record. **There is no backfill for a push.** A notification that went out without naming its site cannot be re-attributed the next morning; it is simply gone.
+
+`scripts/lib/site.ts`: `SITE_DOMAIN` (full, for the model prompt) and `SITE_LABEL` (short, for the ntfy title, defaulting to the first DNS label). Both optional, both defaulting to this site, so nothing changes here and a fork changes without patching code. Wired into `nightly-report.ts` in three places — the prompt, the report H1, and the push title — plus the **degraded** `fallbackReport()` H1, which is the report written on the worst nights and therefore the one least safe to leave unlabelled.
+
+**The title was reordered, not just prefixed, and that is the only non-obvious decision here.** A lock-screen title is cut off around 30–40 characters. Prefixing the site onto the existing title would have pushed `2 BLIND` past the cut — silently undoing the paragraph three lines above it that put the blind count in the title *precisely because* a reassuring TL;DR is how a month of truncated audits felt fine. Both signals now lead, in the order they are acted on: **which site, then is it blind.**
+
+`tallchairadvisor: 2 BLIND - God's-Eye 2026-08-13 (88% coverage)`
+
+Deliberately **not** a config framework. ~56 files in `scripts/` name the domain; extracting a general `site.config.ts` from one example is inventing an abstraction against a sample size of one. The second site is what tells you which of those couplings actually hurt. Blank is treated as unset throughout — an unset GitHub secret substitutes an empty string, and this repo has gone blind that way once already (2026-08-06).
+
+27/27 test files pass; `lint:architecture` reports no new violations.
+
+Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]
