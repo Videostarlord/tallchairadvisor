@@ -15,6 +15,44 @@
  *   - A malformed ledger line is a hard error, not a skipped line: a corrupted
  *     ledger that silently under-reports spend is the failure this file exists
  *     to prevent. The summary is still written, then the process exits 1.
+ *   - A month with ZERO metered records is UNRECONCILABLE, never "OK". See
+ *     below — this rule was written into the header above before it was true
+ *     of the code.
+ *
+ * ─── 2026-08-09: THE RECONCILE COULD PASS ON NOTHING (A6) ─────────────────────
+ *
+ * `npm run cost:reconcile -- 0 --month 2026-01` printed
+ *
+ *     metered: $0.00000 across 0 records
+ *     console: $0.00000
+ *     drift:   $0.00000 (0.00%), threshold 5%
+ *     OK — within 5%.
+ *
+ * and exited 0. A month in which nothing was ever metered, reconciled against
+ * an invoice of nothing, reported as a passing reconciliation. The rollup path
+ * obeyed the empty-ledger rule three lines above; the reconcile path did not.
+ *
+ * `meteredRecords === 0` already had the correct words waiting for it in
+ * `detail` — "Either no calls ran or call sites are not yet migrated" — but the
+ * branch was reachable only when drift ALSO exceeded the threshold, and $0 vs
+ * $0 is 0% drift. The one case where the metered figure is most obviously
+ * untrustworthy was the one case that could not fail. Zero records is now its
+ * own refusal, independent of drift.
+ *
+ * ─── WHY COVERAGE IS PRINTED, NOT JUST THE TOTAL ─────────────────────────────
+ *
+ * A drift percentage is only as meaningful as the ledger behind it, and this
+ * ledger has been demonstrably partial: until 2026-08-09 ONLY nightly.yml
+ * committed data/cost-ledger.jsonl, so every Tue–Sat agent metered its spend
+ * into an ephemeral runner that then evaporated. `cost:rollup` on that date
+ * reported 14 LLM records, ALL of them `nightly-report`, and none from audit,
+ * strategy, execute-fixes, execute-content, verify-deploy, index-monitor or
+ * competitor-intelligence — every one of which calls meteredCreate().
+ *
+ * A reader seeing only "metered: $5.03 — OK within 5%" cannot tell that from a
+ * complete month. A reader seeing "contributing agents: nightly-report" can.
+ * So the reconcile now names them, and that line is the difference between a
+ * reconciliation and a number that merely looks like one.
  */
 
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -278,6 +316,24 @@ interface DriftRecord {
   detail: string;
 }
 
+/**
+ * LLM agents that contributed at least one record to `month`, sorted.
+ *
+ * External records are deliberately excluded: Firecrawl, DataForSEO, SerpAPI
+ * and the GSC/Clarity APIs do not appear on an Anthropic invoice, so folding
+ * them into the coverage line for an Anthropic reconciliation would overstate
+ * how much of the bill this ledger can account for.
+ */
+export function llmAgentsInMonth(records: CostRecord[], month: string): string[] {
+  const agents = new Set<string>();
+  for (const record of records) {
+    if (isExternalRecord(record)) continue;
+    if (record.ts.slice(0, 7) !== month) continue;
+    agents.add(record.agent);
+  }
+  return [...agents].sort();
+}
+
 function driftId(month: string): string {
   // Same convention as audit-findings.ts: sha1(page|issueClass), truncated.
   return createHash('sha1').update(`cost-drift|${month}`).digest('hex').slice(0, 12);
@@ -353,6 +409,8 @@ function main(): void {
           : Number.POSITIVE_INFINITY
         : round8((Math.abs(driftUsd) / reconcile.actualUsd) * 100);
 
+    const contributors = llmAgentsInMonth(records, reconcile.month);
+
     console.log(`\nreconcile ${reconcile.month}`);
     console.log(`  metered: $${meteredUsd.toFixed(5)} across ${meteredRecords} records`);
     console.log(`  console: $${reconcile.actualUsd.toFixed(5)}`);
@@ -361,14 +419,31 @@ function main(): void {
         Number.isFinite(driftPercent) ? `${driftPercent.toFixed(2)}%` : 'undefined — console is $0'
       }), threshold ${DRIFT_THRESHOLD_PERCENT}%`
     );
+    // Named, not counted — "7 agents" would not let anyone spot that the only
+    // contributor is the one workflow that happens to commit the ledger.
+    console.log(
+      `  agents:  ${contributors.length === 0 ? '(none)' : contributors.join(', ')}` +
+        ` — LLM only; external services are not on an Anthropic invoice`
+    );
 
-    if (!(driftPercent <= DRIFT_THRESHOLD_PERCENT)) {
-      const detail =
-        meteredRecords === 0
-          ? `No metered records for ${reconcile.month}. Either no calls ran or call sites are ` +
-            `not yet migrated to meteredCreate() — check scripts/lint-architecture.mjs rule R1.`
-          : `Metered total for ${reconcile.month} differs from the Anthropic Console by ` +
-            `${driftPercent.toFixed(2)}% (> ${DRIFT_THRESHOLD_PERCENT}%).`;
+    // Zero records is its own refusal, NOT a drift comparison. $0 metered
+    // against a $0 invoice is 0% drift and would otherwise print "OK" for a
+    // month nothing was ever recorded in. See the header.
+    const unreconcilable = meteredRecords === 0;
+
+    if (unreconcilable || !(driftPercent <= DRIFT_THRESHOLD_PERCENT)) {
+      const detail = unreconcilable
+        ? `No metered records for ${reconcile.month}, so there is NOTHING to reconcile against the ` +
+          `Anthropic Console — this is not a $0 month, it is an unmeasured one. Either no calls ran, ` +
+          `or the runs happened and their ledger lines never reached the repo (until 2026-08-09 only ` +
+          `nightly.yml committed data/cost-ledger.jsonl, so every Tue–Sat agent's spend died with its ` +
+          `runner), or call sites are not yet migrated to meteredCreate() — check ` +
+          `scripts/lint-architecture.mjs rule R1.`
+        : `Metered total for ${reconcile.month} differs from the Anthropic Console by ` +
+          `${driftPercent.toFixed(2)}% (> ${DRIFT_THRESHOLD_PERCENT}%). Contributing agents: ` +
+          `${contributors.length === 0 ? '(none)' : contributors.join(', ')}. If an agent that ran ` +
+          `that month is missing from that list, the metered side is an undercount and the drift is ` +
+          `explained by the gap, not by mispricing.`;
 
       fileDrift({
         id: driftId(reconcile.month),
@@ -386,16 +461,41 @@ function main(): void {
       });
 
       console.error(
-        `\ncost-rollup: DRIFT > ${DRIFT_THRESHOLD_PERCENT}% for ${reconcile.month}. ` +
-          `Filed to ${relative(ROOT, DRIFT_PATH)}.\n  ${detail}`
+        `\ncost-rollup: ${
+          unreconcilable
+            ? `UNRECONCILABLE — ${reconcile.month} has no metered records`
+            : `DRIFT > ${DRIFT_THRESHOLD_PERCENT}% for ${reconcile.month}`
+        }. Filed to ${relative(ROOT, DRIFT_PATH)}.\n  ${detail}`
       );
       exitCode = 1;
     } else {
-      console.log(`  OK — within ${DRIFT_THRESHOLD_PERCENT}%.`);
+      console.log(
+        `  OK — within ${DRIFT_THRESHOLD_PERCENT}%, over the ${meteredRecords} record(s) this ` +
+          `ledger holds for ${reconcile.month}. That is agreement with what was RECORDED, which is ` +
+          `only agreement with what was SPENT if every agent that ran that month is in the list above.`
+      );
     }
   }
 
   process.exitCode = exitCode;
 }
 
-main();
+/**
+ * Only run as a script, so the tests can import llmAgentsInMonth() without this
+ * module overwriting the real data/cost-summary.json on import. Same guard and
+ * same regex shape as ledger-evaluate.ts and probes/pr-gate.ts.
+ *
+ * The catch is not decoration: `parseArgs()` throws the usage string for a
+ * missing or malformed --reconcile figure, and an unhandled throw buried that
+ * message under a Node stack trace — the one line the operator needed, printed
+ * last and framed as a crash. retention-prune.ts already does this.
+ */
+const invokedDirectly = process.argv[1] !== undefined && /cost-rollup\.ts$/.test(process.argv[1]);
+if (invokedDirectly) {
+  try {
+    main();
+  } catch (error) {
+    console.error(error instanceof Error ? `${error.name}: ${error.message}` : String(error));
+    process.exitCode = 1;
+  }
+}
