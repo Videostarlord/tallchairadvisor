@@ -3502,3 +3502,21 @@ In all four cases the component worked and the *seam* lost the result. A library
 A7 remains open: `collectors/gsc.ts:307` still takes the prefix slice.
 
 Related: [[open-issues-status]] · [[godseye-nightly]]
+
+## 2026-08-09 — the seam that lost the spend, and a file that must not be pruned
+
+The previous entry named `data/cost-ledger.jsonl` as an undercount "of unknown size". The size is now known, and it was measured rather than reasoned about: the 53-record ledger held records from exactly **four** agents — `nightly-report`, `collector-gsc`, `collector-clarity`, `asin-check` — which are exactly the agents belonging to the only two workflows that ever staged the file. Nine other scripts call `meteredCreate`/`meterExternal` and **not one** had ever landed a record. The ledger did not sample the pipeline's spend; it sampled the pipeline's `git add` lines.
+
+Fixed in seven workflows (`monday` … `saturday`, `keywords-monthly`) with the `for f in …; [ -e "$f" ] && git add` idiom and the rebase-retry push loop already standard here. **The `merge=union` driver did not need adding — `.gitattributes` already had it, as dead insurance.** Until now the file only existed on `main`; Thursday and Friday push to `staging`, so this fix is what makes that driver load-bearing, and it is the reason Saturday's `Merge main into staging` will not die on an append-tail conflict the way it did on 07-25 and 08-08.
+
+**A6 had a real defect underneath the missing data.** `cost:reconcile -- 0 --month 2026-01` printed `OK — within 5%` and exited 0 for a month nothing was ever metered in: $0 against a $0 invoice is 0% drift, so the case where the metered number is least trustworthy was the only case that could not fail. The right words were already sitting in the `detail` branch and were simply unreachable. Zero records is now its own refusal, and the reconcile prints its **contributing agents**, because a drift percentage over one ninth of the fleet is not a reconciliation.
+
+**A6 is still open and cannot be closed here.** It needs an Anthropic Console figure Jackson has to read off a real invoice, and the pre-fix months are gone for good — not recoverable, not re-derivable. The first honest reconciliation is of a month starting after today.
+
+**`data/agent-health.jsonl` is watched, never pruned.** The tempting move was to point A5's pruner at it. `retention.ts`'s own header is the argument against: probe pruning is safe because nothing reads old probe files, the evidence is copied into the ledger, and regression detection reads the ledger. **All three are false for agent-health** — `nightly-report.ts` reads the whole file, nothing copies those records anywhere, and A13's founding incident (`audit.ts` at its ceiling on 5 of 5 weekly runs) is only visible *across* five weeks of records. Deleting them would be A13's own failure mode committed by the cleanup code. So: `inspectAgentHealthSize()` + a 25 MB alarm, reported nightly, never touched. The test asserts it on the filesystem — a real prune leaves the file byte-for-byte intact.
+
+Same shape as every entry above it: the component worked, the seam lost the result.
+
+25/25 test files pass (12 new assertions in `scripts/cost-rollup.test.ts`, 10 more in `retention.test.ts`); `lint:architecture` reports no new violations.
+
+Related: [[open-issues-status]] · [[godseye-nightly]] · [[decisions-log]]

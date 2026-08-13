@@ -175,9 +175,65 @@ Its first caller found a live instance of the same class inside this file. `summ
 
 **The nightly still exits 0 and still writes its heartbeat when detectors are blind.** That is the §7.6 contract, not an oversight: failing here would suppress the heartbeat and fire "TCA DEAD" on a night whose only fault was one empty collector — replacing a blind report with no report at all.
 
+## Changed on 2026-08-09 (fifth session) — the cost-ledger commit seam, and agent-health retention
+
+| Item | Status | Now |
+|---|---|---|
+| **Cost ledger lost on every weekday** | Found while closing A13 | **FIXED.** 7 workflows now stage `data/cost-ledger.jsonl`. |
+| **A6** reconcile never run against an invoice | A-MEDIUM, open | **STILL OPEN — blocked on Jackson.** The reconcile path had a real defect and it is fixed; the run itself needs an invoice figure only he can supply. |
+| **`data/agent-health.jsonl` retention** | Landed hours earlier, no policy | **DECIDED: watched, never pruned.** Sized and alarmed every night by `retention-prune.ts`. |
+
+### The metering worked. The seam threw the result away.
+
+`data/cost-ledger.jsonl` is written by `meteredCreate()` on every LLM call and by `meterExternal()` on every paid vendor call. It was committed by **only `nightly.yml`** (and `asin-monthly.yml`). Every other workflow metered its spend into an ephemeral runner and let the container delete it.
+
+**Proved from the data, not from reading the YAML.** The 53-record ledger on 2026-08-09 contained exactly four agents:
+
+| Agent | Records | Committed by |
+|---|---|---|
+| `nightly-report` | 14 (LLM) | `nightly.yml` ✅ |
+| `collector-gsc` | 15 (external) | `nightly.yml` ✅ |
+| `collector-clarity` | 13 (external) | `nightly.yml` ✅ |
+| `asin-check` | 11 (external) | `asin-monthly.yml` ✅ |
+
+Not one record from `audit`, `strategy`, `execute-fixes`, `execute-content`, `verify-deploy`, `index-monitor`, `competitor-intelligence`, `keyword-discovery` or `keyword-gap-discovery` — **every one of which calls `meteredCreate` or `meterExternal`.** The ledger contained precisely the agents whose workflow happened to commit the file, and nothing else. That correlation is the proof.
+
+Fixed in `monday`, `tuesday`, `wednesday`, `thursday`, `friday` (both the success and the no-content-written paths), `saturday`, and `keywords-monthly` — using the existing `for f in …; do [ -e "$f" ] && git add "$f" || true; done` idiom and the rebase-retry push loop the repo already standardised on.
+
+**The `merge=union` driver was already correct and did not need adding.** `.gitattributes` has carried `data/cost-ledger.jsonl merge=union` since the affiliate-history commit. It was, until now, **dead insurance** — the file only ever existed on `main`. Thursday and Friday push to `staging`, so this fix is what makes that driver load-bearing for the first time: Saturday's `Merge main into staging` would otherwise hit the same append-tail conflict that killed the deploy on 2026-07-25 and 2026-08-08.
+
+### A6 — what is fixed, and what only Jackson can supply
+
+**The reconcile could pass on nothing.** `npm run cost:reconcile -- 0 --month 2026-01` printed `OK — within 5%` and exited 0 for a month in which nothing had ever been metered. $0 against a $0 invoice is 0% drift, so the single case where the metered figure is least trustworthy was the one case that could not fail. The correct words already existed in the `detail` string — *"No metered records … Either no calls ran or call sites are not yet migrated"* — but the branch was reachable only when drift **also** exceeded threshold. Zero records is now its own refusal, independent of drift, and `cost-rollup.ts`'s own header rule ("never reports $0.00 spent as if that were a measurement") is now true of the reconcile path and not just the rollup path.
+
+**The reconcile now names its coverage.** `agents: nightly-report — LLM only; external services are not on an Anthropic invoice`. A drift percentage is only as meaningful as the ledger behind it, and a reader seeing `$5.03, OK within 5%` could not previously tell a complete month from one carried entirely by the single workflow that commits the file.
+
+**What Jackson must provide, and in what format:**
+
+1. Go to **console.anthropic.com → Settings → Billing → Usage**, pick a **completed calendar month** (UTC), and read the **Anthropic API total in USD** for that month. Not the invoice grand total if it includes Claude.ai subscription seats or purchased credits — those are not API spend and are not in this ledger.
+2. Run `npm run cost:reconcile -- <total> --month YYYY-MM`, e.g. `npm run cost:reconcile -- 12.47 --month 2026-08`.
+3. Exit 0 = within 5%. Exit 1 = drift filed to `data/cost-drift.jsonl` with the contributing-agents list attached.
+
+**The historical totals will remain an undercount and that data is not recoverable.** Every weekday LLM call made before 2026-08-09 was metered into a runner that no longer exists; there is no archive, no re-derivation, and the Anthropic Console does not break spend down by our agent names. **So the first honest reconciliation is of a month that begins after this fix — realistically 2026-09.** Reconciling 2026-08 will show large drift, and that drift is *explained*, not anomalous. Do not tune the threshold to make it pass.
+
+One live caveat for an August reconcile: `claude-sonnet-5` introductory pricing (2.00/10.00 rather than 3.00/15.00) expires **2026-08-31** per `DATED_OVERRIDES` in `pricing.ts`. Costs were priced at call time, so the ledger is right; a hand-check of an August invoice must use the intro rate.
+
+### `data/agent-health.jsonl` — watched, never pruned
+
+A5's pruner covers `data/probes/` and deliberately only *sizes* `data/ledger.jsonl`. The obvious move was to point the pruner at A13's new log. **That is wrong**, and `retention.ts`'s own header is why: its argument that deleting probe files cannot destroy evidence rests on three facts, and **all three are false here.**
+
+| Fact that makes probe pruning safe | True for `agent-health.jsonl`? |
+|---|---|
+| Nothing reads an old file — only the newest is loaded | **No.** `nightly-report.ts` reads the whole file; `checked += records.length` makes the full history a verdict denominator. Only the *alerting* pass is windowed. |
+| Evidence is copied into `ledger.jsonl`; the file is only a label | **No.** Nothing copies an agent-health record anywhere. The line **is** the observation. |
+| Regression detection folds the ledger, not the raw files | **No.** The pattern lives in the history: A13's founding incident was `audit.ts` at its `max_tokens` ceiling on **5 of 5** weekly runs across a month. "Tonight was truncated" is one record; "this agent has been truncating for a month" needs five weeks of them. |
+
+A pruner sized to the nightly's alert window would delete exactly the records that make the chronic case provable — silently destroying evidence about detector blindness, which is the precise failure A13 exists to catch, committed by the cleanup code. So it gets the **ledger's** treatment: `inspectAgentHealthSize()` + `AGENT_HEALTH_ALARM_BYTES` (25 MB, same as the ledger because the two are in the same growth class — ~400 B/record at ~30 metered calls/week is ~600 KB/year, roughly forty years to the alarm). `retention-prune.ts` reports it every night and never touches it. The test asserts the safety property on the **filesystem**: a real non-dry-run prune leaves the file byte-for-byte intact.
+
 ## Still open, unchanged
 
-- **A6** cost reconcile — **and the figure is an undercount.** `data/cost-ledger.jsonl` is committed **only** by `nightly.yml`, so every Tue–Sat agent writes its spend into the runner and it is discarded. "$3.62 across 29 calls" excludes every weekday LLM call ever made. One line per workflow to fix. Separately, `data/agent-health.jsonl` has no retention policy — A5's pruner covers `data/probes/` only.
+- **A6** — the *defect* in the reconcile path is fixed and the *undercount* is fixed going forward; the **reconciliation itself has still never been run**, because it needs an invoice figure from Jackson. See the fifth-session section below for exactly what to supply.
+- **Residual on the cost seam:** the weekday commit steps are gated on step success (GitHub's default). An agent that spends tokens and *then* fails still loses its ledger lines. Monday's step is `if: always()` and does not have this gap; `keywords-monthly` is explicitly `if: success()`. Worth an `if: failure()` ledger-only commit step, deliberately not added here because Thursday/Friday force-push `staging` and a failure-path push there needs its own argument.
 - **A7** — the module exists, unwired. Remaining: the `collectors/gsc.ts` edit (read state → `planRotation()` in place of the slice → `applyResults()` → write state), tests, and a decision about what a deliberately-partial night reports now that `lib/agent-health.ts` distinguishes `unevaluable` from zero. A rotation working as designed is not a blind collector — and must not silently become `healthy: true` either.
 - ~~**B5** `/review/gesture/` — 8,415 impressions, 0.12% CTR at pos 8.0~~ — **title/meta rewritten 2026-08-09.** Ledger `018c617c0678`. Both now lead with the fact that this is the one chair Jackson owns and sits in. See [[review-gesture]]. Sanctioned only because the page sits *at* pos 8.0 — the kill list bars this treatment below it, and this remains the single CTR task in scope.
 - **C** 14 findings held back by strategy
