@@ -593,7 +593,82 @@ function blindTable(health: DetectorHealth): string[] {
   ];
 }
 
-function buildPrompt(sources: Source[], health: DetectorHealth): string {
+/**
+ * The one-line verdict, computed mechanically and NOT asked of the model.
+ *
+ * The phone title is the only part of this report most days get read at all, so
+ * it must not depend on the narrative call succeeding, on the model choosing the
+ * right words, or on it resisting the pull toward a reassuring summary. The
+ * model is told which verdict to write; this decides it.
+ *
+ * Order is the priority order, and blindness outranks breakage on purpose: a
+ * check that did not run is the one state where "nothing needs you" would be a
+ * claim the system has not earned. Every incident in this system's history was a
+ * measurement failing quietly while a dashboard stayed green.
+ */
+export type VerdictKind = 'blind' | 'needs-you' | 'good';
+
+export interface Verdict {
+  kind: VerdictKind;
+  /** What goes on the lock screen. Kept under ~40 chars before the site name. */
+  title: string;
+  /** The line the model is instructed to write directly under the H1. */
+  line: string;
+}
+
+export function decideVerdict(blindCount: number, selfFailure: string | null, needsYou: number): Verdict {
+  if (selfFailure !== null) {
+    return {
+      kind: 'blind',
+      title: "CAN'T CHECK — the checker itself failed",
+      line: '**🔴 I could not check the site properly.** The health check itself failed.',
+    };
+  }
+  if (blindCount > 0) {
+    const also = needsYou > 0 ? ` (+${needsYou} need you)` : '';
+    return {
+      kind: 'blind',
+      title: `CAN'T CHECK — ${blindCount} check(s) didn't run${also}`,
+      line:
+        `**🔴 I could not check the site properly.** ${blindCount} check(s) did not run` +
+        (needsYou > 0 ? `, and ${needsYou} thing(s) also need you.` : '.'),
+    };
+  }
+  if (needsYou > 0) {
+    return {
+      kind: 'needs-you',
+      title: `${needsYou} thing(s) need you`,
+      line: `**⚠️ ${needsYou} thing(s) need you.**`,
+    };
+  }
+  return {
+    kind: 'good',
+    title: 'ALL GOOD',
+    line: '**✅ The site is good to go.**',
+  };
+}
+
+/**
+ * How many problems are waiting on a human, read from the ledger's own summary.
+ *
+ * Returns null when the number cannot be read, and null is NOT zero: the caller
+ * turns it into "I couldn't check" rather than into a reassuring "0 things need
+ * you", which is the exact substitution this whole file exists to prevent.
+ */
+export function countNeedsYou(ledgerStateContent: string | null): number | null {
+  if (ledgerStateContent === null) return null;
+  try {
+    // lint-architecture-allow R4 -- the value is range-checked on the next line and any failure returns null, which the caller renders as "could not read" and never as zero
+    const parsed: unknown = JSON.parse(ledgerStateContent);
+    const counts = (parsed as { counts?: { escalated?: unknown } }).counts;
+    const escalated = counts?.escalated;
+    return typeof escalated === 'number' && Number.isFinite(escalated) && escalated >= 0 ? escalated : null;
+  } catch {
+    return null;
+  }
+}
+
+function buildPrompt(sources: Source[], health: DetectorHealth, verdict: Verdict): string {
   const cov = coverage(sources);
   const parts: string[] = [];
 
@@ -601,12 +676,57 @@ function buildPrompt(sources: Source[], health: DetectorHealth): string {
     // The domain comes from lib/site.ts rather than a literal: this prompt is
     // the model's ONLY statement of which site the numbers below describe, and a
     // hardcoded one silently relabels a second site's data as this one's.
-    `You are writing the God's-Eye nightly report for ${siteDomain()}, a live affiliate site`,
-    `running an autonomous Mon–Sat SEO pipeline. You are the only thing standing between Jackson`,
-    `and having to open Claude Code to check whether his system is working.`,
+    `You are writing the daily status report for ${siteDomain()}, a live affiliate site`,
+    `running an automated SEO pipeline. Jackson reads this on his phone at 5pm. He is a`,
+    `mechanical engineer, not an SEO specialist, and he did not build most of the vocabulary`,
+    `this system uses internally.`,
+    ``,
+    `YOUR ONE JOB: he should finish the first two lines either thinking "the site is fine,`,
+    `nothing for me to do" or knowing EXACTLY what is broken, why it costs him something, and`,
+    `what to paste into Claude Code to fix it. If he has to interpret anything, you failed.`,
     ``,
     `Date: ${TODAY}`,
     `Source coverage tonight: ${cov.verified}/${cov.total} sources verified (${cov.pct}%).`,
+    ``,
+    `## WRITE LIKE A PERSON — THIS IS RULE ZERO`,
+    ``,
+    `**BANNED WORDS.** Never use these in the report body. Use the plain-English column.`,
+    ``,
+    `| Never write | Write this instead |`,
+    `|---|---|`,
+    `| escalated | "stuck — needs you" |`,
+    `| regressed | "was fixed, then broke again" |`,
+    `| closure predicate | "the test that proves it's fixed" |`,
+    `| unevaluable / blind detector | "I couldn't check this" |`,
+    `| finding / ledger record | "problem" or "issue" |`,
+    `| intervention | "a change we made to try to improve a page" |`,
+    `| coverage N/M | "I could see N of the M things I check" |`,
+    `| predicate failed | "still not fixed" |`,
+    `| status transition | "changed since yesterday" |`,
+    `| stale / freshness SLA | "the data is N days old" |`,
+    `| impressions | "times the site showed up in Google" |`,
+    `| CTR | "how often people clicked" (give the % too) |`,
+    `| position | "average Google ranking" |`,
+    `| AIO suppression | "Google answers this question itself, so nobody clicks" |`,
+    ``,
+    `**NO HEX IDs IN THE BODY.** \`8aeed43a09a6\` means nothing to a human. Name the PAGE.`,
+    `If an id is genuinely needed, put it in the Appendix at the very bottom, nowhere else.`,
+    ``,
+    `**NO INTERNAL FILENAMES IN THE BODY.** He does not know what \`ledger-state.json\`,`,
+    `\`data/probes/\` or \`collector:gsc\` are. Say "the Google Search Console data" or`,
+    `"the page-checking robot". Filenames go in the Appendix if anywhere.`,
+    ``,
+    `**EVERY PROBLEM NEEDS THREE THINGS, ALWAYS, IN THIS ORDER:**`,
+    `  1. **What's wrong** — one sentence, plain English, naming the page.`,
+    `  2. **Why it matters** — in traffic, money, or risk. If it genuinely does not matter`,
+    `     much, SAY SO ("cosmetic, no revenue impact"). Do not inflate it to look useful.`,
+    `  3. **Fix it with:** — a single line he can copy and paste into Claude Code, written`,
+    `     as an instruction to Claude, e.g. "Fix the mobile layout on /review/gesture/ —`,
+    `     it renders 3% differently from the saved baseline." Never "investigate" or`,
+    `     "consider". If the fix needs HIS hands and not Claude's (a login, a password, a`,
+    `     decision only he can make), write **YOU have to do this:** and say exactly what.`,
+    ``,
+    `Short sentences. No jargon. No hedging. No congratulating the system for running.`,
     ``,
     `## THE RULES YOU MUST FOLLOW`,
     ``,
@@ -620,48 +740,109 @@ function buildPrompt(sources: Source[], health: DetectorHealth): string {
     `   Do not estimate, extrapolate, or fill a gap with a plausible number. "Not measured tonight"`,
     `   is a complete and acceptable answer.`,
     ``,
-    `3. **Lead with what changed.** Jackson reads this on his phone. If nothing changed and nothing`,
-    `   is stuck, say so in one line — do not manufacture activity to look useful.`,
+    `3. **Lead with what changed.** If nothing changed and nothing is stuck, say so in one line —`,
+    `   do not manufacture activity to look useful. A one-screen report on a quiet day is the`,
+    `   system working, not the system being lazy.`,
     ``,
     `4. **Regressions are the headline.** A finding that passed its closure predicate and later`,
     `   failed (status \`regressed\`) is the single highest-value output of this system. If any`,
     `   exist, they lead the report.`,
     ``,
-    `5. **\`unevaluable\` is not zero, and it is not success.** (A13) If the DETECTOR HEALTH block`,
-    `   below is non-empty you are FORBIDDEN from describing tonight as clean, quiet, healthy,`,
-    `   all-clear, or "nothing to report". A detector that could not see has not told you the site`,
-    `   is fine — it has told you nothing, and those are different reports. Say which eyes were`,
-    `   shut and what that specifically means you cannot claim tonight. Every incident in this`,
-    `   system's history was a measurement failing quietly while a dashboard stayed green.`,
+    `5. **"I couldn't check" is not "it's fine".** (A13) If the DETECTOR HEALTH block below is`,
+    `   non-empty you are FORBIDDEN from using the ✅ verdict, and forbidden from the words clean,`,
+    `   quiet, healthy, all-clear or "nothing to report". A check that did not run has told you`,
+    `   NOTHING about the site — it has not told you the site is fine. Say which checks did not`,
+    `   run and what he therefore cannot conclude. Every incident in this system's history was a`,
+    `   measurement failing quietly while a dashboard stayed green.`,
     ``,
-    `6. **What the pipeline REFUSED is news.** (A2) \`fixes-log\` and \`content-log\` are the agents'`,
-    `   own account of their week. A \`❌\` line is not a failure to bury — the trust layer rejecting`,
-    `   a fabricated ASIN on a page scoring 100/100 was the most valuable thing this system did all`,
-    `   week, and it went unreported. Refusals, skips and rollbacks get named explicitly.`,
+    `6. **What the pipeline REFUSED is news.** (A2) A ❌ line in the execution logs is not a failure`,
+    `   to bury. The trust layer rejecting a made-up product code on a page that otherwise scored`,
+    `   100/100 was the most valuable thing this system did all week, and it went unreported.`,
+    `   Refusals, skips and rollbacks get named — in plain words, not log syntax.`,
     ``,
-    `## REQUIRED SECTIONS (PRD §7.6 + A2/A13) — emit all of them, in this order`,
+    `## THE SHAPE OF THE REPORT — emit these sections, in this order, nothing else`,
     ``,
-    `- **What changed** — new findings, status transitions since the last report.`,
-    `- **What closed** — with the evidence that proved it. An evidence-less close is a bug: flag it.`,
-    `- **What is stuck, and for how long** — open items with their age in days.`,
-    `- **What regressed** — passed, then failed. Lead with this if non-empty.`,
-    `- **What the agents did** — from fixes-log and content-log: applied, skipped, rolled back, and`,
-    `  REFUSED, each named. Mandatory even when both logs are empty or stale (say which, and note`,
-    `  that a stale execution log means the weekly agent produced nothing within its own cadence).`,
-    `- **What needs a human** — escalated items, and anything blocked on a credential or on Amazon`,
-    `  affiliate data (which has no API and is permanently manual).`,
-    `- **What the system could not see tonight** — every missing/unhealthy source AND every entry in`,
-    `  the DETECTOR HEALTH block, with its reason. This section is mandatory even when empty`,
-    `  (say "full coverage, all detectors evaluable").`,
-    `- **Spend** — from cost-summary if verified; otherwise say it was not measured.`,
+    `**The numbers below are for YOUR ordering only. Never print a number in a heading —`,
+    `write "## What needs you", never "## 2. What needs you".**`,
+    ``,
+    `### 1. The verdict (first line after the H1)`,
+    ``,
+    `THE VERDICT HAS ALREADY BEEN DECIDED FOR YOU. Write this line, verbatim:`,
+    ``,
+    `    ${verdict.line}`,
+    ``,
+    `Do not soften it, upgrade it, or substitute your own judgement. It is computed from the`,
+    `same data you are reading and it is what the phone notification already said — a report`,
+    `that disagrees with its own notification is worse than either one alone.`,
+    ``,
+    `For reference, the three possible verdicts and what each means:`,
+    ``,
+    `  **✅ The site is good to go.** — use ONLY when nothing broke, nothing is stuck,`,
+    `  and every check ran. All three, or it is not this line.`,
+    ``,
+    `  **⚠️ N things need you.** — something is broken or stuck. N is the number of items`,
+    `  in "What needs you" below. This is the normal case; it is not an emergency.`,
+    ``,
+    `  **🔴 I could not check the site properly.** — a check did not run. Use this even if`,
+    `  everything you COULD see looked fine. See rule 5: not looking is not the same as`,
+    `  looking and finding nothing, and this line is where that distinction lives.`,
+    ``,
+    `If both ⚠️ and 🔴 apply, use 🔴 and say how many things also need him.`,
+    ``,
+    `Then one short paragraph — two or three sentences, plain English — a person could act`,
+    `on from a lock screen without opening anything.`,
+    ``,
+    `### 2. What needs you`,
+    ``,
+    `The most important section. One numbered item per problem, most costly first.`,
+    `Each one gets the three things from Rule Zero: what's wrong, why it matters, and a`,
+    `copy-pasteable **Fix it with:** line (or **YOU have to do this:** when Claude cannot).`,
+    `If nothing needs him, write one line: "Nothing. The site is running itself today."`,
+    `Do NOT pad this section to look useful — a short list is the goal, not a failure.`,
+    ``,
+    `### 3. What I could not check`,
+    ``,
+    `Mandatory, even when empty (then: "I checked everything I'm supposed to check.").`,
+    `Every source that was missing or unhealthy, and every entry in the DETECTOR HEALTH`,
+    `block. For each: what it watches, in plain words, and what he therefore cannot`,
+    `conclude tonight. Give each one a **Fix it with:** line too.`,
+    ``,
+    `### 4. What got fixed`,
+    ``,
+    `What closed since the last report and the evidence that proved it — in plain words`,
+    `("the page now ranks 7.2, under the 8.0 target"). If something closed with no`,
+    `evidence, that is a BUG in this system: say so plainly, it is worth more than the fix.`,
+    `If nothing closed, one line saying so.`,
+    ``,
+    `### 5. What the robots did`,
+    ``,
+    `From the fixes-log and content-log — the automated agents' own account of their week.`,
+    `Mandatory even when both are empty or old (say which, and that an old log means the`,
+    `weekly agent produced nothing on its own schedule).`,
+    ``,
+    `Name what they REFUSED to do and why. (A2) A refusal is the most valuable thing this`,
+    `system produces and it used to go unreported — the trust layer rejecting a made-up`,
+    `product code on a page that otherwise scored 100/100 was the best work it did all week.`,
+    `Say it in those terms: "the robot caught itself about to publish a fake product link".`,
+    ``,
+    `### 6. Money`,
+    ``,
+    `Affiliate earnings and what the pipeline cost to run, if both were measured. If either`,
+    `was not, say which and do not estimate. Plain numbers, no per-token arithmetic.`,
+    ``,
+    `### 7. Appendix — the technical detail`,
+    ``,
+    `LAST section. This is where every id, filename, predicate and raw number goes, for`,
+    `when he does open Claude Code. Nothing above this line may contain them. Keep it short`,
+    `and unglamorous; it is a lookup table, not a narrative.`,
     ``,
     `## DETECTOR HEALTH — READ THIS BEFORE WRITING A WORD`,
     ``,
     ...blindTable(health),
     ``,
-    `Write GitHub-flavored markdown. Start with an H1 \`# God's-Eye — ${siteLabel()} — ${TODAY}\` and a 2-3 line`,
-    `TL;DR that a person can act on from a lock screen. Be terse. No preamble, no filler,`,
-    `no congratulating the system for running.`,
+    `Write GitHub-flavored markdown. Start with an H1 \`# ${siteLabel()} — ${TODAY}\`, then the`,
+    `verdict line, then the short paragraph. No preamble before the H1. No filler. No`,
+    `congratulating the system for running.`,
     ``,
     `## SOURCES`,
     ``,
@@ -690,43 +871,71 @@ function buildPrompt(sources: Source[], health: DetectorHealth): string {
  * missing report means "the system is dead" to the dead-man's switch, and a
  * failed Anthropic call is not death.
  */
-function fallbackReport(sources: Source[], health: DetectorHealth, error: string): string {
+function fallbackReport(
+  sources: Source[],
+  health: DetectorHealth,
+  error: string,
+  verdict: Verdict,
+): string {
   const cov = coverage(sources);
   const lines = [
     // The degraded path names the site too. This is the report that gets written
     // on the worst nights, which is exactly when "whose site is this about?" is
     // least safe to leave to the reader's assumption.
-    `# God's-Eye — ${siteLabel()} — ${TODAY}`,
+    //
+    // And it gets the SAME plain language as the good path. This is the report a
+    // human reads on the worst night of the month; handing them raw source state
+    // and internal field names on exactly that night is when jargon costs most.
+    `# ${siteLabel()} — ${TODAY}`,
     ``,
-    `> **DEGRADED REPORT.** The narrative model call failed, so this is the raw source`,
-    `> state with no interpretation. Everything below is mechanically derived.`,
+    verdict.line,
     ``,
-    `**Reason:** ${error}`,
+    `**The part that writes this report in plain English is what broke** — everything below`,
+    `is raw machine output. The site itself may well be fine; nothing here says it isn't.`,
     ``,
-    `## Coverage`,
+    `## What needs you`,
     ``,
-    `${cov.verified}/${cov.total} sources verified (${cov.pct}%).`,
+    `1. **The report writer failed.** It could not turn today's data into a readable summary.`,
+    `   *Why it matters:* you are reading raw output instead of a summary, so today's check is`,
+    `   harder to trust than usual. The site is probably fine — this is the reporter, not the site.`,
+    `   **Fix it with:** \`The God's-Eye nightly report failed to generate on ${TODAY}. The error was:`,
+    `   ${error}. Find out why and fix it.\``,
     ``,
-    `## Source state`,
+  ];
+  const unverified = sources.filter(s => s.trust !== 'verified');
+  if (unverified.length > 0 || health.blind.length > 0 || health.selfFailure !== null) {
+    lines.push(`## What I could not check`, ``);
+    for (const s of unverified) {
+      lines.push(`- **${s.name}** — ${s.reason ?? 'could not be read or verified'}`);
+    }
+    for (const b of health.blind) {
+      lines.push(`- **${b.detector}** — ${b.reason}`);
+    }
+    if (health.selfFailure !== null) lines.push(`- **the health check itself** — ${health.selfFailure}`);
+    lines.push(
+      ``,
+      `Those are gaps, not clean results. This report does not say the site is fine.`,
+      ``,
+    );
+  } else {
+    lines.push(`## What I could not check`, ``, `Everything I check was readable today. Only the write-up failed.`, ``);
+  }
+
+  // Everything below is the appendix, and it is LABELLED as one so nobody has to
+  // work out which half of this file was meant for them.
+  lines.push(
+    `## Appendix — the technical detail`,
+    ``,
+    `Data sources readable: ${cov.verified}/${cov.total} (${cov.pct}%).`,
     ``,
     `| source | trust | age | reason |`,
     `|---|---|---|---|`,
-  ];
+  );
   for (const s of sources) {
     lines.push(`| ${s.name} | ${s.trust} | ${s.ageHours !== null ? `${s.ageHours.toFixed(1)}h` : '—'} | ${s.reason ?? ''} |`);
   }
-  lines.push('', '## Detector health', '', ...blindTable(health));
-  lines.push('', '## What the system could not see tonight', '');
-  const blind = sources.filter(s => s.trust !== 'verified');
-  if (blind.length === 0 && health.blind.length === 0 && health.selfFailure === null) lines.push('_Full coverage, all detectors evaluable._');
-  else for (const s of blind) lines.push(`- **${s.name}** — ${s.reason ?? 'unverified'}`);
-  lines.push('', '## What needs a human', '', `- The report model call failed. Investigate: ${error}`);
-  if (health.blind.length > 0) {
-    lines.push(
-      `- ${health.blind.length} detector(s) could not see tonight (table above). This report is NOT a`,
-      `  clean bill of health; it is a partial observation with named gaps.`,
-    );
-  }
+  lines.push('', '### Detector health', '', ...blindTable(health));
+  lines.push('', '### Raw error', '', '```', error, '```');
   return lines.join('\n');
 }
 
@@ -788,9 +997,21 @@ async function main(): Promise<void> {
     for (const b of health.blind) console.error(`  ${b.detector.padEnd(28)} ${b.reason}`);
   }
 
+  // Computed BEFORE the narrative call and passed into it, so the report and the
+  // phone notification cannot disagree. `null` from countNeedsYou means the count
+  // could not be read, which is treated as a blind check rather than as zero.
+  const ledgerState = sources.find(s => s.name === 'ledger-state') ?? null;
+  const needsYou = countNeedsYou(ledgerState === null ? null : ledgerState.content);
+  const blindCount = needsYou === null ? health.blind.length + 1 : health.blind.length;
+  if (needsYou === null) {
+    console.error('[nightly] could not read the escalated count — treating as a blind check, never as zero');
+  }
+  const verdict = decideVerdict(blindCount, health.selfFailure, needsYou ?? 0);
+  console.log(`[nightly] verdict: ${verdict.title}`);
+
   let markdown: string;
   try {
-    const prompt = buildPrompt(sources, health);
+    const prompt = buildPrompt(sources, health, verdict);
     assertNoTruncation(prompt);
 
     const message = await meteredCreate(
@@ -810,7 +1031,7 @@ async function main(): Promise<void> {
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
     console.error(`[nightly] report generation failed: ${reason}`);
-    markdown = fallbackReport(sources, health, reason);
+    markdown = fallbackReport(sources, health, reason, verdict);
   }
 
   // Self-metering (PRD §7.6): the nightly asserts its own coverage and duration
@@ -822,20 +1043,25 @@ async function main(): Promise<void> {
     `---`,
     ``,
     `<!-- godseye-meta -->`,
-    `**Coverage:** ${cov.verified}/${cov.total} sources verified (${cov.pct}%) · **Detectors blind:** ${health.blind.length}/${health.checked} · **Duration:** ${durationSec}s · **Generated:** ${new Date().toISOString()}`,
+    // One plain sentence, because this line survives whatever prose the model
+    // wrote above it and is therefore the last thing standing on a bad night.
+    // The model is instructed not to call a blind night clean; this makes that
+    // unfalsifiable rather than merely requested — but it only works if a human
+    // can read it, which the old "Coverage: 7/8 · Detectors blind: 1/9" could not.
+    health.blind.length === 0 && health.selfFailure === null
+      ? `_I checked all ${health.checked} things I'm supposed to check, and could read ${cov.verified} of ${cov.total} data sources._`
+      : `_⚠️ I could NOT check ${health.blind.length} of ${health.checked} things today. This report does not say the site is fine — it says I did not look at everything._`,
     ``,
-    `Unverified or missing sources tonight: ${sources.filter(s => s.trust !== 'verified').map(s => s.name).join(', ') || 'none'}.`,
+    `_Data sources I could not read: ${sources.filter(s => s.trust !== 'verified').map(s => s.name).join(', ') || 'none'}. Took ${durationSec}s. Generated ${new Date().toISOString()}._`,
     ``,
-    // Restated mechanically below the narrative so it survives any prose the
-    // model wrote above it. The model is instructed not to call a blind night
-    // clean; this line makes that unfalsifiable rather than merely requested.
-    `## Detector health (mechanical — A13)`,
+    `<details><summary>Technical detail — the checks that did not run</summary>`,
     ``,
     ...blindTable(health),
     ``,
-    `_Values from unverified sources are marked inline. Until a value has a schema contract_`,
-    `_(PRD §7.2) or a closure predicate (§7.3) behind it, this report may not state it as fact._`,
-    `_An \`unevaluable\` detector has not reported health. It has reported nothing._`,
+    `Numbers from a source I could not verify are marked in the text above. A check that`,
+    `did not run has not reported good health — it has reported nothing.`,
+    ``,
+    `</details>`,
   ].join('\n');
 
   const outDir = resolve(ROOT, 'wiki/nightly');
@@ -879,31 +1105,39 @@ async function main(): Promise<void> {
   // The blind count goes in the TITLE, not the body. A lock-screen notification
   // is often the entire report Jackson reads, and "88% coverage" alongside a
   // reassuring TL;DR is precisely how a month of truncated audits felt fine.
-  const blindTag = health.selfFailure !== null
-    ? 'DETECTOR CHECK FAILED'
-    : health.blind.length === 0
-      ? ''
-      : `${health.blind.length} BLIND`;
-  // Both signals that must survive truncation are moved to the FRONT, in the
-  // order they get acted on: WHICH SITE, then IS IT BLIND. A lock-screen title
-  // is cut off around 30-40 characters, so anything that has to be read has to
-  // be early — putting the site name in front of an unchanged title would have
-  // pushed the blind count past the cut and quietly undone the paragraph above.
-  // `God's-Eye` and the date stay, but they move behind both: the date is the
-  // one field a notification arriving tonight does not need to state, and the
-  // name is decoration once the site is already named.
-  // `siteLabel()` and not the full domain — `.com` costs four characters of that
-  // budget and distinguishes nothing.
-  const alarm = blindTag === '' ? '' : `${blindTag} — `;
-  await push(
-    `${siteLabel()}: ${alarm}God's-Eye ${TODAY} (${cov.pct}% coverage)`,
-    tldr,
-  );
+
+  // The title is a VERDICT, not statistics. "88% coverage" is a number that
+  // requires interpretation on a lock screen, and interpretation is exactly what
+  // is not available there — it read as reassuring on nights it should not have.
+  // Site name first (two sites produce otherwise identical alerts), then the
+  // verdict, and nothing else: a title is cut off around 30-40 characters, so
+  // every word after the verdict is a word that pushes the verdict off-screen.
+  // The date is dropped deliberately — a notification arriving at 5pm does not
+  // need to tell you what day it is.
+  await push(`${siteLabel()}: ${verdict.title}`, tldr);
 }
 
-main().catch(error => {
-  // Last resort. Exiting non-zero here means no heartbeat was written, which is
-  // exactly what should wake the dead-man's switch.
-  console.error('[nightly] FATAL:', error);
-  process.exit(1);
-});
+/**
+ * Only run as a script. Same guard and same regex shape as cost-rollup.ts,
+ * ledger-evaluate.ts and probes/pr-gate.ts.
+ *
+ * It was missing here until 2026-08-13, and importing this module to unit-test
+ * `decideVerdict()` ran the entire nightly: it made a real Anthropic call, wrote
+ * wiki/nightly/, overwrote the dead-man's-switch heartbeat, and PUSHED A REAL
+ * NOTIFICATION TO JACKSON'S PHONE. The heartbeat one is the dangerous half — a
+ * test that refreshes the liveness signal makes the watchdog report a healthy
+ * system on a night the real nightly never ran.
+ *
+ * This is the same class as `--backfill --dry-run` writing to the ledger, found
+ * the same day: the safe-looking operation had a side effect nobody had checked
+ * for, because nobody had needed to import the module before.
+ */
+const invokedDirectly = process.argv[1] !== undefined && /nightly-report\.ts$/.test(process.argv[1]);
+if (invokedDirectly) {
+  main().catch(error => {
+    // Last resort. Exiting non-zero here means no heartbeat was written, which is
+    // exactly what should wake the dead-man's switch.
+    console.error('[nightly] FATAL:', error);
+    process.exit(1);
+  });
+}

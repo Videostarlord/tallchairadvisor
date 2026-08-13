@@ -15,12 +15,22 @@ name: Nightly — God's-Eye
 
 on:
   schedule:
-    # 10:00 UTC = 03:00 America/Los_Angeles during PDT (PRD §11 default).
-    # GitHub cron is UTC-only and does not observe DST, so this drifts to
-    # 02:00 local during PST (Nov–Mar). The dead-man's switch deadline
-    # (08:00 local) has margin for both; do not "fix" this by adding a
-    # second cron, which would double-run for half the year.
-    - cron: '0 10 * * *'
+    # 00:00 UTC = 17:00 America/Los_Angeles during PDT — 5pm, when Jackson asked
+    # for it (2026-08-13). Moved from 03:00 local: a report that lands while he
+    # is asleep is read a day late or not at all.
+    #
+    # GitHub cron is UTC-only and does not observe DST, so this becomes 16:00
+    # local during PST (Nov–Mar). Change to '0 1 * * *' to hold 17:00 through
+    # the winter and give up 18:00 through the summer — one or the other, not
+    # both. Do NOT "fix" it by adding a second cron entry: that double-runs for
+    # half the year, and two reports a day is how a daily report stops being read.
+    #
+    # The dead-man's switch (a SECOND repo — scripts/deadmans-switch.README.md)
+    # checks at 08:10 local against MAX_HEARTBEAT_AGE_HOURS=29. That still works
+    # unchanged: a heartbeat written at 17:00 is ~15h old at the next check
+    # (alive) and ~39h old if a run is missed (dead). The window it catches is
+    # still exactly one missed cycle.
+    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       skip_probes:
