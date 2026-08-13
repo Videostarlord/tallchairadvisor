@@ -1,0 +1,8 @@
+{
+  "capturedAt": "2026-08-09T06:36:45.000Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "runner": "local",
+  "source": "git-archaeology",
+  "note": "NOT written by a capture run. Reconstructed 2026-08-13 from commit 05703fa ('data(visual): seed 98 baselines from production, 49 pages x 2 viewports'), authored 2026-08-08 23:36 -0700 from Jacksons-MacBook-Air.local. platform/arch are inferred from that hostname and are the whole point of this record: every comparison since has run on a GitHub Actions ubuntu runner, and macOS/Linux font rasterisation differs. That constant offset put all 49 mobile pages between 1.309% and 3.678% against a 2% threshold, identical to three decimals on 08-09/10/11/12 -- five pages over the line, forty-four sitting just under it with most of their budget already spent. arch is the least certain field and nothing depends on it; the mismatch check reads platform only. Replaced the moment a real `npm run probe -- --visual --rebaseline` runs in CI."
+}

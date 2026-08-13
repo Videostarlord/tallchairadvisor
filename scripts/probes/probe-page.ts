@@ -48,6 +48,8 @@ export interface VisualOptions {
   root: string;
   /** False on synthetic/preview runs — they must never redefine what "correct" looks like. */
   allowBaselineWrite: boolean;
+  /** True only under an explicit --rebaseline: OVERWRITE baselines, compare nothing. */
+  rebaseline?: boolean;
   thresholdPct: number;
   artifactDir: string | null;
 }
@@ -559,6 +561,7 @@ export async function probeUrl(browser: Browser, path: string, opts: ProbeOption
           root: opts.visual.root,
           path,
           allowBaselineWrite: opts.visual.allowBaselineWrite,
+          rebaseline: opts.visual.rebaseline === true,
           thresholdPct: opts.visual.thresholdPct,
           artifactDir: opts.visual.artifactDir,
         });

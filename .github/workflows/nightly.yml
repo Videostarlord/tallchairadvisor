@@ -27,6 +27,16 @@ on:
         description: 'Skip Playwright probes (faster dry run)'
         type: boolean
         default: false
+      # The ONLY supported way to re-baseline. It must happen on the runner that
+      # does the comparison: the first baseline set was captured on a MacBook and
+      # diffed on ubuntu, and the resulting font-rasterisation offset put all 49
+      # mobile pages between 1.309% and 3.678% against a 2% threshold while
+      # looking like five isolated page regressions. Re-baselining locally would
+      # recreate that exact fault.
+      rebaseline_visual:
+        description: 'REPLACE every visual baseline with this run (nothing is compared)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -162,7 +172,7 @@ jobs:
         id: probe
         if: ${{ !inputs.skip_probes }}
         continue-on-error: true
-        run: npm run probe -- --visual --visual-artifacts visual-diffs
+        run: npm run probe -- --visual --visual-artifacts visual-diffs ${{ inputs.rebaseline_visual && '--rebaseline' || '' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
@@ -262,6 +272,7 @@ jobs:
                    data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
                    data/agent-health.jsonl \
                    data/gsc/inspection-rotation.json \
+                   raw/visual/baseline/provenance.json \
                    data/collectors data/probes data/interventions.jsonl \
                    data/edit-log.jsonl raw/visual/baseline \
                    data/affiliate \

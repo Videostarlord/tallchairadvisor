@@ -91,6 +91,112 @@ export function baselinePath(root: string, viewport: ViewportName, path: string)
 }
 
 /**
+ * ─── WHERE THE BASELINE WAS CAPTURED IS PART OF THE BASELINE ─────────────────
+ *
+ * Found 2026-08-13, and it had disabled the mobile gate site-wide while looking
+ * like five isolated regressions.
+ *
+ * The 98 baselines were captured on a MacBook Air (commit 05703fa, authored from
+ * `Jacksons-MacBook-Air.local`) and every comparison since has run on a GitHub
+ * Actions ubuntu runner. macOS and Linux rasterise fonts differently, so EVERY
+ * page picked up a small, constant, text-proportional diff:
+ *
+ *   49/49 mobile pages non-zero, min 1.309%, median 1.554%, max 3.678%
+ *   49/49 desktop pages non-zero, median 0.660%
+ *   IDENTICAL to three decimals on 08-09, 08-10, 08-11 and 08-12
+ *
+ * Four days of byte-identical numbers is not drift and not a design change — it
+ * is a constant offset. Five pages crossed the 2% line only because they are the
+ * most text-dense on mobile; the other 44 sit just under it having already spent
+ * most of their budget on font rendering. A real regression on those pages would
+ * have had to be enormous to trip, and the dashboard would have stayed green.
+ *
+ * Re-baselining only the five loudest pages would have made the visible symptom
+ * go away and left the disabled gate exactly as it was.
+ *
+ * So provenance is recorded next to the images, and a mismatch is REPORTED
+ * rather than silently absorbed into every diff percentage.
+ */
+export const PROVENANCE_PATH = 'raw/visual/baseline/provenance.json';
+
+export interface BaselineProvenance {
+  /** ISO timestamp of the capture run. */
+  capturedAt: string;
+  /** `process.platform` — 'darwin', 'linux', 'win32'. The load-bearing field. */
+  platform: string;
+  arch: string;
+  /** 'ci' when GITHUB_ACTIONS is set, else 'local'. */
+  runner: 'ci' | 'local';
+  /** How this record came to exist. Never a guess presented as a measurement. */
+  source: 'captured' | 'git-archaeology';
+  note: string;
+}
+
+export function currentProvenance(at: Date = new Date()): BaselineProvenance {
+  const ci = typeof process.env.GITHUB_ACTIONS === 'string' && process.env.GITHUB_ACTIONS !== '';
+  return {
+    capturedAt: at.toISOString(),
+    platform: process.platform,
+    arch: process.arch,
+    runner: ci ? 'ci' : 'local',
+    source: 'captured',
+    note: 'Written by a deliberate --rebaseline run.',
+  };
+}
+
+export function readProvenance(root: string): BaselineProvenance | null {
+  const file = resolve(root, PROVENANCE_PATH);
+  if (!existsSync(file)) return null;
+  try {
+    // lint-architecture-allow R4 -- shape is checked on the next two lines and any failure returns null; routing this through readValidated() would make an unreadable provenance file THROW inside the probe, and a nightly that dies over a metadata file is a worse outcome than the warning this function exists to print
+    const parsed: unknown = JSON.parse(readFileSync(file, 'utf-8'));
+    if (typeof parsed !== 'object' || parsed === null) return null;
+    const p = parsed as Partial<BaselineProvenance>;
+    if (typeof p.platform !== 'string' || typeof p.capturedAt !== 'string') return null;
+    return parsed as BaselineProvenance;
+  } catch {
+    // A provenance file that cannot be read is reported as ABSENT, never as
+    // matching. Absent produces a warning; "matching" would produce silence,
+    // and silence is the failure mode this whole block exists to end.
+    return null;
+  }
+}
+
+export function writeProvenance(root: string, provenance: BaselineProvenance): void {
+  const file = resolve(root, PROVENANCE_PATH);
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, `${JSON.stringify(provenance, null, 2)}\n`);
+}
+
+/**
+ * A sentence naming the platform gap, or null when there is nothing to say.
+ *
+ * Returned as a NOTE, not a failure. The diff percentage it accompanies is real
+ * — those pixels genuinely differ — and suppressing the number would trade a
+ * misleading measurement for no measurement. What was missing was the cause.
+ */
+export function describePlatformMismatch(
+  baseline: BaselineProvenance | null,
+  now: BaselineProvenance
+): string | null {
+  if (baseline === null) {
+    return (
+      `baseline provenance is missing (${PROVENANCE_PATH}) — the platform these images were ` +
+      `captured on is unknown, so any constant site-wide diff cannot be distinguished from a ` +
+      `real change. Re-baseline in the environment that runs the comparison.`
+    );
+  }
+  if (baseline.platform === now.platform) return null;
+  return (
+    `BASELINE PLATFORM MISMATCH: images captured on ${baseline.platform}/${baseline.arch} ` +
+    `(${baseline.runner}, ${baseline.capturedAt.slice(0, 10)}), compared on ${now.platform}/${now.arch} ` +
+    `(${now.runner}). Font rasterisation differs between platforms, which adds a constant ` +
+    `text-proportional diff to EVERY page and is largest on mobile. Treat this percentage as ` +
+    `offset until the baseline is recaptured where the comparison runs.`
+  );
+}
+
+/**
  * CSS injected immediately before every capture.
  *
  * An unstable baseline destroys trust in a visual gate faster than having no gate
@@ -123,6 +229,16 @@ export interface CaptureOptions {
    * is the precise opposite of a regression test. See isSynthetic() in cli.ts.
    */
   allowBaselineWrite: boolean;
+  /**
+   * OVERWRITE existing baselines with this run's captures.
+   *
+   * Separate from `allowBaselineWrite`, which only permits FILLING IN a page
+   * that has none. Redefining "correct" is a deliberate act and needs its own
+   * flag, so no ordinary run can ever do it by accident — a nightly that
+   * silently re-baselined would report every regression as fixed the night
+   * after it appeared.
+   */
+  rebaseline?: boolean;
   /** Overrides DIFF_THRESHOLD_PCT when calibrating. */
   thresholdPct?: number;
   /** Where to write current captures when they differ, for human inspection. */
@@ -163,10 +279,23 @@ export async function captureAndCompare(page: Page, opts: CaptureOptions): Promi
     return { desktop: notCompared(note), mobile: notCompared(note) };
   }
 
+  const rebaseline = opts.rebaseline === true;
+  // Read once per page, not once per comparison: the note is a property of the
+  // baseline SET, and repeating a filesystem read for an unchanging fact is how
+  // a cheap check becomes an expensive one at 49 pages x 2 viewports.
+  const mismatch = rebaseline ? null : describePlatformMismatch(readProvenance(root), currentProvenance());
+
   for (const viewport of ['desktop', 'mobile'] as const) {
     result[viewport] = await captureOne(page, viewport, {
-      root, path, allowBaselineWrite, threshold, artifactDir,
+      root, path, allowBaselineWrite, threshold, artifactDir, rebaseline,
     });
+    if (mismatch !== null && result[viewport].diffPct !== null) {
+      const existing = result[viewport].note;
+      result[viewport] = {
+        ...result[viewport],
+        note: existing === null ? mismatch : `${mismatch} | ${existing}`,
+      };
+    }
   }
 
   // Leave the page as it was found; a later consumer may still read from it.
@@ -182,9 +311,9 @@ export async function captureAndCompare(page: Page, opts: CaptureOptions): Promi
 async function captureOne(
   page: Page,
   viewport: ViewportName,
-  opts: { root: string; path: string; allowBaselineWrite: boolean; threshold: number; artifactDir: string | null },
+  opts: { root: string; path: string; allowBaselineWrite: boolean; threshold: number; artifactDir: string | null; rebaseline: boolean },
 ): Promise<ViewportComparison> {
-  const { root, path, allowBaselineWrite, threshold, artifactDir } = opts;
+  const { root, path, allowBaselineWrite, threshold, artifactDir, rebaseline } = opts;
 
   let current: Buffer;
   try {
@@ -204,6 +333,22 @@ async function captureOne(
   }
 
   const base = baselinePath(root, viewport, path);
+
+  if (rebaseline) {
+    // Deliberate redefinition of "correct". Guarded twice: the caller must pass
+    // --rebaseline AND the run must be allowed to write baselines at all, so a
+    // synthetic/preview build can never redefine production's baseline.
+    if (!allowBaselineWrite) {
+      return notCompared(`${viewport} re-baseline refused — this run may not write baselines (synthetic)`);
+    }
+    mkdirSync(dirname(base), { recursive: true });
+    writeFileSync(base, current);
+    return {
+      diffPct: null,
+      note: `${viewport} baseline REPLACED by an explicit --rebaseline run on ${process.platform}`,
+      baselineCreated: true,
+    };
+  }
 
   if (!existsSync(base)) {
     if (!allowBaselineWrite) {

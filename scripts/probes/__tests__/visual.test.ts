@@ -15,7 +15,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { deriveFindings, VISUAL_DIFF_THRESHOLD_PCT } from '../assertions.js';
-import { slugForPath } from '../visual.js';
+import { existsSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  describePlatformMismatch,
+  PROVENANCE_PATH,
+  readProvenance,
+  slugForPath,
+  type BaselineProvenance,
+} from '../visual.js';
 import type { ProbeResult, ProbeVisual } from '../types.js';
 
 /** A healthy record with everything else passing, so only visual findings appear. */
@@ -145,4 +154,85 @@ test('a malformed visual section is ignored rather than throwing', () => {
     assert.doesNotThrow(() => deriveFindings(r));
     assert.equal(visualFindings(r).length, 0);
   }
+});
+
+// ─── Baseline provenance (2026-08-13) ─────────────────────────────────────────
+//
+// THE BUG THIS ENCODES. The 98 baselines were captured on a MacBook (commit
+// 05703fa) and every comparison since has run on an ubuntu runner. macOS and
+// Linux rasterise fonts differently, so all 49 mobile pages carried a constant
+// 1.309–3.678% diff — identical to three decimals on four consecutive nights.
+// Five crossed the 2% threshold and were filed as page regressions; the other
+// forty-four sat just under it with most of their budget already spent, which
+// means the mobile gate was effectively off site-wide while reporting green.
+//
+// A stable, site-wide, non-zero diff is the signature. The property under test
+// is that the cause gets NAMED rather than absorbed into the percentage.
+
+test('a platform mismatch is reported, not absorbed', () => {
+  const baseline: BaselineProvenance = {
+    capturedAt: '2026-08-09T06:36:45.000Z',
+    platform: 'darwin',
+    arch: 'arm64',
+    runner: 'local',
+    source: 'git-archaeology',
+    note: '',
+  };
+  const now: BaselineProvenance = {
+    capturedAt: '2026-08-13T10:00:00.000Z',
+    platform: 'linux',
+    arch: 'x64',
+    runner: 'ci',
+    source: 'captured',
+    note: '',
+  };
+  const message = describePlatformMismatch(baseline, now);
+  assert.ok(message !== null, 'darwin baseline compared on linux must produce a message');
+  assert.match(message, /darwin/);
+  assert.match(message, /linux/);
+  // The message has to say what to DO. "Mismatch detected" with no remedy is how
+  // a warning earns the right to be ignored.
+  assert.match(message, /recaptured|re-baseline/i);
+});
+
+test('same platform says nothing — a warning that always fires is noise', () => {
+  const p = (platform: string): BaselineProvenance => ({
+    capturedAt: '2026-08-13T10:00:00.000Z',
+    platform,
+    arch: 'x64',
+    runner: 'ci',
+    source: 'captured',
+    note: '',
+  });
+  assert.equal(describePlatformMismatch(p('linux'), p('linux')), null);
+});
+
+test('absent provenance warns rather than claiming agreement', () => {
+  // The load-bearing default. Treating "unknown" as "matching" would restore
+  // exactly the silence that let this run for four nights.
+  const message = describePlatformMismatch(null, {
+    capturedAt: '2026-08-13T10:00:00.000Z',
+    platform: 'linux',
+    arch: 'x64',
+    runner: 'ci',
+    source: 'captured',
+    note: '',
+  });
+  assert.ok(message !== null);
+  assert.match(message, /provenance is missing/);
+});
+
+test('the committed provenance describes the known-bad baseline set', () => {
+  // Guards the archaeology itself. If someone re-baselines properly, this file
+  // is overwritten with platform: linux and this assertion is what tells them
+  // the fixture below is stale rather than the code being wrong.
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
+  const file = resolve(root, PROVENANCE_PATH);
+  if (!existsSync(file)) return; // Not yet committed in this checkout.
+  const provenance = readProvenance(root);
+  assert.ok(provenance !== null, 'the committed provenance file must be readable');
+  assert.ok(
+    provenance.source === 'git-archaeology' || provenance.source === 'captured',
+    'source must say how the record came to exist',
+  );
 });

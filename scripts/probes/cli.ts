@@ -22,6 +22,12 @@ export interface CliArgs {
   visual: boolean;
   /** Where to write current+diff PNGs when a page exceeds the threshold. */
   visualArtifacts: string | null;
+  /**
+   * Overwrite existing baselines with this run's captures. Deliberately its own
+   * flag and not implied by --visual: redefining "correct" must be an act, never
+   * a side effect of an ordinary run.
+   */
+  rebaseline: boolean;
 }
 
 export function parseArgs(argv: string[]): CliArgs {
@@ -40,6 +46,7 @@ export function parseArgs(argv: string[]): CliArgs {
     block: [],
     visual: false,
     visualArtifacts: null,
+    rebaseline: false,
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -63,6 +70,7 @@ export function parseArgs(argv: string[]): CliArgs {
       case '--block': args.block.push(next()); break;
       case '--visual': args.visual = true; break;
       case '--visual-artifacts': args.visualArtifacts = next(); break;
+      case '--rebaseline': args.rebaseline = true; break;
       default:
         if (a.startsWith('--')) throw new Error(`unknown flag ${a}`);
     }

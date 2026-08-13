@@ -31,6 +31,7 @@ import { defaultOutPath, isSynthetic, parseArgs } from './cli.js';
 import { emptyResult, probeUrl, unhealthyResult, checkStatus, type ProbeOptions } from './probe-page.js';
 import { deriveFindings, summarise, VISUAL_DIFF_THRESHOLD_PCT, type ProbeFinding } from './assertions.js';
 import { fileFindings } from './ledger-bridge.js';
+import { currentProvenance, PROVENANCE_PATH, writeProvenance } from './visual.js';
 import type { ProbeFile } from './types.js';
 
 /** REPO_ROOT comes from the contracts module (§7.2) so every component agrees on it. */
@@ -102,6 +103,10 @@ async function main(): Promise<void> {
       ? {
           root,
           allowBaselineWrite: !synthetic,
+          // --rebaseline OVERWRITES. It is refused on a synthetic run for the
+          // same reason baseline creation is, and the refusal is belt-and-braces
+          // with the one inside captureOne().
+          rebaseline: args.rebaseline && !synthetic,
           thresholdPct: VISUAL_DIFF_THRESHOLD_PCT,
           artifactDir: args.visualArtifacts,
         }
@@ -114,6 +119,18 @@ async function main(): Promise<void> {
       `[probe] visual capture ON — desktop 1366x900 + mobile 375x812, threshold ${VISUAL_DIFF_THRESHOLD_PCT}%` +
         (synthetic ? '; baselines READ-ONLY (synthetic run)' : '; missing baselines will be written'),
     );
+    if (args.rebaseline && synthetic) {
+      console.error('[probe] --rebaseline REFUSED: this is a synthetic run. A preview build may not redefine what production should look like.');
+    } else if (args.rebaseline) {
+      // Loud, because it is destructive in the only way this system can be:
+      // every existing regression disappears, and so would a real one.
+      console.error(
+        `[probe] --rebaseline ON — EVERY captured baseline will be REPLACED with this run's screenshots ` +
+          `on ${process.platform}/${process.arch}. Nothing is compared this run. Provenance is written to ` +
+          `${PROVENANCE_PATH}. If this is not the platform the nightly comparison runs on, you are ` +
+          `re-creating the very mismatch this flag exists to fix.`,
+      );
+    }
   }
   if (args.csp !== null) console.log('[probe] CSP override active — the document policy is being replaced in-flight');
   if (args.block.length > 0) console.log(`[probe] blocking requests matching: ${args.block.join(', ')}`);
@@ -191,6 +208,14 @@ async function main(): Promise<void> {
   });
 
   await browser.close().catch(() => { /* nothing left to protect */ });
+
+  // Written AFTER the captures, not before: provenance that claims a platform
+  // for images that were never written would be worse than none, because the
+  // mismatch check would then report agreement it has not verified.
+  if (args.visual && args.rebaseline && !synthetic) {
+    writeProvenance(root, currentProvenance());
+    console.log(`[probe] baseline provenance written to ${PROVENANCE_PATH}`);
+  }
 
   const file: ProbeFile = { generatedAt: new Date().toISOString(), siteUrl: args.base, results };
   const outPath = resolve(root, defaultOutPath(args, date));
