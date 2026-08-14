@@ -1,17 +1,27 @@
 {
-  "collectedAt": "2026-08-12T11:04:33.618Z",
-  "finishedAt": "2026-08-12T11:10:41.923Z",
-  "durationMs": 368305,
-  "healthy": true,
-  "healthyCount": 7,
+  "collectedAt": "2026-08-14T02:25:21.739Z",
+  "finishedAt": "2026-08-14T02:31:30.454Z",
+  "durationMs": 368715,
+  "healthy": false,
+  "healthyCount": 5,
   "total": 7,
-  "coveragePct": 100,
-  "unhealthy": [],
+  "coveragePct": 71,
+  "unhealthy": [
+    {
+      "name": "gsc",
+      "reason": "URL Inspection rotation cursor is not usable — data/gsc/inspection-rotation.json is absent, so the rotation has no memory of which URLs it has already seen. This run swept all 49 eligible URL(s) instead of taking a batch, so tonight's coverage is complete but the full pacing cost stands and tomorrow will pay it again. Rotation only pays for itself once data/gsc/inspection-rotation.json survives between runs — the nightly workflow must stage it alongside data/collectors. Absent is expected exactly once, on the first run ever."
+    },
+    {
+      "name": "amazon",
+      "reason": "the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
+    }
+  ],
+  "envNameDrift": [],
   "ledger": {
     "available": true,
-    "filed": 0,
+    "filed": 2,
     "failed": 0,
-    "note": "no unhealthy collectors to file"
+    "note": "filed 2 collector finding(s)"
   },
   "collectors": {
     "gsc": {
@@ -24,7 +34,7 @@
         },
         "performance": {
           "pulledAt": "2026-08-10T09:26:57.479Z",
-          "ageHours": 49.6,
+          "ageHours": 89,
           "dateRange": {
             "start": "2026-05-12",
             "end": "2026-08-10",
@@ -41,7 +51,7 @@
         },
         "analysis": {
           "generatedAt": "2026-08-10T09:26:57.919Z",
-          "ageHours": 49.6,
+          "ageHours": 89,
           "opportunityCount": 42,
           "ctrLeakCount": 20,
           "decayAlertCount": 0
@@ -51,17 +61,18 @@
           "eligible": 49,
           "requested": 49,
           "inspected": 49,
+          "observed": 49,
           "failed": 0,
           "quotaExceeded": false,
           "coveragePct": 100,
+          "freshPct": 100,
           "verdicts": {
             "PASS": 45,
             "NEUTRAL": 4
           },
           "coverageStates": {
             "Submitted and indexed": 45,
-            "Discovered - currently not indexed": 2,
-            "URL is unknown to Google": 1,
+            "Discovered - currently not indexed": 3,
             "Crawled - currently not indexed": 1
           },
           "notIndexed": [
@@ -71,6 +82,22 @@
             "https://tallchairadvisor.com/standing-desk-height-tall-people/"
           ],
           "pages": [
+            {
+              "url": "https://tallchairadvisor.com/",
+              "file": "src/pages/index.astro",
+              "verdict": "PASS",
+              "coverageState": "Submitted and indexed",
+              "indexingState": "INDEXING_ALLOWED",
+              "robotsTxtState": "ALLOWED",
+              "pageFetchState": "SUCCESSFUL",
+              "lastCrawlTime": "2026-08-12T04:19:22Z",
+              "googleCanonical": "https://tallchairadvisor.com/",
+              "userCanonical": "https://tallchairadvisor.com/",
+              "error": null,
+              "inspectedAt": "2026-08-14T02:25:28.809Z",
+              "fresh": true,
+              "ageDays": 0
+            },
             {
               "url": "https://tallchairadvisor.com/about/",
               "file": "src/pages/about.astro",
@@ -82,7 +109,10 @@
               "lastCrawlTime": "2026-08-02T21:26:30Z",
               "googleCanonical": "https://tallchairadvisor.com/about/",
               "userCanonical": "https://tallchairadvisor.com/about/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:25:36.349Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
@@ -95,7 +125,10 @@
               "lastCrawlTime": "2026-08-05T06:13:05Z",
               "googleCanonical": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
               "userCanonical": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:25:43.937Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/aeron-vs-gesture/",
@@ -108,7 +141,10 @@
               "lastCrawlTime": "2026-08-12T02:21:07Z",
               "googleCanonical": "https://tallchairadvisor.com/aeron-vs-gesture/",
               "userCanonical": "https://tallchairadvisor.com/aeron-vs-gesture/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:25:51.481Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
@@ -121,7 +157,10 @@
               "lastCrawlTime": "2026-07-22T09:31:57Z",
               "googleCanonical": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
               "userCanonical": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:25:58.995Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/back-pain-spine-height/",
@@ -134,7 +173,10 @@
               "lastCrawlTime": "2026-08-04T06:22:41Z",
               "googleCanonical": "https://tallchairadvisor.com/back-pain-spine-height/",
               "userCanonical": "https://tallchairadvisor.com/back-pain-spine-height/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:06.591Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
@@ -147,7 +189,10 @@
               "lastCrawlTime": "2026-07-26T08:08:27Z",
               "googleCanonical": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
               "userCanonical": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:14.115Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/best-office-chairs-under-500/",
@@ -160,7 +205,10 @@
               "lastCrawlTime": "2026-08-07T01:44:09Z",
               "googleCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
               "userCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:21.582Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chair-headrest-tall-people/",
@@ -173,7 +221,10 @@
               "lastCrawlTime": "2026-08-05T06:11:05Z",
               "googleCanonical": "https://tallchairadvisor.com/chair-headrest-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/chair-headrest-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:29.084Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
@@ -186,7 +237,10 @@
               "lastCrawlTime": "2026-08-02T18:56:40Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
               "userCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:36.705Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/",
@@ -199,7 +253,10 @@
               "lastCrawlTime": null,
               "googleCanonical": null,
               "userCanonical": null,
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:44.221Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
@@ -212,7 +269,10 @@
               "lastCrawlTime": "2026-08-08T12:27:02Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
               "userCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:51.745Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
@@ -225,7 +285,10 @@
               "lastCrawlTime": "2026-08-02T18:19:09Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
               "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:26:59.271Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
@@ -238,7 +301,10 @@
               "lastCrawlTime": "2026-08-10T22:32:06Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
               "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:06.917Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
@@ -251,7 +317,10 @@
               "lastCrawlTime": "2026-07-14T07:57:23Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
               "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:14.555Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/",
@@ -264,7 +333,10 @@
               "lastCrawlTime": "2026-08-11T03:32:11Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/",
               "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:22.065Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/",
@@ -277,7 +349,10 @@
               "lastCrawlTime": "2026-06-08T06:31:19Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/",
               "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:29.536Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/",
@@ -290,7 +365,10 @@
               "lastCrawlTime": "2026-07-14T20:14:33Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/",
               "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:37.068Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/",
@@ -303,7 +381,10 @@
               "lastCrawlTime": "2026-07-03T10:56:15Z",
               "googleCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/",
               "userCanonical": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:44.574Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/correct-chair-dimensions/",
@@ -316,7 +397,10 @@
               "lastCrawlTime": "2026-08-12T06:49:47Z",
               "googleCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
               "userCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:52.075Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/fit-guides/",
@@ -329,7 +413,10 @@
               "lastCrawlTime": "2026-08-07T23:18:54Z",
               "googleCanonical": "https://tallchairadvisor.com/fit-guides/",
               "userCanonical": "https://tallchairadvisor.com/fit-guides/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:27:59.573Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
@@ -342,7 +429,10 @@
               "lastCrawlTime": "2026-08-08T00:33:55Z",
               "googleCanonical": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
               "userCanonical": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:07.097Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
@@ -355,7 +445,10 @@
               "lastCrawlTime": "2026-08-05T06:13:05Z",
               "googleCanonical": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:14.577Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/how-to-adjust-chair/",
@@ -368,20 +461,10 @@
               "lastCrawlTime": "2026-07-28T17:54:15Z",
               "googleCanonical": "https://tallchairadvisor.com/how-to-adjust-chair/",
               "userCanonical": "https://tallchairadvisor.com/how-to-adjust-chair/",
-              "error": null
-            },
-            {
-              "url": "https://tallchairadvisor.com/",
-              "file": "src/pages/index.astro",
-              "verdict": "PASS",
-              "coverageState": "Submitted and indexed",
-              "indexingState": "INDEXING_ALLOWED",
-              "robotsTxtState": "ALLOWED",
-              "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-08-12T04:19:22Z",
-              "googleCanonical": "https://tallchairadvisor.com/",
-              "userCanonical": "https://tallchairadvisor.com/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:22.057Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
@@ -394,7 +477,10 @@
               "lastCrawlTime": "2026-08-05T06:13:05Z",
               "googleCanonical": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:29.516Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/knee-pain-seat-depth/",
@@ -407,7 +493,10 @@
               "lastCrawlTime": "2026-08-11T04:48:12Z",
               "googleCanonical": "https://tallchairadvisor.com/knee-pain-seat-depth/",
               "userCanonical": "https://tallchairadvisor.com/knee-pain-seat-depth/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:37.140Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/leg-pain-circulation/",
@@ -420,7 +509,10 @@
               "lastCrawlTime": "2026-07-31T13:45:40Z",
               "googleCanonical": "https://tallchairadvisor.com/leg-pain-circulation/",
               "userCanonical": "https://tallchairadvisor.com/leg-pain-circulation/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:44.626Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/lumbar-support-tall-people/",
@@ -433,7 +525,10 @@
               "lastCrawlTime": null,
               "googleCanonical": null,
               "userCanonical": null,
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:52.131Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/monitor-arm-tall-people/",
@@ -446,7 +541,10 @@
               "lastCrawlTime": "2026-07-31T18:50:37Z",
               "googleCanonical": "https://tallchairadvisor.com/monitor-arm-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/monitor-arm-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:28:59.669Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/",
@@ -459,20 +557,26 @@
               "lastCrawlTime": "2026-07-31T16:57:55Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:07.268Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chair-return-policy/",
               "file": "src/pages/office-chair-return-policy.astro",
               "verdict": "NEUTRAL",
-              "coverageState": "URL is unknown to Google",
+              "coverageState": "Discovered - currently not indexed",
               "indexingState": "INDEXING_STATE_UNSPECIFIED",
               "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
               "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
               "lastCrawlTime": null,
               "googleCanonical": null,
               "userCanonical": null,
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:14.751Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
@@ -485,7 +589,10 @@
               "lastCrawlTime": "2026-07-25T21:15:53Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
               "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:22.256Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
@@ -498,7 +605,10 @@
               "lastCrawlTime": "2026-07-31T20:05:37Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
               "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:29.779Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
@@ -511,7 +621,10 @@
               "lastCrawlTime": "2026-07-31T21:58:55Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
               "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:37.359Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-6/",
@@ -521,10 +634,13 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-08-02T16:26:32Z",
+              "lastCrawlTime": "2026-08-12T21:39:07Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-6/",
               "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-6/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:44.897Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
@@ -537,7 +653,10 @@
               "lastCrawlTime": "2026-08-07T02:29:51Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
               "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:52.395Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
@@ -550,7 +669,10 @@
               "lastCrawlTime": "2026-08-08T17:18:23Z",
               "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:29:59.868Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/pain-ergonomics/",
@@ -563,7 +685,10 @@
               "lastCrawlTime": "2026-08-11T01:02:09Z",
               "googleCanonical": "https://tallchairadvisor.com/pain-ergonomics/",
               "userCanonical": "https://tallchairadvisor.com/pain-ergonomics/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:30:07.477Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
@@ -573,10 +698,13 @@
               "indexingState": "INDEXING_ALLOWED",
               "robotsTxtState": "ALLOWED",
               "pageFetchState": "SUCCESSFUL",
-              "lastCrawlTime": "2026-08-05T06:13:05Z",
+              "lastCrawlTime": "2026-08-12T15:18:25Z",
               "googleCanonical": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:30:15.126Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/review/aeron-size-c/",
@@ -589,7 +717,10 @@
               "lastCrawlTime": "2026-08-08T16:03:23Z",
               "googleCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
               "userCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:30:22.623Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/review/gesture/",
@@ -602,7 +733,10 @@
               "lastCrawlTime": "2026-08-07T17:52:35Z",
               "googleCanonical": "https://tallchairadvisor.com/review/gesture/",
               "userCanonical": "https://tallchairadvisor.com/review/gesture/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:30:30.236Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/review/leap-plus/",
@@ -615,7 +749,10 @@
               "lastCrawlTime": "2026-08-08T18:33:23Z",
               "googleCanonical": "https://tallchairadvisor.com/review/leap-plus/",
               "userCanonical": "https://tallchairadvisor.com/review/leap-plus/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:30:37.727Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
@@ -628,7 +765,10 @@
               "lastCrawlTime": "2026-08-12T01:00:48Z",
               "googleCanonical": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
               "userCanonical": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:30:45.230Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
@@ -641,7 +781,10 @@
               "lastCrawlTime": "2026-08-05T06:13:05Z",
               "googleCanonical": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:30:52.853Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
@@ -654,7 +797,10 @@
               "lastCrawlTime": "2026-06-12T18:27:16Z",
               "googleCanonical": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:31:00.343Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
@@ -667,7 +813,10 @@
               "lastCrawlTime": "2026-08-05T14:39:42Z",
               "googleCanonical": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:31:07.803Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
@@ -680,7 +829,10 @@
               "lastCrawlTime": "2026-07-03T09:38:25Z",
               "googleCanonical": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:31:15.395Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
@@ -693,7 +845,10 @@
               "lastCrawlTime": "2026-08-12T05:34:42Z",
               "googleCanonical": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
               "userCanonical": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:31:22.853Z",
+              "fresh": true,
+              "ageDays": 0
             },
             {
               "url": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
@@ -706,16 +861,236 @@
               "lastCrawlTime": "2026-08-05T06:13:05Z",
               "googleCanonical": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
               "userCanonical": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
-              "error": null
+              "error": null,
+              "inspectedAt": "2026-08-14T02:31:30.366Z",
+              "fresh": true,
+              "ageDays": 0
             }
-          ]
+          ],
+          "rotation": {
+            "batchSize": 49,
+            "statePersisting": false,
+            "stateNote": "data/gsc/inspection-rotation.json is absent, so the rotation has no memory of which URLs it has already seen",
+            "stateAgeHours": null,
+            "sweeping": true,
+            "runs": 1,
+            "cycleNumber": 1,
+            "cycleStartedAt": "2026-08-14T02:25:22.234Z",
+            "cycleBudgetNights": 1,
+            "stalenessBudgetDays": 3,
+            "lastCompletedCycle": 1,
+            "lastCompletedAt": "2026-08-14T02:31:30.366Z",
+            "lastCompletedNights": 1,
+            "coveredInCycle": 49,
+            "selected": [
+              {
+                "url": "https://tallchairadvisor.com/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/about/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/aeron-vs-gesture/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/back-pain-spine-height/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/best-office-chairs-under-500/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chair-headrest-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/correct-chair-dimensions/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/fit-guides/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/gesture-vs-leap-plus/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/how-to-adjust-chair/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/keyboard-tray-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/knee-pain-seat-depth/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/leg-pain-circulation/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/lumbar-support-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/monitor-arm-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chair-return-policy/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-6/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/pain-ergonomics/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/review/aeron-size-c/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/review/gesture/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/review/leap-plus/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
+                "reason": "new"
+              },
+              {
+                "url": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
+                "reason": "new"
+              }
+            ],
+            "dropped": [],
+            "overdue": [],
+            "oldestObservationDays": 0
+          }
         }
       },
       "meta": {
-        "collectedAt": "2026-08-12T11:10:41.922Z",
+        "collectedAt": "2026-08-14T02:31:30.371Z",
         "rowCount": 49,
-        "healthy": true,
-        "reason": null
+        "healthy": false,
+        "reason": "URL Inspection rotation cursor is not usable — data/gsc/inspection-rotation.json is absent, so the rotation has no memory of which URLs it has already seen. This run swept all 49 eligible URL(s) instead of taking a batch, so tonight's coverage is complete but the full pacing cost stands and tomorrow will pay it again. Rotation only pays for itself once data/gsc/inspection-rotation.json survives between runs — the nightly workflow must stage it alongside data/collectors. Absent is expected exactly once, on the first run ever."
       }
     },
     "ga4": {
@@ -724,7 +1099,7 @@
         "propertyId": "516318682",
         "propertyIdEnvMatches": true,
         "pulledAt": "2026-08-10T09:27:03.609Z",
-        "ageHours": 49.6,
+        "ageHours": 89,
         "slaHours": 192,
         "dateRange": {
           "start": "2026-07-13",
@@ -777,7 +1152,7 @@
         "aiReferralSessions": 72
       },
       "meta": {
-        "collectedAt": "2026-08-12T11:04:33.637Z",
+        "collectedAt": "2026-08-14T02:25:21.756Z",
         "rowCount": 50,
         "healthy": true,
         "reason": null
@@ -786,31 +1161,32 @@
     "clarity": {
       "data": {
         "source": "data/clarity/latest.json",
-        "pulledAt": "2026-08-11T10:52:06.526Z",
-        "ageHours": 24.2,
+        "pulledAt": "2026-08-13T11:02:19.040Z",
+        "ageHours": 15.4,
         "slaHours": 192,
         "numOfDays": 2,
-        "pageCount": 51,
+        "pageCount": 52,
         "deviceSplit": {
-          "mobile": 0.36,
-          "pc": 0.64,
-          "other": 0
+          "mobile": 0.556,
+          "pc": 0.389,
+          "other": 0,
+          "tablet": 0.056
         },
-        "alertCount": 9,
+        "alertCount": 11,
         "alertsByIssue": {
-          "low-scroll-depth": 9
+          "low-scroll-depth": 11
         },
         "credential": {
           "envVar": "CLARITY_TOKEN",
           "present": true,
           "live": true,
-          "checkedAt": "2026-08-12T11:04:33.639Z",
-          "detail": null
+          "checkedAt": "2026-08-13T11:02:19.040Z",
+          "detail": "not re-pinged — data/clarity/latest.json was pulled 15.4h ago, which is itself proof the credential was live. Conserves the 10/day quota (A3)."
         }
       },
       "meta": {
-        "collectedAt": "2026-08-12T11:04:34.458Z",
-        "rowCount": 51,
+        "collectedAt": "2026-08-14T02:25:21.758Z",
+        "rowCount": 52,
         "healthy": true,
         "reason": null
       }
@@ -829,30 +1205,42 @@
         },
         "pages": {
           "project": "tallchairadvisor",
-          "deploymentId": "2d23ff1c-6f93-48ad-93fc-79622a625455",
-          "shortId": "2d23ff1c",
+          "deploymentId": "e8811593-aadb-4435-be8f-5ae58c1386e9",
+          "shortId": "e8811593",
           "environment": "production",
-          "url": "https://2d23ff1c.tallchairadvisor.pages.dev",
-          "createdOn": "2026-08-12T09:15:29.931577Z",
+          "url": "https://e8811593.tallchairadvisor.pages.dev",
+          "createdOn": "2026-08-13T11:02:22.265134Z",
           "stage": "deploy",
           "status": "success",
           "branch": "main",
-          "commitHash": "db8723f78a4d70a65d4ebc612a88fed571309017",
-          "commitMessage": "[skip cd] plan: Week of 2026-08-12"
+          "commitHash": "dae34b117ada0315c115bcba9e34e4d309b98b4d",
+          "commitMessage": "[skip cd] data: Clarity history 2026-08-13"
         },
         "cache": {
           "windowDays": 7,
-          "requests": 20383,
-          "cachedRequests": 3955,
-          "hitRatePct": 19.4,
-          "bytes": 223025629,
-          "cachedBytes": 103151901,
+          "requests": 16742,
+          "cachedRequests": 2518,
+          "hitRatePct": 15,
+          "bytes": 175171732,
+          "cachedBytes": 69918576,
           "byDay": [
             {
+              "date": "2026-08-14",
+              "requests": 128,
+              "cachedRequests": 2,
+              "hitRatePct": 1.6
+            },
+            {
+              "date": "2026-08-13",
+              "requests": 1502,
+              "cachedRequests": 49,
+              "hitRatePct": 3.3
+            },
+            {
               "date": "2026-08-12",
-              "requests": 602,
-              "cachedRequests": 26,
-              "hitRatePct": 4.3
+              "requests": 2012,
+              "cachedRequests": 295,
+              "hitRatePct": 14.7
             },
             {
               "date": "2026-08-11",
@@ -877,35 +1265,23 @@
               "requests": 2867,
               "cachedRequests": 420,
               "hitRatePct": 14.6
-            },
-            {
-              "date": "2026-08-07",
-              "requests": 2756,
-              "cachedRequests": 327,
-              "hitRatePct": 11.9
-            },
-            {
-              "date": "2026-08-06",
-              "requests": 3925,
-              "cachedRequests": 1430,
-              "hitRatePct": 36.4
             }
           ]
         },
         "waf": {
           "windowDays": 1,
-          "totalEvents": 2,
+          "totalEvents": 4,
           "byAction": {
-            "block": 2
+            "block": 4
           },
           "bySource": {
-            "firewallManaged": 2
+            "firewallManaged": 4
           }
         },
         "unavailable": []
       },
       "meta": {
-        "collectedAt": "2026-08-12T11:04:34.782Z",
+        "collectedAt": "2026-08-14T02:25:23.542Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -930,7 +1306,7 @@
               "conclusion": "failure",
               "startedAt": "2026-08-09T08:40:01Z",
               "finishedAt": "2026-08-09T08:40:56Z",
-              "daysAgo": 3,
+              "daysAgo": 4,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31304060725",
               "headSha": "42e67c134ff28ab8fc7d5b0c14520b79588a2a3e",
               "event": "schedule"
@@ -961,22 +1337,21 @@
             "cron": "0 10 */2 * *",
             "expectedCadenceDays": 2,
             "lastRun": {
-              "runNumber": 30,
+              "runNumber": 31,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-11T10:51:41Z",
-              "finishedAt": "2026-08-11T10:52:12Z",
-              "daysAgo": 1,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31484065833",
-              "headSha": "01fb97567570fd3045a16da0d7168d4f8b61a222",
+              "startedAt": "2026-08-13T11:01:46Z",
+              "finishedAt": "2026-08-13T11:02:25Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31693703395",
+              "headSha": "20aab8532ef35528ad1c3f14ecaf58cbb6721575",
               "event": "schedule"
             },
-            "committedDuringRun": 2,
+            "committedDuringRun": 1,
             "commitSubjects": [
-              "[skip cd] nightly: god's-eye 2026-08-11",
-              "[skip cd] data: Clarity history 2026-08-11"
+              "[skip cd] data: Clarity history 2026-08-13"
             ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-11T10:51:41Z) and run end + 15min (2026-08-11T11:07:12.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-13T11:01:46Z) and run end + 15min (2026-08-13T11:17:25.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -991,7 +1366,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-07T08:47:23Z",
               "finishedAt": "2026-08-07T08:51:19Z",
-              "daysAgo": 5,
+              "daysAgo": 6,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31163161497",
               "headSha": "eee42b972f532715e7e263235578c7ce467fe936",
               "event": "schedule"
@@ -1013,7 +1388,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-01T09:50:38Z",
               "finishedAt": "2026-08-01T09:52:05Z",
-              "daysAgo": 11,
+              "daysAgo": 12,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
               "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
               "event": "schedule"
@@ -1037,7 +1412,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-10T09:26:29Z",
               "finishedAt": "2026-08-10T09:55:51Z",
-              "daysAgo": 2,
+              "daysAgo": 3,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31374596736",
               "headSha": "b41449857df42baa05c36120041c4d7158813ba3",
               "event": "schedule"
@@ -1053,22 +1428,22 @@
             "name": "Nightly — God's-Eye",
             "path": ".github/workflows/nightly.yml",
             "state": "active",
-            "cron": "0 10 * * *",
+            "cron": "0 0 * * *",
             "expectedCadenceDays": 1,
             "lastRun": {
-              "runNumber": 11,
+              "runNumber": 12,
               "status": "in_progress",
               "conclusion": null,
-              "startedAt": "2026-08-12T11:03:26Z",
-              "finishedAt": "2026-08-12T11:03:36Z",
+              "startedAt": "2026-08-14T02:24:30Z",
+              "finishedAt": "2026-08-14T02:24:34Z",
               "daysAgo": 0,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31590146103",
-              "headSha": "db8723f78a4d70a65d4ebc612a88fed571309017",
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31763629883",
+              "headSha": "dae34b117ada0315c115bcba9e34e4d309b98b4d",
               "event": "schedule"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-12T11:03:26Z) and run end + 15min (2026-08-12T11:18:36.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-14T02:24:30Z) and run end + 15min (2026-08-14T02:39:34.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1095,7 +1470,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-09T05:26:02Z",
               "finishedAt": "2026-08-09T05:26:43Z",
-              "daysAgo": 3,
+              "daysAgo": 4,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31296673712",
               "headSha": "e4ba4b481c245e5f6c61261befd1e148f4cce18c",
               "event": "workflow_dispatch"
@@ -1115,19 +1490,19 @@
             "cron": null,
             "expectedCadenceDays": null,
             "lastRun": {
-              "runNumber": 17,
+              "runNumber": 21,
               "status": "completed",
               "conclusion": "success",
-              "startedAt": "2026-08-09T08:21:18Z",
-              "finishedAt": "2026-08-09T08:21:52Z",
-              "daysAgo": 3,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31303321375",
-              "headSha": "42e67c134ff28ab8fc7d5b0c14520b79588a2a3e",
+              "startedAt": "2026-08-13T09:40:27Z",
+              "finishedAt": "2026-08-13T09:41:12Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31687664729",
+              "headSha": "20aab8532ef35528ad1c3f14ecaf58cbb6721575",
               "event": "push"
             },
             "committedDuringRun": 0,
             "commitSubjects": [],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-09T08:21:18Z) and run end + 15min (2026-08-09T08:36:52.000Z) — inferred, not authoritative",
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-13T09:40:27Z) and run end + 15min (2026-08-13T09:56:12.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1137,22 +1512,19 @@
             "cron": "0 8 * * 4",
             "expectedCadenceDays": 7,
             "lastRun": {
-              "runNumber": 24,
+              "runNumber": 25,
               "status": "completed",
-              "conclusion": "success",
-              "startedAt": "2026-08-06T10:21:46Z",
-              "finishedAt": "2026-08-06T10:22:16Z",
-              "daysAgo": 6,
-              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31092944439",
-              "headSha": "c5478698bd24bf6dae9fecd4fca2612d2cd201c3",
+              "conclusion": "failure",
+              "startedAt": "2026-08-13T08:58:33Z",
+              "finishedAt": "2026-08-13T09:11:55Z",
+              "daysAgo": 0,
+              "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31684472423",
+              "headSha": "220b8cc7bf8fc24631e5a57644cc71d6feb2322f",
               "event": "schedule"
             },
-            "committedDuringRun": 2,
-            "commitSubjects": [
-              "[skip cd] data: No pages written 2026-08-06 — see content-log.md",
-              "[skip cd] data: Thursday wiki + reports 2026-08-06"
-            ],
-            "commitInferenceMethod": "bot commits on main between run start (2026-08-06T10:21:46Z) and run end + 15min (2026-08-06T10:37:16.000Z) — inferred, not authoritative",
+            "committedDuringRun": 0,
+            "commitSubjects": [],
+            "commitInferenceMethod": "bot commits on main between run start (2026-08-13T08:58:33Z) and run end + 15min (2026-08-13T09:26:55.000Z) — inferred, not authoritative",
             "stale": false
           },
           {
@@ -1167,7 +1539,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-11T08:54:24Z",
               "finishedAt": "2026-08-11T08:57:28Z",
-              "daysAgo": 1,
+              "daysAgo": 2,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31475296107",
               "headSha": "55be931d1dbd47a81e546b0196c43f80c0fe44fd",
               "event": "schedule"
@@ -1191,7 +1563,7 @@
               "conclusion": "success",
               "startedAt": "2026-08-12T09:14:30Z",
               "finishedAt": "2026-08-12T09:15:31Z",
-              "daysAgo": 0,
+              "daysAgo": 1,
               "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/31582015970",
               "headSha": "ca980692a691f56693e86033851ec565bb48ec5e",
               "event": "schedule"
@@ -1205,7 +1577,8 @@
           }
         ],
         "failing": [
-          "Amazon — Weekly Associates Pull"
+          "Amazon — Weekly Associates Pull",
+          "Thursday — Execute Fixes"
         ],
         "stale": [],
         "neverRan": [
@@ -1218,7 +1591,7 @@
         ]
       },
       "meta": {
-        "collectedAt": "2026-08-12T11:04:45.479Z",
+        "collectedAt": "2026-08-14T02:25:32.672Z",
         "rowCount": 13,
         "healthy": true,
         "reason": null
@@ -1295,7 +1668,7 @@
         "low": []
       },
       "meta": {
-        "collectedAt": "2026-08-12T11:04:37.296Z",
+        "collectedAt": "2026-08-14T02:25:22.683Z",
         "rowCount": 3,
         "healthy": true,
         "reason": null
@@ -1316,18 +1689,18 @@
         "matchCount": 0,
         "newest": null,
         "recent": [],
-        "overdue": false,
+        "overdue": true,
         "automatedPull": {
           "present": true,
-          "ageDays": 3,
+          "ageDays": 4,
           "note": "window 2026-07-11..2026-08-09 (rolling-30-day, mode=daily); 108 clicks, 7 ordered, $3337.74 ordered revenue, $100.40 SHIPPED earnings (pre-clawback, not net)"
         }
       },
       "meta": {
-        "collectedAt": "2026-08-12T11:04:33.680Z",
+        "collectedAt": "2026-08-14T02:25:21.905Z",
         "rowCount": 25,
-        "healthy": true,
-        "reason": null
+        "healthy": false,
+        "reason": "the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
       }
     }
   }

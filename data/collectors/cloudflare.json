@@ -12,30 +12,42 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "2d23ff1c-6f93-48ad-93fc-79622a625455",
-      "shortId": "2d23ff1c",
+      "deploymentId": "e8811593-aadb-4435-be8f-5ae58c1386e9",
+      "shortId": "e8811593",
       "environment": "production",
-      "url": "https://2d23ff1c.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-12T09:15:29.931577Z",
+      "url": "https://e8811593.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-13T11:02:22.265134Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "db8723f78a4d70a65d4ebc612a88fed571309017",
-      "commitMessage": "[skip cd] plan: Week of 2026-08-12"
+      "commitHash": "dae34b117ada0315c115bcba9e34e4d309b98b4d",
+      "commitMessage": "[skip cd] data: Clarity history 2026-08-13"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 20383,
-      "cachedRequests": 3955,
-      "hitRatePct": 19.4,
-      "bytes": 223025629,
-      "cachedBytes": 103151901,
+      "requests": 16742,
+      "cachedRequests": 2518,
+      "hitRatePct": 15,
+      "bytes": 175171732,
+      "cachedBytes": 69918576,
       "byDay": [
         {
+          "date": "2026-08-14",
+          "requests": 128,
+          "cachedRequests": 2,
+          "hitRatePct": 1.6
+        },
+        {
+          "date": "2026-08-13",
+          "requests": 1502,
+          "cachedRequests": 49,
+          "hitRatePct": 3.3
+        },
+        {
           "date": "2026-08-12",
-          "requests": 602,
-          "cachedRequests": 26,
-          "hitRatePct": 4.3
+          "requests": 2012,
+          "cachedRequests": 295,
+          "hitRatePct": 14.7
         },
         {
           "date": "2026-08-11",
@@ -60,35 +72,23 @@
           "requests": 2867,
           "cachedRequests": 420,
           "hitRatePct": 14.6
-        },
-        {
-          "date": "2026-08-07",
-          "requests": 2756,
-          "cachedRequests": 327,
-          "hitRatePct": 11.9
-        },
-        {
-          "date": "2026-08-06",
-          "requests": 3925,
-          "cachedRequests": 1430,
-          "hitRatePct": 36.4
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 2,
+      "totalEvents": 4,
       "byAction": {
-        "block": 2
+        "block": 4
       },
       "bySource": {
-        "firewallManaged": 2
+        "firewallManaged": 4
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-12T11:04:34.782Z",
+    "collectedAt": "2026-08-14T02:25:23.542Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null

@@ -13,17 +13,17 @@
     "matchCount": 0,
     "newest": null,
     "recent": [],
-    "overdue": false,
+    "overdue": true,
     "automatedPull": {
       "present": true,
-      "ageDays": 3,
+      "ageDays": 4,
       "note": "window 2026-07-11..2026-08-09 (rolling-30-day, mode=daily); 108 clicks, 7 ordered, $3337.74 ordered revenue, $100.40 SHIPPED earnings (pre-clawback, not net)"
     }
   },
   "meta": {
-    "collectedAt": "2026-08-12T11:04:33.680Z",
+    "collectedAt": "2026-08-14T02:25:21.905Z",
     "rowCount": 25,
-    "healthy": true,
-    "reason": null
+    "healthy": false,
+    "reason": "the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
   }
 }
