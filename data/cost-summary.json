@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-14T02:32:05.182Z",
+  "generatedAt": "2026-08-15T01:39:09.991Z",
   "ledger": "data/cost-ledger.jsonl",
   "records": {
-    "total": 63,
-    "llm": 18,
-    "external": 45
+    "total": 66,
+    "llm": 19,
+    "external": 47
   },
   "note": null,
   "totals": {
-    "records": 18,
-    "input": 1876013,
-    "output": 43008,
+    "records": 19,
+    "input": 1983325,
+    "output": 47008,
     "cacheWrite": 0,
     "cacheRead": 0,
-    "usd": 6.273159
+    "usd": 6.655095
   },
   "byRun": {
     "2026-08-05": {
@@ -79,16 +79,24 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.308721
+    },
+    "2026-08-13": {
+      "records": 1,
+      "input": 107312,
+      "output": 4000,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.381936
     }
   },
   "byAgent": {
     "nightly-report": {
-      "records": 18,
-      "input": 1876013,
-      "output": 43008,
+      "records": 19,
+      "input": 1983325,
+      "output": 47008,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 6.273159
+      "usd": 6.655095
     }
   },
   "byDay": {
@@ -147,16 +155,24 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.308721
+    },
+    "2026-08-14": {
+      "records": 1,
+      "input": 107312,
+      "output": 4000,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.381936
     }
   },
   "byMonth": {
     "2026-08": {
-      "records": 18,
-      "input": 1876013,
-      "output": 43008,
+      "records": 19,
+      "input": 1983325,
+      "output": 47008,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 6.273159
+      "usd": 6.655095
     }
   },
   "bySite": {
@@ -167,6 +183,14 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 6.273159
+    },
+    "tallchairadvisor.com": {
+      "records": 1,
+      "input": 107312,
+      "output": 4000,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.381936
     }
   },
   "externalBySite": {
@@ -192,24 +216,30 @@
     },
     "tallchairadvisor.com": {
       "gsc-url-inspection": {
+        "records": 2,
+        "usd": 0,
+        "credits": 59,
+        "pages": 0
+      },
+      "clarity-export-api": {
         "records": 1,
         "usd": 0,
-        "credits": 49,
+        "credits": 1,
         "pages": 0
       }
     }
   },
   "externalByService": {
     "clarity-export-api": {
-      "records": 14,
+      "records": 15,
       "usd": 0,
-      "credits": 14,
+      "credits": 15,
       "pages": 0
     },
     "gsc-url-inspection": {
-      "records": 20,
+      "records": 21,
       "usd": 0,
-      "credits": 788,
+      "credits": 798,
       "pages": 0
     },
     "firecrawl": {
@@ -221,12 +251,12 @@
   },
   "models": {
     "claude-sonnet-4-6": {
-      "records": 18,
-      "input": 1876013,
-      "output": 43008,
+      "records": 19,
+      "input": 1983325,
+      "output": 47008,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 6.273159
+      "usd": 6.655095
     }
   }
 }
