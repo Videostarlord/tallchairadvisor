@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-10
+last_updated: 2026-08-17
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,13 +70,10 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-08-10. 8 pages analyzed × up to 3 queries each. 29 URLs crawled (39 cache hits). 2 high-priority gaps. Top editorial outrankers: thehumansolution.com, btod.com, forbes.com.*
+*v2 run 2026-08-17. 8 pages analyzed × up to 3 queries each. 23 URLs crawled (38 cache hits). 1 high-priority gaps. Top editorial outrankers: thehumansolution.com, crandalloffice.com, forbes.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-08-10 | Explicit fit-range verdict with labeled tiers (Best fit / Marginal / Not recomme | high | 1q | crandalloffice.com |
-| 2026-08-10 | The comparison is framed as Gesture vs Leap Plus throughout, but the target quer | high | 1q | btod.com |
-| 2026-08-10 | No explicit seat-back angle or hip angle specification is included in the proble | medium | 1q | ergo.human.cornell.edu |
-| 2026-08-10 | No desk height and monitor height co-adjustment guidance alongside chair dimensi | medium | 1q | karo.co.za |
-| 2026-08-10 | AggregateRating schema is absent — ItemList and ListItem are present per the sch | medium | 1q | forbes.com |
-| 2026-08-10 | No explicit scoring rubric or weighted criteria framework — the page makes quali | medium | 1q | btod.com |
+| 2026-08-17 | Weight capacity is mentioned per-chair but there is no audience segmentation axi | high | 1q | inchcalculator.com |
+| 2026-08-17 | No numeric seat-depth specification table comparing all three recommended chairs | medium | 1q | ergo.human.cornell.edu |
+| 2026-08-17 | AggregateRating schema is absent from the schema type list (Article, Person, Org | medium | 1q | inchcalculator.com |
