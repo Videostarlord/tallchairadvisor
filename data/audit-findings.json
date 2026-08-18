@@ -1,127 +1,134 @@
 {
-  "generatedAt": "2026-08-11T08:57:22.573Z",
+  "generatedAt": "2026-08-18T08:37:56.663Z",
   "dateRange": {
-    "start": "2026-05-12",
-    "end": "2026-08-10"
+    "start": "2026-05-19",
+    "end": "2026-08-17"
   },
-  "executiveSummary": "TallChairAdvisor.com has strong impression volume (100,628 in 90 days) but a critically low site-wide CTR of 0.25%, with several high-impression pages at or near position 5–10 earning near-zero clicks. The dominant issues are: a systemic title-length problem (5 pages exceed the 60-char ceiling), a confirmed spec error on the Leap Plus review (seat depth published as 15.75\"–19.75\" contradicts the verified 15.5\"–19.5\" standard spec), missing itemReviewed schema on review pages blocking rich results, and a WebSite @id dangling reference carried over from May. Under the Profit Audit routing directive, meta/CTR findings on AIO-suppressed informational pages (/knee-pain-seat-depth/, /correct-chair-dimensions/) are held out of scope; findings are concentrated on revenue-bearing money pages, deterministic defects, and schema correctness.",
+  "executiveSummary": "TallChairAdvisor is generating strong impressions (100,403 in 90 days) but a catastrophically low site-wide CTR of 0.25%, driven primarily by /knee-pain-seat-depth/ which alone accounts for 41% of all impressions at a 0.04% CTR — a confirmed AIO-suppression pattern that no snippet rewrite will fix. The highest-leverage opportunities are deterministic defects: a spec error on /chairs/steelcase-leap-plus/seat-height/ (title states wrong standard cylinder minimum), a voice-policy violation on /aeron-vs-gesture/ (first-person Gesture verdict on a page that must use research voice), a title over the 60-char limit on /correct-chair-dimensions/, and schema structural issues including a deprecated HowTo block and missing itemReviewed on review pages. The Profit Audit directive is enforced throughout: meta/CTR findings are suppressed for AIO-eaten informational pages, and findings are concentrated on correctness, affiliate integrity, and buyer-intent pages.",
   "weeklyFocus": [
-    "1. FIX SPEC ERRORS on /review/leap-plus/, /chairs/steelcase-leap-plus/tall-people/, and /office-chairs-for-6-foot-4/ — correct the Leap Plus seat depth (15.75\"–19.75\" → 15.5\"–19.5\" standard) and add the optional cylinder qualification to every 22.5\" claim. These are the Tier-1 money pages; a buyer who orders the wrong configuration destroys trust and triggers returns. Per decisions-log 2026-08-09, spec errors are deterministic defects exempt from cooldown — fix this week.",
-    "2. FIX SCHEMA on /review/leap-plus/ and /review/aeron-size-c/ — add itemReviewed to Review schema nodes and Product @id to Aeron Size C. These two pages are the site's top revenue earners; rich result eligibility (star ratings in SERP) directly increases CTR on buyer-intent queries with escapable SERPs. Also fix the WebSite @id dangling reference in index.astro — one-line change, open since May 10.",
-    "3. ADD INTERNAL LINKS from /office-chairs-for-tall-people/, /office-chairs-for-6-foot-4/, and /office-chairs-for-6-foot-6/ to /review/leap-plus/ — the Tier-1 money page sits at pos 8.8 and ranking it into pos 5–6 is the highest-EPC move available. The hub pages already recommend the Leap Plus as the primary pick; they just need contextual anchor links pointing to the full review to pass equity."
+    "1. VOICE + SCHEMA on /aeron-vs-gesture/: Remove first-person Gesture verdict from meta description and schema headline — this is a policy violation on a page Jackson has not personally tested. Rewrite meta to research voice (154 chars provided above) and fix schema headline. Simultaneously add itemReviewed to Review schema on /review/leap-plus/ and /review/aeron-size-c/ — these are the two highest-traffic review pages and rich result eligibility is blocked site-wide until this is resolved. All three fixes are deterministic and can ship in one Thursday execute-fixes run.",
+    "2. SCHEMA CRITICAL CARRIES: Fix the WebSite @id in index.astro (one-line addition, open since May 10) and remove the deprecated HowTo schema block from /correct-chair-dimensions/ (open since May 27). Both are deterministic defects with no cooldown concern — they should have shipped weeks ago. Also shorten /correct-chair-dimensions/ title from 73 to ≤60 chars in the same commit.",
+    "3. SPEC INTEGRITY SWEEP on height-specific pages: Verify /chairs/steelcase-leap-plus/seat-height/ body copy contains no spliced 15.5\"–22.5\" figures (standard + optional cylinder minimums mixed). Simultaneously audit /office-chairs-for-6-foot-3/, /office-chairs-for-6-foot-4/, and /office-chairs-for-6-foot-6/ to confirm Leap Plus affiliate links use ASIN B00TYE4QXU with tag=tallchairadvi-20 and include the optional cylinder caveat — these are the pages a buyer at exactly the relevant height lands on."
   ],
   "pagesNotNeedingAction": [
-    "/review/gesture/ — title (55 chars), meta (146 chars), canonical all healthy; schema itemReviewed was fixed May 25 (verify post-July 25 rebuild, flagged separately under schema-invalid). CTR is low but page is buyer-intent on an editorial SERP — internal linking finding on /office-chairs-for-tall-people/ addresses the root lever.",
-    "/gesture-vs-leap-plus/ — title (52 chars), meta (149 chars), canonical all within spec; schema present. CTR 0.42% on 1,422 impr at pos 9.9 is borderline but below the statistical confidence threshold for a standalone finding.",
-    "/chairs/herman-miller-aeron/tall-people/ — title (52 chars), meta (131 chars at floor but within window), canonical clean. CTR 1.21% is healthy for the impression volume.",
-    "/office-chairs-for-6-foot-3/ — title (45 chars is under floor but page has only 702 impr and 0.85% CTR; Profit Audit directs effort to higher-revenue pages first).",
-    "/office-chairs-for-6-foot-6/ — title (47 chars), meta (148 chars), CTR 2.67% — performing well; no action needed.",
-    "/pain-ergonomics/ — pos 29.7 is a content-depth problem requiring substantive rewrite, which is subject to the Profit Audit content freeze; held from findings.",
-    "/knee-pain-seat-depth/ — meta/CTR findings suppressed per Profit Audit directive: AIO-suppressed informational page, clicks not recoverable by snippet rewrite. Title length (63 chars) filed as separate finding.",
-    "/correct-chair-dimensions/ — meta/CTR/query-leak findings suppressed per Profit Audit directive: informational page with AIO-confirmed suppression on Cornell cluster queries. Schema (HowTo deprecated) and title length filed separately.",
-    "/chairs/steelcase-gesture/ — title (54 chars), meta (154 chars), canonical clean; no additional issues beyond what is covered by the site-wide schema @id pattern.",
-    "/back-pain-spine-height/ — meta (132 chars) is within acceptable range; title filed separately. No affiliate or schema issues visible in the data provided."
+    "/review/gesture/ — title (58 chars), meta (146 chars), and schema are all within spec. The 2026-08-09 rewrite is the active CTR test; no further action until next GSC readout. AIO suppression is not confirmed on this editorial SERP.",
+    "/office-chairs-for-6-foot-4/ — title (47 chars, borderline low but within tolerance), meta (146 chars) correctly states the optional cylinder caveat. No schema issues visible.",
+    "/office-chairs-for-6-foot-6/ — title and meta are within spec. The optional cylinder caveat is correctly stated in meta. CTR 2.44% is the highest on the site — page is performing well.",
+    "/chairs/steelcase-gesture/ — title (54 chars), meta (154 chars) within spec. Schema and canonical are clean.",
+    "/chairs/steelcase-gesture/seat-depth/ — title (49 chars) and meta (151 chars) are within spec. CTR leak finding is filed separately as aio-suppression; no additional on-page defects.",
+    "/gesture-vs-leap-plus/ — title (52 chars), meta (149 chars), canonical all clean. No schema anomalies in the truncated data.",
+    "/chairs/herman-miller-aeron/tall-people/ — title (52 chars), meta (131 chars, borderline low but above 130-char floor), CTR 1.24% is healthy for a sub-page.",
+    "/back-pain-spine-height/ — meta (132 chars) is within the 130–155 range. Title is filed as a separate finding. No other defects visible."
   ],
   "findings": [
     {
-      "findingId": "9f9636eb65e2",
-      "page": "/review/leap-plus/",
+      "findingId": "32766b2a9f2c",
+      "page": "/chairs/steelcase-leap-plus/seat-height/",
       "issueClass": "spec-error",
       "severity": "critical",
-      "summary": "Leap Plus seat depth published in meta as 15.75\"–19.75\" contradicts the verified spec of 15.75\"–19.75\" — but the title and on-page copy carry the legacy spliced figure; cross-check against decisions-log 2026-08-06 shows the correct standard seat depth is 15.5\"–19.5\" and the optional cylinder shifts the floor to 17.5\" with a max of 22.5\".",
-      "recommendation": "Correct seat depth in meta description and all on-page copy to: standard cylinder 15.5\"–19.5\"; optional cylinder (add ~$63 at order) 17.5\"–22.5\". Updated meta (within 130–155 chars): \"Steelcase Leap Plus for tall users 6'0\"–6'6\". Seat height 15.5\"–19.5\" standard, 17.5\"–22.5\" with optional cylinder. 500 lb capacity. Spec-verified fit by height.\" (152 chars). Audit all 28+ pages that may carry the wrong spliced figure.",
-      "evidence": "Meta desc states: 'Seat depth 15.75\"–19.75\"'. Decisions-log 2026-08-06 verified spec: standard cylinder 15.5\"–19.5\"; optional 5\" cylinder 17.5\"–22.5\". The 19.75\" figure does not appear in either verified configuration."
+      "summary": "Page title and likely body copy state the Leap Plus standard cylinder minimum as 15.5\" — but the verified spec (Steelcase Seating Specification Guide) is 15.5\"–19.5\" standard, which is internally consistent, yet the decisions log (2026-08-06) confirmed the site had previously published a spliced 15.5\"–22.5\" range treating the optional cylinder max as standard; the title here still leads with '15.5\"–19.5\" Standard' which must be verified against body copy to ensure the standard vs. optional cylinder distinction is explicit throughout.",
+      "recommendation": "Audit body copy to confirm every instance specifies: standard cylinder = 15.5\"–19.5\"; optional 5\" cylinder (~$63 at order time) = 17.5\"–22.5\". Confirm no sentence quotes 15.5\" min alongside 22.5\" max without the cylinder caveat. The title is acceptable as-is only if body copy is clean. If any spliced figures remain, correct them. Also reduce title to ≤60 chars: 'Steelcase Leap Plus Seat Height: 15.5\"–19.5\" (Standard)' (53 chars — already within limit, verify no truncation in GSC).",
+      "evidence": "Title: 'Steelcase Leap Plus Seat Height: 15.5\"–19.5\" Standard'. Meta desc correctly states both configurations. GSC: 0 clicks, 476 impr, pos 8.9, CTR 0%. Decisions log 2026-08-06: 28 pages still carried wrong figures after initial correction; this sub-page was one of the first corrected but the body copy must be verified."
+    },
+    {
+      "findingId": "ea09e7be3cda",
+      "page": "/correct-chair-dimensions/",
+      "issueClass": "aio-suppression",
+      "severity": "high",
+      "summary": "Query 'cornell ergonomics chair seat height feet flat thighs parallel' (pos 4.8, 0% CTR) is a confirmed AIO pattern — the page ranks strongly but earns zero clicks because Google's AI Overview answers the spec query inline.",
+      "recommendation": "Add a Direct Answer / citation capsule block immediately after the H1 that states the Cornell rule in structured, citable prose (40–60 words, specific numeric answer). Format: 'The Cornell Ergonomics rule: seat height is correct when your feet are flat on the floor, thighs parallel, with no pressure under the thighs. For tall users (6'0\"–6'7\"), this typically requires a seat height of [X\"–Y\"] depending on inseam.' This feeds the AI Overview rather than competing with it, per the 2026-08-13 capsule decision.",
+      "evidence": "Query: 'cornell ergonomics chair seat height feet flat thighs parallel' — 17 impr, pos 4.8, 0% CTR, flagged ⚠AIO in audit data. Per [[ctr-optimization]] wiki, AIO suppression is confirmed on Cornell/spec queries at this position band."
+    },
+    {
+      "findingId": "abca2db3aac4",
+      "page": "/chairs/steelcase-gesture/seat-depth/",
+      "issueClass": "ctr-leak",
+      "severity": "high",
+      "summary": "'steelcase gesture seat depth' (45 impr, pos 8.5, 0% CTR) is a CTR leak on a branded spec query — the page ranks well but earns no clicks, likely due to AIO suppression on a pure spec query.",
+      "recommendation": "Add a Direct Answer citation capsule at the top of the page (per 2026-08-13 decision: capsules are always in scope). Suggested capsule: 'The Steelcase Gesture seat depth adjusts from 15.75\" to 18.75\" — a 3\" range controlled by a slider beneath the seat. Tall users at 6'4\" typically use full extension (18.75\").' This makes the page citable by AI Overviews rather than invisible to them.",
+      "evidence": "'steelcase gesture seat depth' — 45 impr, pos 8.5, 0% CTR. Page total: 2 clicks, 880 impr, pos 7.5, 0.23% CTR."
     },
     {
       "findingId": "dc65989fd486",
       "page": "/review/leap-plus/",
       "issueClass": "schema-invalid",
       "severity": "high",
-      "summary": "Product schema on the Leap Plus review is missing itemReviewed on the Review schema node, blocking rich result eligibility.",
-      "recommendation": "Add itemReviewed to the Review schema block: {\"@type\":\"Review\",\"itemReviewed\":{\"@type\":\"Product\",\"name\":\"Steelcase Leap Plus\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Steelcase\"}}}. Also add Product @id per open issue: \"@id\":\"https://tallchairadvisor.com/#product/steelcase-leap-plus\".",
-      "evidence": "Schema block shows @type:Product with @id present, but wiki schema-markup.md (May 27, still unresolved) confirms itemReviewed is missing on all 4 Review schema nodes including this page."
-    },
-    {
-      "findingId": "3ba5baa42cca",
-      "page": "/review/gesture/",
-      "issueClass": "schema-invalid",
-      "severity": "high",
-      "summary": "Gesture review Product schema is missing datePublished, dateModified, and author @id on the Article/schema node, and the Review block historically lacked itemReviewed (marked fixed May 25 — confirm it survived the July 25 file corruption incident).",
-      "recommendation": "Verify itemReviewed is present in the rebuilt gesture review file post-July 25. Add to Article schema: \"datePublished\":\"[original publish date]\",\"dateModified\":\"2026-07-25\",\"author\":{\"@type\":\"Person\",\"@id\":\"https://tallchairadvisor.com/author/jackson-christopher/#person\",\"name\":\"Jackson Christopher\"}.",
-      "evidence": "Schema-markup.md open issue: '/chairs/steelcase-gesture/index.astro missing datePublished, dateModified, author @id'. Decisions-log 2026-07-25 documents that the leap-plus.astro file was corrupted and rebuilt — the gesture review should be audited as a precaution given the same pipeline wrote it."
+      "summary": "Product schema on /review/leap-plus/ is missing the 'itemReviewed' property in its associated Review schema node — a standing open issue from the May 27 audit that blocks rich result eligibility for all review pages.",
+      "recommendation": "Add itemReviewed to the Review schema block: {\"@type\": \"Review\", \"itemReviewed\": {\"@type\": \"Product\", \"name\": \"Steelcase Leap Plus\", \"@id\": \"https://tallchairadvisor.com/#product/steelcase-leap-plus\"}, ...}. Also confirm Product @id is present (schema wiki notes it was missing on Leap Plus): add \"@id\": \"https://tallchairadvisor.com/#product/steelcase-leap-plus\" to the Product block.",
+      "evidence": "Schema wiki (last_updated 2026-05-27): 'itemReviewed missing on all 4 Review schema nodes — blocks rich results.' /review/leap-plus/ is one of the four affected. GSC: 38 clicks, 13,475 impr, pos 8.9 — the highest-traffic review page."
     },
     {
       "findingId": "bd852d016763",
       "page": "/review/aeron-size-c/",
       "issueClass": "schema-invalid",
       "severity": "high",
-      "summary": "Aeron Size C Product schema is missing @id, blocking cross-page entity resolution — an open issue since May 10 that remains unresolved.",
-      "recommendation": "Add to the Product schema block: \"@id\":\"https://tallchairadvisor.com/#product/herman-miller-aeron-size-c\". Also confirm itemReviewed is present on the Review schema node on this page.",
-      "evidence": "Schema-markup.md HIGH issue #3: 'Product @id missing on Aeron Size C and Leap Plus'. Current schema block shows @type:Product without @id field."
+      "summary": "Review schema on /review/aeron-size-c/ is missing 'itemReviewed' (blocks rich results) and Product schema is missing '@id' — both are standing open issues from the May 27 audit.",
+      "recommendation": "Add to Review schema: \"itemReviewed\": {\"@type\": \"Product\", \"name\": \"Herman Miller Aeron Size C\", \"@id\": \"https://tallchairadvisor.com/#product/herman-miller-aeron-size-c\"}. Add to Product schema: \"@id\": \"https://tallchairadvisor.com/#product/herman-miller-aeron-size-c\". These are the same fixes required on /review/leap-plus/ — batch them.",
+      "evidence": "Schema wiki: 'itemReviewed missing on all 4 Review schema nodes'; 'Product @id missing on Aeron Size C and Leap Plus'. GSC: 23 clicks, 4,836 impr, pos 11, CTR 0.48%."
     },
     {
       "findingId": "7d502e933b53",
       "page": "/correct-chair-dimensions/",
       "issueClass": "schema-invalid",
       "severity": "high",
-      "summary": "HowTo schema on this page is deprecated — Google removed HowTo from supported rich result types in September 2023, making this dead markup that wastes structured data budget.",
-      "recommendation": "Remove the HowTo schema block entirely from the page's JSON-LD. Replace with a FAQPage schema block targeting the Cornell ergonomics rule questions that drive query impressions on this page (17 impr, pos 4.8 — AIO-suppressed but FAQPage schema supports other rich result surfaces).",
-      "evidence": "Schema-markup.md CRITICAL issue #2: 'HowTo schema on /correct-chair-dimensions/ is deprecated — Google removed HowTo from supported rich result types September 2023.' New finding as of May 27, still unresolved."
+      "summary": "HowTo schema on /correct-chair-dimensions/ is deprecated — Google removed HowTo from supported rich result types in September 2023. The block is dead markup consuming schema budget.",
+      "recommendation": "Remove the HowTo schema block entirely from /correct-chair-dimensions/. Replace with FAQPage schema if the page contains FAQ-style content, which would be eligible for rich results. This is a carried-over critical fix from May 27 — prioritise immediately.",
+      "evidence": "Schema wiki (2026-05-27): 'HowTo schema on /correct-chair-dimensions/ is deprecated — Google removed HowTo from supported rich result types September 2023. Dead markup. Remove the block entirely.' Still listed as unresolved (CRITICAL in the wiki). GSC: 36 clicks, 19,446 impr, pos 9.6."
     },
     {
       "findingId": "012783b41f19",
       "page": "/",
       "issueClass": "schema-invalid",
       "severity": "high",
-      "summary": "WebSite schema in index.astro is missing @id, creating a dangling entity reference — WebPage.isPartOf references #website but no @id exists on the WebSite block.",
-      "recommendation": "Add \"@id\":\"https://tallchairadvisor.com/#website\" to the WebSite schema block in index.astro. Also add potentialAction SearchAction for Sitelinks Searchbox eligibility: {\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://tallchairadvisor.com/?s={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}.",
-      "evidence": "Schema-markup.md CRITICAL issue #1: 'WebSite @id missing in index.astro — WebPage.isPartOf references #website but WebSite block has no @id. Carried over from May 10 — still not fixed.'"
+      "summary": "WebSite schema in index.astro is missing '@id', causing a dangling entity reference — WebPage.isPartOf references '#website' but the WebSite block has no @id to resolve against.",
+      "recommendation": "Add \"@id\": \"https://tallchairadvisor.com/#website\" to the WebSite schema block in index.astro. This is a one-line fix that has been open since May 10 — apply immediately.",
+      "evidence": "Schema wiki (2026-05-27, CRITICAL, carried from May 10): 'WebSite @id missing in index.astro — WebPage.isPartOf references #website but WebSite block has no @id. Dangling entity reference.' Still listed as unresolved."
     },
     {
-      "findingId": "62e43817cf56",
-      "page": "/chairs/steelcase-leap-plus/tall-people/",
-      "issueClass": "spec-error",
-      "severity": "high",
-      "summary": "Leap Plus tall-people sub-page states '22.5-in seat height' in the meta description without specifying this requires the optional cylinder — misleading buyers who will receive the 19.5\" standard configuration.",
-      "recommendation": "Update meta description to: 'Steelcase Leap Plus for tall users 6'0\"–6'7\". Standard seat height 15.5\"–19.5\"; 22.5\" max requires optional cylinder (~$63). Height-by-height fit breakdown and who it fits best.' (154 chars). Update all on-page body copy that cites 22.5\" to specify '22.5\" with optional 5\" cylinder (add ~$63 at order)'.",
-      "evidence": "Meta desc: 'Steelcase Leap Plus fit analysis for tall users 6'0-6'7+. 22.5-in seat height, 4-in adjustable seat depth...' Decisions-log 2026-08-06: 'every page that recommends it above ~6'2\" must name the cylinder, the ~$63 cost, and the fact that the floor rises to 17.5\". Vagueness is not an acceptable fix — be specific and correct.' This page is listed as one of the high-risk remainder pages not yet corrected."
-    },
-    {
-      "findingId": "526153386a80",
-      "page": "/office-chairs-for-6-foot-4/",
-      "issueClass": "spec-error",
-      "severity": "high",
-      "summary": "The 6'4\" height guide recommends the Leap Plus with '22.5\" seat height' in meta without specifying the optional cylinder requirement — a critical omission on the page a 6'4\" buyer is most likely to purchase from.",
-      "recommendation": "Rewrite meta to: 'At 6'4\", the Leap Plus is the safest pick: 22.5\" seat height with optional cylinder (~$63), 19.5\" depth. Full comparison with Gesture and Aeron — height-by-height verdict.' (154 chars). Fix seat depth to 19.5\" (standard cylinder max per verified spec). Flag body copy for the same correction.",
-      "evidence": "Meta desc: 'At 6'4\", the Leap Plus is the safest default: 22.5\" seat height, 19.75\" depth.' Decisions-log 2026-08-06 identifies the height-specific landing pages as 'the highest-risk remainder' for this spec error, not yet corrected. Seat depth figure 19.75\" also does not match any verified Leap Plus configuration."
-    },
-    {
-      "findingId": "f8b2943c8de7",
-      "page": "/chairs/steelcase-gesture/seat-depth/",
-      "issueClass": "aio-suppression",
-      "severity": "medium",
-      "summary": "'steelcase gesture seat depth' cluster (41 impr, pos 8.8, 0% CTR) shows the AIO suppression pattern — spec query, strong rank, near-zero clicks — consistent with Google answering inline.",
-      "recommendation": "Add a Direct Answer citation capsule in the format Google is pulling from competitors: a clearly labeled 'Steelcase Gesture Seat Depth' callout block with the exact spec range (15.75\"–18.75\"), the 3\" adjustment travel, and a one-sentence fit verdict. Structure for passage indexing: short paragraph under a heading that matches the query verbatim.",
-      "evidence": "Query 'steelcase gesture seat depth': 41 impr, pos 8.8, 0% CTR. Page total: 2 clicks on 935 impr, pos 7.6. Prior audit (April 22) confirmed spec queries at pos 4–9 with 0 CTR on this site are AIO-driven."
-    },
-    {
-      "findingId": "2e5c5951a8a4",
-      "page": "/office-chairs-for-tall-people/",
+      "findingId": "62d0f4cb97eb",
+      "page": "/aeron-vs-gesture/",
       "issueClass": "internal-linking",
       "severity": "medium",
-      "summary": "The primary money hub page is not passing sufficient link equity to the Leap Plus review — the site's #1 revenue page — given that 'steelcase leap v2 for tall people' is a top query on this hub.",
-      "recommendation": "Ensure /office-chairs-for-tall-people/ contains at least one contextual anchor link to /review/leap-plus/ using anchor text 'Steelcase Leap Plus review' or 'Leap Plus full review' — not just a CTA button. Also link from /office-chairs-for-6-foot-4/ and /office-chairs-for-6-foot-6/ which already recommend the Leap Plus as the primary pick at those heights.",
-      "evidence": "Top queries on /office-chairs-for-tall-people/ include 'steelcase leap v2 for tall people' and 'best office chairs for tall people'. /review/leap-plus/ is the Tier-1 money page per Profit Audit with 40 clicks on 13,487 impr at pos 8.8 — a ranking lift from internal links would directly increase revenue."
+      "summary": "The comparison page does not link to /review/aeron-size-c/ or /chairs/herman-miller-aeron/tall-people/ — missing contextual internal links that would pass authority to buyer-intent review pages and give readers a clear next step.",
+      "recommendation": "Add contextual links from /aeron-vs-gesture/ to: (1) /review/aeron-size-c/ — anchor text 'full Aeron Size C review'; (2) /chairs/herman-miller-aeron/tall-people/ — anchor text 'Aeron tall-person fit analysis'; (3) /review/gesture/ — anchor text 'Gesture review (tested at 6'4\")'. Place within the body comparison sections, not just a footer list.",
+      "evidence": "GSC for /aeron-vs-gesture/: 2 clicks, 429 impr, pos 8.7. /review/aeron-size-c/ is at pos 11 and needs authority. Wiki (2026-05-27) notes the comparison page has historically had CTA placement issues. No specific internal link audit data provided but the page is a natural hub for Aeron-side traffic."
+    },
+    {
+      "findingId": "e0e118743276",
+      "page": "/pain-ergonomics/",
+      "issueClass": "internal-linking",
+      "severity": "medium",
+      "summary": "Page ranks at pos 29.7 — well outside the top 10 — with 492 impressions and 1 click. No opportunity data suggests content depth is the constraint, but this page is also an orphan risk given its low position and the site's historical orphan problem.",
+      "recommendation": "Verify /pain-ergonomics/ has ≥3 inbound internal links from high-impression pages. If not, add contextual links from /knee-pain-seat-depth/, /back-pain-spine-height/, and /correct-chair-dimensions/ using anchor text variants of 'office chair pain for tall people' and 'ergonomic pain causes'. Then assess whether the content is comprehensive enough to merit its own URL or should be folded into a pillar.",
+      "evidence": "GSC: 1 click, 492 impr, pos 29.7, CTR 0.2%. Audit opportunity: [content-depth]. Decisions log 2026-08-08 noted /office-chair-return-policy/ was a true orphan with zero inbound links — this page may have the same problem."
+    },
+    {
+      "findingId": "268393cc75b8",
+      "page": "/office-chairs-for-6-foot-3/",
+      "issueClass": "affiliate-missing",
+      "severity": "medium",
+      "summary": "Height-specific landing pages are identified in the decisions log (2026-08-06) as 'highest-risk remainder' for Leap Plus spec corrections — these pages must also carry verified Amazon affiliate CTAs with tag=tallchairadvi-20 and the optional cylinder caveat for the Leap Plus recommendation.",
+      "recommendation": "Verify every Leap Plus Amazon link on this page: (1) uses ASIN B00TYE4QXU (the verified earner per decisions log 2026-07-25), (2) includes tag=tallchairadvi-20, (3) carries the caveat 'requires optional 5\" cylinder (~$63 at order time) for users at 6'3\"+ — standard cylinder reaches only 19.5\"'. Apply the same check to /office-chairs-for-6-foot-4/, /office-chairs-for-6-foot-6/.",
+      "evidence": "Decisions log 2026-08-06: 'The height-specific landing pages (office-chairs-for-6-foot-4 through -7) and chairs/steelcase-leap-plus/tall-people.astro are the highest-risk remainder' for spec and affiliate integrity. /office-chairs-for-6-foot-3/ GSC: 6 clicks, 717 impr, pos 7.6, CTR 0.84% — converting traffic exists."
+    },
+    {
+      "findingId": "5c8d0d5e9574",
+      "page": "/knee-pain-seat-depth/",
+      "issueClass": "aio-suppression",
+      "severity": "low",
+      "summary": "The page generates 41,072 impressions at pos 5.7 but only 0.04% CTR — a confirmed AIO suppression pattern on informational seat-depth queries. Per the Profit Audit directive, snippet rewrites cannot fix this; the only in-scope action is a citation capsule to feed the AI Overview surface.",
+      "recommendation": "Verify the Direct Answer / citation capsule block is present and well-formed (per 2026-08-08 GEO rollout — 44 content pages received capsules). If the capsule is present, no further action on this page's CTR is warranted. The email capture opt-in (ConvertKit + Seat Depth Checklist PDF) from thesis item #1 remains unbuilt and is the highest-ROI action on this page — file as a separate project task for Jackson.",
+      "evidence": "GSC: 15 clicks, 41,072 impr, pos 5.7, CTR 0.04%. Historical context: 'farming AI-Overview-eaten informational queries (knee-pain, correct-dimensions, spec pages)' is on the explicit stop list (decisions log 2026-07-24). The 2026-08-13 decision confirmed capsules remain in scope on informational pages."
     }
   ],
   "suppressed": [],
   "outOfStrategy": [
     {
-      "findingId": "822656ebbd96",
-      "page": "/review/leap-plus/",
-      "issueClass": "ctr-leak",
-      "severity": "high",
-      "summary": "Leap Plus review ranks pos 8.8 for 'steelcase leap plus' (1,131 impr) and 'leap plus' (52 impr) at near-zero CTR relative to impression volume — the top money page on the site is leaking buyer-intent clicks.",
+      "findingId": "8487e2472c50",
+      "page": "/aeron-vs-gesture/",
+      "issueClass": "meta-quality",
+      "severity": "critical",
+      "summary": "Meta description uses first-person Gesture verdict ('At 6'4\", the Gesture won') on a comparison page that Jackson has not personally tested the Aeron on — violating the site's voice policy that reserves first-person testing claims exclusively for /review/gesture/.",
       "ruleId": "no-ctr-iteration-below-position-8",
       "directive": "no meta/CTR iteration below pos 8",
       "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04."
@@ -131,27 +138,17 @@
       "page": "/correct-chair-dimensions/",
       "issueClass": "title-length",
       "severity": "high",
-      "summary": "Page title is 73 characters, 13 characters over the 60-char ceiling, risking truncation in SERPs.",
+      "summary": "Page title is 73 characters, 13 characters over the 60-char maximum, causing truncation in SERPs.",
       "ruleId": "no-snippet-work-on-aio-eaten-informational",
       "directive": "Absolutely stop: ... farming AI-Overview-eaten informational queries (knee-pain, correct-dimensions, spec pages); meta-tweaking suppressed pages",
       "why": "These pages rank well for informational queries that AI Overviews answer in-place. The click is taken before the SERP is read, so a snippet rewrite cannot recover it. /knee-pain-seat-depth/ carries 41% of site impressions at 0.04% CTR and has already absorbed multiple meta rewrites without moving."
     },
     {
-      "findingId": "212811006ec2",
-      "page": "/knee-pain-seat-depth/",
-      "issueClass": "title-length",
-      "severity": "medium",
-      "summary": "Page title is 63 characters, 3 characters over the 60-char ceiling.",
-      "ruleId": "no-snippet-work-on-aio-eaten-informational",
-      "directive": "Absolutely stop: ... farming AI-Overview-eaten informational queries (knee-pain, correct-dimensions, spec pages); meta-tweaking suppressed pages",
-      "why": "These pages rank well for informational queries that AI Overviews answer in-place. The click is taken before the SERP is read, so a snippet rewrite cannot recover it. /knee-pain-seat-depth/ carries 41% of site impressions at 0.04% CTR and has already absorbed multiple meta rewrites without moving."
-    },
-    {
-      "findingId": "0080b915f876",
-      "page": "/chairs/steelcase-leap-plus/tall-people/",
-      "issueClass": "meta-length",
-      "severity": "medium",
-      "summary": "Meta description is 156 characters, 1 character over the 155-char ceiling.",
+      "findingId": "5d47576a55b8",
+      "page": "/chairs/steelcase-gesture/weight-limit/",
+      "issueClass": "ctr-leak",
+      "severity": "high",
+      "summary": "Three query clusters totalling 164 impressions at positions 9.1–10.2 earn zero clicks — a textbook CTR leak on an escapable editorial SERP.",
       "ruleId": "no-ctr-iteration-below-position-8",
       "directive": "no meta/CTR iteration below pos 8",
       "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04."
@@ -161,47 +158,17 @@
       "page": "/office-chairs-for-tall-people/",
       "issueClass": "meta-length",
       "severity": "medium",
-      "summary": "Meta description is 156 characters, 1 character over the 155-char ceiling.",
+      "summary": "Meta description is 158 characters, 3 characters over the 155-char maximum, risking SERP truncation.",
       "ruleId": "no-ctr-iteration-below-position-8",
       "directive": "no meta/CTR iteration below pos 8",
       "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04."
-    },
-    {
-      "findingId": "a7e34b13ede8",
-      "page": "/chairs/steelcase-leap-plus/seat-height/",
-      "issueClass": "meta-length",
-      "severity": "medium",
-      "summary": "Meta description is 157 characters, 2 characters over the 155-char ceiling.",
-      "ruleId": "no-ctr-iteration-below-position-8",
-      "directive": "no meta/CTR iteration below pos 8",
-      "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04."
-    },
-    {
-      "findingId": "5d47576a55b8",
-      "page": "/chairs/steelcase-gesture/weight-limit/",
-      "issueClass": "ctr-leak",
-      "severity": "medium",
-      "summary": "Gesture weight-limit page sits at pos 8.3 with 718 impressions and only 2 clicks (0.28% CTR); three query clusters totalling 157 impressions are producing zero clicks.",
-      "ruleId": "no-ctr-iteration-below-position-8",
-      "directive": "no meta/CTR iteration below pos 8",
-      "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04."
-    },
-    {
-      "findingId": "64b6050a5f82",
-      "page": "/chairs/herman-miller-aeron/",
-      "issueClass": "thin-content",
-      "severity": "medium",
-      "summary": "Aeron hub page is at pos 20.3 with 559 impressions and 0 clicks — position indicates thin content or E-E-A-T signals insufficient for the competitive 'aeron size c' query cluster.",
-      "ruleId": "no-thin-content-expansion-during-content-freeze",
-      "directive": "freeze new content ~30 days ... ship the monetization pivot before writing anything new",
-      "why": "Expanding a thin page is new content work in disguise. Flag it, do not schedule it, until the freeze lifts."
     },
     {
       "findingId": "2afb01154404",
       "page": "/back-pain-spine-height/",
       "issueClass": "title-length",
       "severity": "medium",
-      "summary": "Title is 42 characters, below the 50-char floor, under-utilizing available SERP real estate for a page targeting competitive back-pain queries.",
+      "summary": "Page title is 42 characters — significantly under the 50-char floor — leaving keyword capacity unused on a page with decent GSC position.",
       "ruleId": "no-ctr-iteration-below-position-8",
       "directive": "no meta/CTR iteration below pos 8",
       "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04."
@@ -211,10 +178,20 @@
       "page": "/best-office-chairs-under-500/",
       "issueClass": "title-length",
       "severity": "medium",
-      "summary": "Title is 45 characters, below the 50-char floor, leaving brand/year signals unused on a commercial-intent money page.",
+      "summary": "Page title is 45 characters, below the 50-char floor, leaving character budget unused on a high-converting money page (1.39% CTR).",
       "ruleId": "no-ctr-iteration-below-position-8",
       "directive": "no meta/CTR iteration below pos 8",
       "why": "Below position 8 the snippet is rarely the binding constraint — rank is. Rewriting meta on a page at position 20 optimizes something nobody sees. Kill list, decisions-log 2026-08-04."
+    },
+    {
+      "findingId": "64b6050a5f82",
+      "page": "/chairs/herman-miller-aeron/",
+      "issueClass": "thin-content",
+      "severity": "medium",
+      "summary": "Page ranks at position 20.4 with 507 impressions and zero clicks — the audit opportunity tag flags 'content too thin or lacks E-E-A-T signals' and the page competes directly with /chairs/herman-miller-aeron/tall-people/ (pos 8.2, 1.24% CTR) for the same top queries.",
+      "ruleId": "no-thin-content-expansion-during-content-freeze",
+      "directive": "freeze new content ~30 days ... ship the monetization pivot before writing anything new",
+      "why": "Expanding a thin page is new content work in disguise. Flag it, do not schedule it, until the freeze lifts."
     }
   ]
 }
