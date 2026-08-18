@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T01:43:28.655Z",
+  "generatedAt": "2026-08-18T01:39:12.277Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
@@ -21,10 +21,10 @@
       "severity": "high",
       "summary": "collector \"clarity\" reported healthy:false — CLARITY_TOKEN unset (or empty) — the Microsoft Clarity export credential is missing, so behavioral data cannot be refreshed and the on-disk snapshot cannot be verified as live. Set CLARITY_TOKEN from Clarity → Settings → Data Export (and as a repo secret for the nightly workflow).",
       "predicate": "collector-healthy clarity",
-      "ageDays": 11,
-      "attempts": 2,
+      "ageDays": 12,
+      "attempts": 3,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "collector clarity unhealthy — data/clarity/latest.json: schema requires 'deviceSplit.other' (number); key absent. (Clarity latest). data/clarity/latest.json is written by `npm run agent:clarity-history` (clarity-history.yml + the Monday workflow)."
     }
@@ -38,12 +38,12 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "position 8.8 does not satisfy < 8.7"
+      "reason": "position 8.9 does not satisfy < 8.7"
     },
     {
       "id": "7429ec085c29",
@@ -53,12 +53,12 @@
       "severity": null,
       "summary": "/chairs/herman-miller-aeron/tall-people/",
       "predicate": "gsc-position /chairs/herman-miller-aeron/tall-people/ < 8.1 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "position 8.1 does not satisfy < 8.1"
+      "reason": "position 8.2 does not satisfy < 8.1"
     },
     {
       "id": "65336bac6935",
@@ -68,10 +68,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "position 9.6 does not satisfy < 9.6"
     },
@@ -83,12 +83,12 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "position 8.6 does not satisfy < 8.1"
+      "reason": "position 8.8 does not satisfy < 8.1"
     },
     {
       "id": "3ed5e84e2ec3",
@@ -98,10 +98,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 2.586% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /chairs/herman-miller-aeron/size-guide/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 2.586% (threshold 2%)"
     },
@@ -113,10 +113,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.064% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /chairs/steelcase-gesture/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.064% (threshold 2%)"
     },
@@ -128,10 +128,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.678% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /monitor-arm-tall-people/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.678% (threshold 2%)"
     },
@@ -143,10 +143,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 2.102% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /review/aeron-size-c/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 2.102% (threshold 2%)"
     },
@@ -158,10 +158,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.098% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /review/gesture/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 7.256% (threshold 2%)"
     },
@@ -173,12 +173,12 @@
       "severity": "high",
       "summary": "collector \"amazon\" reported healthy:false — the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero.",
       "predicate": "collector-healthy amazon",
-      "ageDays": 3,
-      "attempts": 4,
+      "ageDays": 4,
+      "attempts": 5,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "collector amazon unhealthy — the automated affiliate pull last succeeded 7 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
+      "reason": "collector amazon unhealthy — the automated affiliate pull last succeeded 8 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
     },
     {
       "id": "add4a1951347",
@@ -188,10 +188,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.595% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /best-big-and-tall-office-chairs/ mobile < 2%",
-      "ageDays": 3,
-      "attempts": 4,
+      "ageDays": 4,
+      "attempts": 5,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.595% (threshold 2%)"
     },
@@ -203,10 +203,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.467% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /wide-seat-office-chairs-tall-people/ mobile < 2%",
-      "ageDays": 3,
-      "attempts": 4,
+      "ageDays": 4,
+      "attempts": 5,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.467% (threshold 2%)"
     }
@@ -220,12 +220,12 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "position 8.8 does not satisfy < 8.7"
+      "reason": "position 8.9 does not satisfy < 8.7"
     },
     {
       "id": "7429ec085c29",
@@ -235,12 +235,12 @@
       "severity": null,
       "summary": "/chairs/herman-miller-aeron/tall-people/",
       "predicate": "gsc-position /chairs/herman-miller-aeron/tall-people/ < 8.1 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "position 8.1 does not satisfy < 8.1"
+      "reason": "position 8.2 does not satisfy < 8.1"
     },
     {
       "id": "65336bac6935",
@@ -250,10 +250,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "position 9.6 does not satisfy < 9.6"
     },
@@ -265,12 +265,12 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 28,
-      "attempts": 11,
+      "ageDays": 29,
+      "attempts": 12,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "position 8.6 does not satisfy < 8.1"
+      "reason": "position 8.8 does not satisfy < 8.1"
     },
     {
       "id": "d0c52e63b8fe",
@@ -280,10 +280,10 @@
       "severity": "high",
       "summary": "collector \"clarity\" reported healthy:false — CLARITY_TOKEN unset (or empty) — the Microsoft Clarity export credential is missing, so behavioral data cannot be refreshed and the on-disk snapshot cannot be verified as live. Set CLARITY_TOKEN from Clarity → Settings → Data Export (and as a repo secret for the nightly workflow).",
       "predicate": "collector-healthy clarity",
-      "ageDays": 11,
-      "attempts": 2,
+      "ageDays": 12,
+      "attempts": 3,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "collector clarity unhealthy — data/clarity/latest.json: schema requires 'deviceSplit.other' (number); key absent. (Clarity latest). data/clarity/latest.json is written by `npm run agent:clarity-history` (clarity-history.yml + the Monday workflow)."
     },
@@ -295,10 +295,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 2.586% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /chairs/herman-miller-aeron/size-guide/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 2.586% (threshold 2%)"
     },
@@ -310,10 +310,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.064% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /chairs/steelcase-gesture/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.064% (threshold 2%)"
     },
@@ -325,10 +325,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.678% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /monitor-arm-tall-people/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.678% (threshold 2%)"
     },
@@ -340,10 +340,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 2.102% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /review/aeron-size-c/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 2.102% (threshold 2%)"
     },
@@ -355,10 +355,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.098% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /review/gesture/ mobile < 2%",
-      "ageDays": 8,
-      "attempts": 8,
+      "ageDays": 9,
+      "attempts": 9,
       "firstSeen": "2026-08-09",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 7.256% (threshold 2%)"
     },
@@ -370,12 +370,12 @@
       "severity": "high",
       "summary": "collector \"amazon\" reported healthy:false — the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero.",
       "predicate": "collector-healthy amazon",
-      "ageDays": 3,
-      "attempts": 4,
+      "ageDays": 4,
+      "attempts": 5,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
-      "reason": "collector amazon unhealthy — the automated affiliate pull last succeeded 7 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
+      "reason": "collector amazon unhealthy — the automated affiliate pull last succeeded 8 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
     },
     {
       "id": "add4a1951347",
@@ -385,10 +385,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.595% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /best-big-and-tall-office-chairs/ mobile < 2%",
-      "ageDays": 3,
-      "attempts": 4,
+      "ageDays": 4,
+      "attempts": 5,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.595% (threshold 2%)"
     },
@@ -400,10 +400,10 @@
       "severity": "medium",
       "summary": "mobile rendering differs from baseline by 3.467% (threshold 2%). Re-baseline if the change was intended.",
       "predicate": "visual-diff /wide-seat-office-chairs-tall-people/ mobile < 2%",
-      "ageDays": 3,
-      "attempts": 4,
+      "ageDays": 4,
+      "attempts": 5,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-08-17",
+      "lastSeen": "2026-08-18",
       "verdict": "fail",
       "reason": "mobile render differs from baseline by 3.467% (threshold 2%)"
     }
@@ -420,7 +420,7 @@
   },
   "blindSpots": {
     "probes": null,
-    "probeSource": "probe:2026-08-17",
+    "probeSource": "probe:2026-08-18",
     "collectors": [
       "amazon",
       "clarity",
@@ -439,13 +439,13 @@
       "id": "8aeed43a09a6",
       "from": "escalated",
       "to": "escalated",
-      "reason": "position 8.8 does not satisfy < 8.7"
+      "reason": "position 8.9 does not satisfy < 8.7"
     },
     {
       "id": "7429ec085c29",
       "from": "escalated",
       "to": "escalated",
-      "reason": "position 8.1 does not satisfy < 8.1"
+      "reason": "position 8.2 does not satisfy < 8.1"
     },
     {
       "id": "65336bac6935",
@@ -457,7 +457,7 @@
       "id": "c76d198a75bc",
       "from": "escalated",
       "to": "escalated",
-      "reason": "position 8.6 does not satisfy < 8.1"
+      "reason": "position 8.8 does not satisfy < 8.1"
     },
     {
       "id": "d0c52e63b8fe",
@@ -499,7 +499,7 @@
       "id": "09560d761ec1",
       "from": "escalated",
       "to": "escalated",
-      "reason": "collector amazon unhealthy — the automated affiliate pull last succeeded 7 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
+      "reason": "collector amazon unhealthy — the automated affiliate pull last succeeded 8 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
     },
     {
       "id": "add4a1951347",
