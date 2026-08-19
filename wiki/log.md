@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-08-19] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-08-19
+- Pages recorded: 59
+- Device split: {"mobile":0.48,"tablet":0.04,"pc":0.48,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-3/?utm_source=chatgpt.com: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-7/?utm_source=chatgpt.com: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-big-and-tall-office-chairs/?utm_source=chatgpt.com: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/knee-pain-seat-depth/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/why-standard-chairs-dont-fit/: 28% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 38
+
+
 ## [2026-08-18] audit | Weekly Site Audit
 
 - Pages audited: 20
