@@ -1,32 +1,32 @@
 {
   "data": {
     "source": "data/clarity/latest.json",
-    "pulledAt": "2026-08-19T10:31:22.480Z",
-    "ageHours": 39.2,
+    "pulledAt": "2026-08-21T10:33:10.474Z",
+    "ageHours": 15.1,
     "slaHours": 192,
     "numOfDays": 2,
-    "pageCount": 59,
+    "pageCount": 56,
     "deviceSplit": {
-      "mobile": 0.48,
-      "pc": 0.48,
+      "mobile": 0.275,
+      "pc": 0.675,
       "other": 0,
-      "tablet": 0.04
+      "tablet": 0.05
     },
-    "alertCount": 14,
+    "alertCount": 17,
     "alertsByIssue": {
-      "low-scroll-depth": 14
+      "low-scroll-depth": 17
     },
     "credential": {
       "envVar": "CLARITY_TOKEN",
       "present": true,
       "live": true,
-      "checkedAt": "2026-08-21T01:42:37.903Z",
-      "detail": null
+      "checkedAt": "2026-08-21T10:33:10.474Z",
+      "detail": "not re-pinged — data/clarity/latest.json was pulled 15.1h ago, which is itself proof the credential was live. Conserves the 10/day quota (A3)."
     }
   },
   "meta": {
-    "collectedAt": "2026-08-21T01:42:38.630Z",
-    "rowCount": 59,
+    "collectedAt": "2026-08-22T01:36:28.340Z",
+    "rowCount": 56,
     "healthy": true,
     "reason": null
   }
