@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-17
+last_updated: 2026-08-24
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,10 +70,12 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-08-17. 8 pages analyzed × up to 3 queries each. 23 URLs crawled (38 cache hits). 1 high-priority gaps. Top editorial outrankers: thehumansolution.com, crandalloffice.com, forbes.com.*
+*v2 run 2026-08-24. 8 pages analyzed × up to 3 queries each. 37 URLs crawled (30 cache hits). 3 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-08-17 | Weight capacity is mentioned per-chair but there is no audience segmentation axi | high | 1q | inchcalculator.com |
-| 2026-08-17 | No numeric seat-depth specification table comparing all three recommended chairs | medium | 1q | ergo.human.cornell.edu |
-| 2026-08-17 | AggregateRating schema is absent from the schema type list (Article, Person, Org | medium | 1q | inchcalculator.com |
+| 2026-08-24 | OSHA guidelines are not cited or named anywhere on the page — only Cornell Ergon | high | 2q | eurekaergonomic.com |
+| 2026-08-24 | INVALID BENCHMARK — competitor content is not comparable | high | 1q | tegakari.net |
+| 2026-08-24 | No named, numbered measurement criteria list formatted for AI Overview extractio | high | 1q | forbes.com |
+| 2026-08-24 | Leap Plus lifetime warranty and return policy details are absent from the Steelc | medium | 1q | thehumansolution.com |
+| 2026-08-24 | Return policy and warranty content is shallow. The Pros section lists '12-year c | medium | 1q | btod.com |
