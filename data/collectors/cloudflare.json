@@ -12,30 +12,36 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "2e4f4175-caa6-46b4-a3ad-b7267b2acda2",
-      "shortId": "2e4f4175",
+      "deploymentId": "a8c8c934-49ce-4e53-9978-29b588060e34",
+      "shortId": "a8c8c934",
       "environment": "production",
-      "url": "https://2e4f4175.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-22T01:39:52.574708Z",
+      "url": "https://a8c8c934.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-23T10:26:41.803352Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "d5503085fc2f018e5c35f70b0d86783eb895341e",
-      "commitMessage": "[skip cd] nightly: god's-eye 2026-08-22"
+      "commitHash": "942286d67da172fc7de228a58def743ef0c2060d",
+      "commitMessage": "[skip cd] data: Clarity history 2026-08-23"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 25820,
-      "cachedRequests": 2078,
-      "hitRatePct": 8,
-      "bytes": 257894895,
-      "cachedBytes": 90602978,
+      "requests": 24148,
+      "cachedRequests": 2029,
+      "hitRatePct": 8.4,
+      "bytes": 249076080,
+      "cachedBytes": 90187990,
       "byDay": [
         {
+          "date": "2026-08-24",
+          "requests": 380,
+          "cachedRequests": 1,
+          "hitRatePct": 0.3
+        },
+        {
           "date": "2026-08-23",
-          "requests": 69,
-          "cachedRequests": 8,
-          "hitRatePct": 11.6
+          "requests": 2657,
+          "cachedRequests": 280,
+          "hitRatePct": 10.5
         },
         {
           "date": "2026-08-22",
@@ -66,29 +72,23 @@
           "requests": 3775,
           "cachedRequests": 317,
           "hitRatePct": 8.4
-        },
-        {
-          "date": "2026-08-17",
-          "requests": 4640,
-          "cachedRequests": 322,
-          "hitRatePct": 6.9
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 4,
+      "totalEvents": 98,
       "byAction": {
-        "block": 4
+        "block": 98
       },
       "bySource": {
-        "firewallManaged": 4
+        "firewallManaged": 98
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-23T01:45:40.818Z",
+    "collectedAt": "2026-08-24T01:43:28.648Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
