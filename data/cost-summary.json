@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-24T01:45:05.444Z",
+  "generatedAt": "2026-08-25T01:40:12.819Z",
   "ledger": "data/cost-ledger.jsonl",
   "records": {
-    "total": 161,
-    "llm": 58,
-    "external": 103
+    "total": 250,
+    "llm": 91,
+    "external": 159
   },
   "note": null,
   "totals": {
-    "records": 58,
-    "input": 3334963,
-    "output": 116210,
+    "records": 91,
+    "input": 3687093,
+    "output": 148159,
     "cacheWrite": 43591,
     "cacheRead": 0,
-    "usd": 11.90642525
+    "usd": 13.43161225
   },
   "byRun": {
     "2026-08-05": {
@@ -159,24 +159,40 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.494001
+    },
+    "2026-08-23": {
+      "records": 1,
+      "input": 149553,
+      "output": 3789,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.505494
+    },
+    "2026-08-24": {
+      "records": 32,
+      "input": 202577,
+      "output": 28160,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 1.019693
     }
   },
   "byAgent": {
     "nightly-report": {
-      "records": 28,
-      "input": 3144604,
-      "output": 82081,
+      "records": 29,
+      "input": 3294157,
+      "output": 85870,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 10.665027
+      "usd": 11.170521
     },
     "competitor-intelligence": {
-      "records": 29,
-      "input": 183745,
-      "output": 27578,
+      "records": 61,
+      "input": 386322,
+      "output": 55738,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 0.959825
+      "usd": 1.979518
     },
     "audit": {
       "records": 1,
@@ -323,16 +339,24 @@
       "cacheWrite": 0,
       "cacheRead": 0,
       "usd": 0.494001
+    },
+    "2026-08-24": {
+      "records": 33,
+      "input": 352130,
+      "output": 31949,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 1.525187
     }
   },
   "byMonth": {
     "2026-08": {
-      "records": 58,
-      "input": 3334963,
-      "output": 116210,
+      "records": 91,
+      "input": 3687093,
+      "output": 148159,
       "cacheWrite": 43591,
       "cacheRead": 0,
-      "usd": 11.90642525
+      "usd": 13.43161225
     }
   },
   "bySite": {
@@ -345,12 +369,12 @@
       "usd": 6.273159
     },
     "tallchairadvisor.com": {
-      "records": 40,
-      "input": 1458950,
-      "output": 73202,
+      "records": 73,
+      "input": 1811080,
+      "output": 105151,
       "cacheWrite": 43591,
       "cacheRead": 0,
-      "usd": 5.63326625
+      "usd": 7.15845325
     }
   },
   "externalBySite": {
@@ -376,9 +400,9 @@
     },
     "tallchairadvisor.com": {
       "gsc-url-inspection": {
-        "records": 11,
+        "records": 12,
         "usd": 0,
-        "credits": 147,
+        "credits": 157,
         "pages": 0
       },
       "clarity-export-api": {
@@ -388,16 +412,16 @@
         "pages": 0
       },
       "dataforseo": {
-        "records": 18,
-        "usd": 0.036,
+        "records": 37,
+        "usd": 0.074,
         "credits": 0,
         "pages": 0
       },
       "firecrawl": {
-        "records": 23,
+        "records": 59,
         "usd": 0,
         "credits": 0,
-        "pages": 23
+        "pages": 59
       }
     }
   },
@@ -409,40 +433,40 @@
       "pages": 0
     },
     "gsc-url-inspection": {
-      "records": 30,
+      "records": 31,
       "usd": 0,
-      "credits": 886,
+      "credits": 896,
       "pages": 0
     },
     "firecrawl": {
-      "records": 34,
+      "records": 70,
       "usd": 0,
       "credits": 0,
-      "pages": 34
+      "pages": 70
     },
     "dataforseo": {
-      "records": 18,
-      "usd": 0.036,
+      "records": 37,
+      "usd": 0.074,
       "credits": 0,
       "pages": 0
     }
   },
   "models": {
     "claude-sonnet-4-6": {
-      "records": 56,
-      "input": 3333523,
-      "output": 115990,
+      "records": 85,
+      "input": 3682649,
+      "output": 147496,
       "cacheWrite": 43591,
       "cacheRead": 0,
-      "usd": 11.90388525
+      "usd": 13.42385325
     },
     "claude-haiku-4-5-20251001": {
-      "records": 2,
-      "input": 1440,
-      "output": 220,
+      "records": 6,
+      "input": 4444,
+      "output": 663,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 0.00254
+      "usd": 0.007759
     }
   }
 }
