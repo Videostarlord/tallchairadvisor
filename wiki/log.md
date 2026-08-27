@@ -2,6 +2,17 @@
 type: log
 ---
 
+## [2026-08-27] execute-fixes | Thursday Fixes
+
+**Applied (6):**
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /review/aeron-size-c/ → src/pages/review/aeron-size-c.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+- /index.astro → src/pages/index.astro
+- /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
+- /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
+
+
 ## [2026-08-27] strategy | Weekly Plan Generated
 
 - Plan archived to raw/strategy/2026-08-27-weekly-plan.md
