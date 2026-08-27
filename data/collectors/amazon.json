@@ -1,29 +1,95 @@
 {
   "data": {
-    "pullable": true,
-    "reason": "Pulled automatically from the Associates reporting API by scripts/amazon-pull.ts. Daily overview only — ASIN-level attribution still requires a manual export.",
+    "pullable": false,
+    "reason": "Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.",
     "searchedPaths": [
       "raw/affiliate",
       "raw/amazon",
-      "data/affiliate",
       "raw",
       "data"
     ],
     "nagThresholdDays": 7,
-    "matchCount": 0,
-    "newest": null,
-    "recent": [],
-    "overdue": true,
-    "automatedPull": {
-      "present": true,
-      "ageDays": 16,
-      "note": "window 2026-07-11..2026-08-09 (rolling-30-day, mode=daily); 108 clicks, 7 ordered, $3337.74 ordered revenue, $100.40 SHIPPED earnings (pre-clawback, not net)"
-    }
+    "matchCount": 39,
+    "newest": {
+      "path": "raw/affiliate/2026-08-26-amazon-associates-report.md",
+      "date": "2026-08-26",
+      "dateSource": "filename",
+      "ageDays": 1,
+      "sizeBytes": 10778,
+      "dataRows": null
+    },
+    "recent": [
+      {
+        "path": "raw/affiliate/2026-08-26-amazon-associates-report.md",
+        "date": "2026-08-26",
+        "dateSource": "filename",
+        "ageDays": 1,
+        "sizeBytes": 10778,
+        "dataRows": null
+      },
+      {
+        "path": "raw/affiliate/2026-08-26-amazon-csv/linked-product.csv",
+        "date": "2026-08-26",
+        "dateSource": "filename",
+        "ageDays": 1,
+        "sizeBytes": 1239,
+        "dataRows": 5
+      },
+      {
+        "path": "raw/affiliate/2026-08-26-amazon-csv/category.csv",
+        "date": "2026-08-26",
+        "dateSource": "filename",
+        "ageDays": 1,
+        "sizeBytes": 495,
+        "dataRows": 2
+      },
+      {
+        "path": "raw/affiliate/2026-08-26-amazon-csv/tracking-id.csv",
+        "date": "2026-08-26",
+        "dateSource": "filename",
+        "ageDays": 1,
+        "sizeBytes": 349,
+        "dataRows": 3
+      },
+      {
+        "path": "raw/affiliate/2026-08-26-amazon-csv/top-sellers.csv",
+        "date": "2026-08-26",
+        "dateSource": "filename",
+        "ageDays": 1,
+        "sizeBytes": 47,
+        "dataRows": 0
+      },
+      {
+        "path": "raw/affiliate/2026-08-13-amazon-associates-report.md",
+        "date": "2026-08-13",
+        "dateSource": "filename",
+        "ageDays": 14,
+        "sizeBytes": 3962,
+        "dataRows": null
+      },
+      {
+        "path": "raw/affiliate/2026-08-13-amazon-csv/linked-product.csv",
+        "date": "2026-08-13",
+        "dateSource": "filename",
+        "ageDays": 14,
+        "sizeBytes": 1047,
+        "dataRows": 4
+      },
+      {
+        "path": "raw/affiliate/2026-08-13-amazon-csv/category.csv",
+        "date": "2026-08-13",
+        "dateSource": "filename",
+        "ageDays": 14,
+        "sizeBytes": 497,
+        "dataRows": 2
+      }
+    ],
+    "overdue": false
   },
   "meta": {
-    "collectedAt": "2026-08-26T01:43:22.191Z",
-    "rowCount": 25,
-    "healthy": false,
-    "reason": "the automated affiliate pull last succeeded 16 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero."
+    "collectedAt": "2026-08-27T08:40:55.093Z",
+    "rowCount": 39,
+    "healthy": true,
+    "reason": null
   }
 }
