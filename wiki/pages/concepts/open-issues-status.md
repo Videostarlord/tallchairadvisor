@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-26
+last_updated: 2026-08-27
 sources: [raw/affiliate/2026-08-26-amazon-associates-report.md, raw/audits/2026-08-06-open-issues-task-list.md, data/ledger-state.json, wiki/nightly/2026-08-08.md]
 tags: [open-issues, status, tracking]
 ---
@@ -8,6 +8,29 @@ tags: [open-issues, status, tracking]
 # Open Issues — Living Status
 
 `raw/audits/2026-08-06-open-issues-task-list.md` is an **immutable snapshot** and its checkboxes freeze at 2026-08-06. This page is the current truth. Read this first; use the snapshot for the original reasoning and evidence.
+
+## ✅ RESOLVED 2026-08-27 — the four failing workflows were three bugs and one guard
+
+The 2026-08-25 nightly reported four workflows red. They were not four problems.
+
+| Workflow | Last failure | Cause | Status |
+|---|---|---|---|
+| Amazon — Weekly Pull | 2026-08-23 | expired session | **Deleted** — see the section below |
+| Wednesday — Strategy | 2026-08-26 | `executiveSummary.affiliateAlert` emitted `null` against a `z.string()` schema | **Fixed + verified green** (run 33042713071) |
+| Thursday — Execute Fixes | 2026-08-20 | **not broken** — its guard refused to execute a stale `weekly-plan.md` because Wednesday was dead | **Unblocked** by the Wednesday fix; fresh plan dated 2026-08-27 now on disk |
+| Saturday — Verify & Deploy | 2026-08-22 | merge conflict on `reports/content-log.md` + `wiki/log.md` | **Fixed** — union drivers on **both** `main` and `staging`; conflict reproduced and resolution verified in a scratch worktree |
+
+**Two of the four were systems behaving correctly.** Thursday's stale-plan guard did exactly its job, and the Amazon collector filed `amazon-session-expired` for two weeks without ever writing a fabricated `$0`. Counting them as defects would have been counting the smoke alarm as the fire.
+
+**The Saturday fix has a deployment subtlety worth remembering:** git reads `.gitattributes` from the *working tree* during a merge, and `saturday.yml` checks out `staging`. A driver that exists only on `main` is a no-op for the merge that needs it — the branch being merged INTO must carry it. Pushed to both.
+
+**Also fixed: two silent truncations.** `nightly-report`/godseye-narrative hit `max_tokens` on **5 of 13** runs (4000 → 8000) and `competitor-intelligence`/gap-analysis on **33 of 47, 70%** (1200 → 3000). The latter returns JSON, so a severed response failed the array match and returned `[]` — most weeks it reported *no* competitor gaps rather than a partial list. The nightly now warns on `stop_reason` and stamps a banner on the report itself, because the durable bug was not the number but that hitting it produced no signal.
+
+## 🟡 STILL OPEN — escalated to Jackson, deliberately not silenced
+
+**Four position interventions from 2026-07-20: 37 days, 20 attempts, `verdict: fail`.** `/office-chairs-for-tall-people/` sits at 8.9 against a target of 8.1 and is still degrading; two others have not moved a tenth in five weeks. The pipeline did its job — adjudicated fail, escalated after 3 attempts, refused to manufacture a closure.
+
+**They were NOT retracted, on purpose.** `data/retractions.jsonl` is for claims that were *wrong*; its schema demands the mistaken claim and the evidence against it. These findings are correct and unwelcome. **A true, inconvenient finding must not be silenced through the mechanism built for false ones.** The nightly will keep listing them until the pages are acted on. Decision and next-step reasoning recorded in [[what-failed]].
 
 ## ⛔ CLOSED BY DELETION 2026-08-26 — P3 Amazon automated pull
 
