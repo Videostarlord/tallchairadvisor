@@ -32,3 +32,47 @@ data/edit-log.jsonl      merge=union
 # no meaning, and a duplicate is a harmless repeat. Without union this is the
 # token-log conflict that killed the Saturday deploy, in a new file.
 data/affiliate/history.jsonl  merge=union
+
+# ─── The two files that actually killed Saturday, 2026-08-22 and 2026-08-26 ───
+#
+# The union driver above was added for data/token-log.jsonl after the 2026-07-25
+# and 2026-08-08 deploy failures. It fixed those files and the failure simply
+# MOVED: the 2026-08-22 run died at the same step, in 12 seconds, on
+# reports/content-log.md and wiki/log.md instead. Saturday has now failed on 4 of
+# its last 8 runs, which means no automated fix has deployed in weeks.
+#
+# These two are NOT the same shape as the .jsonl logs, and the difference is
+# worth stating so nobody assumes the reasoning above transfers unexamined:
+#
+#   wiki/log.md            agents INSERT AT THE TOP (wiki-utils.ts appendWikiLog
+#                          splices after the frontmatter marker). Weekday agents
+#                          do it on `main`, the Friday content agent does it on
+#                          `staging`, both at the same offset — so the two
+#                          insertions land in one conflicting hunk every week.
+#                          union keeps both blocks, and since each is a
+#                          self-contained `## [date] …` section, NOTHING IS LOST.
+#                          Only the order between two same-week entries is
+#                          arbitrary, which is a cosmetic cost in a dated log.
+#
+#   reports/content-log.md is REWRITTEN WHOLE by execute-content.ts every Friday
+#                          (writeFileSync, not append), so two sides can hold two
+#                          complete unrelated reports and union CONCATENATES
+#                          them. That is uglier than the case above and is
+#                          accepted deliberately: the durable copy is already
+#                          archived per-date to raw/audits/<date>-content-log.md,
+#                          the file is overwritten in full by the next Friday run
+#                          so any garbling self-heals within 7 days, and a
+#                          doubled scratch report costs far less than a deploy
+#                          pipeline that dies half the weeks it runs.
+#
+# WHY union AND NOT an `ours`/`theirs` driver, which would read cleaner here:
+# `ours` inverts during a rebase, and saturday.yml ends with
+# `git pull --rebase origin main` before pushing to main. A driver whose meaning
+# flips between the merge step and the rebase step would silently keep the wrong
+# side of a report on some runs. union is symmetric and therefore rebase-safe.
+#
+# The guard in saturday.yml is unchanged and still correct: anything that
+# conflicts AFTER these drivers apply is a real source conflict and must stop the
+# deploy.
+wiki/log.md               merge=union
+reports/content-log.md    merge=union

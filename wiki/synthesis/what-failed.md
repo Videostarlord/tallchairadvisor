@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-08-13
+last_updated: 2026-08-26
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-04-22-serp-analysis.md]
 tags: [patterns, failures, lessons]
 ---
@@ -27,6 +27,29 @@ For contrast, `/best-office-chairs-under-500/` (baseline 9.1) from the same batc
 **What was nearly recorded instead.** A `<=` threshold tweak would have closed the two flat rows as successes, because their position exactly equals their baseline. That would have written two fabricated wins into what-works.md — the precise failure `MEANINGFUL_POSITION_DELTA` exists to prevent. Rejected 2026-08-13.
 
 **Open question this raises.** Four of five position interventions in one batch failed. Either the interventions were too small to move a ranking, or position is the wrong target metric for pages in this band. Worth answering before filing a sixth.
+
+### CLOSED 2026-08-26 — 37 days, 20 attempts, final verdict `fail`
+
+Fourteen more days and thirteen more evaluations changed nothing. `data/ledger-state.json` now carries all four with `verdict: "fail"`, `ageDays: 37`, `attempts: 20`, and reasons of the form *"position 8.8 does not satisfy < 8.7"*.
+
+| Page | Baseline | 2026-08-12 | 2026-08-26 | Net over 37 days |
+|---|---|---|---|---|
+| `/review/leap-plus/` | 8.7 | 8.8 | 8.8 | −0.1 (worse) |
+| `/office-chairs-for-tall-people/` | 8.1 | 8.6 | 8.9 | **−0.8, still degrading** |
+| `/chairs/herman-miller-aeron/tall-people/` | 8.1 | 8.1 | 8.1 | 0.0 (flat, 37 days) |
+| `/correct-chair-dimensions/` | 9.6 | 9.6 | 9.6 | 0.0 (flat, 37 days) |
+
+**Decision: stop re-checking these and do not file a sixth position intervention on this batch.** Two pages have not moved by a single tenth in five weeks, and the one that moved most moved the wrong way and is *still* moving the wrong way. The open question above is now answered as far as this evidence can answer it: **position was the wrong target metric for pages in this band**, and the interventions were not the constraint.
+
+**They were deliberately NOT retracted, and that distinction matters.** `data/retractions.jsonl` is for claims that were *wrong* — its schema demands the mistaken `claim`, the `why` it is false, and a standing `rule` to stop it recurring. These four findings are not wrong; they are correct and unwelcome. Filing them as retractions would assert the pipeline had erred when it had in fact worked perfectly: it adjudicated `fail`, escalated after 3 attempts as configured, and refused to manufacture a closure. **A finding that is true and inconvenient must not be silenced through the mechanism built for findings that are false.**
+
+The consequence is accepted knowingly: the nightly will keep listing them under "what needs you" until someone acts on the pages. That is the honest state of the world, and the cost of the alternative — a general "acknowledge and mute" facility — is that it would work just as well on findings that deserve action.
+
+**What NOT to do next, on the evidence of 2026-08-26:**
+- **Not a CTR fix on `/review/leap-plus/`.** Its "steelcase leap plus" query sits at position 9.8, and `no-ctr-iteration-below-position-8` in `data/strategy-rules.json` forbids exactly this. The rule is right: snippet work below page one buys nothing.
+- **Not an affiliate-revenue justification for `/office-chairs-for-tall-people/`.** The same day's export measured 45 chair clicks at **$0.00** on the dedicated `tcachair-20` tag. Ranking the money hub higher feeds a funnel with a measured conversion rate of zero. See [[affiliate-performance]].
+
+**Where the effort should go instead.** `/knee-pain-seat-depth/` is at position **5.7 on 40,581 impressions** — the highest-scoring opportunity in `data/gsc/analysis.json` and not on any kill list. A page already on page one with that impression volume is a better use of the next intervention than a fifth attempt at a page that has ignored four.
 
 ## Fixes That Haven't Moved the Needle
 

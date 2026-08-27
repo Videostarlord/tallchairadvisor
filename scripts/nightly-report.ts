@@ -1017,7 +1017,14 @@ async function main(): Promise<void> {
     const message = await meteredCreate(
       {
         model: MODEL,
-        max_tokens: 4000,
+        // 8000, raised from 4000 on 2026-08-26. Measured from
+        // data/agent-health.jsonl: 5 of 13 recorded runs stopped on
+        // `max_tokens`, and the eight that did not were sitting at 3674-3827 of
+        // 4000 — the report was not occasionally long, it was permanently
+        // against the ceiling. Truncated runs: 2026-08-13, 08-14, 08-15, 08-16,
+        // 08-19. On those nights findings were silently dropped off the end and
+        // Jackson read an incomplete report with no indication it was cut.
+        max_tokens: 8000,
         messages: [{ role: 'user', content: prompt }],
       },
       { agent: 'nightly-report', run: TODAY, purpose: 'godseye-narrative' },
@@ -1027,7 +1034,30 @@ async function main(): Promise<void> {
     if (!block || block.type !== 'text' || block.text.trim().length === 0) {
       throw new Error('model returned no text block');
     }
-    markdown = block.text;
+
+    // A raised ceiling is not a fixed ceiling — the report grows with the site,
+    // and 8000 will eventually be too small too. What made this bug last weeks
+    // was not the number, it was that hitting it produced NO signal: the report
+    // just ended, mid-section, looking exactly like a short night.
+    //
+    // audit.ts and execute-content.ts both check stop_reason at their own
+    // meteredCreate call sites. This one did not, and it is the single most
+    // consequential text the pipeline writes — the thing Jackson actually reads.
+    // Warn loudly and mark the document itself, so a truncated report can never
+    // again be mistaken for a complete one.
+    if (message.stop_reason === 'max_tokens') {
+      console.warn(
+        `[nightly] TRUNCATED: the narrative hit max_tokens (${message.usage.output_tokens} output tokens). ` +
+          'Findings were dropped from the end of this report. Raise max_tokens in scripts/nightly-report.ts.',
+      );
+      markdown =
+        `> **⚠ THIS REPORT IS INCOMPLETE.** The narrative hit its ${message.usage.output_tokens}-token output ` +
+        'limit and was cut off mid-way. Findings after this point were dropped — this is not a short night, it ' +
+        'is a truncated one. Raise `max_tokens` in `scripts/nightly-report.ts` and re-run.\n\n' +
+        block.text;
+    } else {
+      markdown = block.text;
+    }
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
     console.error(`[nightly] report generation failed: ${reason}`);

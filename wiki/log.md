@@ -3874,3 +3874,52 @@ affiliate-related); `lint:architecture` **0 new violations**; **25/26 test files
 192h SLA) and was confirmed failing on a clean checkout of `HEAD`.
 
 Related: [[affiliate-performance]] · [[decisions-log]] · [[autonomous-data-layer]] · [[godseye-nightly]] · [[open-issues-status]]
+
+## 2026-08-26 (third session) — three dead workflows fixed, and one "failure" that was the system working
+
+**Context first: the local checkout was 25 commits behind `origin/main`.** Everything earlier today was done on a 14-day-old tree. Rebased cleanly (one conflict: CI kept updating `data/collectors/amazon-session.json` while this session deleted it — deletion wins, the pull is retired). **The affiliate analysis was re-verified against the real remote before trusting it:** `data/affiliate/latest.json` on `origin/main` is still `fetchedAt: 2026-08-09`, so the window algebra holds. Worth noting what the Aug 16 and Aug 23 "Amazon Associates export" commits actually contained — one line each, the `amazon-session-expired` marker. **The pull failed for two weeks and never once wrote a fabricated `$0`.** The design held right up to the moment it was deleted.
+
+### 1. The Wednesday strategy agent, dead two weeks, was one word in a schema
+
+`scripts/gsc-analyze.ts:1056` emits `affiliateAlert: null` on any week with no high-urgency affiliate opportunity. `scripts/schemas/gsc-history.ts:255` declared it `z.string()`. Every Wednesday since 2026-08-19: `key 'executiveSummary.affiliateAlert' must be string; found null`, exit 1, 17 seconds in.
+
+**The same defect had already been found and fixed on the field directly below it.** `cannibalizationAlert` carries `.nullable()` and a comment reading *"null in 4 of 16 snapshots — 'no cannibalization this week' is a real state."* Somebody hit this exact bug, diagnosed it exactly right, and did not look one line up. A fix applied to an instance instead of to a class.
+
+**Fixed schema-side, not producer-side, and the reason is the interesting part.** The obvious fix — give the producer a prose fallback like its two string siblings — would have been wrong. `gsc-analyze.ts:1419` prints the alert behind `if (analysis.executiveSummary.affiliateAlert)`. A non-empty fallback string makes that guard always true, so every quiet week would print a fabricated affiliate alert. That trades a loud crash for a silent lie. The nightly's own suggested fix (`""`) has the same shape and was declined for the same reason.
+
+### 2. Saturday's deploy — the union driver fixed one file and the failure moved to two others
+
+Dead on 4 of its last 8 runs, always at the same step, always in ~12 seconds, before build or deploy. The 2026-07-25 fix added `merge=union` for `data/token-log.jsonl`; the conflict simply relocated to `reports/content-log.md` and `wiki/log.md`.
+
+**Reproduced the failure in a scratch worktree before touching anything** — `git merge origin/main` on `origin/staging` conflicts on exactly those two paths — then verified the fix in the same worktree: both auto-merge, **zero conflict markers**.
+
+The two files are *not* the same shape as the `.jsonl` logs, and assuming they were is how a wrong fix gets shipped: `wiki/log.md` is **inserted at the top** by `wiki-utils.ts` (both branches, same offset, one hunk), and `reports/content-log.md` is **rewritten whole** by `execute-content.ts` (`writeFileSync`, not append). Union is lossless for the first and merely ugly for the second — accepted deliberately, because the durable copy is already archived per-date to `raw/audits/`, the next Friday run overwrites it entirely, and a doubled scratch report costs vastly less than a deploy pipeline that dies half the weeks.
+
+**Rejected: an `ours`/`theirs` driver**, which reads cleaner here. It inverts during a rebase, and `saturday.yml` ends with `git pull --rebase origin main` — so it would silently keep the wrong side of the report on some runs. `union` is symmetric and therefore rebase-safe.
+
+**One deployment subtlety that would have made the fix a no-op:** git reads `.gitattributes` from the *working tree* during a merge, and Saturday checks out `staging`. The fix must exist on `staging` before it can help, so it was pushed to both branches.
+
+### 3. Two silent truncations, both worse than reported
+
+`data/agent-health.jsonl` already recorded `stop_reason` on every call, which is the only reason these were measurable at all:
+
+| Agent | Cap | Runs truncated | Evidence |
+|---|---|---|---|
+| `nightly-report` / godseye-narrative | 4000 → **8000** | **5 of 13 (38%)** | the other 8 sat at 3674–3827 — permanently against the ceiling, not occasionally long |
+| `competitor-intelligence` / gap-analysis | 1200 → **3000** | **33 of 47 (70%)** | output pinned at exactly 1200 run after run |
+
+The competitor one is the more damaging and was under-reported. Its response is **JSON**, so a severed answer fails the `/\[[\s\S]*\]/` match and returns `[]` — **most weeks the agent reported no competitor gaps rather than a partial list, and "found nothing" was indistinguishable from "answer was cut in half."**
+
+**Raising the numbers is the smaller half of the fix.** What let this run for weeks was that hitting the ceiling produced no signal — the report just ended mid-section, looking exactly like a quiet night. `audit.ts` and `execute-content.ts` both check `stop_reason` at their own call sites; the one text Jackson actually reads did not. It now warns on the console **and prepends a banner to the document itself**, so a truncated report can never again be mistaken for a complete one.
+
+### 4. The four stuck pages were not a bug — and the tempting fix would have been a lie
+
+37 days, 20 attempts, `verdict: "fail"` on all four. `open: 0`; they are in `escalated`, which is where `escalateAfter: 3` is supposed to put them. **The pipeline worked exactly as designed.**
+
+The available mechanism was `data/retractions.jsonl` — and reading its schema is what stopped it being used. A retraction asserts a claim was **wrong**: it demands the mistaken `claim`, the `why` it is false, and a standing `rule`. These four findings are not wrong. They are correct and unwelcome. **A finding that is true and inconvenient must not be silenced through the mechanism built for findings that are false.** The nightly will keep listing them until someone acts on the pages; that is the honest state of the world.
+
+The decision was recorded instead — see [[what-failed]]. Position was the wrong target metric for this band: two pages have not moved a single tenth in five weeks, and `/office-chairs-for-tall-people/` is at 8.9 against a target of 8.1 and **still degrading**. Also recorded is what *not* to do next: no CTR work on `/review/leap-plus/` (position 9.8, forbidden by `no-ctr-iteration-below-position-8`), and no affiliate-revenue justification for the money hub (45 chair clicks, **$0.00**, measured this morning). The next intervention belongs on `/knee-pain-seat-depth/` — position **5.7 on 40,581 impressions**, top-scoring opportunity, on no kill list.
+
+**Verification:** **26/26 test files pass** (was 25/26 — the one failure was `data/gsc/analysis.json` being 404h stale in the old checkout, resolved by the rebase, not by any code change). `lint:architecture` 0 new violations. `tsc --noEmit` unchanged. Saturday's merge verified conflict-free in a throwaway worktree.
+
+Related: [[affiliate-performance]] · [[what-failed]] · [[godseye-nightly]] · [[open-issues-status]] · [[decisions-log]]

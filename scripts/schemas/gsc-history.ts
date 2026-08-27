@@ -252,7 +252,23 @@ export const executiveSummarySchema = z
     weeklyMomentum: z.string(),
     topOpportunity: z.string(),
     biggestLeak: z.string(),
-    affiliateAlert: z.string(),
+    // Both alert fields are `string | null` BY CONSTRUCTION in gsc-analyze.ts:
+    // they are `find(...)` results rendered to prose, and `null` is what a clean
+    // week looks like. Their two prose siblings above fall back to a sentence
+    // instead, which is why this pair is the odd one out.
+    //
+    // `affiliateAlert` was declared non-nullable and killed the Wednesday
+    // strategy agent for two weeks (2026-08-19, 2026-08-26) the moment a week
+    // arrived with no high-urgency affiliate opportunity. The identical defect
+    // had ALREADY been found and fixed on `cannibalizationAlert` one line below
+    // — the fix just was not carried across to its neighbour.
+    //
+    // Fixed schema-side, not producer-side, deliberately: gsc-analyze.ts:1419
+    // prints the alert behind `if (analysis.executiveSummary.affiliateAlert)`.
+    // Giving the producer a prose fallback would make that guard always true and
+    // print a fabricated alert every quiet week — trading a loud crash for a
+    // silent lie, which is the worse of the two.
+    affiliateAlert: z.string().nullable(),
     // null in 4 of 16 snapshots — "no cannibalization this week" is a real state.
     cannibalizationAlert: z.string().nullable(),
     aioSuspects: z.number(),

@@ -1098,7 +1098,14 @@ Respond with a JSON array of 3–5 gap findings. Be specific — name the missin
   try {
     const response = await meteredCreate({
       model: 'claude-sonnet-4-6',
-      max_tokens: 1200,
+      // 3000, raised from 1200 on 2026-08-26. This was the worst truncation in
+      // the pipeline by a wide margin: data/agent-health.jsonl records 33 of 47
+      // runs (70%) stopping on `max_tokens`, with output pinned at exactly 1200
+      // on run after run. The gap list is JSON, so a cut response fails the
+      // `/\[[\s\S]*\]/` match below and returns [] — meaning most weeks this
+      // agent reported NO competitor gaps rather than a partial list, and
+      // "nothing found" was indistinguishable from "answer was severed".
+      max_tokens: 3000,
       system: [{ type: 'text', text: systemPrompt, cache_control: { type: 'ephemeral' } }],
       messages: [{ role: 'user', content: userPrompt }],
     }, { agent: 'competitor-intelligence', run: today(), purpose: 'gap-analysis' });
