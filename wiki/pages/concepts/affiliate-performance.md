@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-08-09
-sources: [raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
+last_updated: 2026-08-26
+sources: [raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
 # Affiliate Performance (Amazon Associates)
 
-Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
+Tracking IDs (split 2026-08-13, `20aab85`): `tcachair-20` (chairs) · `tcaaccessory-20` · `tcadesk-20` · `tallchairadvi-20` (legacy catch-all, retains all pre-2026-08-13 attribution). Commission tier: ~3% (furniture/home office). Map: `src/data/affiliate-tags.ts`.
 
 ---
 
@@ -17,11 +17,13 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 > 1. **Snapshots within a month supersede each other — never add them.** Amazon month-to-date snapshots are cumulative. Proven 2026-08-01: Jul 28 and Jul 31 carry an identical order set and identical ordered revenue ($3,109.76), shipped catching up to ordered, clicks rising monotonically (82 → 87 → 92).
 > 2. **Check the window type before logging any export.** The window is whatever was selected in Associates Central and is *not* recorded in the CSV. Month-to-date and rolling-30-day exports look identical in the file. A rolling window cannot be appended to this monthly log — see the Aug 3 export below, which was 99.7% July's money re-reported and briefly read as a second positive month. **Record the selected range on every download.**
 >
-> **Rule 2 stops applying to automated exports (2026-08-09).** `scripts/amazon-pull.ts` (P3) chooses the window itself and writes it into the report as a stated fact, so exports it produces are never ambiguous. Hand-downloaded exports still need the range recorded.
+> **Rule 2 applies to EVERY export again (2026-08-26).** The automated pull that used to state its own window was retired; `scripts/amazon-pull.ts` no longer exists. Every export from here on is hand-downloaded, so **record the selected date range at download time.** When that was not done, the window can often still be *solved* — see Rule 3.
+>
+> 3. **An unrecorded window is SOLVED by algebra, never guessed.** Match the export's totals against the per-day rows frozen in `data/affiliate/latest.json` (2026-07-11 → 2026-08-09). If three independent quantities match to the cent, the window is established; if the algebra does not resolve, the window stays **unknown**. Proven 2026-08-26. **This is why `latest.json` must never be overwritten from a CSV drop — those daily rows are the decoder, not just old data.** See `data/affiliate/README.md`.
 
 | Month | Clicks | Orders | CVR | Ordered Revenue | Shipped Revenue | Net Earnings | Status |
 |--------|--------|--------|-----|-----------------|-----------------|--------------|--------|
-| **2026-08** | — | 2 (partial) | — | $227.98 | — | **+$6.84** | Days 1–4 only, derived from the Aug 4 rolling export. Naive run rate ~$53/mo — below the $100 gate — but n=2 with one order at 96% of revenue, so the projection carries no weight. Confirming month for the kill-list gate; closes 2026-09-01. |
+| **2026-08** | — | 3 (partial) | — | — | — | **+$12.15** | Days 1–25, derived from the Aug 26 rolling export (window solved, see below). $6.84 booked Aug 1–4 plus ~$5.31 in the `others` tracking bucket after. ~$1,575 ordered-but-unshipped could add ~$47 at 3%. **On track to FAIL the $100 gate.** Confirming month for the kill-list gate; closes 2026-09-01. |
 | **2026-07** | 92 | 5 (1 direct) | 5.4% | $3,109.76 | $3,109.76 | **+$92.06** | Best month in site history (~2.5x prior best). 66% from a single order. Return window open. |
 | 2026-06 | 70 | 7 | 10.0% | $578.08 | $578.08 | **−$0.41** | 1 return ($610) wiped earnings. |
 
@@ -34,6 +36,143 @@ Tracking ID: `tallchairadvi-20` | Commission tier: ~3% (furniture/home office)
 | Jul 17 | 82 | $1,252.11 | — | +$36.06 | 6 items ordered (later restated to 5) |
 
 *Correction 2026-08-01: the Jul 28 ingest treated these as discrete periods and favored a "not cumulative" reading based on items ordered falling 6 → 5. That was wrong — the 6 → 5 change was an order restatement, not a new window. There is **one** positive month on record (July), not three positive periods. The Jul 3 kill-list gate ("2–3 consecutive positive revenue months") therefore stands at 1 of 2–3. August is the confirming period.*
+
+### Aug 26 export — rolling 30-day, **Jul 27 – Aug 25 (WINDOW SOLVED, not guessed)**
+
+**First export after the 2026-08-13 tracking-ID split. First export in the archive whose window was
+*derived and verified* rather than inferred or left unknown.**
+
+**How the window was solved — the method is reusable.** `data/affiliate/latest.json` holds per-day
+rows from the 2026-08-09 automated pull. Summing only 2026-07-27 onward gives **4 shipped items /
+$2,293.77 shipped revenue / $68.98 earnings** — identical *to the cent on all three quantities* to
+this export's `tallchairadvi-20` row. Three independent figures matching is not coincidence. The
+date stamp `2026-08-25` fixes the end; 30 days back is 2026-07-27. *(2026-07-26 contributed $0/0
+items, so algebra alone cannot separate a Jul 26 from a Jul 27 start — the 30-day count settles it.)*
+
+**Rule 2 now has a third clause:** a hand export's unknown window can be *recovered* by algebra
+against the automated daily rows, as long as the automated pull's coverage overlaps it. Guessing is
+still forbidden; solving is not. This is a second reason never to overwrite `latest.json` with a
+hand export — the daily rows are the instrument that decodes the hand exports.
+
+**Also confirmed: the date column is a boundary, not a day.** 131 clicks / 30 days = ~4.4/day,
+inside the 3–9/day baseline. 131 clicks on 2026-08-25 alone would be a 15–40x spike.
+
+#### THE FINDING: the chair tag's first readout is 45 clicks and $0.00
+
+| Tracking ID | Clicks | Items ordered | Items shipped | Shipped revenue | **Total earnings** |
+|---|---|---|---|---|---|
+| `tallchairadvi-20` (legacy) | 81 | — | 4 | $2,293.77 | **$68.98** |
+| **`tcachair-20` (chairs)** | **45** | **—** | **0** | **—** | **$0.00** |
+| `others` | 5 | 5 | 1 | $404.99 | **$12.15** |
+| **Total** | **131** | **5** | **5** | **$2,698.76** | **$81.13** |
+
+[[affiliate-tags]] / `src/data/affiliate-tags.ts` was built to ask one question — *does a $500+
+chair click EVER convert on Amazon?* Twelve clean days (2026-08-13 → 08-25) answer it:
+**45 chair clicks, zero orders, zero dollars.**
+
+Sixth consecutive period with zero chair conversions, and **the first where the zero is a direct
+measurement rather than an inference.** Before the split, "0 chair orders" was read off ASIN click
+rows sitting next to an `others` earnings bucket. Now it is a dedicated tracking ID that attributes
+every purchase in the 24-hour session — and nothing bought in a session that began on a chair link
+produced a cent.
+
+**Every dollar in this window is old money or unlinked money:**
+- **$68.98 (85%)** — legacy tag, and the algebra dates all of it to **on or before 2026-08-04**. The
+  legacy tag has earned **nothing new in 22 days**.
+- **$12.15 (15%)** — `others` tracking bucket; the only new money since the 2026-08-09 pull
+  ($81.13 − $68.98). 5 clicks → 5 items ordered is a **100% product conversion rate, the highest in
+  this archive**, on $1,979.96 ordered. Only 1 item ($404.99) has shipped, leaving **~$1,575
+  ordered-but-unshipped ≈ $47 unrealized at 3%**. `tcaaccessory-20` and `tcadesk-20` have no rows of
+  their own, so whether accessories are what is converting here **cannot be determined from this
+  file** — watch for those rows to appear.
+
+**New earnings in the 17 days since the last automated pull: $12.15, none from a chair link.**
+
+#### The Leap Plus earnings row is NOT a chair sale — do not log it as one
+
+`linked-product.csv` books **99.7% of earnings ($80.89 of $81.13) to Steelcase Leap Plus
+`B00TYE4QXU`** — the first named-chair earnings row in site history, where every prior export put
+100% in `others`. It reads like the breakthrough. **It is not.**
+
+The tracking-ID table attributes those same 4 shipped items to the *legacy* tag, and the window
+algebra dates them to Jul 27 – Aug 4 — a period already logged here as zero chair orders. The
+dedicated chair tag, covering the same ASIN over the same file, earned $0.00. The two readings
+reconcile only if the linked-product row credits **session-basket revenue to the referring ASIN**
+rather than sales of that ASIN. Corroborating: $2,690.77 over 4 items is $672.69 average, and the
+Leap Plus is a ~$1,300+ chair — 4 of them cannot cost $2,690.77. **It is a Leap Plus referral whose
+basket was something else** — the same "toll on sessions TCA originated" pattern logged since June.
+
+**Data quality — the two dimensions disagree by exactly $397.00** ($11.91 of earnings), sitting on
+the chair row in linked-product and the `others` row in tracking-id. `category.csv` disagrees a
+third way, putting all $81.13 on `others` (15 clicks) while Furniture (116 clicks) is dashes end to
+end. All three reconcile at **131 clicks**. Per the standing rule, **the three reports are not
+reconciled line-for-line** — nothing downstream reads the difference.
+
+`top-sellers.csv`: header only. No top sellers, consistent with every export in the archive.
+
+#### Click movement — Leap Plus still #1, but its share is eroding
+
+| ASIN | Product | Aug 26 (Jul 27–Aug 25) | Aug 13 | Jul 31 | Jul 28 |
+|---|---|---|---|---|---|
+| B00TYE4QXU | Steelcase Leap Plus | **47** (36%) | 50 (41%) | 45 (49%) | 41 (47%) |
+| B016OIF2JU | Steelcase Gesture | 28 | 23 | 24 | 23 |
+| B01N32UFNT | Herman Miller Aeron Size C | 14 | 16 | 12 | 12 |
+| B08PPVCCST | Crandall Remanufactured Leap V2 | **11 (first appearance)** | — | — | — |
+| others | — | 31 | 33 | 11 | 11 |
+| **Total** | | **131** | 122 | 92 | 87 |
+
+**Crandall Remanufactured Leap V2 `B08PPVCCST` appears with attributed clicks for the first time** —
+[[refurbished-steelcase-leap]] is generating real affiliate traffic. Leap Plus holds the top slot for
+a fourth period but its share has fallen 49% → 41% → 36% as Gesture and the Crandall pick up.
+
+**What this changes about the Leap Plus reframe:** the queued "I almost bought this" rewrite of
+[[review-leap-plus]] still has the strongest click support of anything on the board — but this export
+establishes that **clicks are not the constraint.** 134 named chair clicks across two periods,
+$0.00. Do the reframe for CTR and E-E-A-T reasons; do not expect it to produce Amazon chair revenue.
+
+#### What this does NOT change
+
+- ~~**The automated pull is still down.**~~ **OVERTAKEN THE SAME DAY — the pull was RETIRED
+  2026-08-26.** This bullet originally flagged it 17 days stale against a 3-day SLA and called for
+  `AMAZON_STORAGE_STATE` to be re-captured. Jackson declined to re-auth; the automation was deleted
+  instead. See **Automated pulling — RETIRED** below. **August's close on 2026-09-01 is reconstructed
+  from hand exports** — now the normal path, not a fallback.
+- **`latest.json` was NOT overwritten.** This export is a rolling window with no per-day rows;
+  writing it would replace 25 dated daily rows with one undated aggregate and destroy the instrument
+  that solved this window in the first place.
+- **August is on track to fail the $100 gate.** Recoverable Aug 1–25 earnings: **$12.15**, with ~$47
+  unshipped that may land. Gate stands at **1 of 2–3**; August closes 2026-09-01.
+
+Raw: `raw/affiliate/2026-08-26-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-08-26-amazon-csv/`).
+
+---
+
+### Aug 13 export — window UNKNOWN and deliberately not guessed *(ingested late, 2026-08-26)*
+
+*This export was archived on 2026-08-13 but never ingested into this page. Recorded here for the
+audit trail; the Aug 26 export above supersedes its numbers.*
+
+`tracking-id.csv` carried **one** row (`tallchairadvi-20`) — the last single-tag export, taken the
+same day the tag split shipped. Totals: **122 clicks, 7 items ordered, $3,337.74 ordered revenue,
+7 shipped, $100.40 earnings, 0 returns.**
+
+**The window was not recoverable at the time and was left unknown rather than invented.** Rows were
+stamped `2026-08-12`, but the order figures were identical to the cent to the 30-day window ending
+2026-08-09 — so the date was a report boundary, not a day. `latest.json` was correctly not
+overwritten. *(The Aug 26 method would likely have solved it; it had not been discovered yet.)*
+
+**Its finding — 89 chair clicks, zero chair orders** (Leap Plus 50, Gesture 23, Aeron 16), with all
+7 orders and 100% of the $100.40 in the `others` bucket. Combined with the Aug 26 export's 45
+clicks / $0.00 on the dedicated chair tag, this is **134 named chair clicks → $0 across two
+periods**, the direct evidence behind the "clicks are not the constraint" conclusion above.
+
+Identical order figures to the 2026-08-09 pull ($3,337.74 / 7 items / $100.40) indicated **no order
+landed between 2026-08-09 and 2026-08-13** — since confirmed by the Aug 26 algebra, which dates the
+last legacy-tag earnings to 2026-08-04.
+
+Raw: `raw/affiliate/2026-08-13-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-08-13-amazon-csv/`).
+
+---
 
 ### Aug 4 export — rolling 30-day (inferred), Jul 6 – Aug 4
 
@@ -75,52 +214,76 @@ Raw: `raw/affiliate/2026-08-03-amazon-associates-report.md` (+ CSVs in `raw/affi
 
 ---
 
-## Automated pulling — P3, LIVE since 2026-08-09
+## Automated pulling — RETIRED 2026-08-26. Do not rebuild it.
 
-Amazon Associates has no reporting API, so hand-downloading these CSVs was the last real manual load in the pipeline. `scripts/amazon-pull.ts` replays a `storageState` session Jackson captures once and downloads the same four reports.
+**`scripts/amazon-pull.ts`, `scripts/lib/amazon-session.ts`, `scripts/lib/affiliate-store.ts`,
+`.github/workflows/amazon-weekly.yml` and the nightly's affiliate step are DELETED.** The
+`amazon:pull*` npm scripts are gone. Affiliate data is hand-exported by Jackson and nothing else.
 
-**Active.** The session was captured by hand on 2026-08-09 and `AMAZON_STORAGE_STATE` is set; verified end-to-end from CI. Capturing it is a human act — an agent must never handle a login to a financial account — but nothing else here is manual. Runs nightly (live layer) and Sundays 08:00 UTC (archive snapshot).
+**Why, in one line: it worked for eleven days and then asked for a manual login to a financial
+account, forever.**
 
-**The design point that matters for this page: it will never write a `$0` row.** On an expired session it files `amazon-session-expired` and writes **no report at all**. A zero produced by a failed login is indistinguishable, in this log, from a month that genuinely earned nothing — and **the kill-list gate that decides whether this site continues is measured in months above $100.** A fabricated zero could retire a site that was earning fine.
+P3 replayed a Playwright `storageState` session against Associates Central's internal reporting
+endpoint. It was genuinely well-built — it harvested the app's own bearer token rather than guessing
+an auth scheme, it detected expiry positively instead of trusting a parsed zero, and it refused to
+write a `$0` row on failure. None of that was the problem.
 
-Expiry is detected positively (a sign-in URL, challenge text, or an HTML document where a CSV should be), never by trusting a parsed zero. An `empty` CSV is recorded as empty, never as `$0` — Top-Sellers legitimately has no rows most weeks, as every export in this archive shows.
+**The problem was structural.** The session captured on 2026-08-09 expired by 2026-08-20. Recapturing
+it is `playwright codegen` against a live Amazon financial login — an act only Jackson may ever
+perform, because an agent must never handle that credential. So the "last manual step in the
+pipeline" was never removed; it was **converted from a monthly CSV download into a fortnightly
+credential-capture chore**, and the new chore was strictly worse: the CSV download produces ASIN-level
+attribution, and the automated pull produced only the daily overview. Jackson declined to re-auth on
+2026-08-26 and the automation was removed the same day.
 
-### Corrected 2026-08-09 against a live session — there is no CSV endpoint
+### The reasoning that must survive this, because the temptation will return
 
-The first version guessed a `?format=csv` download URL. Associates Central is an SPA and has none: that URL returned the page's own 249KB JSON payload, which the CSV classifier read as **"header row only" — an empty report.** A wrong endpoint was one step from being recorded as a period with no earnings.
+**Any session-replay scheme against Amazon has the same expiry treadmill underneath it.** Rebuilding
+it with a longer-lived cookie, a different browser profile, or a retry loop does not change the
+shape — it changes how many days pass before a human is asked for a credential again. **If the 7-day
+nag becomes annoying, the correct responses are a longer threshold or a different affiliate program.
+Never a new scraper.** `scripts/collectors/amazon.ts` carries this warning in its own header so an
+agent reading only that file still finds it.
 
-The data actually comes from `/reporting/table`, which returns **401 to a plain cookie-authenticated request**. It also needs a per-page-load `authorization: Bearer` JWT and an `x-csrf-token` — neither is a cookie, both rotate every page load, so neither can live in `storageState`.
+### What was ACTUALLY lost, stated honestly
 
-**The fix is to harvest, not construct.** The script opens the reporting page, intercepts the app's OWN first request to `/reporting/table`, captures its headers, and replays them with the date range this run wants. It never guesses an auth scheme; it borrows the one the application just used.
-
-**Verified against this archive:** summing the daily rows over 2026-07-11 → 2026-08-09 reproduces the 2026-08-04 export exactly — $3,337.74 ordered revenue, 7 items ordered, 108 clicks.
-
-### Two things that comparison corrected
-
-- **`total_earnings` from the API is SHIPPED earnings, not net.** It returns **$100.40** where the 2026-08-04 headline net was **$98.90** — a $1.50 returned-item clawback. The clawback *value* is not in the column set (only the returned-item count is). **Do not copy the automated figure into the monthly table above as net earnings** — it is an upper bound, and the gap is the clawback.
-- **Days without activity are omitted, not zero-filled.** A 30-day window returned 25 rows. Sparse is normal; only a completely empty window indicates failure, and that is refused rather than recorded as $0.
-
-### Cadence: daily live data, weekly archive (2026-08-09)
-
-Revenue used to be invisible to the nightly — the god's-eye run saw GSC, GA4, Clarity and the probe every night, and affiliate earnings once a week. That was backwards for the one number the kill-list gate actually decides on.
-
-| Layer | Written | By |
+| | Before retirement | Now |
 |---|---|---|
-| `data/affiliate/latest.json` | **daily**, overwritten | the nightly |
-| `data/affiliate/history.jsonl` | **daily**, one appended line per pull | the nightly |
-| `raw/affiliate/<date>-...` | **weekly**, dated snapshot | `amazon-weekly.yml` |
+| Revenue in the nightly's field of view | daily | only as export staleness |
+| `data/affiliate/latest.json` | refreshed daily | **frozen at 2026-08-09** |
+| ASIN-level attribution | manual export (unchanged) | manual export (unchanged) |
+| Windows stated as fact | automated exports only | none — but now *solvable*, see Rule 3 |
 
-The archive report stays weekly on purpose: writing it daily would put ~30 near-identical dated files a month into `raw/`, which is an archive of evidence and decisions, not a log. Cost of the daily half is one page load — the nightly already installs chromium for the probe.
+The real loss is the daily revenue signal. Set against it: the automated figure was **SHIPPED
+earnings, not net** (it read $100.40 where the true net was $98.90, a $1.50 clawback it structurally
+could not see), so it was never the number the kill-list gate wanted anyway.
 
-**Freshness is read from `fetchedAt` inside the file, never from its mtime.** `latest.json` has no date in its filename, so a timestamp-based check would fall back to the filesystem — and a CI checkout stamps every file it writes with "now". The staleness nag would have read *0 days old* on every run forever, including runs where the pull failed and wrote nothing. [[godseye-nightly]] records the same bug hitting this collector once already, when its own output matched its own scan.
+### `latest.json` is KEPT and is now more valuable frozen than it was live
 
-`collectors/amazon.ts` now reports on the automated pull with a **3-day** SLA (a daily job — two silent failures should show), falling back to the old 7-day disk-scan nag for hand-dropped exports. A stale snapshot reports as stale, a malformed one as unreadable, and **neither as zero**.
+`data/affiliate/latest.json` and `history.jsonl` stay on disk. **They are the decoder for every
+hand-dropped CSV** — the 25 per-day rows are what let the 2026-08-26 export's window be solved rather
+than guessed. `data/affiliate/README.md` records this at the file, where someone about to "clean up a
+stale data file" will actually read it. `collectors/amazon.ts` now **excludes `data/affiliate/` from
+its staleness scan**, because `latest.json` has no date in its filename and would be dated by mtime —
+which CI stamps with "now" on every checkout, making the nag read *0 days old* forever on a frozen
+file. That is the same self-resetting-nag bug this collector already hit once with its own output.
 
-### What this does NOT pull
+### The collector went back to the question it started with
 
-The **daily overview only**. The ASIN-level tables (linked-product, category, top-sellers) use different `query[type]` values whose parameters were not established — probing began returning HTTP 429, so it was stopped rather than risk the account.
+`collectors/amazon.ts` no longer asks "did the automated pull run and succeed?" It asks **"how old is
+the newest export Jackson dropped on disk?"** — one threshold, `NAG_THRESHOLD_DAYS = 7`, where a human
+is the bottleneck. The 3-day `AUTOMATED_STALE_DAYS` SLA is gone with the thing it measured. The
+unchanged guarantee: **a stale export is reported as stale, never as zero.** A fabricated `$0` could
+trip the kill-list gate on a month that actually earned.
 
-**Consequence:** click-to-ASIN attribution — the "0 chair orders on 92 named-chair clicks" pattern tracked below, now five consecutive exports old — is **not** in the automated pull and still needs a manual export to update. The generated report says so in its own body rather than appearing complete.
+---
+
+## What this does NOT pull — still true, and now the whole picture
+
+The ASIN-level tables (linked-product, category, top-sellers) always required a manual export; the
+automated pull only ever produced the daily overview. So **click-to-ASIN attribution — the "0 chair
+orders on N chair clicks" pattern this page tracks — was never automated and is unaffected by the
+retirement.** It comes from Jackson's CSV drops, exactly as it always did.
 
 ---
 

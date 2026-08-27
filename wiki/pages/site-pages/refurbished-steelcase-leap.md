@@ -2,8 +2,8 @@
 type: site-page
 url: /refurbished-steelcase-leap-tall-people/
 created: 2026-07-04
-last_updated: 2026-07-04
-sources: [raw/audits/2026-07-04-affiliate-revenue-audit.md]
+last_updated: 2026-08-26
+sources: [raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/affiliate/2026-08-26-amazon-associates-report.md]
 tags: [refurbished, leap-v2, budget, commercial-intent, crandall]
 ---
 
@@ -15,7 +15,8 @@ tags: [refurbished, leap-v2, budget, commercial-intent, crandall]
 Height-cutoff framing no competitor uses: refurb Leap V2 (20.5" max seat height) works to ~6'2"; above that the refurb market has nothing and the answer is a new Leap Plus. Remanufactured vs. Renewed vs. Used tiers explained via warranty length ("the warranty is the tell").
 
 ## Monetization
-- Primary CTA: Crandall remanufactured Leap V2 on Amazon (`/dp/B08PPVCCST`, 12-year warranty) — earns under existing `tallchairadvi-20` tag today
+- Primary CTA: Crandall remanufactured Leap V2 on Amazon (`/dp/B08PPVCCST`, 12-year warranty) — now tagged **`tcachair-20`** since the 2026-08-13 class split (was `tallchairadvi-20`)
+- **FIRST ATTRIBUTED CLICKS 2026-08-26: `B08PPVCCST` recorded 11 clicks** (window Jul 27 – Aug 25), its first appearance in any Amazon linked-product export. 8% of the site's 131 affiliate clicks, fourth of four named chairs. **0 orders** — consistent with every chair on the site. Attribution caveat: Amazon reports per-ASIN, not per-page, so this does not prove *this* page produced them; `/best-office-chairs-under-500/` and `/best-big-and-tall-office-chairs/` also link the ASIN. See [[affiliate-performance]].
 - Secondary: Crandall Office direct link (crandalloffice.com — tracked in GA4 as program `crandall`; commissions pending Jackson joining their program)
 - Upgrade path links to /review/leap-plus/ (Leap Plus B00TYE4QXU)
 

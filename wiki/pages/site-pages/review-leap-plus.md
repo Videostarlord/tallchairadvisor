@@ -2,8 +2,8 @@
 type: entity
 entity: site-page
 url: /review/leap-plus/
-last_updated: 2026-07-29
-sources: [raw/affiliate/2026-07-28-amazon-associates-report.md, data/gsc/latest.json, data/competitors/intelligence.json]
+last_updated: 2026-08-26
+sources: [raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, data/gsc/latest.json, data/competitors/intelligence.json]
 tags: [page, review, leap-plus, research-based]
 ---
 
@@ -27,6 +27,23 @@ Leap Plus ASIN **B00TYE4QXU: 45 clicks = 49% of all site affiliate clicks in Jul
 **Attribution caveat (added 2026-07-29):** Amazon reports clicks per *ASIN*, not per source page. It does not establish that this page produced those clicks. GA4 page-level `affiliate_click` events for the same period point elsewhere: `/office-chairs-for-tall-people/` recorded 6 of 11 tracked events, the most of any page — its Quick Picks box links the Leap Plus. The likeliest read is that the money hub, not this review, is the main source of Leap Plus clicks. Treat "Leap Plus is the top product" as established and "this page is the top surface" as unconfirmed. See [[affiliate-performance]], [[office-chairs-for-tall-people]].
 
 The queued "I almost bought this" reframe (Open Issue 2) remains worthwhile on its own merits, but it is not established as the highest-leverage revenue action.
+
+## UPDATE 2026-08-26 — clicks are not the constraint, and the reframe should not be sold as a revenue action
+
+| Period | Leap Plus clicks | Share | Orders |
+|---|---|---|---|
+| Jul 27 – Aug 25 (Aug 26 export) | **47** | 36% | **0** |
+| Aug 13 export | 50 | 41% | 0 |
+| Jul 31 month close | 45 | 49% | 0 |
+| Jul 28 | 41 | 47% | 0 |
+
+Leap Plus holds the #1 click slot for a fourth consecutive period, but its share is eroding (49% → 41% → 36%) as Gesture and the newly-attributed Crandall Leap V2 pick up.
+
+**The decisive new evidence is the 2026-08-13 tracking-ID split.** Chair links now carry a dedicated tag, `tcachair-20`. Its first readout: **45 chair clicks, 0 orders, $0.00** over 12 clean days. Across the last two periods that is **134 named chair clicks → $0**, now measured directly rather than inferred.
+
+**One trap in the same export:** `linked-product.csv` books $80.89 — 99.7% of all earnings — to `B00TYE4QXU`. That is **not** a Leap Plus sale. The same 4 items are attributed to the *legacy* tag and date to Jul 27 – Aug 4, and $2,690.77 over 4 items ($672.69 avg) cannot be four ~$1,300 chairs. It is a referral whose basket was something else. **Do not log it as a conversion for this page.** See [[affiliate-performance]].
+
+**Implication for the reframe:** still do it — the CTR and E-E-A-T case stands on its own, and this remains the most-clicked product on the site. But the constraint is the 3% furniture tier against a $500+ considered purchase, not traffic to this page. **Do not justify the rewrite as an Amazon revenue action**; more clicks on this ASIN have twice produced nothing.
 
 ## AIO Suppression Status (May 12 — competitor:intelligence v2.3)
 

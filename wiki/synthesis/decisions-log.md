@@ -1,12 +1,114 @@
 ---
 type: synthesis
-last_updated: 2026-08-13
+last_updated: 2026-08-26
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## [2026-08-26] Kill the Amazon Playwright pull — a scraper that asks for a manual login is not automation
+
+**Decision.** `scripts/amazon-pull.ts` and everything that served it are **deleted**:
+`scripts/lib/amazon-session.ts`, `scripts/lib/affiliate-store.ts`, both their test files,
+`.github/workflows/amazon-weekly.yml`, the nightly's "Pull affiliate revenue (daily)" step, and the
+`amazon:pull` / `amazon:pull:daily` / `amazon:pull:dry` npm scripts. **Affiliate data is hand-exported
+by Jackson, permanently. Do not rebuild this.**
+
+**What triggered it.** The session captured 2026-08-09 expired by ~2026-08-20. Re-capturing it means
+`playwright codegen` against a live Amazon financial login. Jackson declined, on 2026-08-26: *"the
+automatic playwright amazon downloads do not work and I won't be re-authing anything."*
+
+**Why the decision is right rather than merely instructed — the design was good and the shape was
+wrong.** P3 was among the better-engineered things in this repo. It harvested the app's own bearer
+token instead of guessing an auth scheme (the first version guessed a `?format=csv` endpoint and got a
+249KB JSON payload that the CSV classifier read as *"header row only — empty report"*, one step from
+recording a period with no earnings). It detected expiry positively rather than trusting a parsed
+zero. It filed `amazon-session-expired` and wrote **no report** on failure, because a fabricated `$0`
+is indistinguishable from a genuinely zero month and the kill-list gate reads exactly that number.
+None of that was the problem.
+
+**The problem is that it never removed the manual step — it made the manual step worse.**
+
+| | Old manual load | P3's manual load |
+|---|---|---|
+| Frequency | monthly-ish CSV download | ~fortnightly credential capture |
+| What it yields | ASIN-level attribution (4 reports) | daily overview only |
+| Risk | none | handling a live financial credential |
+
+**A pipeline whose keystone is a recurring manual login is a chore wearing a workflow's clothes.**
+Eleven working days of daily revenue data cost a permanent recurring obligation, and bought strictly
+less information than the thing it replaced.
+
+**The generalisation, which is the part worth keeping.** *Automation that converts a low-frequency
+human task into a high-frequency one has not automated anything.* Measure an automation by the total
+human load it leaves behind, not by the step it removed. This one removed a download and added a
+login — and the login is the more expensive act, because only one specific human on earth may perform
+it.
+
+**Why not repair instead of delete.** Every repair has the same expiry treadmill underneath it: a
+longer-lived cookie, a fresh browser profile, or a retry loop changes *how many days pass* before a
+human is asked for a credential, not *whether*. **If the 7-day staleness nag becomes annoying, the
+correct responses are a longer threshold or a different affiliate program — never a new scraper.**
+That warning is written into `scripts/collectors/amazon.ts`'s own header, so an agent reading only
+that file still finds it.
+
+**What was kept, deliberately, and must not be "cleaned up".** `data/affiliate/latest.json` and
+`history.jsonl` stay, frozen at 2026-08-09. Their 25 per-day rows are **the decoder for every
+hand-dropped CSV** — the instrument that solved the 2026-08-26 export's window by algebra instead of
+guessing. `data/affiliate/README.md` says so at the file. `collectors/amazon.ts` now excludes
+`data/affiliate/` from its scan, because `latest.json` has no date in its filename and would be dated
+by mtime — which CI stamps with "now", making the nag read *0 days old* forever on a frozen file. That
+is the same self-resetting-nag bug this collector already hit once with its own output.
+
+**What was honestly lost.** The daily revenue signal in the nightly. Against it: the automated figure
+was **SHIPPED earnings, not net** — it read $100.40 where true net was $98.90, a $1.50 clawback it
+structurally could not see — so it was never the number the kill-list gate wanted. ASIN-level
+attribution, the data this page actually reasons from, was never automated and is unaffected.
+
+**Verification:** `tsc --noEmit` error count unchanged at 31 (all pre-existing, none affiliate-related);
+`lint:architecture` reports 0 new violations; 25/26 test files pass. The one failure,
+`read-validated.test.ts`, is **pre-existing and unrelated** — `data/gsc/analysis.json` is 404h old
+against a 192h SLA — and was confirmed failing on a clean checkout of `HEAD`.
+
+---
+
+## [2026-08-26] The chair tag returned $0.00 — stop treating Amazon chair clicks as a revenue path
+
+**Decision.** Chair clicks on Amazon are **no longer counted as a revenue lever.** Content work on chair pages continues for rankings, CTR and E-E-A-T, but **no plan may justify itself by projecting Amazon chair commissions.** The [[thesis]] diversification argument (email capture, higher-commission programs, non-Amazon partners) is now the only funded monetization path.
+
+**The evidence that closed it.** The 2026-08-13 tracking-ID split (`20aab85`) existed to answer exactly one question — *does a $500+ chair click ever convert on Amazon?* Its first readout, 12 clean days:
+
+| Tracking ID | Clicks | Orders | Earnings |
+|---|---|---|---|
+| `tcachair-20` (chairs) | **45** | **0** | **$0.00** |
+| `tallchairadvi-20` (legacy) | 81 | 0 new | $68.98, all dated ≤ 2026-08-04 |
+| `others` | 5 | 5 | $12.15 |
+
+Combined with the Aug 13 export's 89 chair clicks → 0 orders: **134 named chair clicks, $0.00, across two periods.** Six consecutive periods of zero chair conversion, and the first where the zero is a **direct measurement** rather than an inference from ASIN click rows sitting beside an `others` bucket.
+
+**Why this is a decision and not just a data point.** Every prior plan that leaned on "Leap Plus is the most-clicked product" implicitly assumed clicks were the binding constraint. They are not. The constraint is a 3% furniture tier against a $500+ considered purchase — a decision people make over weeks, in showrooms, and frequently not on Amazon. More clicks on the same ASIN have now twice produced nothing.
+
+**The trap this decision has to survive.** The same export books **$80.89 — 99.7% of all earnings — to the Steelcase Leap Plus row** in `linked-product.csv`. Read alone, that looks like the breakthrough that reverses this decision. It is not: the same 4 items are attributed to the *legacy* tag, window algebra dates them to Jul 27 – Aug 4 (before the split), and $2,690.77 over 4 items is $672.69 average — four ~$1,300 chairs cannot cost that. It is a referral whose basket was something else. **Any future agent reading that row must check the tracking-ID table before calling it a chair sale.**
+
+**What was ALSO decided: the split pays for itself and stays.** Three buckets plus a catch-all produced a decision-grade answer in twelve days on ~5 orders a month. Do not expand it to thirty classes; do not collapse it back to one.
+
+**What this does not license.** It does not deprioritise the [[review-leap-plus]] "I almost bought this" reframe — that rewrite stands on CTR and E-E-A-T grounds. It only forbids selling it as an Amazon revenue action.
+
+---
+
+## [2026-08-26] Hand-export windows are to be SOLVED by algebra, never guessed
+
+**Decision.** When a hand-dropped Associates export does not state its window — which is all of them — the window is **derived by matching its totals against the per-day rows in `data/affiliate/latest.json`**. If the algebra does not resolve, the window stays **unknown**. Guessing remains forbidden.
+
+**Why it now works.** The Aug 26 export's legacy-tag row reads 4 shipped items / $2,293.77 / $68.98. Summing `latest.json`'s daily rows from 2026-07-27 onward gives 4 / $2,293.77 / $68.98 — **identical on three independent quantities.** Window: rolling 30-day, **2026-07-27 → 2026-08-25.** Every hand export since Jul 17 had left this unknown.
+
+**The second-order consequence, and the real reason this is logged.** This is now a **third** reason `data/affiliate/latest.json` must never be overwritten by a hand export. The daily rows are not just the live layer — **they are the instrument that decodes every hand export.** Replacing 25 dated daily rows with one undated rolling aggregate would destroy the only key that makes the CSV drops readable. Anyone "helpfully" syncing `latest.json` from a CSV drop is deleting the decoder.
+
+**Cost of not having had this:** the 2026-08-03 export was briefly read as a second positive month when it was 99.7% July's money through a shifted window.
+
+---
 
 ## [2026-08-13] The capsules stay; the prose clause goes (kill-list contradiction resolved)
 

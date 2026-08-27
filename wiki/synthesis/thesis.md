@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-07-24 (Profit Audit adopted as routing directive — convert existing traffic, freeze content, ship monetization pivot; see decisions-log 2026-07-24)
+last_updated: 2026-08-26 (Amazon chair monetization measured at $0.00 and retired as a revenue lever; diversification is now the only funded path)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -8,6 +8,24 @@ tags: [thesis, strategy, big-picture]
 # Strategic Thesis
 
 **Last revised:** 2026-05-10
+
+## ⚠ 2026-08-26 — the Amazon half of the monetization thesis is measured, and it is zero
+
+**This is the strongest single revision to this document since the July pivot, and it is a measurement rather than an argument.**
+
+The 2026-08-13 tracking-ID split put chair links on their own Amazon tag specifically to test the monetization assumption underneath this thesis. Twelve clean days: **`tcachair-20` — 45 clicks, 0 orders, $0.00.** Combined with the prior period's 89 chair clicks → 0, that is **134 named chair clicks producing $0**, measured directly instead of inferred from ASIN rows beside an `others` bucket.
+
+**What this does NOT invalidate.** The Bet itself — owning "does this chair fit someone who is 6'X?" — is about *audience and ranking*, and the traffic side is working. Chair pages rank, get clicked, and generate the site's affiliate click volume.
+
+**What it DOES invalidate.** Any plan whose revenue case is "rank the chair page higher → more Amazon chair clicks → commission." That chain has now been measured twice and terminates at zero. The binding constraint is the **3% furniture tier against a $500+ considered purchase** — a decision people make over weeks, often not on Amazon at all. It is not traffic, and it is not click volume. The July correction to the "monetization ceiling" math still stands (the site *can* earn at current traffic — July proved it at +$92.06), but **the money came from unlinked incidental baskets, not from chairs**, and that is not a channel anyone can grow on purpose.
+
+**Consequence for priority order.** The diversification arms of the July pivot — email capture, higher-commission programs (Crandall Office direct, Steelcase-adjacent), non-Amazon partners — are no longer one option among several. **They are the only funded monetization path.** The one live counter-signal worth watching: the `others` tracking bucket converted **5 clicks → 5 items ordered (100% product CVR)**, the highest rate in the archive. If `tcaaccessory-20` and `tcadesk-20` start showing their own rows and confirm that sub-$300 items convert where chairs do not, the accessory/desk expansion hypothesis gets real evidence — and that is the cheapest test currently on the board.
+
+**Gate status:** August tracking to **fail** the $100 month at ~$12.15; kill-list gate stays **1 of 2–3**, closes 2026-09-01.
+
+See [[affiliate-performance]], [[decisions-log]].
+
+---
 
 ## The Bet
 

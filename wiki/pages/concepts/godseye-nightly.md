@@ -132,7 +132,11 @@ None of these is reachable by unit tests of either side. Three generalizable rul
 
 ## Revenue entered the nightly's field of view (2026-08-09)
 
-The nightly saw traffic, behaviour, infrastructure and rendering every night — and affiliate revenue once a week, despite that being the number the kill-list gate decides on. `scripts/amazon-pull.ts --mode daily` now runs as a nightly step, refreshing `data/affiliate/latest.json` and appending `data/affiliate/history.jsonl`. The dated `raw/` snapshot stays weekly, because `raw/` is an archive rather than a log.
+~~The nightly saw traffic, behaviour, infrastructure and rendering every night — and affiliate revenue once a week, despite that being the number the kill-list gate decides on. `scripts/amazon-pull.ts --mode daily` now runs as a nightly step.~~
+
+**REVERTED 2026-08-26 — the nightly's affiliate step is deleted along with the pull it called.** The session-replay automation was retired (see [[affiliate-performance]]); the nightly no longer acquires revenue data at all. Chromium is still installed in that slot, now for the render probe alone.
+
+**The gap this reopens, stated plainly:** revenue is once again outside the nightly's field of view. The nightly sees GSC, GA4, Clarity and the probe every night, and affiliate earnings only when Jackson drops a CSV. `collectors/amazon.ts` reports that gap as export staleness at 7 days — it measures the *absence* of data, which is the honest thing to measure, but it is not the same as seeing the number.
 
 **Both seam rules were applied again, pre-emptively:** `data/affiliate` is in the nightly commit loop (or the snapshot would live and die inside the runner, exactly like the heartbeat), and `history.jsonl` has a `merge=union` driver (the nightly appends it on `main` while `amazon-weekly` appends on `staging` — the token-log overlap that killed the Saturday deploy).
 

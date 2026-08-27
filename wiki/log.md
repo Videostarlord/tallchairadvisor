@@ -3794,3 +3794,83 @@ Four of six items in this session were the same shape as every entry above: **th
 27/27 test files pass; `lint:architecture` reports no new violations.
 
 Related: [[open-issues-status]] · [[decisions-log]] · [[what-failed]] · [[godseye-nightly]]
+
+## 2026-08-26 — Amazon hand export ingested: the chair tag's first readout is $0.00, and the window was solved instead of guessed
+
+**Aug 26 export archived** to `raw/affiliate/2026-08-26-amazon-csv/` + `raw/affiliate/2026-08-26-amazon-associates-report.md`. Totals: **131 clicks, $81.13 earnings, 5 items shipped.** This is the first export produced after the 2026-08-13 tracking-ID split (`20aab85`), so `tracking-id.csv` carries three rows where every prior export carried one.
+
+**The window was DERIVED, not inferred — a first for this archive.** Every hand export since Jul 17 left its window unknown because Associates Central does not record it in the CSV. This one resolved: summing `data/affiliate/latest.json`'s per-day rows from 2026-07-27 onward gives **4 shipped / $2,293.77 / $68.98**, identical to the cent on three independent quantities to the export's `tallchairadvi-20` row. Window: **rolling 30-day, 2026-07-27 → 2026-08-25.** The method is reusable and is now policy. Its second-order consequence is the part worth keeping: **the daily rows are the instrument that decodes the hand exports**, which is a third and stronger reason never to overwrite `latest.json` from a CSV drop — doing so deletes the decoder, not just a day of data.
+
+**`tcachair-20`: 45 clicks, 0 orders, $0.00.** `src/data/affiliate-tags.ts` was built to ask one question — does a $500+ chair click ever convert on Amazon — and twelve clean days answered it. With the Aug 13 export's 89 chair clicks → 0, that is **134 named chair clicks → $0 across two periods**, and the first time the zero is a direct measurement rather than an inference from ASIN click rows sitting beside an `others` bucket. Decision recorded: **Amazon chair clicks are no longer a revenue lever.** Chair content continues for rankings/CTR/E-E-A-T; no plan may project Amazon chair commissions. The [[review-leap-plus]] reframe still happens — on CTR and E-E-A-T grounds, not revenue.
+
+**The trap in the same file.** `linked-product.csv` books **$80.89 — 99.7% of all earnings — to Steelcase Leap Plus `B00TYE4QXU`**, which reads as the breakthrough that reverses the above. It is not: the same 4 items are attributed to the *legacy* tag, the algebra dates them to Jul 27 – Aug 4 (pre-split), and $2,690.77 over 4 items is $672.69 average — four ~$1,300 chairs cannot cost that. A referral whose basket was something else. **Three reports, three different splits of the same $81.13** (linked-product vs tracking-id differ by exactly $397.00; `category.csv` puts everything on `others` while Furniture is dashes end to end). All three reconcile at 131 clicks and nowhere else; deliberately not reconciled line-for-line.
+
+**Where the only new money is.** $68.98 of the $81.13 is old — the legacy tag has earned nothing since **2026-08-04**, 22 days. The remaining **$12.15** sits in the `others` tracking bucket on 5 clicks → 5 items ordered, a **100% product conversion rate, the highest in this archive**, with ~$1,575 still unshipped (~$47 at 3%). `tcaaccessory-20` and `tcadesk-20` have no rows yet, so whether accessories are what converts **cannot be determined from this file** — watch for those rows.
+
+**Two things opened.** `latest.json` is **17 days stale against a 3-day SLA** — the Amazon session expired and `AMAZON_STORAGE_STATE` must be re-captured by Jackson, which no agent can do. And **August is tracking to fail the $100 gate at $12.15**, closing 2026-09-01. Also new: **Crandall Remanufactured Leap V2 `B08PPVCCST` recorded its first attributed clicks (11)** — [[refurbished-steelcase-leap]] is producing real affiliate traffic.
+
+**Also ingested late:** the 2026-08-13 export, archived on the day but never brought into [[affiliate-performance]]. Folded in for the audit trail and because its 89 chair clicks are half the evidence above.
+
+Related: [[affiliate-performance]] · [[decisions-log]] · [[open-issues-status]] · [[review-leap-plus]] · [[refurbished-steelcase-leap]] · [[thesis]]
+
+## 2026-08-26 (second session) — the Amazon Playwright pull is deleted, at Jackson's direction
+
+**Retired: `scripts/amazon-pull.ts` (P3) and everything that served it.** Also deleted:
+`scripts/lib/amazon-session.ts`, `scripts/lib/affiliate-store.ts`, both their test files,
+`.github/workflows/amazon-weekly.yml`, the nightly's "Pull affiliate revenue (daily)" step, and the
+`amazon:pull` / `amazon:pull:daily` / `amazon:pull:dry` npm scripts. **Affiliate data is hand-exported by
+Jackson, permanently.** Jackson: *"the automatic playwright amazon downloads do not work and I won't be
+re-authing anything."*
+
+**The design was good; the shape was wrong — and that distinction is the whole entry.** P3 was among the
+better-engineered things in this repo. It harvested the app's own bearer token rather than guessing an auth
+scheme. It detected session expiry positively instead of trusting a parsed zero. It filed
+`amazon-session-expired` and wrote **no report** on failure, because a fabricated `$0` is indistinguishable
+from a genuinely zero month and the kill-list gate reads exactly that number. None of that was the problem.
+
+**The problem is that it never removed the manual step — it made the manual step worse.** The old load was a
+monthly-ish CSV download yielding four reports with ASIN-level attribution. P3's load was a ~fortnightly
+`playwright codegen` capture of a live Amazon financial credential, yielding the daily overview and no ASIN
+attribution. Eleven working days of daily revenue data cost a permanent recurring obligation and bought
+strictly less information than the thing it replaced. **A pipeline whose keystone is a recurring manual
+login is a chore wearing a workflow's clothes.**
+
+**The generalisation worth keeping: automation that converts a low-frequency human task into a
+high-frequency one has not automated anything.** Measure an automation by the total human load it leaves
+behind, not by the step it removed. This one removed a download and added a login — the more expensive act,
+because exactly one human on earth may perform it.
+
+**Why deleted rather than repaired.** Every repair has the same expiry treadmill underneath it: a
+longer-lived cookie, a fresh profile, a retry loop — each changes *how many days* pass before a human is
+asked for a credential, not *whether*. **If the 7-day staleness nag becomes annoying, the answer is a longer
+threshold or a different affiliate program, never a new scraper.** That warning now lives in
+`scripts/collectors/amazon.ts`'s own header, so an agent reading only that file still finds it.
+
+**`collectors/amazon.ts` went back to the question it started with** — *"how old is the newest export
+Jackson dropped on disk?"* — one threshold at 7 days, the 3-day automation SLA gone with the thing it
+measured. Unchanged: a stale export is reported as stale, **never as zero**.
+
+**One bug caught while rewriting it.** `data/affiliate/` had to be added to the collector's `EXCLUDED_DIRS`.
+`latest.json` matches the scan's name pattern, carries no date in its filename, and would therefore be dated
+by **mtime** — which a CI checkout stamps with "now" on every run. The nag would have read *0 days old*
+forever, on a file frozen since August. That is the identical self-resetting-nag bug this collector already
+hit once when its own output matched its own scan — [[godseye-nightly]]'s recurring lesson that defects live
+in the seam between components, not inside them.
+
+**`data/affiliate/latest.json` is KEPT and frozen, not deleted.** Its 25 per-day rows are **the decoder for
+every hand-dropped CSV** — the instrument that solved this morning's export window by algebra instead of
+guessing. New `data/affiliate/README.md` says so at the file, where someone about to clean up a stale data
+file will actually read it.
+
+**Honestly lost:** the daily revenue signal in the nightly. Revenue is again outside the god's-eye field of
+view. Against it — the automated figure was **SHIPPED earnings, not net** ($100.40 where true net was
+$98.90, a $1.50 clawback it structurally could not see), so it was never the number the gate wanted. And
+ASIN-level attribution, which is what [[affiliate-performance]] actually reasons from, was never automated
+and is unaffected.
+
+**Verification:** `tsc --noEmit` error count unchanged at **31** before and after (all pre-existing, none
+affiliate-related); `lint:architecture` **0 new violations**; **25/26 test files pass**. The one failure,
+`read-validated.test.ts`, is **pre-existing and unrelated** (`data/gsc/analysis.json` is 404h old against a
+192h SLA) and was confirmed failing on a clean checkout of `HEAD`.
+
+Related: [[affiliate-performance]] · [[decisions-log]] · [[autonomous-data-layer]] · [[godseye-nightly]] · [[open-issues-status]]

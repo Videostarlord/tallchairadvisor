@@ -1,13 +1,43 @@
 ---
 type: concept
-last_updated: 2026-08-13
-sources: [raw/audits/2026-08-06-open-issues-task-list.md, data/ledger-state.json, wiki/nightly/2026-08-08.md]
+last_updated: 2026-08-26
+sources: [raw/affiliate/2026-08-26-amazon-associates-report.md, raw/audits/2026-08-06-open-issues-task-list.md, data/ledger-state.json, wiki/nightly/2026-08-08.md]
 tags: [open-issues, status, tracking]
 ---
 
 # Open Issues — Living Status
 
 `raw/audits/2026-08-06-open-issues-task-list.md` is an **immutable snapshot** and its checkboxes freeze at 2026-08-06. This page is the current truth. Read this first; use the snapshot for the original reasoning and evidence.
+
+## ⛔ CLOSED BY DELETION 2026-08-26 — P3 Amazon automated pull
+
+**Opened as a blocker earlier the same day, closed by retiring the thing instead of fixing it.**
+
+The item read: *"pull 17 days stale, `AMAZON_STORAGE_STATE` must be re-captured by Jackson."* Jackson
+declined to re-auth, and the automation was **deleted**: `scripts/amazon-pull.ts`,
+`scripts/lib/amazon-session.ts`, `scripts/lib/affiliate-store.ts`, `.github/workflows/amazon-weekly.yml`,
+the nightly's affiliate step, and the `amazon:pull*` npm scripts.
+
+**This is not a deferral and it is not a regression to triage.** The design was sound; the *shape* was
+wrong. A session-replay scraper against a financial account expires on a ~11-day cycle and each expiry
+demands a manual login only a human may perform — so P3 never removed the manual step, it replaced a
+monthly CSV download with a fortnightly credential-capture chore that returned *less* data (daily
+overview, no ASIN attribution). **Do not reopen this as "automate the affiliate pull."** If the 7-day
+staleness nag becomes annoying, raise the threshold or change affiliate program.
+
+Kept deliberately: `data/affiliate/latest.json` is frozen, not deleted — its 25 per-day rows are the
+decoder that solves the window of hand-dropped CSVs. See `data/affiliate/README.md` and
+[[affiliate-performance]].
+
+## 🔴 WATCH — opened 2026-08-26
+
+| Item | Status |
+|---|---|
+| **August is on track to FAIL the $100 revenue gate** | Recoverable Aug 1–25 earnings: **$12.15**, plus ~$47 unrealized on ~$1,575 of ordered-but-unshipped revenue. Gate stands at **1 of 2–3** consecutive months above $100. Not an action item — a forecast to be ready for on 2026-09-01. See [[affiliate-performance]]. |
+
+## ✅ RESOLVED 2026-08-26 — "does a chair click ever convert on Amazon?"
+
+The 2026-08-13 tracking-ID split answered its question in twelve days: **`tcachair-20`, 45 clicks, 0 orders, $0.00.** With the Aug 13 export's 89 chair clicks → 0, that is **134 named chair clicks → $0 across two periods**, now measured directly instead of inferred. Decision recorded in [[decisions-log]]: Amazon chair clicks are no longer counted as a revenue lever. The instrumentation item is closed; the monetization problem it exposed is not.
 
 ## Changed on 2026-08-08
 
