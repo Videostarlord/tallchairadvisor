@@ -93,41 +93,14 @@ jobs:
             || { echo "::error::GSC_SERVICE_ACCOUNT_JSON is not valid JSON — GSC and GA4 will both fail"; exit 1; }
 
       # ── Browser-backed data acquisition, BEFORE the collectors ──────────
-      # Ordering is load-bearing. collectors/amazon.ts reads
-      # data/affiliate/latest.json, so if the pull ran after collect:all the
-      # collector would report on the PREVIOUS night's snapshot every single
-      # night — permanently one day stale, and on the very first run it would
-      # say the pull had never succeeded while the file was written minutes
-      # later in the same job. Chromium is installed here rather than with the
-      # probe below so both steps share the one install.
+      # Chromium is for the RENDER PROBE only. It used to be shared with a
+      # nightly Amazon Associates pull; that automation was RETIRED 2026-08-26
+      # (see wiki/synthesis/decisions-log.md). Affiliate data is hand-dropped
+      # into raw/affiliate/ and collectors/amazon.ts nags at 7 days.
       - name: Install chromium
         if: ${{ !inputs.skip_probes }}
         continue-on-error: true
         run: npx playwright install --with-deps chromium
-
-      # Affiliate revenue into the LIVE layer, daily. Chromium is already
-      # installed above for the probe, so this costs one page load.
-      #
-      # --mode daily writes data/affiliate/latest.json + history.jsonl and NOT a
-      # raw/ snapshot: running the weekly archive report daily would put ~30
-      # near-identical dated files a month into raw/, which is an archive of
-      # evidence rather than a log. amazon-weekly.yml still writes that snapshot.
-      #
-      # This is what finally puts revenue in the nightly's field of view, next to
-      # GSC, GA4 and Clarity. continue-on-error because an affiliate hiccup must
-      # not take down the observation run — collectors/amazon.ts reads the
-      # snapshot's own `fetchedAt` and reports staleness as a finding, so a
-      # silent failure surfaces within 3 days instead of vanishing.
-      # No secret guard on the `if`: a step's own `env:` block is not in scope for
-      # that step's own `if`, so `env.AMAZON_STORAGE_STATE != ''` would silently
-      # evaluate false and skip this every night. The script already exits 0 with
-      # a setup notice when the secret is absent, which is the correct no-op.
-      - name: Pull affiliate revenue (daily)
-        if: ${{ !inputs.skip_probes }}
-        continue-on-error: true
-        env:
-          AMAZON_STORAGE_STATE: ${{ secrets.AMAZON_STORAGE_STATE }}
-        run: npm run amazon:pull:daily
 
       # ── L1 collectors ───────────────────────────────────────────────────
       # Exits non-zero only if the harness crashed. Unhealthy collectors are

@@ -31,8 +31,11 @@ credentials/
 # Claude Code session scratch — worktrees, local settings. Never committed.
 .claude/
 
-# Playwright storageState for Amazon Associates (P3).
-# A LIVE BEARER CREDENTIAL for a financial account — never commit it.
-# Captured by hand, uploaded via `gh secret set AMAZON_STORAGE_STATE`, then deleted.
+# Playwright storageState files.
+# The Amazon Associates session-replay automation that produced these was RETIRED
+# 2026-08-26 and must not be rebuilt (see wiki/synthesis/decisions-log.md). These
+# patterns STAY as a safety net: a storageState for a financial account is a LIVE
+# BEARER CREDENTIAL, and the cost of an accidental commit is far higher than the
+# cost of two ignore lines that match nothing.
 amazon-state.json
 *-storage-state.json

@@ -1,35 +1,38 @@
 /**
- * collectors/amazon.ts — affiliate data freshness.
+ * collectors/amazon.ts — affiliate export freshness.
  *
  * ──────────────────────────────────────────────────────────────────────────────
- * THIS WAS "THE ONE COLLECTOR THAT CANNOT PULL". IT NO LONGER IS.
+ * THIS IS THE ONE COLLECTOR THAT CANNOT PULL. IT IS AGAIN, AND PERMANENTLY.
  *
- * Amazon Associates still exposes no public reporting API, and that framing
- * (PRD §4 non-goal, §10.2 "the one irreducible human dependency") was correct
- * until 2026-08-09. It is now obsolete: scripts/amazon-pull.ts replays a stored
- * session against Associates Central's own internal reporting endpoint and
- * refreshes data/affiliate/latest.json daily.
+ * Amazon Associates exposes no public reporting API for individual associates
+ * (PRD §4 non-goal, §10.2 "the one irreducible human dependency").
  *
- * So the question this collector answers has changed:
+ * Between 2026-08-09 and 2026-08-26 that was worked around: scripts/amazon-pull.ts
+ * replayed a Playwright `storageState` session against Associates Central's own
+ * internal reporting endpoint. **That automation was RETIRED on 2026-08-26 at
+ * Jackson's direction and is not coming back.** The session expired after ~11
+ * days, re-capturing it is a manual login to a live financial account that only
+ * a human may ever perform, and a "no-manual-work" pipeline whose keystone is a
+ * recurring manual credential capture was not automation — it was a fortnightly
+ * chore wearing a workflow's clothes.
  *
- *   was:  "how old is the newest export Jackson dropped on disk?"
- *   now:  "did the automated pull run recently and succeed?"
- *         ...falling back to the old question when no snapshot exists yet.
+ * DO NOT REBUILD IT. The failure was structural, not a bug: any session-replay
+ * scheme against Amazon has the same expiry treadmill underneath it. If this
+ * collector's nag becomes annoying, the correct fix is a longer threshold or a
+ * different affiliate program — never a new scraper.
  *
- * WHAT HAS NOT CHANGED: it reports NO revenue it did not read, never estimates
+ * So the question this collector answers is the original one, restored:
+ *
+ *   "how old is the newest export Jackson dropped on disk?"
+ *
+ * WHAT HAS NEVER CHANGED: it reports NO revenue it did not read, never estimates
  * from GA4 affiliate_click events, and never turns "I could not see" into a
- * number. A stale snapshot is reported as stale — never as zero. The pull itself
- * obeys the same rule: on an expired session it files `amazon-session-expired`
- * and writes nothing, because a fabricated $0 could trip the kill-list gate on a
- * month that actually earned.
+ * number. A stale export is reported as stale — never as zero. A fabricated $0
+ * could trip the kill-list gate on a month that actually earned.
  *
- * TWO THRESHOLDS, FOR TWO DIFFERENT BOTTLENECKS:
- *   AUTOMATED_STALE_DAYS = 3 — a daily job; two silent failures should show.
- *   NAG_THRESHOLD_DAYS   = 7 — hand-dropped exports, where a human is the limit.
- *
- * Either way the unhealthy result becomes a ledger finding with a closure
- * predicate, so the gap has an age, recurs nightly, and closes on its own
- * evidence rather than living in Jackson's head.
+ * The unhealthy result becomes a ledger finding with a closure predicate, so the
+ * gap has an age, recurs nightly, and closes on its own evidence rather than
+ * living in Jackson's head.
  */
 
 import { readdirSync, readFileSync, statSync } from 'node:fs';
@@ -43,10 +46,9 @@ import {
   MS_PER_DAY,
   type CollectorResult,
 } from './types.js';
-import { readSnapshot, ageDaysFromSnapshot, LATEST_PATH } from '../lib/affiliate-store.js';
 
 /** Roots scanned, in the order reported back to Jackson when nothing is found. */
-const SEARCH_ROOTS = ['raw/affiliate', 'raw/amazon', 'data/affiliate', 'raw', 'data'];
+const SEARCH_ROOTS = ['raw/affiliate', 'raw/amazon', 'raw', 'data'];
 const MAX_DEPTH = 3;
 const NAG_THRESHOLD_DAYS = 7;
 
@@ -57,13 +59,27 @@ const EXTENSION_PATTERN = /\.(csv|tsv|xlsx?|json|md)$/i;
 /**
  * Directories that must never count as an affiliate export.
  *
- * This exists because the first live run found `data/collectors/amazon.json` —
- * THIS COLLECTOR'S OWN OUTPUT — matched `amazon` + `.json` and became "the
- * newest export, 0 days old". A staleness nag that resets itself by running is
- * worse than no nag at all: it would have reported affiliate data permanently
- * fresh no matter how long Jackson went without exporting anything.
+ * `data/collectors` is here because the first live run found
+ * `data/collectors/amazon.json` — THIS COLLECTOR'S OWN OUTPUT — matched `amazon`
+ * + `.json` and became "the newest export, 0 days old". A staleness nag that
+ * resets itself by running is worse than no nag at all.
+ *
+ * `data/affiliate` is here for the SAME BUG in a second disguise, and it matters
+ * more now than it did before. `data/affiliate/latest.json` matches `affiliate`
+ * + `.json`, carries no date in its filename, and would therefore be dated by
+ * mtime — which a CI checkout stamps with "now" on every single run. The nag
+ * would read 0 days old forever. That file is also FROZEN at 2026-08-09 (see
+ * data/affiliate/README.md), so dating it by mtime would be doubly wrong: a file
+ * that has not been updated in months reporting as fresh every night.
  */
-const EXCLUDED_DIRS = ['data/collectors', 'data/probes', 'data/reddit', 'raw/reddit', 'node_modules'];
+const EXCLUDED_DIRS = [
+  'data/collectors',
+  'data/affiliate',
+  'data/probes',
+  'data/reddit',
+  'raw/reddit',
+  'node_modules',
+];
 
 export interface AffiliateFile {
   path: string;
@@ -76,8 +92,12 @@ export interface AffiliateFile {
 }
 
 export interface AmazonCollected {
-  /** True once the automated pull is the source. Was permanently false before 2026-08-09. */
-  pullable: boolean;
+  /**
+   * Always false. Kept in the shape rather than deleted so the field reads as a
+   * settled answer ("no, and here is why") instead of an omission the next agent
+   * decides to fill in.
+   */
+  pullable: false;
   reason: string;
   searchedPaths: string[];
   nagThresholdDays: number;
@@ -85,19 +105,7 @@ export interface AmazonCollected {
   newest: AffiliateFile | null;
   recent: AffiliateFile[];
   overdue: boolean;
-  /** State of data/affiliate/latest.json. `ageDays: null` = present but unusable. */
-  automatedPull: { present: boolean; ageDays: number | null; note: string };
 }
-
-/**
- * SLA for the automated pull, in days.
- *
- * 3, not 7. The daily workflow means two consecutive silent failures should be
- * visible — waiting a week to notice would waste most of the freshness the daily
- * cadence was added to buy. The 7-day NAG_THRESHOLD_DAYS still governs the
- * hand-dropped-export fallback below, where a human is the bottleneck.
- */
-const AUTOMATED_STALE_DAYS = 3;
 
 function emptyData(): AmazonCollected {
   return {
@@ -109,7 +117,6 @@ function emptyData(): AmazonCollected {
     newest: null,
     recent: [],
     overdue: true,
-    automatedPull: { present: false, ageDays: null, note: 'no automated snapshot found' },
   };
 }
 
@@ -207,71 +214,20 @@ function scan(root: string): AffiliateFile[] {
 // ─── Collector ────────────────────────────────────────────────────────────────
 
 const NO_API_NOTE =
-  'Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2). This collector reports ' +
-  'export staleness only; it never pulls, estimates, or infers affiliate revenue.';
+  'Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 ' +
+  'session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is ' +
+  'hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers ' +
+  'affiliate revenue.';
+
+/** The instructions repeated in every unhealthy message, so the fix travels with the nag. */
+const HOW_TO_EXPORT =
+  'Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). ' +
+  'Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not ' +
+  'contain it, and a window that is guessed rather than recorded has already caused one export in this archive ' +
+  'to be misread as a second positive month.';
 
 export async function collect(): Promise<CollectorResult<AmazonCollected>> {
   return guard('amazon', async () => {
-    // ── The automated pull, since 2026-08-09 ────────────────────────────────
-    //
-    // This collector's original premise — "there is nothing to pull" — is no
-    // longer true. scripts/amazon-pull.ts refreshes data/affiliate/latest.json
-    // daily from the reporting API, so the honest question changed from "how old
-    // is the newest file Jackson dropped on disk" to "did the automated pull run
-    // recently and succeed".
-    //
-    // FRESHNESS COMES FROM `fetchedAt` INSIDE THE FILE, NEVER FROM mtime.
-    // latest.json carries no date in its name, so the disk scan below would date
-    // it by mtime — and a CI checkout stamps every file it writes with "now".
-    // The nag would read 0 days old on every run forever, including runs where
-    // the pull failed and wrote nothing. That is the same self-resetting-nag bug
-    // this collector already hit once, when its own output matched the scan.
-    const snapshotRead = readSnapshot(REPO_ROOT);
-    const snapshotAge = ageDaysFromSnapshot(snapshotRead);
-
-    if (snapshotRead.kind === 'malformed') {
-      return makeUnhealthy<AmazonCollected>(
-        `${LATEST_PATH} exists but could not be read: ${snapshotRead.reason}. Affiliate revenue is UNKNOWN this run — ` +
-          'that is not the same as zero, and nothing downstream may treat it as such.',
-        { ...emptyData(), automatedPull: { present: true, ageDays: null, note: snapshotRead.reason } },
-        0
-      );
-    }
-
-    if (snapshotRead.kind === 'ok' && snapshotAge !== null) {
-      const s = snapshotRead.snapshot;
-      const data: AmazonCollected = {
-        ...emptyData(),
-        pullable: true,
-        reason:
-          'Pulled automatically from the Associates reporting API by scripts/amazon-pull.ts. ' +
-          'Daily overview only — ASIN-level attribution still requires a manual export.',
-        automatedPull: {
-          present: true,
-          ageDays: snapshotAge,
-          note:
-            `window ${s.window.start}..${s.window.end} (${s.window.kind}, mode=${s.mode}); ` +
-            `${s.totals.clicks ?? 0} clicks, ${s.totals.total_ordered_items ?? 0} ordered, ` +
-            `$${(s.totals.total_ordered_revenue ?? 0).toFixed(2)} ordered revenue, ` +
-            `$${(s.totals.total_earnings ?? 0).toFixed(2)} SHIPPED earnings (pre-clawback, not net)`,
-        },
-        overdue: snapshotAge > AUTOMATED_STALE_DAYS,
-      };
-
-      if (data.overdue) {
-        return makeUnhealthy<AmazonCollected>(
-          `the automated affiliate pull last succeeded ${snapshotAge} days ago (${s.fetchedAt}), SLA is ` +
-            `${AUTOMATED_STALE_DAYS} days. The daily workflow is failing or the stored Amazon session expired — ` +
-            'check data/collectors/amazon-session.json and the "Amazon — Weekly Associates Pull" / nightly runs. ' +
-            'No revenue figure is inferred here; stale data is reported as stale, never as zero.',
-          data,
-          s.rows.length
-        );
-      }
-      return makeHealthy(data, s.rows.length);
-    }
-
-    // ── Fallback: no automated snapshot yet, so measure hand-dropped exports ──
     const files = scan(REPO_ROOT);
     const newest = files.length === 0 ? null : files[0];
 
@@ -281,21 +237,13 @@ export async function collect(): Promise<CollectorResult<AmazonCollected>> {
       newest,
       recent: files.slice(0, 8),
       overdue: isOverdue(newest === null ? null : newest.ageDays),
-      automatedPull: {
-        present: false,
-        ageDays: null,
-        note: snapshotRead.kind === 'absent'
-          ? `${LATEST_PATH} does not exist yet — the automated pull has not run successfully`
-          : 'automated snapshot unusable; measuring hand-dropped exports instead',
-      },
     };
 
     if (newest === null) {
       return makeUnhealthy<AmazonCollected>(
         `no Amazon Associates export found on disk. Looked under ${SEARCH_ROOTS.join(', ')} (depth ${MAX_DEPTH}) for ` +
-          `files matching ${NAME_PATTERN.source} with a ${EXTENSION_PATTERN.source} extension. ` +
-          `Download the CSV bundle from Amazon Associates → Reports → Download Report and drop it in ` +
-          `raw/affiliate/YYYY-MM-DD-amazon-csv/. ${NO_API_NOTE}`,
+          `files matching ${NAME_PATTERN.source} with a ${EXTENSION_PATTERN.source} extension. ${HOW_TO_EXPORT} ` +
+          NO_API_NOTE,
         data,
         0
       );
@@ -304,9 +252,8 @@ export async function collect(): Promise<CollectorResult<AmazonCollected>> {
     if (data.overdue) {
       return makeUnhealthy<AmazonCollected>(
         `affiliate data is ${newest.ageDays} days stale — newest export is ${newest.path} ` +
-          `(${newest.date}, dated by ${newest.dateSource}), SLA is ${NAG_THRESHOLD_DAYS} days. ` +
-          `Export a fresh bundle from Amazon Associates → Reports → Download Report into ` +
-          `raw/affiliate/${new Date().toISOString().slice(0, 10)}-amazon-csv/. ${NO_API_NOTE}`,
+          `(${newest.date}, dated by ${newest.dateSource}), SLA is ${NAG_THRESHOLD_DAYS} days. ${HOW_TO_EXPORT} ` +
+          NO_API_NOTE,
         data,
         files.length
       );
