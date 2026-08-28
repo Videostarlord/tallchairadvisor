@@ -12,30 +12,36 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "8fabacc2-8562-4f6b-a0b8-1640624ed800",
-      "shortId": "8fabacc2",
+      "deploymentId": "fe9800b2-ff12-4d54-b9a1-5ede520bcaef",
+      "shortId": "fe9800b2",
       "environment": "production",
-      "url": "https://8fabacc2.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-27T05:33:20.87061Z",
+      "url": "https://fe9800b2.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-27T20:12:33.317145Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "4a419fa9e76cce5fd9ad2f9f9cbb100955f43c73",
-      "commitMessage": "docs(wiki): record the workflow triage — three bugs and one guard\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+      "commitHash": "80fdfa33c374982bc6aab23fc30bccc36cf3e3a2",
+      "commitMessage": "[skip cd] data: Clarity history 2026-08-27"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 35813,
-      "cachedRequests": 2322,
-      "hitRatePct": 6.5,
-      "bytes": 308060337,
-      "cachedBytes": 97069054,
+      "requests": 39128,
+      "cachedRequests": 2648,
+      "hitRatePct": 6.8,
+      "bytes": 324523324,
+      "cachedBytes": 98786095,
       "byDay": [
         {
+          "date": "2026-08-28",
+          "requests": 4504,
+          "cachedRequests": 376,
+          "hitRatePct": 8.3
+        },
+        {
           "date": "2026-08-27",
-          "requests": 1974,
-          "cachedRequests": 63,
-          "hitRatePct": 3.2
+          "requests": 4058,
+          "cachedRequests": 356,
+          "hitRatePct": 8.8
         },
         {
           "date": "2026-08-26",
@@ -66,25 +72,23 @@
           "requests": 5364,
           "cachedRequests": 298,
           "hitRatePct": 5.6
-        },
-        {
-          "date": "2026-08-21",
-          "requests": 3273,
-          "cachedRequests": 343,
-          "hitRatePct": 10.5
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 0,
-      "byAction": {},
-      "bySource": {}
+      "totalEvents": 7,
+      "byAction": {
+        "block": 7
+      },
+      "bySource": {
+        "firewallManaged": 7
+      }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-27T08:40:56.464Z",
+    "collectedAt": "2026-08-28T10:52:59.138Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
