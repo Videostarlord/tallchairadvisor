@@ -2,6 +2,63 @@
 type: log
 ---
 
+## [2026-08-28] clarity-pull | Behavioral Data Pulled
+
+- Pages with data: 55
+- Device split: {"mobile":0.243,"pc":0.757,"other":0}
+- Behavioral alerts: 18
+  - [low-scroll-depth] https://tallchairadvisor.com/monitor-arm-tall-people/: 37% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/gesture-vs-leap-plus/: 36% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 33% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 31% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/: 31% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 30% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 27% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-5/: 25% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/: 22% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/sihoo-doro-s300/: 21% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 19% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 18% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 16% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/?utm_source=chatgpt.com: 16% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/lumbar-support-tall-people/: 11% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/: 10% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/aeron-size-c/: 7% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-6/: 6% avg scroll depth — most content below fold not seen
+
+
+## [2026-08-28] ga4-pull | GA4 Data Pull
+
+- Period: 2026-07-31 → 2026-08-28 (28 days)
+- Sessions: 2050 | Users: 2007 | Views: 2203
+- Engagement rate: 11.1% | Avg duration: 26s
+- Affiliate clicks: 96 | ChatGPT sessions: 86
+- Pages: 68 | Channels: 5
+
+
+## [2026-08-28] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 19 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 35 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions up 7.6% WoW (4747 vs 4410), clicks up 39.1% (32 vs 23), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-08-28] gsc-pull | GSC Data Pull
+
+- Period: 2026-05-30 → 2026-08-28 (90 days)
+- Pages: 53 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 82 | Daily trend rows: 89
+- Clicks: 283 | Impressions: 100562 | Avg pos: 8.1
+
+
 ## [2026-08-27] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-08-27
