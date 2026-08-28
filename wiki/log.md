@@ -4004,3 +4004,24 @@ The decision was recorded instead — see [[what-failed]]. Position was the wron
 **Verification:** **26/26 test files pass** (was 25/26 — the one failure was `data/gsc/analysis.json` being 404h stale in the old checkout, resolved by the rebase, not by any code change). `lint:architecture` 0 new violations. `tsc --noEmit` unchanged. Saturday's merge verified conflict-free in a throwaway worktree.
 
 Related: [[affiliate-performance]] · [[what-failed]] · [[godseye-nightly]] · [[open-issues-status]] · [[decisions-log]]
+
+## 2026-08-28 — the chair tag converted, and a decision written 48 hours ago had to be revoked
+
+**`tcachair-20`: 59 clicks, 6 items ordered, $943.79, $28.54 earnings.** On 2026-08-26 the identical tag read **45 clicks, 0 orders, $0.00**, and a directive was written from it: *"stop treating Amazon chair clicks as a revenue path."* That directive is revoked. Two days.
+
+**Window solved again — the method is now twice-confirmed.** Summing the frozen per-day rows in `data/affiliate/latest.json` from 2026-07-29 reproduces this export's `others` row on **five independent quantities** (3 shipped, $2,276.78, $68.30, 2 ordered, $227.98). Rolling 30-day, **Jul 29 – Aug 27**. The retired pull's last output keeps earning its keep as a decoder.
+
+**What is true, and what was never true.** The six converting items average **$157.30**. The Leap Plus is ~$1,300, the Gesture ~$1,500, the Aeron Size C ~$1,800. **Not one of them is a chair this site recommends.** So the narrow claim survives and the broad one dies:
+
+- *"$500+ chair links do not produce chair sales"* — **still true**, 0 chair units in the entire archive.
+- *"Chair clicks are not a revenue lever"* — **false**. They are a **$0.48/click** lever, and Amazon states a **12.24% product conversion rate** on the Leap Plus row outright. The money arrives as basket spillover inside the 24-hour window a chair click opens.
+
+**The failure worth keeping is methodological, and it is the mirror of one this pipeline already guards against.** The 2026-08-26 data was correct — the tag really did show $0.00 over 12 days. The error was treating **one reading of a low-volume metric as a settled result**. At ~6 orders a month, a 12-day window containing zero orders is an ordinary sample, not evidence of a zero rate. **$0.00 is not a measurement of zero; it is a measurement of "no event in this window."** `MEANINGFUL_POSITION_DELTA` and the [[statistical-confidence-policy]] exist to stop noise being written up as a win. This was the same mistake inverted — **noise written up as a loss, and strategy routed away from a working channel on the strength of it.** A null result at low volume needs the same confirmation discipline as a positive one, and it did not get it because a round number felt conclusive.
+
+**Restraint applies to the good news too.** n = 6 orders, one export, contradicting a reading 48 hours old. At 139 clicks/30d the run rate is ~$67/month. **Neither $0.00 nor $28.54 is yet a fact about this site.** No plan turns again until a third and fourth export agree — recorded that way in [[decisions-log]] and [[thesis]] rather than as a new certainty.
+
+**The tag split is vindicated twice over.** It produced the false negative *and* the correction, inside 15 days, on a channel that was completely invisible before 2026-08-13 — the money used to sit in an `others` bucket and read as an accident. It is not an accident; it is a repeatable ~10% conversion on traffic this site originates.
+
+**Also:** clicks 131 → 139. Leap Plus 49 (still #1, and the row the conversions landed on), Gesture 30, Aeron 18, Crandall 11. Tag migration nearly complete — `tcachair-20` 59 vs legacy 75, up from 45 vs 81. **August close revised from ~$12.15 to ~$35.38**, still under the $100 gate, return window open. Cross-dimension mismatch again: linked-product says $87.15 on the ASIN, tracking-id says $28.54 on the tag; **for "do chair links earn?" the tracking-ID row is authoritative**, since the tag is what `affiliate-tags.ts` controls and what Amazon attributes the session against.
+
+Related: [[affiliate-performance]] · [[decisions-log]] · [[thesis]] · [[review-leap-plus]] · [[statistical-confidence-policy]]

@@ -2,8 +2,8 @@
 type: entity
 entity: site-page
 url: /review/leap-plus/
-last_updated: 2026-08-26
-sources: [raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, data/gsc/latest.json, data/competitors/intelligence.json]
+last_updated: 2026-08-28
+sources: [raw/affiliate/2026-08-28-amazon-associates-report.md, raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, data/gsc/latest.json, data/competitors/intelligence.json]
 tags: [page, review, leap-plus, research-based]
 ---
 
@@ -43,7 +43,15 @@ Leap Plus holds the #1 click slot for a fourth consecutive period, but its share
 
 **One trap in the same export:** `linked-product.csv` books $80.89 — 99.7% of all earnings — to `B00TYE4QXU`. That is **not** a Leap Plus sale. The same 4 items are attributed to the *legacy* tag and date to Jul 27 – Aug 4, and $2,690.77 over 4 items ($672.69 avg) cannot be four ~$1,300 chairs. It is a referral whose basket was something else. **Do not log it as a conversion for this page.** See [[affiliate-performance]].
 
-**Implication for the reframe:** still do it — the CTR and E-E-A-T case stands on its own, and this remains the most-clicked product on the site. But the constraint is the 3% furniture tier against a $500+ considered purchase, not traffic to this page. **Do not justify the rewrite as an Amazon revenue action**; more clicks on this ASIN have twice produced nothing.
+~~**Implication for the reframe:** ... **Do not justify the rewrite as an Amazon revenue action**; more clicks on this ASIN have twice produced nothing.~~
+
+## ⚠ REVISED 2026-08-28 — the ASIN converts after all
+
+Two days after the section above was written, the 2026-08-28 export shows **`B00TYE4QXU` carrying 6 items ordered at a 12.24% product conversion rate**, and `tcachair-20` earning **$28.54 on 59 clicks ($0.48 EPC)** where it had shown $0.00. **This page's ASIN is both the most-clicked (49) and the row the conversions landed on.**
+
+**What did not change:** none of the six items is a Leap Plus. At $157.30 average they are cheaper products bought inside the 24-hour window the click opened. Chair *units* still do not sell.
+
+**Revised implication:** the reframe may again be justified partly on revenue, not only on CTR and E-E-A-T. Clicks to this ASIN monetise at ~$0.48 — they simply monetise as basket spillover rather than as the chair. **Caveat that must travel with this:** n=6, one export, contradicting a reading 48 hours old. Do not size the opportunity from it. See [[affiliate-performance]], [[decisions-log]].
 
 ## AIO Suppression Status (May 12 — competitor:intelligence v2.3)
 

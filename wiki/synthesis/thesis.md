@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-08-26 (Amazon chair monetization measured at $0.00 and retired as a revenue lever; diversification is now the only funded path)
+last_updated: 2026-08-28 (chair-click monetization REVISED UP to $0.48 EPC — the 08-26 $0.00 reading was a null result at low volume, not a zero rate)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -8,6 +8,32 @@ tags: [thesis, strategy, big-picture]
 # Strategic Thesis
 
 **Last revised:** 2026-05-10
+
+## ⚠⚠ 2026-08-28 — THE SECTION BELOW IS SUPERSEDED. The zero was a sampling artifact.
+
+**Read this before the 2026-08-26 section.** That section concluded the Amazon half of the
+monetization thesis was measured at zero and retired it as a revenue path. **Two days later the same
+tracking ID returned 59 clicks, 6 orders and $28.54 — a $0.48 EPC.**
+
+**What survives from it:** $500+ chair *units* do not sell on Amazon. Zero in the entire archive, and
+the six items that did convert average $157.30 — none of them a chair this site recommends.
+
+**What does not survive:** the claim that ranking chair pages feeds a funnel with a conversion rate of
+zero. The funnel converts at ~10%; it just converts into other people's products, inside the 24-hour
+window a chair click opens. At current volume that is **~$67/month** from chair links.
+
+**The methodological correction matters more than the number.** A $0.00 reading over 12 days on a
+channel that produces ~6 orders a month is a **null result, not a zero rate** — and it was written
+into this thesis as though it were settled. [[statistical-confidence-policy]] applies to
+disappointing findings exactly as it applies to encouraging ones. **Neither the $0.00 nor the $28.54
+is yet a fact about this site;** both are single readings, and the strategy should not turn again
+until a third and fourth export agree.
+
+**Net effect on priorities:** diversification (email, higher-commission programs, non-Amazon
+partners) remains correct and remains under-built — but it is no longer true that Amazon is a dead
+channel that justifies abandoning it. See [[affiliate-performance]] and [[decisions-log]].
+
+---
 
 ## ⚠ 2026-08-26 — the Amazon half of the monetization thesis is measured, and it is zero
 

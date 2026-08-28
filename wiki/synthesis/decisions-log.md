@@ -1,12 +1,58 @@
 ---
 type: synthesis
-last_updated: 2026-08-26
+last_updated: 2026-08-28
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## [2026-08-28] SUPERSEDES the 2026-08-26 chair-click decision — chair links earn $0.48/click
+
+**This reverses a decision recorded 48 hours ago in this same file.** The entry below it —
+*"The chair tag returned $0.00 — stop treating Amazon chair clicks as a revenue path"* — is left in
+place because this log does not rewrite its own history, but **its conclusion is wrong and this
+entry governs.**
+
+**What changed.** The 2026-08-28 export reads `tcachair-20` at **59 clicks, 6 items ordered,
+$943.79 revenue, $28.54 earnings** — a **$0.48 EPC** and a 12.24% product conversion rate Amazon
+states outright. Two days earlier the identical tag read **45 clicks, 0 orders, $0.00**.
+
+**The revised decision.** Chair links are a working revenue channel and are to be treated as one.
+Chair *unit sales* remain a dead end and no plan may assume them.
+
+| Claim | Status |
+|---|---|
+| "$500+ chair links do not produce chair sales" | **Still true** — 0 chair units across the entire archive |
+| "Chair clicks are not a revenue lever" | **False** — $0.48/click via basket spillover |
+
+**Why the original decision was wrong, and it was not the data's fault.** The data on 2026-08-26 was
+correct: the tag genuinely showed $0.00 across 12 days. The error was treating **one reading of a
+low-volume metric as a settled result** and writing a directive from it. At ~6 orders a month, a
+12-day window containing zero orders is an entirely ordinary sample, not evidence of a zero rate.
+[[statistical-confidence-policy]] exists to prevent exactly this and was not applied to a finding
+that felt conclusive because it was a round number.
+
+**The generalisable lesson: $0.00 is not a measurement of zero — it is a measurement of "no event in
+this window."** A null result at low volume needs the same confirmation discipline as a positive
+one. The pipeline has a rule against fabricating wins from noise; this was the mirror failure —
+fabricating a *loss* from noise, and then routing strategy away from a channel on the strength of
+it.
+
+**What this does NOT license.** Not a reversal back to chair-unit optimism, and **not a plan built
+on this export either.** n = 6 orders, one reading, against a contradictory reading two days old. At
+139 clicks/30d the run rate is ~$67/month — worth watching against the $100 gate, not yet worth
+betting on. **Wait for a third and fourth export before either number becomes a premise.**
+
+**Practical consequences now:**
+- The [[review-leap-plus]] reframe may again be justified partly on revenue — Leap Plus is both the
+  most-clicked ASIN (49) and the row carrying the conversions.
+- August's close is ~**$35.38**, not the ~$12.15 forecast on 2026-08-26. Still under the gate.
+- The 2026-08-13 tag split is vindicated twice over: it produced the false negative *and* the
+  correction, in 15 days, on a channel that was invisible before it.
+
+---
 
 ## [2026-08-26] Kill the Amazon Playwright pull — a scraper that asks for a manual login is not automation
 
