@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BuyBox from '../../components/BuyBox.astro';
 import Byline from '../../components/Byline.astro';
 import RedditInsights from '../../components/RedditInsights.astro';
 import { readFileSync, existsSync } from 'node:fs';
@@ -174,6 +175,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B01N32UFNT?tag=tcachair-20"
+      product="Herman Miller Aeron Size C"
+      verdict={"Fits 6'0\"\u20136'4\" on the published specs. The fixed 18.5\" seat depth is the constraint \u2014 longer femurs should step up to the Leap Plus."}
+      specs={["20.5\" max seat height", "18.5\" fixed seat depth", "12-year warranty"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Compare with the Leap Plus →"
+    />
 
     <figure class="mb-10">
       <img

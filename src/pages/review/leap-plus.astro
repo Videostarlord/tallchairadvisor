@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BuyBox from '../../components/BuyBox.astro';
 import Byline from '../../components/Byline.astro';
 import RedditInsights from '../../components/RedditInsights.astro';
 import { readFileSync, existsSync } from 'node:fs';
@@ -172,6 +173,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"The widest seat depth range of any chair here at 19.75\", plus a 500 lb capacity. On the specs it is the strongest fit above 6'4\"."}
+      specs={["19.75\" max seat depth", "500 lb capacity", "17.5\"\u201322.5\" with 5\" cylinder"]}
+      affiliateClass="chair"
+      altHref="/gesture-vs-leap-plus/"
+      altLabel="Compare with the Gesture →"
+    />
 
     <figure class="mb-10">
       <img

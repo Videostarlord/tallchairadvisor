@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BuyBox from '../../components/BuyBox.astro';
 import Byline from '../../components/Byline.astro';
 
 const schema = [
@@ -177,6 +178,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B0DQTRVSHS?tag=tcachair-20"
+      product="Sihoo Doro S300"
+      verdict={"The budget contender in this category. Manufacturer specs put it in range for most users to about 6'2\"; above that, seat depth becomes the limiting dimension."}
+      specs={["Adjustable lumbar", "Under $500", "Anti-gravity recline"]}
+      affiliateClass="chair"
+      altHref="/best-office-chairs-under-500/"
+      altLabel="See all chairs under $500 →"
+    />
 
     <div class="prose-tca">
 

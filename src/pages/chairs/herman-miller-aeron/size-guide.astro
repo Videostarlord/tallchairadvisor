@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BuyBox from '../../../components/BuyBox.astro';
 import Byline from '../../../components/Byline.astro';
 
 const schema = [
@@ -99,6 +100,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B01N32UFNT?tag=tcachair-20"
+      product="Herman Miller Aeron Size C"
+      verdict={"Size C is the one to buy above 6'0\". Size B stops short on both seat height and width for most tall builds."}
+      specs={["Size C = the tall size", "20.5\" max seat height", "18.5\" seat depth"]}
+      affiliateClass="chair"
+      altHref="/review/aeron-size-c/"
+      altLabel="Full Size C review →"
+    />
 
     <!-- Quick Answer Box -->
     <div class="bg-secondary/40 border-l-4 border-primary rounded-r-lg px-5 py-4 mb-6">

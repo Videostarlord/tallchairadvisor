@@ -81,6 +81,42 @@ for (const file of walk(resolve(ROOT, 'src'))) {
   }
 }
 
+// ── No dynamically built Amazon URLs ────────────────────────────────────────
+//
+// Every check in this file is a TEXT scan for a literal
+// `https://www.amazon.com/...tag=...`. A URL assembled at runtime — from an ASIN
+// prop, a template literal, a variable — is invisible to all of them, so a
+// single helper that "cleaned up" link markup would take every link passing
+// through it out of the gate while the lint kept reporting green.
+//
+// That is the exact shape of failure this repo keeps paying for: a rule that
+// still exists but no longer applies to the new code path.
+// src/components/BuyBox.astro takes a FINISHED href for this reason, and this
+// rule is what keeps it that way.
+//
+// Scoped to `amazon.com/` WITH the path slash — a URL being built. Layout.astro
+// legitimately reads `hostname.endsWith('amazon.com')` to classify outbound
+// clicks; that is inspection, not construction, and is not this rule's business.
+for (const file of walk(resolve(ROOT, 'src'))) {
+  const text = readFileSync(file, 'utf-8');
+  for (const m of text.matchAll(/amazon\.com\//g)) {
+    const start = text.lastIndexOf('https://www.amazon.com/', m.index);
+    let covered = false;
+    if (start !== -1) {
+      const candidate = /https:\/\/www\.amazon\.com\/[^"'\s`]*/y;
+      candidate.lastIndex = start;
+      const hit = candidate.exec(text);
+      // A candidate containing an interpolation or a concatenation is a BUILDER
+      // wearing a literal's clothes — `https://www.amazon.com/dp/${asin}` has no
+      // quotes or spaces in it and would otherwise read as a fine literal here.
+      covered = hit !== null && hit.index + hit[0].length > m.index && !/\$\{|['"]\s*\+|\+\s*['"]/.test(hit[0]);
+    }
+    if (covered) continue;
+    const line = text.slice(0, m.index).split('\n').length;
+    problems.push(`${relative(ROOT, file)}:${line}\n    this Amazon URL is not a complete literal. Every check in lint:affiliate is a text scan, so a URL built at runtime silently escapes ALL of them — the tag would go unverified while this lint still reported green. Pass the finished href instead (see src/components/BuyBox.astro).`);
+  }
+}
+
 // The click side must agree with the link side, or the GA4/Amazon join is broken.
 for (const file of walk(resolve(ROOT, 'src'))) {
   const text = readFileSync(file, 'utf-8');

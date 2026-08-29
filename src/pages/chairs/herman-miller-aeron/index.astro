@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 
+import BuyBox from '../../../components/BuyBox.astro';
 const schema = [
   {
     "@context": "https://schema.org",
@@ -106,6 +107,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B01N32UFNT?tag=tcachair-20"
+      product="Herman Miller Aeron Size C"
+      verdict={"Size C is the largest Aeron. Published specs suit 6'0\"\u20136'4\"; the 18.5\" seat depth is fixed and is what decides the fit."}
+      specs={["20.5\" max seat height", "18.5\" fixed seat depth", "PostureFit SL"]}
+      affiliateClass="chair"
+      altHref="/chairs/herman-miller-aeron/tall-people/"
+      altLabel="Aeron for tall people →"
+    />
 
     <!-- Quick Specs -->
     <section class="mb-12">

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BuyBox from '../../../components/BuyBox.astro';
 import Byline from '../../../components/Byline.astro';
 
 const schema = [
@@ -108,6 +109,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B016OIF2JU?tag=tcachair-20"
+      product="Steelcase Gesture"
+      verdict={"The chair I use daily at 6'4\". Adjustable seat depth and the widest armrest range in the category; seat height tops out lower than the Leap Plus."}
+      specs={["Adjustable seat depth", "360\u00b0 armrests", "16\"\u201321\" seat height"]}
+      affiliateClass="chair"
+      altHref="/review/gesture/"
+      altLabel="Read the full review →"
+    />
 
     <!-- Quick Specs -->
     <section class="mb-12">
