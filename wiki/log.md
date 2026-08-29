@@ -4159,3 +4159,40 @@ The second naive fix — approve the ones marked `gap` — is worse than it look
 Gates: 27/27 tests, architecture 0 new, affiliate + content lint clean, build 54 pages, tsc unchanged at 31.
 
 Related: [[niche-incubator-system]] · [[godseye-nightly]] · [[content-gap-engine]] · [[true-keyword-gaps]]
+
+## 2026-08-29 (second session) — the operating model becomes explicit: the pipeline observes, Jackson decides
+
+Three changes, all following from one measurement: **in six months the autonomous acting agents changed `src/` six times** (four sitemap/index fixes, two Thursday SEO runs in June), while **all 19 pages and every revenue-relevant change of August** — the tracking-ID split, the CTA placement, the machine-retrieval scorer fix — came out of human-directed sessions. The four automated position interventions failed across 37 days and 20 attempts.
+
+### 1. Wednesday, Thursday and Friday schedules retired
+
+`strategy`, `execute-fixes` and `execute-content` now run on `workflow_dispatch` only.
+
+**The reason is not cost.** Between them they spend ~$0.26/month. It is that **an idle acting-agent still files a stale-log finding every night**, and an alarm that fires because nothing happened is indistinguishable from one that fires because something broke. That noise costs attention, which is the binding constraint under this model.
+
+**Disabled, not deleted.** The code is sound; the cron is one line away. What stays running is the half that earns its keep: collectors, the 49-page probe, the ledger and its closure predicates, competitor intelligence, the Tuesday audit, keyword discovery, the dead-man's switch. Under a manual-growth model that machinery is *more* valuable, not less — **it is the scoreboard for the changes a session makes.** It is what proved the four July interventions failed instead of letting them read as wins.
+
+### 2. The retirement had to be recorded in code, or it would have made things worse
+
+Disabling the cron alone was the trap. The nightly loads `reports/fixes-log.md` and `reports/content-log.md` as **contracted sources with a 192-hour SLA**. With their writers off, those files can never be refreshed — so every night the report would have declared two contract failures and lowered its own coverage number. **The alarm would have fired forever, for a condition that is now correct.**
+
+That is this repo's most expensive recurring shape, and it has now been hit by the Amazon collector, the visual baselines, the closure predicates, and nearly here: *a check that still runs after the thing it checks has changed.*
+
+`lib/retired-agents.ts` is the fix, and it is a **paired** record: a retired agent is retired in the workflow cron *and* in that file, and both say so in their own text. Re-enabling means restoring both. Verified — the nightly's blind-check count went **3 → 1**, and the two silenced sources now report *"writer retired… age is expected and is not a finding"* rather than vanishing.
+
+### 3. `session-brief.ts` — because the session is now the bottleneck
+
+If growth happens in sessions, the pipeline's job is to make a session start at full context in seconds. Today a large fraction of every session went on **gathering**: forcing a GSC pull, running a cost rollup, joining Clarity scroll depth to GA4 affiliate clicks to CTA positions in `.astro` source by hand, then grepping `strategy-rules.json` to check the work was even permitted. Identical every time, producing nothing new.
+
+`reports/session-brief.md` is that join, written nightly, deterministically, for **$0** — no model call. Two sections earn their place above the rest:
+
+- **The conversion join** — affiliate clicks × scroll depth × CTA position. Reconstructing this by hand is what produced the 2026-08-28 finding that the page with its CTA at 16% took 49 of 96 site-wide clicks.
+- **Constraints, first** — the active kill-list rules at the very top, because a session that proposes CTR work on a page at position 9.7 has wasted itself against `no-ctr-iteration-below-position-8`.
+
+It also **prints what it could not read**. A brief that silently omitted GA4 because the file was malformed would have a session reasoning confidently about traffic it never saw.
+
+**One honesty fix on its own output:** the `1st CTA at` column is a *markup* measure and overstates depth — nav is verbose in HTML but short on screen. `/review/aeron-size-c/` reads 45% there and renders at 13% in Chromium. The column is kept (free, no browser, ranks pages correctly against each other) and now carries that caveat in the file itself, so a future session cannot mistake it for a rendered position.
+
+Gates: 27/27 tests, architecture 0 new, affiliate + content lint clean, tsc unchanged at 31.
+
+Related: [[godseye-nightly]] · [[what-works]] · [[niche-incubator-system]]

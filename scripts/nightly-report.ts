@@ -57,6 +57,7 @@ import { retractionSchema, retractionsOptions } from './schemas/retractions.js';
 import { agentHealthRecordSchema, agentHealthOptions } from './schemas/agent-health.js';
 import { collectorsRollupSchema, collectorsRollupOptions, quotasDataSchema } from './schemas/collectors-rollup.js';
 import { executionLogContract } from './schemas/execution-log.js';
+import { isRetiredSource, retirementReason } from './lib/retired-agents.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -172,6 +173,22 @@ function load(
   relPath: string,
   contract: SourceContract | null,
 ): Source {
+  // A retired agent's log cannot be fresh, and reporting it as a contract
+  // failure every night is an alarm that fires because nothing happened. Checked
+  // BEFORE existence, so a log that was never written at all is handled too.
+  // See lib/retired-agents.ts — this pairs with a commented-out cron and the two
+  // must be changed together.
+  if (isRetiredSource(name)) {
+    return {
+      name,
+      path: relPath,
+      trust: 'verified',
+      reason: `writer retired — ${retirementReason(name)}. Age is expected and is not a finding.`,
+      content: null,
+      ageHours: null,
+    };
+  }
+
   const path = resolve(ROOT, relPath);
   if (!existsSync(path)) {
     // Exception logs (cost drift) are absent exactly when nothing is wrong.

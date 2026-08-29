@@ -228,6 +228,17 @@ jobs:
       # proves the pipeline alive stopped being called, not because anything
       # died. `--no-narrative` keeps the report, the footer, the ntfy push and
       # the heartbeat, and skips only the paid prose.
+      # The session brief. Deterministic, no model call, $0 — it is a JOIN of data
+      # the steps above already produced. Exists because the operating model is
+      # "the pipeline observes, Jackson decides", which makes the session the
+      # bottleneck — and most of every session was being spent re-gathering and
+      # re-joining the same facts. Runs BEFORE the report so a failure here is
+      # visible in the report rather than hidden behind it.
+      - name: Write session brief
+        if: always()
+        continue-on-error: true
+        run: npm run brief
+
       - name: Write nightly report
         id: report
         if: always()
@@ -275,7 +286,7 @@ jobs:
           # 49-URL sweep, and the rotation this repo just wired in never once
           # takes effect — see the header of scripts/lib/gsc-rotation.ts, which
           # named this exact missing line before it existed.
-          for p in wiki/nightly data/ledger.jsonl data/ledger-state.json \
+          for p in wiki/nightly reports/session-brief.md data/ledger.jsonl data/ledger-state.json \
                    data/cost-ledger.jsonl data/cost-summary.json data/cost-drift.jsonl \
                    data/agent-health.jsonl \
                    data/gsc/inspection-rotation.json \

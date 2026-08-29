@@ -49,6 +49,7 @@
     "collect:all": "tsx scripts/collect-all.ts",
     "probe": "tsx scripts/probes/run.ts",
     "nightly": "tsx scripts/nightly-report.ts",
+    "brief": "tsx scripts/session-brief.ts",
     "correct": "tsx scripts/corrector.ts",
     "godseye": "npm run collect:all && npm run ledger:evaluate && npm run retention:prune && npm run nightly",
     "lint:affiliate": "node scripts/lint-affiliate.mjs"
