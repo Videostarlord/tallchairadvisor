@@ -12,30 +12,36 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "fe9800b2-ff12-4d54-b9a1-5ede520bcaef",
-      "shortId": "fe9800b2",
+      "deploymentId": "ba21cf1d-21fc-4502-8b13-3e61caaadce6",
+      "shortId": "ba21cf1d",
       "environment": "production",
-      "url": "https://fe9800b2.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-27T20:12:33.317145Z",
+      "url": "https://ba21cf1d.tallchairadvisor.pages.dev",
+      "createdOn": "2026-08-29T01:37:34.82445Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "80fdfa33c374982bc6aab23fc30bccc36cf3e3a2",
-      "commitMessage": "[skip cd] data: Clarity history 2026-08-27"
+      "commitHash": "7ba559b627f733447f5e830b3b9a457b516a2698",
+      "commitMessage": "feat: retire the acting agents, silence their alarms, add the session brief\n\nThree changes from one measurement: in six months the autonomous acting agents\nchanged src/ six times, while all 19 pages and every revenue-relevant change of\nAugust came from human-directed sessions. The operating model is now explicit —\nthe pipeline observes, Jackson decides.\n\n1. Wednesday/Thursday/Friday schedules retired to workflow_dispatch only. Not\nfor cost — they are ~$0.26/month between them — but because an idle acting\nagent still files a stale-log finding every night, and an alarm that fires\nbecause nothing happened is indistinguishable from one that fires because\nsomething broke. Disabled, not deleted; the observation half all still runs and\nis more valuable under this model, since it is the scoreboard for session work.\n\n2. lib/retired-agents.ts. Disabling the cron ALONE would have made things worse:\nthe nightly loads fixes-log.md and content-log.md as contracted sources with a\n192h SLA, so with their writers off it would have declared two contract failures\nevery night forever, for a condition that is now correct. The retirement is\nrecorded in two paired places — the cron and this file — and both say so, so\nneither can be changed alone. Blind checks went 3 to 1.\n\n3. scripts/session-brief.ts. If growth happens in sessions, the pipeline's job\nis to make a session start at full context in seconds rather than twenty minutes\nof re-gathering. Deterministic, no model call, $0. Leads with the active\nkill-list constraints (a session proposing CTR work on a position-9.7 page has\nwasted itself) and the conversion join of affiliate clicks x scroll depth x CTA\nposition — the hand-built version of which produced the 2026-08-28 placement\nfinding. Prints what it could not read rather than smoothing over it.\n\nThe brief's CTA column is a markup measure that overstates depth (45% there vs\n13% rendered for aeron-size-c) and now carries that caveat in its own output.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 39128,
-      "cachedRequests": 2648,
-      "hitRatePct": 6.8,
-      "bytes": 324523324,
-      "cachedBytes": 98786095,
+      "requests": 36019,
+      "cachedRequests": 2657,
+      "hitRatePct": 7.4,
+      "bytes": 310222264,
+      "cachedBytes": 101302255,
       "byDay": [
         {
+          "date": "2026-08-29",
+          "requests": 886,
+          "cachedRequests": 53,
+          "hitRatePct": 6
+        },
+        {
           "date": "2026-08-28",
-          "requests": 4504,
-          "cachedRequests": 376,
-          "hitRatePct": 8.3
+          "requests": 5873,
+          "cachedRequests": 630,
+          "hitRatePct": 10.7
         },
         {
           "date": "2026-08-27",
@@ -66,29 +72,23 @@
           "requests": 2657,
           "cachedRequests": 280,
           "hitRatePct": 10.5
-        },
-        {
-          "date": "2026-08-22",
-          "requests": 5364,
-          "cachedRequests": 298,
-          "hitRatePct": 5.6
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 7,
+      "totalEvents": 18,
       "byAction": {
-        "block": 7
+        "block": 18
       },
       "bySource": {
-        "firewallManaged": 7
+        "firewallManaged": 18
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-28T10:52:59.138Z",
+    "collectedAt": "2026-08-29T06:40:14.319Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null

@@ -1,6 +1,6 @@
 # Session Brief — 2026-08-29
 
-_Generated 2026-08-29T01:36:36.719Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-08-29T06:42:02.196Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -74,12 +74,12 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 ## Open work the pipeline is tracking
 
-- Ledger: {"open": 0, "closed": 55, "escalated": 11, "regressed": 0, "total": 66, "retractedSkipped": 0}
-  - **/review/leap-plus/** — position 8.8 does not satisfy < 8.7
-  - **/chairs/herman-miller-aeron/tall-people/** — position 8.1 does not satisfy < 8.1
-  - **/correct-chair-dimensions/** — position 9.6 does not satisfy < 9.6
-  - **/office-chairs-for-tall-people/** — position 8.9 does not satisfy < 8.1
-  - **/chairs/herman-miller-aeron/size-guide/** — mobile render differs from baseline by 2.586% (threshold 2%)
+- Ledger: {"open": 0, "closed": 56, "escalated": 10, "regressed": 0, "total": 66, "retractedSkipped": 0}
+  - **/chairs/herman-miller-aeron/tall-people/** — position 7.9 < 8.1
+  - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
+  - **/correct-chair-dimensions/** — position 9.7 does not satisfy < 9.6
+  - **/office-chairs-for-tall-people/** — position 9.1 does not satisfy < 8.1
+  - **/chairs/herman-miller-aeron/size-guide/** — mobile render differs from baseline by 2.609% (threshold 2%)
   - **/chairs/steelcase-gesture/** — mobile render differs from baseline by 3.064% (threshold 2%)
 
 ---
