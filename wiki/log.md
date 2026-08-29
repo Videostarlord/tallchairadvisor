@@ -4073,3 +4073,45 @@ Related: [[affiliate-performance]] · [[what-failed]] · [[godseye-nightly]] · 
 **Also:** clicks 131 → 139. Leap Plus 49 (still #1, and the row the conversions landed on), Gesture 30, Aeron 18, Crandall 11. Tag migration nearly complete — `tcachair-20` 59 vs legacy 75, up from 45 vs 81. **August close revised from ~$12.15 to ~$35.38**, still under the $100 gate, return window open. Cross-dimension mismatch again: linked-product says $87.15 on the ASIN, tracking-id says $28.54 on the tag; **for "do chair links earn?" the tracking-ID row is authoritative**, since the tag is what `affiliate-tags.ts` controls and what Amazon attributes the session against.
 
 Related: [[affiliate-performance]] · [[decisions-log]] · [[thesis]] · [[review-leap-plus]] · [[statistical-confidence-policy]]
+
+## 2026-08-28 (second session) — the 39k-impression page was never addressable, and the CTAs were below where people stop
+
+### 1. /knee-pain-seat-depth/ diagnosed: it is machine retrieval, not demand
+
+The page carries **39,186 impressions (39% of the site) at position 5.6 and 13 clicks**. Asking GSC for *that page's own* queries — which the standard pull never does — returns 133 rows summing to **1,635 impressions, 4.2% of its total**. The other 95.8% carry no query, no country and no device.
+
+**The queries that ARE named settle it.** "cornell ergonomics office chair seat pan depth 2 inches behind knees". "seat depth 2-3 fingers behind knees ergonomics source". "how much of a gap should be between the front of your chair and the back of your knees". And two that are not searches at all: **"context: location: united kingdom (not for language"** and **"answer"** — fragments of an LLM's own prompt leaking into Search Console. They rank **1.5–2.5** and take **zero clicks across hundreds of impressions**, because there is no human on the other end to click.
+
+Site-wide unattributable CTR is 0.275%. This page's is **0.035% — 8x worse than its own site's baseline.**
+
+**I was wrong two messages earlier.** I told Jackson this page at "even 2% CTR roughly triples site traffic". It cannot. The impressions are not addressable by any title, meta or content change, and that projection should never have been made from a CTR number without first asking what the impressions were.
+
+**What it actually is: a GEO asset.** The site owns the Cornell-ergonomics seat-depth fact cluster in AI retrieval, and GA4 shows 95 AI-assistant sessions (ChatGPT 85, Claude 8, Perplexity 4). Judge the page on assistant referrals, never on CTR.
+
+### 2. The scorer had been aiming at that phantom every week
+
+`opportunityScore = (impressions / pos) * 2` on **raw** impressions made this page the site's #1 recommendation at 13,995, permanently. Two defects underneath: `pageQueries` is a global top-500 sample, so a page whose queries are individually tiny contributes no rows and reads as *"has no queries"* — indistinguishable from one nobody searches for.
+
+`gsc-pull` now probes per-page attribution for the top 20 pages (one API call each). `gsc-analyze` scores on **addressable** impressions and classifies pages under 15% attribution at 1000+ impressions as `machine-retrieval`, **score 0**. Not a discounted score — a discounted score still ranks the page and still invites work that cannot succeed. **Six pages classify**, and the ratios split cleanly: 0.1–9.8% for machine-dominated pages, 17–32% for human ones. Top opportunity moved to `/review/leap-plus/` at 612.6 on 2,665 real impressions.
+
+A failed probe records **nothing**, never 0% — defaulting an absent rows object to `[]` would compute 0% attribution and silently retire a healthy page with a confident explanation.
+
+### 3. CTA position predicted affiliate clicks better than anything else
+
+`/office-chairs-for-tall-people/` puts its first CTA at **16%** and takes **49 of the site's 96** affiliate clicks. Every page past ~60% took 0–3. `/review/aeron-size-c/`: 52 sessions, **7% average scroll**, only buy link at **91%** — not underperforming, unreachable. `/review/sihoo-doro-s300/` 97%. `/chairs/steelcase-gesture/` 98%. **The homepage, the most-visited page on the site, had no affiliate link at all.**
+
+`BuyBox.astro` now sits immediately after the Direct Answer on 8 pages, plus a homepage Quick Picks block. The Direct Answer stays first on purpose — it is the citation asset feeding the channel in §1.
+
+**Verified in a browser, because the obvious metric lied.** Counting characters through the HTML said the new CTAs were still at 34–44%; site navigation is markup-heavy but visually short. Rendered in Chromium at 1280×800 and 390×844: **8–18% desktop, 6–13% mobile**, from 66–98% before. The three still marginal have 6–18% average scroll — a bounce problem, not a placement one.
+
+**The lift is NOT measured.** Placement is verified; clicks-per-session is the test, ~2 weeks out.
+
+### The hazard this introduced, and the guard for it
+
+`lint-affiliate.mjs` is a **text scan** for literal `amazon.com` URLs. A component building its own href from an ASIN would have taken every link passing through it out of the only gate protecting revenue attribution — while the lint kept reporting green. `BuyBox` therefore takes a **finished href**, and a new lint rule fails on any Amazon URL that is not a complete literal, scoped to `amazon.com/` with the path slash so `Layout.astro`'s legitimate `hostname.endsWith('amazon.com')` inspection is untouched. Tested against a synthetic bypass; it catches it.
+
+**Also fixed, found by running the tool:** `data/clarity/latest.json` has two writers and only `clarity-history.ts` emitted the schema-required `windowEnd`, so any manual `npm run agent:clarity` replaced a valid file with one that fails its own contract — and `strategy.ts` reads that path through `clarityLatestSchema`.
+
+Gates: affiliate, content (54 pages), architecture 0 new, 26/26 tests, build clean.
+
+Related: [[affiliate-performance]] · [[what-works]] · [[gsc-intelligence]] · [[ai-citation-readiness]]
