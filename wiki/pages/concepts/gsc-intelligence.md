@@ -21,11 +21,11 @@ Impressions up 7.6% WoW (4747 vs 4410), clicks up 39.1% (32 vs 23), avg position
 
 | Page | Type | Impressions | Position | Action |
 |------|------|-------------|----------|--------|
-| /knee-pain-seat-depth/ | near-p1 | 39186 impr | pos 5.6 | pos 5.6 with 39186 impr — expand content depth + internal links to push into top 5 |
-| /correct-chair-dimensions/ | near-p1 | 19563 impr | pos 9.7 | pos 9.7 with 19563 impr — expand content depth + internal links to push into top 5 |
-| /review/leap-plus/ | near-p1 | 14827 impr | pos 8.7 | pos 8.7 with 14827 impr — expand content depth + internal links to push into top 5 |
-| /review/gesture/ | near-p1 | 6722 impr | pos 8 | pos 8.0 with 6722 impr — expand content depth + internal links to push into top 5 |
-| /office-chairs-for-tall-people/ | near-p1 | 4772 impr | pos 9.1 | pos 9.1 with 4772 impr — expand content depth + internal links to push into top 5 |
+| /review/leap-plus/ | near-p1 | 14827 impr | pos 8.7 | pos 8.7 with 2665 addressable impr (of 14827 total — 18% named) — expand content depth + internal links to push into top 5 |
+| /chairs/herman-miller-aeron/ | content-depth | 523 impr | pos 18.4 | pos 18.4 with 523 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
+| /pain-ergonomics/ | content-depth | 481 impr | pos 29.1 | pos 29.1 with 481 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
+| /review/aeron-size-c/ | near-p1 | 4692 impr | pos 10.9 | pos 10.9 with 1052 addressable impr (of 4692 total — 22% named) — expand content depth + internal links to push into top 5 |
+| /leg-pain-circulation/ | content-depth | 384 impr | pos 16 | pos 16.0 with 384 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
 
 ---
 
@@ -109,11 +109,11 @@ _No AIO suspects in current CTR leak set_
 
 | Page | Cur Pos | Prev Pos | Pos Δ | Impr Δ | Trend |
 |------|---------|----------|-------|--------|-------|
-| /wide-seat-office-chairs-tall-people/ | 13.2 | 16.5 | -3.3 | +56 | rising |
-| /fit-guides/ | 11.8 | 10.1 | +1.7 | +14 | stable |
-| /chairs/herman-miller-aeron/ | 18.9 | 20.4 | -1.5 | -4 | stable |
-| /standing-desk-height-tall-people/ | 16.9 | 18.3 | -1.4 | -25 | falling |
-| /about/ | 8.3 | 7.2 | +1.1 | -5 | stable |
+| /leg-pain-circulation/ | 16 | 14.4 | +1.6 | +56 | stable |
+| /wide-seat-office-chairs-tall-people/ | 12.2 | 13.2 | -1 | +32 | rising |
+| /office-chair-lower-back-pain-tall-people/ | 10.9 | 10.2 | +0.7 | +16 | stable |
+| /how-to-adjust-chair/ | 21.3 | 22 | -0.7 | +6 | stable |
+| /standing-desk-height-tall-people/ | 16.2 | 16.9 | -0.7 | -10 | stable |
 
 ---
 

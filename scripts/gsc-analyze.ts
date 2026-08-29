@@ -306,13 +306,54 @@ export interface PageOpportunity {
   clicks: number;
   ctr: number;
   opportunityScore: number;
-  opportunityType: 'near-p1' | 'ctr-leak' | 'content-depth' | 'affiliate-capture' | 'low-signal';
+  opportunityType: 'near-p1' | 'ctr-leak' | 'content-depth' | 'affiliate-capture' | 'machine-retrieval' | 'low-signal';
   topQueries: string[];
   buyerIntentImpressions: number;
   recommendation: string;
+  /** Share of this page's impressions GSC will name a query for. null = not probed. */
+  attributionRatio: number | null;
+  /** Impressions a human could plausibly click. Falls back to raw when unprobed. */
+  addressableImpressions: number;
 }
 
-function scoreOpportunities(pages: PageRow[], pageQueries: PageQueryRow[], ctrLeaks: CTRLeak[]): PageOpportunity[] {
+/**
+ * Pages whose impressions are overwhelmingly machine retrieval are excluded from
+ * opportunity scoring rather than ranked by it.
+ *
+ * THE BUG THIS FIXES. Scoring used RAW impressions, so /knee-pain-seat-depth/ —
+ * 39,186 impressions at position 5.6 — scored 13,995 and was the site's #1
+ * recommendation every single week. Probing GSC for that page's own queries
+ * returns 133 rows totalling 1,635 impressions: **4.2%**. The remaining 95.8%
+ * carry no query, no country and no device, and the named ones are machine-shaped
+ * ("cornell ergonomics office chair seat pan depth 2 inches behind knees",
+ * "...ergonomics source", and literal prompt fragments like "context: location:
+ * united kingdom"). They rank 1.5-2.5 and take ZERO clicks across hundreds of
+ * impressions, because there is no human on the other end to click.
+ *
+ * The site-wide unattributable CTR is 0.275%; this page's is 0.035% — 8x worse
+ * than its own site's baseline. It is not a CTR failure to be fixed. No title,
+ * meta or content change converts a retrieval bot.
+ *
+ * WHY A THRESHOLD AND NOT A MULTIPLIER. Discounting the score by the ratio would
+ * still leave this page ranked (13,995 x 0.042 = 588, mid-table) and would still
+ * invite work on it. The honest output is not "smaller opportunity" — it is "not
+ * an opportunity", with the reason attached.
+ *
+ * 15% and 1000 impressions: every genuinely human page in the 2026-08-28 pull
+ * sits at 17-28% attribution, and the machine-dominated ones at 2-10%. The gap
+ * is wide, so the exact cut is not load-bearing; the impression floor keeps
+ * low-volume pages, where the ratio is noise, out of the classification.
+ */
+const MACHINE_RETRIEVAL_MAX_ATTRIBUTION = 0.15;
+const MACHINE_RETRIEVAL_MIN_IMPRESSIONS = 1000;
+
+function scoreOpportunities(
+  pages: PageRow[],
+  pageQueries: PageQueryRow[],
+  ctrLeaks: CTRLeak[],
+  pageAttribution: { page: string; attributionRatio: number; attributableImpressions: number }[] = []
+): PageOpportunity[] {
+  const attrByPage = new Map(pageAttribution.map(a => [a.page, a]));
   return pages
     .filter(p => p.impressions >= 30 && p.position !== null)
     .map(p => {
@@ -324,14 +365,39 @@ function scoreOpportunities(pages: PageRow[], pageQueries: PageQueryRow[], ctrLe
         .filter(pq => classifyIntent(pq.query).type === 'buyer')
         .reduce((s, pq) => s + pq.impressions, 0);
 
+      const attr = attrByPage.get(p.page) ?? null;
+      const attributionRatio = attr === null ? null : attr.attributionRatio;
+      const addressableImpressions = attr === null ? p.impressions : attr.attributableImpressions;
+
       let opportunityType: PageOpportunity['opportunityType'];
       let opportunityScore: number;
       let recommendation: string;
 
-      if (pos >= 5 && pos <= 15 && p.impressions >= 100) {
+      if (
+        attributionRatio !== null &&
+        attributionRatio < MACHINE_RETRIEVAL_MAX_ATTRIBUTION &&
+        p.impressions >= MACHINE_RETRIEVAL_MIN_IMPRESSIONS
+      ) {
+        // Checked FIRST, ahead of near-p1, because this page would otherwise
+        // match near-p1 on exactly the numbers that make it a phantom: a good
+        // position and a huge impression count.
+        opportunityType = 'machine-retrieval';
+        opportunityScore = 0;
+        recommendation =
+          `${p.impressions} impressions but only ${(attributionRatio * 100).toFixed(1)}% carry a named query ` +
+          `(${addressableImpressions} addressable) — this is AI/agent retrieval, not human demand. ` +
+          `NOT a CTR problem and no title/meta/content change will convert it. ` +
+          `Treat as a GEO asset: the page owns a fact cluster assistants cite. Judge it on AI-assistant ` +
+          `referral sessions in GA4, never on CTR.`;
+      } else if (pos >= 5 && pos <= 15 && p.impressions >= 100) {
         opportunityType = 'near-p1';
-        opportunityScore = (p.impressions / pos) * 2;
-        recommendation = `pos ${pos.toFixed(1)} with ${p.impressions} impr — expand content depth + internal links to push into top 5`;
+        // ADDRESSABLE, not raw. Raw impressions rank pages by how much machine
+        // retrieval they attract, which is the opposite of what this list is for.
+        opportunityScore = (addressableImpressions / pos) * 2;
+        recommendation =
+          `pos ${pos.toFixed(1)} with ${addressableImpressions} addressable impr` +
+          `${attributionRatio !== null && attributionRatio < 0.5 ? ` (of ${p.impressions} total — ${(attributionRatio * 100).toFixed(0)}% named)` : ''}` +
+          ` — expand content depth + internal links to push into top 5`;
       } else if (myLeaks.length > 0 && pos <= 10) {
         opportunityType = 'ctr-leak';
         opportunityScore = myLeaks.reduce((s, l) => s + l.leakScore, 0);
@@ -356,6 +422,7 @@ function scoreOpportunities(pages: PageRow[], pageQueries: PageQueryRow[], ctrLe
         clicks: p.clicks ?? 0, ctr: p.ctr,
         opportunityScore: parseFloat(opportunityScore.toFixed(1)),
         opportunityType, topQueries, buyerIntentImpressions: buyerImpr, recommendation,
+        attributionRatio, addressableImpressions,
       };
     })
     .sort((a, b) => b.opportunityScore - a.opportunityScore);
@@ -1269,7 +1336,13 @@ function buildAnalysis(gsc: GSCData) {
   const days = gsc.dateRange.days;
   const ctrLeaks = detectCTRLeaks(gsc.pageQueries, days);
   const clusters = clusterQueries(gsc.pageQueries);
-  const opportunities = scoreOpportunities(gsc.pages, gsc.pageQueries, ctrLeaks);
+  // pageAttribution is optional on the schema: snapshots archived before
+  // 2026-08-28 predate it. Absent is passed through as an EMPTY probe set, which
+  // scoreOpportunities reads as `attributionRatio: null` and falls back to raw
+  // impressions — the old behaviour, explicitly, rather than treating an old
+  // snapshot as though every page were 0% attributable.
+  const probed = (gsc as { pageAttribution?: { page: string; attributionRatio: number; attributableImpressions: number }[] }).pageAttribution;
+  const opportunities = scoreOpportunities(gsc.pages, gsc.pageQueries, ctrLeaks, probed === undefined ? [] : probed);
   const cannibalization = detectCannibalization(gsc.pageQueries);
   const affiliateOpportunities = detectAffiliateOpportunities(gsc.pages, gsc.pageQueries);
   const siteTrend = gsc.dailyTrend ? computeTrend(gsc.dailyTrend) : null;
