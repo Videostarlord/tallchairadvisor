@@ -95,7 +95,12 @@ const label = ctaLabel ?? `View ${product} on Amazon`;
         data-affiliate-program="amazon"
         data-affiliate-class={affiliateClass}
         data-cta-label={label}
-        data-cta-position="above-fold"
+        {/* NOT "above-fold": the pixel measurement says only 2 of 10 of these
+            render above 800px on desktop and none on mobile. They render at
+            6-18% of page height, which is well within reach — but a GA4
+            dimension that says "above-fold" when it means "after the answer
+            box" would mislead the analysis this placement exists to enable. */}
+        data-cta-position="after-answer"
       >
         Check price on Amazon
       </a>
