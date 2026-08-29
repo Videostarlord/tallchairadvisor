@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-28T10:55:02.783Z",
+  "generatedAt": "2026-08-29T00:30:47.941Z",
   "ledger": "data/cost-ledger.jsonl",
   "records": {
-    "total": 259,
-    "llm": 96,
+    "total": 260,
+    "llm": 97,
     "external": 163
   },
   "note": null,
   "totals": {
-    "records": 96,
-    "input": 4190425,
-    "output": 168407,
+    "records": 97,
+    "input": 4358876,
+    "output": 171568,
     "cacheWrite": 140059,
     "cacheRead": 0,
-    "usd": 15.60708325
+    "usd": 16.15985125
   },
   "byRun": {
     "2026-08-05": {
@@ -191,16 +191,24 @@
       "cacheWrite": 52877,
       "cacheRead": 0,
       "usd": 0.80770275
+    },
+    "2026-08-28": {
+      "records": 1,
+      "input": 168451,
+      "output": 3161,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.552768
     }
   },
   "byAgent": {
     "nightly-report": {
-      "records": 32,
-      "input": 3780961,
-      "output": 96597,
+      "records": 33,
+      "input": 3949412,
+      "output": 99758,
       "cacheWrite": 0,
       "cacheRead": 0,
-      "usd": 12.791838
+      "usd": 13.344606
     },
     "competitor-intelligence": {
       "records": 61,
@@ -395,16 +403,24 @@
       "cacheWrite": 52877,
       "cacheRead": 0,
       "usd": 0.80770275
+    },
+    "2026-08-28": {
+      "records": 1,
+      "input": 168451,
+      "output": 3161,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "usd": 0.552768
     }
   },
   "byMonth": {
     "2026-08": {
-      "records": 96,
-      "input": 4190425,
-      "output": 168407,
+      "records": 97,
+      "input": 4358876,
+      "output": 171568,
       "cacheWrite": 140059,
       "cacheRead": 0,
-      "usd": 15.60708325
+      "usd": 16.15985125
     }
   },
   "bySite": {
@@ -417,12 +433,12 @@
       "usd": 6.273159
     },
     "tallchairadvisor.com": {
-      "records": 78,
-      "input": 2314412,
-      "output": 125399,
+      "records": 79,
+      "input": 2482863,
+      "output": 128560,
       "cacheWrite": 140059,
       "cacheRead": 0,
-      "usd": 9.33392425
+      "usd": 9.88669225
     }
   },
   "externalBySite": {
@@ -501,12 +517,12 @@
   },
   "models": {
     "claude-sonnet-4-6": {
-      "records": 90,
-      "input": 4185981,
-      "output": 167744,
+      "records": 91,
+      "input": 4354432,
+      "output": 170905,
       "cacheWrite": 140059,
       "cacheRead": 0,
-      "usd": 15.59932425
+      "usd": 16.15209225
     },
     "claude-haiku-4-5-20251001": {
       "records": 6,

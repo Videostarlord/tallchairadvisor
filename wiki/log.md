@@ -4115,3 +4115,47 @@ A failed probe records **nothing**, never 0% — defaulting an absent rows objec
 Gates: affiliate, content (54 pages), architecture 0 new, 26/26 tests, build clean.
 
 Related: [[affiliate-performance]] · [[what-works]] · [[gsc-intelligence]] · [[ai-citation-readiness]]
+
+## 2026-08-29 — the narrative goes weekly, and the content pipeline loses its human
+
+### 1. Nightly narrative → weekly. 83% of pipeline spend, for a report restating itself.
+
+`nightly-report`'s LLM call was **$13.34 of the pipeline's $16.16 August spend** — for a document whose own text read *"Nothing closed overnight and nothing broke fresh today — the 11 open items are all carry-overs."* It was paying ~$0.55 a night to repeat the same list, and its input was compounding: **71k tokens/run on 08-07 → 168k on 08-28**, because it re-reads a corpus that grows nightly. Left alone it reaches ~$1/run by October.
+
+**The trap, and why this is a flag rather than a deleted workflow step.** `nightly-report.ts` writes `data/nightly-heartbeat.json`, which `deadmans-switch.ts` reads with a **29-hour deadline**. Removing the nightly invocation — the obvious way to "move it to weekly" — would have fired the dead-man's switch to Jackson's phone **every single night**: the alarm going off not because the pipeline died but because the thing that proves it alive stopped being called. Exactly the seam failure this log keeps recording.
+
+So `--no-narrative` was added instead. It reuses `fallbackReport()`, the deterministic renderer that already existed for model failures — deliberately, because *a format that only runs on failure days is a format nobody has read*, and it is now the format of six nights in seven. Report, footer, ntfy push and heartbeat all still run nightly; only the paid prose is weekly (Sundays, with a `force_narrative` dispatch input). **~$21/mo → ~$5.50/mo.**
+
+### 2. The content pipeline shipped ZERO pages in six months, and was never broken
+
+Traced end to end:
+
+```
+keywords-monthly.yml   ✓ ran Jun 1, Jul 1, Aug 1 — all green
+       ↓ opportunities.json — 18 candidates
+  ⛔ approved: true — A HUMAN. 0 of 18. Never once.
+       ↓
+keywords-push.ts       ⛔ WIRED INTO NO WORKFLOW AT ALL
+       ↓
+content-roadmap.json   8 items, every one already published
+       ↓
+Friday execute-content 0 pages, ever
+```
+
+**Two breaks, not one.** Approval had no owner, and the push step existed but nothing ran it. Friday has been going green every week by correctly finding an empty queue. All 19 pages on the site came from human-directed sessions; the autonomous agents have touched `src/` **6 times in 6 months** (4 sitemap/index fixes, 2 Thursday SEO runs in June).
+
+### 3. Removing a gate is not the same as automating it
+
+The naive fix — approve everything — would have been destructive. **16 of the 18 candidates are `tca_status: 'ranking'`**: keywords the site already ranks for, where a new page splits traffic rather than winning it, on a site already carrying 7 cannibalization conflicts.
+
+The second naive fix — approve the ones marked `gap` — is worse than it looks. There are exactly two, and **both duplicate pages that already exist**: *"ergonomic chairs for tall people"* is `/office-chairs-for-tall-people/` with a synonym swapped, and *"steelcase gesture review"* is `/review/gesture/`. A `status === 'gap'` rule ships two cannibalising pages on day one.
+
+`lib/keyword-approval.ts` encodes what the human was doing by eye: reject if the site ranks, reject unusable target slugs, reject slugs that exist, reject topic collisions **against pages on disk** (Jaccard over stopword-stripped tokens; the two gap candidates score 50% and 100% against their real twins), dedup near-identical variants within a batch, and floors on volume/KD/score. Every threshold fails toward rejection, because **a false approve publishes a cannibalising page onto a live money site and a false reject costs one month on one keyword.** 10 tests, all drawn from the real queue.
+
+**Applied today it approves 0 of 18 — and that is the correct output.** A month where nothing qualifies is a real answer, recorded with a per-candidate `approval_reason`. That is a different thing from a month where nobody looked.
+
+`opportunities.json` also gained a contract (`schemas/keyword-opportunities.ts`) and is now read through `readValidated`. It was hand-read by a human before; it is now the input that decides what gets published, and a `tca_status` arriving malformed would fall through `!== 'ranking'` and be approved. `tca_status` is an enum for exactly that reason.
+
+Gates: 27/27 tests, architecture 0 new, affiliate + content lint clean, build 54 pages, tsc unchanged at 31.
+
+Related: [[niche-incubator-system]] · [[godseye-nightly]] · [[content-gap-engine]] · [[true-keyword-gaps]]

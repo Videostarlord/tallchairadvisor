@@ -37,6 +37,10 @@ on:
         description: 'Skip Playwright probes (faster dry run)'
         type: boolean
         default: false
+      force_narrative:
+        description: 'Generate the full written narrative even on a non-Sunday (costs ~$0.55)'
+        type: boolean
+        default: false
       # The ONLY supported way to re-baseline. It must happen on the runner that
       # does the comparison: the first baseline set was captured on a MacBook and
       # diffed on ubuntu, and the resulting font-rasterisation offset put all 49
@@ -211,10 +215,30 @@ jobs:
       # is the report — "what the system could not see tonight" is a required
       # section (PRD §7.6), and a missing report is what the dead-man's switch
       # alarms on. Never let an upstream failure suppress the nightly.
+      # NARRATIVE IS WEEKLY (Sundays), EVERYTHING ELSE IS NIGHTLY.
+      #
+      # The LLM narrative was $13.34 of the pipeline's $16.16 August spend — 83%
+      # — for a report that had been restating the same carry-over list nightly.
+      # Its input was compounding too (71k tokens/run on 08-07, 168k on 08-28).
+      #
+      # This step still runs EVERY night and must. nightly-report.ts writes
+      # data/nightly-heartbeat.json, which deadmans-switch.ts reads with a 29h
+      # deadline: deleting or skipping the step would have alarmed Jackson's
+      # phone every night — the dead-man's switch firing because the thing that
+      # proves the pipeline alive stopped being called, not because anything
+      # died. `--no-narrative` keeps the report, the footer, the ntfy push and
+      # the heartbeat, and skips only the paid prose.
       - name: Write nightly report
         id: report
         if: always()
-        run: npm run nightly
+        run: |
+          if [ "$(date -u +%u)" = "7" ] || [ "${{ inputs.force_narrative }}" = "true" ]; then
+            echo "Sunday (or forced) — generating the full written narrative."
+            npm run nightly
+          else
+            echo "Weekday — deterministic report only, no model call."
+            npm run nightly -- --no-narrative
+          fi
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}

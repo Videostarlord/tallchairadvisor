@@ -1009,8 +1009,43 @@ async function main(): Promise<void> {
   const verdict = decideVerdict(blindCount, health.selfFailure, needsYou ?? 0);
   console.log(`[nightly] verdict: ${verdict.title}`);
 
-  let markdown: string;
+  // ── Narrative cadence (2026-08-29) ──────────────────────────────────────────
+  //
+  // The LLM narrative was 83% of the entire pipeline's spend — $13.34 of $16.16
+  // in August — on a report whose own text read "Nothing closed overnight and
+  // nothing broke fresh today; the 11 open items are all carry-overs". It was
+  // paying ~$0.55 a night to re-state the same list. Its input was compounding
+  // too: 71k tokens/run on 2026-08-07, 168k on 2026-08-28, because it re-reads a
+  // corpus that grows every night.
+  //
+  // So the narrative is now WEEKLY and every other night runs `--no-narrative`.
+  //
+  // WHAT MUST NOT CHANGE, and is the reason this is a flag rather than a step
+  // deleted from nightly.yml: this script writes data/nightly-heartbeat.json,
+  // which scripts/deadmans-switch.ts reads with a 29-hour deadline. Removing the
+  // nightly invocation would have alarmed Jackson's phone every single night —
+  // the dead-man's switch firing not because the pipeline died but because the
+  // thing that proves it alive stopped being called. The collection, probing,
+  // ledger evaluation, report file, footer and heartbeat all still run nightly.
+  // Only the paid prose is weekly.
+  const noNarrative = process.argv.includes('--no-narrative');
+
+  let markdown = '';
   try {
+    if (noNarrative) {
+      // fallbackReport is the existing deterministic renderer used when the model
+      // call fails. Reused deliberately rather than writing a second no-LLM path:
+      // a format that only runs on failure days is a format nobody has read, and
+      // this now makes it the format of six nights in seven.
+      markdown = fallbackReport(
+        sources,
+        health,
+        'narrative skipped — this is a --no-narrative run. The full written report is generated weekly; ' +
+          'every finding below is machine-rendered from the same data and nothing was omitted.',
+        verdict,
+      );
+      console.log('[nightly] --no-narrative: deterministic report written, no model call, $0 spent');
+    } else {
     const prompt = buildPrompt(sources, health, verdict);
     assertNoTruncation(prompt);
 
@@ -1057,6 +1092,7 @@ async function main(): Promise<void> {
         block.text;
     } else {
       markdown = block.text;
+    }
     }
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);

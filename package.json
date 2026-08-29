@@ -29,6 +29,8 @@
     "keyword:discovery": "tsx scripts/keyword-discovery.ts",
     "keyword:gaps": "tsx scripts/keyword-gap-discovery.ts",
     "keyword:gaps:test": "tsx scripts/keyword-gap-discovery.test.ts",
+    "keywords:approve": "tsx scripts/keywords-approve.ts",
+    "keywords:approve:dry": "tsx scripts/keywords-approve.ts --dry-run",
     "keywords:push": "tsx scripts/keywords-push.ts",
     "roadmap:sync": "npx tsx scripts/roadmap-sync.ts",
     "agent:clarity": "tsx scripts/agents/clarity-pull.ts",
