@@ -1,6 +1,6 @@
-# Session Brief — 2026-08-29
+# Session Brief — 2026-08-30
 
-_Generated 2026-08-29T06:42:02.196Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-08-30T04:54:34.841Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -50,21 +50,21 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 125 | 49 | 56% | 16% |
-| /review/gesture/ | 88 | 5 | 19% | 22% |
-| / | 70 | 0 | 18% | 26% |
-| /correct-chair-dimensions/ | 67 | 0 | 16% | 22% |
-| /review/leap-plus/ | 63 | 3 | 48% | 33% |
+| /office-chairs-for-tall-people/ | 125 | 49 | 41% | 16% |
+| /review/gesture/ | 88 | 5 | 53% | 22% |
+| / | 70 | 0 | 23% | 26% |
+| /correct-chair-dimensions/ | 67 | 0 | 56% | 22% |
+| /review/leap-plus/ | 63 | 3 | 45% | 33% |
 | /best-big-and-tall-office-chairs/ | 62 | 12 | 45% | 54% |
-| /best-office-chairs-under-500/ | 56 | 16 | 31% | 46% |
+| /best-office-chairs-under-500/ | 56 | 16 | — | 46% |
 | /review/aeron-size-c/ | 52 | 0 | 7% | 45% |
-| /review/sihoo-doro-s300/ | 51 | 0 | 21% | 28% |
-| /knee-pain-seat-depth/ | 48 | 0 | 59% | 67% |
+| /review/sihoo-doro-s300/ | 51 | 0 | 18% | 28% |
+| /knee-pain-seat-depth/ | 48 | 0 | 52% | 67% |
 | /chairs/herman-miller-aeron/tall-people/ | 47 | 1 | — | 53% |
-| /office-chairs-for-6-foot-4/ | 47 | 0 | 73% | 76% |
-| /office-chairs-for-6-foot-5/ | 45 | 0 | 25% | 50% |
-| /aeron-vs-gesture/ | 44 | 0 | 16% | 26% |
-| /chairs/steelcase-gesture/ | 44 | 1 | 53% | 34% |
+| /office-chairs-for-6-foot-4/ | 47 | 0 | — | 76% |
+| /office-chairs-for-6-foot-5/ | 45 | 0 | 13% | 50% |
+| /aeron-vs-gesture/ | 44 | 0 | — | 26% |
+| /chairs/steelcase-gesture/ | 44 | 1 | 40% | 34% |
 
 ## Money
 
@@ -75,12 +75,12 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 ## Open work the pipeline is tracking
 
 - Ledger: {"open": 0, "closed": 56, "escalated": 10, "regressed": 0, "total": 66, "retractedSkipped": 0}
-  - **/chairs/herman-miller-aeron/tall-people/** — position 7.9 < 8.1
   - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
   - **/correct-chair-dimensions/** — position 9.7 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 9.1 does not satisfy < 8.1
   - **/chairs/herman-miller-aeron/size-guide/** — mobile render differs from baseline by 2.609% (threshold 2%)
   - **/chairs/steelcase-gesture/** — mobile render differs from baseline by 3.064% (threshold 2%)
+  - **/monitor-arm-tall-people/** — mobile render differs from baseline by 3.678% (threshold 2%)
 
 ---
 
