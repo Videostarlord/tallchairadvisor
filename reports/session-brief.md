@@ -1,6 +1,6 @@
-# Session Brief — 2026-08-30
+# Session Brief — 2026-08-31
 
-_Generated 2026-08-30T04:54:34.841Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-08-31T04:58:50.407Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -69,7 +69,7 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 ## Money
 
 - Latest hand export: `raw/affiliate/2026-08-28-amazon-associates-report.md` (0d old on disk)
-- Pipeline spend this ledger: **$16.16**
+- Pipeline spend this ledger: **$16.73**
 - Kill-list gate: **$100/month for 2–3 consecutive months.** See `wiki/pages/concepts/affiliate-performance.md` for where the gate stands.
 
 ## Open work the pipeline is tracking
