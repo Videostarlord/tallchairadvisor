@@ -4210,3 +4210,49 @@ It also **prints what it could not read**. A brief that silently omitted GA4 bec
 Gates: 27/27 tests, architecture 0 new, affiliate + content lint clean, tsc unchanged at 31.
 
 Related: [[godseye-nightly]] · [[what-works]] · [[niche-incubator-system]]
+
+## 2026-08-30 — the watchdog had been crying wolf for 17 days, and the cost fix was calling itself a failure
+
+Jackson opened with a cost question — *"make sure the nightly isn't costing me a lot of money anymore, since I'm still getting nightly notifications"* — carrying a reasonable inference: the notifications are still arriving, so the spend must still be there.
+
+The inference was wrong and the notifications were the real story.
+
+**Spend is already fixed.** The weekly-narrative gate shipped 2026-08-28 works, verified against `data/cost-ledger.jsonl` on `origin/main`: Fri 08-29 recorded **no LLM call at all**, Sun 08-30 recorded one narrative at **$0.57**. That is ~$0.55/night → ~$0.57/week, **$16/mo → ~$2.45/mo**. The nightly push is free by design and must keep firing: it carries the heartbeat the dead-man's switch reads.
+
+Then Jackson pasted the notification he was actually getting, and it was not the nightly report. It was `TCA DEAD`.
+
+### Bug 1 — a false death alarm every morning since 2026-08-13
+
+The alarm said `✗ report: wiki/nightly/2026-08-30.md was never written` directly above `✓ heartbeat: 14.4h old, 100% coverage`. Two lines contradicting each other, with nothing to say which to believe.
+
+`nightly-report.ts` names its report with the **local date at the moment it runs**. When the nightly ran at 03:00 local, day D's report was found by the 08:00 check on day D. On **2026-08-13** the schedule moved to 17:00 local (`cron: '0 0 * * *'` is 00:00 UTC, which is 17:00 PDT the *previous* day) — so the run lands in the evening of day D and writes `D.md`, while `checkReportFile()` went on looking for `(D+1).md` at 08:00 the next morning. **That file cannot exist yet and never will.** Confirmed on `origin`: newest report is `2026-08-29.md`; today is 2026-08-30.
+
+Fixed by accepting today **or** yesterday. This does not widen detection — both candidates come from the watchdog's own clock, so a genuinely missed night still leaves neither present, and the window stays exactly one missed cycle, matching `MAX_HEARTBEAT_AGE_HOURS=29` on the other signal. Verified live against the repo: `✓ report last night's report wiki/nightly/2026-08-29.md is there (11983 bytes)` → *"nightly is alive."*
+
+The alarm body was rewritten to lead with what it *means* and group the evidence under `What is broken:` / `What still worked:`, and the title dropped the date it could never mean.
+
+### Bug 2 — the cost fix reported itself as a failure, six nights in seven
+
+`--no-narrative` nights were rendered by `fallbackReport()` — the renderer for when the **model call breaks**. So the nightly report opened with *"The part that writes this report in plain English is what broke"*, listed *"**The report writer failed.**"* as the #1 thing needing attention, and closed with a `Raw error` block quoting the deliberate skip message. **Nothing had failed.** Jackson made a cost decision on 08-28 and got a red alarm every night for making it.
+
+The reuse was a considered choice at the time — *"a format that only runs on failure days is a format nobody has read"* — and the reasoning was sound while the conclusion was wrong, because the format carried a **claim**, not just a layout. Same class as a blind check reading green: the words and the world disagree, and the words win.
+
+Worse, the deterministic path never printed the findings at all. The headline said *"10 things need you"* and the body never said which ten — **a count with no list is not a report, it is an anxiety generator.**
+
+`skippedNarrativeReport()` replaces it: says the essay is weekly, and renders the escalated/regressed items straight out of `data/ledger-state.json` — page, days stuck, automatic attempts, the failing goal — for **$0**, since the nightly already loads that file. Regressions sort above long-stuck items (something that broke again is newer news than something stuck 41 days). Blind checks stay above the fold; the source/detector tables move into a collapsed `<details>`.
+
+Rendered against the real ledger it produces 11 named, actionable items where the old path produced one false one.
+
+### The shape, again
+
+Both bugs are **seam** defects, and the seam is now this system's signature failure — the fourth and fifth instances after the heartbeat, the Saturday deploy, the affiliate pull ordering, and the predicate registry. Every component was individually correct. What broke was an assumption one component held *about* another: the watchdog's belief about when the nightly runs (held **in a second repository**, by design), and the report's belief that a skipped narrative and a broken one deserve the same words.
+
+New rule, added to the seam list: **changing a schedule changes a filename, and something downstream is matching on that filename** — grep for what reads a cron's artifacts before changing the cron, *including outside this repo*.
+
+**Note the cost asymmetry.** A missed alarm hides one bad night. A daily false alarm trains the only person who can act on it to ignore the channel — which is the exact failure this build exists to prevent, arrived at from the opposite direction.
+
+Gates: **28/28 tests** (new `nightly-short-report.test.ts`, 10 assertions), architecture lint **0 new**, `tsc` unchanged.
+
+**Not yet live:** `deadmans-switch.ts` runs from `Videostarlord/tca-watchdog` and is copied there **by hand**. The fix changes nothing until it is re-copied. That manual step is part of why this lasted 17 days, and it is now written into `deadmans-switch.README.md`.
+
+Related: [[godseye-nightly]] · [[decisions-log]]

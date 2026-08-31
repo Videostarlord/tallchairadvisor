@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-08-28 (Aug 28 export REVERSES the chair-tag $0.00 finding — $28.54 on 59 clicks; fresh GSC/GA4/Clarity pull)
+last_updated: 2026-08-30 (nightly watchdog false-alarm fixed — it had fired every morning since 08-13; --no-narrative reports no longer claim the reporter failed)
 ---
 
 # TCA Wiki Index
@@ -45,7 +45,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 
 | Page | Summary |
 |------|---------|
-| [[godseye-nightly]] | **OPERATIONAL 2026-08-06.** Observation layer over the Mon-Sat pipeline. 7/7 collectors healthy, phone alerts live, watchdog in a second private repo. Full-week stress test found 6 real bugs (audit truncating findings for a month; 2 state files never committed; workflows discarding runs on push conflict). **Open task list: `raw/audits/2026-08-06-open-issues-task-list.md` (frozen snapshot) — current status in [[open-issues-status]].** **A1 cooldown gate FIXED 2026-08-09** — the pipeline's own commits were arming the lockout that blocked its next fix (49/54 pages locked -> 0). **L2 now also captures visual regression at desktop + mobile (P1).** |
+| [[godseye-nightly]] | **OPERATIONAL 2026-08-06.** Observation layer over the Mon-Sat pipeline. 7/7 collectors healthy, phone alerts live, watchdog in a second private repo. Full-week stress test found 6 real bugs (audit truncating findings for a month; 2 state files never committed; workflows discarding runs on push conflict). **Open task list: `raw/audits/2026-08-06-open-issues-task-list.md` (frozen snapshot) — current status in [[open-issues-status]].** **A1 cooldown gate FIXED 2026-08-09** — the pipeline's own commits were arming the lockout that blocked its next fix (49/54 pages locked -> 0). **L2 now also captures visual regression at desktop + mobile (P1).** **2026-08-30 — two alarm-honesty fixes.** (1) The dead-man's switch had fired a FALSE `TCA DEAD` **every morning since 2026-08-13**: the 17:00 nightly writes `wiki/nightly/<yesterday>.md`, and the 08:00 watchdog looked for `<today>.md` — a file that can never exist. Now accepts today *or* yesterday; window still exactly one missed cycle. **The fix is inert until `deadmans-switch.ts` is re-copied by hand to `Videostarlord/tca-watchdog`.** (2) `--no-narrative` nights were rendered by the *model-call-broke* renderer, so 6 nights in 7 the report announced **"The report writer failed"** and filed itself as the #1 item needing attention — nothing had failed. New `skippedNarrativeReport()` says the essay is weekly and **lists** the escalated/regressed findings instead of only counting them. **New seam rule: changing a schedule changes a filename, and something downstream matches on it — including outside this repo.** |
 | [[ctr-optimization]] | #1 site bottleneck. 0.23% CTR (May 2026). Cause A: AIO suppression (80%). Cause B: carousels. Build geo-optimize.ts to fix. |
 | [[geo-optimize-plan]] | **COMPLETE (May 11).** Integrated into competitor-intelligence.ts v2.3. 3 capsules applied (gesture, best-office-chairs, leap-plus). SERP cache live (72h). 3 pages pending (page_token — unfixable). Strategy.ts reads AIO context. |
 | [[meta-descriptions]] | Length constraints, regex bug, current status per page. |

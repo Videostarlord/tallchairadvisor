@@ -24,8 +24,9 @@
  *
  * It checks two independent signals so a single failure mode cannot fake life:
  *   1. the heartbeat file data/nightly-heartbeat.json (written last, on success)
- *   2. the presence of wiki/nightly/<today>.md
- * Either being stale past the deadline fires the alarm.
+ *   2. the presence of wiki/nightly/<today>.md or wiki/nightly/<yesterday>.md
+ * Either being stale past the deadline fires the alarm. See checkReportFile()
+ * for why the report window is two days wide and why that is not a loosening.
  */
 
 import 'dotenv/config';
@@ -40,9 +41,11 @@ const GH_TOKEN = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN ?? '';
 const DEADLINE_HOUR_LOCAL = Number(process.env.DEADLINE_HOUR ?? 8);
 const TZ = process.env.TCA_TZ ?? 'America/Los_Angeles';
 
-/** Hours after which a heartbeat is considered dead. The nightly runs at 03:00
- *  local and the deadline is 08:00 local, so anything older than ~29h has
- *  missed a full cycle plus the grace window. */
+/** Hours after which a heartbeat is considered dead. The nightly runs at 17:00
+ *  local (00:00 UTC) and the deadline is 08:00 local the next morning, so a
+ *  healthy beat is ~15h old at check time and anything past ~29h has missed a
+ *  full cycle plus the grace window. Moved from 03:00 on 2026-08-13; the number
+ *  still holds because 29h covers the wider of the two spacings. */
 const MAX_HEARTBEAT_AGE_HOURS = Number(process.env.MAX_HEARTBEAT_AGE_HOURS ?? 29);
 
 interface Signal {
@@ -116,14 +119,52 @@ async function checkHeartbeat(): Promise<Signal> {
   }
 }
 
-/** Signal 2 — today's report file. Independent of the heartbeat's own write path. */
+/**
+ * Signal 2 — the most recent report file. Independent of the heartbeat's own write path.
+ *
+ * ACCEPTS TODAY *OR* YESTERDAY, and the second one is the whole fix.
+ *
+ * nightly-report.ts names its file with the LOCAL date at the moment it runs.
+ * That used to agree with this check: the nightly ran at 03:00 local, so the
+ * report written on day D was found by the 08:00 check on day D.
+ *
+ * On 2026-08-13 the schedule moved to 17:00 local (cron '0 0 * * *' is 00:00 UTC
+ * = 17:00 PDT the PREVIOUS day). The run now lands in the evening of day D and
+ * writes D.md — and this check, at 08:00 on D+1, went looking for (D+1).md. That
+ * file cannot exist yet and never will, so the switch fired "TCA DEAD" every
+ * single morning from 2026-08-13 onward while printing a healthy heartbeat right
+ * underneath it. A watcher that cries wolf nightly is a watcher nobody reads,
+ * which is the same silent-failure class this whole build exists to kill.
+ *
+ * Widening the window to two days does NOT weaken detection, because the two
+ * candidates are computed from this machine's clock and not from the repo:
+ *   - nightly ran on D  → at 08:00 on D+1, D.md is present            → alive
+ *   - nightly missed D  → newest file is (D-1).md, neither candidate  → DEAD
+ * That is still exactly one missed cycle, the same window MAX_HEARTBEAT_AGE_HOURS
+ * enforces on the other signal. A manual run later in the morning writes (D+1).md
+ * and is caught by the first candidate.
+ */
 async function checkReportFile(): Promise<Signal> {
   const today = localDateString();
+  const yesterday = localDateString(new Date(Date.now() - 24 * 3_600_000));
   try {
-    const r = await ghRaw(`wiki/nightly/${today}.md`);
-    if (r.ok) return { name: 'report', alive: true, detail: `wiki/nightly/${today}.md present (${r.text.length} bytes)` };
-    if (r.status === 404) return { name: 'report', alive: false, detail: `wiki/nightly/${today}.md was never written` };
-    return { name: 'report', alive: false, detail: `GitHub API returned HTTP ${r.status} for wiki/nightly/${today}.md` };
+    for (const date of [today, yesterday]) {
+      const r = await ghRaw(`wiki/nightly/${date}.md`);
+      if (r.ok) {
+        const when = date === today ? 'today' : 'last night';
+        return { name: 'report', alive: true, detail: `${when}'s report wiki/nightly/${date}.md is there (${r.text.length} bytes)` };
+      }
+      // Anything other than a clean 404 is a failure to LOOK, not proof of
+      // absence. Say so instead of reporting the report as missing.
+      if (r.status !== 404) {
+        return { name: 'report', alive: false, detail: `could not reach GitHub — HTTP ${r.status} for wiki/nightly/${date}.md` };
+      }
+    }
+    return {
+      name: 'report',
+      alive: false,
+      detail: `no report for ${yesterday} or ${today} — the last two nights both wrote nothing`,
+    };
   } catch (error) {
     return { name: 'report', alive: false, detail: `check failed: ${error instanceof Error ? error.message : String(error)}` };
   }
@@ -147,17 +188,44 @@ function headerSafe(value: string): string {
     .replace(/[^\x20-\x7E]/g, '');         // anything else non-ASCII
 }
 
+/**
+ * Plain-English name for each signal. This alarm is read half-awake on a lock
+ * screen, where `report` and `heartbeat` are internal field names that mean
+ * nothing and invite exactly the wrong guess about what died.
+ */
+const SIGNAL_LABEL: Record<string, string> = {
+  report: "last night's write-up",
+  heartbeat: 'proof the checker finished',
+};
+
 async function alert(signals: Signal[]): Promise<void> {
   const dead = signals.filter(s => !s.alive);
-  const body = [
-    `No God's-Eye nightly report for ${localDateString()} by ${DEADLINE_HOUR_LOCAL}:00 ${TZ}.`,
+  const alive = signals.filter(s => s.alive);
+
+  // The old body put a bare ✗ line directly above a bare ✓ line with nothing
+  // joining them, so the alarm read "report missing / heartbeat healthy" and
+  // left the reader to work out which half to believe at 8am. Lead with what it
+  // MEANS, then show the evidence under headings that explain why a healthy
+  // signal is sitting inside a death alarm at all.
+  const lines = [
+    `The nightly site check did not finish, so nobody looked at the site last night.`,
     ``,
-    ...dead.map(s => `✗ ${s.name}: ${s.detail}`),
-    ...signals.filter(s => s.alive).map(s => `✓ ${s.name}: ${s.detail}`),
+    `What is broken:`,
+    ...dead.map(s => `  - ${SIGNAL_LABEL[s.name] ?? s.name}: ${s.detail}`),
+  ];
+  if (alive.length > 0) {
+    lines.push(
+      ``,
+      `What still worked (so this is a partial failure, not a dead pipeline):`,
+      ...alive.map(s => `  - ${SIGNAL_LABEL[s.name] ?? s.name}: ${s.detail}`),
+    );
+  }
+  lines.push(
     ``,
-    `The pipeline may be running blind. Check:`,
+    `Open this to see why it stopped:`,
     `https://github.com/${OWNER}/${REPO}/actions/workflows/nightly.yml`,
-  ].join('\n');
+  );
+  const body = lines.join('\n');
 
   console.error(body);
 
@@ -169,7 +237,11 @@ async function alert(signals: Signal[]): Promise<void> {
     const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
       headers: {
-        Title: headerSafe(`TCA DEAD - no nightly report ${localDateString()}`),
+        // A title is cut off around 30-40 characters, so it gets the verdict and
+        // nothing else. The date used to be here and was actively harmful: it
+        // printed TODAY's date next to a report that is always named for LAST
+        // NIGHT, which is the same off-by-one that caused the false alarms.
+        Title: headerSafe('TCA: last night check did not run'),
         Priority: 'urgent',
         Tags: 'skull,rotating_light',
       },

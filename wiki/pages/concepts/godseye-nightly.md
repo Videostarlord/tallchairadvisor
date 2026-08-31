@@ -1,6 +1,6 @@
 # God's-Eye Nightly
 
-**Type:** concept · **Status:** operational · **Created:** 2026-08-06 · **Updated:** 2026-08-09
+**Type:** concept · **Status:** operational · **Created:** 2026-08-06 · **Updated:** 2026-08-30
 **Spec:** `raw/strategy/2026-08-05-godseye-PRD.md` · **Branch:** `feat/godseye-nightly`
 
 The observation layer over the Mon–Sat pipeline. It does not replace that pipeline — it watches it, proves what it claims, and alarms when it goes quiet.
@@ -96,6 +96,14 @@ Each of these was invisible until the component was actually used, which is the 
 
   Worth keeping in view: **both halves were behaving exactly as specified.** The nightly ran (8m5s, 100% coverage, pushed to ntfy at 10:47Z); the watchdog correctly reported a stale heartbeat. The defect lived in the seam between them — the one place neither component's tests look. The alarm body was accurate and said so (`✗ heartbeat: … 54.5h ago` beside `✓ report: … present`); only the title, which is all a lock screen shows, read as total death.
 
+- **The watchdog cried wolf every morning for 17 days — and this time nothing was wrong at all.** On 2026-08-13 the nightly moved from 03:00 to 17:00 local (`cron: '0 0 * * *'` = 00:00 UTC = 17:00 PDT the *previous* day). `nightly-report.ts` names its file with the local date at the moment it runs, so the evening run of day D writes `D.md` — while `checkReportFile()`, at 08:00 on D+1, went on looking for `(D+1).md`. That file cannot exist yet and never will. Every morning from 2026-08-13 to 2026-08-30 the switch pushed `TCA DEAD` with a **healthy heartbeat printed directly underneath the alarm**.
+
+  This is the heartbeat bug's mirror image and a fourth seam defect: the 2026-08-08 case was a real staleness the alarm reported correctly; this one was a fabricated absence the alarm reported just as confidently. Both components were individually correct — the report was written, the watcher looked where it was told — and **the schedule change updated the producer's timing without updating the watcher's assumption about that timing, in a different repository**. Neither side's tests could see it. The cost is worse than a missed night: a daily false alarm trains the one person who can act on it to ignore the channel, which is the failure mode the whole build exists to prevent. Fixed 2026-08-30 by accepting today *or* yesterday.
+
+- **The cost fix told Jackson his reporter was broken, every night, for making it.** The narrative went weekly on 2026-08-28 (83% of August spend, ~$0.55/night restating the same list). The saving was real; the rendering was not. `--no-narrative` nights were handed to `fallbackReport()` — the renderer for when the **model call breaks** — so six nights in seven the report opened with *"The part that writes this report in plain English is what broke"*, listed *"**The report writer failed.**"* as the #1 thing needing attention, and closed with a `Raw error` block quoting the deliberate skip message. Nothing had failed.
+
+  Reusing the failure renderer was a deliberate, reasoned choice at the time ("a format that only runs on failure days is a format nobody has read"). The reasoning was sound and the conclusion was still wrong, because the format carried a *claim* as well as a layout. **An intentional saving must never be reported in the vocabulary of a failure** — same class as a blind check reading green: the words and the world disagree, and the words are what gets believed. Compounding it, the deterministic path never printed the findings at all, so the headline said "10 things need you" and the body never said which ten. Fixed 2026-08-30.
+
 ## Fix History
 
 | Date | Issue | Fix |
@@ -103,6 +111,8 @@ Each of these was invisible until the component was actually used, which is the 
 | 2026-08-08 | Watchdog fired 4 false "TCA DEAD" alarms across 2 nights; heartbeat on `main` frozen at 2026-08-06 | Added `data/nightly-heartbeat.json` to the `Commit nightly artifacts` loop in `.github/workflows/nightly.yml` |
 | 2026-08-08 | Closure predicate for position interventions closed on noise — `op:'<', value: beforeMetric` meant a 8.70 → 8.69 drift filed as a success, and a page on its exact baseline could never close | `ledger-evaluate.ts` now files `positionClosureTarget(beforeMetric)`, requiring a 5% move (the floor `assignConfidence` already uses). Existing records unchanged. 10 assertions added to `ledger.test.ts` |
 | 2026-08-08 | 48 GEO findings across 44 pages — missing Direct Answer blocks and capsule sentinels | Rolled out to all 44; 49/49 pages now satisfy the `geo-capsule` predicate with 0 answer-first ordering warnings, verified against built HTML |
+| 2026-08-30 | Watchdog fired a false "TCA DEAD" **every morning since 2026-08-13** — it looked for `wiki/nightly/<today>.md` while the 17:00 nightly always writes `<yesterday>.md` | `checkReportFile()` in `deadmans-switch.ts` now accepts today **or** yesterday. Detection window unchanged at one missed cycle. Alarm body rewritten in plain English; title no longer prints a date it cannot mean |
+| 2026-08-30 | `--no-narrative` nights rendered via `fallbackReport()`, so 6 nights in 7 the report announced **"The report writer failed"** and filed itself as the #1 item needing attention | New `skippedNarrativeReport()` in `nightly-report.ts`. Says the essay is weekly, and **lists** the escalated/regressed findings instead of only counting them. 10 assertions in `nightly-short-report.test.ts` |
 
 ## The seam problem
 
@@ -120,6 +130,7 @@ None of these is reachable by unit tests of either side. Three generalizable rul
 1. **Any file a downstream component reads from `main` must be in `nightly.yml`'s commit loop.**
 2. **Any file two branches append to needs a merge strategy in `.gitattributes`.**
 3. **Any step that WRITES a file must run before the step that READS it** — obvious stated plainly, invisible when the writer is grouped with the probes because that is where its browser happened to be installed.
+4. **Changing a schedule changes a filename, and something downstream is matching on that filename.** (2026-08-30) Moving the nightly from 03:00 to 17:00 silently changed which local date its report is named for, and the watchdog's date arithmetic — in a second repository, by design — went on assuming the old one for 17 days. Before changing any cron, grep for what reads the artifacts that cron produces, **including outside this repo**.
 
 **A fifth, from the ledger-schema break: where a rule genuinely must live in two places, make disagreement fail the build.** The predicate kinds cannot be collapsed into one list — `schemas/` must stay free of the predicate layer's imports — so a test now asserts the two are identical and names which side is missing a kind. Same remedy as the frozen `BLOCKING_CLASSES` set and the `PREDICATE_KINDS` count, and the same disease as the A1 cooldown classifier that lived in two files with two different keyword lists: **any rule enforced in two places will eventually be two different rules.**
 

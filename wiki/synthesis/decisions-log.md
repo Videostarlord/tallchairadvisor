@@ -1,10 +1,21 @@
 ---
 type: synthesis
-last_updated: 2026-08-28
+last_updated: 2026-08-30
 tags: [decisions, history]
 ---
 
 # Decisions Log
+
+## 2026-08-30 — two alarm-honesty fixes; nightly spend confirmed already down
+
+- **Confirmed, not changed: nightly cost is fixed.** The 2026-08-28 weekly-narrative gate works. `data/cost-ledger.jsonl` on `origin/main`: Fri 08-29 = no LLM record; Sun 08-30 = one narrative at $0.57. ~$16/mo → ~$2.45/mo. **The nightly push stays nightly and stays free** — it carries the dead-man's-switch heartbeat, and suppressing it would alarm the phone every night.
+- **Decision: accept yesterday's report in the dead-man's switch.** `checkReportFile()` looked for `wiki/nightly/<today>.md`, but the 17:00-local nightly (moved there 2026-08-13) always writes `<yesterday>.md` relative to the 08:00 check. It had fired a false `TCA DEAD` **every morning for 17 days**, printing a healthy heartbeat underneath the alarm. Now accepts today *or* yesterday. Detection window unchanged at one missed cycle — both dates come from the watchdog's own clock, so a genuinely missed night still matches neither.
+- **Decision: an intentional saving is never rendered in the vocabulary of a failure.** `--no-narrative` nights were passed to `fallbackReport()`, the model-call-broke renderer, so 6 nights in 7 the report announced *"The report writer failed"* and filed itself as the #1 item needing attention. New `skippedNarrativeReport()` says the essay is weekly and, unlike the failure renderer, **lists** the escalated/regressed findings rather than only counting them — deterministic, $0, from a file the nightly already loads.
+- **Decision: a count with no list is not a report.** The old deterministic path printed "10 things need you" and never said which ten. Findings are now named with page, days stuck, attempt count, and the failing goal.
+- **New seam rule (4th):** changing a schedule changes a filename, and something downstream matches on that filename. Grep what reads a cron's artifacts before changing that cron — **including outside this repo**.
+- **Deferred / needs Jackson:** `deadmans-switch.ts` lives in `Videostarlord/tca-watchdog` and is copied by hand. **The fix is inert until re-copied there.** That manual hop is part of why the false alarms lasted 17 days; it is now documented in `deadmans-switch.README.md`.
+- **Not touched:** remaining spend is `competitor-intelligence` (~$1.98 in August, Mondays) and `audit`/`strategy` (~$0.84). Left alone pending a decision.
+
 
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
 

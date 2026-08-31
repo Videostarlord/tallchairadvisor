@@ -20,6 +20,12 @@ nobody notices that they stopped.
 2. Copy **only** `scripts/deadmans-switch.ts` into it. The script is deliberately dependency-free
    (no imports from this codebase, raw `fetch`, hand-validated JSON) so it runs standalone.
 
+   > **This copy is manual, and that is the one maintenance cost of the second-repo design.**
+   > Editing the file here changes nothing until it is copied across. The 2026-08-13 → 2026-08-30
+   > false-alarm window persisted partly for this reason: the schedule changed in this repo and the
+   > watcher's assumption about it lived in another one. After any edit to `deadmans-switch.ts`,
+   > re-copy it to the watchdog repo and run the workflow once via `workflow_dispatch`.
+
 3. Add `.github/workflows/watchdog.yml`:
 
 ```yaml
@@ -64,10 +70,30 @@ Two independent signals, so no single failure can fake life:
 | signal | source | dead when |
 |---|---|---|
 | `heartbeat` | `data/nightly-heartbeat.json` | absent, malformed, or older than 29h |
-| `report` | `wiki/nightly/<today>.md` | not written for today |
+| `report` | `wiki/nightly/<today>.md` **or** `wiki/nightly/<yesterday>.md` | neither was written |
 
 Both must be alive. A heartbeat without a report — or the reverse — is a partial failure, which is
 still worth waking up for.
+
+### Why the report window is two days wide
+
+The nightly names its report file with the local date **at the moment it runs**. It used to run at
+03:00 local, so day D's report was found by the 08:00 check on day D. On 2026-08-13 the schedule
+moved to 17:00 local (`cron: '0 0 * * *'` is 00:00 UTC, which is 17:00 PDT the *previous* day), so
+the run now lands in the evening of day D and writes `D.md` — while this check, at 08:00 on D+1, was
+still looking for `(D+1).md`. That file cannot exist yet and never will.
+
+The result: **the switch fired "TCA DEAD" every single morning from 2026-08-13 onward**, printing a
+perfectly healthy heartbeat directly underneath the alarm. Fixed 2026-08-30.
+
+Accepting yesterday's file does not widen the detection window, because both candidate dates come
+from the watchdog's own clock rather than from the watched repo:
+
+- nightly ran on D → at 08:00 on D+1, `D.md` is present → **alive**
+- nightly missed D → newest file is `(D-1).md`, neither candidate matches → **dead**
+
+That is still exactly one missed cycle — the same window `MAX_HEARTBEAT_AGE_HOURS=29` enforces on
+the other signal.
 
 ## Environment
 
