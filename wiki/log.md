@@ -4256,3 +4256,49 @@ Gates: **28/28 tests** (new `nightly-short-report.test.ts`, 10 assertions), arch
 **Not yet live:** `deadmans-switch.ts` runs from `Videostarlord/tca-watchdog` and is copied there **by hand**. The fix changes nothing until it is re-copied. That manual step is part of why this lasted 17 days, and it is now written into `deadmans-switch.README.md`.
 
 Related: [[godseye-nightly]] · [[decisions-log]]
+
+## 2026-08-30 (second session) — the first finding in this archive that ever replicated
+
+Jackson dropped a folder path and nothing else: `~/Downloads/Aug 30th Amazon Data` — three CSVs from Associates Central, data stamp 2026-08-29. Ingested to `raw/affiliate/2026-08-30-amazon-csv/`, analysed in `raw/affiliate/2026-08-30-amazon-associates-report.md`.
+
+**Window solved a third time — rolling 30-day, Jul 31 → Aug 29.** Summing the frozen daily rows in `data/affiliate/latest.json` from Jul 31 gives 2 ordered / $227.98 / 2 shipped / $227.98 / $6.84, matching the export's `others` row on five independent quantities. Jul 30 through Aug 2 all produce the same sum, but the export's own 2026-08-29 stamp puts the start at Jul 31, inside that band. The method is now routine.
+
+### The headline, and the trap underneath it
+
+Total earnings read **$96.84 → $36.09**. That looks like the channel collapsing and it is the opposite. The window advanced two days and the **Jul 29** shipped item — $2,048.80 revenue, **$61.46** earnings — aged out of it. That one item is the entire $60.75 decline. **Underlying earnings rose $0.71.**
+
+Worth logging as a shape, not a detail: a rolling window manufactures a decline out of no change at all. The 2026-08-03 export was misread in exactly this way in the other direction, as a second positive month when it was 99.7% July's money re-reported. Same ambiguity, opposite sign. **The window must be solved before any number in these exports is read.**
+
+### The actual finding: it replicated
+
+| Export | Window | `tcachair-20` | Earnings | EPC |
+|---|---|---|---|---|
+| Aug 26 | Jul 27 – Aug 25 | 45 clicks | $0.00 | $0.00 |
+| Aug 28 | Jul 29 – Aug 27 | 59 clicks, 6 ord | $28.54 | $0.484 |
+| **Aug 30** | **Jul 31 – Aug 29** | **60 clicks, 9 ord** | **$29.25** | **$0.4875** |
+
+Two independent windows, two agreeing readings. thesis.md had set the bar explicitly — *"the strategy should not turn again until a third and fourth export agree"* — and the third has now arrived and agrees with the second. The Aug 26 zero is firmly the outlier, which is what the Aug 28 report predicted when it called that reading **a null result treated as a settled rate**.
+
+This is the first thing in this archive that has ever reproduced. Everything before it was a single reading, including the two that contradicted each other 48 hours apart.
+
+### Two ways the finding got narrower, both against interest
+
+1. **It is not "chair clicks earn" — it is "Leap Plus clicks earn."** All 6 attributed orders sit on `B00TYE4QXU`, at a 13.33% product conversion rate Amazon states directly. Gesture (30 clicks), Aeron (18) and Crandall (11) contributed **59 clicks and zero orders** between them. The EPC is a one-ASIN number and should be quoted that way until a second ASIN converts.
+2. **Chair units still do not sell, and the gap is widening.** Average item value is moving *away* from chair prices as the sample grows: $157.30 across 6 items → **$106.85** across 9, against $1,300–$1,800 chairs. Three exports, zero units of any chair this site recommends. Commission rate on the converting row is 3.02% — furniture tier, so furniture-class items, just not the ones being recommended.
+
+### The gate split, and it is Jackson's call
+
+August closes at **+$36.09**, and two bars that have been treated as one now disagree:
+
+- The **Jul 3 kill-list gate** reads *"2–3 consecutive positive revenue months."* +$36.09 is positive, so **the count advances to 2 of 2–3** — its first movement since July.
+- **thesis.md separately tracks a "$100 month."** August misses it by ~64%.
+
+The gate was written when a positive month meant +$92.06. Whether $36 is what "positive" was ever meant to mean is a judgement, and **it is not one this ingest should make silently** — flagged in `affiliate-performance.md` and `thesis.md`, left open.
+
+### Housekeeping
+
+All three CSVs reconciled exactly for the first time in this archive — 132 clicks, 11 items, $1,189.67, $36.09 across category, linked-product and tracking-id. The splits still disagree (linked-product books 6 orders/$25.69 to the ASIN where tracking-id books 9/$29.25); **the tracking-ID row stays authoritative**, since the tag is what `affiliate-tags.ts` controls. `top-sellers.csv` was absent from this drop — a header row only in every prior export, so nothing lost. Tag migration continues: `tcachair-20` 60 vs legacy 67, from 59 vs 75.
+
+`data/affiliate/latest.json` untouched, per `data/affiliate/README.md`. It is the decoder that dated this export; overwriting it from a CSV drop would have destroyed the only thing capable of doing that.
+
+Related: [[affiliate-performance]] · [[thesis]] · [[decisions-log]] · [[statistical-confidence-policy]]

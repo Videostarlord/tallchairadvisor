@@ -6,6 +6,40 @@ tags: [decisions, history]
 
 # Decisions Log
 
+## 2026-08-30 (second session) — the chair-tag EPC replicated, and the $100 gate split from the kill-list gate
+
+Hand export dropped by Jackson (`~/Downloads/Aug 30th Amazon Data`, 3 CSVs, data stamp 2026-08-29).
+Archived to `raw/affiliate/2026-08-30-amazon-csv/`; full analysis in
+`raw/affiliate/2026-08-30-amazon-associates-report.md`.
+
+- **Window SOLVED a third time: rolling 30-day, Jul 31 – Aug 29.** Five quantities matched against
+  the frozen daily rows in `data/affiliate/latest.json`. The algebra method now has three
+  confirmations and can be treated as routine.
+- **FINDING — the $0.48 EPC replicated at $0.4875.** `tcachair-20`: 60 clicks, 9 orders, $29.25,
+  against 59 / 6 / $28.54 two days earlier on a different window. **This is the first result in the
+  archive that has ever reproduced.** The Aug 26 $0.00 is now firmly the outlier, exactly as the
+  Aug 28 report diagnosed it.
+- **The headline drop $96.84 → $36.09 is NOT a loss, and was nearly misread as one.** The window
+  advanced 2 days and the Jul 29 shipped item ($2,048.80 / **$61.46**) aged out. Underlying earnings
+  **rose $0.71**. Recorded because a rolling-window export makes a decline out of nothing at all —
+  the same ambiguity that caused the 2026-08-03 misreading, arriving from the opposite direction.
+- **NARROWED: the finding is "Leap Plus clicks earn", not "chair clicks earn".** All 6 attributed
+  orders sit on `B00TYE4QXU` (13.33% product conversion). Gesture, Aeron and Crandall: **59 clicks,
+  0 orders**. The EPC should be quoted as a Leap-Plus figure until a second ASIN converts.
+- **CONFIRMED three times: zero chair units.** Average item value is moving *away* from chair prices
+  as n grows — $157.30 (6 items) → $106.85 (9 items) against $1,300–$1,800 chairs. Basket spillover.
+- **⚠ DECISION OWED BY JACKSON — two gates have been tracked as one and August splits them.**
+  - Jul 3 kill-list gate: *"2–3 consecutive positive revenue months."* +$36.09 is positive →
+    **advances to 2 of 2–3**, first movement since July.
+  - thesis.md separately tracks a **"$100 month"** → August misses by ~64%.
+  The gate was written when a positive month meant +$92.06. **Not ruled on here**; flagged in
+  `affiliate-performance.md` and `thesis.md` and left for Jackson.
+- **All three CSVs reconciled exactly** (132 clicks / 11 items / $1,189.67 / $36.09) — a first.
+  `top-sellers.csv` was absent from the drop; it has been a header row only in every prior export.
+- **Not done, deliberately:** `data/affiliate/latest.json` untouched. It is the frozen decoder, and
+  overwriting it from a CSV drop would delete the only thing that can date these exports.
+
+
 ## 2026-08-30 — two alarm-honesty fixes; nightly spend confirmed already down
 
 - **Confirmed, not changed: nightly cost is fixed.** The 2026-08-28 weekly-narrative gate works. `data/cost-ledger.jsonl` on `origin/main`: Fri 08-29 = no LLM record; Sun 08-30 = one narrative at $0.57. ~$16/mo → ~$2.45/mo. **The nightly push stays nightly and stays free** — it carries the dead-man's-switch heartbeat, and suppressing it would alarm the phone every night.

@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-08-28 (chair-click monetization REVISED UP to $0.48 EPC — the 08-26 $0.00 reading was a null result at low volume, not a zero rate)
+last_updated: 2026-08-30 (chair-click EPC REPLICATED at $0.49 on a second independent window — the 08-26 $0.00 is now firmly the outlier)
 sources: [raw/strategy/2026-03-seo-strategy.md, raw/audits/COMBINED_2026-05-09_MASTER_AUDIT.md]
 tags: [thesis, strategy, big-picture]
 ---
@@ -8,6 +8,44 @@ tags: [thesis, strategy, big-picture]
 # Strategic Thesis
 
 **Last revised:** 2026-05-10
+
+## ✅ 2026-08-30 — the $0.48 EPC REPLICATED. Read this first.
+
+**The Aug 28 revision below asked for a third and fourth export before the strategy turned again.
+The third has arrived and it agrees.**
+
+| Export | Window | `tcachair-20` clicks | Earnings | EPC |
+|---|---|---|---|---|
+| Aug 26 | Jul 27 – Aug 25 | 45 | $0.00 | $0.00 |
+| Aug 28 | Jul 29 – Aug 27 | 59 | $28.54 | $0.484 |
+| **Aug 30** | **Jul 31 – Aug 29** | **60** | **$29.25** | **$0.4875** |
+
+Two independent windows, two agreeing readings, and the outlier is the one already diagnosed as a
+null result rather than a zero rate. **This is the first finding in the archive that has ever
+reproduced.** Run rate: **~$64/month** from chair links at current volume.
+
+**Two refinements the new export forces, both narrowing the claim:**
+
+1. **It is not "chair clicks" — it is "Leap Plus clicks."** All 6 attributed orders sit on one ASIN
+   (13.33% product conversion). Gesture, Aeron and Crandall contributed **59 clicks and zero orders**
+   between them. Whether the other three monetise at all is untested.
+2. **Chair units still do not sell, and the gap is widening.** Average item value is moving *away*
+   from chair prices as the sample grows — $157.30 (6 items) → **$106.85** (9 items) against
+   $1,300–$1,800 chairs. Three exports, zero units of any chair this site recommends.
+
+**Gate status — and a ruling Jackson owes.** August closes at **+$36.09**. Two bars have been
+tracked as though they were one and they now disagree: the Jul 3 kill-list gate says *"2–3
+consecutive positive revenue months"*, and +$36.09 is positive, so **on the gate as written the
+count advances to 2 of 2–3** — its first movement since July. This document separately tracks a
+**"$100 month"**, which August misses by ~64%. The gate was written when a positive month meant
++$92.06. **Which bar governs is a judgement for Jackson, not one this file should make silently.**
+
+**Net effect on priorities:** unchanged in direction, firmer in evidence. Diversification (email,
+higher-commission programs, non-Amazon partners) remains correct and under-built. Amazon is not a
+dead channel — but the live part of it is one ASIN, and that is a thinner thing to build on than
+"chair links earn." See [[affiliate-performance]] and [[decisions-log]].
+
+---
 
 ## ⚠⚠ 2026-08-28 — THE SECTION BELOW IS SUPERSEDED. The zero was a sampling artifact.
 
@@ -47,7 +85,7 @@ The 2026-08-13 tracking-ID split put chair links on their own Amazon tag specifi
 
 **Consequence for priority order.** The diversification arms of the July pivot — email capture, higher-commission programs (Crandall Office direct, Steelcase-adjacent), non-Amazon partners — are no longer one option among several. **They are the only funded monetization path.** The one live counter-signal worth watching: the `others` tracking bucket converted **5 clicks → 5 items ordered (100% product CVR)**, the highest rate in the archive. If `tcaaccessory-20` and `tcadesk-20` start showing their own rows and confirm that sub-$300 items convert where chairs do not, the accessory/desk expansion hypothesis gets real evidence — and that is the cheapest test currently on the board.
 
-**Gate status:** August tracking to **fail** the $100 month at ~$12.15; kill-list gate stays **1 of 2–3**, closes 2026-09-01.
+**Gate status:** ~~August tracking to **fail** the $100 month at ~$12.15; kill-list gate stays **1 of 2–3**, closes 2026-09-01.~~ *Superseded 2026-08-30: August closed at +$36.09 — misses the $100 month, but clears the kill-list gate as written, taking it to 2 of 2–3. See the top of this file.*
 
 See [[affiliate-performance]], [[decisions-log]].
 
