@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-24
+last_updated: 2026-08-31
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,12 +70,17 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-08-24. 8 pages analyzed × up to 3 queries each. 37 URLs crawled (30 cache hits). 3 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
+*v2 run 2026-08-31. 8 pages analyzed × up to 3 queries each. 14 URLs crawled (47 cache hits). 11 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-08-24 | OSHA guidelines are not cited or named anywhere on the page — only Cornell Ergon | high | 2q | eurekaergonomic.com |
-| 2026-08-24 | INVALID BENCHMARK — competitor content is not comparable | high | 1q | tegakari.net |
-| 2026-08-24 | No named, numbered measurement criteria list formatted for AI Overview extractio | high | 1q | forbes.com |
-| 2026-08-24 | Leap Plus lifetime warranty and return policy details are absent from the Steelc | medium | 1q | thehumansolution.com |
-| 2026-08-24 | Return policy and warranty content is shallow. The Pros section lists '12-year c | medium | 1q | btod.com |
+| 2026-08-31 | Warranty and return policy content — specifically the 30-day free return / no re | high | 3q | thehumansolution.com |
+| 2026-08-31 | Explicit body-measurement-to-chair-fit decision framework — a step-by-step guide | high | 3q | btod.com |
+| 2026-08-31 | Explicit fit-range verdict with labeled tiers — 'Best fit,' 'Marginal,' 'Not rec | high | 3q | marksimpson82.github.io |
+| 2026-08-31 | Warranty and return policy detail as a purchase-anxiety reducer — the 12-year wa | high | 3q | theofficecrowd.com |
+| 2026-08-31 | Full numeric spec comparison table across top competitors (Leap Plus vs Gesture  | high | 3q | btod.com |
+| 2026-08-31 | No waterfall seat edge explanation — the CTA block mentions 'waterfall edge' onc | high | 2q | forbes.com |
+| 2026-08-31 | No expert or authoritative third-party quote on seated circulation or ergonomic  | high | 2q | forbes.com |
+| 2026-08-31 | No Product schema or ItemList schema on a page that recommends two specific prod | high | 2q | forbes.com |
+| 2026-08-31 | Chair-by-Chair Coverage section covers only 3 chairs (Aeron Size C, Steelcase Ge | high | 2q | forbes.com |
+| 2026-08-31 | Height-indexed recommended settings table (e.g., seat height, seat depth, armres | high | 2q | forbes.com |

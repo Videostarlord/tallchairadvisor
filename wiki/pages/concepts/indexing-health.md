@@ -1,13 +1,13 @@
 ---
 type: concept
-last_updated: 2026-08-24
-sources: [raw/audits/2026-08-24-index-monitor.md]
+last_updated: 2026-08-31
+sources: [raw/audits/2026-08-31-index-monitor.md]
 tags: [indexing, gsc, coverage, technical-seo]
 ---
 
 # Indexing Health
 
-Last checked: **2026-08-24**
+Last checked: **2026-08-31**
 
 ## Current Status
 
@@ -55,4 +55,4 @@ Last checked: **2026-08-24**
 
 | Date | Page | Fix Type | Result |
 |------|------|----------|--------|
-| 2026-08-24 | — | — | No fixes needed |
+| 2026-08-31 | — | — | No fixes needed |
