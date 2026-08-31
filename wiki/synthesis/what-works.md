@@ -1,6 +1,6 @@
 ---
 type: synthesis
-last_updated: 2026-08-28
+last_updated: 2026-08-31
 sources: [raw/audits/2026-04-03-full-audit.md, raw/audits/2026-03-30-audit-summary.md, raw/audits/2026-05-05-weekly-audit.md]
 tags: [patterns, wins, strategy]
 ---
@@ -8,6 +8,28 @@ tags: [patterns, wins, strategy]
 # What Works
 
 Patterns and fixes that produced measurable positive outcomes. Updated as new data comes in.
+
+## The CTA-position fix completed site-wide (2026-08-31)
+
+The 2026-08-28 pass covered 9 pages. A rendered sweep of every page carrying an affiliate link found **9 more still deep**, including four that had never been looked at:
+
+| page | before | after (desktop / mobile) | sessions | aff clicks |
+|---|---:|---|---:|---:|
+| `/knee-pain-seat-depth/` | 68.2% | **14.6% / 13.4%** | 48 | 0 |
+| `/office-chairs-for-6-foot-4/` | 66.6% | **9.0% / 8.3%** | 47 | 0 |
+| `/office-chairs-for-6-foot-3/` | 72.7% | **11.2% / 9.4%** | — | — |
+| `/office-chairs-for-6-foot-7/` | 56.9% | **10.0% / 8.5%** | — | — |
+| `/refurbished-steelcase-leap-tall-people/` | 56.4% | **19.5% / 16.4%** | — | — |
+| `/office-chairs-for-6-foot-5/` | 41.8% | **8.7% / 8.0%** | 45 | 0 |
+| `/best-big-and-tall-office-chairs/` | 40.9% | **10.0% / 8.2%** | 62 | 12 |
+| `/chairs/herman-miller-aeron/tall-people/` | 40.6% | **14.3% / 12.0%** | 47 | 1 |
+| `/heavy-duty-ergonomic-chairs-tall-people/` | 36.9% | **10.6% / 9.5%** | — | — |
+
+**Every page on the site now places its first affiliate CTA in the top ~20%, and most in the top 10%.**
+
+**A correction worth keeping.** The session brief's `1st CTA at` column is a MARKUP measure, and on 2026-08-31 it nearly caused a day of wasted work: it listed `/`, `/correct-chair-dimensions/`, `/review/aeron-size-c/` and `/review/sihoo-doro-s300/` as the zero-click pages to fix. All four had already been fixed on 2026-08-28 and measured 6.5–18% rendered. **Their GA4 click counts were a 28-day window that mostly predated the fix.** Two independent traps in one table: a markup proxy that overstates depth, and a trailing-window metric read as current state. Measure rendered position, and check the fix date before reading a click count as a verdict.
+
+**Leap Plus leads every new BuyBox.** Per the 2026-08-30 export it is the only ASIN in the archive that has ever converted (6 orders, 13.33% product CVR); Gesture, Aeron and Crandall are at 59 clicks and zero. `/office-chairs-for-6-foot-3/` is the deliberate exception — at that height the Gesture is the honest recommendation, and the page says so.
 
 ## CTA position predicts affiliate clicks better than anything else on the page (2026-08-28)
 

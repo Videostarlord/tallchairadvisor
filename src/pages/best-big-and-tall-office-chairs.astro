@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -115,6 +116,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"The pick for 6'3\"\u20136'7\" and for anyone needing real weight capacity \u2014 the only chair here that raises seat height and capacity together, rather than capacity alone."}
+      specs={["19.75\" adjustable seat depth", "17.5\"\u201322.5\" seat height (5\" cylinder)", "500 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Read the full Leap Plus analysis →"
+    />
 
     <div class="prose-tca">
 

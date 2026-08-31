@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -109,6 +110,16 @@ const schema = [
     <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-8 text-sm text-blue-900">
       <strong>Note:</strong> This content is for informational purposes only and does not constitute medical advice. If you experience persistent back, knee, or leg pain, consult a qualified healthcare professional.
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"The widest adjustable seat depth of the mainstream ergonomic chairs at 19.75\" \u2014 enough to clear the 2\u20133 finger-widths Cornell specifies for most tall femurs, where a 17\" standard seat cannot."}
+      specs={["19.75\" adjustable seat depth", "17.5\"\u201322.5\" seat height (5\" cylinder)", "500 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/correct-chair-dimensions/"
+      altLabel="Measure your own seat depth first →"
+    />
 
     <div class="bg-card border border-border rounded-lg p-5 my-8">
       <p class="font-semibold mb-2">The Cornell Ergonomics Rule</p>

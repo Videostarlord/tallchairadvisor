@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -102,6 +104,18 @@ const schema = [
     <p class="not-prose text-xs text-muted-foreground mt-2 mb-6">
       This page contains affiliate links. If you buy through them, I earn a commission at no extra cost to you.
     </p>
+
+    <Disclosure />
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B08PPVCCST?tag=tcachair-20"
+      product="Crandall Remanufactured Steelcase Leap V2"
+      verdict={"Roughly half the price of new with a warranty of up to 12 years \u2014 the most common budget pick in r/ergonomics. The constraint is height: the seat tops out at 20.5\", which caps a comfortable fit around 6'2\"."}
+      specs={["20.5\" max seat height", "up to 12-year warranty", "~50% of new price"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Taller than 6 foot 2? Compare the Leap Plus →"
+    />
 
     <div class="prose-tca">
 

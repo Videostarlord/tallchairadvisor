@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
 import Disclosure from '../components/Disclosure.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -102,6 +103,17 @@ const schema = [
       <p class="text-sm text-muted-foreground">At 6'5", the Steelcase Leap Plus is the only mainstream ergonomic chair that clears every dimension — 19.75" of seat depth and up to 22.5" of seat height with the optional 5" cylinder. That cylinder is not optional in practice at this height: the standard one stops at 19.5". The Gesture's 21" seat height and 18.75" seat depth both begin to fall short here, and the Aeron Size C's fixed seat depth leaves no adjustment room. This is the height at which the market narrows sharply.</p>
     </div>
     <Disclosure />
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"At 6'5\" this is the only mainstream ergonomic chair that clears every dimension on the published specs. The optional 5\" cylinder is not optional in practice here \u2014 the standard one stops at 19.5\"."}
+      specs={["19.75\" adjustable seat depth", "up to 22.5\" seat height (5\" cylinder)", "500 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Read the full Leap Plus analysis →"
+    />
+
     <div class="prose-tca">
 
       <div class="not-prose overflow-x-auto my-8">

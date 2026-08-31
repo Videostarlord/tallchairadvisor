@@ -1,10 +1,22 @@
 ---
 type: synthesis
-last_updated: 2026-08-30
+last_updated: 2026-08-31
 tags: [decisions, history]
 ---
 
 # Decisions Log
+
+## 2026-08-31 — CTA placement finished site-wide, and a disclosure gap the 07-25 sweep could not see
+
+- **CORRECTION FIRST.** The four pages named in the previous session (`/`, `/correct-chair-dimensions/`, `/review/aeron-size-c/`, `/review/sihoo-doro-s300/`) **were already fixed on 2026-08-28** and measure 6.5–18% rendered. Their zero click counts came from a 28-day GA4 window that mostly predates the fix. **A trailing-window metric was read as current state.** No work was done on them.
+- **9 pages genuinely still had deep CTAs** (36.9%–72.7% rendered) and now sit at 8.0%–19.5%. Four had never been touched by any CTA pass: 6-foot-3, 6-foot-7, heavy-duty, refurbished-leap.
+- **DECISION: `<BuyBox>` on `/knee-pain-seat-depth/` despite `no-snippet-work-on-aio-eaten-informational`.** That rule forbids *snippet and meta work chasing rankings* on AIO-eaten queries. A CTA monetises traffic that already lands (48 GA4 sessions) — the opposite of farming impressions. Precedent: `/correct-chair-dimensions/` is named in the same rule and took a BuyBox on 08-28 without objection.
+- **DECISION: Leap Plus leads every new BuyBox**, because per the 2026-08-30 export it is the only ASIN in the archive that has ever converted. `/office-chairs-for-6-foot-3/` is the deliberate exception — the Gesture is the honest pick at that height.
+- **FTC: 6 pages were non-compliant, and the 2026-07-25 sweep reported them fixed.** A rendered check found 5 pages placing the disclosure *below* the first CTA (worst: 5,206px below) and **`/office-chairs-for-6-foot-4/` carrying three affiliate links with no disclosure at all**. All six fixed; **45/45 pages re-verified by rendered position.**
+  **Why the old sweep missed it:** it was a text scan for the component's presence. The FTC standard is about *order and position*. A page can pass "has a disclosure" and still bury it 5,000px under the buy button. Same shape as every other defect in this repo — the check measured something adjacent to the rule.
+- **Two of my own bugs, caught before commit:** literal `\u2192` in plain HTML attributes (renders as text, not an arrow) and escaped quotes inside plain attributes (build error). Both came from generating `.astro` with Python string formatting. The JSX-expression props (`verdict={...}`, `specs={...}`) interpret escapes; plain attributes do not.
+- **⚠ CONSEQUENCE FOR JACKSON — the visual baselines are now stale on 10 pages.** Every changed page will exceed the 2% visual-diff threshold tonight, on top of the 7 already-escalated mobile findings suspected to be the macOS/Linux font artefact. **Re-baseline on the runner:** trigger `nightly.yml` via `workflow_dispatch` with `rebaseline_visual: true`. It must be CI, never local — a local re-baseline recreates the exact cross-platform offset that produced those 7 findings.
+
 
 ## 2026-08-30 (second session) — the chair-tag EPC replicated, and the $100 gate split from the kill-list gate
 

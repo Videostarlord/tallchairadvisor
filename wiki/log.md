@@ -4365,3 +4365,57 @@ All three CSVs reconciled exactly for the first time in this archive — 132 cli
 `data/affiliate/latest.json` untouched, per `data/affiliate/README.md`. It is the decoder that dated this export; overwriting it from a CSV drop would have destroyed the only thing capable of doing that.
 
 Related: [[affiliate-performance]] · [[thesis]] · [[decisions-log]] · [[statistical-confidence-policy]]
+
+## 2026-08-31 — the CTA fix finished, and the metric that nearly sent me to fix nine pages that were already fine
+
+Jackson asked me to fix the CTA placement on the four zero-click pages I had named the turn before. **Three of the four were already fixed, on 2026-08-28, and the fourth had a working Quick Picks block.** I had read a 28-day GA4 click window as current state on a fix that was three days old.
+
+Two traps in one table, both in `reports/session-brief.md`, and the file warns about one of them in its own text:
+
+1. **`1st CTA at` is a MARKUP measure.** Site nav is verbose in HTML and short on screen, so the column reads 22–45% for pages that render at 6.5–18%.
+2. **The affiliate-click column is a trailing 28-day window.** Read beside a fix that landed on day 25, it reports the world before the change and looks exactly like the change not working.
+
+**The correction:** always measure rendered position, and always check when the fix landed before reading a click count as a verdict.
+
+### What was actually broken
+
+A pixel sweep of every page carrying an affiliate link found **9 pages** still deep — four of which no CTA pass had ever touched:
+
+| page | before | after (desktop / mobile) |
+|---|---:|---|
+| /office-chairs-for-6-foot-3/ | 72.7% | **11.2% / 9.4%** |
+| /knee-pain-seat-depth/ | 68.2% | **14.6% / 13.4%** |
+| /office-chairs-for-6-foot-4/ | 66.6% | **9.0% / 8.3%** |
+| /office-chairs-for-6-foot-7/ | 56.9% | **10.0% / 8.5%** |
+| /refurbished-steelcase-leap-tall-people/ | 56.4% | **19.5% / 16.4%** |
+| /office-chairs-for-6-foot-5/ | 41.8% | **8.7% / 8.0%** |
+| /best-big-and-tall-office-chairs/ | 40.9% | **10.0% / 8.2%** |
+| /chairs/herman-miller-aeron/tall-people/ | 40.6% | **14.3% / 12.0%** |
+| /heavy-duty-ergonomic-chairs-tall-people/ | 36.9% | **10.6% / 9.5%** |
+
+Every page on the site now puts its first affiliate CTA in the top ~20%, most in the top 10%. Leap Plus leads each new BuyBox because it is the only ASIN in the archive that has ever converted; `/office-chairs-for-6-foot-3/` is the deliberate exception, where the Gesture is the honest recommendation.
+
+`/knee-pain-seat-depth/` is named in `no-snippet-work-on-aio-eaten-informational`. That rule forbids snippet and meta work chasing rankings on AIO-eaten queries; a CTA monetises traffic that already lands. `/correct-chair-dimensions/` is named in the same rule and took a BuyBox on 08-28.
+
+### The FTC finding, which the tooling had already reported as fixed
+
+The disclosure checker I wrote for the CTA work answers a different question than the 2026-07-25 sweep did, and it found six failures:
+
+- **5 pages placed the disclosure BELOW the first affiliate CTA** — worst was `/heavy-duty-ergonomic-chairs-tall-people/` at 8,203px against a CTA at 2,997px. `/review/gesture/` was 74px off; the two blocks were simply in the wrong order.
+- **`/office-chairs-for-6-foot-4/` had three affiliate links and no disclosure at all.** `affiliate-compliance.md` lists that page among ones whose disclosure was merely *low*. It had none.
+
+All six fixed; 45/45 pages re-verified by rendered position.
+
+**Why the 2026-07-25 sweep reported success:** it was a text scan for the component's presence. The FTC standard is *clear and conspicuous* — a rule about order and position. A page passes "has a disclosure" while burying it 5,000px under the buy button. **The check measured something adjacent to the rule, and adjacent reads as green.** That is this repo's signature defect, arriving in a compliance file rather than a collector.
+
+### Two bugs of my own, caught before commit
+
+Generating `.astro` from Python string formatting put a literal `→` into plain HTML attributes (renders as the characters, not an arrow) and escaped quotes into plain attributes (hard build error). The JSX-expression props — `verdict={...}`, `specs={...}` — interpret escapes; plain attributes do not. Both fixed and verified in rendered text, not in source.
+
+### ⚠ Left for Jackson
+
+**The visual baselines are stale on 10 pages.** Every page changed here will exceed the 2% visual-diff threshold on tonight's run, on top of the 7 already-escalated mobile findings suspected to be the macOS/Linux font artefact. Re-baseline by triggering `nightly.yml` via `workflow_dispatch` with `rebaseline_visual: true` — **on the runner, never locally**, or it recreates the exact cross-platform offset that produced those 7 findings.
+
+Gates: build clean (54 pages), affiliate lint (129 links), content lint, architecture 0 new, 28/28 tests, disclosure order 45/45.
+
+Related: [[what-works]] · [[affiliate-compliance]] · [[affiliate-performance]] · [[decisions-log]]
