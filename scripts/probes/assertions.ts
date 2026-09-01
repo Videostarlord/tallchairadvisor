@@ -244,6 +244,17 @@ export function deriveFindings(result: ProbeResult): ProbeFinding[] {
       const v = result.visual[viewport] as ProbeVisualViewport | undefined;
       if (v === undefined || v === null || typeof v !== 'object') continue;
       if (typeof v.diffPct !== 'number') continue;
+      // `comparable: false` NEVER files. The pixels differ, but a known constant
+      // offset is inside the number — a baseline captured on another platform —
+      // so the diff measures the runner, not the site.
+      //
+      // This is the ledger's fourth rule at the point of filing rather than the
+      // point of evaluation, and it exists because leaving it to evaluation was
+      // not enough: three pages sat `escalated` for 18-22 consecutive nights on
+      // font rasterisation while the mismatch was correctly detected and named in
+      // `note` the whole time. Prose is not a verdict. `!== false` rather than
+      // `=== true` so artifacts predating the field keep their original meaning.
+      if (v.comparable === false) continue;
       if (v.diffPct < VISUAL_DIFF_THRESHOLD_PCT) continue;
       out.push({
         page: url,

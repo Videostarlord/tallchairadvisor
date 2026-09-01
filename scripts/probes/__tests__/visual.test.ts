@@ -55,8 +55,8 @@ function healthy(over: Partial<ProbeResult> = {}): ProbeResult {
 }
 
 const vis = (over: Partial<ProbeVisual> = {}): ProbeVisual => ({
-  desktop: { diffPct: 0, note: null, baselineCreated: false },
-  mobile: { diffPct: 0, note: null, baselineCreated: false },
+  desktop: { diffPct: 0, note: null, baselineCreated: false, comparable: true },
+  mobile: { diffPct: 0, note: null, baselineCreated: false, comparable: true },
   ...over,
 });
 
@@ -75,16 +75,16 @@ test('slugForPath produces a safe, collision-free filename', () => {
 
 test('diffPct null files NOTHING — no baseline is not "no difference"', () => {
   const r = healthy({ visual: vis({
-    desktop: { diffPct: null, note: 'no desktop baseline', baselineCreated: false },
-    mobile: { diffPct: null, note: 'screenshot failed', baselineCreated: false },
+    desktop: { diffPct: null, note: 'no desktop baseline', baselineCreated: false, comparable: true },
+    mobile: { diffPct: null, note: 'screenshot failed', baselineCreated: false, comparable: true },
   }) });
   assert.equal(visualFindings(r).length, 0);
 });
 
 test('a freshly created baseline files nothing — it would be comparing with itself', () => {
   const r = healthy({ visual: vis({
-    desktop: { diffPct: null, note: 'baseline created', baselineCreated: true },
-    mobile: { diffPct: null, note: 'baseline created', baselineCreated: true },
+    desktop: { diffPct: null, note: 'baseline created', baselineCreated: true, comparable: true },
+    mobile: { diffPct: null, note: 'baseline created', baselineCreated: true, comparable: true },
   }) });
   assert.equal(visualFindings(r).length, 0);
 });
@@ -93,13 +93,13 @@ test('a freshly created baseline files nothing — it would be comparing with it
 
 test('a diff under the threshold does not file', () => {
   const under = VISUAL_DIFF_THRESHOLD_PCT - 0.001;
-  const r = healthy({ visual: vis({ desktop: { diffPct: under, note: null, baselineCreated: false } }) });
+  const r = healthy({ visual: vis({ desktop: { diffPct: under, note: null, baselineCreated: false, comparable: true } }) });
   assert.equal(visualFindings(r).length, 0);
 });
 
 test('a diff at or over the threshold files, naming the viewport', () => {
   const r = healthy({ visual: vis({
-    mobile: { diffPct: VISUAL_DIFF_THRESHOLD_PCT + 5, note: null, baselineCreated: false },
+    mobile: { diffPct: VISUAL_DIFF_THRESHOLD_PCT + 5, note: null, baselineCreated: false, comparable: true },
   }) });
   const found = visualFindings(r);
   assert.equal(found.length, 1);
@@ -113,7 +113,7 @@ test('a diff at or over the threshold files, naming the viewport', () => {
 });
 
 test('both viewports regressing files two separate findings', () => {
-  const bad = { diffPct: 40, note: null, baselineCreated: false };
+  const bad = { diffPct: 40, note: null, baselineCreated: false, comparable: true };
   const r = healthy({ visual: { desktop: bad, mobile: bad } });
   assert.equal(visualFindings(r).length, 2);
 });
@@ -121,12 +121,12 @@ test('both viewports regressing files two separate findings', () => {
 // ─── failing closed ────────────────────────────────────────────────────────────
 
 test('an unhealthy record files no visual finding — the probe could not see', () => {
-  const r = healthy({ healthy: false, visual: vis({ mobile: { diffPct: 90, note: null, baselineCreated: false } }) });
+  const r = healthy({ healthy: false, visual: vis({ mobile: { diffPct: 90, note: null, baselineCreated: false, comparable: true } }) });
   assert.equal(deriveFindings(r).length, 0, 'deriveFindings returns nothing at all for healthy:false');
 });
 
 test('a skipped record files no visual finding', () => {
-  const r = healthy({ skipped: 'noindex', visual: vis({ mobile: { diffPct: 90, note: null, baselineCreated: false } }) });
+  const r = healthy({ skipped: 'noindex', visual: vis({ mobile: { diffPct: 90, note: null, baselineCreated: false, comparable: true } }) });
   assert.equal(deriveFindings(r).length, 0);
 });
 
@@ -193,6 +193,53 @@ test('a platform mismatch is reported, not absorbed', () => {
   // The message has to say what to DO. "Mismatch detected" with no remedy is how
   // a warning earns the right to be ignored.
   assert.match(message, /recaptured|re-baseline/i);
+});
+
+// ─── comparable:false — the escalation this cost (2026-09-01) ─────────────────
+//
+// Naming the mismatch turned out not to be enough. `describePlatformMismatch`
+// worked perfectly from 2026-08-13 onward and wrote the cause into `note` on every
+// affected record — and `deriveFindings` filed them anyway, because it read
+// `diffPct` and nothing else. Prose in a field no evaluator reads is not a verdict.
+//
+// By 2026-08-31 three pages had run up 18, 18 and 22 escalated attempts each on
+// macOS-vs-Linux font rendering: /review/gesture/ (mobile 7.256%),
+// /best-big-and-tall-office-chairs/ (3.595%) and /wide-seat-office-chairs-tall-people/
+// (3.467%). `escalated` is supposed to mean "a real problem is being ignored", and
+// for three weeks the top of the nightly report meant "the runner changed".
+
+test('comparable:false files NOTHING, however large the diff', () => {
+  const mismatch = 'BASELINE PLATFORM MISMATCH: images captured on darwin/arm64, compared on linux/x64';
+  const r = healthy({ visual: vis({
+    desktop: { diffPct: 40, note: mismatch, baselineCreated: false, comparable: false },
+    mobile: { diffPct: 7.256, note: mismatch, baselineCreated: false, comparable: false },
+  }) });
+  assert.equal(visualFindings(r).length, 0, 'a diff measured against an incomparable baseline is unevaluable, not a regression');
+});
+
+test('comparable:false suppresses only the incomparable viewport', () => {
+  // The 2026-08-13 lesson in test form: the failure was site-wide but LOOKED like
+  // isolated pages, so a fix that silences everything would be indistinguishable
+  // from the bug. One viewport genuinely regressing must still file.
+  const r = healthy({ visual: vis({
+    desktop: { diffPct: 30, note: 'platform mismatch', baselineCreated: false, comparable: false },
+    mobile: { diffPct: 30, note: null, baselineCreated: false, comparable: true },
+  }) });
+  const found = visualFindings(r);
+  assert.equal(found.length, 1);
+  assert.match(found[0].summary, /mobile/);
+});
+
+test('a record predating `comparable` still files — absent is not incomparable', () => {
+  // pr-gate.ts re-derives findings from stored artifacts. Defaulting the missing
+  // field to `false` would turn every probe file written before 2026-09-01
+  // unevaluable, which is the opposite mistake and just as silent.
+  const legacy = healthy({ visual: vis() });
+  const mobile = (legacy.visual as ProbeVisual).mobile as Record<string, unknown>;
+  mobile.diffPct = 30;
+  delete mobile.comparable;
+
+  assert.equal(visualFindings(legacy).length, 1, 'no `comparable` key means "not known to be incomparable"');
 });
 
 test('same platform says nothing — a warning that always fires is noise', () => {

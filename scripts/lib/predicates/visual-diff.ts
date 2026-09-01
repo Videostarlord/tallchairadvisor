@@ -7,13 +7,21 @@
  * overflows at 375px; you have to draw it. Without a Playwright probe carrying a
  * `visual` section this returns `unevaluable` — never pass.
  *
- * THE THREE-WAY DISTINCTION THAT MATTERS
+ * THE FOUR-WAY DISTINCTION THAT MATTERS
  *
- *   diffPct <  maxPct  -> pass. The page renders as it did.
- *   diffPct >= maxPct  -> fail. Something moved.
- *   diffPct === null   -> UNEVALUABLE, never pass.
+ *   diffPct <  maxPct     -> pass. The page renders as it did.
+ *   diffPct >= maxPct     -> fail. Something moved.
+ *   diffPct === null      -> UNEVALUABLE, never pass.
+ *   comparable === false  -> UNEVALUABLE, never FAIL. Added 2026-09-01.
  *
- * That last case is the whole reason this file is careful. `diffPct: null` means
+ * The fourth case is the mirror image of the third and was learned the expensive
+ * way. `comparable: false` means a number exists but a known constant offset is
+ * inside it, so it cannot be scored against a threshold. Scoring it `fail` blames
+ * the site for the system's own instrumentation — three pages sat `escalated` for
+ * 18-22 nights on macOS-vs-Linux font rasterisation, each night incrementing a
+ * counter that is supposed to mean "this real problem is being ignored".
+ *
+ * The third case is the whole reason this file is careful. `diffPct: null` means
  * no comparison happened: no baseline existed yet, the screenshot failed, or the
  * image dimensions changed so pixelmatch could not run. Every one of those is the
  * system failing to LOOK. Scoring them as "no difference detected" would close a
@@ -41,6 +49,8 @@ interface ViewportRecord {
   diffPct: number | null;
   note: string | null;
   baselineCreated: boolean;
+  /** false = the number carries a known constant offset and cannot be scored. */
+  comparable: boolean;
 }
 
 /** Reads one viewport's comparison out of a probe record, or null if absent/malformed. */
@@ -61,6 +71,10 @@ export function viewportRecord(
     diffPct: diffPct ?? null,
     note: typeof e.note === 'string' ? e.note : null,
     baselineCreated: e.baselineCreated === true,
+    // `!== false`, not `=== true`. Artifacts written before 2026-09-01 have no
+    // such field, and defaulting those to incomparable would turn the entire
+    // stored probe history unevaluable the moment this shipped.
+    comparable: e.comparable !== false,
   };
 }
 
@@ -99,6 +113,27 @@ export async function evaluate(predicate: ClosurePredicate, ctx: EvalContext): P
   if (record.diffPct === null) {
     return unevaluable(
       `no ${p.viewport} comparison was made for ${p.url}: ${record.note ?? 'no reason recorded'}`,
+    );
+  }
+
+  // A number that cannot be scored. The comparison ran and the pixels really do
+  // differ, but a known constant offset is inside the figure — a baseline captured
+  // on a platform other than the one comparing it — so the diff is measuring the
+  // runner rather than the site.
+  //
+  // This must be `unevaluable` and not `fail`, and the cost of getting it wrong is
+  // already on record: /review/gesture/, /best-big-and-tall-office-chairs/ and
+  // /wide-seat-office-chairs-tall-people/ reached 18-22 escalated attempts each on
+  // font rasterisation between 2026-08-09 and 2026-08-31. Under `unevaluable` the
+  // attempt counter is untouched, exactly as types.ts requires: escalating on the
+  // system's own blindness is the failure this layer exists to prevent.
+  //
+  // The fix is a re-baseline on the runner that does the comparison
+  // (`gh workflow run nightly.yml -f rebaseline_visual=true`). Until then this
+  // says "I cannot see", which is true, instead of "the page is broken", which is not.
+  if (!record.comparable) {
+    return unevaluable(
+      `${p.viewport} diff for ${p.url} is ${record.diffPct}% but is NOT comparable: ${record.note ?? 'no reason recorded'}`,
     );
   }
 
