@@ -2,6 +2,13 @@
 type: log
 ---
 
+## [2026-09-01] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W36.md
+
+
 ## [2026-08-27] execute-fixes | Thursday Fixes
 
 **Applied (6):**
