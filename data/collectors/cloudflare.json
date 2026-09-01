@@ -12,30 +12,30 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "a22889dd-72e5-4761-872e-01242554d98d",
-      "shortId": "a22889dd",
+      "deploymentId": "c443e41c-96da-4eb9-9519-495d394d6084",
+      "shortId": "c443e41c",
       "environment": "production",
-      "url": "https://a22889dd.tallchairadvisor.pages.dev",
-      "createdOn": "2026-09-01T07:47:59.456013Z",
+      "url": "https://c443e41c.tallchairadvisor.pages.dev",
+      "createdOn": "2026-09-01T19:54:18.799162Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "354b508bbf9514f3945d304c42acbe868936889c",
-      "commitMessage": "[skip cd] nightly: god's-eye 2026-09-01"
+      "commitHash": "e42dcdde1ed3ceb145e4fac6531dfe24a38deed0",
+      "commitMessage": "deploy: Weekly cycle 2026-09-01"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 28190,
-      "cachedRequests": 2936,
-      "hitRatePct": 10.4,
-      "bytes": 254402307,
-      "cachedBytes": 104673084,
+      "requests": 42696,
+      "cachedRequests": 4517,
+      "hitRatePct": 10.6,
+      "bytes": 337761046,
+      "cachedBytes": 121112754,
       "byDay": [
         {
           "date": "2026-09-01",
-          "requests": 759,
-          "cachedRequests": 277,
-          "hitRatePct": 36.5
+          "requests": 15265,
+          "cachedRequests": 1858,
+          "hitRatePct": 12.2
         },
         {
           "date": "2026-08-31",
@@ -77,18 +77,18 @@
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 1,
+      "totalEvents": 34,
       "byAction": {
-        "block": 1
+        "block": 34
       },
       "bySource": {
-        "firewallManaged": 1
+        "firewallManaged": 34
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-09-01T07:49:10.495Z",
+    "collectedAt": "2026-09-01T20:00:20.458Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null

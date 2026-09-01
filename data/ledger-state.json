@@ -1,139 +1,50 @@
 {
-  "generatedAt": "2026-09-01T07:50:51.001Z",
+  "generatedAt": "2026-09-01T20:02:12.576Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
   "counts": {
-    "open": 2,
+    "open": 1,
     "closed": 64,
     "escalated": 3,
-    "regressed": 0,
+    "regressed": 1,
     "total": 69,
     "retractedSkipped": 0
   },
   "closedTonight": [
     {
-      "id": "3ed5e84e2ec3",
+      "id": "017b4d951e2e",
       "kind": "finding",
-      "page": "/chairs/herman-miller-aeron/size-guide/",
-      "issueClass": "visual-regression",
+      "page": "/chairs/herman-miller-aeron/",
+      "issueClass": "console-errors",
       "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 2.586% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /chairs/herman-miller-aeron/size-guide/ mobile < 2%",
-      "ageDays": 23,
-      "attempts": 0,
-      "firstSeen": "2026-08-09",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "5f0dd84de34e",
-      "kind": "finding",
-      "page": "/chairs/steelcase-gesture/",
-      "issueClass": "visual-regression",
-      "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 3.064% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /chairs/steelcase-gesture/ mobile < 2%",
-      "ageDays": 23,
-      "attempts": 0,
-      "firstSeen": "2026-08-09",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "b5140fea97f0",
-      "kind": "finding",
-      "page": "/monitor-arm-tall-people/",
-      "issueClass": "visual-regression",
-      "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 3.678% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /monitor-arm-tall-people/ mobile < 2%",
-      "ageDays": 23,
-      "attempts": 0,
-      "firstSeen": "2026-08-09",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "33bef3f6cfdf",
-      "kind": "finding",
-      "page": "/review/aeron-size-c/",
-      "issueClass": "visual-regression",
-      "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 2.102% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /review/aeron-size-c/ mobile < 2%",
-      "ageDays": 23,
-      "attempts": 0,
-      "firstSeen": "2026-08-09",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "c401f8c099f6",
-      "kind": "finding",
-      "page": "/review/gesture/",
-      "issueClass": "visual-regression",
-      "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 3.098% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /review/gesture/ mobile < 2%",
-      "ageDays": 23,
-      "attempts": 0,
-      "firstSeen": "2026-08-09",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "add4a1951347",
-      "kind": "finding",
-      "page": "/best-big-and-tall-office-chairs/",
-      "issueClass": "visual-regression",
-      "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 3.595% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /best-big-and-tall-office-chairs/ mobile < 2%",
-      "ageDays": 18,
-      "attempts": 0,
-      "firstSeen": "2026-08-14",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "e1cb4b21f390",
-      "kind": "finding",
-      "page": "/wide-seat-office-chairs-tall-people/",
-      "issueClass": "visual-regression",
-      "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 3.467% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /wide-seat-office-chairs-tall-people/ mobile < 2%",
-      "ageDays": 18,
-      "attempts": 0,
-      "firstSeen": "2026-08-14",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "25f5733914b6",
-      "kind": "finding",
-      "page": "/office-chairs-for-6-foot-3/",
-      "issueClass": "visual-regression",
-      "severity": "medium",
-      "summary": "mobile rendering differs from baseline by 2.308% (threshold 2%). Re-baseline if the change was intended.",
-      "predicate": "visual-diff /office-chairs-for-6-foot-3/ mobile < 2%",
+      "summary": "1 console error(s), 0 unhandled rejection(s): Refused to apply style from 'https://tallchairadvisor.com/_astro/about.CsLuf1ki.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.",
+      "predicate": "no-console-errors /chairs/herman-miller-aeron/",
       "ageDays": 0,
       "attempts": 0,
       "firstSeen": "2026-09-01",
       "lastSeen": "2026-09-01",
       "verdict": "pass",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
+      "reason": "probe recorded zero console errors"
     }
   ],
-  "regressed": [],
+  "regressed": [
+    {
+      "id": "aba4112ac066",
+      "kind": "finding",
+      "page": "/correct-chair-dimensions/",
+      "issueClass": "geo-capsule-missing",
+      "severity": "low",
+      "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
+      "predicate": "geo-capsule /correct-chair-dimensions/",
+      "ageDays": 26,
+      "attempts": 1,
+      "firstSeen": "2026-08-06",
+      "lastSeen": "2026-09-01",
+      "verdict": "fail",
+      "reason": "missing Direct Answer block"
+    }
+  ],
   "escalated": [
     {
       "id": "8aeed43a09a6",
@@ -228,6 +139,21 @@
       "reason": "position 9 does not satisfy < 8.1"
     },
     {
+      "id": "aba4112ac066",
+      "kind": "finding",
+      "page": "/correct-chair-dimensions/",
+      "issueClass": "geo-capsule-missing",
+      "severity": "low",
+      "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
+      "predicate": "geo-capsule /correct-chair-dimensions/",
+      "ageDays": 26,
+      "attempts": 1,
+      "firstSeen": "2026-08-06",
+      "lastSeen": "2026-09-01",
+      "verdict": "fail",
+      "reason": "missing Direct Answer block"
+    },
+    {
       "id": "d26626ec75ad",
       "kind": "finding",
       "page": "/chair-specs/",
@@ -241,32 +167,68 @@
       "lastSeen": "2026-09-01",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
-    },
-    {
-      "id": "017b4d951e2e",
-      "kind": "finding",
-      "page": "/chairs/herman-miller-aeron/",
-      "issueClass": "console-errors",
-      "severity": "medium",
-      "summary": "1 console error(s), 0 unhandled rejection(s): Refused to apply style from 'https://tallchairadvisor.com/_astro/about.CsLuf1ki.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.",
-      "predicate": "no-console-errors /chairs/herman-miller-aeron/",
-      "ageDays": 0,
-      "attempts": 1,
-      "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "probe recorded 1 console error(s) and 0 unhandled rejection(s)"
     }
   ],
   "coverage": {
     "evaluated": 69,
-    "pass": 64,
+    "pass": 56,
     "fail": 5,
-    "unevaluable": 0,
-    "coveragePercent": 100,
+    "unevaluable": 8,
+    "coveragePercent": 88.4,
     "openUnevaluable": 0,
-    "byReason": {},
-    "items": []
+    "byReason": {
+      "visual-diff: a mobile baseline was created on this run, so the comparison is against itself — proves nothing": 8
+    },
+    "items": [
+      {
+        "id": "3ed5e84e2ec3",
+        "page": "/chairs/herman-miller-aeron/size-guide/",
+        "predicate": "visual-diff /chairs/herman-miller-aeron/size-guide/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "5f0dd84de34e",
+        "page": "/chairs/steelcase-gesture/",
+        "predicate": "visual-diff /chairs/steelcase-gesture/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "b5140fea97f0",
+        "page": "/monitor-arm-tall-people/",
+        "predicate": "visual-diff /monitor-arm-tall-people/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "33bef3f6cfdf",
+        "page": "/review/aeron-size-c/",
+        "predicate": "visual-diff /review/aeron-size-c/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "c401f8c099f6",
+        "page": "/review/gesture/",
+        "predicate": "visual-diff /review/gesture/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "add4a1951347",
+        "page": "/best-big-and-tall-office-chairs/",
+        "predicate": "visual-diff /best-big-and-tall-office-chairs/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "e1cb4b21f390",
+        "page": "/wide-seat-office-chairs-tall-people/",
+        "predicate": "visual-diff /wide-seat-office-chairs-tall-people/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "25f5733914b6",
+        "page": "/office-chairs-for-6-foot-3/",
+        "predicate": "visual-diff /office-chairs-for-6-foot-3/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      }
+    ]
   },
   "blindSpots": {
     "probes": null,
@@ -286,52 +248,16 @@
   },
   "transitions": [
     {
-      "id": "3ed5e84e2ec3",
-      "from": "escalated",
-      "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
+      "id": "aba4112ac066",
+      "from": "closed",
+      "to": "regressed",
+      "reason": "missing Direct Answer block"
     },
     {
-      "id": "5f0dd84de34e",
-      "from": "escalated",
-      "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "b5140fea97f0",
-      "from": "escalated",
-      "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "33bef3f6cfdf",
-      "from": "escalated",
-      "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "c401f8c099f6",
-      "from": "escalated",
-      "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "add4a1951347",
-      "from": "escalated",
-      "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "e1cb4b21f390",
-      "from": "escalated",
-      "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
-    },
-    {
-      "id": "25f5733914b6",
+      "id": "017b4d951e2e",
       "from": "open",
       "to": "closed",
-      "reason": "mobile render differs from baseline by 0% (under 2%)"
+      "reason": "probe recorded zero console errors"
     }
   ],
   "retractedSkipped": []
