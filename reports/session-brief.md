@@ -1,6 +1,6 @@
 # Session Brief — 2026-09-01
 
-_Generated 2026-09-01T04:37:45.232Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-01T07:47:54.726Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -50,17 +50,17 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 130 | 49 | 13% | 16% |
-| /review/gesture/ | 90 | 4 | 18% | 23% |
+| /office-chairs-for-tall-people/ | 130 | 49 | 13% | 15% |
+| /review/gesture/ | 90 | 4 | 18% | 22% |
 | /correct-chair-dimensions/ | 75 | 0 | 4% | 22% |
 | / | 70 | 0 | — | 26% |
-| /review/leap-plus/ | 68 | 3 | 78% | 33% |
-| /best-big-and-tall-office-chairs/ | 58 | 12 | — | 24% |
-| /best-office-chairs-under-500/ | 58 | 16 | 19% | 46% |
+| /review/leap-plus/ | 68 | 3 | 78% | 32% |
+| /best-big-and-tall-office-chairs/ | 58 | 12 | — | 23% |
+| /best-office-chairs-under-500/ | 58 | 16 | 19% | 26% |
 | /review/sihoo-doro-s300/ | 55 | 0 | — | 28% |
 | /knee-pain-seat-depth/ | 51 | 0 | — | 21% |
-| /chairs/herman-miller-aeron/tall-people/ | 50 | 0 | 84% | 25% |
-| /review/aeron-size-c/ | 49 | 0 | — | 45% |
+| /chairs/herman-miller-aeron/tall-people/ | 50 | 0 | 84% | 24% |
+| /review/aeron-size-c/ | 49 | 0 | — | 41% |
 | /chairs/steelcase-gesture/ | 47 | 1 | 96% | 34% |
 | /office-chairs-for-6-foot-5/ | 47 | 0 | — | 18% |
 | /seat-cushion-height-tall-people/ | 47 | 0 | — | 72% |
@@ -74,13 +74,13 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 ## Open work the pipeline is tracking
 
-- Ledger: {"open": 1, "closed": 56, "escalated": 10, "regressed": 0, "total": 67, "retractedSkipped": 0}
+- Ledger: {"open": 3, "closed": 56, "escalated": 10, "regressed": 0, "total": 69, "retractedSkipped": 0}
   - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
   - **/correct-chair-dimensions/** — position 9.7 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 9 does not satisfy < 8.1
-  - **/chairs/herman-miller-aeron/size-guide/** — mobile render differs from baseline by 2.609% (threshold 2%)
-  - **/chairs/steelcase-gesture/** — mobile render differs from baseline by 3.064% (threshold 2%)
-  - **/monitor-arm-tall-people/** — mobile render differs from baseline by 3.678% (threshold 2%)
+  - **/chairs/herman-miller-aeron/size-guide/** — a mobile baseline was created on this run, so the comparison is against itself — proves nothing
+  - **/chairs/steelcase-gesture/** — a mobile baseline was created on this run, so the comparison is against itself — proves nothing
+  - **/monitor-arm-tall-people/** — a mobile baseline was created on this run, so the comparison is against itself — proves nothing
 
 ---
 

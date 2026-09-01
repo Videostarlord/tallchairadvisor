@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-01T04:37:43.618Z",
+  "generatedAt": "2026-09-01T07:47:53.156Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
   "counts": {
-    "open": 1,
+    "open": 3,
     "closed": 56,
     "escalated": 10,
     "regressed": 0,
-    "total": 67,
+    "total": 69,
     "retractedSkipped": 0
   },
   "closedTonight": [],
@@ -71,8 +71,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 2.609% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "5f0dd84de34e",
@@ -86,8 +86,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.064% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "b5140fea97f0",
@@ -101,8 +101,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.678% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "33bef3f6cfdf",
@@ -116,8 +116,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 2.102% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "c401f8c099f6",
@@ -131,8 +131,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 7.256% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "add4a1951347",
@@ -146,8 +146,8 @@
       "attempts": 19,
       "firstSeen": "2026-08-14",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.595% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "e1cb4b21f390",
@@ -161,8 +161,8 @@
       "attempts": 19,
       "firstSeen": "2026-08-14",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.467% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     }
   ],
   "stuck": [
@@ -223,8 +223,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 2.609% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "5f0dd84de34e",
@@ -238,8 +238,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.064% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "b5140fea97f0",
@@ -253,8 +253,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.678% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "33bef3f6cfdf",
@@ -268,8 +268,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 2.102% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "c401f8c099f6",
@@ -283,8 +283,8 @@
       "attempts": 23,
       "firstSeen": "2026-08-09",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 7.256% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "add4a1951347",
@@ -298,8 +298,8 @@
       "attempts": 19,
       "firstSeen": "2026-08-14",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.595% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "e1cb4b21f390",
@@ -313,8 +313,8 @@
       "attempts": 19,
       "firstSeen": "2026-08-14",
       "lastSeen": "2026-09-01",
-      "verdict": "fail",
-      "reason": "mobile render differs from baseline by 3.467% (threshold 2%)"
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
     },
     {
       "id": "25f5733914b6",
@@ -328,19 +328,100 @@
       "attempts": 1,
       "firstSeen": "2026-09-01",
       "lastSeen": "2026-09-01",
+      "verdict": "unevaluable",
+      "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+    },
+    {
+      "id": "d26626ec75ad",
+      "kind": "finding",
+      "page": "/chair-specs/",
+      "issueClass": "meta-description-length",
+      "severity": "medium",
+      "summary": "Meta description is 215 chars, outside 130–165.",
+      "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
+      "ageDays": 0,
+      "attempts": 1,
+      "firstSeen": "2026-09-01",
+      "lastSeen": "2026-09-01",
       "verdict": "fail",
-      "reason": "mobile render differs from baseline by 2.308% (threshold 2%)"
+      "reason": "meta description is 215 chars, outside [130, 165]"
+    },
+    {
+      "id": "017b4d951e2e",
+      "kind": "finding",
+      "page": "/chairs/herman-miller-aeron/",
+      "issueClass": "console-errors",
+      "severity": "medium",
+      "summary": "1 console error(s), 0 unhandled rejection(s): Refused to apply style from 'https://tallchairadvisor.com/_astro/about.CsLuf1ki.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.",
+      "predicate": "no-console-errors /chairs/herman-miller-aeron/",
+      "ageDays": 0,
+      "attempts": 1,
+      "firstSeen": "2026-09-01",
+      "lastSeen": "2026-09-01",
+      "verdict": "fail",
+      "reason": "probe recorded 1 console error(s) and 0 unhandled rejection(s)"
     }
   ],
   "coverage": {
-    "evaluated": 67,
+    "evaluated": 69,
     "pass": 56,
-    "fail": 11,
-    "unevaluable": 0,
-    "coveragePercent": 100,
-    "openUnevaluable": 0,
-    "byReason": {},
-    "items": []
+    "fail": 5,
+    "unevaluable": 8,
+    "coveragePercent": 88.4,
+    "openUnevaluable": 8,
+    "byReason": {
+      "visual-diff: a mobile baseline was created on this run, so the comparison is against itself — proves nothing": 8
+    },
+    "items": [
+      {
+        "id": "3ed5e84e2ec3",
+        "page": "/chairs/herman-miller-aeron/size-guide/",
+        "predicate": "visual-diff /chairs/herman-miller-aeron/size-guide/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "5f0dd84de34e",
+        "page": "/chairs/steelcase-gesture/",
+        "predicate": "visual-diff /chairs/steelcase-gesture/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "b5140fea97f0",
+        "page": "/monitor-arm-tall-people/",
+        "predicate": "visual-diff /monitor-arm-tall-people/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "33bef3f6cfdf",
+        "page": "/review/aeron-size-c/",
+        "predicate": "visual-diff /review/aeron-size-c/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "c401f8c099f6",
+        "page": "/review/gesture/",
+        "predicate": "visual-diff /review/gesture/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "add4a1951347",
+        "page": "/best-big-and-tall-office-chairs/",
+        "predicate": "visual-diff /best-big-and-tall-office-chairs/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "e1cb4b21f390",
+        "page": "/wide-seat-office-chairs-tall-people/",
+        "predicate": "visual-diff /wide-seat-office-chairs-tall-people/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      },
+      {
+        "id": "25f5733914b6",
+        "page": "/office-chairs-for-6-foot-3/",
+        "predicate": "visual-diff /office-chairs-for-6-foot-3/ mobile < 2%",
+        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
+      }
+    ]
   },
   "blindSpots": {
     "probes": null,
@@ -360,70 +441,16 @@
   },
   "transitions": [
     {
-      "id": "8aeed43a09a6",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "position 8.7 does not satisfy < 8.7"
-    },
-    {
-      "id": "65336bac6935",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "position 9.7 does not satisfy < 9.6"
-    },
-    {
-      "id": "c76d198a75bc",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "position 9 does not satisfy < 8.1"
-    },
-    {
-      "id": "3ed5e84e2ec3",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "mobile render differs from baseline by 2.609% (threshold 2%)"
-    },
-    {
-      "id": "5f0dd84de34e",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "mobile render differs from baseline by 3.064% (threshold 2%)"
-    },
-    {
-      "id": "b5140fea97f0",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "mobile render differs from baseline by 3.678% (threshold 2%)"
-    },
-    {
-      "id": "33bef3f6cfdf",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "mobile render differs from baseline by 2.102% (threshold 2%)"
-    },
-    {
-      "id": "c401f8c099f6",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "mobile render differs from baseline by 7.256% (threshold 2%)"
-    },
-    {
-      "id": "add4a1951347",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "mobile render differs from baseline by 3.595% (threshold 2%)"
-    },
-    {
-      "id": "e1cb4b21f390",
-      "from": "escalated",
-      "to": "escalated",
-      "reason": "mobile render differs from baseline by 3.467% (threshold 2%)"
-    },
-    {
-      "id": "25f5733914b6",
+      "id": "d26626ec75ad",
       "from": "open",
       "to": "open",
-      "reason": "mobile render differs from baseline by 2.308% (threshold 2%)"
+      "reason": "meta description is 215 chars, outside [130, 165]"
+    },
+    {
+      "id": "017b4d951e2e",
+      "from": "open",
+      "to": "open",
+      "reason": "probe recorded 1 console error(s) and 0 unhandled rejection(s)"
     }
   ],
   "retractedSkipped": []

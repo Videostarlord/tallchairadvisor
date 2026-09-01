@@ -12,30 +12,30 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "95178734-d39c-4699-b2ee-52dbde32025f",
-      "shortId": "95178734",
+      "deploymentId": "3e849f54-39c3-4c74-85e7-44470d86a659",
+      "shortId": "3e849f54",
       "environment": "production",
-      "url": "https://95178734.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-31T19:15:45.724269Z",
+      "url": "https://3e849f54.tallchairadvisor.pages.dev",
+      "createdOn": "2026-09-01T07:45:13.387624Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "dc4422e66c3ca7c2a2879449e63e8ed0a009b2bb",
-      "commitMessage": "feat: finish the CTA-placement pass, and fix 6 FTC disclosure failures the 07-25 sweep reported as green\n\nCORRECTION FIRST. The four pages named at the end of the previous session --\n/, /correct-chair-dimensions/, /review/aeron-size-c/, /review/sihoo-doro-s300/\n-- were ALREADY FIXED on 2026-08-28 and render at 6.5-18%. Their zero click\ncounts came from a 28-day GA4 window that mostly predates that fix. Nothing was\ndone to them.\n\nTwo traps in reports/session-brief.md produced that error, and the file warns\nabout one of them in its own text:\n\n  1. `1st CTA at` is a MARKUP measure. Site nav is verbose in HTML and short on\n     screen, so the column reads 22-45% for pages that render at 6.5-18%.\n  2. The affiliate-click column is a TRAILING 28-day window. Read beside a fix\n     that landed on day 25, it describes the world before the change and looks\n     exactly like the change not working.\n\nMeasure rendered position, and check when the fix landed before reading a click\ncount as a verdict.\n\nWHAT WAS ACTUALLY BROKEN\n\nA pixel sweep (Chromium, 1280x800 and 390x844) of every page carrying an\naffiliate link found 9 still deep, four of which no CTA pass had ever touched:\n\n  page                                       before   after (desktop / mobile)\n  /office-chairs-for-6-foot-3/                72.7%      11.2% / 9.4%\n  /knee-pain-seat-depth/                      68.2%      14.6% / 13.4%\n  /office-chairs-for-6-foot-4/                66.6%       9.0% / 8.3%\n  /office-chairs-for-6-foot-7/                56.9%      10.0% / 8.5%\n  /refurbished-steelcase-leap-tall-people/    56.4%      19.5% / 16.4%\n  /office-chairs-for-6-foot-5/                41.8%       8.7% / 8.0%\n  /best-big-and-tall-office-chairs/           40.9%      10.0% / 8.2%\n  /chairs/herman-miller-aeron/tall-people/    40.6%      14.3% / 12.0%\n  /heavy-duty-ergonomic-chairs-tall-people/   36.9%      10.6% / 9.5%\n\nEvery page on the site now places its first affiliate CTA in the top ~20%, most\nin the top 10%.\n\nLeap Plus leads each new BuyBox because per the 2026-08-30 export it is the only\nASIN in the archive that has ever converted (6 orders, 13.33% product CVR) while\nGesture, Aeron and Crandall sit at 59 clicks and zero.\n/office-chairs-for-6-foot-3/ is the deliberate exception: at that height the\nGesture is the honest recommendation and the page says so.\n\n/knee-pain-seat-depth/ is named in `no-snippet-work-on-aio-eaten-informational`.\nThat rule forbids snippet and meta work chasing rankings on AIO-eaten queries; a\nCTA monetises traffic that already lands (48 GA4 sessions). Same call as\n/correct-chair-dimensions/, named in the same rule, which took a BuyBox on 08-28.\n\nTHE FTC FINDING, WHICH THE TOOLING HAD ALREADY REPORTED AS FIXED\n\nThe disclosure checker written for this work asks a different question than the\n2026-07-25 sweep did, and found six failures:\n\n  - FIVE pages placed the disclosure BELOW the first affiliate CTA. Worst:\n    /heavy-duty-ergonomic-chairs-tall-people/ at 8203px against a CTA at 2997px.\n    /review/gesture/ was 74px off -- the two blocks were simply swapped.\n  - /office-chairs-for-6-foot-4/ carried THREE affiliate links and NO disclosure\n    of any kind. wiki/pages/concepts/affiliate-compliance.md lists that page\n    among ones whose disclosure was merely \"low\". It had none.\n\nAll six fixed. 45/45 pages re-verified by rendered position.\n\nWhy the old sweep passed: it was a text scan for the component's presence, but\nthe FTC standard is \"clear and conspicuous\" -- a rule about ORDER and POSITION.\nA page passes \"has a disclosure\" while burying it 5,000px under the buy button.\nThe check measured something adjacent to the rule, and adjacent reads as green.\nThat is this repo's signature defect arriving in a compliance file rather than a\ncollector.\n\nTWO BUGS OF MY OWN, CAUGHT BEFORE COMMIT\n\nGenerating .astro from Python string formatting put a literal → into plain\nHTML attributes (renders as those characters, not an arrow) and escaped quotes\ninto plain attributes (hard build error). The JSX-expression props --\nverdict={...}, specs={...} -- interpret escapes; plain attributes do not. Both\nfixed and verified in RENDERED text, not in source.\n\npageLastmod updated for all 10 revised pages per CLAUDE.md; sitemap verified.\n\nLEFT FOR JACKSON: the visual baselines are now stale on 10 pages. Every page\nhere will exceed the 2% visual-diff threshold tonight, on top of the 7 already\nescalated mobile findings suspected to be the macOS/Linux font artefact.\nRe-baseline by triggering nightly.yml via workflow_dispatch with\nrebaseline_visual: true -- on the runner, NEVER locally, or it recreates the\nexact cross-platform offset that produced those 7 findings.\n\nGates: build clean (54 pages), affiliate lint (129 links), content lint (54\npages), architecture 0 new, 28/28 tests, disclosure order 45/45.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01RWBfWT7BnDrCuNq1DpcGht"
+      "commitHash": "f15fac8a0c26016264b4d83c0dbfbc84a8ccc053",
+      "commitMessage": "docs(wiki): ingest the 2026-09-01 findings into the entity and concept pages\n\nSnapshot: raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md\n\nNew:\n- wiki/pages/concepts/aio-citation-tracking.md — the instrument, its limits, and\n  the explicit warning not to quote it until two runs agree\n- wiki/pages/site-pages/chair-specs-dataset.md — including \"do not score this as\n  a money page, a citation target that sells things is one nobody cites\"\n\nUpdated:\n- affiliate-performance.md — two of three tags have never recorded a click, and\n  the cause was the link inventory rather than the copy\n- ctr-optimization.md — the 80% AIO figure has never been observed; flagged at\n  the top of the page rather than left as a quoted number\n- godseye-nightly.md — escalated was pointed at the instrumentation for three\n  weeks, plus the new seam rule\n- index.md, log.md, decisions-log.md\n\nNew seam rule recorded: a detector that can tell it is blind must say so in the\nfield the verdict is read from. A correct diagnosis written where nothing reads\nit is the same as no diagnosis.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01RWBfWT7BnDrCuNq1DpcGht"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 27692,
-      "cachedRequests": 2677,
-      "hitRatePct": 9.7,
-      "bytes": 247430458,
-      "cachedBytes": 98390418,
+      "requests": 28190,
+      "cachedRequests": 2936,
+      "hitRatePct": 10.4,
+      "bytes": 254402307,
+      "cachedBytes": 104673084,
       "byDay": [
         {
           "date": "2026-09-01",
-          "requests": 261,
-          "cachedRequests": 18,
-          "hitRatePct": 6.9
+          "requests": 759,
+          "cachedRequests": 277,
+          "hitRatePct": 36.5
         },
         {
           "date": "2026-08-31",
@@ -88,7 +88,7 @@
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-09-01T04:35:59.529Z",
+    "collectedAt": "2026-09-01T07:46:12.322Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null

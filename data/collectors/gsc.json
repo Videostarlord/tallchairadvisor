@@ -8,7 +8,7 @@
     },
     "performance": {
       "pulledAt": "2026-08-31T16:00:40.523Z",
-      "ageHours": 12.6,
+      "ageHours": 15.8,
       "dateRange": {
         "start": "2026-06-02",
         "end": "2026-08-31",
@@ -25,32 +25,33 @@
     },
     "analysis": {
       "generatedAt": "2026-08-31T16:00:40.960Z",
-      "ageHours": 12.6,
+      "ageHours": 15.8,
       "opportunityCount": 45,
       "ctrLeakCount": 21,
       "decayAlertCount": 0
     },
     "indexInspection": {
       "siteUrl": "https://tallchairadvisor.com/",
-      "eligible": 49,
+      "eligible": 50,
       "requested": 10,
       "inspected": 10,
-      "observed": 49,
+      "observed": 50,
       "failed": 0,
       "quotaExceeded": false,
       "coveragePct": 100,
       "freshPct": 20,
       "verdicts": {
         "PASS": 46,
-        "NEUTRAL": 3
+        "NEUTRAL": 4
       },
       "coverageStates": {
         "Submitted and indexed": 46,
+        "URL is unknown to Google": 2,
         "Discovered - currently not indexed": 1,
-        "URL is unknown to Google": 1,
         "Crawled - currently not indexed": 1
       },
       "notIndexed": [
+        "https://tallchairadvisor.com/chair-specs/",
         "https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/",
         "https://tallchairadvisor.com/lumbar-support-tall-people/",
         "https://tallchairadvisor.com/standing-desk-height-tall-people/"
@@ -70,7 +71,7 @@
           "error": null,
           "inspectedAt": "2026-08-29T06:40:34.445Z",
           "fresh": false,
-          "ageDays": 2
+          "ageDays": 3
         },
         {
           "url": "https://tallchairadvisor.com/about/",
@@ -86,7 +87,7 @@
           "error": null,
           "inspectedAt": "2026-08-31T04:57:09.898Z",
           "fresh": false,
-          "ageDays": 0
+          "ageDays": 1
         },
         {
           "url": "https://tallchairadvisor.com/aeron-size-c-vs-leap-plus/",
@@ -102,7 +103,7 @@
           "error": null,
           "inspectedAt": "2026-08-31T04:57:17.144Z",
           "fresh": false,
-          "ageDays": 0
+          "ageDays": 1
         },
         {
           "url": "https://tallchairadvisor.com/aeron-vs-gesture/",
@@ -118,7 +119,7 @@
           "error": null,
           "inspectedAt": "2026-08-31T04:57:24.439Z",
           "fresh": false,
-          "ageDays": 0
+          "ageDays": 1
         },
         {
           "url": "https://tallchairadvisor.com/aeron-vs-leap-plus/",
@@ -134,7 +135,7 @@
           "error": null,
           "inspectedAt": "2026-08-31T04:57:31.728Z",
           "fresh": false,
-          "ageDays": 0
+          "ageDays": 1
         },
         {
           "url": "https://tallchairadvisor.com/back-pain-spine-height/",
@@ -150,7 +151,7 @@
           "error": null,
           "inspectedAt": "2026-08-31T04:57:38.974Z",
           "fresh": false,
-          "ageDays": 0
+          "ageDays": 1
         },
         {
           "url": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
@@ -164,7 +165,7 @@
           "googleCanonical": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
           "userCanonical": "https://tallchairadvisor.com/best-big-and-tall-office-chairs/",
           "error": null,
-          "inspectedAt": "2026-09-01T04:37:03.356Z",
+          "inspectedAt": "2026-09-01T07:47:14.870Z",
           "fresh": true,
           "ageDays": 0
         },
@@ -176,12 +177,12 @@
           "indexingState": "INDEXING_ALLOWED",
           "robotsTxtState": "ALLOWED",
           "pageFetchState": "SUCCESSFUL",
-          "lastCrawlTime": "2026-08-16T23:45:51Z",
+          "lastCrawlTime": "2026-08-31T12:24:29Z",
           "googleCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
           "userCanonical": "https://tallchairadvisor.com/best-office-chairs-under-500/",
           "error": null,
-          "inspectedAt": "2026-08-31T04:57:53.459Z",
-          "fresh": false,
+          "inspectedAt": "2026-09-01T07:46:53.057Z",
+          "fresh": true,
           "ageDays": 0
         },
         {
@@ -198,6 +199,22 @@
           "error": null,
           "inspectedAt": "2026-08-31T04:58:00.757Z",
           "fresh": false,
+          "ageDays": 1
+        },
+        {
+          "url": "https://tallchairadvisor.com/chair-specs/",
+          "file": "src/pages/chair-specs/index.astro",
+          "verdict": "NEUTRAL",
+          "coverageState": "URL is unknown to Google",
+          "indexingState": "INDEXING_STATE_UNSPECIFIED",
+          "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+          "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+          "lastCrawlTime": null,
+          "googleCanonical": null,
+          "userCanonical": null,
+          "error": null,
+          "inspectedAt": "2026-09-01T07:46:16.791Z",
+          "fresh": true,
           "ageDays": 0
         },
         {
@@ -214,7 +231,7 @@
           "error": null,
           "inspectedAt": "2026-08-29T06:40:41.727Z",
           "fresh": false,
-          "ageDays": 2
+          "ageDays": 3
         },
         {
           "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/",
@@ -230,7 +247,7 @@
           "error": null,
           "inspectedAt": "2026-08-29T06:40:49.174Z",
           "fresh": false,
-          "ageDays": 2
+          "ageDays": 3
         },
         {
           "url": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
@@ -244,7 +261,7 @@
           "googleCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
           "userCanonical": "https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/",
           "error": null,
-          "inspectedAt": "2026-09-01T04:37:10.661Z",
+          "inspectedAt": "2026-09-01T07:47:22.139Z",
           "fresh": true,
           "ageDays": 0
         },
@@ -262,7 +279,7 @@
           "error": null,
           "inspectedAt": "2026-08-29T06:40:56.439Z",
           "fresh": false,
-          "ageDays": 2
+          "ageDays": 3
         },
         {
           "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/",
@@ -278,7 +295,7 @@
           "error": null,
           "inspectedAt": "2026-08-31T04:58:15.609Z",
           "fresh": false,
-          "ageDays": 0
+          "ageDays": 1
         },
         {
           "url": "https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/",
@@ -368,13 +385,13 @@
           "indexingState": "INDEXING_ALLOWED",
           "robotsTxtState": "ALLOWED",
           "pageFetchState": "SUCCESSFUL",
-          "lastCrawlTime": "2026-08-26T13:47:07Z",
+          "lastCrawlTime": "2026-09-01T07:21:03Z",
           "googleCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
           "userCanonical": "https://tallchairadvisor.com/correct-chair-dimensions/",
           "error": null,
-          "inspectedAt": "2026-08-29T06:41:03.859Z",
-          "fresh": false,
-          "ageDays": 2
+          "inspectedAt": "2026-09-01T07:46:38.526Z",
+          "fresh": true,
+          "ageDays": 0
         },
         {
           "url": "https://tallchairadvisor.com/fit-guides/",
@@ -421,7 +438,7 @@
           "userCanonical": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
           "error": null,
           "inspectedAt": "2026-09-01T04:36:04.586Z",
-          "fresh": true,
+          "fresh": false,
           "ageDays": 0
         },
         {
@@ -468,7 +485,7 @@
           "googleCanonical": "https://tallchairadvisor.com/knee-pain-seat-depth/",
           "userCanonical": "https://tallchairadvisor.com/knee-pain-seat-depth/",
           "error": null,
-          "inspectedAt": "2026-09-01T04:36:12.110Z",
+          "inspectedAt": "2026-09-01T07:47:00.348Z",
           "fresh": true,
           "ageDays": 0
         },
@@ -565,7 +582,7 @@
           "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
           "error": null,
           "inspectedAt": "2026-09-01T04:36:19.556Z",
-          "fresh": true,
+          "fresh": false,
           "ageDays": 0
         },
         {
@@ -581,7 +598,7 @@
           "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
           "error": null,
           "inspectedAt": "2026-09-01T04:36:26.922Z",
-          "fresh": true,
+          "fresh": false,
           "ageDays": 0
         },
         {
@@ -597,7 +614,7 @@
           "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
           "error": null,
           "inspectedAt": "2026-09-01T04:36:34.212Z",
-          "fresh": true,
+          "fresh": false,
           "ageDays": 0
         },
         {
@@ -614,7 +631,7 @@
           "error": null,
           "inspectedAt": "2026-08-29T06:41:11.526Z",
           "fresh": false,
-          "ageDays": 2
+          "ageDays": 3
         },
         {
           "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
@@ -629,7 +646,7 @@
           "userCanonical": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
           "error": null,
           "inspectedAt": "2026-09-01T04:36:41.459Z",
-          "fresh": true,
+          "fresh": false,
           "ageDays": 0
         },
         {
@@ -640,13 +657,13 @@
           "indexingState": "INDEXING_ALLOWED",
           "robotsTxtState": "ALLOWED",
           "pageFetchState": "SUCCESSFUL",
-          "lastCrawlTime": "2026-08-22T17:50:36Z",
+          "lastCrawlTime": "2026-08-29T03:57:10Z",
           "googleCanonical": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
           "userCanonical": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
           "error": null,
-          "inspectedAt": "2026-08-28T10:54:04.245Z",
-          "fresh": false,
-          "ageDays": 3
+          "inspectedAt": "2026-09-01T07:46:24.026Z",
+          "fresh": true,
+          "ageDays": 0
         },
         {
           "url": "https://tallchairadvisor.com/pain-ergonomics/",
@@ -677,7 +694,7 @@
           "userCanonical": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
           "error": null,
           "inspectedAt": "2026-09-01T04:36:48.714Z",
-          "fresh": true,
+          "fresh": false,
           "ageDays": 0
         },
         {
@@ -692,9 +709,9 @@
           "googleCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
           "userCanonical": "https://tallchairadvisor.com/review/aeron-size-c/",
           "error": null,
-          "inspectedAt": "2026-08-29T06:41:19.033Z",
-          "fresh": false,
-          "ageDays": 2
+          "inspectedAt": "2026-09-01T07:46:45.794Z",
+          "fresh": true,
+          "ageDays": 0
         },
         {
           "url": "https://tallchairadvisor.com/review/gesture/",
@@ -708,7 +725,7 @@
           "googleCanonical": "https://tallchairadvisor.com/review/gesture/",
           "userCanonical": "https://tallchairadvisor.com/review/gesture/",
           "error": null,
-          "inspectedAt": "2026-09-01T04:36:56.100Z",
+          "inspectedAt": "2026-09-01T07:47:07.631Z",
           "fresh": true,
           "ageDays": 0
         },
@@ -724,9 +741,9 @@
           "googleCanonical": "https://tallchairadvisor.com/review/leap-plus/",
           "userCanonical": "https://tallchairadvisor.com/review/leap-plus/",
           "error": null,
-          "inspectedAt": "2026-08-29T06:40:19.615Z",
-          "fresh": false,
-          "ageDays": 2
+          "inspectedAt": "2026-09-01T07:46:31.275Z",
+          "fresh": true,
+          "ageDays": 0
         },
         {
           "url": "https://tallchairadvisor.com/review/sihoo-doro-s300/",
@@ -742,7 +759,7 @@
           "error": null,
           "inspectedAt": "2026-08-29T06:40:27.027Z",
           "fresh": false,
-          "ageDays": 2
+          "ageDays": 3
         },
         {
           "url": "https://tallchairadvisor.com/seat-cushion-height-tall-people/",
@@ -758,7 +775,7 @@
           "error": null,
           "inspectedAt": "2026-08-30T04:53:22.689Z",
           "fresh": false,
-          "ageDays": 1
+          "ageDays": 2
         },
         {
           "url": "https://tallchairadvisor.com/shoulder-pain-tall-people/",
@@ -774,7 +791,7 @@
           "error": null,
           "inspectedAt": "2026-08-30T04:53:30.130Z",
           "fresh": false,
-          "ageDays": 1
+          "ageDays": 2
         },
         {
           "url": "https://tallchairadvisor.com/standing-desk-converter-tall-people/",
@@ -790,7 +807,7 @@
           "error": null,
           "inspectedAt": "2026-08-30T04:53:37.530Z",
           "fresh": false,
-          "ageDays": 1
+          "ageDays": 2
         },
         {
           "url": "https://tallchairadvisor.com/standing-desk-height-tall-people/",
@@ -806,7 +823,7 @@
           "error": null,
           "inspectedAt": "2026-08-30T04:53:44.976Z",
           "fresh": false,
-          "ageDays": 1
+          "ageDays": 2
         },
         {
           "url": "https://tallchairadvisor.com/why-standard-chairs-dont-fit/",
@@ -822,7 +839,7 @@
           "error": null,
           "inspectedAt": "2026-08-30T04:53:52.425Z",
           "fresh": false,
-          "ageDays": 1
+          "ageDays": 2
         },
         {
           "url": "https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/",
@@ -838,16 +855,16 @@
           "error": null,
           "inspectedAt": "2026-08-30T04:53:59.901Z",
           "fresh": false,
-          "ageDays": 1
+          "ageDays": 2
         }
       ],
       "rotation": {
         "batchSize": 10,
         "statePersisting": true,
         "stateNote": null,
-        "stateAgeHours": 23.6,
+        "stateAgeHours": 3.2,
         "sweeping": false,
-        "runs": 19,
+        "runs": 20,
         "cycleNumber": 5,
         "cycleStartedAt": "2026-08-31T04:57:03.707Z",
         "cycleBudgetNights": 5,
@@ -855,34 +872,34 @@
         "lastCompletedCycle": 4,
         "lastCompletedAt": "2026-08-30T04:53:59.901Z",
         "lastCompletedNights": 6,
-        "coveredInCycle": 18,
+        "coveredInCycle": 23,
         "selected": [
           {
-            "url": "https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/",
+            "url": "https://tallchairadvisor.com/chair-specs/",
+            "reason": "new"
+          },
+          {
+            "url": "https://tallchairadvisor.com/office-chairs-for-tall-people/",
+            "reason": "changed"
+          },
+          {
+            "url": "https://tallchairadvisor.com/review/leap-plus/",
+            "reason": "changed"
+          },
+          {
+            "url": "https://tallchairadvisor.com/correct-chair-dimensions/",
+            "reason": "changed"
+          },
+          {
+            "url": "https://tallchairadvisor.com/review/aeron-size-c/",
+            "reason": "changed"
+          },
+          {
+            "url": "https://tallchairadvisor.com/best-office-chairs-under-500/",
             "reason": "changed"
           },
           {
             "url": "https://tallchairadvisor.com/knee-pain-seat-depth/",
-            "reason": "changed"
-          },
-          {
-            "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-3/",
-            "reason": "changed"
-          },
-          {
-            "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-4/",
-            "reason": "changed"
-          },
-          {
-            "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-5/",
-            "reason": "changed"
-          },
-          {
-            "url": "https://tallchairadvisor.com/office-chairs-for-6-foot-7/",
-            "reason": "changed"
-          },
-          {
-            "url": "https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/",
             "reason": "changed"
           },
           {
@@ -905,8 +922,8 @@
     }
   },
   "meta": {
-    "collectedAt": "2026-09-01T04:37:10.664Z",
-    "rowCount": 49,
+    "collectedAt": "2026-09-01T07:47:22.142Z",
+    "rowCount": 50,
     "healthy": true,
     "reason": null
   }
