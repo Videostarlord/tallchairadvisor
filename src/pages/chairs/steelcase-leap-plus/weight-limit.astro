@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BuyBox from '../../../components/BuyBox.astro';
 import Byline from '../../../components/Byline.astro';
 
 const schema = [
@@ -109,6 +110,16 @@ const schema = [
         <p class="font-semibold text-heading text-lg mb-2">Steelcase Leap Plus weight limit: 500 lbs</p>
         <p class="text-sm text-muted-foreground">Tested to BIFMA x5.1 standards. The highest weight capacity in the premium ergonomic chair category — 100 lbs more than the Gesture and 150 lbs more than the Aeron Size C.</p>
       </div>
+
+      <BuyBox
+        href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+        product="Steelcase Leap Plus"
+        verdict={"500 lb BIFMA-tested capacity \u2014 100 lb above the Gesture and 150 lb above the Aeron Size C, with the seat depth range heavier tall users need."}
+        specs={["500 lb capacity", "22\" seat width", "12-year warranty"]}
+        affiliateClass="chair"
+        altHref="/chairs/steelcase-leap-plus/tall-people/"
+        altLabel="Full tall-user fit analysis →"
+      />
 
       <section>
         <h2>The Leap Plus's 500 lb Capacity</h2>

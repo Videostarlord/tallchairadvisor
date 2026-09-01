@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BuyBox from '../../../components/BuyBox.astro';
 import Byline from '../../../components/Byline.astro';
 
 const schema = [
@@ -109,6 +110,16 @@ const schema = [
         <p class="font-semibold text-heading text-lg mb-2">Yes — the widest fit range of any mainstream ergonomic chair</p>
         <p class="text-sm text-muted-foreground">22.5" seat height with the optional 5" cylinder (15.5"–19.5" without it), adjustable seat depth up to 19.75", 25.5" back height, and 500 lb capacity. Correctly configured, the Leap Plus covers tall users from 6'0" up to approximately 6'7" without aftermarket modifications — but that cylinder is a factory option chosen at order time, and above about 6'3" it is the whole ballgame. The only trade-off vs the Aeron: fabric/foam instead of mesh, so less breathable.</p>
       </div>
+
+      <BuyBox
+        href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+        product="Steelcase Leap Plus"
+        verdict={"Covers roughly 6'0\" to 6'7\" when ordered with the optional 5\" cylinder \u2014 the widest fit range of any mainstream ergonomic chair on published specs."}
+        specs={["19.75\" max seat depth", "25.5\" back height", "500 lb capacity"]}
+        affiliateClass="chair"
+        altHref="/chairs/steelcase-leap-plus/seat-height/"
+        altLabel="Why the cylinder choice matters →"
+      />
 
       <section>
         <h2>The Three Dimensions That Determine Fit</h2>

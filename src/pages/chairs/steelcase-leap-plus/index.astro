@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BuyBox from '../../../components/BuyBox.astro';
 
 const schema = [
   {
@@ -97,6 +98,16 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"Adjustable seat depth to 19.75\" and a 500 lb capacity \u2014 on published specs, the strongest fit above 6'4\". The 22.5\" seat height is the optional 5\" cylinder only, and must be specified at order time."}
+      specs={["19.75\" max seat depth", "500 lb capacity", "22.5\" needs the 5\" cylinder"]}
+      affiliateClass="chair"
+      altHref="/gesture-vs-leap-plus/"
+      altLabel="Compare with the Gesture →"
+    />
 
     <!-- Quick Specs -->
     <section class="mb-12">
