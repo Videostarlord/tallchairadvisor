@@ -77,6 +77,30 @@ jobs:
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
 
+      # Answers the question the CTR thesis has never had evidence for: is there
+      # an AI Overview on TCA's own money queries, and is TCA cited inside it?
+      #
+      # Lives HERE rather than in its own workflow for two reasons. Its input is
+      # data/gsc/analysis.json, written four steps above — a separate schedule
+      # would read whatever Monday last committed and silently analyse a stale
+      # query set. And it calls the same DataForSEO SERP endpoint as
+      # competitor-intelligence, so the credential, the quota and the failure mode
+      # are already understood on this runner.
+      #
+      # continue-on-error: this is a NEW instrument. It must never be able to fail
+      # the Monday pull that the rest of the week's agents depend on. A run that
+      # cannot see writes `healthy: false` with a reason and says so; it does not
+      # write a plausible zero.
+      #
+      # ~$0.04/run. AIO_SPEND_LIMIT (default $1) aborts before spending if the
+      # query set ever grows unexpectedly.
+      - name: Track AI Overview presence and citations
+        run: npm run aio:track
+        continue-on-error: true
+        env:
+          DATAFORSEO_USERNAME: ${{ secrets.DATAFORSEO_USERNAME }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+
       - name: Sync keyword gaps to content roadmap
         run: npm run roadmap:sync
         continue-on-error: true
@@ -123,7 +147,14 @@ jobs:
           # nightly.yml until 2026-08-09, so Monday's spend — the SerpAPI burn
           # included, which is the one with a 250/month free-tier cap — was
           # metered into the runner and thrown away. See tuesday.yml.
-          for f in "data/clarity/" "data/ga4/" "data/content-roadmap.json" "data/content-failed.json" "reports/index-monitor.md" "data/agent-health.jsonl" "data/cost-ledger.jsonl"; do
+          #
+          # data/aio/ and raw/aio/ are the AI Overview series. `raw/` is already
+          # staged above, but data/aio/latest.json is not covered by any existing
+          # pattern — and an un-committed archive makes this instrument worthless
+          # rather than merely incomplete: `computeDeltas` reads the PREVIOUS run
+          # off disk, so a series that never leaves the runner has no previous run
+          # and reports "no changes" forever while looking like it is working.
+          for f in "data/clarity/" "data/ga4/" "data/content-roadmap.json" "data/content-failed.json" "reports/index-monitor.md" "data/agent-health.jsonl" "data/cost-ledger.jsonl" "data/aio/"; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "[skip cd] data: Monday pull + index fixes $(date +%Y-%m-%d)"

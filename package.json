@@ -52,7 +52,9 @@
     "brief": "tsx scripts/session-brief.ts",
     "correct": "tsx scripts/corrector.ts",
     "godseye": "npm run collect:all && npm run ledger:evaluate && npm run retention:prune && npm run nightly",
-    "lint:affiliate": "node scripts/lint-affiliate.mjs"
+    "lint:affiliate": "node scripts/lint-affiliate.mjs",
+    "aio:track": "tsx scripts/aio-track.ts",
+    "aio:track:dry": "tsx scripts/aio-track.ts --dry-run"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",

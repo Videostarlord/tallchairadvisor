@@ -55,3 +55,4 @@ export * from './ledger.js';
 export * from './agent-health.js';
 export * from './collectors-rollup.js';
 export * from './execution-log.js';
+export * from './aio-run.js';
