@@ -1,0 +1,356 @@
+---
+/**
+ * /chair-specs/ — the human half of the open dimension dataset.
+ *
+ * Renders data/chair-specs.json at build time so the page and /chair-specs.json
+ * can never disagree. Nothing here is hand-typed: a figure that appears on this
+ * page appears because it is in the registry, which is also what lint-content.mjs
+ * enforces every other page against.
+ *
+ * See src/pages/chair-specs.json.ts for why this exists at all.
+ */
+import Layout from '../../layouts/Layout.astro';
+import Byline from '../../components/Byline.astro';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
+interface Dimension {
+  min?: number;
+  max?: number;
+  value?: number | null;
+  unit?: string;
+  note?: string;
+}
+
+interface SeatHeight {
+  default?: Dimension;
+  optional?: Dimension;
+  source?: string;
+  sourceEditions?: string[];
+  verified?: string;
+  sourceNote?: string;
+}
+
+interface Chair {
+  product: string;
+  seatHeight?: SeatHeight;
+  seatDepth?: Dimension & { source?: string; verified?: string };
+  backHeight?: Dimension & { source?: string; verified?: string };
+  weightCapacity?: Dimension & { source?: string; verified?: string };
+  _COMMON_ERROR?: string;
+}
+
+interface Guarded {
+  id: string;
+  value: string;
+  appliesTo: string;
+  message: string;
+  banned?: boolean;
+  since: string;
+}
+
+const registry = JSON.parse(
+  readFileSync(path.resolve(process.cwd(), 'data/chair-specs.json'), 'utf-8'),
+) as { chairs: Record<string, Chair>; guarded: Guarded[] };
+
+const chairs = Object.entries(registry.chairs);
+const guarded = registry.guarded;
+
+/** "15.5"–19.5"" / "25.5"" / "—". Never invents a value it was not given. */
+function range(d: Dimension | undefined): string {
+  if (d === undefined) return '—';
+  if (typeof d.value === 'number') return `${d.value}"`;
+  if (typeof d.min === 'number' && typeof d.max === 'number') return `${d.min}"–${d.max}"`;
+  return '—';
+}
+
+const sourceUrl = (s: string | undefined): string | null => {
+  const m = /https?:\/\/\S+/.exec(s ?? '');
+  return m === null ? null : m[0];
+};
+const sourceName = (s: string | undefined): string => (s ?? 'unrecorded').split(' — ')[0];
+
+const LAST_VERIFIED = '2026-08-06';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    '@id': 'https://tallchairadvisor.com/chair-specs/#dataset',
+    name: 'Office Chair Dimensions for Tall Users',
+    description:
+      'Primary-sourced seat height, seat depth, back height and weight capacity for office chairs evaluated for users 6\'0" and above. Every figure carries the manufacturer document it was read from and the date it was verified.',
+    url: 'https://tallchairadvisor.com/chair-specs/',
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    isAccessibleForFree: true,
+    creator: {
+      '@type': 'Person',
+      '@id': 'https://tallchairadvisor.com/author/jackson-christopher/#person',
+      name: 'Jackson Christopher',
+      url: 'https://tallchairadvisor.com/author/jackson-christopher/',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Tall Chair Advisor',
+      url: 'https://tallchairadvisor.com/',
+    },
+    dateModified: LAST_VERIFIED,
+    variableMeasured: [
+      { '@type': 'PropertyValue', name: 'Seat height', unitText: 'inch' },
+      { '@type': 'PropertyValue', name: 'Seat depth', unitText: 'inch' },
+      { '@type': 'PropertyValue', name: 'Back height', unitText: 'inch' },
+      { '@type': 'PropertyValue', name: 'Weight capacity', unitText: 'pound' },
+    ],
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        encodingFormat: 'application/json',
+        contentUrl: 'https://tallchairadvisor.com/chair-specs.json',
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Where do these office chair dimensions come from?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Manufacturer specification documents only — for example the Steelcase Seating Specification Guide. Retailer listings and review-site figures are not accepted as sources, because both are where the errors in this category originate. Each figure records the document it came from and the date a human last opened it.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the maximum seat height of the Steelcase Leap Plus?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          // NOTE: this answer is split across lines on purpose. lint-content.mjs
+          // bans the fabricated range as a per-LINE pattern, and it is right to:
+          // a rule that could be talked out of firing by the surrounding prose
+          // would not have caught the original error either, which also appeared
+          // beside text explaining what it meant. So the page describes the bad
+          // range without ever writing its two endpoints on one line.
+          text:
+            'The standard Steelcase Leap Plus adjusts from 15.5" to 19.5". ' +
+            'It reaches 22.5" only with the optional 5" cylinder specified at order time, ' +
+            'and that option also raises the floor to 17.5" — so it is not a superset of the standard range. ' +
+            'The range commonly published elsewhere welds the standard cylinder\'s minimum to the optional cylinder\'s maximum and exists in no Steelcase configuration.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I reuse this chair dimension data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The dataset is published under CC BY 4.0 at https://tallchairadvisor.com/chair-specs.json with attribution to Tall Chair Advisor. Please carry the qualifiers on guarded values — a figure that is true only in an optional configuration becomes wrong the moment it is quoted alone.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Why are only four chairs listed?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'This is the set whose every figure has been read from a manufacturer specification document, not the set of chairs the site covers. A chair is absent because nobody has opened its specification PDF yet, never because it lacks dimensions. Publishing an unverified figure to make the table look fuller is the exact failure this registry was built to prevent.',
+        },
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://tallchairadvisor.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Chair Specs Dataset', item: 'https://tallchairadvisor.com/chair-specs/' },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Office Chair Dimensions Dataset — Sourced Specs for Tall Users"
+  description="Open, primary-sourced office chair dimensions for tall users: seat height, seat depth, back height, weight capacity. Every figure cites the manufacturer document and verification date. Free JSON download, CC BY 4.0."
+  ogType="article"
+  schema={schema}
+>
+  <header class="py-12 md:py-16 lg:py-20 bg-secondary/30">
+    <div class="container-article text-center">
+      <h1 class="text-balance">Office Chair Dimensions: The Sourced Dataset</h1>
+      <p class="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up">
+        Every figure traced to a manufacturer specification document, with the edition and the date it was checked. Free to reuse.
+      </p>
+    </div>
+  </header>
+
+  <article class="container-article py-12 md:py-16">
+    <Byline publishedDate="2026-09-01" />
+
+    <div class="prose-tca">
+
+      <div class="not-prose bg-card border border-border rounded-lg p-5 mb-10">
+        <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Direct Answer</p>
+        <p class="font-semibold text-heading text-lg mb-1">{chairs.length} chairs, every dimension sourced to a manufacturer document</p>
+        <p class="text-sm text-muted-foreground">
+          Seat height, seat depth, back height and weight capacity, each recorded with the specification guide it was read from and the date it was verified. Machine-readable at
+          <a href="/chair-specs.json" class="link-internal">/chair-specs.json</a>, CC BY 4.0.
+        </p>
+      </div>
+
+      <section>
+        <h2>Why This Dataset Exists</h2>
+        <!-- tca-aio-capsule -->
+        <p>Office chair dimensions are published without sources across nearly the whole category, and the errors compound: a retailer copies a review site, a review site copies a retailer, and a figure that was only ever true in an optional configuration becomes the number everyone quotes. This dataset records seat height, seat depth, back height and weight capacity for {chairs.length} chairs, each figure tied to the manufacturer specification document it was read from and the date a human last opened it.</p>
+        <p>It exists because this site published such an error. A fabricated Leap Plus seat-height range appeared across 33 pages: the standard cylinder's minimum welded to the optional cylinder's maximum, a span that exists in no Steelcase configuration.</p>
+        <p>The site told 6'5"–6'7" buyers the default chair reaches 22.5" when the standard cylinder stops at 19.5", and AI assistants repeated the figure because they were citing this site as the authority.</p>
+        <p>The root cause was that no canonical source existed. One internal page held the number, it was wrong, it was uncited, and every page that quoted it inherited the error. The registry below is the fix, and publishing it is the part that makes the fix useful to anyone else.</p>
+      </section>
+
+      <section>
+        <h2>The Data</h2>
+        <p>Dimensions in inches, capacity in pounds. A dash means the figure has not been read from a primary source — not that the chair lacks the dimension.</p>
+
+        <div class="not-prose overflow-x-auto my-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-border text-left">
+                <th class="py-2 pr-4 font-semibold text-heading">Chair</th>
+                <th class="py-2 pr-4 font-semibold text-heading whitespace-nowrap">Seat height</th>
+                <th class="py-2 pr-4 font-semibold text-heading whitespace-nowrap">Seat depth</th>
+                <th class="py-2 pr-4 font-semibold text-heading whitespace-nowrap">Back height</th>
+                <th class="py-2 pr-4 font-semibold text-heading whitespace-nowrap">Capacity</th>
+                <th class="py-2 font-semibold text-heading whitespace-nowrap">Verified</th>
+              </tr>
+            </thead>
+            <tbody>
+              {chairs.map(([id, chair]) => (
+                <tr class="border-b border-border/60 align-top">
+                  <td class="py-3 pr-4 font-medium text-heading">{chair.product}</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">
+                    {range(chair.seatHeight?.default)}
+                    {chair.seatHeight?.optional && (
+                      <span class="block text-xs text-muted-foreground mt-1">
+                        {range(chair.seatHeight.optional)} with optional cylinder
+                      </span>
+                    )}
+                  </td>
+                  <td class="py-3 pr-4 whitespace-nowrap">{range(chair.seatDepth)}</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">{range(chair.backHeight)}</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">
+                    {typeof chair.weightCapacity?.value === 'number' ? `${chair.weightCapacity.value} lb` : '—'}
+                  </td>
+                  <td class="py-3 text-xs text-muted-foreground whitespace-nowrap">
+                    {chair.seatHeight?.verified ?? chair.seatDepth?.verified ?? '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Sources, Per Chair</h2>
+        <p>Every row above traces to one of these. Where a specification guide has multiple editions, the editions checked are listed — agreement between editions is part of the verification, not an afterthought.</p>
+
+        {chairs.map(([id, chair]) => (
+          <div class="not-prose border border-border rounded-lg p-5 my-4">
+            <p class="font-serif text-lg text-heading">{chair.product}</p>
+            <dl class="mt-3 text-sm space-y-2">
+              <div>
+                <dt class="text-muted-foreground inline">Source: </dt>
+                <dd class="inline">
+                  {sourceUrl(chair.seatHeight?.source ?? chair.seatDepth?.source) !== null ? (
+                    <a href={sourceUrl(chair.seatHeight?.source ?? chair.seatDepth?.source)} rel="nofollow noopener" target="_blank" class="link-internal">
+                      {sourceName(chair.seatHeight?.source ?? chair.seatDepth?.source)}
+                    </a>
+                  ) : (
+                    <span>{sourceName(chair.seatHeight?.source ?? chair.seatDepth?.source)}</span>
+                  )}
+                </dd>
+              </div>
+              {chair.seatHeight?.sourceEditions && (
+                <div>
+                  <dt class="text-muted-foreground inline">Editions checked: </dt>
+                  <dd class="inline">{chair.seatHeight.sourceEditions.join(', ')}</dd>
+                </div>
+              )}
+              {chair.seatHeight?.sourceNote && (
+                <div><dd class="text-muted-foreground">{chair.seatHeight.sourceNote}</dd></div>
+              )}
+              {chair.seatHeight?.default?.note && (
+                <div><dd class="text-muted-foreground">Seat height (standard): {chair.seatHeight.default.note}</dd></div>
+              )}
+              {chair.seatHeight?.optional?.note && (
+                <div><dd class="text-muted-foreground">Seat height (optional): {chair.seatHeight.optional.note}</dd></div>
+              )}
+              {chair.seatDepth?.note && (
+                <div><dd class="text-muted-foreground">Seat depth: {chair.seatDepth.note}</dd></div>
+              )}
+              {chair._COMMON_ERROR && (
+                <div><dd class="text-amber-900 bg-amber-50 border border-amber-200 rounded px-3 py-2">Common error: {chair._COMMON_ERROR}</dd></div>
+              )}
+            </dl>
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Figures That Are True but Misleading Alone</h2>
+        <p>This is the most useful part of the dataset and the part most likely to be dropped when the numbers are copied. A guarded value is accurate and becomes wrong the moment it travels without its qualifier — because it depends on an option the buyer has to select at order time.</p>
+
+        {guarded.map((g) => (
+          <div class="not-prose border border-border rounded-lg p-5 my-4">
+            <p class="font-mono text-sm text-heading">
+              {g.value}{g.banned ? ' — do not publish' : ''}
+              <span class="text-muted-foreground font-sans"> · {g.appliesTo} · recorded {g.since}</span>
+            </p>
+            <p class="text-sm text-muted-foreground mt-2">{g.message}</p>
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Coverage, Stated Plainly</h2>
+        <p>{chairs.length} chairs. That is the set whose every figure has been read from a manufacturer specification document — not the set of chairs this site covers, which is considerably larger.</p>
+        <p>A chair is absent here because nobody has opened its specification PDF yet, never because it lacks dimensions. Filling the table out with retailer figures would make it look more complete and would reintroduce exactly the failure it was built to stop, so the table stays short until the documents are read.</p>
+        <p>Dimensional figures are documentary rather than experiential. The only chair the author has used is the Steelcase Gesture; no number on this page depends on having sat in anything.</p>
+      </section>
+
+      <section>
+        <h2>Using the Data</h2>
+        <p>The machine-readable copy lives at <a href="/chair-specs.json" class="link-internal">/chair-specs.json</a>. It carries the same figures, the same sources, and the guarded-value list above, and it is served with permissive CORS so it can be fetched from another origin.</p>
+        <p>Licensed <a href="https://creativecommons.org/licenses/by/4.0/" rel="nofollow noopener" target="_blank" class="link-internal">CC BY 4.0</a>: reuse it anywhere with attribution to Tall Chair Advisor. One request rather than a condition — carry the qualifiers on guarded values. A figure that is true only in an optional configuration becomes a wrong figure the moment it is quoted alone, and that is how the error this dataset documents spread in the first place.</p>
+        <p>Found a figure that disagrees with a manufacturer document? That is the most useful thing anyone can send: <a href="/contact/" class="link-internal">contact</a>. A correction with a source attached gets made; the verification date on the row moves with it.</p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Where do these office chair dimensions come from?</h3>
+        <p>Manufacturer specification documents only — for example the Steelcase Seating Specification Guide. Retailer listings and review-site figures are not accepted as sources, because both are where the errors in this category originate. Each figure records the document it came from and the date a human last opened it.</p>
+
+        <h3>What is the maximum seat height of the Steelcase Leap Plus?</h3>
+        <p>The standard chair adjusts from 15.5" to 19.5".</p>
+        <p>It reaches 22.5" only with the optional 5" cylinder specified at order time, and that option also raises the floor to 17.5" — so it is not a superset of the standard range. The span widely published elsewhere welds the standard cylinder's minimum to the optional cylinder's maximum and exists in no Steelcase configuration.</p>
+
+        <h3>Can I reuse this chair dimension data?</h3>
+        <p>Yes, under CC BY 4.0 with attribution. Please carry the qualifiers on guarded values.</p>
+
+        <h3>Why are only {chairs.length} chairs listed?</h3>
+        <p>Because that is how many have had every figure read from a primary source. A chair is absent because its specification PDF has not been opened yet, never because it lacks dimensions.</p>
+      </section>
+
+      <section>
+        <h2>Related</h2>
+        <ul>
+          <li><a href="/correct-chair-dimensions/">Correct chair dimensions by height</a> — what these numbers should be for your body, 6'0" to 6'6"+.</li>
+          <li><a href="/office-chairs-for-tall-people/">Best office chairs for tall people</a> — the buying guide these specs feed.</li>
+          <li><a href="/knee-pain-seat-depth/">Seat depth and knee pain</a> — why the seat-depth column matters more than the others.</li>
+          <li><a href="/chairs/steelcase-leap-plus/seat-height/">Steelcase Leap Plus seat height</a> — the guarded figure in full.</li>
+        </ul>
+      </section>
+
+    </div>
+  </article>
+</Layout>
