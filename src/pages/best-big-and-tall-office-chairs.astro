@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
 import BuyBox from '../components/BuyBox.astro';
+import CompanionPicks from '../components/CompanionPicks.astro';
 
 const schema = [
   {
@@ -140,6 +141,35 @@ const schema = [
           <strong>Note on testing:</strong> I personally use and have tested the Steelcase Gesture. All other chairs in this guide are research-based assessments drawing on manufacturer specifications, engineering analysis, and aggregated user reports. Where I note "based on published specs" or "community reports suggest," that is the honest sourcing.
         </p>
       </section>
+
+      <CompanionPicks
+        intro={"Capacity and width solve the seat. They do nothing for the two dimensions above it, and these sit in a price band where a wrong guess costs a fraction of a chair."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B0CYWXYZKF?tag=tcaaccessory-20",
+            product: "MABOZOO extra-thick seat cushion",
+            price: "Under $50",
+            why: "Right answer only when the chair has a hard height ceiling and no lumbar system worth losing — which is most chairs in this price band. Wrong on a Gesture, Leap or Aeron.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B076HB7NZS?tag=tcadesk-20",
+            product: "Vari Tall 40 standing desk converter",
+            price: "$350-450 range",
+            why: "The only mainstream converter whose own listing claims coverage up to 6'6\". Standard converters top out around a 44\" standing height, which is short for a tall user.",
+            affiliateClass: "desk",
+          },
+        ]}
+        moreHref="/seat-cushion-height-tall-people/"
+        moreLabel={"When a seat cushion helps and when it hurts →"}
+      />
 
       <section>
         <h2>The Three Specs That Define a Chair for Tall Users</h2>

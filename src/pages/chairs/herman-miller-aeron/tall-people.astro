@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import Byline from '../../../components/Byline.astro';
 import BuyBox from '../../../components/BuyBox.astro';
+import CompanionPicks from '../../../components/CompanionPicks.astro';
 
 const schema = [
   {
@@ -126,6 +127,35 @@ const schema = [
         <h2>The Three Dimensions That Determine Fit</h2>
         <p>Whether the Aeron fits a tall person comes down to three specifications. Here's where the Size C stands on each — and how it compares to the two most common alternatives:</p>
       </section>
+
+      <CompanionPicks
+        intro={"The Aeron's fixed seat depth is not adjustable, but the two dimensions above it are — and the Aeron is the one chair here with a real aftermarket headrest option."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B0B86SYST5?tag=tcaaccessory-20",
+            product: "Engineered Now headrest for the Aeron",
+            price: "$100-170 range",
+            why: "The Aeron is the only chair here with a real aftermarket headrest market. At 6'2\"+ the stock back ends below the base of the skull, which is what the headrest is for.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B01BRLJPZQ?tag=tcaaccessory-20",
+            product: "Uncaged Ergonomics KT2-b keyboard tray",
+            price: "$100-160 range",
+            why: "Raising the chair to fit your legs leaves the desk relatively too low for your arms. A negative-tilt tray restores the wrist angle without lowering the seat again.",
+            affiliateClass: "accessory",
+          },
+        ]}
+        moreHref="/chair-headrest-tall-people/"
+        moreLabel={"Which headrests actually fit, and which do not →"}
+      />
 
     </div>
 

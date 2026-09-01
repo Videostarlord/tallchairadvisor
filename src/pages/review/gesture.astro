@@ -4,6 +4,7 @@ import Byline from '../../components/Byline.astro';
 import RedditInsights from '../../components/RedditInsights.astro';
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
+import CompanionPicks from '../../components/CompanionPicks.astro';
 
 const gestureInsightsPath = path.join(process.cwd(), 'data/reddit/published/steelcase-gesture.json');
 const gestureInsights = existsSync(gestureInsightsPath)
@@ -246,6 +247,35 @@ const schema = [
         <p>The first time I sat in the Gesture, I literally said "woah" out loud to myself. That's not something I planned to write — it's just what happened. The chair felt different in a way I hadn't expected from something I'd only ever evaluated on paper. My posture immediately improved, and over the following weeks I noticed I could study longer without my back becoming a distraction. One evening during a particularly brutal stretch of finals week, I was so drained I actually fell asleep in the chair. The chair was that comfortable.</p>
         <p>The comparison baseline throughout this review is the <a href="/gesture-vs-leap-plus/" class="link-internal">Steelcase Leap Plus</a> — the obvious alternative for tall users who need more dimensional range — and the <a href="/aeron-vs-gesture/" class="link-internal">Herman Miller Aeron Size C</a>, which targets a similar buyer with a fundamentally different design philosophy.</p>
       </section>
+
+      <CompanionPicks
+        intro={"Setting the Gesture to the seat height my legs need leaves my desk relatively too low — the chair solved the seat and moved the problem up to the work surface. These are what fix that half."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B01BRLJPZQ?tag=tcaaccessory-20",
+            product: "Uncaged Ergonomics KT2-b keyboard tray",
+            price: "$100-160 range",
+            why: "Raising the chair to fit your legs leaves the desk relatively too low for your arms. A negative-tilt tray restores the wrist angle without lowering the seat again.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B076HB7NZS?tag=tcadesk-20",
+            product: "Vari Tall 40 standing desk converter",
+            price: "$350-450 range",
+            why: "The only mainstream converter whose own listing claims coverage up to 6'6\". Standard converters top out around a 44\" standing height, which is short for a tall user.",
+            affiliateClass: "desk",
+          },
+        ]}
+        moreHref="/standing-desk-height-tall-people/"
+        moreLabel={"Full desk-height guide for tall users →"}
+      />
 
       <section>
         <h2>Key Specifications</h2>

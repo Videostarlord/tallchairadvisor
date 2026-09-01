@@ -1,0 +1,129 @@
+---
+/**
+ * CompanionPicks.astro — the sub-$300 block, on the pages that actually get read.
+ *
+ * ─── THE MEASUREMENT THIS EXISTS FOR ────────────────────────────────────────
+ *
+ * Three Amazon tracking IDs were created 2026-08-13 to find out which product
+ * class converts. Two exports later the answer is on record and it is not the one
+ * the site is built around:
+ *
+ *   tcachair-20      60 clicks   9 orders   $961.69   $29.25   ($0.4875 EPC)
+ *   tcaaccessory-20   NO ROWS — not one click in any export
+ *   tcadesk-20        NO ROWS — not one click in any export
+ *
+ * And the orders under the chair tag are not chairs. All 6 attributed orders sit
+ * on one ASIN, average item value is $106.85 against $1,300-$1,800 chairs, and
+ * zero units of any chair this site recommends have ever sold. The money is
+ * basket spillover: someone clicks a chair link, Amazon opens a 24-hour window,
+ * and they buy something cheap.
+ *
+ * The two tags measuring the price band that DOES convert have never recorded a
+ * click, and the reason is visible in the link inventory rather than mysterious:
+ * 116 chair links against 14 accessory and 3 desk, and every one of those 17 sits
+ * on an accessory page with a fraction of the traffic. The classes were
+ * instrumented and then never given anywhere to fire from.
+ *
+ * ─── WHY THIS IS NOT "ADD MORE LINKS" ───────────────────────────────────────
+ *
+ * Each pick must be defensible on the page it appears on, which is why the
+ * component takes a list rather than rendering a fixed set. The site's own
+ * accessory pages tell Gesture, Leap and Aeron owners NOT to buy a lumbar cushion
+ * — those chairs have built-in lumbar and a cushion costs 2-4" of seat depth —
+ * and putting one under a Gesture review to fill a slot would contradict a
+ * published position for a few cents. The caller decides what is honest; this
+ * file decides only how it looks.
+ *
+ * ─── PLACEMENT: BELOW THE FIRST CTA, DELIBERATELY ───────────────────────────
+ *
+ * BuyBox.astro documents that first-CTA depth predicts click count almost
+ * perfectly, so the temptation is to put this as high as possible. It goes BELOW
+ * the page's existing primary CTA anyway, for a reason that outranks clicks: the
+ * FTC disclosure has to precede the first affiliate link, and a rendered-position
+ * audit on 2026-08-31 found five pages placing it below one — worst case by
+ * 5,206px. Anything that inserts a CTA above an existing one on 9 pages at once
+ * is a re-run of that failure waiting to happen. Below the primary CTA the
+ * disclosure order is unchanged by construction.
+ *
+ * ─── href IS A FINISHED URL, NEVER BUILT ────────────────────────────────────
+ *
+ * Same contract as BuyBox and for the same reason: lint-affiliate.mjs is a text
+ * scan for a literal `https://www.amazon.com/...tag=...`, and it has an explicit
+ * rule failing any Amazon URL assembled at runtime. A component that built hrefs
+ * from ASINs would take every link passing through it out of the one gate
+ * protecting revenue attribution.
+ */
+interface Pick {
+  /** Literal Amazon URL including ?tag= — never build this. */
+  href: string;
+  product: string;
+  /** The price band, as the reader would see it. Honest ranges, not precise claims. */
+  price: string;
+  /** Why THIS reader needs it. One sentence, specific to being tall. */
+  why: string;
+  /** Must match this ASIN's class in src/data/affiliate-tags.ts. */
+  affiliateClass: 'accessory' | 'desk';
+}
+
+interface Props {
+  /** Section heading. Defaults to the framing that is true on every chair page. */
+  heading?: string;
+  /** One or two sentences establishing why these belong on THIS page. */
+  intro: string;
+  picks: Pick[];
+  /** Optional link to the full guide for the strongest pick. */
+  moreHref?: string;
+  moreLabel?: string;
+}
+
+const {
+  heading = 'After the chair: what a tall setup still needs',
+  intro,
+  picks,
+  moreHref,
+  moreLabel,
+} = Astro.props;
+---
+
+<aside class="not-prose border border-border rounded-lg p-5 my-10" aria-label={heading}>
+  <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Complete the setup</p>
+  <p class="font-serif text-lg text-heading leading-snug mb-2">{heading}</p>
+  <p class="text-sm text-muted-foreground mb-5">{intro}</p>
+
+  <ul class="space-y-4">
+    {picks.map((pick) => (
+      <li class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 pb-4 border-b border-border/60 last:border-0 last:pb-0">
+        <div class="min-w-0">
+          <p class="font-medium text-heading text-sm">
+            {pick.product}
+            <span class="text-muted-foreground font-normal"> · {pick.price}</span>
+          </p>
+          <p class="text-sm text-muted-foreground mt-1">{pick.why}</p>
+        </div>
+        <a
+          href={pick.href}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          class="shrink-0 inline-flex items-center justify-center gap-2 border border-primary text-primary px-4 py-2 rounded-md font-medium hover:bg-primary hover:text-primary-foreground transition-colors text-sm whitespace-nowrap"
+          data-affiliate-cta="true"
+          data-affiliate-program="amazon"
+          data-affiliate-class={pick.affiliateClass}
+          data-cta-label={`View ${pick.product} on Amazon`}
+          {/* A distinct position value on purpose. These sit below the page's
+              primary CTA, and folding them into "after-answer" would make the
+              placement analysis that produced BuyBox unable to tell the two
+              apart the next time it is run. */}
+          data-cta-position="companion"
+        >
+          Check price
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  {moreHref && moreLabel && (
+    <p class="mt-4 text-sm">
+      <a href={moreHref} class="link-internal">{moreLabel}</a>
+    </p>
+  )}
+</aside>
