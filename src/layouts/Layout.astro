@@ -81,7 +81,37 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
           window.dataLayer = window.dataLayer || [];
           window.gtag = function gtag(){window.dataLayer.push(arguments);}
           window.gtag('js', new Date());
-          window.gtag('config', gaMeasurementId);
+
+          // ─── PROBE TRAFFIC EXCLUSION (2026-09-01) ──────────────────────────
+          //
+          // The God's-Eye nightly loads every page in a real browser, so every
+          // run posts ~54 genuine GA4 page_views from CI. Measured Aug 3-31:
+          // 1,929 of 2,188 sessions (88%) were the probe fleet, spread almost
+          // uniformly across all 53 pages — including 21 pages with zero Google
+          // clicks. That floor made engagement rate, bounce, and session
+          // duration unreadable for the whole property.
+          //
+          // WHY traffic_type AND NOT A BLOCKED BEACON. probe-page.ts asserts
+          // that /g/collect COMPLETES with a <400 response — that assertion is
+          // the entire reason the probe uses a browser, and it caught a
+          // month-long CSP outage on June 16. Suppressing the hit client-side
+          // would turn a working alarm into a permanently green one. So the hit
+          // still fires; GA4 drops it server-side via the Internal Traffic
+          // filter, and the assertion still sees a real 2xx.
+          //
+          // ⚠ REQUIRES A ONE-TIME GA4 CONSOLE STEP TO TAKE EFFECT — this code
+          //   only labels the hit. Admin → Data Streams → Configure tag
+          //   settings → Show all → Define internal traffic → create a rule
+          //   matching traffic_type = internal; then Admin → Data Filters →
+          //   activate the "Internal Traffic" filter. Until that filter is
+          //   ACTIVE (not Testing), probe sessions keep landing in reports.
+          //   See AUTOPILOT.md.
+          //
+          // The UA suffix is set in scripts/probes/probe-page.ts (USER_AGENT).
+          // Keep the two in sync: if that string changes, this stops matching
+          // and the pollution returns silently.
+          var isProbe = / TCA-godseye-probe\//.test(navigator.userAgent);
+          window.gtag('config', gaMeasurementId, isProbe ? { traffic_type: 'internal' } : {});
         </script>
         <script is:inline>
           // All four IDs, because the check below decides whether a click is
@@ -219,6 +249,22 @@ const breadcrumbs: { name: string; href: string }[] = breadcrumbSchema?.itemList
 
     <!-- Microsoft Clarity -->
     <script type="text/javascript" is:inline>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "wqec7ap5fe");</script>
+    <script type="text/javascript" is:inline>
+      // Label probe sessions in Clarity too, for the same reason as GA4 above.
+      //
+      // Clarity's own bot detection ALREADY appears to drop most of these: over
+      // 2026-08-30/31 Clarity recorded ~15 sessions site-wide where GA4
+      // recorded ~140. So this is belt-and-braces, not the primary fix — but it
+      // makes the exclusion checkable in the Clarity UI (Filters → Custom tags)
+      // instead of inferred from a volume gap.
+      //
+      // The `clarity()` shim above queues calls before the tag loads, so this
+      // is safe to run immediately. It does not prevent the tag from firing —
+      // probe-page.ts asserts that it does.
+      if (/ TCA-godseye-probe\//.test(navigator.userAgent) && typeof window.clarity === 'function') {
+        window.clarity('set', 'traffic_type', 'internal');
+      }
+    </script>
 
     <!-- Impact Universal Tracking Tag (affiliate — impact.com) -->
     <script type="text/javascript" is:inline>(function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A7520162-06d8-497a-9901-740bba6ba6d71.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');</script>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BuyBox from '../../../components/BuyBox.astro';
 import Byline from '../../../components/Byline.astro';
 
 const schema = [
@@ -109,6 +110,16 @@ const schema = [
         <p class="font-semibold text-heading text-lg mb-2">Steelcase Gesture weight limit: 400 lbs</p>
         <p class="text-sm text-muted-foreground">Tested to BIFMA x5.1 standards. If you're over 300 lbs and also tall (6'3"+), the Leap Plus (500 lbs, wider seat) is worth considering instead.</p>
       </div>
+
+      <BuyBox
+        href="https://www.amazon.com/dp/B016OIF2JU?tag=tcachair-20"
+        product="Steelcase Gesture"
+        verdict={"400 lb capacity with a 21\" seat height ceiling. Above 400 lb \u2014 or past about 6'4\" \u2014 the Leap Plus is the specified alternative."}
+        specs={["400 lb capacity", "16\"\u201321\" seat height", "24\" back height"]}
+        affiliateClass="chair"
+        altHref="/chairs/steelcase-leap-plus/weight-limit/"
+        altLabel="Leap Plus rates to 500 lb →"
+      />
 
       <section>
         <h2>The Gesture's 400 lb Capacity</h2>

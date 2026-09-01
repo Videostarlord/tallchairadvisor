@@ -24,6 +24,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// MUST stay above the nightly-report import — it captures the before-picture.
+import { WATCHED, fingerprint } from './fixtures/pre-import-snapshot.js';
 import { decideVerdict, countNeedsYou } from '../../nightly-report.js';
 
 let passed = 0;
@@ -126,14 +128,21 @@ console.log('\nimporting nightly-report must be side-effect free');
     !/^main\(\)/m.test(source),
     'an unguarded top-level main() call is present',
   );
-  // The proof, not the proxy: this test has already imported the module. If the
-  // guard were absent, today's report would exist on disk by now.
-  const today = new Date().toISOString().slice(0, 10);
-  assert(
-    'importing it did not write today\'s report',
-    !existsSync(resolve(root, `wiki/nightly/${today}.md`)) || process.env.TCA_NIGHTLY_RAN === '1',
-    `wiki/nightly/${today}.md exists — the import ran the nightly`,
-  );
+  // The proof, not the proxy: pre-import-snapshot.js fingerprinted the nightly's
+  // output files before this module's import of nightly-report.js evaluated. If
+  // the guard were absent, at least one of them would have changed by now.
+  //
+  // This asks "did it CHANGE?", not "does it exist?". The old form asserted
+  // absence, which the real nightly falsifies every day after 00:00 UTC when it
+  // commits wiki/nightly/<today>.md — the test failed daily in CI on pushes that
+  // touched nothing.
+  for (const [rel, before] of Object.entries(WATCHED)) {
+    assert(
+      `importing it did not write ${rel}`,
+      fingerprint(rel) === before,
+      `${rel} changed during import (was ${before}, now ${fingerprint(rel)}) — the import ran the nightly`,
+    );
+  }
 }
 
 // ─── done ─────────────────────────────────────────────────────────────────────

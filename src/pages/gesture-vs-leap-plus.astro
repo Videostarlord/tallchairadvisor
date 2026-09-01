@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BuyBox from '../components/BuyBox.astro';
 import Byline from '../components/Byline.astro';
 
 const schema = [
@@ -115,6 +116,25 @@ const schema = [
       <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B016OIF2JU?tag=tcachair-20"
+      product={"Steelcase Gesture \u2014 for 6'0\"\u20136'3\""}
+      verdict={"The better fit through 6'3\": 18.75\" seat depth, a 21\" seat height ceiling on its standard cylinder, and the widest armrest range of the two."}
+      specs={["18.75\" seat depth", "16\"\u201321\" seat height", "400 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/chairs/steelcase-gesture/"
+      altLabel="Full Gesture specs →"
+    />
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product={"Steelcase Leap Plus \u2014 for 6'3\" and above"}
+      verdict={"The better dimensional fit above 6'3\" on seat depth (19.75\") and back height (25.5\") \u2014 but only ordered with the optional 5\" cylinder. On the standard cylinder it stops at 19.5\", below the Gesture."}
+      specs={["19.75\" seat depth", "25.5\" back height", "22.5\" needs the 5\" cylinder"]}
+      affiliateClass="chair"
+      altHref="/chairs/steelcase-leap-plus/"
+      altLabel="Full Leap Plus specs →"
+    />
 
     <div class="prose-tca">
 

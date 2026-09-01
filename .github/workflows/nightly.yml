@@ -101,8 +101,52 @@ jobs:
       # nightly Amazon Associates pull; that automation was RETIRED 2026-08-26
       # (see wiki/synthesis/decisions-log.md). Affiliate data is hand-dropped
       # into raw/affiliate/ and collectors/amazon.ts nags at 7 days.
+      # ─── AUTOPILOT CADENCE (2026-09-01) ────────────────────────────────────
+      #
+      # TCA is frozen for a data-collection period (see AUTOPILOT.md). The
+      # collectors stay NIGHTLY — GSC/GA4/Clarity are the whole point of the
+      # period and they cost cents. The 54-page Playwright sweep drops to
+      # WEEKLY, for three reasons:
+      #
+      #   1. Nothing changes between runs. The probe's value is detecting drift
+      #      on a site that ships; on a frozen site six of every seven sweeps
+      #      re-measure an identical build.
+      #   2. It is the expensive step — chromium install + 54 page loads +
+      #      visual diffing, every night, on an asset earning ~$40/month.
+      #   3. It posts ~54 real GA4 page_views per run. Layout.astro now tags
+      #      those `traffic_type: internal`, but that only takes effect once the
+      #      GA4 console filter is ACTIVE. Weekly limits the damage if the
+      #      filter is never switched on.
+      #
+      # It stays weekly rather than off because it is the ONLY thing that would
+      # notice the site silently breaking while unattended — a CSP rule blocked
+      # GA4 collect for a month in June while every dashboard looked healthy.
+      # Weekly still catches that inside 7 days. Off would not catch it at all,
+      # and a data-collection period that quietly collects nothing is the worst
+      # outcome available here.
+      #
+      # Sunday is deliberate: it is the same night the written narrative runs,
+      # so the one report a week that gets read is the one with fresh probe data
+      # underneath it.
+      - name: Decide whether probes run tonight
+        id: cadence
+        run: |
+          if [ "${{ inputs.skip_probes }}" = "true" ]; then
+            echo "Probes explicitly skipped for this run."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual dispatch — probes run."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [ "$(date -u +%u)" = "7" ]; then
+            echo "Sunday — weekly probe sweep runs."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Weekday under autopilot — collectors only, no probe sweep."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install chromium
-        if: ${{ !inputs.skip_probes }}
+        if: ${{ steps.cadence.outputs.run == 'true' }}
         continue-on-error: true
         run: npx playwright install --with-deps chromium
 
@@ -157,7 +201,7 @@ jobs:
       # cannot overwrite an existing baseline: only a deliberate re-baseline does.
       - name: Probe live site (tags fire, head truth, CWV, GEO, visual)
         id: probe
-        if: ${{ !inputs.skip_probes }}
+        if: ${{ steps.cadence.outputs.run == 'true' }}
         continue-on-error: true
         run: npm run probe -- --visual --visual-artifacts visual-diffs ${{ inputs.rebaseline_visual && '--rebaseline' || '' }}
         env:
@@ -166,7 +210,7 @@ jobs:
       # Only written when a page exceeded the threshold, so an empty upload is the
       # normal case and means "nothing moved".
       - name: Upload visual diffs
-        if: ${{ !inputs.skip_probes }}
+        if: ${{ steps.cadence.outputs.run == 'true' }}
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:

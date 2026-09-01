@@ -1,5 +1,21 @@
 name: Tuesday — Full Site Audit
 
+# AUTOPILOT (2026-09-01): MONTHLY, not weekly. See AUTOPILOT.md.
+#
+# This agent INTERPRETS data; it collects none. Under a content freeze the site
+# does not change between runs, so a weekly audit re-audits an identical build
+# and files recommendations against pages nobody is going to edit — the
+# "documents outpacing the work" pattern the Sept 2026 outside audit named as
+# the single thing to stop doing.
+#
+# It stays ON rather than off because it is the only check that would notice a
+# structural content regression — a dropped disclosure, a broken schema block —
+# that the probe assertions do not cover. Monthly catches that in time to
+# matter on a frozen site, at a quarter of the spend.
+#
+# WHY A GATE JOB AND NOT A NARROWER CRON. GitHub treats day-of-month and
+# day-of-week as OR, so '0 8 1-7 * 2' would fire on the 1st-7th *and* on every
+# Tuesday — more often, not less. The cron stays weekly and this job decides.
 on:
   schedule:
     - cron: '0 8 * * 2' # 8:00 UTC = 1:00 AM PDT
@@ -13,7 +29,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  cadence:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      - id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual dispatch — audit runs."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [ "$(date -u +%d)" -le 07 ]; then
+            echo "First Tuesday of the month — audit runs."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Not the first Tuesday — skipping (autopilot monthly cadence)."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
   audit:
+    needs: cadence
+    if: ${{ needs.cadence.outputs.run == 'true' }}
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true

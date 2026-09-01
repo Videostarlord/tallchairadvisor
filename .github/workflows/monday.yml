@@ -69,8 +69,23 @@ jobs:
         env:
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
 
-      - name: Run competitor intelligence
-        run: npx tsx scripts/competitor-intelligence.ts
+      # AUTOPILOT (2026-09-01): this file's own header has always said
+      # "Cadence: monthly" — the workflow ran it every Monday anyway. The 30-day
+      # crawl cache hid most of the cost, but the model analysis still ran four
+      # times a month, and it is the second-largest LLM line in the ledger
+      # ($2.89 of $17.64 in August). Under autopilot the site is frozen and
+      # competitors move slowly, so make the documented cadence real.
+      #
+      # Runs on the first Monday of each month. `date -u +%d` is 01-07 exactly
+      # once per month on any given weekday, and this job only runs on Mondays.
+      - name: Run competitor intelligence (first Monday of the month)
+        run: |
+          DOM=$(date -u +%d)
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ] && [ "$DOM" -gt 07 ]; then
+            echo "Day $DOM — not the first Monday. Skipping competitor intelligence (monthly cadence)."
+            exit 0
+          fi
+          npx tsx scripts/competitor-intelligence.ts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DATAFORSEO_USERNAME: ${{ secrets.DATAFORSEO_USERNAME }}

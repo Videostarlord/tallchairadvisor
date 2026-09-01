@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import BuyBox from '../../../components/BuyBox.astro';
 import Byline from '../../../components/Byline.astro';
 
 const schema = [
@@ -109,6 +110,16 @@ const schema = [
         <p class="font-semibold text-heading text-lg mb-1">15.5"–19.5" standard — 17.5"–22.5" with the optional cylinder</p>
         <p class="text-sm text-muted-foreground">The Leap Plus ships with a standard cylinder that stops at 19.5" — lower than the Steelcase Gesture (21") and the Herman Miller Aeron Size C (20.5"). Steelcase offers an optional 5" cylinder (about $63) that raises the ceiling to 22.5", the highest of the three, while also raising the floor to 17.5". If you are above roughly 6'2", you need to specify that cylinder when you order.</p>
       </div>
+
+      <BuyBox
+        href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+        product="Steelcase Leap Plus"
+        verdict={"The standard cylinder gives 15.5\"\u201319.5\"; the optional 5\" cylinder gives 17.5\"\u201322.5\". Above roughly 6'3\", which one you order decides whether the chair fits at all."}
+        specs={["15.5\"\u201319.5\" standard", "17.5\"\u201322.5\" with the 5\" cylinder", "chosen at order time"]}
+        affiliateClass="chair"
+        altHref="/chairs/steelcase-leap-plus/tall-people/"
+        altLabel="Full tall-user fit analysis →"
+      />
 
       <section>
         <h2>Leap Plus Seat Height: The Spec Explained</h2>
