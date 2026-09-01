@@ -116,19 +116,19 @@
         "cron": "0 0 * * *",
         "expectedCadenceDays": 1,
         "lastRun": {
-          "runNumber": 31,
+          "runNumber": 32,
           "status": "in_progress",
           "conclusion": null,
-          "startedAt": "2026-09-01T07:45:17Z",
-          "finishedAt": "2026-09-01T07:45:22Z",
+          "startedAt": "2026-09-01T07:48:25Z",
+          "finishedAt": "2026-09-01T07:48:30Z",
           "daysAgo": 0,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33483660224",
-          "headSha": "f15fac8a0c26016264b4d83c0dbfbc84a8ccc053",
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33483915219",
+          "headSha": "354b508bbf9514f3945d304c42acbe868936889c",
           "event": "workflow_dispatch"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-09-01T07:45:17Z) and run end + 15min (2026-09-01T08:00:22.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-09-01T07:48:25Z) and run end + 15min (2026-09-01T08:03:30.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -182,8 +182,10 @@
           "headSha": "f15fac8a0c26016264b4d83c0dbfbc84a8ccc053",
           "event": "push"
         },
-        "committedDuringRun": 0,
-        "commitSubjects": [],
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] nightly: god's-eye 2026-09-01"
+        ],
         "commitInferenceMethod": "bot commits on main between run start (2026-09-01T07:45:14Z) and run end + 15min (2026-09-01T08:00:52.000Z) — inferred, not authoritative",
         "stale": false
       },
@@ -269,12 +271,11 @@
     "wroteNothing": [
       "Clarity — Behavioral History",
       "Friday — New Content (Conditional)",
-      "Tests",
       "Thursday — Execute Fixes"
     ]
   },
   "meta": {
-    "collectedAt": "2026-09-01T07:46:16.404Z",
+    "collectedAt": "2026-09-01T07:49:14.772Z",
     "rowCount": 12,
     "healthy": true,
     "reason": null

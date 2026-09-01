@@ -12,16 +12,16 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "3e849f54-39c3-4c74-85e7-44470d86a659",
-      "shortId": "3e849f54",
+      "deploymentId": "a22889dd-72e5-4761-872e-01242554d98d",
+      "shortId": "a22889dd",
       "environment": "production",
-      "url": "https://3e849f54.tallchairadvisor.pages.dev",
-      "createdOn": "2026-09-01T07:45:13.387624Z",
+      "url": "https://a22889dd.tallchairadvisor.pages.dev",
+      "createdOn": "2026-09-01T07:47:59.456013Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "f15fac8a0c26016264b4d83c0dbfbc84a8ccc053",
-      "commitMessage": "docs(wiki): ingest the 2026-09-01 findings into the entity and concept pages\n\nSnapshot: raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md\n\nNew:\n- wiki/pages/concepts/aio-citation-tracking.md — the instrument, its limits, and\n  the explicit warning not to quote it until two runs agree\n- wiki/pages/site-pages/chair-specs-dataset.md — including \"do not score this as\n  a money page, a citation target that sells things is one nobody cites\"\n\nUpdated:\n- affiliate-performance.md — two of three tags have never recorded a click, and\n  the cause was the link inventory rather than the copy\n- ctr-optimization.md — the 80% AIO figure has never been observed; flagged at\n  the top of the page rather than left as a quoted number\n- godseye-nightly.md — escalated was pointed at the instrumentation for three\n  weeks, plus the new seam rule\n- index.md, log.md, decisions-log.md\n\nNew seam rule recorded: a detector that can tell it is blind must say so in the\nfield the verdict is read from. A correct diagnosis written where nothing reads\nit is the same as no diagnosis.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01RWBfWT7BnDrCuNq1DpcGht"
+      "commitHash": "354b508bbf9514f3945d304c42acbe868936889c",
+      "commitMessage": "[skip cd] nightly: god's-eye 2026-09-01"
     },
     "cache": {
       "windowDays": 7,
@@ -88,7 +88,7 @@
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-09-01T07:46:12.322Z",
+    "collectedAt": "2026-09-01T07:49:10.495Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null

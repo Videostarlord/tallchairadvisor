@@ -1,6 +1,6 @@
 # Session Brief — 2026-09-01
 
-_Generated 2026-09-01T07:47:54.726Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-01T07:50:52.578Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -74,13 +74,13 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 ## Open work the pipeline is tracking
 
-- Ledger: {"open": 3, "closed": 56, "escalated": 10, "regressed": 0, "total": 69, "retractedSkipped": 0}
-  - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
-  - **/correct-chair-dimensions/** — position 9.7 does not satisfy < 9.6
-  - **/office-chairs-for-tall-people/** — position 9 does not satisfy < 8.1
-  - **/chairs/herman-miller-aeron/size-guide/** — a mobile baseline was created on this run, so the comparison is against itself — proves nothing
-  - **/chairs/steelcase-gesture/** — a mobile baseline was created on this run, so the comparison is against itself — proves nothing
-  - **/monitor-arm-tall-people/** — a mobile baseline was created on this run, so the comparison is against itself — proves nothing
+- Ledger: {"open": 2, "closed": 64, "escalated": 3, "regressed": 0, "total": 69, "retractedSkipped": 0}
+  - **/chairs/herman-miller-aeron/size-guide/** — mobile render differs from baseline by 0% (under 2%)
+  - **/chairs/steelcase-gesture/** — mobile render differs from baseline by 0% (under 2%)
+  - **/monitor-arm-tall-people/** — mobile render differs from baseline by 0% (under 2%)
+  - **/review/aeron-size-c/** — mobile render differs from baseline by 0% (under 2%)
+  - **/review/gesture/** — mobile render differs from baseline by 0% (under 2%)
+  - **/best-big-and-tall-office-chairs/** — mobile render differs from baseline by 0% (under 2%)
 
 ---
 
