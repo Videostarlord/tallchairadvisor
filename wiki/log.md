@@ -11,6 +11,230 @@ type: log
 - /index.astro → src/pages/index.astro
 - /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
 - /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
+## [2026-09-01] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-01
+- Pages recorded: 58
+- Device split: {"mobile":0.367,"pc":0.633,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/gesture-vs-leap-plus/: 37% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 35% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/?utm_source=chatgpt.com: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 30% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 46
+
+
+## [2026-09-01] keywords-approve | Automated keyword approval
+
+- Candidates judged: 11 (of 11 total)
+- **Approved: 0**
+- Existing pages checked against: 55
+- Nothing qualified. This is a recorded result, not a skipped step — see `approval_reason` on each entry.
+
+
+### 2026-09-01 — keyword-discovery.ts run
+- Seeds: GSC=15, Competitor=0, Deduped=15
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 11
+- After filter: 11 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 11 (gap=0, targeting=0, ranking=11)
+- Mode: production
+
+## [2026-08-31] index-monitor | Indexing Health Check
+
+- Pages inspected: 54 | Redirect sources: 10
+- Indexed: 46 | Page issues: 8 | Redirect issues: 10 | Fixed: 0
+- Sitemap resubmitted: true
+- Page issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (noindex), https://tallchairadvisor.com/contact/ (noindex), https://tallchairadvisor.com/lumbar-support-tall-people/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait)
+- Redirect issues: https://tallchairadvisor.com/author/marcus-reid, https://tallchairadvisor.com/author/marcus-reid/, https://tallchairadvisor.com/best-office-chairs/, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/, https://tallchairadvisor.com/best-office-chairs, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people
+
+
+## [2026-08-31] competitor-intelligence v2.5 | Strategic Run
+
+- Pages: 8 | Queries: 21 | Crawls: 14 (47 cached)
+- High-priority gaps: 11
+- AIO tasks: 2 generated | 0 applied to src/pages/ (0 fallback) | 0 rejected (spec mismatch) | 0 pending passage text
+- 8 pages analyzed × up to 3 queries each. 14 URLs crawled (47 cache hits). 11 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.
+
+
+## [2026-08-31] ga4-pull | GA4 Data Pull
+
+- Period: 2026-08-03 → 2026-08-31 (28 days)
+- Sessions: 2188 | Users: 2147 | Views: 2336
+- Engagement rate: 10.3% | Avg duration: 23s
+- Affiliate clicks: 93 | ChatGPT sessions: 76
+- Pages: 68 | Channels: 5
+
+
+## [2026-08-31] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-08-31
+- Pages recorded: 55
+- Device split: {"mobile":0.476,"tablet":0.19,"pc":0.333,"other":0}
+- Behavioral alerts: 11
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/?utm_source=chatgpt.com: 19% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/: 19% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 18% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/: 18% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 18% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 45
+
+
+## [2026-08-31] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 21 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 37 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions up 17% WoW (5198 vs 4441), clicks down 12.5% (28 vs 32), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-08-31] gsc-pull | GSC Data Pull
+
+- Period: 2026-06-02 → 2026-08-31 (90 days)
+- Pages: 53 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 82 | Daily trend rows: 89
+- Clicks: 291 | Impressions: 99939 | Avg pos: 8.1
+
+
+## [2026-08-29] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-08-29
+- Pages recorded: 51
+- Device split: {"mobile":0.333,"pc":0.667,"other":0}
+- Behavioral alerts: 13
+  - [low-scroll-depth] https://tallchairadvisor.com/leg-pain-circulation/: 36% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 32% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/monitor-arm-tall-people/: 30% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 30% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 26% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 44
+
+
+## [2026-08-28] clarity-pull | Behavioral Data Pulled
+
+- Pages with data: 55
+- Device split: {"mobile":0.239,"pc":0.761,"other":0}
+- Behavioral alerts: 18
+  - [low-scroll-depth] https://tallchairadvisor.com/monitor-arm-tall-people/: 37% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/gesture-vs-leap-plus/: 36% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 33% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 31% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/: 31% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 30% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 27% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-5/: 25% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/: 22% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/sihoo-doro-s300/: 21% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 19% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 18% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 16% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/?utm_source=chatgpt.com: 16% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/lumbar-support-tall-people/: 11% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/: 10% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/aeron-size-c/: 7% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-6/: 6% avg scroll depth — most content below fold not seen
+
+
+## [2026-08-28] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 19 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 35 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions up 7.6% WoW (4747 vs 4410), clicks up 39.1% (32 vs 23), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-08-28] gsc-pull | GSC Data Pull
+
+- Period: 2026-05-30 → 2026-08-28 (90 days)
+- Pages: 53 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 82 | Daily trend rows: 89
+- Clicks: 283 | Impressions: 100562 | Avg pos: 8.1
+
+
+## [2026-08-28] clarity-pull | Behavioral Data Pulled
+
+- Pages with data: 55
+- Device split: {"mobile":0.243,"pc":0.757,"other":0}
+- Behavioral alerts: 18
+  - [low-scroll-depth] https://tallchairadvisor.com/monitor-arm-tall-people/: 37% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/gesture-vs-leap-plus/: 36% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 33% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 31% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/: 31% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 30% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/: 27% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-5/: 25% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/: 22% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/sihoo-doro-s300/: 21% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 19% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 18% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/correct-chair-dimensions/: 16% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/?utm_source=chatgpt.com: 16% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/lumbar-support-tall-people/: 11% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/: 10% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/aeron-size-c/: 7% avg scroll depth — most content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-6/: 6% avg scroll depth — most content below fold not seen
+
+
+## [2026-08-28] ga4-pull | GA4 Data Pull
+
+- Period: 2026-07-31 → 2026-08-28 (28 days)
+- Sessions: 2050 | Users: 2007 | Views: 2203
+- Engagement rate: 11.1% | Avg duration: 26s
+- Affiliate clicks: 96 | ChatGPT sessions: 86
+- Pages: 68 | Channels: 5
+
+
+## [2026-08-28] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 19 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 35 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions up 7.6% WoW (4747 vs 4410), clicks up 39.1% (32 vs 23), avg position stable
+- Query entropy: 3 fragmented pages
+- Hub candidates: 3
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-08-28] gsc-pull | GSC Data Pull
+
+- Period: 2026-05-30 → 2026-08-28 (90 days)
+- Pages: 53 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 82 | Daily trend rows: 89
+- Clicks: 283 | Impressions: 100562 | Avg pos: 8.1
+
+
+## [2026-08-27] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-08-27
+- Pages recorded: 54
+- Device split: {"mobile":0.225,"pc":0.775,"other":0}
+- Behavioral alerts: 12
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-5/: 38% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/gesture-vs-leap-plus/: 36% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 30% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 43
 
 
 ## [2026-08-27] strategy | Weekly Plan Generated
@@ -3944,3 +4168,401 @@ The decision was recorded instead — see [[what-failed]]. Position was the wron
 **Verification:** **26/26 test files pass** (was 25/26 — the one failure was `data/gsc/analysis.json` being 404h stale in the old checkout, resolved by the rebase, not by any code change). `lint:architecture` 0 new violations. `tsc --noEmit` unchanged. Saturday's merge verified conflict-free in a throwaway worktree.
 
 Related: [[affiliate-performance]] · [[what-failed]] · [[godseye-nightly]] · [[open-issues-status]] · [[decisions-log]]
+
+## 2026-08-28 — the chair tag converted, and a decision written 48 hours ago had to be revoked
+
+**`tcachair-20`: 59 clicks, 6 items ordered, $943.79, $28.54 earnings.** On 2026-08-26 the identical tag read **45 clicks, 0 orders, $0.00**, and a directive was written from it: *"stop treating Amazon chair clicks as a revenue path."* That directive is revoked. Two days.
+
+**Window solved again — the method is now twice-confirmed.** Summing the frozen per-day rows in `data/affiliate/latest.json` from 2026-07-29 reproduces this export's `others` row on **five independent quantities** (3 shipped, $2,276.78, $68.30, 2 ordered, $227.98). Rolling 30-day, **Jul 29 – Aug 27**. The retired pull's last output keeps earning its keep as a decoder.
+
+**What is true, and what was never true.** The six converting items average **$157.30**. The Leap Plus is ~$1,300, the Gesture ~$1,500, the Aeron Size C ~$1,800. **Not one of them is a chair this site recommends.** So the narrow claim survives and the broad one dies:
+
+- *"$500+ chair links do not produce chair sales"* — **still true**, 0 chair units in the entire archive.
+- *"Chair clicks are not a revenue lever"* — **false**. They are a **$0.48/click** lever, and Amazon states a **12.24% product conversion rate** on the Leap Plus row outright. The money arrives as basket spillover inside the 24-hour window a chair click opens.
+
+**The failure worth keeping is methodological, and it is the mirror of one this pipeline already guards against.** The 2026-08-26 data was correct — the tag really did show $0.00 over 12 days. The error was treating **one reading of a low-volume metric as a settled result**. At ~6 orders a month, a 12-day window containing zero orders is an ordinary sample, not evidence of a zero rate. **$0.00 is not a measurement of zero; it is a measurement of "no event in this window."** `MEANINGFUL_POSITION_DELTA` and the [[statistical-confidence-policy]] exist to stop noise being written up as a win. This was the same mistake inverted — **noise written up as a loss, and strategy routed away from a working channel on the strength of it.** A null result at low volume needs the same confirmation discipline as a positive one, and it did not get it because a round number felt conclusive.
+
+**Restraint applies to the good news too.** n = 6 orders, one export, contradicting a reading 48 hours old. At 139 clicks/30d the run rate is ~$67/month. **Neither $0.00 nor $28.54 is yet a fact about this site.** No plan turns again until a third and fourth export agree — recorded that way in [[decisions-log]] and [[thesis]] rather than as a new certainty.
+
+**The tag split is vindicated twice over.** It produced the false negative *and* the correction, inside 15 days, on a channel that was completely invisible before 2026-08-13 — the money used to sit in an `others` bucket and read as an accident. It is not an accident; it is a repeatable ~10% conversion on traffic this site originates.
+
+**Also:** clicks 131 → 139. Leap Plus 49 (still #1, and the row the conversions landed on), Gesture 30, Aeron 18, Crandall 11. Tag migration nearly complete — `tcachair-20` 59 vs legacy 75, up from 45 vs 81. **August close revised from ~$12.15 to ~$35.38**, still under the $100 gate, return window open. Cross-dimension mismatch again: linked-product says $87.15 on the ASIN, tracking-id says $28.54 on the tag; **for "do chair links earn?" the tracking-ID row is authoritative**, since the tag is what `affiliate-tags.ts` controls and what Amazon attributes the session against.
+
+Related: [[affiliate-performance]] · [[decisions-log]] · [[thesis]] · [[review-leap-plus]] · [[statistical-confidence-policy]]
+
+## 2026-08-28 (second session) — the 39k-impression page was never addressable, and the CTAs were below where people stop
+
+### 1. /knee-pain-seat-depth/ diagnosed: it is machine retrieval, not demand
+
+The page carries **39,186 impressions (39% of the site) at position 5.6 and 13 clicks**. Asking GSC for *that page's own* queries — which the standard pull never does — returns 133 rows summing to **1,635 impressions, 4.2% of its total**. The other 95.8% carry no query, no country and no device.
+
+**The queries that ARE named settle it.** "cornell ergonomics office chair seat pan depth 2 inches behind knees". "seat depth 2-3 fingers behind knees ergonomics source". "how much of a gap should be between the front of your chair and the back of your knees". And two that are not searches at all: **"context: location: united kingdom (not for language"** and **"answer"** — fragments of an LLM's own prompt leaking into Search Console. They rank **1.5–2.5** and take **zero clicks across hundreds of impressions**, because there is no human on the other end to click.
+
+Site-wide unattributable CTR is 0.275%. This page's is **0.035% — 8x worse than its own site's baseline.**
+
+**I was wrong two messages earlier.** I told Jackson this page at "even 2% CTR roughly triples site traffic". It cannot. The impressions are not addressable by any title, meta or content change, and that projection should never have been made from a CTR number without first asking what the impressions were.
+
+**What it actually is: a GEO asset.** The site owns the Cornell-ergonomics seat-depth fact cluster in AI retrieval, and GA4 shows 95 AI-assistant sessions (ChatGPT 85, Claude 8, Perplexity 4). Judge the page on assistant referrals, never on CTR.
+
+### 2. The scorer had been aiming at that phantom every week
+
+`opportunityScore = (impressions / pos) * 2` on **raw** impressions made this page the site's #1 recommendation at 13,995, permanently. Two defects underneath: `pageQueries` is a global top-500 sample, so a page whose queries are individually tiny contributes no rows and reads as *"has no queries"* — indistinguishable from one nobody searches for.
+
+`gsc-pull` now probes per-page attribution for the top 20 pages (one API call each). `gsc-analyze` scores on **addressable** impressions and classifies pages under 15% attribution at 1000+ impressions as `machine-retrieval`, **score 0**. Not a discounted score — a discounted score still ranks the page and still invites work that cannot succeed. **Six pages classify**, and the ratios split cleanly: 0.1–9.8% for machine-dominated pages, 17–32% for human ones. Top opportunity moved to `/review/leap-plus/` at 612.6 on 2,665 real impressions.
+
+A failed probe records **nothing**, never 0% — defaulting an absent rows object to `[]` would compute 0% attribution and silently retire a healthy page with a confident explanation.
+
+### 3. CTA position predicted affiliate clicks better than anything else
+
+`/office-chairs-for-tall-people/` puts its first CTA at **16%** and takes **49 of the site's 96** affiliate clicks. Every page past ~60% took 0–3. `/review/aeron-size-c/`: 52 sessions, **7% average scroll**, only buy link at **91%** — not underperforming, unreachable. `/review/sihoo-doro-s300/` 97%. `/chairs/steelcase-gesture/` 98%. **The homepage, the most-visited page on the site, had no affiliate link at all.**
+
+`BuyBox.astro` now sits immediately after the Direct Answer on 8 pages, plus a homepage Quick Picks block. The Direct Answer stays first on purpose — it is the citation asset feeding the channel in §1.
+
+**Verified in a browser, because the obvious metric lied.** Counting characters through the HTML said the new CTAs were still at 34–44%; site navigation is markup-heavy but visually short. Rendered in Chromium at 1280×800 and 390×844: **8–18% desktop, 6–13% mobile**, from 66–98% before. The three still marginal have 6–18% average scroll — a bounce problem, not a placement one.
+
+**The lift is NOT measured.** Placement is verified; clicks-per-session is the test, ~2 weeks out.
+
+### The hazard this introduced, and the guard for it
+
+`lint-affiliate.mjs` is a **text scan** for literal `amazon.com` URLs. A component building its own href from an ASIN would have taken every link passing through it out of the only gate protecting revenue attribution — while the lint kept reporting green. `BuyBox` therefore takes a **finished href**, and a new lint rule fails on any Amazon URL that is not a complete literal, scoped to `amazon.com/` with the path slash so `Layout.astro`'s legitimate `hostname.endsWith('amazon.com')` inspection is untouched. Tested against a synthetic bypass; it catches it.
+
+**Also fixed, found by running the tool:** `data/clarity/latest.json` has two writers and only `clarity-history.ts` emitted the schema-required `windowEnd`, so any manual `npm run agent:clarity` replaced a valid file with one that fails its own contract — and `strategy.ts` reads that path through `clarityLatestSchema`.
+
+Gates: affiliate, content (54 pages), architecture 0 new, 26/26 tests, build clean.
+
+Related: [[affiliate-performance]] · [[what-works]] · [[gsc-intelligence]] · [[ai-citation-readiness]]
+
+## 2026-08-29 — the narrative goes weekly, and the content pipeline loses its human
+
+### 1. Nightly narrative → weekly. 83% of pipeline spend, for a report restating itself.
+
+`nightly-report`'s LLM call was **$13.34 of the pipeline's $16.16 August spend** — for a document whose own text read *"Nothing closed overnight and nothing broke fresh today — the 11 open items are all carry-overs."* It was paying ~$0.55 a night to repeat the same list, and its input was compounding: **71k tokens/run on 08-07 → 168k on 08-28**, because it re-reads a corpus that grows nightly. Left alone it reaches ~$1/run by October.
+
+**The trap, and why this is a flag rather than a deleted workflow step.** `nightly-report.ts` writes `data/nightly-heartbeat.json`, which `deadmans-switch.ts` reads with a **29-hour deadline**. Removing the nightly invocation — the obvious way to "move it to weekly" — would have fired the dead-man's switch to Jackson's phone **every single night**: the alarm going off not because the pipeline died but because the thing that proves it alive stopped being called. Exactly the seam failure this log keeps recording.
+
+So `--no-narrative` was added instead. It reuses `fallbackReport()`, the deterministic renderer that already existed for model failures — deliberately, because *a format that only runs on failure days is a format nobody has read*, and it is now the format of six nights in seven. Report, footer, ntfy push and heartbeat all still run nightly; only the paid prose is weekly (Sundays, with a `force_narrative` dispatch input). **~$21/mo → ~$5.50/mo.**
+
+### 2. The content pipeline shipped ZERO pages in six months, and was never broken
+
+Traced end to end:
+
+```
+keywords-monthly.yml   ✓ ran Jun 1, Jul 1, Aug 1 — all green
+       ↓ opportunities.json — 18 candidates
+  ⛔ approved: true — A HUMAN. 0 of 18. Never once.
+       ↓
+keywords-push.ts       ⛔ WIRED INTO NO WORKFLOW AT ALL
+       ↓
+content-roadmap.json   8 items, every one already published
+       ↓
+Friday execute-content 0 pages, ever
+```
+
+**Two breaks, not one.** Approval had no owner, and the push step existed but nothing ran it. Friday has been going green every week by correctly finding an empty queue. All 19 pages on the site came from human-directed sessions; the autonomous agents have touched `src/` **6 times in 6 months** (4 sitemap/index fixes, 2 Thursday SEO runs in June).
+
+### 3. Removing a gate is not the same as automating it
+
+The naive fix — approve everything — would have been destructive. **16 of the 18 candidates are `tca_status: 'ranking'`**: keywords the site already ranks for, where a new page splits traffic rather than winning it, on a site already carrying 7 cannibalization conflicts.
+
+The second naive fix — approve the ones marked `gap` — is worse than it looks. There are exactly two, and **both duplicate pages that already exist**: *"ergonomic chairs for tall people"* is `/office-chairs-for-tall-people/` with a synonym swapped, and *"steelcase gesture review"* is `/review/gesture/`. A `status === 'gap'` rule ships two cannibalising pages on day one.
+
+`lib/keyword-approval.ts` encodes what the human was doing by eye: reject if the site ranks, reject unusable target slugs, reject slugs that exist, reject topic collisions **against pages on disk** (Jaccard over stopword-stripped tokens; the two gap candidates score 50% and 100% against their real twins), dedup near-identical variants within a batch, and floors on volume/KD/score. Every threshold fails toward rejection, because **a false approve publishes a cannibalising page onto a live money site and a false reject costs one month on one keyword.** 10 tests, all drawn from the real queue.
+
+**Applied today it approves 0 of 18 — and that is the correct output.** A month where nothing qualifies is a real answer, recorded with a per-candidate `approval_reason`. That is a different thing from a month where nobody looked.
+
+`opportunities.json` also gained a contract (`schemas/keyword-opportunities.ts`) and is now read through `readValidated`. It was hand-read by a human before; it is now the input that decides what gets published, and a `tca_status` arriving malformed would fall through `!== 'ranking'` and be approved. `tca_status` is an enum for exactly that reason.
+
+Gates: 27/27 tests, architecture 0 new, affiliate + content lint clean, build 54 pages, tsc unchanged at 31.
+
+Related: [[niche-incubator-system]] · [[godseye-nightly]] · [[content-gap-engine]] · [[true-keyword-gaps]]
+
+## 2026-08-29 (second session) — the operating model becomes explicit: the pipeline observes, Jackson decides
+
+Three changes, all following from one measurement: **in six months the autonomous acting agents changed `src/` six times** (four sitemap/index fixes, two Thursday SEO runs in June), while **all 19 pages and every revenue-relevant change of August** — the tracking-ID split, the CTA placement, the machine-retrieval scorer fix — came out of human-directed sessions. The four automated position interventions failed across 37 days and 20 attempts.
+
+### 1. Wednesday, Thursday and Friday schedules retired
+
+`strategy`, `execute-fixes` and `execute-content` now run on `workflow_dispatch` only.
+
+**The reason is not cost.** Between them they spend ~$0.26/month. It is that **an idle acting-agent still files a stale-log finding every night**, and an alarm that fires because nothing happened is indistinguishable from one that fires because something broke. That noise costs attention, which is the binding constraint under this model.
+
+**Disabled, not deleted.** The code is sound; the cron is one line away. What stays running is the half that earns its keep: collectors, the 49-page probe, the ledger and its closure predicates, competitor intelligence, the Tuesday audit, keyword discovery, the dead-man's switch. Under a manual-growth model that machinery is *more* valuable, not less — **it is the scoreboard for the changes a session makes.** It is what proved the four July interventions failed instead of letting them read as wins.
+
+### 2. The retirement had to be recorded in code, or it would have made things worse
+
+Disabling the cron alone was the trap. The nightly loads `reports/fixes-log.md` and `reports/content-log.md` as **contracted sources with a 192-hour SLA**. With their writers off, those files can never be refreshed — so every night the report would have declared two contract failures and lowered its own coverage number. **The alarm would have fired forever, for a condition that is now correct.**
+
+That is this repo's most expensive recurring shape, and it has now been hit by the Amazon collector, the visual baselines, the closure predicates, and nearly here: *a check that still runs after the thing it checks has changed.*
+
+`lib/retired-agents.ts` is the fix, and it is a **paired** record: a retired agent is retired in the workflow cron *and* in that file, and both say so in their own text. Re-enabling means restoring both. Verified — the nightly's blind-check count went **3 → 1**, and the two silenced sources now report *"writer retired… age is expected and is not a finding"* rather than vanishing.
+
+### 3. `session-brief.ts` — because the session is now the bottleneck
+
+If growth happens in sessions, the pipeline's job is to make a session start at full context in seconds. Today a large fraction of every session went on **gathering**: forcing a GSC pull, running a cost rollup, joining Clarity scroll depth to GA4 affiliate clicks to CTA positions in `.astro` source by hand, then grepping `strategy-rules.json` to check the work was even permitted. Identical every time, producing nothing new.
+
+`reports/session-brief.md` is that join, written nightly, deterministically, for **$0** — no model call. Two sections earn their place above the rest:
+
+- **The conversion join** — affiliate clicks × scroll depth × CTA position. Reconstructing this by hand is what produced the 2026-08-28 finding that the page with its CTA at 16% took 49 of 96 site-wide clicks.
+- **Constraints, first** — the active kill-list rules at the very top, because a session that proposes CTR work on a page at position 9.7 has wasted itself against `no-ctr-iteration-below-position-8`.
+
+It also **prints what it could not read**. A brief that silently omitted GA4 because the file was malformed would have a session reasoning confidently about traffic it never saw.
+
+**One honesty fix on its own output:** the `1st CTA at` column is a *markup* measure and overstates depth — nav is verbose in HTML but short on screen. `/review/aeron-size-c/` reads 45% there and renders at 13% in Chromium. The column is kept (free, no browser, ranks pages correctly against each other) and now carries that caveat in the file itself, so a future session cannot mistake it for a rendered position.
+
+Gates: 27/27 tests, architecture 0 new, affiliate + content lint clean, tsc unchanged at 31.
+
+Related: [[godseye-nightly]] · [[what-works]] · [[niche-incubator-system]]
+
+## 2026-08-30 — the watchdog had been crying wolf for 17 days, and the cost fix was calling itself a failure
+
+Jackson opened with a cost question — *"make sure the nightly isn't costing me a lot of money anymore, since I'm still getting nightly notifications"* — carrying a reasonable inference: the notifications are still arriving, so the spend must still be there.
+
+The inference was wrong and the notifications were the real story.
+
+**Spend is already fixed.** The weekly-narrative gate shipped 2026-08-28 works, verified against `data/cost-ledger.jsonl` on `origin/main`: Fri 08-29 recorded **no LLM call at all**, Sun 08-30 recorded one narrative at **$0.57**. That is ~$0.55/night → ~$0.57/week, **$16/mo → ~$2.45/mo**. The nightly push is free by design and must keep firing: it carries the heartbeat the dead-man's switch reads.
+
+Then Jackson pasted the notification he was actually getting, and it was not the nightly report. It was `TCA DEAD`.
+
+### Bug 1 — a false death alarm every morning since 2026-08-13
+
+The alarm said `✗ report: wiki/nightly/2026-08-30.md was never written` directly above `✓ heartbeat: 14.4h old, 100% coverage`. Two lines contradicting each other, with nothing to say which to believe.
+
+`nightly-report.ts` names its report with the **local date at the moment it runs**. When the nightly ran at 03:00 local, day D's report was found by the 08:00 check on day D. On **2026-08-13** the schedule moved to 17:00 local (`cron: '0 0 * * *'` is 00:00 UTC, which is 17:00 PDT the *previous* day) — so the run lands in the evening of day D and writes `D.md`, while `checkReportFile()` went on looking for `(D+1).md` at 08:00 the next morning. **That file cannot exist yet and never will.** Confirmed on `origin`: newest report is `2026-08-29.md`; today is 2026-08-30.
+
+Fixed by accepting today **or** yesterday. This does not widen detection — both candidates come from the watchdog's own clock, so a genuinely missed night still leaves neither present, and the window stays exactly one missed cycle, matching `MAX_HEARTBEAT_AGE_HOURS=29` on the other signal. Verified live against the repo: `✓ report last night's report wiki/nightly/2026-08-29.md is there (11983 bytes)` → *"nightly is alive."*
+
+The alarm body was rewritten to lead with what it *means* and group the evidence under `What is broken:` / `What still worked:`, and the title dropped the date it could never mean.
+
+### Bug 2 — the cost fix reported itself as a failure, six nights in seven
+
+`--no-narrative` nights were rendered by `fallbackReport()` — the renderer for when the **model call breaks**. So the nightly report opened with *"The part that writes this report in plain English is what broke"*, listed *"**The report writer failed.**"* as the #1 thing needing attention, and closed with a `Raw error` block quoting the deliberate skip message. **Nothing had failed.** Jackson made a cost decision on 08-28 and got a red alarm every night for making it.
+
+The reuse was a considered choice at the time — *"a format that only runs on failure days is a format nobody has read"* — and the reasoning was sound while the conclusion was wrong, because the format carried a **claim**, not just a layout. Same class as a blind check reading green: the words and the world disagree, and the words win.
+
+Worse, the deterministic path never printed the findings at all. The headline said *"10 things need you"* and the body never said which ten — **a count with no list is not a report, it is an anxiety generator.**
+
+`skippedNarrativeReport()` replaces it: says the essay is weekly, and renders the escalated/regressed items straight out of `data/ledger-state.json` — page, days stuck, automatic attempts, the failing goal — for **$0**, since the nightly already loads that file. Regressions sort above long-stuck items (something that broke again is newer news than something stuck 41 days). Blind checks stay above the fold; the source/detector tables move into a collapsed `<details>`.
+
+Rendered against the real ledger it produces 11 named, actionable items where the old path produced one false one.
+
+### The shape, again
+
+Both bugs are **seam** defects, and the seam is now this system's signature failure — the fourth and fifth instances after the heartbeat, the Saturday deploy, the affiliate pull ordering, and the predicate registry. Every component was individually correct. What broke was an assumption one component held *about* another: the watchdog's belief about when the nightly runs (held **in a second repository**, by design), and the report's belief that a skipped narrative and a broken one deserve the same words.
+
+New rule, added to the seam list: **changing a schedule changes a filename, and something downstream is matching on that filename** — grep for what reads a cron's artifacts before changing the cron, *including outside this repo*.
+
+**Note the cost asymmetry.** A missed alarm hides one bad night. A daily false alarm trains the only person who can act on it to ignore the channel — which is the exact failure this build exists to prevent, arrived at from the opposite direction.
+
+Gates: **28/28 tests** (new `nightly-short-report.test.ts`, 10 assertions), architecture lint **0 new**, `tsc` unchanged.
+
+**Not yet live:** `deadmans-switch.ts` runs from `Videostarlord/tca-watchdog` and is copied there **by hand**. The fix changes nothing until it is re-copied. That manual step is part of why this lasted 17 days, and it is now written into `deadmans-switch.README.md`.
+
+Related: [[godseye-nightly]] · [[decisions-log]]
+
+## 2026-08-30 (second session) — the first finding in this archive that ever replicated
+
+Jackson dropped a folder path and nothing else: `~/Downloads/Aug 30th Amazon Data` — three CSVs from Associates Central, data stamp 2026-08-29. Ingested to `raw/affiliate/2026-08-30-amazon-csv/`, analysed in `raw/affiliate/2026-08-30-amazon-associates-report.md`.
+
+**Window solved a third time — rolling 30-day, Jul 31 → Aug 29.** Summing the frozen daily rows in `data/affiliate/latest.json` from Jul 31 gives 2 ordered / $227.98 / 2 shipped / $227.98 / $6.84, matching the export's `others` row on five independent quantities. Jul 30 through Aug 2 all produce the same sum, but the export's own 2026-08-29 stamp puts the start at Jul 31, inside that band. The method is now routine.
+
+### The headline, and the trap underneath it
+
+Total earnings read **$96.84 → $36.09**. That looks like the channel collapsing and it is the opposite. The window advanced two days and the **Jul 29** shipped item — $2,048.80 revenue, **$61.46** earnings — aged out of it. That one item is the entire $60.75 decline. **Underlying earnings rose $0.71.**
+
+Worth logging as a shape, not a detail: a rolling window manufactures a decline out of no change at all. The 2026-08-03 export was misread in exactly this way in the other direction, as a second positive month when it was 99.7% July's money re-reported. Same ambiguity, opposite sign. **The window must be solved before any number in these exports is read.**
+
+### The actual finding: it replicated
+
+| Export | Window | `tcachair-20` | Earnings | EPC |
+|---|---|---|---|---|
+| Aug 26 | Jul 27 – Aug 25 | 45 clicks | $0.00 | $0.00 |
+| Aug 28 | Jul 29 – Aug 27 | 59 clicks, 6 ord | $28.54 | $0.484 |
+| **Aug 30** | **Jul 31 – Aug 29** | **60 clicks, 9 ord** | **$29.25** | **$0.4875** |
+
+Two independent windows, two agreeing readings. thesis.md had set the bar explicitly — *"the strategy should not turn again until a third and fourth export agree"* — and the third has now arrived and agrees with the second. The Aug 26 zero is firmly the outlier, which is what the Aug 28 report predicted when it called that reading **a null result treated as a settled rate**.
+
+This is the first thing in this archive that has ever reproduced. Everything before it was a single reading, including the two that contradicted each other 48 hours apart.
+
+### Two ways the finding got narrower, both against interest
+
+1. **It is not "chair clicks earn" — it is "Leap Plus clicks earn."** All 6 attributed orders sit on `B00TYE4QXU`, at a 13.33% product conversion rate Amazon states directly. Gesture (30 clicks), Aeron (18) and Crandall (11) contributed **59 clicks and zero orders** between them. The EPC is a one-ASIN number and should be quoted that way until a second ASIN converts.
+2. **Chair units still do not sell, and the gap is widening.** Average item value is moving *away* from chair prices as the sample grows: $157.30 across 6 items → **$106.85** across 9, against $1,300–$1,800 chairs. Three exports, zero units of any chair this site recommends. Commission rate on the converting row is 3.02% — furniture tier, so furniture-class items, just not the ones being recommended.
+
+### The gate split, and it is Jackson's call
+
+August closes at **+$36.09**, and two bars that have been treated as one now disagree:
+
+- The **Jul 3 kill-list gate** reads *"2–3 consecutive positive revenue months."* +$36.09 is positive, so **the count advances to 2 of 2–3** — its first movement since July.
+- **thesis.md separately tracks a "$100 month."** August misses it by ~64%.
+
+The gate was written when a positive month meant +$92.06. Whether $36 is what "positive" was ever meant to mean is a judgement, and **it is not one this ingest should make silently** — flagged in `affiliate-performance.md` and `thesis.md`, left open.
+
+### Housekeeping
+
+All three CSVs reconciled exactly for the first time in this archive — 132 clicks, 11 items, $1,189.67, $36.09 across category, linked-product and tracking-id. The splits still disagree (linked-product books 6 orders/$25.69 to the ASIN where tracking-id books 9/$29.25); **the tracking-ID row stays authoritative**, since the tag is what `affiliate-tags.ts` controls. `top-sellers.csv` was absent from this drop — a header row only in every prior export, so nothing lost. Tag migration continues: `tcachair-20` 60 vs legacy 67, from 59 vs 75.
+
+`data/affiliate/latest.json` untouched, per `data/affiliate/README.md`. It is the decoder that dated this export; overwriting it from a CSV drop would have destroyed the only thing capable of doing that.
+
+Related: [[affiliate-performance]] · [[thesis]] · [[decisions-log]] · [[statistical-confidence-policy]]
+
+## 2026-08-31 — the CTA fix finished, and the metric that nearly sent me to fix nine pages that were already fine
+
+Jackson asked me to fix the CTA placement on the four zero-click pages I had named the turn before. **Three of the four were already fixed, on 2026-08-28, and the fourth had a working Quick Picks block.** I had read a 28-day GA4 click window as current state on a fix that was three days old.
+
+Two traps in one table, both in `reports/session-brief.md`, and the file warns about one of them in its own text:
+
+1. **`1st CTA at` is a MARKUP measure.** Site nav is verbose in HTML and short on screen, so the column reads 22–45% for pages that render at 6.5–18%.
+2. **The affiliate-click column is a trailing 28-day window.** Read beside a fix that landed on day 25, it reports the world before the change and looks exactly like the change not working.
+
+**The correction:** always measure rendered position, and always check when the fix landed before reading a click count as a verdict.
+
+### What was actually broken
+
+A pixel sweep of every page carrying an affiliate link found **9 pages** still deep — four of which no CTA pass had ever touched:
+
+| page | before | after (desktop / mobile) |
+|---|---:|---|
+| /office-chairs-for-6-foot-3/ | 72.7% | **11.2% / 9.4%** |
+| /knee-pain-seat-depth/ | 68.2% | **14.6% / 13.4%** |
+| /office-chairs-for-6-foot-4/ | 66.6% | **9.0% / 8.3%** |
+| /office-chairs-for-6-foot-7/ | 56.9% | **10.0% / 8.5%** |
+| /refurbished-steelcase-leap-tall-people/ | 56.4% | **19.5% / 16.4%** |
+| /office-chairs-for-6-foot-5/ | 41.8% | **8.7% / 8.0%** |
+| /best-big-and-tall-office-chairs/ | 40.9% | **10.0% / 8.2%** |
+| /chairs/herman-miller-aeron/tall-people/ | 40.6% | **14.3% / 12.0%** |
+| /heavy-duty-ergonomic-chairs-tall-people/ | 36.9% | **10.6% / 9.5%** |
+
+Every page on the site now puts its first affiliate CTA in the top ~20%, most in the top 10%. Leap Plus leads each new BuyBox because it is the only ASIN in the archive that has ever converted; `/office-chairs-for-6-foot-3/` is the deliberate exception, where the Gesture is the honest recommendation.
+
+`/knee-pain-seat-depth/` is named in `no-snippet-work-on-aio-eaten-informational`. That rule forbids snippet and meta work chasing rankings on AIO-eaten queries; a CTA monetises traffic that already lands. `/correct-chair-dimensions/` is named in the same rule and took a BuyBox on 08-28.
+
+### The FTC finding, which the tooling had already reported as fixed
+
+The disclosure checker I wrote for the CTA work answers a different question than the 2026-07-25 sweep did, and it found six failures:
+
+- **5 pages placed the disclosure BELOW the first affiliate CTA** — worst was `/heavy-duty-ergonomic-chairs-tall-people/` at 8,203px against a CTA at 2,997px. `/review/gesture/` was 74px off; the two blocks were simply in the wrong order.
+- **`/office-chairs-for-6-foot-4/` had three affiliate links and no disclosure at all.** `affiliate-compliance.md` lists that page among ones whose disclosure was merely *low*. It had none.
+
+All six fixed; 45/45 pages re-verified by rendered position.
+
+**Why the 2026-07-25 sweep reported success:** it was a text scan for the component's presence. The FTC standard is *clear and conspicuous* — a rule about order and position. A page passes "has a disclosure" while burying it 5,000px under the buy button. **The check measured something adjacent to the rule, and adjacent reads as green.** That is this repo's signature defect, arriving in a compliance file rather than a collector.
+
+### Two bugs of my own, caught before commit
+
+Generating `.astro` from Python string formatting put a literal `→` into plain HTML attributes (renders as the characters, not an arrow) and escaped quotes into plain attributes (hard build error). The JSX-expression props — `verdict={...}`, `specs={...}` — interpret escapes; plain attributes do not. Both fixed and verified in rendered text, not in source.
+
+### ⚠ Left for Jackson
+
+**The visual baselines are stale on 10 pages.** Every page changed here will exceed the 2% visual-diff threshold on tonight's run, on top of the 7 already-escalated mobile findings suspected to be the macOS/Linux font artefact. Re-baseline by triggering `nightly.yml` via `workflow_dispatch` with `rebaseline_visual: true` — **on the runner, never locally**, or it recreates the exact cross-platform offset that produced those 7 findings.
+
+Gates: build clean (54 pages), affiliate lint (129 links), content lint, architecture 0 new, 28/28 tests, disclosure order 45/45.
+
+Related: [[what-works]] · [[affiliate-compliance]] · [[affiliate-performance]] · [[decisions-log]]
+
+---
+
+## 2026-09-01 — Portfolio inversion, AIO tracker, open dataset, and a false escalation that ran for three weeks
+
+Four builds, from re-reading the repo's own data rather than the strategy docs.
+Full snapshot: `raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md`.
+
+### 1. Two of three tracking IDs have never recorded a click
+
+`tcachair-20` has 60 clicks and $29.25 across three exports. `tcaaccessory-20` and
+`tcadesk-20` have **no rows in any export** — not one click, ever.
+
+The cause was the link inventory, not the copy: 116 chair links against 14
+accessory and 3 desk, and all 17 of those sat on the six accessory pages. The
+classes were instrumented in August and then never given anywhere to fire from.
+Their emptiness was being read as "no data yet"; it meant "no links a reader
+reaches".
+
+That matters because the orders under the chair tag are **not chairs** — all 6 sit
+on one ASIN, average item value $106.85 against $1,300–$1,800 chairs, zero units of
+any recommended chair ever sold. The site earns from the band it barely links to.
+
+Shipped `CompanionPicks.astro` on the 8 highest-traffic chair pages. Accessory
+links 14 → 32 (6 pages → 13), desk 3 → 9 (1 page → 7), chair unchanged at 116.
+Below each page's existing CTA, never above — the FTC order rule cost five pages on
+08-31 and inserting CTAs above existing ones on 8 pages is that failure waiting to
+recur. **45/45 re-verified by rendered position.**
+
+Editorially constrained rather than filled in: no lumbar cushion on
+Gesture/Leap/Aeron (the site tells those owners not to buy one), headrests only on
+Aeron pages, seat cushions only where the chair has a hard ceiling and no lumbar
+worth losing.
+
+**This is a test, not a result.** The read is the next hand export showing a
+non-zero row for either tag. A null result is a real answer.
+
+### 2. The AIO suppression thesis has never been observed
+
+[[ctr-optimization]] attributes ~80% of CTR loss to AI Overviews and the entire GEO
+capsule programme was built on it. Nothing has looked at a SERP since April.
+`aioSuspect` is shape inference — it cannot tell an AIO from a carousel, a PAA
+stack, a video block, or a weak title.
+
+Built `scripts/aio-track.ts`, weekly in `monday.yml`, ~$0.04/run on the DataForSEO
+endpoint competitor-intelligence already calls.
+
+**The first dry run killed the first design and that is the useful part.** Straight
+priority order filled all 20 slots with CTR leaks, because GSC reports 21 of them.
+CTR leaks are *selected for* the symptom under investigation, so a series drawn
+only from them finds a high AIO rate and confirms the thesis it exists to test.
+Reserved shares now guarantee a control group of unsuspected queries, and spare
+capacity backfills to the control first and to leaks last.
+
+Failed requests record `null`, never `false`; rates are computed over what was
+observed. A wholly broken run reports `null`, not a tidy 0% suppression.
+
+**Zero observations so far.** First run lands with the next Monday pipeline.
+
+### 3. The spec registry is now a citable dataset
+
+`data/chair-specs.json` — every figure traced to a manufacturer PDF with edition
+and verification date — existed only as a linter input. Published at
+`/chair-specs/` with `/chair-specs.json` (CC BY 4.0, CORS), `Dataset` schema, in
+`llms.txt`, linked from `/correct-chair-dimensions/`.
+
+This is the $0 version of the link building [[ctr-optimization]] priced at
+$1,000–8,000 and correctly declined. The `guarded` list is the differentiator: the
+figures that are true but misleading alone, which is the error every other source
+in the niche still carries.
+
+`lint-content.mjs` fired three times on prose *debunking* the banned Leap Plus
+range. **The gate was not weakened** — the page was reworded so the endpoints never
+share a line. A rule that can be talked out of firing by surrounding prose would
+not have caught the original error either.
+
+### 4. `escalated` was pointed at the instrumentation
+
+Three findings at 18, 18 and 22 attempts (`/review/gesture/`,
+`/best-big-and-tall-office-chairs/`, `/wide-seat-office-chairs-tall-people/`), all
+macOS-vs-Linux font rasterisation.
+
+**The system detected it correctly on 2026-08-13 and filed anyway**, because
+`deriveFindings` read `diffPct` and nothing else while the diagnosis sat in `note`.
+That breaks the ledger's own fourth rule — never escalate on the system's own
+blindness — using the loudest status it has.
+
+Fixed with `comparable: boolean`: skipped at filing, `unevaluable` at evaluation,
+number retained so the offset stays visible for calibration, read as `!== false` so
+stored artifacts keep their meaning.
+
+**New seam rule:** *a detector that can tell it is blind must say so in the field
+the verdict is read from. A correct diagnosis written where nothing reads it is the
+same as no diagnosis.*
+
+### ⚠ Left for Jackson
+
+**`gh workflow run nightly.yml -f rebaseline_visual=true`** — CI, never locally.
+The three findings stop accruing attempts now but stay `escalated` until the
+baselines are recaptured where the comparison runs. Already open from 08-31 (10
+stale pages); today's 8 changed pages add to it.
+
+Gates: build 55 pages · affiliate lint 157 links · content lint 55 pages ·
+architecture 0 new · **29/29 test files** · disclosure order 45/45.
+
+Related: [[affiliate-performance]] · [[aio-citation-tracking]] ·
+[[chair-specs-dataset]] · [[ctr-optimization]] · [[godseye-nightly]] ·
+[[decisions-log]]

@@ -1,0 +1,112 @@
+---
+/**
+ * BuyBox.astro — the compact verdict + CTA card that goes ABOVE the fold.
+ *
+ * ─── WHY THIS EXISTS ────────────────────────────────────────────────────────
+ *
+ * Measured 2026-08-28, GA4 affiliate clicks against Clarity scroll depth. The
+ * position of a page's FIRST affiliate link predicts its click count almost
+ * perfectly:
+ *
+ *   page                            avg scroll   1st CTA at   affiliate clicks
+ *   /office-chairs-for-tall-people/     56%          16%             49
+ *   /best-office-chairs-under-500/      31%          46%             16
+ *   /best-big-and-tall-office-chairs/   45%          54%             12
+ *   /review/leap-plus/                  48%          79%              3
+ *   /review/aeron-size-c/                7%          91%              0
+ *   /review/sihoo-doro-s300/            21%          97%              0
+ *   /chairs/steelcase-gesture/          53%          98%              1
+ *
+ * One page puts its CTA at 16% and takes 51% of the entire site's affiliate
+ * clicks. Every page whose first CTA sits past ~60% takes 0-3. On
+ * /review/aeron-size-c/ the average visitor sees 7% of the page and the only
+ * buy link is at 91% — it is not underperforming, it is unreachable.
+ *
+ * This is not a persuasion problem and no amount of copy fixes it. The CTA is
+ * below where people stop.
+ *
+ * ─── WHY IT TAKES A LITERAL href AND NOT AN ASIN ────────────────────────────
+ *
+ * `scripts/lint-affiliate.mjs` is a TEXT scan: it greps .astro source for
+ * literal `https://www.amazon.com/...tag=...` and fails the build on any link
+ * whose tag disagrees with src/data/affiliate-tags.ts. It cannot see a URL that
+ * is assembled at runtime.
+ *
+ * So a component that built its own href from an ASIN would make every link
+ * passing through it INVISIBLE to the one gate protecting revenue attribution —
+ * turning a build-blocking check into a silent bypass, which is this repo's
+ * signature failure mode. The caller passes the finished URL; this file decides
+ * only how it looks. `lint:affiliate` has a rule that fails on any dynamically
+ * built Amazon URL, so the bypass cannot be reintroduced by accident.
+ */
+interface Props {
+  /** Literal Amazon URL including ?tag= — see the note above; never build this. */
+  href: string;
+  /** Product name as the reader knows it. */
+  product: string;
+  /** One sentence: who this fits. Research-based voice for every chair but the Gesture. */
+  verdict: string;
+  /** 2-4 short spec chips, e.g. ["20.5\" max seat height", "18.5\" seat depth"]. */
+  specs?: string[];
+  /** Affiliate class — must match this ASIN's class in src/data/affiliate-tags.ts. */
+  affiliateClass?: 'chair' | 'accessory' | 'desk';
+  /** GA4 label. Defaults to `View ${product} on Amazon`. */
+  ctaLabel?: string;
+  /** Optional secondary link, e.g. a comparison or a cheaper alternative. */
+  altHref?: string;
+  altLabel?: string;
+}
+
+const {
+  href,
+  product,
+  verdict,
+  specs = [],
+  affiliateClass = 'chair',
+  ctaLabel,
+  altHref,
+  altLabel,
+} = Astro.props;
+
+const label = ctaLabel ?? `View ${product} on Amazon`;
+---
+
+<aside class="not-prose bg-card border border-border rounded-lg p-5 mb-10" aria-label={`Where to buy the ${product}`}>
+  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+    <div class="min-w-0">
+      <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Our pick</p>
+      <p class="font-serif text-lg text-heading leading-snug">{product}</p>
+      <p class="text-sm text-muted-foreground mt-1.5">{verdict}</p>
+      {specs.length > 0 && (
+        <ul class="flex flex-wrap gap-x-3 gap-y-1 mt-3 text-xs text-muted-foreground">
+          {specs.map((s) => (
+            <li class="bg-secondary/60 rounded px-2 py-0.5">{s}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+    <div class="shrink-0 flex flex-col gap-2">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        class="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm whitespace-nowrap"
+        data-affiliate-cta="true"
+        data-affiliate-program="amazon"
+        data-affiliate-class={affiliateClass}
+        data-cta-label={label}
+        {/* NOT "above-fold": the pixel measurement says only 2 of 10 of these
+            render above 800px on desktop and none on mobile. They render at
+            6-18% of page height, which is well within reach — but a GA4
+            dimension that says "above-fold" when it means "after the answer
+            box" would mislead the analysis this placement exists to enable. */}
+        data-cta-position="after-answer"
+      >
+        Check price on Amazon
+      </a>
+      {altHref && altLabel && (
+        <a href={altHref} class="text-xs text-center link-internal text-muted-foreground">{altLabel}</a>
+      )}
+    </div>
+  </div>
+</aside>

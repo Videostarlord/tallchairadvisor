@@ -57,6 +57,7 @@ import { retractionSchema, retractionsOptions } from './schemas/retractions.js';
 import { agentHealthRecordSchema, agentHealthOptions } from './schemas/agent-health.js';
 import { collectorsRollupSchema, collectorsRollupOptions, quotasDataSchema } from './schemas/collectors-rollup.js';
 import { executionLogContract } from './schemas/execution-log.js';
+import { isRetiredSource, retirementReason } from './lib/retired-agents.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -92,7 +93,7 @@ const NTFY_TOPIC = process.env.NTFY_TOPIC ?? '';
  */
 type Trust = 'verified' | 'unverified' | 'unevaluable' | 'missing';
 
-interface Source {
+export interface Source {
   name: string;
   path: string;
   trust: Trust;
@@ -112,7 +113,7 @@ interface Blindness {
   reason: string;
 }
 
-interface DetectorHealth {
+export interface DetectorHealth {
   blind: Blindness[];
   /** How many detectors were assessed at all. 0 means this check itself was blind. */
   checked: number;
@@ -172,6 +173,22 @@ function load(
   relPath: string,
   contract: SourceContract | null,
 ): Source {
+  // A retired agent's log cannot be fresh, and reporting it as a contract
+  // failure every night is an alarm that fires because nothing happened. Checked
+  // BEFORE existence, so a log that was never written at all is handled too.
+  // See lib/retired-agents.ts — this pairs with a commented-out cron and the two
+  // must be changed together.
+  if (isRetiredSource(name)) {
+    return {
+      name,
+      path: relPath,
+      trust: 'verified',
+      reason: `writer retired — ${retirementReason(name)}. Age is expected and is not a finding.`,
+      content: null,
+      ageHours: null,
+    };
+  }
+
   const path = resolve(ROOT, relPath);
   if (!existsSync(path)) {
     // Exception logs (cost drift) are absent exactly when nothing is wrong.
@@ -871,13 +888,157 @@ function buildPrompt(sources: Source[], health: DetectorHealth, verdict: Verdict
  * missing report means "the system is dead" to the dead-man's switch, and a
  * failed Anthropic call is not death.
  */
+/** One waiting problem, as ledger-evaluate.ts already wrote it into ledger-state.json. */
+interface NeedsYouItem {
+  page?: string;
+  summary?: string;
+  predicate?: string;
+  reason?: string;
+  ageDays?: number;
+  attempts?: number;
+}
+
+/**
+ * The escalated/regressed lists straight out of data/ledger-state.json.
+ *
+ * These are the ACTUAL problems waiting on Jackson, and until now only the paid
+ * narrative ever printed them. Six nights in seven the report said "10 things
+ * need you" in its headline and then never said which ten — a count with no list
+ * is not a report, it is an anxiety generator. This is a plain read of a file the
+ * nightly already loads, so listing them costs nothing.
+ *
+ * Returns null when the file is unreadable, and null is NOT an empty list: the
+ * caller must say "I could not read this", never render silence as "all clear".
+ */
+export function parseNeedsYou(content: string | null): { escalated: NeedsYouItem[]; regressed: NeedsYouItem[] } | null {
+  if (content === null) return null;
+  try {
+    // lint-architecture-allow R4 -- ledger-state.json is produced by ledger-evaluate.ts in this same pipeline and has no readValidated schema; every field is optional-checked at render time and any throw returns null, which the caller renders as "could not read" and never as zero
+    const parsed: unknown = JSON.parse(content);
+    const arr = (k: string): NeedsYouItem[] => {
+      const v = (parsed as Record<string, unknown>)[k];
+      return Array.isArray(v) ? (v as NeedsYouItem[]) : [];
+    };
+    return { escalated: arr('escalated'), regressed: arr('regressed') };
+  } catch {
+    return null;
+  }
+}
+
+/** One problem, rendered for a human. Never a field name, never an id. */
+function renderNeedsYouItem(item: NeedsYouItem, index: number): string[] {
+  const what = item.page ?? item.summary ?? 'an unnamed item';
+  const stuck: string[] = [];
+  if (typeof item.ageDays === 'number') stuck.push(`stuck ${item.ageDays} days`);
+  if (typeof item.attempts === 'number' && item.attempts > 0) stuck.push(`${item.attempts} automatic tries`);
+  const lines = [`${index}. **${what}**${stuck.length > 0 ? ` — ${stuck.join(', ')}.` : ''}`];
+  if (item.reason) lines.push(`   ${item.reason}.`);
+  if (item.predicate) lines.push(`   _Goal it is failing: ${item.predicate}_`);
+  return lines;
+}
+
+/**
+ * The report on a `--no-narrative` night — six nights in seven.
+ *
+ * This exists because those nights used to be rendered by fallbackReport(), the
+ * renderer for when the model call BREAKS. The result was a nightly notification
+ * headed "**The part that writes this report in plain English is what broke**",
+ * listing "**The report writer failed.**" as the #1 thing needing attention, and
+ * closing with a "Raw error" block quoting the deliberate skip message. Nothing
+ * had failed. Jackson had asked for a weekly narrative on 2026-08-28 and got a
+ * red alarm every night for making that change.
+ *
+ * An intentional saving must never be reported in the vocabulary of a failure.
+ * That is the same class of defect as a blind check reading green: the words and
+ * the world disagree, and the words are what gets believed.
+ */
+export function skippedNarrativeReport(sources: Source[], health: DetectorHealth, verdict: Verdict): string {
+  const ledgerState = sources.find(s => s.name === 'ledger-state') ?? null;
+  const needs = parseNeedsYou(ledgerState === null ? null : ledgerState.content);
+
+  const lines = [
+    `# ${siteLabel()} — ${TODAY}`,
+    ``,
+    verdict.line,
+    ``,
+    `_Short version. The full write-up is written once a week, on Sunday. Everything below_`,
+    `_comes from the same checks as always — nothing was skipped except the essay._`,
+    ``,
+    `## What needs you`,
+    ``,
+  ];
+
+  if (needs === null) {
+    lines.push(
+      `I could not read the list of open problems tonight, so I cannot show it. That is a`,
+      `gap, not a clean result — do not read this as "nothing needs you".`,
+      ``,
+    );
+  } else if (needs.regressed.length === 0 && needs.escalated.length === 0) {
+    lines.push(`Nothing is waiting on you. Every open item closed on its own.`, ``);
+  } else {
+    let n = 1;
+    // Regressions first, always: something that passed and then broke again is
+    // newer information than something that has been stuck for 41 days.
+    if (needs.regressed.length > 0) {
+      lines.push(`**These were fixed and have broken again:**`, ``);
+      for (const item of needs.regressed) lines.push(...renderNeedsYouItem(item, n++), ``);
+    }
+    if (needs.escalated.length > 0) {
+      if (needs.regressed.length > 0) lines.push(`**These have been waiting a while:**`, ``);
+      for (const item of needs.escalated) lines.push(...renderNeedsYouItem(item, n++), ``);
+    }
+  }
+
+  // Blind checks are the one thing that must stay above the fold on a short
+  // report. Burying them in the appendix is how a blind night reads as a quiet one.
+  const unverified = sources.filter(s => s.trust !== 'verified');
+  if (unverified.length > 0 || health.blind.length > 0 || health.selfFailure !== null) {
+    lines.push(`## What I could not check`, ``);
+    for (const s of unverified) lines.push(`- **${s.name}** — ${s.reason ?? 'could not be read or verified'}`);
+    for (const b of health.blind) lines.push(`- **${b.detector}** — ${b.reason}`);
+    if (health.selfFailure !== null) lines.push(`- **the health check itself** — ${health.selfFailure}`);
+    lines.push(``, `Those are gaps, not clean results. This report does not say the site is fine.`, ``);
+  }
+
+  // Everything past here is machine detail, and it is COLLAPSED. On a short
+  // report the tables were most of the page, which is what made a two-line night
+  // look like a wall of text worth ignoring.
+  lines.push(
+    `<details><summary>Technical detail — data sources and detector health</summary>`,
+    ``,
+    ...sourceTable(sources),
+    ``,
+    `### Detector health`,
+    ``,
+    ...blindTable(health),
+    ``,
+    `</details>`,
+  );
+  return lines.join('\n');
+}
+
+/** The source-trust table, shared by the short report and the failure report. */
+function sourceTable(sources: Source[]): string[] {
+  const cov = coverage(sources);
+  const rows = [
+    `Data sources readable: ${cov.verified}/${cov.total} (${cov.pct}%).`,
+    ``,
+    `| source | trust | age | reason |`,
+    `|---|---|---|---|`,
+  ];
+  for (const s of sources) {
+    rows.push(`| ${s.name} | ${s.trust} | ${s.ageHours !== null ? `${s.ageHours.toFixed(1)}h` : '—'} | ${s.reason ?? ''} |`);
+  }
+  return rows;
+}
+
 function fallbackReport(
   sources: Source[],
   health: DetectorHealth,
   error: string,
   verdict: Verdict,
 ): string {
-  const cov = coverage(sources);
   const lines = [
     // The degraded path names the site too. This is the report that gets written
     // on the worst nights, which is exactly when "whose site is this about?" is
@@ -923,17 +1084,7 @@ function fallbackReport(
 
   // Everything below is the appendix, and it is LABELLED as one so nobody has to
   // work out which half of this file was meant for them.
-  lines.push(
-    `## Appendix — the technical detail`,
-    ``,
-    `Data sources readable: ${cov.verified}/${cov.total} (${cov.pct}%).`,
-    ``,
-    `| source | trust | age | reason |`,
-    `|---|---|---|---|`,
-  );
-  for (const s of sources) {
-    lines.push(`| ${s.name} | ${s.trust} | ${s.ageHours !== null ? `${s.ageHours.toFixed(1)}h` : '—'} | ${s.reason ?? ''} |`);
-  }
+  lines.push(`## Appendix — the technical detail`, ``, ...sourceTable(sources));
   lines.push('', '### Detector health', '', ...blindTable(health));
   lines.push('', '### Raw error', '', '```', error, '```');
   return lines.join('\n');
@@ -1009,8 +1160,39 @@ async function main(): Promise<void> {
   const verdict = decideVerdict(blindCount, health.selfFailure, needsYou ?? 0);
   console.log(`[nightly] verdict: ${verdict.title}`);
 
-  let markdown: string;
+  // ── Narrative cadence (2026-08-29) ──────────────────────────────────────────
+  //
+  // The LLM narrative was 83% of the entire pipeline's spend — $13.34 of $16.16
+  // in August — on a report whose own text read "Nothing closed overnight and
+  // nothing broke fresh today; the 11 open items are all carry-overs". It was
+  // paying ~$0.55 a night to re-state the same list. Its input was compounding
+  // too: 71k tokens/run on 2026-08-07, 168k on 2026-08-28, because it re-reads a
+  // corpus that grows every night.
+  //
+  // So the narrative is now WEEKLY and every other night runs `--no-narrative`.
+  //
+  // WHAT MUST NOT CHANGE, and is the reason this is a flag rather than a step
+  // deleted from nightly.yml: this script writes data/nightly-heartbeat.json,
+  // which scripts/deadmans-switch.ts reads with a 29-hour deadline. Removing the
+  // nightly invocation would have alarmed Jackson's phone every single night —
+  // the dead-man's switch firing not because the pipeline died but because the
+  // thing that proves it alive stopped being called. The collection, probing,
+  // ledger evaluation, report file, footer and heartbeat all still run nightly.
+  // Only the paid prose is weekly.
+  const noNarrative = process.argv.includes('--no-narrative');
+
+  let markdown = '';
   try {
+    if (noNarrative) {
+      // NOT fallbackReport(). That renderer announces "the report writer failed"
+      // and files itself as the #1 thing needing attention — true when the model
+      // call dies, a lie on a night the narrative was deliberately skipped. It
+      // shipped that lie to Jackson's phone every weeknight from 2026-08-28.
+      // skippedNarrativeReport() says what actually happened and, unlike the
+      // failure renderer, prints the open findings instead of only counting them.
+      markdown = skippedNarrativeReport(sources, health, verdict);
+      console.log('[nightly] --no-narrative: deterministic report written, no model call, $0 spent');
+    } else {
     const prompt = buildPrompt(sources, health, verdict);
     assertNoTruncation(prompt);
 
@@ -1057,6 +1239,7 @@ async function main(): Promise<void> {
         block.text;
     } else {
       markdown = block.text;
+    }
     }
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
@@ -1131,7 +1314,18 @@ async function main(): Promise<void> {
   // never the report or the model payload. The full report is already on disk at
   // this point. Rule 1 forbids truncating what the system knows, not truncating a
   // lock-screen preview of it.
-  const tldr = markdown.split('\n').filter(l => l.trim() && !l.startsWith('#')).slice(0, 3).join(' ');
+  //
+  // The filter drops three kinds of line that are real content in the file and
+  // noise on a lock screen: headings, wholly-italic asides (`_Short version..._`,
+  // which is meta ABOUT the report rather than anything the report found), and
+  // table/HTML scaffolding. Without this the short report's preview was its own
+  // disclaimer — three lines explaining the cadence and not one line of news.
+  const tldr = markdown
+    .split('\n')
+    .map(l => l.trim())
+    .filter(l => l && !l.startsWith('#') && !/^_.*_$/.test(l) && !l.startsWith('|') && !l.startsWith('<'))
+    .slice(0, 3)
+    .join(' ');
   // The blind count goes in the TITLE, not the body. A lock-screen notification
   // is often the entire report Jackson reads, and "88% coverage" alongside a
   // reassuring TL;DR is precisely how a month of truncated audits felt fine.

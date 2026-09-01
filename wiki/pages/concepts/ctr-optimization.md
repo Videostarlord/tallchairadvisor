@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-09
+last_updated: 2026-09-01 (the AIO share of the diagnosis is now MEASURABLE and has never been measured — see [[aio-citation-tracking]])
 sources: [raw/audits/2026-04-03-full-audit.md, raw/strategy/2026-04-03-action-plan.md, raw/audits/2026-04-22-serp-analysis.md, data/gsc/latest.json]
 tags: [ctr, meta-descriptions, serp, high-priority]
 ---
@@ -8,6 +8,31 @@ tags: [ctr, meta-descriptions, serp, high-priority]
 # CTR Optimization
 
 **The #1 bottleneck on the site.** 14,767 impressions, 35 clicks, 0.24% CTR as of May 10 (90-day). The root cause is structural SERP suppression for head terms; on editorial/review pages verdict-first meta rewrites are likely to help.
+
+## ⚠ 2026-09-01 — THE AIO SHARE OF THIS DIAGNOSIS HAS NEVER BEEN OBSERVED
+
+**Read before quoting the 80% figure below.** It comes from a one-off incognito
+SERP check in April 2026 and a shape-based inference, and the whole GEO capsule
+programme was built on it. Nothing has looked at a SERP since.
+
+The pipeline's `aioSuspect` flag is inference and says so: `gsc-analyze.ts` sets it
+from the SHAPE of a leak — good position, far fewer clicks than the position curve
+predicts. That cannot distinguish an AI Overview from a product carousel, a PAA
+stack, a video block, or a title that does not earn its impressions. **Four
+problems, four different fixes, and the site has spent months building for one of
+them.**
+
+`scripts/aio-track.ts` now observes it weekly and includes a control group of
+queries nobody suspects, so the rate has something to be high *against*. Built
+2026-09-01, **zero observations so far** — do not cite it as evidence until at
+least two runs agree. See [[aio-citation-tracking]].
+
+The link-building paragraph further down still stands, and its conclusion was
+acted on rather than reversed: `/chair-specs/` publishes the spec registry as a
+citable CC BY 4.0 dataset, which is the $0 version of the $1,000–8,000 spend that
+paragraph correctly declined. See [[chair-specs-dataset]].
+
+---
 
 ## Revised Diagnosis (Apr 22 — Incognito SERP Audit)
 

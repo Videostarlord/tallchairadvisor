@@ -97,6 +97,15 @@ export interface ProbeVisualViewport {
   diffPct: number | null;
   note: string | null;
   baselineCreated: boolean;
+  /**
+   * `false` = a number was measured but a known constant offset is mixed into it,
+   * so it must read `unevaluable` and must never read `fail`. Today's only cause is
+   * a baseline captured on a different platform to the one comparing it.
+   *
+   * Absent on artifacts written before 2026-09-01 — test it as `comparable !== false`.
+   * See scripts/probes/visual.ts for why the note alone was not enough.
+   */
+  comparable: boolean;
 }
 
 export interface ProbeVisual {

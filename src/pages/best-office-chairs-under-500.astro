@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import CompanionPicks from '../components/CompanionPicks.astro';
 
 const schema = [
   {
@@ -127,6 +128,35 @@ const schema = [
           <strong>Note on testing:</strong> I personally use and have tested the Steelcase Gesture. The chairs in this guide are research-based assessments drawing on manufacturer specs, engineering analysis, and aggregated user reports. I haven't personally sat in most of them. Where I note "community reports suggest" or "based on specs," that's the honest sourcing.
         </p>
       </section>
+
+      <CompanionPicks
+        intro={"The honest budget answer is that under $500 you buy a chair with a hard ceiling on one dimension. These are the cheap corrections for what it cannot do — and unlike a premium chair, there is no built-in lumbar system to lose."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B0CYWXYZKF?tag=tcaaccessory-20",
+            product: "MABOZOO extra-thick seat cushion",
+            price: "Under $50",
+            why: "Right answer only when the chair has a hard height ceiling and no lumbar system worth losing — which is most chairs in this price band. Wrong on a Gesture, Leap or Aeron.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B01BRLJPZQ?tag=tcaaccessory-20",
+            product: "Uncaged Ergonomics KT2-b keyboard tray",
+            price: "$100-160 range",
+            why: "Raising the chair to fit your legs leaves the desk relatively too low for your arms. A negative-tilt tray restores the wrist angle without lowering the seat again.",
+            affiliateClass: "accessory",
+          },
+        ]}
+        moreHref="/seat-cushion-height-tall-people/"
+        moreLabel={"When a seat cushion helps and when it hurts →"}
+      />
 
       <section>
         <h2>The Spec That Matters Most: Seat Depth</h2>

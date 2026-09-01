@@ -26,6 +26,18 @@ import { normalizePath } from './inventory.js';
 import { captureAndCompare } from './visual.js';
 import type { ProbeGeo, ProbeHead, ProbeRequest, ProbeResult } from './types.js';
 
+/**
+ * ⚠ LOAD-BEARING STRING — `src/layouts/Layout.astro` matches the
+ * ` TCA-godseye-probe/` suffix to tag this run's GA4 hits with
+ * `traffic_type: 'internal'` and its Clarity session with the same custom tag.
+ * That is the only thing keeping ~54 CI page_views a night out of the reports
+ * (88% of the property, measured Aug 2026).
+ *
+ * If you change this string, change the two regexes in Layout.astro in the same
+ * commit. Nothing fails loudly if you don't — the analytics just silently
+ * refill with probe traffic, which is exactly this repo's signature failure
+ * mode. `scripts/probes/__tests__/` asserts the suffix is present.
+ */
 export const USER_AGENT =
   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 TCA-godseye-probe/1.0';
 

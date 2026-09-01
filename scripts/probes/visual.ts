@@ -68,6 +68,30 @@ export interface ViewportComparison {
   note: string | null;
   /** This run created the baseline — there was nothing to compare against yet. */
   baselineCreated: boolean;
+  /**
+   * Whether `diffPct` may be compared against a threshold at all.
+   *
+   * FALSE MEANS "MEASURED, BUT NOT AGAINST A COMPARABLE REFERENCE". A number was
+   * produced — the pixels really do differ — but a known constant offset is mixed
+   * into it, so the only honest reading is `unevaluable`, never `fail`. Today the
+   * one cause is a baseline captured on another platform (see the provenance block
+   * below); the field is a boolean rather than an enum because every future cause
+   * has the same consequence, and a consumer that switches on the reason will get
+   * the next one wrong.
+   *
+   * WHY THIS FIELD EXISTS AT ALL. The mismatch was already detected, already named
+   * in `note`, and then filed anyway: `deriveFindings` read `diffPct` and nothing
+   * else, so three pages sat `escalated` for 18-22 consecutive nights on font
+   * rasterisation. That is precisely the failure the ledger's fourth rule forbids —
+   * "escalating because the system could not see is the failure this PRD exists to
+   * remove" — and it happened because the honest note was prose that no evaluator
+   * read. A verdict has to travel as a field to survive the trip.
+   *
+   * Absent on every artifact written before 2026-09-01. Read it as
+   * `comparable !== false`, so an old record keeps its old meaning instead of
+   * silently becoming unevaluable when pr-gate.ts re-derives from it.
+   */
+  comparable: boolean;
 }
 
 export interface VisualResult {
@@ -76,7 +100,12 @@ export interface VisualResult {
 }
 
 function notCompared(note: string): ViewportComparison {
-  return { diffPct: null, note, baselineCreated: false };
+  // `comparable: true` on a null diff is not a contradiction: there is no number
+  // here to distrust. Every consumer must already treat `diffPct === null` as
+  // unevaluable on its own, and claiming incomparability as well would blur two
+  // distinct facts — "no comparison happened" and "this comparison cannot be
+  // scored" — into one flag that answers neither question.
+  return { diffPct: null, note, baselineCreated: false, comparable: true };
 }
 
 /** `/review/gesture/` -> `review-gesture`; `/` -> `index`. */
@@ -294,6 +323,11 @@ export async function captureAndCompare(page: Page, opts: CaptureOptions): Promi
       result[viewport] = {
         ...result[viewport],
         note: existing === null ? mismatch : `${mismatch} | ${existing}`,
+        // The number stays. It is real, and suppressing it would hide the size of
+        // the offset from anyone calibrating the threshold. What changes is that it
+        // is no longer allowed to convict: `comparable: false` is what stops
+        // deriveFindings filing it and stops the predicate scoring it `fail`.
+        comparable: false,
       };
     }
   }
@@ -347,6 +381,7 @@ async function captureOne(
       diffPct: null,
       note: `${viewport} baseline REPLACED by an explicit --rebaseline run on ${process.platform}`,
       baselineCreated: true,
+      comparable: true,
     };
   }
 
@@ -357,7 +392,7 @@ async function captureOne(
     }
     mkdirSync(dirname(base), { recursive: true });
     writeFileSync(base, current);
-    return { diffPct: null, note: `${viewport} baseline created — nothing to compare against yet`, baselineCreated: true };
+    return { diffPct: null, note: `${viewport} baseline created — nothing to compare against yet`, baselineCreated: true, comparable: true };
   }
 
   let baselinePng: PNG;
@@ -403,5 +438,8 @@ async function captureOne(
     }
   }
 
-  return { diffPct: Number(diffPct.toFixed(3)), note: artifactNote, baselineCreated: false };
+  // `comparable: true` here is the DEFAULT, not a verdict. captureAndCompare owns
+  // the platform question — it reads provenance once per page rather than once per
+  // viewport — and downgrades this to false before the record leaves the module.
+  return { diffPct: Number(diffPct.toFixed(3)), note: artifactNote, baselineCreated: false, comparable: true };
 }

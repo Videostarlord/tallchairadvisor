@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BuyBox from '../components/BuyBox.astro';
 import Byline from '../components/Byline.astro';
 
 const schema = [
@@ -100,6 +101,22 @@ const schema = [
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">At 6'6", the Steelcase Leap Plus is the only mainstream ergonomic chair that can clear the seat height bar, and only when ordered with the optional 5" cylinder that reaches 22.5". Its standard cylinder stops at 19.5" and will not fit. The Gesture at 21" and the Aeron Size C at 20.5" both leave the seat too low, which angles the thighs upward and drives the seat edge into the underside of the thigh. If the Leap Plus still does not fit, the next step is commercial-grade or custom seating rather than another mainstream chair.</p>
     </div>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-sm text-amber-900">
+      <strong>Disclosure:</strong> We may earn a commission from purchases made through links on this page. This never influences our evaluations.
+      <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
+    </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"At 6'6\" this is the only mainstream ergonomic chair that clears the seat height bar — and only with the optional 5\" cylinder. The standard cylinder stops at 19.5\" and will not fit."}
+      specs={["17.5\"–22.5\" with 5\" cylinder", "19.75\" seat depth", "500 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Read the full review →"
+    />
+
     <div class="prose-tca">
 
       <div class="not-prose overflow-x-auto my-8">

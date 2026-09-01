@@ -522,5 +522,65 @@ console.log('\n[12] buildEvalContext against the real repo');
   console.log(`        ↳ redirects: ${ctx.redirects.size}, verified ASINs: ${ctx.verifiedAsins?.size ?? 0}`);
 }
 
+// ─── 13. visual-diff: an incomparable number is unevaluable, never fail ────────
+//
+// The regression this pins (2026-09-01). Between 2026-08-09 and 2026-08-31 three
+// pages accumulated 18, 18 and 22 `escalated` attempts each against baselines
+// captured on a MacBook and compared on an ubuntu runner. Every diff was real and
+// every diff was meaningless: macOS and Linux rasterise fonts differently, so the
+// number measured the runner. `escalated` is the ledger's loudest status and for
+// three weeks it was pointed at the instrumentation.
+//
+// types.ts states the rule this enforces: unevaluable "must never be counted as
+// pass (that closes a live problem on no evidence) and never as fail (that
+// escalates on the system's own blindness)". A number nobody can score is the
+// second case, and it now has to travel as a field rather than as a note.
+
+console.log('\n[13] visual-diff and the incomparable baseline');
+
+{
+  const viewportRec = (over: Record<string, unknown>) => ({
+    url: '/review/gesture/',
+    observedAt: '2026-08-31T04:58:42.710Z',
+    visual: { desktop: { diffPct: 0.5, note: null, baselineCreated: false, comparable: true }, mobile: { ...over } },
+  }) as unknown as ProbeRecord;
+
+  const withProbe = (rec: ProbeRecord) =>
+    makeCtx({ probes: new Map([['/review/gesture/', rec]]), probeSource: 'probe:2026-08-31' });
+
+  const pred: ClosurePredicate = { kind: 'visual-diff', url: '/review/gesture/', viewport: 'mobile', maxPct: 2 };
+
+  // The exact shape of ledger record c401f8c099f6 on the night it hit 22 attempts.
+  const incomparable = await run(pred, withProbe(viewportRec({
+    diffPct: 7.256,
+    note: 'BASELINE PLATFORM MISMATCH: images captured on darwin/arm64 (local, 2026-08-09), compared on linux/x64 (ci).',
+    baselineCreated: false,
+    comparable: false,
+  })));
+  assert('a 7.256% diff against an incomparable baseline → unevaluable, NOT fail', incomparable.result === 'unevaluable', incomparable.result);
+  assert('  …and quotes the reason rather than hiding it', /MISMATCH|not comparable/i.test(incomparable.reason), incomparable.reason);
+  assert('  …and carries no evidence, so nothing can be closed on it', incomparable.evidence === null);
+
+  // The other half. Suppressing every visual verdict would "fix" the noise by
+  // deleting the detector, which is the same outcome the platform mismatch
+  // already achieved by accident.
+  const real = await run(pred, withProbe(viewportRec({
+    diffPct: 7.256, note: null, baselineCreated: false, comparable: true,
+  })));
+  assert('the same diff on a comparable baseline still fails', real.result === 'fail', real.result);
+
+  // Backwards compatibility, tested rather than assumed: every probe artifact on
+  // disk before this change lacks the key entirely.
+  const legacy = await run(pred, withProbe(viewportRec({
+    diffPct: 7.256, note: null, baselineCreated: false,
+  })));
+  assert('a record with no `comparable` key keeps its old meaning (fail)', legacy.result === 'fail', legacy.result);
+
+  const clean = await run(pred, withProbe(viewportRec({
+    diffPct: 0.4, note: null, baselineCreated: false, comparable: true,
+  })));
+  assert('an under-threshold comparable diff still passes', clean.result === 'pass', clean.result);
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed > 0) process.exit(1);

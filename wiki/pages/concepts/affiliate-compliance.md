@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-09
+last_updated: 2026-08-31
 sources: [raw/audits/2026-05-10-full-seo-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md]
 tags: [compliance, ftc, affiliate, legal]
 ---
@@ -18,7 +18,27 @@ tags: [compliance, ftc, affiliate, legal]
 **Fix applied:** created reusable `src/components/Disclosure.astro` (amber callout → `/affiliate-disclosure/`). Inserted near top of content (after `<Byline />`, above first CTA) on all 9:
 `office-chair-return-policy`, `aeron-size-c-vs-leap-plus`, `office-chair-lower-back-pain-tall-people`, `leg-pain-circulation`, `back-pain-spine-height`, `how-to-adjust-chair`, `shoulder-pain-tall-people`, `why-standard-chairs-dont-fit`, `office-chairs-for-6-foot-5`. Build green (49 pages); render verified in `dist/`.
 
-**Known nuance (not yet fixed):** the 6-foot-3/4/6/7 and heavy-duty pages carry their disclosure LOW on the page (line ~340+), after CTAs — FTC prefers it above the first affiliate link. Low urgency; flag for a placement pass. All other pages place it near the top.
+~~**Known nuance (not yet fixed):** the 6-foot-3/4/6/7 and heavy-duty pages carry their disclosure LOW on the page (line ~340+), after CTAs — FTC prefers it above the first affiliate link. Low urgency; flag for a placement pass.~~ **FIXED 2026-08-31 — and it was worse than this note recorded.** See below.
+
+## ✅ Disclosure-above-CTA enforced site-wide, and MEASURED (2026-08-31)
+
+The 2026-07-25 sweep asked "does this page have a disclosure?" — a text check. That is the wrong question. The FTC standard is *clear and conspicuous*, which is a question about **order and position**, and a page can pass the text check while placing its disclosure 5,000px below the first buy button.
+
+A rendered check (Chromium, real pixel offsets, all 45 pages carrying affiliate links) found **5 pages where the disclosure sat BELOW the first affiliate CTA**:
+
+| page | disclosure | first CTA | gap |
+|---|---:|---:|---|
+| `/heavy-duty-ergonomic-chairs-tall-people/` | 8203px | 2997px | 5206px below |
+| `/office-chairs-for-6-foot-7/` | 9310px | 5302px | 4008px below |
+| `/office-chairs-for-6-foot-3/` | 7565px | 5537px | 2028px below |
+| `/refurbished-steelcase-leap-tall-people/` | 4398px | 2488px | 1910px below |
+| `/review/gesture/` | 869px | 795px | 74px below — blocks simply swapped |
+
+**And one page the 2026-07-25 sweep missed entirely:** `/office-chairs-for-6-foot-4/` carried **three affiliate links and no disclosure of any kind**. The note above lists 6-foot-4 among pages whose disclosure was merely *low*; it had none.
+
+All six fixed. `<Disclosure />` inserted above the first CTA on five; the disclosure and CTA blocks simply swapped on `/review/gesture/`. **Re-verified by rendered position: 45/45 pages now place the disclosure above the first affiliate link.**
+
+**The durable lesson, and it is the repo's usual one:** a text scan for a component's presence cannot answer a question about position. The 2026-07-25 sweep reported "all fixed" and was correct about what it measured. Measure the thing the rule is actually about.
 
 **Going forward:** new affiliate pages must use `<Disclosure />` near the top. This is the 3rd recurrence of disclosure drift — the component now makes it a one-line include.
 

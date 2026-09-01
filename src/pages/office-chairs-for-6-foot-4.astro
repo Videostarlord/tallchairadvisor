@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -100,6 +102,18 @@ const schema = [
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">At 6'4", the Steelcase Leap Plus is the safest default at 19.75" of seat depth — but order the optional 5" cylinder, which raises seat height to 17.5"–22.5". The standard cylinder stops at 19.5" and will sit too low. The Steelcase Gesture can still work at 18.75" of depth, but only if a knee-clearance check passes — 2–3 finger-widths between the seat edge and the back of the knee at full seat extension. The Herman Miller Aeron Size C is the weakest of the three at this height because its seat depth is fixed.</p>
     </div>
+
+    <Disclosure />
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"The safest default at 6'4\" on the published specs \u2014 19.75\" of seat depth, and 17.5\"\u201322.5\" of seat height with the optional 5\" cylinder. Order the cylinder: the standard one stops at 19.5\" and sits too low."}
+      specs={["19.75\" adjustable seat depth", "17.5\"\u201322.5\" seat height (5\" cylinder)", "500 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Read the full Leap Plus analysis →"
+    />
 
     <div class="prose-tca">
 

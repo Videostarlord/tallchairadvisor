@@ -1,12 +1,149 @@
 ---
 type: synthesis
-last_updated: 2026-08-26
+last_updated: 2026-09-01
 tags: [decisions, history]
 ---
 
 # Decisions Log
 
+## 2026-09-01 — The two tags measuring the price band that converts had never recorded a click
+
+- **FINDING — `tcaaccessory-20` and `tcadesk-20` have no rows in any export.** Not one click, ever, across three hand exports, while `tcachair-20` shows 60 clicks / 9 orders / $29.25. **The cause was the link inventory, not the copy:** 116 chair links against 14 accessory and 3 desk, and all 17 of those sat on the six accessory pages. The classes were instrumented on 2026-08-13 and then never given anywhere to fire from. Their emptiness was being read as "no data yet"; it meant "no links anywhere a reader reaches".
+- **Why this is sharp rather than tidy.** The orders under the chair tag are not chairs — all 6 on one ASIN, average item value **$106.85** against $1,300–$1,800 chairs, zero units of any recommended chair ever sold. The revenue is basket spillover in the 24h window. **The site earns from the price band it barely links to and links almost exclusively to the band that has never sold a unit.**
+- **DECISION: `CompanionPicks` on the 8 highest-traffic chair pages, BELOW each existing primary CTA — not above.** `BuyBox.astro`'s own measurement says first-CTA depth predicts clicks almost perfectly, so above is the click-maximising choice. It was rejected: the FTC disclosure must precede the first affiliate link, five pages were violating that six days ago, and inserting CTAs above existing ones on 8 pages at once is that failure waiting to recur. **45/45 re-verified by rendered position.** Accessory links 14 → 32, desk 3 → 9.
+- **DECISION: every pick must be defensible on its own page, so the component takes a list rather than a fixed set.** No lumbar cushion on Gesture/Leap/Aeron — [[lumbar-support-tall-people]] tells those owners explicitly not to buy one, and contradicting a published position for a few cents is not a trade worth making. Headrests only on Aeron pages; seat cushions only where the chair has a hard height ceiling and no lumbar worth losing.
+- **⏳ THIS IS A TEST AND MUST BE REPORTED AS ONE.** The hypothesis is that the sub-$300 band converts where $1,300 chairs do not. The read is the next hand export showing a non-zero row for either tag. **A null result is a real answer.** This file has twice recorded a single export as settled and had to take it back.
+
+### The AIO suppression thesis has never been observed — now it is instrumented
+
+- **FINDING — the ~80% figure in [[ctr-optimization]] is an April inference that nothing has checked since**, and the entire GEO capsule programme was built on it. `aioSuspect` is shape-based: good position, poor CTR. That cannot distinguish an AI Overview from a product carousel, a PAA stack, a video block, or a title that does not earn its impressions. Four problems, four fixes, months spent building for one of them.
+- **Built `scripts/aio-track.ts`**, weekly in `monday.yml`, ~$0.04/run on the DataForSEO endpoint `competitor-intelligence.ts` already calls. See [[aio-citation-tracking]].
+- **DECISION: reserved shares per query source, with the control group protected first.** The first dry run filled all 20 slots with CTR leaks, because GSC reports 21. That would have been worse than no measurement: CTR leaks are *selected for* the symptom under investigation, so a series drawn only from them finds a high AIO rate and confirms the thesis it was built to test. Spare capacity backfills to the control group first and to leaks last.
+- **DECISION: a failed request is `null`, never `false`; rates are computed over what was observed.** A wholly broken run must not report a tidy "0% suppression".
+- **Zero observations so far.** Nothing from this instrument is quotable until two runs agree.
+
+### `/chair-specs/` — the $0 version of the link building we declined
+
+- **DECISION: publish `data/chair-specs.json` as a citable CC BY 4.0 dataset** at `/chair-specs/` + `/chair-specs.json`, with `Dataset` schema, an `llms.txt` entry, and a link from `/correct-chair-dimensions/`. [[ctr-optimization]] priced quality links at $1,000–8,000 and declined; that judgement stands, and this is the same goal at zero cost using an asset that already existed and was invisible outside the repo. See [[chair-specs-dataset]].
+- **DECISION: no affiliate links on it, and it must not be scored as a money page.** A citation target that sells things is a citation target nobody cites.
+- **DECISION: coverage stays at 4 chairs and the page says why.** That is the set whose every figure has been read from a manufacturer PDF. Padding it with retailer figures would reintroduce the exact failure the registry was built to prevent. Growing this page means opening PDFs, not writing copy.
+- **`lint-content.mjs` fired three times on prose that was DEBUNKING the banned Leap Plus range. The gate was not weakened** — the page was reworded so the two endpoints never share a line. A rule that could be talked out of firing by surrounding prose would not have caught the original error either, which also sat beside text explaining it.
+
+### `escalated` was pointed at the instrumentation for three weeks
+
+- **FINDING — three findings at 18, 18 and 22 attempts were all macOS-vs-Linux font rasterisation**, and **the system had diagnosed it correctly on 2026-08-13 and filed them anyway.** `describePlatformMismatch` wrote the cause into `note`; `deriveFindings` read `diffPct` and nothing else. **Prose in a field no evaluator reads is not a verdict.**
+- This broke the ledger's own fourth rule — never escalate on the system's own blindness — using the loudest status it has. For three weeks the top of the nightly report meant *the runner changed*.
+- **Fixed** with `comparable: boolean`: skipped at filing, `unevaluable` at evaluation, the diff number retained so the offset stays visible for threshold calibration, and read as `!== false` so three weeks of stored artifacts keep their original meaning.
+- **NEW SEAM RULE, alongside the 08-30 one about schedules and filenames:** *a detector that can tell it is blind must say so in the field the verdict is read from. A correct diagnosis written where nothing reads it is the same as no diagnosis.*
+- **⚠ STILL NEEDS JACKSON:** `gh workflow run nightly.yml -f rebaseline_visual=true` — **CI, never locally.** The three stop accruing attempts now but stay `escalated` until baselines are recaptured where the comparison runs. Already open from 08-31 (10 stale pages); today's 8 changed pages add to it.
+
+**Gates:** build 55 pages · affiliate lint 157 links · content lint 55 pages · architecture 0 new violations · 29/29 test files · disclosure order 45/45.
+
+
+## 2026-08-31 — CTA placement finished site-wide, and a disclosure gap the 07-25 sweep could not see
+
+- **CORRECTION FIRST.** The four pages named in the previous session (`/`, `/correct-chair-dimensions/`, `/review/aeron-size-c/`, `/review/sihoo-doro-s300/`) **were already fixed on 2026-08-28** and measure 6.5–18% rendered. Their zero click counts came from a 28-day GA4 window that mostly predates the fix. **A trailing-window metric was read as current state.** No work was done on them.
+- **9 pages genuinely still had deep CTAs** (36.9%–72.7% rendered) and now sit at 8.0%–19.5%. Four had never been touched by any CTA pass: 6-foot-3, 6-foot-7, heavy-duty, refurbished-leap.
+- **DECISION: `<BuyBox>` on `/knee-pain-seat-depth/` despite `no-snippet-work-on-aio-eaten-informational`.** That rule forbids *snippet and meta work chasing rankings* on AIO-eaten queries. A CTA monetises traffic that already lands (48 GA4 sessions) — the opposite of farming impressions. Precedent: `/correct-chair-dimensions/` is named in the same rule and took a BuyBox on 08-28 without objection.
+- **DECISION: Leap Plus leads every new BuyBox**, because per the 2026-08-30 export it is the only ASIN in the archive that has ever converted. `/office-chairs-for-6-foot-3/` is the deliberate exception — the Gesture is the honest pick at that height.
+- **FTC: 6 pages were non-compliant, and the 2026-07-25 sweep reported them fixed.** A rendered check found 5 pages placing the disclosure *below* the first CTA (worst: 5,206px below) and **`/office-chairs-for-6-foot-4/` carrying three affiliate links with no disclosure at all**. All six fixed; **45/45 pages re-verified by rendered position.**
+  **Why the old sweep missed it:** it was a text scan for the component's presence. The FTC standard is about *order and position*. A page can pass "has a disclosure" and still bury it 5,000px under the buy button. Same shape as every other defect in this repo — the check measured something adjacent to the rule.
+- **Two of my own bugs, caught before commit:** literal `\u2192` in plain HTML attributes (renders as text, not an arrow) and escaped quotes inside plain attributes (build error). Both came from generating `.astro` with Python string formatting. The JSX-expression props (`verdict={...}`, `specs={...}`) interpret escapes; plain attributes do not.
+- **⚠ CONSEQUENCE FOR JACKSON — the visual baselines are now stale on 10 pages.** Every changed page will exceed the 2% visual-diff threshold tonight, on top of the 7 already-escalated mobile findings suspected to be the macOS/Linux font artefact. **Re-baseline on the runner:** trigger `nightly.yml` via `workflow_dispatch` with `rebaseline_visual: true`. It must be CI, never local — a local re-baseline recreates the exact cross-platform offset that produced those 7 findings.
+
+
+## 2026-08-30 (second session) — the chair-tag EPC replicated, and the $100 gate split from the kill-list gate
+
+Hand export dropped by Jackson (`~/Downloads/Aug 30th Amazon Data`, 3 CSVs, data stamp 2026-08-29).
+Archived to `raw/affiliate/2026-08-30-amazon-csv/`; full analysis in
+`raw/affiliate/2026-08-30-amazon-associates-report.md`.
+
+- **Window SOLVED a third time: rolling 30-day, Jul 31 – Aug 29.** Five quantities matched against
+  the frozen daily rows in `data/affiliate/latest.json`. The algebra method now has three
+  confirmations and can be treated as routine.
+- **FINDING — the $0.48 EPC replicated at $0.4875.** `tcachair-20`: 60 clicks, 9 orders, $29.25,
+  against 59 / 6 / $28.54 two days earlier on a different window. **This is the first result in the
+  archive that has ever reproduced.** The Aug 26 $0.00 is now firmly the outlier, exactly as the
+  Aug 28 report diagnosed it.
+- **The headline drop $96.84 → $36.09 is NOT a loss, and was nearly misread as one.** The window
+  advanced 2 days and the Jul 29 shipped item ($2,048.80 / **$61.46**) aged out. Underlying earnings
+  **rose $0.71**. Recorded because a rolling-window export makes a decline out of nothing at all —
+  the same ambiguity that caused the 2026-08-03 misreading, arriving from the opposite direction.
+- **NARROWED: the finding is "Leap Plus clicks earn", not "chair clicks earn".** All 6 attributed
+  orders sit on `B00TYE4QXU` (13.33% product conversion). Gesture, Aeron and Crandall: **59 clicks,
+  0 orders**. The EPC should be quoted as a Leap-Plus figure until a second ASIN converts.
+- **CONFIRMED three times: zero chair units.** Average item value is moving *away* from chair prices
+  as n grows — $157.30 (6 items) → $106.85 (9 items) against $1,300–$1,800 chairs. Basket spillover.
+- **⚠ DECISION OWED BY JACKSON — two gates have been tracked as one and August splits them.**
+  - Jul 3 kill-list gate: *"2–3 consecutive positive revenue months."* +$36.09 is positive →
+    **advances to 2 of 2–3**, first movement since July.
+  - thesis.md separately tracks a **"$100 month"** → August misses by ~64%.
+  The gate was written when a positive month meant +$92.06. **Not ruled on here**; flagged in
+  `affiliate-performance.md` and `thesis.md` and left for Jackson.
+- **All three CSVs reconciled exactly** (132 clicks / 11 items / $1,189.67 / $36.09) — a first.
+  `top-sellers.csv` was absent from the drop; it has been a header row only in every prior export.
+- **Not done, deliberately:** `data/affiliate/latest.json` untouched. It is the frozen decoder, and
+  overwriting it from a CSV drop would delete the only thing that can date these exports.
+
+
+## 2026-08-30 — two alarm-honesty fixes; nightly spend confirmed already down
+
+- **Confirmed, not changed: nightly cost is fixed.** The 2026-08-28 weekly-narrative gate works. `data/cost-ledger.jsonl` on `origin/main`: Fri 08-29 = no LLM record; Sun 08-30 = one narrative at $0.57. ~$16/mo → ~$2.45/mo. **The nightly push stays nightly and stays free** — it carries the dead-man's-switch heartbeat, and suppressing it would alarm the phone every night.
+- **Decision: accept yesterday's report in the dead-man's switch.** `checkReportFile()` looked for `wiki/nightly/<today>.md`, but the 17:00-local nightly (moved there 2026-08-13) always writes `<yesterday>.md` relative to the 08:00 check. It had fired a false `TCA DEAD` **every morning for 17 days**, printing a healthy heartbeat underneath the alarm. Now accepts today *or* yesterday. Detection window unchanged at one missed cycle — both dates come from the watchdog's own clock, so a genuinely missed night still matches neither.
+- **Decision: an intentional saving is never rendered in the vocabulary of a failure.** `--no-narrative` nights were passed to `fallbackReport()`, the model-call-broke renderer, so 6 nights in 7 the report announced *"The report writer failed"* and filed itself as the #1 item needing attention. New `skippedNarrativeReport()` says the essay is weekly and, unlike the failure renderer, **lists** the escalated/regressed findings rather than only counting them — deterministic, $0, from a file the nightly already loads.
+- **Decision: a count with no list is not a report.** The old deterministic path printed "10 things need you" and never said which ten. Findings are now named with page, days stuck, attempt count, and the failing goal.
+- **New seam rule (4th):** changing a schedule changes a filename, and something downstream matches on that filename. Grep what reads a cron's artifacts before changing that cron — **including outside this repo**.
+- **Deferred / needs Jackson:** `deadmans-switch.ts` lives in `Videostarlord/tca-watchdog` and is copied by hand. **The fix is inert until re-copied there.** That manual hop is part of why the false alarms lasted 17 days; it is now documented in `deadmans-switch.README.md`.
+- **Not touched:** remaining spend is `competitor-intelligence` (~$1.98 in August, Mondays) and `audit`/`strategy` (~$0.84). Left alone pending a decision.
+
+
 A rolling record of key strategic decisions and their outcomes. The most valuable RAG source for the automation agents — before making a new strategy, query this first.
+
+## [2026-08-28] SUPERSEDES the 2026-08-26 chair-click decision — chair links earn $0.48/click
+
+**This reverses a decision recorded 48 hours ago in this same file.** The entry below it —
+*"The chair tag returned $0.00 — stop treating Amazon chair clicks as a revenue path"* — is left in
+place because this log does not rewrite its own history, but **its conclusion is wrong and this
+entry governs.**
+
+**What changed.** The 2026-08-28 export reads `tcachair-20` at **59 clicks, 6 items ordered,
+$943.79 revenue, $28.54 earnings** — a **$0.48 EPC** and a 12.24% product conversion rate Amazon
+states outright. Two days earlier the identical tag read **45 clicks, 0 orders, $0.00**.
+
+**The revised decision.** Chair links are a working revenue channel and are to be treated as one.
+Chair *unit sales* remain a dead end and no plan may assume them.
+
+| Claim | Status |
+|---|---|
+| "$500+ chair links do not produce chair sales" | **Still true** — 0 chair units across the entire archive |
+| "Chair clicks are not a revenue lever" | **False** — $0.48/click via basket spillover |
+
+**Why the original decision was wrong, and it was not the data's fault.** The data on 2026-08-26 was
+correct: the tag genuinely showed $0.00 across 12 days. The error was treating **one reading of a
+low-volume metric as a settled result** and writing a directive from it. At ~6 orders a month, a
+12-day window containing zero orders is an entirely ordinary sample, not evidence of a zero rate.
+[[statistical-confidence-policy]] exists to prevent exactly this and was not applied to a finding
+that felt conclusive because it was a round number.
+
+**The generalisable lesson: $0.00 is not a measurement of zero — it is a measurement of "no event in
+this window."** A null result at low volume needs the same confirmation discipline as a positive
+one. The pipeline has a rule against fabricating wins from noise; this was the mirror failure —
+fabricating a *loss* from noise, and then routing strategy away from a channel on the strength of
+it.
+
+**What this does NOT license.** Not a reversal back to chair-unit optimism, and **not a plan built
+on this export either.** n = 6 orders, one reading, against a contradictory reading two days old. At
+139 clicks/30d the run rate is ~$67/month — worth watching against the $100 gate, not yet worth
+betting on. **Wait for a third and fourth export before either number becomes a premise.**
+
+**Practical consequences now:**
+- The [[review-leap-plus]] reframe may again be justified partly on revenue — Leap Plus is both the
+  most-clicked ASIN (49) and the row carrying the conversions.
+- August's close is ~**$35.38**, not the ~$12.15 forecast on 2026-08-26. Still under the gate.
+- The 2026-08-13 tag split is vindicated twice over: it produced the false negative *and* the
+  correction, in 15 days, on a channel that was invisible before it.
+
+---
 
 ## [2026-08-26] Kill the Amazon Playwright pull — a scraper that asks for a manual login is not automation
 

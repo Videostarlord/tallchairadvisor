@@ -1,8 +1,38 @@
 name: Wednesday — Strategy & Planning
 
+# ─────────────────────────────────────────────────────────────────────────────
+# SCHEDULE RETIRED 2026-08-29. Runs on workflow_dispatch only.
+#
+# WHY, from the record rather than from taste: in six months the autonomous
+# acting agents changed src/ exactly SIX times (four sitemap/index fixes, two
+# Thursday SEO runs in June). All 19 pages on the site were written in
+# human-directed sessions, and every revenue-relevant change of August — the
+# tracking-ID split, the CTA placement, the machine-retrieval scorer fix — came
+# from a session too. Meanwhile the four automated position interventions failed
+# across 37 days and 20 attempts.
+#
+# The operating model is now explicit: THE PIPELINE OBSERVES, JACKSON DECIDES.
+# Collection, the 49-page probe, the ledger and its closure predicates,
+# competitor intelligence, the Tuesday audit, keyword discovery and the
+# dead-man's switch all still run nightly/weekly — they are the instrument that
+# measures whether a session's change worked.
+#
+# THE REASON IS NOT COST. These three cost ~$0.26/month between them. It is that
+# an idle acting-agent still files a stale-log finding every night, and an alarm
+# that fires because nothing happened is indistinguishable from one that fires
+# because something broke. That noise costs attention, which is the scarce
+# resource here.
+#
+# DISABLED, NOT DELETED. The code is sound and the schedule is one line away.
+# scripts/lib/retired-agents.ts is the single place that records which acting
+# agents are off, and nightly-report.ts reads it so their logs stop being
+# reported as failures. Re-enabling means restoring the cron here AND removing
+# the entry there — the two must agree or the alarms come back.
+# ─────────────────────────────────────────────────────────────────────────────
+
 on:
-  schedule:
-    - cron: '0 8 * * 3' # 8:00 UTC = 1:00 AM PDT
+  # schedule:
+  #   - cron: '0 8 * * 3 # 8:00 UTC = 1:00 AM PDT'
   workflow_dispatch:
 
 permissions:

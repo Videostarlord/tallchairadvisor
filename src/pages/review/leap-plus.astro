@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BuyBox from '../../components/BuyBox.astro';
 import Byline from '../../components/Byline.astro';
 import RedditInsights from '../../components/RedditInsights.astro';
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
+import CompanionPicks from '../../components/CompanionPicks.astro';
 
 const leapInsightsPath = path.join(process.cwd(), 'data/reddit/published/steelcase-leap-plus.json');
 const leapInsights = existsSync(leapInsightsPath)
@@ -173,6 +175,16 @@ const schema = [
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
 
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"The widest seat depth range of any chair here at 19.75\", plus a 500 lb capacity. On the specs it is the strongest fit above 6'4\"."}
+      specs={["19.75\" max seat depth", "500 lb capacity", "17.5\"\u201322.5\" with 5\" cylinder"]}
+      affiliateClass="chair"
+      altHref="/gesture-vs-leap-plus/"
+      altLabel="Compare with the Gesture →"
+    />
+
     <figure class="mb-10">
       <img
         alt="Steelcase Leap Plus office chair in black fabric, showing full chair with high back, adjustable arms, and reinforced 5-star base"
@@ -194,6 +206,35 @@ const schema = [
         <p>The Steelcase Leap Plus is built on the award-winning Leap platform, with structural reinforcement and expanded adjustment ranges to accommodate users up to 500 lbs. It extends the standard Leap on every key dimension: more seat height, more seat depth, wider seat, taller back. For tall users specifically, that dimensional headroom matters in concrete ways that cheaper chairs can't replicate.</p>
         <p>For tall and heavy users, finding a chair that provides genuine ergonomic support rather than just rated capacity is rare. The Leap Plus earns its price: it maintains the Leap's LiveBack technology and Natural Glide System while reinforcing the frame, cylinder, and casters throughout. The result is a chair that behaves ergonomically correctly at tall-user proportions, not one that merely holds more weight.</p>
       </section>
+
+      <CompanionPicks
+        intro={"The Leap Plus has the seat height range to sit a tall user correctly, which is exactly what puts the rest of the workstation out of position. It has built-in lumbar, so a lumbar cushion is the wrong purchase here; the desk side is the right one."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B01BRLJPZQ?tag=tcaaccessory-20",
+            product: "Uncaged Ergonomics KT2-b keyboard tray",
+            price: "$100-160 range",
+            why: "Raising the chair to fit your legs leaves the desk relatively too low for your arms. A negative-tilt tray restores the wrist angle without lowering the seat again.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B076HB7NZS?tag=tcadesk-20",
+            product: "Vari Tall 40 standing desk converter",
+            price: "$350-450 range",
+            why: "The only mainstream converter whose own listing claims coverage up to 6'6\". Standard converters top out around a 44\" standing height, which is short for a tall user.",
+            affiliateClass: "desk",
+          },
+        ]}
+        moreHref="/standing-desk-height-tall-people/"
+        moreLabel={"Full desk-height guide for tall users →"}
+      />
 
       <section>
         <h2>Key Specifications</h2>

@@ -2,7 +2,7 @@
   "data": {
     "repo": "Videostarlord/tallchairadvisor",
     "defaultBranch": "main",
-    "ghVersion": "gh version 2.97.0 (2026-07-31)",
+    "ghVersion": "gh version 2.98.0 (2026-08-20)",
     "authAccount": "github-actions[bot]",
     "workflows": [
       {
@@ -24,43 +24,41 @@
         "cron": "0 10 */2 * *",
         "expectedCadenceDays": 2,
         "lastRun": {
-          "runNumber": 37,
+          "runNumber": 40,
           "status": "completed",
           "conclusion": "success",
-          "startedAt": "2026-08-25T10:35:20Z",
-          "finishedAt": "2026-08-25T10:35:48Z",
-          "daysAgo": 1,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/32837973830",
-          "headSha": "4f5456cff157913521452a2e364f2dc393bd1125",
+          "startedAt": "2026-08-31T17:26:51Z",
+          "finishedAt": "2026-08-31T17:27:11Z",
+          "daysAgo": 0,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33419608699",
+          "headSha": "2d78211d314796f4c57ea0fad97e333bdb5acfbd",
           "event": "schedule"
         },
-        "committedDuringRun": 1,
-        "commitSubjects": [
-          "[skip cd] data: Clarity history 2026-08-25"
-        ],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-25T10:35:20Z) and run end + 15min (2026-08-25T10:50:48.000Z) — inferred, not authoritative",
+        "committedDuringRun": 0,
+        "commitSubjects": [],
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-31T17:26:51Z) and run end + 15min (2026-08-31T17:42:11.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
         "name": "Friday — New Content (Conditional)",
         "path": ".github/workflows/friday.yml",
         "state": "active",
-        "cron": "0 8 * * 5",
+        "cron": "0 8 * * 5 # 8:00 UTC = 1:00 AM PDT",
         "expectedCadenceDays": 7,
         "lastRun": {
-          "runNumber": 23,
+          "runNumber": 24,
           "status": "completed",
           "conclusion": "success",
-          "startedAt": "2026-08-21T08:29:03Z",
-          "finishedAt": "2026-08-21T08:31:26Z",
-          "daysAgo": 6,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/32463385797",
-          "headSha": "5c6f1313a86c0f3ea96bcc84142fc009b4d01ed5",
+          "startedAt": "2026-08-28T19:47:51Z",
+          "finishedAt": "2026-08-28T19:52:15Z",
+          "daysAgo": 3,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33205438230",
+          "headSha": "1652943d974df95df74cb150eca18607a520e831",
           "event": "schedule"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-21T08:29:03Z) and run end + 15min (2026-08-21T08:46:26.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-28T19:47:51Z) and run end + 15min (2026-08-28T20:07:15.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -75,7 +73,7 @@
           "conclusion": "success",
           "startedAt": "2026-08-01T09:50:38Z",
           "finishedAt": "2026-08-01T09:52:05Z",
-          "daysAgo": 25,
+          "daysAgo": 30,
           "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/30694541120",
           "headSha": "b4fd09e2d360c3326c99e05ee50c8b69f0001639",
           "event": "schedule"
@@ -94,21 +92,21 @@
         "cron": "0 8 * * 1",
         "expectedCadenceDays": 7,
         "lastRun": {
-          "runNumber": 28,
+          "runNumber": 29,
           "status": "completed",
           "conclusion": "success",
-          "startedAt": "2026-08-24T08:52:35Z",
-          "finishedAt": "2026-08-24T09:23:24Z",
-          "daysAgo": 2,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/32708511084",
-          "headSha": "3b94941c433b4ef171095cb68d2ce03a590f449f",
+          "startedAt": "2026-08-31T16:00:17Z",
+          "finishedAt": "2026-08-31T16:23:56Z",
+          "daysAgo": 0,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33411639045",
+          "headSha": "c5db9d441d7830b6cdb3705c009f3efddd1323f4",
           "event": "schedule"
         },
         "committedDuringRun": 1,
         "commitSubjects": [
-          "[skip cd] data: Monday pull + index fixes 2026-08-24"
+          "[skip cd] data: Monday pull + index fixes 2026-08-31"
         ],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-24T08:52:35Z) and run end + 15min (2026-08-24T09:38:24.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-31T16:00:17Z) and run end + 15min (2026-08-31T16:38:56.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -118,19 +116,19 @@
         "cron": "0 0 * * *",
         "expectedCadenceDays": 1,
         "lastRun": {
-          "runNumber": 25,
+          "runNumber": 32,
           "status": "in_progress",
           "conclusion": null,
-          "startedAt": "2026-08-27T08:40:13Z",
-          "finishedAt": "2026-08-27T08:40:16Z",
+          "startedAt": "2026-09-01T07:48:25Z",
+          "finishedAt": "2026-09-01T07:48:30Z",
           "daysAgo": 0,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33055054006",
-          "headSha": "4a419fa9e76cce5fd9ad2f9f9cbb100955f43c73",
-          "event": "schedule"
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33483915219",
+          "headSha": "354b508bbf9514f3945d304c42acbe868936889c",
+          "event": "workflow_dispatch"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-27T08:40:13Z) and run end + 15min (2026-08-27T08:55:16.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-09-01T07:48:25Z) and run end + 15min (2026-09-01T08:03:30.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -152,19 +150,19 @@
         "cron": "0 9 * * 6",
         "expectedCadenceDays": 7,
         "lastRun": {
-          "runNumber": 28,
+          "runNumber": 29,
           "status": "completed",
           "conclusion": "failure",
-          "startedAt": "2026-08-22T09:16:15Z",
-          "finishedAt": "2026-08-22T09:16:27Z",
-          "daysAgo": 4,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/32564490703",
-          "headSha": "d5503085fc2f018e5c35f70b0d86783eb895341e",
+          "startedAt": "2026-08-29T14:03:10Z",
+          "finishedAt": "2026-08-29T14:03:22Z",
+          "daysAgo": 2,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33256568003",
+          "headSha": "5f85335291a7a92cb8ebc2f8e1526dea9dc28067",
           "event": "schedule"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-22T09:16:15Z) and run end + 15min (2026-08-22T09:31:27.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-29T14:03:10Z) and run end + 15min (2026-08-29T14:18:22.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -174,41 +172,43 @@
         "cron": null,
         "expectedCadenceDays": null,
         "lastRun": {
-          "runNumber": 25,
+          "runNumber": 36,
           "status": "completed",
           "conclusion": "success",
-          "startedAt": "2026-08-27T06:12:20Z",
-          "finishedAt": "2026-08-27T06:13:06Z",
+          "startedAt": "2026-09-01T07:45:14Z",
+          "finishedAt": "2026-09-01T07:45:52Z",
           "daysAgo": 0,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33045031682",
-          "headSha": "9b60bbce0f4f2169407866bcec66276ced52ee2f",
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33483655202",
+          "headSha": "f15fac8a0c26016264b4d83c0dbfbc84a8ccc053",
           "event": "push"
         },
-        "committedDuringRun": 0,
-        "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-27T06:12:20Z) and run end + 15min (2026-08-27T06:28:06.000Z) — inferred, not authoritative",
+        "committedDuringRun": 1,
+        "commitSubjects": [
+          "[skip cd] nightly: god's-eye 2026-09-01"
+        ],
+        "commitInferenceMethod": "bot commits on main between run start (2026-09-01T07:45:14Z) and run end + 15min (2026-09-01T08:00:52.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
         "name": "Thursday — Execute Fixes",
         "path": ".github/workflows/thursday.yml",
         "state": "active",
-        "cron": "0 8 * * 4",
+        "cron": "0 8 * * 4 # 8:00 UTC = 1:00 AM PDT",
         "expectedCadenceDays": 7,
         "lastRun": {
-          "runNumber": 26,
+          "runNumber": 27,
           "status": "completed",
-          "conclusion": "failure",
-          "startedAt": "2026-08-20T08:21:16Z",
-          "finishedAt": "2026-08-20T08:21:38Z",
-          "daysAgo": 7,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/32348389086",
-          "headSha": "c31b92f3cd693ef625492c1c333266f17ac44cb7",
+          "conclusion": "success",
+          "startedAt": "2026-08-27T18:26:31Z",
+          "finishedAt": "2026-08-27T18:41:49Z",
+          "daysAgo": 4,
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33103476786",
+          "headSha": "74fc7fc2fc611700edded12b7a81107e61813439",
           "event": "schedule"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-08-20T08:21:16Z) and run end + 15min (2026-08-20T08:36:38.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-08-27T18:26:31Z) and run end + 15min (2026-08-27T18:56:49.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -223,7 +223,7 @@
           "conclusion": "success",
           "startedAt": "2026-08-25T08:40:16Z",
           "finishedAt": "2026-08-25T08:43:25Z",
-          "daysAgo": 1,
+          "daysAgo": 6,
           "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/32827820958",
           "headSha": "7946c0b1f6c822d4477ff5465738cbd53d93f4f0",
           "event": "schedule"
@@ -239,7 +239,7 @@
         "name": "Wednesday — Strategy & Planning",
         "path": ".github/workflows/wednesday.yml",
         "state": "active",
-        "cron": "0 8 * * 3",
+        "cron": "0 8 * * 3 # 8:00 UTC = 1:00 AM PDT",
         "expectedCadenceDays": 7,
         "lastRun": {
           "runNumber": 26,
@@ -247,7 +247,7 @@
           "conclusion": "success",
           "startedAt": "2026-08-27T05:30:33Z",
           "finishedAt": "2026-08-27T05:32:02Z",
-          "daysAgo": 0,
+          "daysAgo": 5,
           "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33042713071",
           "headSha": "cee0d50f14f9a7b3994a1b46e28fd1daedcd9365",
           "event": "workflow_dispatch"
@@ -261,8 +261,7 @@
       }
     ],
     "failing": [
-      "Saturday — Verify & Deploy",
-      "Thursday — Execute Fixes"
+      "Saturday — Verify & Deploy"
     ],
     "stale": [],
     "neverRan": [
@@ -270,12 +269,13 @@
       "PR — Preview Probe"
     ],
     "wroteNothing": [
+      "Clarity — Behavioral History",
       "Friday — New Content (Conditional)",
-      "Tests"
+      "Thursday — Execute Fixes"
     ]
   },
   "meta": {
-    "collectedAt": "2026-08-27T08:41:01.655Z",
+    "collectedAt": "2026-09-01T07:49:14.772Z",
     "rowCount": 12,
     "healthy": true,
     "reason": null

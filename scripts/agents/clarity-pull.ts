@@ -56,6 +56,20 @@ interface BehavioralAlert {
 
 interface ClarityOutput {
   pulledAt: string;
+  /**
+   * REQUIRED by clarityLatestSchema — do not drop it again.
+   *
+   * `data/clarity/latest.json` has TWO writers: this script and
+   * scripts/agents/clarity-history.ts (the one clarity-history.yml actually
+   * runs). Until 2026-08-28 only the history writer emitted `windowEnd`, so any
+   * manual `npm run agent:clarity` silently replaced a valid file with one that
+   * FAILS ITS OWN CONTRACT — and strategy.ts reads this path through
+   * clarityLatestSchema, so the next strategy run would have died on it.
+   *
+   * Found by running this script during a performance review. Two writers, one
+   * contract, and only one of them satisfied it.
+   */
+  windowEnd: string;
   numOfDays: number;
   pages: PageMetrics[];
   deviceSplit: Record<string, number>;
@@ -218,6 +232,8 @@ async function main() {
 
   const output: ClarityOutput = {
     pulledAt: new Date().toISOString(),
+    // Same definition clarity-history.ts uses: the UTC date the window ends on.
+    windowEnd: new Date().toISOString().slice(0, 10),
     numOfDays: NUM_OF_DAYS,
     pages: pages.sort((a, b) => (b.sessions ?? 0) - (a.sessions ?? 0)),
     deviceSplit,

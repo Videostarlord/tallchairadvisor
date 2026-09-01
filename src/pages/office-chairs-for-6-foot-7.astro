@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -100,6 +102,18 @@ const schema = [
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">At 6'7" and above, mainstream ergonomic chairs are at their limits. The Steelcase Leap Plus comes closest, at 19.75" of seat depth and up to 22.5" of seat height with the optional 5" cylinder — mandatory at this height, since the standard cylinder stops at 19.5". It also has a real return window — which makes it the sensible first test rather than the guaranteed answer. If after correct setup the seat still cannot reach your popliteal height, or thigh pressure persists, that is concrete evidence for commercial-grade or custom seating.</p>
     </div>
+    <Disclosure />
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"At 6'7\" mainstream chairs are at their limits and this one comes closest on the published specs. The optional 5\" cylinder is mandatory here \u2014 the standard one stops at 19.5\". Buy somewhere with a real return window and treat it as the first test."}
+      specs={["19.75\" adjustable seat depth", "up to 22.5\" seat height (5\" cylinder)", "500 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Read the full Leap Plus analysis →"
+    />
+
     <div class="prose-tca">
 
       <div class="not-prose overflow-x-auto my-8">

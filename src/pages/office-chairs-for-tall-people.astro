@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import CompanionPicks from '../components/CompanionPicks.astro';
 
 const schema = [
   {
@@ -167,6 +168,35 @@ const schema = [
           body dimensions — so you can stop guessing and start comparing objectively.
         </p>
       </section>
+
+      <CompanionPicks
+        intro={"A chair that fits is the first half. The other half is that a correctly-set tall chair raises you above a desk built for someone 5'9\", and every one of these costs a fraction of the chairs above."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B01BRLJPZQ?tag=tcaaccessory-20",
+            product: "Uncaged Ergonomics KT2-b keyboard tray",
+            price: "$100-160 range",
+            why: "Raising the chair to fit your legs leaves the desk relatively too low for your arms. A negative-tilt tray restores the wrist angle without lowering the seat again.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B076HB7NZS?tag=tcadesk-20",
+            product: "Vari Tall 40 standing desk converter",
+            price: "$350-450 range",
+            why: "The only mainstream converter whose own listing claims coverage up to 6'6\". Standard converters top out around a 44\" standing height, which is short for a tall user.",
+            affiliateClass: "desk",
+          },
+        ]}
+        moreHref="/standing-desk-height-tall-people/"
+        moreLabel={"Full desk-height guide for tall users →"}
+      />
 
       <section>
         <h2>The Measurement Framework for Tall Buyers</h2>

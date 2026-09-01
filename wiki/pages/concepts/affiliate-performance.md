@@ -1,13 +1,67 @@
 ---
 type: concept
-last_updated: 2026-08-26
-sources: [raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
+last_updated: 2026-09-01 (the two tags measuring the price band that converts have never recorded a click — link inventory, not copy)
+sources: [raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md, raw/affiliate/2026-08-30-amazon-associates-report.md, raw/affiliate/2026-08-28-amazon-associates-report.md, raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
 # Affiliate Performance (Amazon Associates)
 
 Tracking IDs (split 2026-08-13, `20aab85`): `tcachair-20` (chairs) · `tcaaccessory-20` · `tcadesk-20` · `tallchairadvi-20` (legacy catch-all, retains all pre-2026-08-13 attribution). Commission tier: ~3% (furniture/home office). Map: `src/data/affiliate-tags.ts`.
+
+---
+
+## ⚠ 2026-09-01 — TWO OF THE THREE TAGS HAVE NEVER RECORDED A CLICK
+
+**The tracking-ID split was built to answer "which product class converts". Two of
+the three classes have never had the chance to answer.**
+
+| tag | clicks (3 exports) | orders | earnings |
+|---|---|---|---|
+| `tcachair-20` | 60 | 9 | $29.25 |
+| `tcaaccessory-20` | **no rows, ever** | — | — |
+| `tcadesk-20` | **no rows, ever** | — | — |
+
+**The cause was the link inventory, not the copy.** 116 chair links against 14
+accessory and 3 desk — and all 17 of those sat on the six accessory pages, which
+carry a small fraction of site traffic. The classes were instrumented and then
+never given anywhere to fire from. `tcaaccessory-20` and `tcadesk-20` returning
+nothing was read as "no data yet"; it was actually "no links anywhere a reader
+reaches".
+
+**Why this is the sharpest finding in this file.** The orders under the chair tag
+are not chairs. All 6 attributed orders sit on one ASIN, average item value is
+**$106.85** against $1,300–$1,800 chairs, and zero units of any chair this site
+recommends have ever sold. The money is basket spillover inside the 24-hour window
+a chair click opens. **The site earns from the price band it barely links to, and
+links almost exclusively to the band that has never sold a unit.**
+
+**Fix shipped 2026-09-01** — `src/components/CompanionPicks.astro` on the 8
+highest-traffic chair pages, below each page's existing primary CTA:
+
+- accessory links 14 → **32**, on 6 pages → **13**
+- desk links 3 → **9**, on 1 page → **7**
+- chair links unchanged at 116
+
+Placement is deliberately below the existing CTA rather than above it, despite
+`BuyBox.astro`'s own evidence that first-CTA depth predicts clicks. The FTC
+disclosure must precede the first affiliate link and five pages were violating that
+on 2026-08-31; inserting CTAs above existing ones on 8 pages at once is that
+failure waiting to recur. **45/45 re-verified: disclosure precedes the first Amazon
+link.**
+
+Every pick is editorially constrained rather than filled in: no lumbar cushion on
+Gesture/Leap/Aeron pages ([[lumbar-support-tall-people]] tells those owners not to
+buy one), headrests only on Aeron pages, seat cushions only where the chair has a
+hard height ceiling and no lumbar worth losing.
+
+**⏳ THIS IS A TEST, NOT A RESULT.** The hypothesis is that the sub-$300 band
+converts where $1,300 chairs do not. **The read is the next hand export showing a
+non-zero row for `tcaaccessory-20` or `tcadesk-20`.** A null result is a real answer
+and must be reported as one — see [[statistical-confidence-policy]], and note that
+this file has twice recorded a single export as settled and had to take it back.
+
+Full write-up: `raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md`
 
 ---
 
@@ -23,7 +77,7 @@ Tracking IDs (split 2026-08-13, `20aab85`): `tcachair-20` (chairs) · `tcaaccess
 
 | Month | Clicks | Orders | CVR | Ordered Revenue | Shipped Revenue | Net Earnings | Status |
 |--------|--------|--------|-----|-----------------|-----------------|--------------|--------|
-| **2026-08** | — | 3 (partial) | — | — | — | **+$12.15** | Days 1–25, derived from the Aug 26 rolling export (window solved, see below). $6.84 booked Aug 1–4 plus ~$5.31 in the `others` tracking bucket after. ~$1,575 ordered-but-unshipped could add ~$47 at 3%. **On track to FAIL the $100 gate.** Confirming month for the kill-list gate; closes 2026-09-01. |
+| **2026-08** | 132 | 11 (partial) | — | $1,189.67 | $1,189.67 | **+$36.09** | Days 1–29, from the **Aug 30** export (window Jul 31–Aug 29, solved). **$29.25 on `tcachair-20` + $6.84 booked Aug 1–4.** Positive, but ~64% short of the $100 target. **Clears the Jul 3 kill-list gate as written ("positive"), taking it to 2 of 2–3** — see the ruling Jackson owes below. Closes 2026-09-01. |
 | **2026-07** | 92 | 5 (1 direct) | 5.4% | $3,109.76 | $3,109.76 | **+$92.06** | Best month in site history (~2.5x prior best). 66% from a single order. Return window open. |
 | 2026-06 | 70 | 7 | 10.0% | $578.08 | $578.08 | **−$0.41** | 1 return ($610) wiped earnings. |
 
@@ -36,6 +90,158 @@ Tracking IDs (split 2026-08-13, `20aab85`): `tcachair-20` (chairs) · `tcaaccess
 | Jul 17 | 82 | $1,252.11 | — | +$36.06 | 6 items ordered (later restated to 5) |
 
 *Correction 2026-08-01: the Jul 28 ingest treated these as discrete periods and favored a "not cumulative" reading based on items ordered falling 6 → 5. That was wrong — the 6 → 5 change was an order restatement, not a new window. There is **one** positive month on record (July), not three positive periods. The Jul 3 kill-list gate ("2–3 consecutive positive revenue months") therefore stands at 1 of 2–3. August is the confirming period.*
+
+### Aug 30 export — rolling 30-day, **Jul 31 – Aug 29**. ✅ THE AUG 28 READING REPLICATES.
+
+**This is the first finding in this archive that has ever reproduced.** `tcachair-20` reads
+**60 clicks → 9 orders → $29.25**, an EPC of **$0.4875**. Two days earlier, on a different window,
+the same tag read 59 clicks → 6 orders → $28.54, an EPC of **$0.484**. Same number twice, on
+independent windows.
+
+**Window solved a third time, on five quantities.** Summing `data/affiliate/latest.json` forward
+from 2026-07-31 gives 2 ordered / $227.98 / 2 shipped / $227.98 / $6.84 — exactly this export's
+`others` row. *(Jul 30–Aug 2 all produce the identical sum; the export's own 2026-08-29 stamp puts
+the start at Jul 31, inside that band.)* The algebra method now has three confirmations.
+
+| Tracking ID | Clicks | Ordered | Shipped rev | **Earnings** | vs Aug 28 |
+|---|---|---|---|---|---|
+| `tallchairadvi-20` (legacy) | 67 | — | — | **$0.00** | 75 clicks, $0.00 |
+| **`tcachair-20` (chairs)** | **60** | **9** | **$961.69** | **$29.25** | 59 clicks, 6 ord, $28.54 |
+| `others` | 5 | 2 | $227.98 | **$6.84** | 5 clicks, 3 ship, $68.30 |
+| **Total** | **132** | **11** | **$1,189.67** | **$36.09** | 139 clicks, $96.84 |
+
+#### The headline fall from $96.84 to $36.09 is NOT a loss
+
+The window advanced 2 days and the **Jul 29** shipped item ($2,048.80 revenue / **$61.46**
+earnings) aged out of it. That single item accounts for $61.46 of the $60.75 decline.
+**Underlying earnings rose $0.71.** Old money left; new money stayed.
+
+**All three CSVs reconcile exactly** this time — 132 clicks, 11 items, $1,189.67, $36.09 on
+category *and* linked-product *and* tracking-id. A first; every prior export disagreed somewhere.
+(`top-sellers.csv` was absent from this drop — 3 files, not 4. It has been a header row only in
+every previous export, so nothing is lost.)
+
+#### The finding is narrower than "chair clicks" — it is "Leap Plus clicks"
+
+| ASIN | Product | Clicks | Orders |
+|---|---|---|---|
+| B00TYE4QXU | Steelcase Leap Plus (~$1,300) | 45 | **6** |
+| B016OIF2JU | Steelcase Gesture (~$1,500) | 30 | **0** |
+| B01N32UFNT | Herman Miller Aeron Size C (~$1,800) | 18 | **0** |
+| B08PPVCCST | Crandall Remanufactured Leap V2 | 11 | **0** |
+
+**One ASIN carries every order** — 13.33% product conversion, stated by Amazon on that row. The
+other three contributed **59 clicks and zero orders** between them. Whether they monetise at all is
+still open. Treat the $0.49 EPC as a Leap-Plus number until a second ASIN converts.
+
+#### Zero chair units — third consecutive export, and the gap is widening
+
+Average item value is moving **away** from chair prices as the sample grows: $157.30 (6 items,
+Aug 28) → **$106.85** (9 items, Aug 30). Commission rate on the Leap Plus row is 3.02%, the
+furniture tier — furniture-class items, just not $1,300 chairs. Basket spillover, confirmed three
+times.
+
+#### ⚠ A ruling Jackson owes: two bars are being tracked and August splits them
+
+- **The Jul 3 kill-list gate is "2–3 consecutive positive revenue *months*."** The bar as written is
+  *positive*. August at +$36.09 is positive, so **the gate advances to 2 of 2–3** — its first
+  movement since July. **But the gate was written when a positive month meant +$92.06.** Whether
+  $36 was ever what "positive" meant is a judgement call, and it is Jackson's, not this file's.
+- **The thesis separately tracks a "$100 month."** August misses that by ~64%.
+
+These are different bars and have been quietly treated as one. They now disagree about whether
+August was a success.
+
+#### Confidence
+
+Per [[statistical-confidence-policy]], **n = 9 orders across two agreeing exports.** thesis.md set
+the standard as "a third and fourth export agree" — the third has now arrived and agrees with the
+second, and the outlier (Aug 26, $0.00) is the one already diagnosed as a null result rather than a
+zero rate. **The balance of evidence has moved decisively; a fourth export is still owed before this
+is treated as settled.** Run rate at ~132 clicks/30d and $0.49 EPC: **~$64/month** from chair links.
+
+#### Everything else
+
+Clicks 139 → 132 on the window shift — Leap Plus −4, Gesture and Aeron flat, others −3. No trend is
+readable at this resolution. **Tag migration continues:** `tcachair-20` 60 vs legacy 67, from 59 vs
+75; crossover is close. `tcaaccessory-20` and `tcadesk-20` still have no rows.
+
+**Cross-dimension split, as always:** `linked-product.csv` books 6 orders / $25.69 to the Leap Plus
+ASIN where `tracking-id.csv` books 9 orders / $29.25 to `tcachair-20`; `category.csv` books all
+$36.09 to `others`. **The tracking-ID row remains authoritative** for "do chair links earn?" — it is
+what `affiliate-tags.ts` controls and what Amazon attributes the session against.
+
+Raw: `raw/affiliate/2026-08-30-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-08-30-amazon-csv/`).
+
+---
+
+### Aug 28 export — rolling 30-day, **Jul 29 – Aug 27**. ⚠ REVERSES THE AUG 26 HEADLINE.
+
+> **Read this before the Aug 26 section below it.** That section reports `tcachair-20` at
+> **45 clicks, 0 orders, $0.00** and a decision built on it. **Two days later the same tag reads
+> 59 clicks, 6 orders, $28.54.** The section is left standing as written — the archive does not
+> rewrite its own history — but its conclusion is superseded here.
+
+**Window solved again, on five quantities.** Summing `data/affiliate/latest.json` from 2026-07-29
+gives 3 shipped / $2,276.78 / $68.30 / 2 ordered / $227.98 — exactly this export's `others` row. The
+algebra method now has two independent confirmations and can be treated as reliable.
+
+| Tracking ID | Clicks | Ordered | Shipped rev | **Earnings** | vs Aug 26 |
+|---|---|---|---|---|---|
+| `tallchairadvi-20` (legacy) | 75 | — | — | **$0.00** | 81 clicks, $68.98 |
+| **`tcachair-20` (chairs)** | **59** | **6** | **$943.79** | **$28.54** | **45 clicks, $0.00** |
+| `others` | 5 | 2 | $2,276.78 | $68.30 | 5 clicks, $12.15 |
+| **Total** | **139** | **8** | **$3,220.57** | **$96.84** | 131 clicks, $81.13 |
+
+#### The correction, stated plainly
+
+**Chair links earn $0.48/click. They just do not sell chairs.**
+
+`$943.79 ÷ 6 = $157.30 average item.` The Leap Plus is ~$1,300, the Gesture ~$1,500, the Aeron Size
+C ~$1,800. **Not one of the six items is a chair this site recommends.** They are cheaper products
+bought inside the 24-hour window a chair click opened. Amazon states the conversion rate directly on
+the Leap Plus row: **12.24% product conversion**.
+
+So the July–August diagnosis splits in two, and only half of it survives:
+
+| Claim | Status |
+|---|---|
+| "$500+ chair links do not produce chair sales" | **STILL TRUE** — 0 chair units in the entire archive |
+| "Chair clicks are not a revenue lever" | **FALSE** — they are a $0.48/click lever, via basket spillover |
+
+**What the tag split actually bought is now clear.** Before 2026-08-13 this money sat in an `others`
+bucket and read as an accident. It is not an accident — it is a repeatable ~10% conversion on
+traffic this site originates. **The split did not prove chairs fail; it made a working revenue
+channel visible for the first time.**
+
+#### Restraint the numbers demand
+
+**n = 6 orders, one export, and the same tag read $0.00 forty-eight hours earlier.** That is the size
+of swing this volume produces. Per [[statistical-confidence-policy]] neither reading stands alone —
+**do not build a plan on this one either.** At ~139 clicks/30d and $0.48 EPC the run rate is
+**~$67/month** from chair links, which is worth watching against the $100 gate and not yet worth
+betting on.
+
+**August close (2026-09-01) is materially better than the Aug 26 forecast:** at least
+**$35.38** recoverable ($28.54 chair-tag + $6.84 booked Aug 1–4), against ~$12.15 projected two days
+ago. Return window still open.
+
+#### Everything else in this export
+
+Clicks 131 → 139. Leap Plus 49 (still #1, and the row carrying the conversions), Gesture 30, Aeron
+18, Crandall 11, others 31. **Tag migration nearly complete** — `tcachair-20` 59 vs legacy 75, up
+from 45 vs 81; the legacy tag decays as cached pages age out. `tcaaccessory-20` and `tcadesk-20`
+still have no rows.
+
+**Cross-dimension mismatch again, and which row to trust:** `linked-product.csv` books $87.15 to the
+Leap Plus ASIN where `tracking-id.csv` books $28.54 to `tcachair-20`; `category.csv` books all
+$96.84 to `others`. All three total $96.84 and reconcile at 139 clicks and nowhere else. **For "do
+chair links earn?", the tracking-ID row is authoritative** — the tag is what `affiliate-tags.ts`
+controls and what Amazon attributes the whole session against.
+
+Raw: `raw/affiliate/2026-08-28-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-08-28-amazon-csv/`).
+
+---
 
 ### Aug 26 export — rolling 30-day, **Jul 27 – Aug 25 (WINDOW SOLVED, not guessed)**
 

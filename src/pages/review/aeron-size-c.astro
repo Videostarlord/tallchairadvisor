@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import BuyBox from '../../components/BuyBox.astro';
 import Byline from '../../components/Byline.astro';
 import RedditInsights from '../../components/RedditInsights.astro';
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
+import CompanionPicks from '../../components/CompanionPicks.astro';
 
 const aeronInsightsPath = path.join(process.cwd(), 'data/reddit/published/herman-miller-aeron.json');
 const aeronInsights = existsSync(aeronInsightsPath)
@@ -175,6 +177,16 @@ const schema = [
       <a href="/affiliate-disclosure/" class="underline ml-1">Learn more →</a>
     </div>
 
+    <BuyBox
+      href="https://www.amazon.com/dp/B01N32UFNT?tag=tcachair-20"
+      product="Herman Miller Aeron Size C"
+      verdict={"Fits 6'0\"\u20136'4\" on the published specs. The fixed 18.5\" seat depth is the constraint \u2014 longer femurs should step up to the Leap Plus."}
+      specs={["20.5\" max seat height", "18.5\" fixed seat depth", "12-year warranty"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Compare with the Leap Plus →"
+    />
+
     <figure class="mb-10">
       <img
         alt="Herman Miller Aeron Size C office chair in graphite, showing full chair with mesh back, adjustable armrests, and 5-star base"
@@ -194,6 +206,35 @@ const schema = [
         <p>The Herman Miller Aeron Size C is the largest variant in Herman Miller's iconic Aeron line, specifically engineered for users 6'0" and taller. Since its original introduction in 1994 and remaster in 2016, the Aeron has established itself as a benchmark in ergonomic seating. The PostureFit SL lumbar system and Pellicle mesh suspension are genuinely differentiated technologies — not marketing copy.</p>
         <p>For tall users, the Size C addresses real dimensional gaps that standard chairs ignore: seat depth, back height, and overall frame scale. The question for any given tall person isn't whether the Aeron is good — it is — but whether the fixed 18.5" seat depth matches their specific femur length. That single spec drives most of the fit decisions in this category.</p>
       </section>
+
+      <CompanionPicks
+        intro={"Size C fixes the frame size. At 6'2\" and above the back still ends below the base of the skull, and the Aeron is the only chair covered here with a healthy aftermarket headrest supply."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B0B86SYST5?tag=tcaaccessory-20",
+            product: "Engineered Now headrest for the Aeron",
+            price: "$100-170 range",
+            why: "The Aeron is the only chair here with a real aftermarket headrest market. At 6'2\"+ the stock back ends below the base of the skull, which is what the headrest is for.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B076HB7NZS?tag=tcadesk-20",
+            product: "Vari Tall 40 standing desk converter",
+            price: "$350-450 range",
+            why: "The only mainstream converter whose own listing claims coverage up to 6'6\". Standard converters top out around a 44\" standing height, which is short for a tall user.",
+            affiliateClass: "desk",
+          },
+        ]}
+        moreHref="/chair-headrest-tall-people/"
+        moreLabel={"Which headrests actually fit, and which do not →"}
+      />
 
       <section>
         <h2>Key Specifications</h2>

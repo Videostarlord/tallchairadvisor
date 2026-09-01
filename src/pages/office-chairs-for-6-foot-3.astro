@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -105,6 +107,18 @@ const schema = [
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">At 6'3", three premium chairs are genuine fits: the Herman Miller Aeron Size C, the Steelcase Gesture, and the Steelcase Leap Plus. This is the last height at which the choice stays genuinely open — tall enough that most standard office chairs fall short, but not so tall that only one option clears the dimensional bar. The deciding factor is usually seat depth measured against your own thigh length.</p>
     </div>
+    <Disclosure />
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B016OIF2JU?tag=tcachair-20"
+      product="Steelcase Gesture"
+      verdict={"6'3\" is the last height where the choice stays open, and the Gesture is the best all-rounder of the three \u2014 18.75\" of adjustable seat depth and the widest armrest range. Check knee clearance at full extension before committing."}
+      specs={["18.75\" adjustable seat depth", "21\" max seat height", "360\u00b0 adjustable arms"]}
+      affiliateClass="chair"
+      altHref="/office-chairs-for-6-foot-4/"
+      altLabel="Taller? See the 6 foot 4 guide →"
+    />
+
     <div class="prose-tca">
 
       <div class="not-prose overflow-x-auto my-8">

@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import BuyBox from '../components/BuyBox.astro';
+import CompanionPicks from '../components/CompanionPicks.astro';
 
 const schema = [
   {
@@ -109,6 +111,16 @@ const schema = [
     <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-8 text-sm text-blue-900">
       <strong>Note:</strong> This content is for informational purposes only and does not constitute medical advice. If you experience persistent back, knee, or leg pain, consult a qualified healthcare professional.
     </div>
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"The widest adjustable seat depth of the mainstream ergonomic chairs at 19.75\" \u2014 enough to clear the 2\u20133 finger-widths Cornell specifies for most tall femurs, where a 17\" standard seat cannot."}
+      specs={["19.75\" adjustable seat depth", "17.5\"\u201322.5\" seat height (5\" cylinder)", "500 lb capacity"]}
+      affiliateClass="chair"
+      altHref="/correct-chair-dimensions/"
+      altLabel="Measure your own seat depth first →"
+    />
 
     <div class="bg-card border border-border rounded-lg p-5 my-8">
       <p class="font-semibold mb-2">The Cornell Ergonomics Rule</p>
@@ -258,6 +270,36 @@ const schema = [
           </p>
         </div>
       </section>
+
+      <CompanionPicks
+        heading={"The other half of popliteal pressure: the desk"}
+        intro={"Seat depth is the chair's contribution. The rest of the posture cascade comes from a desk set for an average-height body, which is what forces the perch that reintroduces the pressure."}
+        picks={[
+          {
+            href: "https://www.amazon.com/dp/B00DB42YIS?tag=tcaaccessory-20",
+            product: "Ergotron LX Desk Mount, Tall Pole",
+            price: "$150-250 range",
+            why: "A chair set to a tall user's seat height puts the eyes higher than a desk-standing monitor reaches. The tall pole is the version with enough travel to follow.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B01BRLJPZQ?tag=tcaaccessory-20",
+            product: "Uncaged Ergonomics KT2-b keyboard tray",
+            price: "$100-160 range",
+            why: "Raising the chair to fit your legs leaves the desk relatively too low for your arms. A negative-tilt tray restores the wrist angle without lowering the seat again.",
+            affiliateClass: "accessory",
+          },
+          {
+            href: "https://www.amazon.com/dp/B076HB7NZS?tag=tcadesk-20",
+            product: "Vari Tall 40 standing desk converter",
+            price: "$350-450 range",
+            why: "The only mainstream converter whose own listing claims coverage up to 6'6\". Standard converters top out around a 44\" standing height, which is short for a tall user.",
+            affiliateClass: "desk",
+          },
+        ]}
+        moreHref="/standing-desk-height-tall-people/"
+        moreLabel={"Full desk-height guide for tall users →"}
+      />
 
       <section>
         <h2>How Seat Depth Relates to Thigh Length</h2>

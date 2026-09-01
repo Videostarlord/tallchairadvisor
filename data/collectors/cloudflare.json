@@ -12,79 +12,83 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "8fabacc2-8562-4f6b-a0b8-1640624ed800",
-      "shortId": "8fabacc2",
+      "deploymentId": "a22889dd-72e5-4761-872e-01242554d98d",
+      "shortId": "a22889dd",
       "environment": "production",
-      "url": "https://8fabacc2.tallchairadvisor.pages.dev",
-      "createdOn": "2026-08-27T05:33:20.87061Z",
+      "url": "https://a22889dd.tallchairadvisor.pages.dev",
+      "createdOn": "2026-09-01T07:47:59.456013Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "4a419fa9e76cce5fd9ad2f9f9cbb100955f43c73",
-      "commitMessage": "docs(wiki): record the workflow triage — three bugs and one guard\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+      "commitHash": "354b508bbf9514f3945d304c42acbe868936889c",
+      "commitMessage": "[skip cd] nightly: god's-eye 2026-09-01"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 35813,
-      "cachedRequests": 2322,
-      "hitRatePct": 6.5,
-      "bytes": 308060337,
-      "cachedBytes": 97069054,
+      "requests": 28190,
+      "cachedRequests": 2936,
+      "hitRatePct": 10.4,
+      "bytes": 254402307,
+      "cachedBytes": 104673084,
       "byDay": [
         {
+          "date": "2026-09-01",
+          "requests": 759,
+          "cachedRequests": 277,
+          "hitRatePct": 36.5
+        },
+        {
+          "date": "2026-08-31",
+          "requests": 3067,
+          "cachedRequests": 286,
+          "hitRatePct": 9.3
+        },
+        {
+          "date": "2026-08-30",
+          "requests": 2300,
+          "cachedRequests": 336,
+          "hitRatePct": 14.6
+        },
+        {
+          "date": "2026-08-29",
+          "requests": 2873,
+          "cachedRequests": 361,
+          "hitRatePct": 12.6
+        },
+        {
+          "date": "2026-08-28",
+          "requests": 5873,
+          "cachedRequests": 630,
+          "hitRatePct": 10.7
+        },
+        {
           "date": "2026-08-27",
-          "requests": 1974,
-          "cachedRequests": 63,
-          "hitRatePct": 3.2
+          "requests": 4058,
+          "cachedRequests": 356,
+          "hitRatePct": 8.8
         },
         {
           "date": "2026-08-26",
           "requests": 9260,
           "cachedRequests": 690,
           "hitRatePct": 7.5
-        },
-        {
-          "date": "2026-08-25",
-          "requests": 6554,
-          "cachedRequests": 336,
-          "hitRatePct": 5.1
-        },
-        {
-          "date": "2026-08-24",
-          "requests": 6731,
-          "cachedRequests": 312,
-          "hitRatePct": 4.6
-        },
-        {
-          "date": "2026-08-23",
-          "requests": 2657,
-          "cachedRequests": 280,
-          "hitRatePct": 10.5
-        },
-        {
-          "date": "2026-08-22",
-          "requests": 5364,
-          "cachedRequests": 298,
-          "hitRatePct": 5.6
-        },
-        {
-          "date": "2026-08-21",
-          "requests": 3273,
-          "cachedRequests": 343,
-          "hitRatePct": 10.5
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 0,
-      "byAction": {},
-      "bySource": {}
+      "totalEvents": 1,
+      "byAction": {
+        "block": 1
+      },
+      "bySource": {
+        "firewallManaged": 1
+      }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-08-27T08:40:56.464Z",
+    "collectedAt": "2026-09-01T07:49:10.495Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null

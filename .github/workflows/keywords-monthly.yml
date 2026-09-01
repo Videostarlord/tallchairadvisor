@@ -44,12 +44,34 @@ jobs:
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
           DATAFORSEO_SANDBOX: ${{ github.event_name == 'schedule' && 'false' || inputs.sandbox || 'true' }}
 
+      # ── Approval + roadmap push (added 2026-08-29) ──────────────────────
+      #
+      # THE CHAIN USED TO STOP HERE. keyword-discovery filled
+      # opportunities.json every month, and nothing ever ran again: approval was
+      # a human setting `approved: true` by hand, and keywords-push was wired
+      # into NO workflow at all. The content pipeline ran for six months and
+      # shipped zero pages — not broken, unowned.
+      #
+      # keywords-approve.ts is that human, as code. It rejects keywords the site
+      # already ranks for (16 of the 18 candidates in the standing queue),
+      # rejects near-duplicates of pages that already exist (the other 2), and
+      # dedups near-identical variants within a batch.
+      #
+      # It approves nothing today, and that is the correct output — a month with
+      # no qualifying gap is a real answer, recorded with a reason per candidate,
+      # which is not the same as a month nobody looked at.
+      - name: Approve qualifying keywords (no human in this loop)
+        run: npm run keywords:approve
+
+      - name: Push approved keywords into the content roadmap
+        run: npm run keywords:push
+
       - name: Commit keyword data
         if: success()
         run: |
           git config user.name "tca-bot"
           git config user.email "bot@tallchairadvisor.com"
-          git add data/keywords/ wiki/pages/concepts/ wiki/log.md wiki/index.md
+          git add data/keywords/ data/content-roadmap.json wiki/pages/concepts/ wiki/log.md wiki/index.md
           # data/cost-ledger.jsonl (A6): keyword-discovery.ts and
           # keyword-gap-discovery.ts both meterExternal their DataForSEO usage.
           # Committed only by nightly.yml until 2026-08-09, so the one workflow

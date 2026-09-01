@@ -172,6 +172,77 @@ async function main() {
     position: r.position ? parseFloat(r.position.toFixed(1)) : null,
   }));
 
+  // ── Per-page query attribution (added 2026-08-28) ───────────────────────────
+  //
+  // WHY THIS EXISTS. `pageQueries` above is a GLOBAL top-500 sample, so a page
+  // whose queries are individually tiny contributes zero rows to it and reads
+  // downstream as "this page has no queries" — indistinguishable from a page
+  // nobody searches for. /knee-pain-seat-depth/ is the case that exposed it:
+  // 39,186 impressions, and `topQueries: []`.
+  //
+  // Asking GSC for that page's queries directly returns 133 rows summing to
+  // 1,635 impressions — **4.2% of the page's total**. The other 95.8% carry no
+  // query, no country and no device, and the queries that ARE named are
+  // machine-shaped ("cornell ergonomics office chair seat pan depth 2 inches
+  // behind knees", "seat depth 2-3 fingers behind knees ergonomics source", and
+  // literal prompt fragments like "context: location: united kingdom"). They sit
+  // at position 1.5-2.5 and take zero clicks across hundreds of impressions.
+  //
+  // That is retrieval by machines, not demand by humans, and it must not be
+  // scored as an opportunity — see scoreOpportunities() in gsc-analyze.ts, where
+  // raw impressions made this page the site's #1 recommendation every week.
+  //
+  // Cost: one extra API call per page, top 20 pages only. Cheap on a weekly job.
+  const topPagesForAttribution = [...pages]
+    .sort((a, b) => (b.impressions ?? 0) - (a.impressions ?? 0))
+    .slice(0, 20);
+
+  const pageAttribution: {
+    page: string;
+    totalImpressions: number;
+    attributableImpressions: number;
+    attributionRatio: number;
+    namedQueryCount: number;
+  }[] = [];
+
+  for (const p of topPagesForAttribution) {
+    const res = await webmasters.searchanalytics.query({
+      siteUrl: SITE_URL,
+      requestBody: {
+        startDate: toDateStr(startDate),
+        endDate: toDateStr(endDate),
+        dimensions: ['query'],
+        rowLimit: 25000,
+        dimensionFilterGroups: [
+          { filters: [{ dimension: 'page', operator: 'equals', expression: `https://tallchairadvisor.com${p.page}` }] },
+        ],
+      },
+    });
+    // NO `?? []` HERE, and the reason is the whole point of this record.
+    //
+    // An absent `rows` means the probe did not answer. Defaulting it to an empty
+    // array would compute attributionRatio = 0 and hand gsc-analyze.ts a page
+    // that looks 100% machine-retrieval — which DELETES it from the opportunity
+    // list with a confident explanation. A failed probe would silently retire a
+    // good page. Unknown is recorded as absence, never as zero.
+    const rows = res.data.rows;
+    if (rows === undefined) {
+      console.warn(`[gsc-pull] attribution probe returned no rows object for ${p.page} — recording NOTHING for it rather than 0% attribution`);
+      continue;
+    }
+    const attributable = rows.reduce((sum, r) => sum + (r.impressions ?? 0), 0);
+    const total = p.impressions ?? 0;
+    pageAttribution.push({
+      page: p.page,
+      totalImpressions: total,
+      attributableImpressions: attributable,
+      // Guard the divide: a page with 0 impressions cannot be in this list, but
+      // a 0 here would read as "fully unattributable" rather than "unknown".
+      attributionRatio: total > 0 ? parseFloat((attributable / total).toFixed(4)) : 1,
+      namedQueryCount: rows.length,
+    });
+  }
+
   const totalsRow = totalsRes.data.rows?.[0];
   const totals = totalsRow
     ? {
@@ -189,6 +260,7 @@ async function main() {
     pages,
     queries,
     pageQueries,
+    pageAttribution,
     deviceSplit,
     dailyTrend,
   };
@@ -262,6 +334,7 @@ ${historicalSection}
   console.log(`  Pages: ${pages.length}`);
   console.log(`  Queries: ${queries.length}`);
   console.log(`  Page+Query rows: ${pageQueries.length}`);
+  console.log(`  Attribution probed: ${pageAttribution.length} pages`);
   console.log(`  Device rows: ${deviceSplit.length}`);
   console.log(`  Daily trend rows: ${dailyTrend.length}`);
   if (totals) {

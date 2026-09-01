@@ -12,30 +12,30 @@ const sitemapExcludedPaths = new Set([
 // Per-page lastmod dates — update when a page is significantly revised
 const pageLastmod = {
   'https://tallchairadvisor.com/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/office-chairs-for-tall-people/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/office-chairs-for-tall-people/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/why-standard-chairs-dont-fit/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/pain-ergonomics/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/fit-guides/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/back-pain-spine-height/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/knee-pain-seat-depth/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/knee-pain-seat-depth/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/leg-pain-circulation/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/correct-chair-dimensions/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/correct-chair-dimensions/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/how-to-adjust-chair/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/review/aeron-size-c/': new Date('2026-05-07'),
-  'https://tallchairadvisor.com/review/gesture/': new Date('2026-08-09'),
-  'https://tallchairadvisor.com/review/leap-plus/': new Date('2026-08-06'),
+  'https://tallchairadvisor.com/review/aeron-size-c/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/review/gesture/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/review/leap-plus/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/aeron-vs-gesture/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/aeron-vs-leap-plus/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/gesture-vs-leap-plus/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/gesture-vs-leap-plus/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/chairs/herman-miller-aeron/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/chairs/steelcase-gesture/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/seat-height/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/tall-people/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/chairs/steelcase-leap-plus/weight-limit/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/about/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/contact/': new Date('2026-01-01'),
   'https://tallchairadvisor.com/privacy-policy/': new Date('2026-01-01'),
@@ -43,24 +43,25 @@ const pageLastmod = {
   'https://tallchairadvisor.com/author/jackson-christopher/': new Date('2026-03-08'),
   'https://tallchairadvisor.com/review/sihoo-doro-s300/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/shoulder-pain-tall-people/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/best-office-chairs-under-500/': new Date('2026-07-25'),
-  'https://tallchairadvisor.com/office-chairs-for-6-foot-3/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/office-chairs-for-6-foot-4/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/office-chairs-for-6-foot-5/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/best-office-chairs-under-500/': new Date('2026-09-01'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-3/': new Date('2026-08-31'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-4/': new Date('2026-08-31'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-5/': new Date('2026-08-31'),
   'https://tallchairadvisor.com/office-chairs-for-6-foot-6/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/office-chairs-for-6-foot-7/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/office-chairs-for-6-foot-7/': new Date('2026-08-31'),
+  'https://tallchairadvisor.com/heavy-duty-ergonomic-chairs-tall-people/': new Date('2026-08-31'),
   'https://tallchairadvisor.com/standing-desk-height-tall-people/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/best-big-and-tall-office-chairs/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/best-big-and-tall-office-chairs/': new Date('2026-09-01'),
   'https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/office-chair-lower-back-pain-tall-people/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/monitor-arm-tall-people/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/seat-cushion-height-tall-people/': new Date('2026-08-08'),
-  'https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/': new Date('2026-08-31'),
   'https://tallchairadvisor.com/chair-headrest-tall-people/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/lumbar-support-tall-people/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/standing-desk-converter-tall-people/': new Date('2026-08-08'),
   'https://tallchairadvisor.com/keyboard-tray-tall-people/': new Date('2026-08-08'),
+  'https://tallchairadvisor.com/chair-specs/': new Date('2026-09-01'),
 };
 
 export default defineConfig({
@@ -105,6 +106,10 @@ export default defineConfig({
           item.url === 'https://tallchairadvisor.com/correct-chair-dimensions/' ||
           item.url === 'https://tallchairadvisor.com/how-to-adjust-chair/' ||
           item.url === 'https://tallchairadvisor.com/why-standard-chairs-dont-fit/' ||
+          // The open dimension dataset. A reference page rather than a money
+          // page: its job is to be cited and linked to, which is worth more than
+          // the 0.3 catch-all would signal.
+          item.url === 'https://tallchairadvisor.com/chair-specs/' ||
           item.url === 'https://tallchairadvisor.com/author/jackson-christopher/'
         ) {
           item.priority = 0.6;

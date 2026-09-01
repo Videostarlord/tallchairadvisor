@@ -3,6 +3,9 @@
 //
 // Reads data/keywords/opportunities.json, flushes entries marked approved: true
 // (and lacking pushed_at) into data/content-roadmap.json via atomic write,
+//
+// `approved` is set by scripts/keywords-approve.ts, NOT by a human — see that
+// file for why removing the manual gate is not the same as removing the gate.
 // deduplicates on target_slug + keyword, stamps pushed_at on flushed entries,
 // and logs each step.
 
@@ -67,8 +70,12 @@ console.log(
 );
 
 if (toProcess.length === 0) {
-  console.log('[keywords-push] Nothing to push. Set "approved": true in data/keywords/opportunities.json and re-run.');
-  console.log('[keywords-push] Tip: if you already set approved: true but see 0 here, check that the field is a boolean true, not the string "true".');
+  // NOT an instruction to a human any more. `approved` is set by
+  // scripts/keywords-approve.ts, which runs immediately before this in
+  // keywords-monthly.yml. Zero approvals is a normal, recorded outcome — every
+  // candidate carries an `approval_reason` explaining why it did not qualify.
+  console.log('[keywords-push] Nothing to push — keywords-approve approved 0 candidates this run.');
+  console.log('[keywords-push] Why: see the `approval_reason` field on each entry in data/keywords/opportunities.json.');
   process.exit(0);
 }
 

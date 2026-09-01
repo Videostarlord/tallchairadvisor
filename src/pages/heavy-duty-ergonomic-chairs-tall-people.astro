@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Byline from '../components/Byline.astro';
+import Disclosure from '../components/Disclosure.astro';
+import BuyBox from '../components/BuyBox.astro';
 
 const schema = [
   {
@@ -105,6 +107,18 @@ const schema = [
       <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Direct Answer</p>
       <p class="text-sm text-muted-foreground">The Steelcase Leap Plus leads this category for users who are both tall and heavy, pairing a 500 lb weight capacity with 19.75" of seat depth and — with the optional 5" cylinder — a 22.5" seat height ceiling. Its standard cylinder stops at 19.5". Most heavy-duty chairs solve for capacity alone and leave seat height and depth at average-user dimensions, which is why a high weight rating on its own does not make a chair fit a 6'4" frame. Capacity ratings reflect structural limits under continuous use, not one-time load tests.</p>
     </div>
+
+    <Disclosure />
+
+    <BuyBox
+      href="https://www.amazon.com/dp/B00TYE4QXU?tag=tcachair-20"
+      product="Steelcase Leap Plus"
+      verdict={"The one chair in this category that raises capacity AND seat height together \u2014 500 lb alongside 19.75\" of seat depth and a 22.5\" ceiling with the 5\" cylinder. Most heavy-duty chairs solve for weight alone and leave the dimensions at average-user size."}
+      specs={["500 lb capacity", "19.75\" adjustable seat depth", "17.5\"\u201322.5\" seat height (5\" cylinder)"]}
+      affiliateClass="chair"
+      altHref="/review/leap-plus/"
+      altLabel="Read the full Leap Plus analysis →"
+    />
 
     <div class="prose-tca">
 
