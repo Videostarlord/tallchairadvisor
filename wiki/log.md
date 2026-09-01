@@ -2,6 +2,22 @@
 type: log
 ---
 
+## [2026-09-01] keywords-approve | Automated keyword approval
+
+- Candidates judged: 11 (of 11 total)
+- **Approved: 0**
+- Existing pages checked against: 55
+- Nothing qualified. This is a recorded result, not a skipped step — see `approval_reason` on each entry.
+
+
+### 2026-09-01 — keyword-discovery.ts run
+- Seeds: GSC=15, Competitor=0, Deduped=15
+- Estimated cost: $0.0201 (1 task)
+- Keywords returned from DataForSEO: 11
+- After filter: 11 keywords pass (KD ≤ 35, vol ≥ 50, non-navigational)
+- Opportunities written: 11 (gap=0, targeting=0, ranking=11)
+- Mode: production
+
 ## [2026-08-31] index-monitor | Indexing Health Check
 
 - Pages inspected: 54 | Redirect sources: 10
