@@ -69,17 +69,75 @@ async function checkSecrets(): Promise<CheckResult> {
   };
 }
 
+/**
+ * The tracking IDs this deploy gate will accept, read from the map that defines
+ * them rather than hardcoded here.
+ *
+ * ─── WHY THIS IS PARSED AND NOT A CONSTANT ──────────────────────────────────
+ *
+ * It used to be `link.includes('tag=tallchairadvi-20')`. The 2026-08-13 tag
+ * split (20aab85) moved every product link onto a class-specific ID —
+ * tcachair-20 / tcaaccessory-20 / tcadesk-20 — and this check was never
+ * updated. From that day every CORRECTLY tagged link read as "missing
+ * affiliate tag", and the Saturday deploy gate failed on 08-15, 08-22 and
+ * every run after. The last successful deploy was 2026-08-09.
+ *
+ * That is the same failure mode Layout.astro's click tracker documents and
+ * guards against ("Left at the single legacy value it would have gone silently
+ * blind on 2026-08-13") — fixed there, missed here, in a file nothing else
+ * touched.
+ *
+ * So the tags are no longer restated in this file. They come from
+ * src/data/affiliate-tags.ts, which is what `npm run lint:affiliate` already
+ * reads, so the two checks can no longer disagree with each other.
+ *
+ * Parsed rather than imported: nothing under scripts/ imports from src/, and
+ * this gate is not the place to be the first thing to cross that boundary.
+ * Same technique as scripts/lint-affiliate.mjs.
+ */
+function acceptedAffiliateTags(): string[] {
+  const mapPath = resolve(ROOT, 'src/data/affiliate-tags.ts');
+  const src = readFileSync(mapPath, 'utf-8');
+  const classTags = [...src.matchAll(/^\s*(?:chair|accessory|desk):\s*'([^']+)',/gm)].map((m) => m[1]);
+  // The legacy catch-all still sits on older links and retains their attribution.
+  const legacy = [...src.matchAll(/'(tallchairadvi-20)'/g)].map((m) => m[1]);
+  const tags = [...new Set([...classTags, ...legacy, 'tallchairadvi-20'])];
+
+  // A parse that silently returns nothing would turn this gate into a rubber
+  // stamp — every link "valid" because no tag is required. Fail loudly instead:
+  // a broken checker must never look like a clean bill of health.
+  if (classTags.length !== 3) {
+    throw new Error(
+      `verify-deploy: could not parse the three class tracking IDs out of src/data/affiliate-tags.ts ` +
+        `(found ${classTags.length}). Refusing to run a check that would pass everything.`,
+    );
+  }
+  return tags;
+}
+
 async function checkAffiliateLinks(): Promise<CheckResult> {
   const srcFiles = await new Glob('src/**/*.astro', { cwd: ROOT }).walk();
   const violations: string[] = [];
+  const accepted = acceptedAffiliateTags();
 
   for (const file of srcFiles) {
     const content = readFileSync(resolve(ROOT, file), 'utf-8');
     // Find Amazon links missing affiliate tag
     const amazonLinks = [...content.matchAll(/https?:\/\/(?:www\.)?amazon\.com[^\s"'<]*/g)];
     for (const [link] of amazonLinks) {
-      if (!link.includes('tag=tallchairadvi-20')) {
-        violations.push(`${file}: Amazon link missing affiliate tag: ${link.slice(0, 80)}`);
+      // Documentation placeholders, not links. BuyBox.astro and
+      // CompanionPicks.astro both write `https://www.amazon.com/...tag=...` in
+      // their header comments to describe the shape a caller must pass.
+      // lint-affiliate.mjs already skips these implicitly — its regex captures
+      // `tag=([A-Za-z0-9-]+)`, which an ellipsis cannot satisfy — so excluding
+      // them here keeps the two checks reporting the same set of links.
+      if (link.includes('...')) continue;
+
+      if (!accepted.some((t) => link.includes(`tag=${t}`))) {
+        violations.push(
+          `${file}: Amazon link missing affiliate tag: ${link.slice(0, 80)} ` +
+            `(accepted: ${accepted.join(', ')})`,
+        );
       }
     }
     // Catch unresolved AMAZON_URL template placeholders (affiliate link is broken)
