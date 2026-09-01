@@ -20,6 +20,26 @@ data/token-log.jsonl    merge=union
 data/cost-ledger.jsonl  merge=union
 data/cost-drift.jsonl   merge=union
 
+# data/agent-health.jsonl — ADDED 2026-09-01, after it silently stopped the
+# deploy for four days.
+#
+# Same shape as token-log.jsonl and cost-ledger.jsonl beside it: one
+# independent, timestamped row per agent run, carrying that run's stop_reason
+# and input-floor assertion. Order carries no meaning and a duplicated row is a
+# harmless repeat, so union is correct for exactly the reason it is correct for
+# those two and wrong for ledger.jsonl.
+#
+# WHY IT MATTERED. Every weekday agent appends here on `main` while Friday's
+# agents append on `staging`, so the file diverges on both sides of every
+# main->staging sync — the same collision the union driver was introduced for
+# on 2026-07-25. It was the ONLY path missing from this list, and it conflicted
+# on the Saturday deploy of 2026-08-29 and again on 2026-09-01, both times as
+# the sole conflicted path, aborting the deploy before the build step. staging
+# sat at the 2026-08-28 commit with main 31 commits ahead, and nothing said so:
+# the failure is a red X on a weekend workflow, and the nightly reports on
+# collectors and probes rather than on whether the site actually shipped.
+data/agent-health.jsonl merge=union
+
 # The cooldown gate reads this. Every line is an independent timestamped edit
 # event and the gate takes the most recent per page, so a duplicated line is a
 # harmless repeat rather than a semantic defect — union is correct here, for the
