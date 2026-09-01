@@ -2,6 +2,22 @@
 type: log
 ---
 
+## [2026-09-01] verify-deploy | Saturday Deploy
+
+- Status: DEPLOYED
+- Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
+- Weekly summary: wiki/weekly/2026-W36.md
+
+
+## [2026-08-27] execute-fixes | Thursday Fixes
+
+**Applied (6):**
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /review/aeron-size-c/ → src/pages/review/aeron-size-c.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+- /index.astro → src/pages/index.astro
+- /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
+- /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
 ## [2026-09-01] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-09-01
