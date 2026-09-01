@@ -1,13 +1,67 @@
 ---
 type: concept
-last_updated: 2026-08-30
-sources: [raw/affiliate/2026-08-30-amazon-associates-report.md, raw/affiliate/2026-08-28-amazon-associates-report.md, raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
+last_updated: 2026-09-01 (the two tags measuring the price band that converts have never recorded a click — link inventory, not copy)
+sources: [raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md, raw/affiliate/2026-08-30-amazon-associates-report.md, raw/affiliate/2026-08-28-amazon-associates-report.md, raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
 # Affiliate Performance (Amazon Associates)
 
 Tracking IDs (split 2026-08-13, `20aab85`): `tcachair-20` (chairs) · `tcaaccessory-20` · `tcadesk-20` · `tallchairadvi-20` (legacy catch-all, retains all pre-2026-08-13 attribution). Commission tier: ~3% (furniture/home office). Map: `src/data/affiliate-tags.ts`.
+
+---
+
+## ⚠ 2026-09-01 — TWO OF THE THREE TAGS HAVE NEVER RECORDED A CLICK
+
+**The tracking-ID split was built to answer "which product class converts". Two of
+the three classes have never had the chance to answer.**
+
+| tag | clicks (3 exports) | orders | earnings |
+|---|---|---|---|
+| `tcachair-20` | 60 | 9 | $29.25 |
+| `tcaaccessory-20` | **no rows, ever** | — | — |
+| `tcadesk-20` | **no rows, ever** | — | — |
+
+**The cause was the link inventory, not the copy.** 116 chair links against 14
+accessory and 3 desk — and all 17 of those sat on the six accessory pages, which
+carry a small fraction of site traffic. The classes were instrumented and then
+never given anywhere to fire from. `tcaaccessory-20` and `tcadesk-20` returning
+nothing was read as "no data yet"; it was actually "no links anywhere a reader
+reaches".
+
+**Why this is the sharpest finding in this file.** The orders under the chair tag
+are not chairs. All 6 attributed orders sit on one ASIN, average item value is
+**$106.85** against $1,300–$1,800 chairs, and zero units of any chair this site
+recommends have ever sold. The money is basket spillover inside the 24-hour window
+a chair click opens. **The site earns from the price band it barely links to, and
+links almost exclusively to the band that has never sold a unit.**
+
+**Fix shipped 2026-09-01** — `src/components/CompanionPicks.astro` on the 8
+highest-traffic chair pages, below each page's existing primary CTA:
+
+- accessory links 14 → **32**, on 6 pages → **13**
+- desk links 3 → **9**, on 1 page → **7**
+- chair links unchanged at 116
+
+Placement is deliberately below the existing CTA rather than above it, despite
+`BuyBox.astro`'s own evidence that first-CTA depth predicts clicks. The FTC
+disclosure must precede the first affiliate link and five pages were violating that
+on 2026-08-31; inserting CTAs above existing ones on 8 pages at once is that
+failure waiting to recur. **45/45 re-verified: disclosure precedes the first Amazon
+link.**
+
+Every pick is editorially constrained rather than filled in: no lumbar cushion on
+Gesture/Leap/Aeron pages ([[lumbar-support-tall-people]] tells those owners not to
+buy one), headrests only on Aeron pages, seat cushions only where the chair has a
+hard height ceiling and no lumbar worth losing.
+
+**⏳ THIS IS A TEST, NOT A RESULT.** The hypothesis is that the sub-$300 band
+converts where $1,300 chairs do not. **The read is the next hand export showing a
+non-zero row for `tcaaccessory-20` or `tcadesk-20`.** A null result is a real answer
+and must be reported as one — see [[statistical-confidence-policy]], and note that
+this file has twice recorded a single export as settled and had to take it back.
+
+Full write-up: `raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md`
 
 ---
 

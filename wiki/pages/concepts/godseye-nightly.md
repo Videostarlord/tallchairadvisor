@@ -1,9 +1,63 @@
 # God's-Eye Nightly
 
-**Type:** concept · **Status:** operational · **Created:** 2026-08-06 · **Updated:** 2026-08-30
+**Type:** concept · **Status:** operational · **Created:** 2026-08-06 · **Updated:** 2026-09-01
 **Spec:** `raw/strategy/2026-08-05-godseye-PRD.md` · **Branch:** `feat/godseye-nightly`
 
 The observation layer over the Mon–Sat pipeline. It does not replace that pipeline — it watches it, proves what it claims, and alarms when it goes quiet.
+
+## 2026-09-01 — `escalated` was pointed at the instrumentation for three weeks
+
+**A fourth entry for the table below, and this one the system detected and then
+ignored.**
+
+Three findings sat `escalated` with 18, 18 and 22 attempts each:
+
+| finding | page | mobile diff |
+|---|---|---|
+| `c401f8c099f6` | `/review/gesture/` | 7.256% |
+| `add4a1951347` | `/best-big-and-tall-office-chairs/` | 3.595% |
+| `e1cb4b21f390` | `/wide-seat-office-chairs-tall-people/` | 3.467% |
+
+Every one is macOS-vs-Linux font rasterisation — baselines captured on a MacBook,
+compared on an ubuntu runner.
+
+**The system already knew.** `describePlatformMismatch` has worked correctly since
+2026-08-13 and wrote the cause into `note` on every affected record.
+`deriveFindings` filed them anyway, because it read `diffPct` and nothing else.
+**Prose in a field no evaluator reads is not a verdict — a verdict has to travel as
+a field to survive the trip.**
+
+This violated the ledger's own fourth rule, quoted from `predicates/types.ts`:
+unevaluable "must never be counted as pass … and never as fail (that escalates on
+the system's own blindness — the exact failure mode this PRD exists to kill)".
+`escalated` is the loudest status this system has, and for three weeks the top of
+the nightly report meant *the runner changed*.
+
+**Fixed:** `comparable: boolean` on `ProbeVisualViewport`, false when a platform
+mismatch is detected. `deriveFindings` skips filing; the predicate returns
+`unevaluable`, so the attempt counter stops. The diff number is retained rather
+than suppressed — hiding it would conceal the size of the offset from anyone
+calibrating the threshold. Read as `comparable !== false`, so three weeks of stored
+artifacts keep their original meaning when `pr-gate.ts` re-derives from them.
+
+**⚠ STILL NEEDS ONE MANUAL ACT.** The three stop accruing attempts but stay
+`escalated` until a re-baseline on the runner that does the comparison:
+
+```
+gh workflow run nightly.yml -f rebaseline_visual=true
+```
+
+**CI, never locally** — a local re-baseline recreates the exact offset. The next
+nightly then evaluates the predicates clean and they auto-close with evidence.
+This was already open from 2026-08-31 (10 pages stale); the 8 pages changed
+2026-09-01 add to it.
+
+**New seam rule, alongside the 2026-08-30 one about schedules and filenames:**
+*a detector that can tell it is blind must SAY SO IN THE FIELD THE VERDICT IS READ
+FROM. A correct diagnosis written somewhere nothing reads is the same as no
+diagnosis.*
+
+---
 
 ## Why it exists
 

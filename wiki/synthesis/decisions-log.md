@@ -1,10 +1,44 @@
 ---
 type: synthesis
-last_updated: 2026-08-31
+last_updated: 2026-09-01
 tags: [decisions, history]
 ---
 
 # Decisions Log
+
+## 2026-09-01 — The two tags measuring the price band that converts had never recorded a click
+
+- **FINDING — `tcaaccessory-20` and `tcadesk-20` have no rows in any export.** Not one click, ever, across three hand exports, while `tcachair-20` shows 60 clicks / 9 orders / $29.25. **The cause was the link inventory, not the copy:** 116 chair links against 14 accessory and 3 desk, and all 17 of those sat on the six accessory pages. The classes were instrumented on 2026-08-13 and then never given anywhere to fire from. Their emptiness was being read as "no data yet"; it meant "no links anywhere a reader reaches".
+- **Why this is sharp rather than tidy.** The orders under the chair tag are not chairs — all 6 on one ASIN, average item value **$106.85** against $1,300–$1,800 chairs, zero units of any recommended chair ever sold. The revenue is basket spillover in the 24h window. **The site earns from the price band it barely links to and links almost exclusively to the band that has never sold a unit.**
+- **DECISION: `CompanionPicks` on the 8 highest-traffic chair pages, BELOW each existing primary CTA — not above.** `BuyBox.astro`'s own measurement says first-CTA depth predicts clicks almost perfectly, so above is the click-maximising choice. It was rejected: the FTC disclosure must precede the first affiliate link, five pages were violating that six days ago, and inserting CTAs above existing ones on 8 pages at once is that failure waiting to recur. **45/45 re-verified by rendered position.** Accessory links 14 → 32, desk 3 → 9.
+- **DECISION: every pick must be defensible on its own page, so the component takes a list rather than a fixed set.** No lumbar cushion on Gesture/Leap/Aeron — [[lumbar-support-tall-people]] tells those owners explicitly not to buy one, and contradicting a published position for a few cents is not a trade worth making. Headrests only on Aeron pages; seat cushions only where the chair has a hard height ceiling and no lumbar worth losing.
+- **⏳ THIS IS A TEST AND MUST BE REPORTED AS ONE.** The hypothesis is that the sub-$300 band converts where $1,300 chairs do not. The read is the next hand export showing a non-zero row for either tag. **A null result is a real answer.** This file has twice recorded a single export as settled and had to take it back.
+
+### The AIO suppression thesis has never been observed — now it is instrumented
+
+- **FINDING — the ~80% figure in [[ctr-optimization]] is an April inference that nothing has checked since**, and the entire GEO capsule programme was built on it. `aioSuspect` is shape-based: good position, poor CTR. That cannot distinguish an AI Overview from a product carousel, a PAA stack, a video block, or a title that does not earn its impressions. Four problems, four fixes, months spent building for one of them.
+- **Built `scripts/aio-track.ts`**, weekly in `monday.yml`, ~$0.04/run on the DataForSEO endpoint `competitor-intelligence.ts` already calls. See [[aio-citation-tracking]].
+- **DECISION: reserved shares per query source, with the control group protected first.** The first dry run filled all 20 slots with CTR leaks, because GSC reports 21. That would have been worse than no measurement: CTR leaks are *selected for* the symptom under investigation, so a series drawn only from them finds a high AIO rate and confirms the thesis it was built to test. Spare capacity backfills to the control group first and to leaks last.
+- **DECISION: a failed request is `null`, never `false`; rates are computed over what was observed.** A wholly broken run must not report a tidy "0% suppression".
+- **Zero observations so far.** Nothing from this instrument is quotable until two runs agree.
+
+### `/chair-specs/` — the $0 version of the link building we declined
+
+- **DECISION: publish `data/chair-specs.json` as a citable CC BY 4.0 dataset** at `/chair-specs/` + `/chair-specs.json`, with `Dataset` schema, an `llms.txt` entry, and a link from `/correct-chair-dimensions/`. [[ctr-optimization]] priced quality links at $1,000–8,000 and declined; that judgement stands, and this is the same goal at zero cost using an asset that already existed and was invisible outside the repo. See [[chair-specs-dataset]].
+- **DECISION: no affiliate links on it, and it must not be scored as a money page.** A citation target that sells things is a citation target nobody cites.
+- **DECISION: coverage stays at 4 chairs and the page says why.** That is the set whose every figure has been read from a manufacturer PDF. Padding it with retailer figures would reintroduce the exact failure the registry was built to prevent. Growing this page means opening PDFs, not writing copy.
+- **`lint-content.mjs` fired three times on prose that was DEBUNKING the banned Leap Plus range. The gate was not weakened** — the page was reworded so the two endpoints never share a line. A rule that could be talked out of firing by surrounding prose would not have caught the original error either, which also sat beside text explaining it.
+
+### `escalated` was pointed at the instrumentation for three weeks
+
+- **FINDING — three findings at 18, 18 and 22 attempts were all macOS-vs-Linux font rasterisation**, and **the system had diagnosed it correctly on 2026-08-13 and filed them anyway.** `describePlatformMismatch` wrote the cause into `note`; `deriveFindings` read `diffPct` and nothing else. **Prose in a field no evaluator reads is not a verdict.**
+- This broke the ledger's own fourth rule — never escalate on the system's own blindness — using the loudest status it has. For three weeks the top of the nightly report meant *the runner changed*.
+- **Fixed** with `comparable: boolean`: skipped at filing, `unevaluable` at evaluation, the diff number retained so the offset stays visible for threshold calibration, and read as `!== false` so three weeks of stored artifacts keep their original meaning.
+- **NEW SEAM RULE, alongside the 08-30 one about schedules and filenames:** *a detector that can tell it is blind must say so in the field the verdict is read from. A correct diagnosis written where nothing reads it is the same as no diagnosis.*
+- **⚠ STILL NEEDS JACKSON:** `gh workflow run nightly.yml -f rebaseline_visual=true` — **CI, never locally.** The three stop accruing attempts now but stay `escalated` until baselines are recaptured where the comparison runs. Already open from 08-31 (10 stale pages); today's 8 changed pages add to it.
+
+**Gates:** build 55 pages · affiliate lint 157 links · content lint 55 pages · architecture 0 new violations · 29/29 test files · disclosure order 45/45.
+
 
 ## 2026-08-31 — CTA placement finished site-wide, and a disclosure gap the 07-25 sweep could not see
 

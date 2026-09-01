@@ -1,6 +1,6 @@
 ---
 type: index
-last_updated: 2026-08-31 (CTA placement finished site-wide — 9 more pages from 37-73% down to 8-20%; 6 FTC disclosure failures fixed, 45/45 verified by rendered position)
+last_updated: 2026-09-01 (revenue-portfolio inversion shipped; AIO citation tracker built; /chair-specs/ dataset published; visual-diff false escalation fixed) | prev: 2026-08-31 (CTA placement finished site-wide — 9 more pages from 37-73% down to 8-20%; 6 FTC disclosure failures fixed, 45/45 verified by rendered position)
 ---
 
 # TCA Wiki Index
@@ -32,6 +32,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 | [[best-office-chairs]] | **MERGED 2026-07-04** — 301 → /office-chairs-for-tall-people/. Never ranked <45 on head terms, 0 clicks ever. Historical only. |
 | [[office-chairs-for-tall-people]] | **MONEY HUB since 2026-07-04.** Absorbed best-office-chairs. Pos 8.1, 2715 impr. Quick Picks + verdict table + "best" title. Watch head-term positions ~Aug 1. |
 | [[heavy-duty-ergonomic-chairs]] | **NEW 2026-05-26.** Targets "best heavy duty ergonomic chairs for tall people" (pos 14). Two-problem frame: weight capacity + tall-user dimensions. Leap Plus as only mainstream solution. |
+| [[chair-specs-dataset]] | **NEW 2026-09-01.** `/chair-specs/` — the spec registry published as a citable CC BY 4.0 dataset + `/chair-specs.json`. **Not a money page; no affiliate links, deliberately.** Do not score it on CTR or position — its job is to be cited. The `guarded` list (figures true but misleading alone) is the differentiator. |
 | [[refurbished-steelcase-leap]] | **NEW 2026-07-04.** Refurb Leap V2 for tall users — height-cutoff angle (~6'2" max). Crandall Amazon CTA (B08PPVCCST). Score 82/100. From revenue audit item 2. |
 
 | [[aeron-size-c-vs-leap-plus]] | New page: Herman Miller Aeron Size C vs Steelcase Leap Plus for Tall People. Created 2026-07-20. **Both affiliate CTAs were dead ASINs (pipeline-invented) until fixed 2026-08-04.** |
@@ -47,6 +48,7 @@ Master catalog of all wiki pages. The LLM reads this first to find relevant page
 |------|---------|
 | [[godseye-nightly]] | **OPERATIONAL 2026-08-06.** Observation layer over the Mon-Sat pipeline. 7/7 collectors healthy, phone alerts live, watchdog in a second private repo. Full-week stress test found 6 real bugs (audit truncating findings for a month; 2 state files never committed; workflows discarding runs on push conflict). **Open task list: `raw/audits/2026-08-06-open-issues-task-list.md` (frozen snapshot) — current status in [[open-issues-status]].** **A1 cooldown gate FIXED 2026-08-09** — the pipeline's own commits were arming the lockout that blocked its next fix (49/54 pages locked -> 0). **L2 now also captures visual regression at desktop + mobile (P1).** **2026-08-30 — two alarm-honesty fixes.** (1) The dead-man's switch had fired a FALSE `TCA DEAD` **every morning since 2026-08-13**: the 17:00 nightly writes `wiki/nightly/<yesterday>.md`, and the 08:00 watchdog looked for `<today>.md` — a file that can never exist. Now accepts today *or* yesterday; window still exactly one missed cycle. **The fix is inert until `deadmans-switch.ts` is re-copied by hand to `Videostarlord/tca-watchdog`.** (2) `--no-narrative` nights were rendered by the *model-call-broke* renderer, so 6 nights in 7 the report announced **"The report writer failed"** and filed itself as the #1 item needing attention — nothing had failed. New `skippedNarrativeReport()` says the essay is weekly and **lists** the escalated/regressed findings instead of only counting them. **New seam rule: changing a schedule changes a filename, and something downstream matches on it — including outside this repo.** |
 | [[ctr-optimization]] | #1 site bottleneck. 0.23% CTR (May 2026). Cause A: AIO suppression (80%). Cause B: carousels. Build geo-optimize.ts to fix. |
+| [[aio-citation-tracking]] | **NEW 2026-09-01.** Weekly DataForSEO observation of whether an AI Overview exists on TCA's money queries and whether TCA is cited in it. **The 80% AIO-suppression figure in [[ctr-optimization]] has never been observed — this is the instrument that checks it.** Includes a deliberate control group of unsuspected queries. **Zero observations so far**; do not cite until two runs agree. |
 | [[geo-optimize-plan]] | **COMPLETE (May 11).** Integrated into competitor-intelligence.ts v2.3. 3 capsules applied (gesture, best-office-chairs, leap-plus). SERP cache live (72h). 3 pages pending (page_token — unfixable). Strategy.ts reads AIO context. |
 | [[meta-descriptions]] | Length constraints, regex bug, current status per page. |
 | [[schema-markup]] | Types in use, JSON-LD parse error on money page, aggregateRating issues. |

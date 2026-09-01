@@ -4419,3 +4419,111 @@ Generating `.astro` from Python string formatting put a literal `→` into plain
 Gates: build clean (54 pages), affiliate lint (129 links), content lint, architecture 0 new, 28/28 tests, disclosure order 45/45.
 
 Related: [[what-works]] · [[affiliate-compliance]] · [[affiliate-performance]] · [[decisions-log]]
+
+---
+
+## 2026-09-01 — Portfolio inversion, AIO tracker, open dataset, and a false escalation that ran for three weeks
+
+Four builds, from re-reading the repo's own data rather than the strategy docs.
+Full snapshot: `raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md`.
+
+### 1. Two of three tracking IDs have never recorded a click
+
+`tcachair-20` has 60 clicks and $29.25 across three exports. `tcaaccessory-20` and
+`tcadesk-20` have **no rows in any export** — not one click, ever.
+
+The cause was the link inventory, not the copy: 116 chair links against 14
+accessory and 3 desk, and all 17 of those sat on the six accessory pages. The
+classes were instrumented in August and then never given anywhere to fire from.
+Their emptiness was being read as "no data yet"; it meant "no links a reader
+reaches".
+
+That matters because the orders under the chair tag are **not chairs** — all 6 sit
+on one ASIN, average item value $106.85 against $1,300–$1,800 chairs, zero units of
+any recommended chair ever sold. The site earns from the band it barely links to.
+
+Shipped `CompanionPicks.astro` on the 8 highest-traffic chair pages. Accessory
+links 14 → 32 (6 pages → 13), desk 3 → 9 (1 page → 7), chair unchanged at 116.
+Below each page's existing CTA, never above — the FTC order rule cost five pages on
+08-31 and inserting CTAs above existing ones on 8 pages is that failure waiting to
+recur. **45/45 re-verified by rendered position.**
+
+Editorially constrained rather than filled in: no lumbar cushion on
+Gesture/Leap/Aeron (the site tells those owners not to buy one), headrests only on
+Aeron pages, seat cushions only where the chair has a hard ceiling and no lumbar
+worth losing.
+
+**This is a test, not a result.** The read is the next hand export showing a
+non-zero row for either tag. A null result is a real answer.
+
+### 2. The AIO suppression thesis has never been observed
+
+[[ctr-optimization]] attributes ~80% of CTR loss to AI Overviews and the entire GEO
+capsule programme was built on it. Nothing has looked at a SERP since April.
+`aioSuspect` is shape inference — it cannot tell an AIO from a carousel, a PAA
+stack, a video block, or a weak title.
+
+Built `scripts/aio-track.ts`, weekly in `monday.yml`, ~$0.04/run on the DataForSEO
+endpoint competitor-intelligence already calls.
+
+**The first dry run killed the first design and that is the useful part.** Straight
+priority order filled all 20 slots with CTR leaks, because GSC reports 21 of them.
+CTR leaks are *selected for* the symptom under investigation, so a series drawn
+only from them finds a high AIO rate and confirms the thesis it exists to test.
+Reserved shares now guarantee a control group of unsuspected queries, and spare
+capacity backfills to the control first and to leaks last.
+
+Failed requests record `null`, never `false`; rates are computed over what was
+observed. A wholly broken run reports `null`, not a tidy 0% suppression.
+
+**Zero observations so far.** First run lands with the next Monday pipeline.
+
+### 3. The spec registry is now a citable dataset
+
+`data/chair-specs.json` — every figure traced to a manufacturer PDF with edition
+and verification date — existed only as a linter input. Published at
+`/chair-specs/` with `/chair-specs.json` (CC BY 4.0, CORS), `Dataset` schema, in
+`llms.txt`, linked from `/correct-chair-dimensions/`.
+
+This is the $0 version of the link building [[ctr-optimization]] priced at
+$1,000–8,000 and correctly declined. The `guarded` list is the differentiator: the
+figures that are true but misleading alone, which is the error every other source
+in the niche still carries.
+
+`lint-content.mjs` fired three times on prose *debunking* the banned Leap Plus
+range. **The gate was not weakened** — the page was reworded so the endpoints never
+share a line. A rule that can be talked out of firing by surrounding prose would
+not have caught the original error either.
+
+### 4. `escalated` was pointed at the instrumentation
+
+Three findings at 18, 18 and 22 attempts (`/review/gesture/`,
+`/best-big-and-tall-office-chairs/`, `/wide-seat-office-chairs-tall-people/`), all
+macOS-vs-Linux font rasterisation.
+
+**The system detected it correctly on 2026-08-13 and filed anyway**, because
+`deriveFindings` read `diffPct` and nothing else while the diagnosis sat in `note`.
+That breaks the ledger's own fourth rule — never escalate on the system's own
+blindness — using the loudest status it has.
+
+Fixed with `comparable: boolean`: skipped at filing, `unevaluable` at evaluation,
+number retained so the offset stays visible for calibration, read as `!== false` so
+stored artifacts keep their meaning.
+
+**New seam rule:** *a detector that can tell it is blind must say so in the field
+the verdict is read from. A correct diagnosis written where nothing reads it is the
+same as no diagnosis.*
+
+### ⚠ Left for Jackson
+
+**`gh workflow run nightly.yml -f rebaseline_visual=true`** — CI, never locally.
+The three findings stop accruing attempts now but stay `escalated` until the
+baselines are recaptured where the comparison runs. Already open from 08-31 (10
+stale pages); today's 8 changed pages add to it.
+
+Gates: build 55 pages · affiliate lint 157 links · content lint 55 pages ·
+architecture 0 new · **29/29 test files** · disclosure order 45/45.
+
+Related: [[affiliate-performance]] · [[aio-citation-tracking]] ·
+[[chair-specs-dataset]] · [[ctr-optimization]] · [[godseye-nightly]] ·
+[[decisions-log]]
