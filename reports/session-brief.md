@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-01
+# Session Brief — 2026-09-02
 
-_Generated 2026-09-01T20:02:13.996Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-02T03:59:15.775Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -75,12 +75,12 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 ## Open work the pipeline is tracking
 
 - Ledger: {"open": 1, "closed": 64, "escalated": 3, "regressed": 1, "total": 69, "retractedSkipped": 0}
-  - **/chairs/herman-miller-aeron/** — probe recorded zero console errors
   - **/correct-chair-dimensions/** — missing Direct Answer block
   - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
   - **/correct-chair-dimensions/** — position 9.7 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 9 does not satisfy < 8.1
   - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
+  - **/correct-chair-dimensions/** — position 9.7 does not satisfy < 9.6
 
 ---
 

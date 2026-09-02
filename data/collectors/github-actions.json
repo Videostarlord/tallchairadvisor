@@ -130,19 +130,19 @@
         "cron": "0 0 * * *",
         "expectedCadenceDays": 1,
         "lastRun": {
-          "runNumber": 33,
+          "runNumber": 34,
           "status": "in_progress",
           "conclusion": null,
-          "startedAt": "2026-09-01T19:59:32Z",
-          "finishedAt": "2026-09-01T19:59:37Z",
+          "startedAt": "2026-09-02T03:57:39Z",
+          "finishedAt": "2026-09-02T03:57:42Z",
           "daysAgo": 0,
-          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33552683186",
-          "headSha": "e42dcdde1ed3ceb145e4fac6531dfe24a38deed0",
-          "event": "workflow_dispatch"
+          "url": "https://github.com/Videostarlord/tallchairadvisor/actions/runs/33588984428",
+          "headSha": "1e5340dc38a62d91e3139fceed97a18d18cdd2a9",
+          "event": "schedule"
         },
         "committedDuringRun": 0,
         "commitSubjects": [],
-        "commitInferenceMethod": "bot commits on main between run start (2026-09-01T19:59:32Z) and run end + 15min (2026-09-01T20:14:37.000Z) — inferred, not authoritative",
+        "commitInferenceMethod": "bot commits on main between run start (2026-09-02T03:57:39Z) and run end + 15min (2026-09-02T04:12:42.000Z) — inferred, not authoritative",
         "stale": false
       },
       {
@@ -189,8 +189,9 @@
           "headSha": "8efc90ba6deacbc1b7108fef727d3eda66535669",
           "event": "workflow_dispatch"
         },
-        "committedDuringRun": 4,
+        "committedDuringRun": 5,
         "commitSubjects": [
+          "[skip cd] nightly: god's-eye 2026-09-01",
           "deploy: Weekly cycle 2026-09-01",
           "[skip cd] data: No pages written 2026-08-28 — see content-log.md",
           "[skip cd] data: Thursday wiki + reports 2026-08-27",
@@ -216,8 +217,9 @@
           "headSha": "8efc90ba6deacbc1b7108fef727d3eda66535669",
           "event": "push"
         },
-        "committedDuringRun": 4,
+        "committedDuringRun": 5,
         "commitSubjects": [
+          "[skip cd] nightly: god's-eye 2026-09-01",
           "deploy: Weekly cycle 2026-09-01",
           "[skip cd] data: No pages written 2026-08-28 — see content-log.md",
           "[skip cd] data: Thursday wiki + reports 2026-08-27",
@@ -306,7 +308,7 @@
     ]
   },
   "meta": {
-    "collectedAt": "2026-09-01T20:00:29.744Z",
+    "collectedAt": "2026-09-02T03:58:07.290Z",
     "rowCount": 12,
     "healthy": true,
     "reason": null

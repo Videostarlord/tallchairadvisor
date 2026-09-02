@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T20:02:12.576Z",
+  "generatedAt": "2026-09-02T03:59:14.236Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
@@ -11,23 +11,7 @@
     "total": 69,
     "retractedSkipped": 0
   },
-  "closedTonight": [
-    {
-      "id": "017b4d951e2e",
-      "kind": "finding",
-      "page": "/chairs/herman-miller-aeron/",
-      "issueClass": "console-errors",
-      "severity": "medium",
-      "summary": "1 console error(s), 0 unhandled rejection(s): Refused to apply style from 'https://tallchairadvisor.com/_astro/about.CsLuf1ki.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.",
-      "predicate": "no-console-errors /chairs/herman-miller-aeron/",
-      "ageDays": 0,
-      "attempts": 0,
-      "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-01",
-      "verdict": "pass",
-      "reason": "probe recorded zero console errors"
-    }
-  ],
+  "closedTonight": [],
   "regressed": [
     {
       "id": "aba4112ac066",
@@ -37,10 +21,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 26,
-      "attempts": 1,
+      "ageDays": 27,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     }
@@ -54,10 +38,10 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 43,
-      "attempts": 26,
+      "ageDays": 44,
+      "attempts": 27,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "position 8.7 does not satisfy < 8.7"
     },
@@ -69,10 +53,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 43,
-      "attempts": 26,
+      "ageDays": 44,
+      "attempts": 27,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "position 9.7 does not satisfy < 9.6"
     },
@@ -84,10 +68,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 43,
-      "attempts": 26,
+      "ageDays": 44,
+      "attempts": 27,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "position 9 does not satisfy < 8.1"
     }
@@ -101,10 +85,10 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 43,
-      "attempts": 26,
+      "ageDays": 44,
+      "attempts": 27,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "position 8.7 does not satisfy < 8.7"
     },
@@ -116,10 +100,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 43,
-      "attempts": 26,
+      "ageDays": 44,
+      "attempts": 27,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "position 9.7 does not satisfy < 9.6"
     },
@@ -131,10 +115,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 43,
-      "attempts": 26,
+      "ageDays": 44,
+      "attempts": 27,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "position 9 does not satisfy < 8.1"
     },
@@ -146,10 +130,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 26,
-      "attempts": 1,
+      "ageDays": 27,
+      "attempts": 2,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -161,10 +145,10 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 0,
-      "attempts": 1,
+      "ageDays": 1,
+      "attempts": 2,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-01",
+      "lastSeen": "2026-09-02",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
@@ -248,16 +232,34 @@
   },
   "transitions": [
     {
+      "id": "8aeed43a09a6",
+      "from": "escalated",
+      "to": "escalated",
+      "reason": "position 8.7 does not satisfy < 8.7"
+    },
+    {
+      "id": "65336bac6935",
+      "from": "escalated",
+      "to": "escalated",
+      "reason": "position 9.7 does not satisfy < 9.6"
+    },
+    {
+      "id": "c76d198a75bc",
+      "from": "escalated",
+      "to": "escalated",
+      "reason": "position 9 does not satisfy < 8.1"
+    },
+    {
       "id": "aba4112ac066",
-      "from": "closed",
+      "from": "regressed",
       "to": "regressed",
       "reason": "missing Direct Answer block"
     },
     {
-      "id": "017b4d951e2e",
+      "id": "d26626ec75ad",
       "from": "open",
-      "to": "closed",
-      "reason": "probe recorded zero console errors"
+      "to": "open",
+      "reason": "meta description is 215 chars, outside [130, 165]"
     }
   ],
   "retractedSkipped": []
