@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-09-03] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-03
+- Pages recorded: 67
+- Device split: {"mobile":0.5,"tablet":0.024,"pc":0.476,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 38% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 36% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 35% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/why-standard-chairs-dont-fit/: 35% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 31% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 47
+
+
 ## [2026-09-01] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
