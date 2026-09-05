@@ -1,4 +1,4 @@
-# Weekly Summary — 2026-09-01
+# Weekly Summary — 2026-09-05
 
 ## Verification Checks
 - [✅] **Secrets scan**: No secrets found in src/
@@ -7,22 +7,22 @@
 - [✅] **Credentials not staged**: No credentials in git stage
 - [✅] **Schema validity**: All JSON-LD valid (55 pages checked)
 - [✅] **Internal links**: All internal links resolve
-- [✅] **Content regression**: No regressions in 18 changed file(s) vs week-start baseline
+- [✅] **Content regression**: No regressions in 24 changed file(s) vs week-start baseline
 
 ## What Happened This Week
-## Weekly Ops Summary — tallchairadvisor.com (week ending 2026-08-28)
+## Weekly Ops Summary — tallchairadvisor.com (week of 2026-08-28)
 
-- **Clicks: 291 (+8 vs. prior week) — improved.** **Impressions: 99,939 (-623 vs. prior week) — declined.** **Avg. position: 8.1 (flat).** CTR improved marginally (~0.29% vs. 0.28%) driven by the small clicks gain despite lower impressions; no ranking movement to account for the shift.
+- **Clicks: 291 (+8 vs. prior week) — improved.** **Impressions: 99,939 (−623 vs. prior week) — declined.** **Avg position: 8.1 (flat).** CTR lifted slightly to ~0.29% from 0.28%; modest click gain despite fewer impressions suggests marginally better relevance or SERP presentation.
 
-- **Meta fix applied to `/review/leap-plus/`** — corrected meta tag likely improves click eligibility in SERPs; watch for CTR movement on this URL specifically over the next 1–2 weeks as Google re-crawls.
+- **Meta fix on `/review/leap-plus/` is the most likely driver of the click uptick** — corrected meta tags improve click-through signals directly; watch this URL's individual clicks and impressions over the next 7–14 days to confirm.
 
-- **`/correct-chair-dimensions/` trimmed from 5,205 → 4,720 words** — largest content change this week; reduction targets content bloat. Monitor impressions and position for this page closely; ranking impact (positive or negative) should surface within 7–14 days.
+- **`/correct-chair-dimensions/` trimmed from 5,205 → 4,720 words** — significant content reduction; monitor impressions and rankings on this page closely next week as Google re-crawls and re-evaluates; this is the highest-risk change from this cycle.
 
-- **`/knee-pain-seat-depth/` flagged as incomplete in fixes log** — word count entry appears truncated (cut off mid-value). Verify the fix was fully applied and page content is live as intended before next deploy.
+- **`/review/aeron-size-c/` and `/index.astro` received minor content edits** (word counts near-unchanged); no material traffic impact expected, but canonical signals and on-page structure should be cleaner.
 
-- **Unverified ASIN B07DZK5HVD is blocking content pipeline** — affiliate link cannot go live until the Amazon listing is manually confirmed and registered in `data/verified-asins.json`. Action required before next content push.
+- **`/knee-pain-seat-depth/` fix logged as incomplete** — entry appears truncated (cut off at word count). Verify the fix was fully applied and the page is rendering correctly before closing this ticket.
 
-- **Watch next week:** Whether the `/review/leap-plus/` meta fix and `/correct-chair-dimensions/` trim produce measurable CTR or position changes; impressions declining while position holds flat warrants monitoring for index coverage changes.
+- **Unverified ASIN B07DZK5HVD is a blocking open item** — not registered in `verified-asins.json`; no affiliate link should go live for this product until the Amazon listing is manually confirmed and the ASIN is registered. Action required before next publish cycle.
 
 ## Deploy Status
 ✅ All checks passed — deployed to Cloudflare Pages
