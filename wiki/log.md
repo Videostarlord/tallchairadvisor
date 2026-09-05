@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-09-03] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-03
+- Pages recorded: 67
+- Device split: {"mobile":0.5,"tablet":0.024,"pc":0.476,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 38% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 36% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 35% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/why-standard-chairs-dont-fit/: 35% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 31% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 47
+
+
 ## [2026-09-01] verify-deploy | Saturday Deploy
 
 - Status: DEPLOYED
@@ -242,6 +256,15 @@ type: log
   - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 31% avg scroll depth — content below fold not seen
   - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 30% avg scroll depth — content below fold not seen
 - history.jsonl total dates: 43
+## [2026-08-27] execute-fixes | Thursday Fixes
+
+**Applied (6):**
+- /review/leap-plus/ → src/pages/review/leap-plus.astro
+- /review/aeron-size-c/ → src/pages/review/aeron-size-c.astro
+- /correct-chair-dimensions/ → src/pages/correct-chair-dimensions.astro
+- /index.astro → src/pages/index.astro
+- /knee-pain-seat-depth/ → src/pages/knee-pain-seat-depth.astro
+- /office-chairs-for-tall-people/ → src/pages/office-chairs-for-tall-people.astro
 
 
 ## [2026-08-27] strategy | Weekly Plan Generated

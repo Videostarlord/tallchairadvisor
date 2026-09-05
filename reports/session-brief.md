@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-01
+# Session Brief — 2026-09-05
 
-_Generated 2026-09-01T07:50:52.578Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-05T03:57:33.207Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -50,37 +50,37 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 130 | 49 | 13% | 15% |
-| /review/gesture/ | 90 | 4 | 18% | 22% |
-| /correct-chair-dimensions/ | 75 | 0 | 4% | 22% |
-| / | 70 | 0 | — | 26% |
-| /review/leap-plus/ | 68 | 3 | 78% | 32% |
-| /best-big-and-tall-office-chairs/ | 58 | 12 | — | 23% |
-| /best-office-chairs-under-500/ | 58 | 16 | 19% | 26% |
+| /office-chairs-for-tall-people/ | 130 | 49 | 31% | 15% |
+| /review/gesture/ | 90 | 4 | 36% | 22% |
+| /correct-chair-dimensions/ | 75 | 0 | 64% | 16% |
+| / | 70 | 0 | 21% | 26% |
+| /review/leap-plus/ | 68 | 3 | 38% | 32% |
+| /best-big-and-tall-office-chairs/ | 58 | 12 | 15% | 23% |
+| /best-office-chairs-under-500/ | 58 | 16 | 26% | 26% |
 | /review/sihoo-doro-s300/ | 55 | 0 | — | 28% |
-| /knee-pain-seat-depth/ | 51 | 0 | — | 21% |
-| /chairs/herman-miller-aeron/tall-people/ | 50 | 0 | 84% | 24% |
-| /review/aeron-size-c/ | 49 | 0 | — | 41% |
-| /chairs/steelcase-gesture/ | 47 | 1 | 96% | 34% |
-| /office-chairs-for-6-foot-5/ | 47 | 0 | — | 18% |
+| /knee-pain-seat-depth/ | 51 | 0 | — | 20% |
+| /chairs/herman-miller-aeron/tall-people/ | 50 | 0 | 55% | 24% |
+| /review/aeron-size-c/ | 49 | 0 | — | 42% |
+| /chairs/steelcase-gesture/ | 47 | 1 | 35% | 34% |
+| /office-chairs-for-6-foot-5/ | 47 | 0 | 20% | 18% |
 | /seat-cushion-height-tall-people/ | 47 | 0 | — | 72% |
-| /aeron-vs-gesture/ | 46 | 0 | — | 26% |
+| /aeron-vs-gesture/ | 46 | 0 | 99% | 26% |
 
 ## Money
 
 - Latest hand export: `raw/affiliate/2026-08-30-amazon-associates-report.md` (0d old on disk)
-- Pipeline spend this ledger: **$17.64**
+- Pipeline spend this ledger: **$19.09**
 - Kill-list gate: **$100/month for 2–3 consecutive months.** See `wiki/pages/concepts/affiliate-performance.md` for where the gate stands.
 
 ## Open work the pipeline is tracking
 
-- Ledger: {"open": 2, "closed": 64, "escalated": 3, "regressed": 0, "total": 69, "retractedSkipped": 0}
-  - **/chairs/herman-miller-aeron/size-guide/** — mobile render differs from baseline by 0% (under 2%)
-  - **/chairs/steelcase-gesture/** — mobile render differs from baseline by 0% (under 2%)
-  - **/monitor-arm-tall-people/** — mobile render differs from baseline by 0% (under 2%)
-  - **/review/aeron-size-c/** — mobile render differs from baseline by 0% (under 2%)
-  - **/review/gesture/** — mobile render differs from baseline by 0% (under 2%)
-  - **/best-big-and-tall-office-chairs/** — mobile render differs from baseline by 0% (under 2%)
+- Ledger: {"open": 0, "closed": 64, "escalated": 4, "regressed": 1, "total": 69, "retractedSkipped": 0}
+  - **/correct-chair-dimensions/** — missing Direct Answer block
+  - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
+  - **/correct-chair-dimensions/** — position 9.7 does not satisfy < 9.6
+  - **/office-chairs-for-tall-people/** — position 9 does not satisfy < 8.1
+  - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
+  - **/review/leap-plus/** — position 8.7 does not satisfy < 8.7
 
 ---
 
