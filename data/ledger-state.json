@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T03:57:31.673Z",
+  "generatedAt": "2026-09-06T04:03:57.065Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
@@ -21,10 +21,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 30,
-      "attempts": 5,
+      "ageDays": 31,
+      "attempts": 6,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     }
@@ -38,10 +38,10 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 47,
-      "attempts": 30,
+      "ageDays": 48,
+      "attempts": 31,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "position 8.7 does not satisfy < 8.7"
     },
@@ -53,10 +53,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 47,
-      "attempts": 30,
+      "ageDays": 48,
+      "attempts": 31,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "position 9.7 does not satisfy < 9.6"
     },
@@ -68,10 +68,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 47,
-      "attempts": 30,
+      "ageDays": 48,
+      "attempts": 31,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "position 9 does not satisfy < 8.1"
     },
@@ -83,10 +83,10 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 4,
-      "attempts": 5,
+      "ageDays": 5,
+      "attempts": 6,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
@@ -100,10 +100,10 @@
       "severity": null,
       "summary": "/review/leap-plus/",
       "predicate": "gsc-position /review/leap-plus/ < 8.7 after 14d",
-      "ageDays": 47,
-      "attempts": 30,
+      "ageDays": 48,
+      "attempts": 31,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "position 8.7 does not satisfy < 8.7"
     },
@@ -115,10 +115,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 47,
-      "attempts": 30,
+      "ageDays": 48,
+      "attempts": 31,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "position 9.7 does not satisfy < 9.6"
     },
@@ -130,10 +130,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 47,
-      "attempts": 30,
+      "ageDays": 48,
+      "attempts": 31,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "position 9 does not satisfy < 8.1"
     },
@@ -145,10 +145,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 30,
-      "attempts": 5,
+      "ageDays": 31,
+      "attempts": 6,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -160,78 +160,27 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 4,
-      "attempts": 5,
+      "ageDays": 5,
+      "attempts": 6,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-05",
+      "lastSeen": "2026-09-06",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
   ],
   "coverage": {
     "evaluated": 69,
-    "pass": 56,
+    "pass": 64,
     "fail": 5,
-    "unevaluable": 8,
-    "coveragePercent": 88.4,
+    "unevaluable": 0,
+    "coveragePercent": 100,
     "openUnevaluable": 0,
-    "byReason": {
-      "visual-diff: a mobile baseline was created on this run, so the comparison is against itself — proves nothing": 8
-    },
-    "items": [
-      {
-        "id": "3ed5e84e2ec3",
-        "page": "/chairs/herman-miller-aeron/size-guide/",
-        "predicate": "visual-diff /chairs/herman-miller-aeron/size-guide/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      },
-      {
-        "id": "5f0dd84de34e",
-        "page": "/chairs/steelcase-gesture/",
-        "predicate": "visual-diff /chairs/steelcase-gesture/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      },
-      {
-        "id": "b5140fea97f0",
-        "page": "/monitor-arm-tall-people/",
-        "predicate": "visual-diff /monitor-arm-tall-people/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      },
-      {
-        "id": "33bef3f6cfdf",
-        "page": "/review/aeron-size-c/",
-        "predicate": "visual-diff /review/aeron-size-c/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      },
-      {
-        "id": "c401f8c099f6",
-        "page": "/review/gesture/",
-        "predicate": "visual-diff /review/gesture/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      },
-      {
-        "id": "add4a1951347",
-        "page": "/best-big-and-tall-office-chairs/",
-        "predicate": "visual-diff /best-big-and-tall-office-chairs/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      },
-      {
-        "id": "e1cb4b21f390",
-        "page": "/wide-seat-office-chairs-tall-people/",
-        "predicate": "visual-diff /wide-seat-office-chairs-tall-people/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      },
-      {
-        "id": "25f5733914b6",
-        "page": "/office-chairs-for-6-foot-3/",
-        "predicate": "visual-diff /office-chairs-for-6-foot-3/ mobile < 2%",
-        "reason": "a mobile baseline was created on this run, so the comparison is against itself — proves nothing"
-      }
-    ]
+    "byReason": {},
+    "items": []
   },
   "blindSpots": {
     "probes": null,
-    "probeSource": "probe:2026-09-01",
+    "probeSource": "probe:2026-09-06",
     "collectors": [
       "amazon",
       "clarity",

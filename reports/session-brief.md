@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-05
+# Session Brief — 2026-09-06
 
-_Generated 2026-09-05T03:57:33.207Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-06T04:03:58.699Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -50,26 +50,26 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 130 | 49 | 31% | 15% |
-| /review/gesture/ | 90 | 4 | 36% | 22% |
-| /correct-chair-dimensions/ | 75 | 0 | 64% | 16% |
-| / | 70 | 0 | 21% | 26% |
-| /review/leap-plus/ | 68 | 3 | 38% | 32% |
-| /best-big-and-tall-office-chairs/ | 58 | 12 | 15% | 23% |
-| /best-office-chairs-under-500/ | 58 | 16 | 26% | 26% |
+| /office-chairs-for-tall-people/ | 130 | 49 | 32% | 15% |
+| /review/gesture/ | 90 | 4 | — | 22% |
+| /correct-chair-dimensions/ | 75 | 0 | 49% | 16% |
+| / | 70 | 0 | 13% | 26% |
+| /review/leap-plus/ | 68 | 3 | 4% | 32% |
+| /best-big-and-tall-office-chairs/ | 58 | 12 | 17% | 23% |
+| /best-office-chairs-under-500/ | 58 | 16 | 48% | 26% |
 | /review/sihoo-doro-s300/ | 55 | 0 | — | 28% |
-| /knee-pain-seat-depth/ | 51 | 0 | — | 20% |
-| /chairs/herman-miller-aeron/tall-people/ | 50 | 0 | 55% | 24% |
+| /knee-pain-seat-depth/ | 51 | 0 | 65% | 20% |
+| /chairs/herman-miller-aeron/tall-people/ | 50 | 0 | 11% | 24% |
 | /review/aeron-size-c/ | 49 | 0 | — | 42% |
-| /chairs/steelcase-gesture/ | 47 | 1 | 35% | 34% |
-| /office-chairs-for-6-foot-5/ | 47 | 0 | 20% | 18% |
+| /chairs/steelcase-gesture/ | 47 | 1 | — | 34% |
+| /office-chairs-for-6-foot-5/ | 47 | 0 | — | 18% |
 | /seat-cushion-height-tall-people/ | 47 | 0 | — | 72% |
-| /aeron-vs-gesture/ | 46 | 0 | 99% | 26% |
+| /aeron-vs-gesture/ | 46 | 0 | — | 26% |
 
 ## Money
 
 - Latest hand export: `raw/affiliate/2026-08-30-amazon-associates-report.md` (0d old on disk)
-- Pipeline spend this ledger: **$19.09**
+- Pipeline spend this ledger: **$19.11**
 - Kill-list gate: **$100/month for 2–3 consecutive months.** See `wiki/pages/concepts/affiliate-performance.md` for where the gate stands.
 
 ## Open work the pipeline is tracking
