@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-08
+# Session Brief — 2026-09-09
 
-_Generated 2026-09-08T04:04:05.506Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-09T04:11:14.549Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -76,12 +76,12 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 ## Open work the pipeline is tracking
 
 - Ledger: {"open": 0, "closed": 64, "escalated": 3, "regressed": 2, "total": 69, "retractedSkipped": 0}
-  - **/review/leap-plus/** — position 8.6 < 8.7
   - **/correct-chair-dimensions/** — missing Direct Answer block
-  - **collector:amazon** — collector amazon unhealthy — affiliate data is 9 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
+  - **collector:amazon** — collector amazon unhealthy — affiliate data is 10 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
   - **/correct-chair-dimensions/** — position 9.8 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 9.4 does not satisfy < 8.1
   - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
+  - **/correct-chair-dimensions/** — position 9.8 does not satisfy < 9.6
 
 ---
 
