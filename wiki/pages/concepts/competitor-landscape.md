@@ -1,6 +1,6 @@
 ---
 type: concept
-last_updated: 2026-08-31
+last_updated: 2026-09-07
 sources: [raw/strategy/2026-03-competitor-analysis.md]
 tags: [competitors, strategy]
 ---
@@ -70,17 +70,17 @@ Content formats competitors use that TCA is missing or partially has:
 
 ## Recent Competitor Gaps
 
-*v2 run 2026-08-31. 8 pages analyzed × up to 3 queries each. 14 URLs crawled (47 cache hits). 11 high-priority gaps. Top editorial outrankers: btod.com, thehumansolution.com, forbes.com.*
+*v2 run 2026-09-07. 8 pages analyzed × up to 3 queries each. 13 URLs crawled (35 cache hits). 8 high-priority gaps. Top editorial outrankers: thehumansolution.com, forbes.com, btod.com.*
 
 | Date | Gap | Priority | Queries | Competitor |
 |------|-----|----------|---------|------------|
-| 2026-08-31 | Warranty and return policy content — specifically the 30-day free return / no re | high | 3q | thehumansolution.com |
-| 2026-08-31 | Explicit body-measurement-to-chair-fit decision framework — a step-by-step guide | high | 3q | btod.com |
-| 2026-08-31 | Explicit fit-range verdict with labeled tiers — 'Best fit,' 'Marginal,' 'Not rec | high | 3q | marksimpson82.github.io |
-| 2026-08-31 | Warranty and return policy detail as a purchase-anxiety reducer — the 12-year wa | high | 3q | theofficecrowd.com |
-| 2026-08-31 | Full numeric spec comparison table across top competitors (Leap Plus vs Gesture  | high | 3q | btod.com |
-| 2026-08-31 | No waterfall seat edge explanation — the CTA block mentions 'waterfall edge' onc | high | 2q | forbes.com |
-| 2026-08-31 | No expert or authoritative third-party quote on seated circulation or ergonomic  | high | 2q | forbes.com |
-| 2026-08-31 | No Product schema or ItemList schema on a page that recommends two specific prod | high | 2q | forbes.com |
-| 2026-08-31 | Chair-by-Chair Coverage section covers only 3 chairs (Aeron Size C, Steelcase Ge | high | 2q | forbes.com |
-| 2026-08-31 | Height-indexed recommended settings table (e.g., seat height, seat depth, armres | high | 2q | forbes.com |
+| 2026-09-07 | Head-to-head comparison section against a single direct alternative chair is abs | high | 3q | btod.com |
+| 2026-09-07 | Warranty and return policy content is shallow. The Pros section mentions '12-yea | high | 3q | btod.com |
+| 2026-09-07 | Body-measurement-to-chair-fit decision tool — a height/thigh-length input guide  | high | 3q | thehumansolution.com |
+| 2026-09-07 | The self-check hand-placement test is described in prose inside the lumbar table | high | 3q | myevolvechiropractor.com |
+| 2026-09-07 | Hamstring/seat-edge pressure callout for tall users — no content addresses the d | high | 3q | marksimpson82.github.io |
+| 2026-09-07 | No expert or professional voice cited to validate ergonomic claims | high | 2q | forbes.com |
+| 2026-09-07 | No interactive or guided self-assessment tool (even a static decision-tree or ch | high | 2q | thehumansolution.com |
+| 2026-09-07 | No height-bracketed dimension target table showing specific numeric thresholds ( | high | 1q | thehumansolution.com |
+| 2026-09-07 | No explicit upper-height ceiling or 'over 6'6" — what to do instead' escalation  | medium | 1q | theofficecrowd.com |
+| 2026-09-07 | No in-seat or in-store try-before-you-buy guidance for a $1,400+ chair purchase | medium | 1q | marksimpson82.github.io |

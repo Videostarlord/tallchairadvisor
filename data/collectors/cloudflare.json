@@ -12,83 +12,83 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "d91a9230-1fe8-47b1-895b-c5e21799d12f",
-      "shortId": "d91a9230",
+      "deploymentId": "fe32c3a6-86e6-4989-8a9c-ef75d317f277",
+      "shortId": "fe32c3a6",
       "environment": "production",
-      "url": "https://d91a9230.tallchairadvisor.pages.dev",
-      "createdOn": "2026-09-04T04:02:21.266794Z",
+      "url": "https://fe32c3a6.tallchairadvisor.pages.dev",
+      "createdOn": "2026-09-11T14:07:37.919067Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "d6ef5ca457245bf0b2731647d101e2694046b4a0",
-      "commitMessage": "[skip cd] nightly: god's-eye 2026-09-04"
+      "commitHash": "f3489de24701dd99c13e18ae7355448d3f3d700d",
+      "commitMessage": "[skip cd] data: Clarity history 2026-09-11"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 27825,
-      "cachedRequests": 3042,
-      "hitRatePct": 10.9,
-      "bytes": 232374763,
-      "cachedBytes": 96832299,
+      "requests": 32875,
+      "cachedRequests": 749,
+      "hitRatePct": 2.3,
+      "bytes": 386276483,
+      "cachedBytes": 74335553,
       "byDay": [
         {
-          "date": "2026-09-05",
-          "requests": 360,
+          "date": "2026-09-12",
+          "requests": 740,
           "cachedRequests": 8,
+          "hitRatePct": 1.1
+        },
+        {
+          "date": "2026-09-11",
+          "requests": 4311,
+          "cachedRequests": 141,
+          "hitRatePct": 3.3
+        },
+        {
+          "date": "2026-09-10",
+          "requests": 2166,
+          "cachedRequests": 78,
+          "hitRatePct": 3.6
+        },
+        {
+          "date": "2026-09-09",
+          "requests": 18232,
+          "cachedRequests": 35,
+          "hitRatePct": 0.2
+        },
+        {
+          "date": "2026-09-08",
+          "requests": 2768,
+          "cachedRequests": 60,
           "hitRatePct": 2.2
         },
         {
-          "date": "2026-09-04",
-          "requests": 2008,
-          "cachedRequests": 57,
-          "hitRatePct": 2.8
+          "date": "2026-09-07",
+          "requests": 1973,
+          "cachedRequests": 66,
+          "hitRatePct": 3.3
         },
         {
-          "date": "2026-09-03",
-          "requests": 1821,
-          "cachedRequests": 113,
-          "hitRatePct": 6.2
-        },
-        {
-          "date": "2026-09-02",
-          "requests": 2116,
-          "cachedRequests": 112,
-          "hitRatePct": 5.3
-        },
-        {
-          "date": "2026-09-01",
-          "requests": 16153,
-          "cachedRequests": 2130,
-          "hitRatePct": 13.2
-        },
-        {
-          "date": "2026-08-31",
-          "requests": 3067,
-          "cachedRequests": 286,
-          "hitRatePct": 9.3
-        },
-        {
-          "date": "2026-08-30",
-          "requests": 2300,
-          "cachedRequests": 336,
-          "hitRatePct": 14.6
+          "date": "2026-09-06",
+          "requests": 2685,
+          "cachedRequests": 361,
+          "hitRatePct": 13.4
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 33,
+      "totalEvents": 13,
       "byAction": {
-        "block": 33
+        "block": 13
       },
       "bySource": {
-        "firewallManaged": 33
+        "firewallManaged": 13
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-09-05T03:56:17.525Z",
+    "collectedAt": "2026-09-12T04:06:04.022Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
