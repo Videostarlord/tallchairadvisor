@@ -145,6 +145,15 @@ betting on. **Wait for a third and fourth export before either number becomes a 
 
 ---
 
+## 2026-W37 (2026-09-12)
+
+- **Deploy:** Passed
+- **GSC:** 289 clicks, 97282 impr, pos 8.2
+- **Fixes:** 5 applied
+- **Content:** 0 new pages
+
+
+
 ## 2026-W36 (2026-09-05)
 
 - **Deploy:** Passed
