@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T04:19:51.891Z",
+  "generatedAt": "2026-09-14T04:25:48.237Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
@@ -21,10 +21,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 38,
-      "attempts": 13,
+      "ageDays": 39,
+      "attempts": 14,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -36,12 +36,12 @@
       "severity": "high",
       "summary": "collector \"amazon\" reported healthy:false — the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero.",
       "predicate": "collector-healthy amazon",
-      "ageDays": 30,
-      "attempts": 7,
+      "ageDays": 31,
+      "attempts": 8,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
-      "reason": "collector amazon unhealthy — affiliate data is 14 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
+      "reason": "collector amazon unhealthy — affiliate data is 15 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
     }
   ],
   "escalated": [
@@ -53,10 +53,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 55,
-      "attempts": 38,
+      "ageDays": 56,
+      "attempts": 39,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "position 9.8 does not satisfy < 9.6"
     },
@@ -68,10 +68,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 55,
-      "attempts": 38,
+      "ageDays": 56,
+      "attempts": 39,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "position 9.4 does not satisfy < 8.1"
     },
@@ -83,10 +83,10 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 12,
-      "attempts": 13,
+      "ageDays": 13,
+      "attempts": 14,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
@@ -100,10 +100,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 55,
-      "attempts": 38,
+      "ageDays": 56,
+      "attempts": 39,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "position 9.8 does not satisfy < 9.6"
     },
@@ -115,10 +115,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 55,
-      "attempts": 38,
+      "ageDays": 56,
+      "attempts": 39,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "position 9.4 does not satisfy < 8.1"
     },
@@ -130,10 +130,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 38,
-      "attempts": 13,
+      "ageDays": 39,
+      "attempts": 14,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -145,12 +145,12 @@
       "severity": "high",
       "summary": "collector \"amazon\" reported healthy:false — the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero.",
       "predicate": "collector-healthy amazon",
-      "ageDays": 30,
-      "attempts": 7,
+      "ageDays": 31,
+      "attempts": 8,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
-      "reason": "collector amazon unhealthy — affiliate data is 14 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
+      "reason": "collector amazon unhealthy — affiliate data is 15 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
     },
     {
       "id": "d26626ec75ad",
@@ -160,10 +160,10 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 12,
-      "attempts": 13,
+      "ageDays": 13,
+      "attempts": 14,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-13",
+      "lastSeen": "2026-09-14",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
@@ -217,7 +217,7 @@
       "id": "09560d761ec1",
       "from": "regressed",
       "to": "regressed",
-      "reason": "collector amazon unhealthy — affiliate data is 14 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
+      "reason": "collector amazon unhealthy — affiliate data is 15 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
     },
     {
       "id": "d26626ec75ad",
