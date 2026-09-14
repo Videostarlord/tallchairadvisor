@@ -2,6 +2,61 @@
 type: log
 ---
 
+## [2026-09-14] index-monitor | Indexing Health Check
+
+- Pages inspected: 55 | Redirect sources: 10
+- Indexed: 45 | Page issues: 10 | Redirect issues: 10 | Fixed: 0
+- Sitemap resubmitted: true
+- Page issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (noindex), https://tallchairadvisor.com/contact/ (noindex), https://tallchairadvisor.com/lumbar-support-tall-people/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/shoulder-pain-tall-people/ (wait), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/chair-specs/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait)
+- Redirect issues: https://tallchairadvisor.com/author/marcus-reid, https://tallchairadvisor.com/author/marcus-reid/, https://tallchairadvisor.com/best-office-chairs/, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/, https://tallchairadvisor.com/best-office-chairs, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people
+
+
+## [2026-09-14] ga4-pull | GA4 Data Pull
+
+- Period: 2026-08-17 → 2026-09-14 (28 days)
+- Sessions: 1578 | Users: 1506 | Views: 1770
+- Engagement rate: 15.8% | Avg duration: 41s
+- Affiliate clicks: 100 | ChatGPT sessions: 103
+- Pages: 60 | Channels: 7
+
+
+## [2026-09-14] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-14
+- Pages recorded: 51
+- Device split: {"mobile":0.364,"tablet":0.023,"pc":0.614,"other":0}
+- Behavioral alerts: 15
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/sihoo-doro-s300/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 23% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 23% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 53
+
+
+## [2026-09-14] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 16 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 40 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions down 14.6% WoW (4056 vs 4749), clicks up 5.3% (20 vs 19), avg position improving (0.6 spots)
+- Query entropy: 3 fragmented pages
+- Hub candidates: 4
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-09-14] gsc-pull | GSC Data Pull
+
+- Period: 2026-06-16 → 2026-09-14 (90 days)
+- Pages: 55 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 89 | Daily trend rows: 89
+- Clicks: 281 | Impressions: 92266 | Avg pos: 8.1
+
+
 ## [2026-09-13] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-09-13
