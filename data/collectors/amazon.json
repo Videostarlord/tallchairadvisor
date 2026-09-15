@@ -14,7 +14,7 @@
       "path": "raw/affiliate/2026-08-30-amazon-associates-report.md",
       "date": "2026-08-30",
       "dateSource": "filename",
-      "ageDays": 15,
+      "ageDays": 16,
       "sizeBytes": 9723,
       "dataRows": null
     },
@@ -23,7 +23,7 @@
         "path": "raw/affiliate/2026-08-30-amazon-associates-report.md",
         "date": "2026-08-30",
         "dateSource": "filename",
-        "ageDays": 15,
+        "ageDays": 16,
         "sizeBytes": 9723,
         "dataRows": null
       },
@@ -31,7 +31,7 @@
         "path": "raw/affiliate/2026-08-30-amazon-csv/linked-product.csv",
         "date": "2026-08-30",
         "dateSource": "filename",
-        "ageDays": 15,
+        "ageDays": 16,
         "sizeBytes": 1311,
         "dataRows": 5
       },
@@ -39,7 +39,7 @@
         "path": "raw/affiliate/2026-08-30-amazon-csv/category.csv",
         "date": "2026-08-30",
         "dateSource": "filename",
-        "ageDays": 15,
+        "ageDays": 16,
         "sizeBytes": 498,
         "dataRows": 2
       },
@@ -47,7 +47,7 @@
         "path": "raw/affiliate/2026-08-30-amazon-csv/tracking-id.csv",
         "date": "2026-08-30",
         "dateSource": "filename",
-        "ageDays": 15,
+        "ageDays": 16,
         "sizeBytes": 350,
         "dataRows": 3
       },
@@ -55,7 +55,7 @@
         "path": "raw/affiliate/2026-08-28-amazon-associates-report.md",
         "date": "2026-08-28",
         "dateSource": "filename",
-        "ageDays": 17,
+        "ageDays": 18,
         "sizeBytes": 6689,
         "dataRows": null
       },
@@ -63,7 +63,7 @@
         "path": "raw/affiliate/2026-08-28-amazon-csv/linked-product.csv",
         "date": "2026-08-28",
         "dateSource": "filename",
-        "ageDays": 17,
+        "ageDays": 18,
         "sizeBytes": 1147,
         "dataRows": 5
       },
@@ -71,7 +71,7 @@
         "path": "raw/affiliate/2026-08-28-amazon-csv/category.csv",
         "date": "2026-08-28",
         "dateSource": "filename",
-        "ageDays": 17,
+        "ageDays": 18,
         "sizeBytes": 495,
         "dataRows": 2
       },
@@ -79,7 +79,7 @@
         "path": "raw/affiliate/2026-08-28-amazon-csv/tracking-id.csv",
         "date": "2026-08-28",
         "dateSource": "filename",
-        "ageDays": 17,
+        "ageDays": 18,
         "sizeBytes": 353,
         "dataRows": 3
       }
@@ -87,9 +87,9 @@
     "overdue": true
   },
   "meta": {
-    "collectedAt": "2026-09-14T04:24:32.832Z",
+    "collectedAt": "2026-09-15T04:25:08.671Z",
     "rowCount": 48,
     "healthy": false,
-    "reason": "affiliate data is 15 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
+    "reason": "affiliate data is 16 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
   }
 }
