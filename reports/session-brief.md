@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-15
+# Session Brief — 2026-09-16
 
-_Generated 2026-09-15T04:26:32.639Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-16T04:21:40.525Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -53,20 +53,20 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 127 | 48 | 23% | 15% |
-| /review/gesture/ | 78 | 3 | 14% | 22% |
-| /correct-chair-dimensions/ | 75 | 0 | 14% | 16% |
-| /review/leap-plus/ | 70 | 8 | 17% | 32% |
+| /office-chairs-for-tall-people/ | 127 | 48 | 29% | 15% |
+| /review/gesture/ | 78 | 3 | 18% | 22% |
+| /correct-chair-dimensions/ | 75 | 0 | 67% | 16% |
+| /review/leap-plus/ | 70 | 8 | 34% | 32% |
 | /best-big-and-tall-office-chairs/ | 58 | 10 | 4% | 23% |
 | / | 55 | 0 | — | 26% |
 | /best-office-chairs-under-500/ | 51 | 8 | 53% | 26% |
-| /chairs/steelcase-gesture/ | 47 | 2 | 23% | 34% |
-| /office-chairs-for-6-foot-5/ | 47 | 3 | — | 18% |
-| /office-chairs-for-6-foot-7/ | 47 | 5 | 19% | 20% |
+| /chairs/steelcase-gesture/ | 47 | 2 | 24% | 34% |
+| /office-chairs-for-6-foot-5/ | 47 | 3 | 11% | 18% |
+| /office-chairs-for-6-foot-7/ | 47 | 5 | 17% | 20% |
 | /review/sihoo-doro-s300/ | 47 | 0 | 33% | 28% |
 | /knee-pain-seat-depth/ | 40 | 0 | — | 20% |
 | /review/aeron-size-c/ | 40 | 0 | — | 42% |
-| /chairs/herman-miller-aeron/tall-people/ | 35 | 0 | 43% | 24% |
+| /chairs/herman-miller-aeron/tall-people/ | 35 | 0 | 60% | 24% |
 | /chairs/steelcase-leap-plus/ | 35 | 0 | — | 25% |
 
 ## Money
@@ -79,7 +79,7 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 - Ledger: {"open": 0, "closed": 64, "escalated": 3, "regressed": 2, "total": 69, "retractedSkipped": 0}
   - **/correct-chair-dimensions/** — missing Direct Answer block
-  - **collector:amazon** — collector amazon unhealthy — affiliate data is 16 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
+  - **collector:amazon** — collector amazon unhealthy — affiliate data is 17 days stale — newest export is raw/affiliate/2026-08-30-amazon-associates-report.md (2026-08-30, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
   - **/correct-chair-dimensions/** — position 9.8 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 9.7 does not satisfy < 8.1
   - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
