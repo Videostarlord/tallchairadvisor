@@ -52,6 +52,9 @@ jobs:
       - name: Content lint
         run: npm run lint:content
 
+      - name: Affiliate tag lint (blocks a mistagged commit)
+        run: npm run lint:affiliate
+
       - name: Run verification agent
         run: npx tsx scripts/agents/verify-deploy.ts
         env:

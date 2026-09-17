@@ -118,6 +118,12 @@ jobs:
       - name: Content lint
         run: npm run lint:content
 
+      # This agent edits src/ and commits. On 2026-08-27 it rewrote 21 chair links
+      # onto the legacy tracking ID (f7d8948) because its prompt still named it and
+      # nothing checked. Must run BEFORE the commit step below.
+      - name: Affiliate tag lint (blocks a mistagged commit)
+        run: npm run lint:affiliate
+
       - name: Commit code fixes
         run: |
           git config user.name "tca-bot"

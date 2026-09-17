@@ -477,7 +477,7 @@ Author: Jackson Christopher, 6'4", ME senior at UC Berkeley.
 CRITICAL RULES:
 - Jackson ONLY personally tested the Steelcase Gesture. All other chairs = research voice only.
 - Never write "I tested", "in my experience", "after sitting in" for non-Gesture chairs.
-- All Amazon links must include tag=tallchairadvi-20.
+- Affiliate tags are PER PRODUCT CLASS and are defined in src/data/affiliate-tags.ts — chair=tcachair-20, accessory=tcaaccessory-20, desk=tcadesk-20. Look the ASIN up in ASIN_CLASS and use that class's tag. NEVER use tallchairadvi-20 on a product link: it is the pre-2026-08-13 catch-all, kept only so old attribution is not orphaned. `npm run lint:affiliate` fails the build on any mismatch.
 - Before publishing any new blog post, it must score 80+ on /blog-analyze criteria.
 - New content should target AI Overview citations (answer-first, structured, citable).
 Content pillars: Chair Reviews, Height-Specific Guides, Ergonomics & Pain, Comparisons, Workstation Setup.

@@ -1143,3 +1143,84 @@ See [[affiliate-compliance]] for updated full status table.
 
 
 *Append new entries at the top. Each week's entry should note: what was done, what was decided, what was deferred, and any surprising outcomes.*
+
+---
+
+## 2026-09-17 — Retract the chair-tag EPC "replication"; overlap invalidates confirmation, not just addition
+
+**Decision:** withdraw the $0.49 `tcachair-20` EPC finding from settled status back to **n = 1
+order cohort**, and record the methodological rule that caused it.
+
+**Why.** The Aug 28 and Aug 30 exports were treated as two independent windows agreeing on the same
+rate. They were not independent: both windows contained Jul 31 – Aug 17, so both were measuring one
+order cohort — 6 orders, then the same set further shipped to 9. The agreement was arithmetic, not
+evidential. The Aug 18 – Sep 16 window, which excludes that cohort, reads **62 clicks → 0 orders →
+$0.00**.
+
+**The rule this establishes.** `affiliate-performance.md` Rule 1 says overlapping snapshots must
+never be *added*. The same overlap equally forbids treating them as independent *confirmations*.
+This archive caught the addition version on 2026-08-01 and then committed the correlation version
+three weeks later. **Before calling any two exports a replication, check that their windows do not
+share the orders being counted.**
+
+**Cost of being wrong here.** The retracted finding was load-bearing: it was cited as the reason to
+treat Leap Plus as the site's proven monetiser and, by extension, as evidence the chair funnel
+works at all. It does not currently show that.
+
+**Left open, deliberately.** 22 orders exist in this window while both instrumented tags read
+$0.00. Resolving that needs Associates Central's by-tracking-ID view for Aug 18 – Sep 16 — a
+one-minute check that separates "format change collapsed attribution" from "CompanionPicks fired
+into the residual". Not guessed here.
+
+**Second correction, same session.** The run of positive months is **two (Jul, Aug), not three** —
+June closed **−$0.41**. August's +$36.09 is **+$18.45** once the $17.64 of LLM spend in
+`data/cost-summary.json` is counted; the monthly log had been reporting Amazon net as if it were
+profit. The Jul 3 kill-list gate stands at **2 of 2–3**, and the ruling Jackson owes on what
+"positive" means is unchanged and still owed.
+
+Related: [[affiliate-performance]] · [[statistical-confidence-policy]] · [[thesis]]
+
+---
+
+## 2026-09-17 — The tag split reverted itself, because the agents were still told the old rule
+
+**What happened.** `f7d8948` ("fix: Thursday SEO fixes 2026-08-27", author `tca-bot`, authored
+2026-08-27, landed on main 2026-09-01 19:54 UTC) rewrote **21 chair links across 3 pages** from
+`tcachair-20` back to `tallchairadvi-20` — `/office-chairs-for-tall-people/` (13 lines),
+`/knee-pain-seat-depth/` (5), `/correct-chair-dimensions/` (1). Those are the site's **#1
+affiliate-click page** (53% of clicks) and its **#1 and #2 impression pages**.
+
+**Why the agent did it.** The 2026-08-13 split changed the links and the map but not the
+instructions. Every agent prompt still named the legacy ID: `audit.ts:188`, `strategy.ts:480`,
+`execute-fixes.ts:328`, `execute-content.ts` (its CTA template **and** a scoring rule that awarded
+**+20 points** for emitting `tag=tallchairadvi-20`). `CLAUDE.md` said the same. **The bot was
+rewarded for reverting the split.**
+
+**Why nothing caught it.** `scripts/lint-affiliate.mjs` is correct and would have failed this commit
+with the exact error. It was wired into **no workflow at all** — not `tests.yml`, not the agent
+workflows, and there are no git hooks. `thursday.yml` ran `lint:content` before committing, which
+checks ASIN allowlists and disclosure order, not tag-class. `tests.yml` labelled that same
+`lint:content` step *"Content lint (gates every affiliate link)"* — a label that describes a gate
+that did not exist, which is plausibly why the gap went unnoticed for five weeks.
+
+**The shape of this defect is the house pattern.** [[godseye-nightly]] records it: *defects live in
+the SEAM between components, not inside them.* Every component here was correct in isolation — the
+map, the linter, the split, the agents. The failure was entirely in the wiring between them.
+
+**Fixed (branch `fix/affiliate-tag-regression`):**
+1. 21 links restored to `tcachair-20`; `lint:affiliate` green.
+2. All 4 agent prompts rewritten to point at `src/data/affiliate-tags.ts` rather than name a tag;
+   the +20 scoring rule now rewards a **class** tag and explicitly names `f7d8948` as the reason.
+3. `lint:affiliate` wired into `tests.yml` (backstop) and into `thursday.yml`, `friday.yml`,
+   `saturday.yml` **before their commit steps**. The misleading `tests.yml` label corrected.
+4. `CLAUDE.md` corrected, carrying the incident so the instruction cannot quietly revert again.
+
+**What it costs the analysis.** Per-class attribution is unreliable for 2026-08-27 → 2026-09-17:
+the biggest click source was reporting under the legacy ID. The **chair verdict survives** — both
+tags read $0.00, and the category row (94 Furniture clicks → $0.00) does not depend on tags at all.
+
+**Gates at fix time:** build 55 pages · lint:affiliate 165 links ✓ · lint:content 55 pages ✓ ·
+lint:architecture 0 new ✓ · tests 29/30 (`read-validated` fails on a pre-existing stale
+`data/gsc/history/2026-08-03.json`, untouched by this change).
+
+Related: [[affiliate-performance]] · [[godseye-nightly]] · [[open-issues-status]]

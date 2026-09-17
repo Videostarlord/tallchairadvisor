@@ -152,12 +152,12 @@ const schema = [
       <div class="bg-card border border-border rounded-lg p-5">
         <p class="font-semibold mb-1">REPLACE: Primary pick</p>
         <p class="text-sm text-muted-foreground mb-3">REPLACE: 1-line reason</p>
-        <a href="AMAZON_URL?tag=tallchairadvi-20" class="btn-primary block text-center" target="_blank" rel="noopener">Check Price →</a>
+        <a href="AMAZON_URL?tag=tcachair-20" class="btn-primary block text-center" target="_blank" rel="noopener">Check Price →</a>
       </div>
       <div class="bg-card border border-border rounded-lg p-5">
         <p class="font-semibold mb-1">REPLACE: Secondary pick</p>
         <p class="text-sm text-muted-foreground mb-3">REPLACE: 1-line reason</p>
-        <a href="AMAZON_URL?tag=tallchairadvi-20" class="btn-secondary block text-center" target="_blank" rel="noopener">Check Price →</a>
+        <a href="AMAZON_URL?tag=tcachair-20" class="btn-secondary block text-center" target="_blank" rel="noopener">Check Price →</a>
       </div>
     </div>
 
@@ -292,8 +292,10 @@ function checkStructure(content: string, keyword: string): { points: number; fai
   if (content.includes('"FAQPage"') && questionCount >= 4) points += 20;
   else failures.push(`FAQPage schema has ${questionCount} questions (need 4+)`);
 
-  if (content.includes('tag=tallchairadvi-20')) points += 20;
-  else failures.push('no affiliate link with tag=tallchairadvi-20');
+  // Class-specific tags, not the legacy catch-all: scoring the old ID here is what
+  // rewarded agents for reverting the 2026-08-13 split (see f7d8948).
+  if (/tag=tca(chair|accessory|desk)-20/.test(content)) points += 20;
+  else failures.push('no affiliate link carrying a class tag from src/data/affiliate-tags.ts');
 
   const internalLinks = (content.match(/class="link-internal"/g) ?? []).length;
   if (internalLinks >= 3) points += 20;
@@ -486,7 +488,7 @@ CONTENT RULES:
 - Answer-first format (verdict in first 2 sentences)
 - Use Jackson's ME background for spec analysis
 - Target AI Overviews: include definition boxes, numbered lists, comparison tables
-- All Amazon links: include tag=tallchairadvi-20
+- Affiliate tags are PER PRODUCT CLASS and are defined in src/data/affiliate-tags.ts — chair=tcachair-20, accessory=tcaaccessory-20, desk=tcadesk-20. Look the ASIN up in ASIN_CLASS and use that class's tag. NEVER use tallchairadvi-20 on a product link: it is the pre-2026-08-13 catch-all, kept only so old attribution is not orphaned. `npm run lint:affiliate` fails the build on any mismatch.
 - Internal links to related pages on the site using class="link-internal"
 - 1200-2000 words for blog posts, 800-1200 for spec pages
 
@@ -495,7 +497,7 @@ STRUCTURAL REQUIREMENTS — every page must include all 5 (they will be validate
 2. ANSWER-FIRST: Opening paragraph answers the query directly. No "In this guide we'll explore..." preamble.
 3. CITATION CAPSULE: One standalone paragraph (3-4 sentences, no pronouns needing context) that an AI can quote verbatim.
 4. FAQ SECTION + SCHEMA: Minimum 4 FAQPage questions in JSON-LD schema AND as visible H3 + paragraph pairs.
-5. AFFILIATE CTA BLOCK: 2-button grid (primary + secondary chair). Both links include tag=tallchairadvi-20.
+5. AFFILIATE CTA BLOCK: 2-button grid (primary + secondary chair). Both are CHAIR links, so both carry tag=tcachair-20 — see src/data/affiliate-tags.ts for other classes.
 
 ASTRO SYNTAX RULES — CRITICAL (esbuild will reject the file if violated):
 - Start with --- on line 1

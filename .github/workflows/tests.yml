@@ -53,5 +53,10 @@ jobs:
       - name: Architecture lint (ratchet — new violations fail)
         run: npm run lint:architecture
 
-      - name: Content lint (gates every affiliate link)
+      - name: Content lint (ASIN allowlist, disclosure order)
         run: npm run lint:content
+
+      # Backstop for the tag-class map. f7d8948 reverted 21 chair links to the legacy
+      # tracking ID and reached production because this gate existed but ran NOWHERE.
+      - name: Affiliate tag lint (every link carries its class's tracking ID)
+        run: npm run lint:affiliate
