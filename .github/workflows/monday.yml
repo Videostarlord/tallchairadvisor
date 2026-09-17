@@ -79,6 +79,9 @@ jobs:
       # Runs on the first Monday of each month. `date -u +%d` is 01-07 exactly
       # once per month on any given weekday, and this job only runs on Mondays.
       - name: Run competitor intelligence (first Monday of the month)
+      # PAUSED 2026-09-17 (Jackson): collection continues, model spend stops.
+      # Re-enable by deleting the `if: false` line. See wiki/synthesis/decisions-log.md.
+        if: false
         run: |
           DOM=$(date -u +%d)
           if [ "${{ github.event_name }}" != "workflow_dispatch" ] && [ "$DOM" -gt 07 ]; then
@@ -121,6 +124,9 @@ jobs:
         continue-on-error: true
 
       - name: Run indexing health check
+      # PAUSED 2026-09-17 (Jackson): collection continues, model spend stops.
+      # Re-enable by deleting the `if: false` line. See wiki/synthesis/decisions-log.md.
+        if: false
         run: npx tsx scripts/agents/index-monitor.ts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

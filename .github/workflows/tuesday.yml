@@ -17,8 +17,10 @@ name: Tuesday — Full Site Audit
 # day-of-week as OR, so '0 8 1-7 * 2' would fire on the 1st-7th *and* on every
 # Tuesday — more often, not less. The cron stays weekly and this job decides.
 on:
-  schedule:
-    - cron: '0 8 * * 2' # 8:00 UTC = 1:00 AM PDT
+  # PAUSED 2026-09-17 (Jackson): audit.ts is a model call. Matches how
+  # wednesday/thursday/friday were already parked. workflow_dispatch still works.
+  # schedule:
+  #   - cron: '0 8 * * 2' # 8:00 UTC = 1:00 AM PDT
   workflow_dispatch:
 
 permissions:

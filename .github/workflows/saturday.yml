@@ -56,6 +56,9 @@ jobs:
         run: npm run lint:affiliate
 
       - name: Run verification agent
+      # PAUSED 2026-09-17 (Jackson): collection continues, model spend stops.
+      # Re-enable by deleting the `if: false` line. See wiki/synthesis/decisions-log.md.
+        if: false
         run: npx tsx scripts/agents/verify-deploy.ts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

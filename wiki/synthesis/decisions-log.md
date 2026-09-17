@@ -1224,3 +1224,52 @@ lint:architecture 0 new ✓ · tests 29/30 (`read-validated` fails on a pre-exis
 `data/gsc/history/2026-08-03.json`, untouched by this change).
 
 Related: [[affiliate-performance]] · [[godseye-nightly]] · [[open-issues-status]]
+
+---
+
+## 2026-09-17 — Collection stays on, model spend goes to zero
+
+**Decision (Jackson):** keep gathering every dataset so the history is unbroken and manual
+troubleshooting is still possible later, but stop all recurring LLM spend.
+
+**Where the $20.55/mo actually was** — attributed from `data/cost-ledger.jsonl`:
+
+| agent | spend | share | disposition |
+|---|---|---|---|
+| nightly narrative | **$14.53** | **71%** | now opt-in only (`-f force_narrative=true`) |
+| competitor-intelligence | $3.72 | 18% | `if: false`, monday.yml |
+| execute-fixes | $1.03 | 5% | dispatch-only (cron already parked) |
+| audit | $0.57 | 3% | cron parked 2026-09-17 |
+| execute-content | $0.41 | 2% | dispatch-only |
+| strategy | $0.26 | 1% | dispatch-only |
+| verify-deploy | $0.02 | — | `if: false`, saturday.yml |
+
+**The narrative was 71% of the bill.** The deterministic nightly report was always free and is
+unchanged — probe, ledger evaluation, gates, heartbeat all still write to `data/` and `wiki/`. Only
+the prose summary is gone, and `nightly-report.ts` already had the `--no-narrative` path that prints
+*"deterministic report written, no model call, $0 spent."*
+
+**Unchanged and still collecting, all $0:** `gsc:pull` · **`gsc:analyze`** (the whole GSC
+intelligence layer is model-free) · `ga4:pull` · `agent:clarity-history` (every 2 days) ·
+`aio:track` · `roadmap:sync` · `keyword:discovery`/`gaps`/`approve`/`push` · `asin-check` ·
+`collect:all` · `probe` · `ledger:evaluate` · `cost:rollup` · `retention:prune` · all three lints.
+
+**`asin-monthly.yml` was deliberately kept.** Its header states the risk: *"a delisted ASIN keeps
+rendering, keeps taking clicks, and earns nothing — indefinitely, with nothing watching."* Nothing
+else checks liveness, the funnel is 3 chair ASINs, and it costs ~24 Firecrawl pages against a
+500/month free tier. It is the only guard between a delisting and silent revenue-to-zero.
+
+**Found while attributing spend: `scripts/agents/index-monitor.ts` calls the model but never appears
+in the cost ledger by name.** It ran every Monday. **The $20.55 is a floor, not a total** — there is
+unmetered LLM spend in the pipeline, and `cost-summary.json` has been under-reporting. Disabled with
+the rest; the metering gap is left open as a finding.
+
+**What this does not do.** It saves ~$20/month and stops the agent regressions ([[decisions-log]]
+2026-09-17, `f7d8948`). It does not grow anything. Position has been **8.1 on all eight GSC pulls**
+since Aug 6 and impressions fell 7%, so little is being given up — but the ceiling remains content,
+and nothing here writes any.
+
+**Re-arming:** delete the `if: false` lines, or uncomment the crons in tuesday/wednesday/thursday/
+friday. Every pause is a two-line revert and is commented as such in the workflow.
+
+Related: [[affiliate-performance]] · [[godseye-nightly]] · [[open-issues-status]]
