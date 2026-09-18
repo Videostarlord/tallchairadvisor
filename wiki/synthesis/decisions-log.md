@@ -1273,3 +1273,16 @@ and nothing here writes any.
 friday. Every pause is a two-line revert and is commented as such in the workflow.
 
 Related: [[affiliate-performance]] · [[godseye-nightly]] · [[open-issues-status]]
+
+---
+
+## ⚠ CORRECTION — the index-monitor "metering gap" was not real
+
+**CORRECTED 2026-09-17 (same day):** this was investigated and is **NOT a metering gap.**
+`index-monitor.ts` calls `meteredCreate` only from `fixPage()`, which runs only for pages the
+classifier marks `fixable`. Across **all 12 reports in git history, zero rows carried a fixable
+fixType** — every issue classified as `wait`. The model call has never fired, so zero ledger
+records is the correct result. `monday.yml` does stage `data/cost-ledger.jsonl`, so the commit
+path was never the problem either. **$20.55 is accurate, not a floor.** The latent risk is real
+— the call site exists and would spend if a page ever classified fixable — but it is now
+disabled with the rest.
