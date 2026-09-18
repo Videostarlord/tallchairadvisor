@@ -12,30 +12,36 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "ef69f237-fc78-4b03-8c70-46bc60065669",
-      "shortId": "ef69f237",
+      "deploymentId": "223c5f91-91d7-4b1d-974a-cf680c431b2e",
+      "shortId": "223c5f91",
       "environment": "production",
-      "url": "https://ef69f237.tallchairadvisor.pages.dev",
-      "createdOn": "2026-09-16T04:21:44.302149Z",
+      "url": "https://223c5f91.tallchairadvisor.pages.dev",
+      "createdOn": "2026-09-18T01:18:15.154376Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "fb37885f7eeed25875d108938c8827b320c8e100",
-      "commitMessage": "[skip cd] nightly: god's-eye 2026-09-16"
+      "commitHash": "48741d729f50a5c8e47c77c6e828de29c26aec01",
+      "commitMessage": "fix(affiliate): tie the runtime tag list to the map; retract the metering finding\n\nTWO FIXES AND ONE RETRACTION.\n\n1. lint:affiliate now derives its class-tag alternation from AFFILIATE_TAGS\n   instead of hardcoding the three IDs in a regex. The tags were written in\n   three places: the map, Layout.astro, and this linter's own pattern.\n\n2. New check: Layout.astro's runtime AFFILIATE_TAGS array must state the same\n   set as src/data/affiliate-tags.ts. That array decides whether an outbound\n   click is TRACKED AT ALL, it cannot import the module (it is an is:inline\n   script shipped unprocessed), and nothing tied the two together. A stale\n   array records zero affiliate clicks site-wide while looking healthy.\n\n   Verified the gate fires: simulating the 2026-08-13 stale-array state\n   produces \"runtime AFFILIATE_TAGS is MISSING tcaaccessory-20, tcachair-20,\n   tcadesk-20\" and exits 1. A gate that cannot fail is decoration.\n\n3. RETRACTION — the index-monitor \"metering gap\" reported earlier today is NOT\n   real. index-monitor.ts calls meteredCreate only from fixPage(), which runs\n   only for pages the classifier marks fixable. Across all 12 reports in git\n   history, zero rows ever carried a fixable fixType — every issue classified\n   'wait'. The call has never fired, so zero cost-ledger records is correct.\n   monday.yml does stage data/cost-ledger.jsonl, so the commit path was never\n   the problem either. $20.55 is accurate, not a floor.\n\n   The correction is appended to wiki/synthesis/decisions-log.md rather than\n   silently editing the original claim.\n\nGates: build 55 pages · lint:affiliate 165 links ✓ · lint:content 55 ✓\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 25226,
-      "cachedRequests": 934,
-      "hitRatePct": 3.7,
-      "bytes": 214188240,
-      "cachedBytes": 68678680,
+      "requests": 24160,
+      "cachedRequests": 1114,
+      "hitRatePct": 4.6,
+      "bytes": 209701604,
+      "cachedBytes": 71415880,
       "byDay": [
         {
+          "date": "2026-09-18",
+          "requests": 231,
+          "cachedRequests": 10,
+          "hitRatePct": 4.3
+        },
+        {
           "date": "2026-09-17",
-          "requests": 473,
-          "cachedRequests": 6,
-          "hitRatePct": 1.3
+          "requests": 3487,
+          "cachedRequests": 317,
+          "hitRatePct": 9.1
         },
         {
           "date": "2026-09-16",
@@ -66,29 +72,23 @@
           "requests": 4571,
           "cachedRequests": 75,
           "hitRatePct": 1.6
-        },
-        {
-          "date": "2026-09-11",
-          "requests": 4311,
-          "cachedRequests": 141,
-          "hitRatePct": 3.3
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 3,
+      "totalEvents": 16,
       "byAction": {
-        "block": 3
+        "block": 16
       },
       "bySource": {
-        "firewallManaged": 3
+        "firewallManaged": 16
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-09-17T04:26:45.864Z",
+    "collectedAt": "2026-09-18T04:10:57.114Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
