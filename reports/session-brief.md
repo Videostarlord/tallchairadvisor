@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-18
+# Session Brief — 2026-09-19
 
-_Generated 2026-09-18T04:12:15.424Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-19T04:07:53.797Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -78,12 +78,12 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 ## Open work the pipeline is tracking
 
 - Ledger: {"open": 0, "closed": 65, "escalated": 3, "regressed": 1, "total": 69, "retractedSkipped": 0}
-  - **collector:amazon** — collector amazon healthy, 52 row(s) at 2026-09-18T04:10:55.448Z
   - **/correct-chair-dimensions/** — missing Direct Answer block
   - **/correct-chair-dimensions/** — position 9.8 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 9.7 does not satisfy < 8.1
   - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
   - **/correct-chair-dimensions/** — position 9.8 does not satisfy < 9.6
+  - **/office-chairs-for-tall-people/** — position 9.7 does not satisfy < 8.1
 
 ---
 

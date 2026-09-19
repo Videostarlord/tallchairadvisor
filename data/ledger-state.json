@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T04:12:13.893Z",
+  "generatedAt": "2026-09-19T04:07:52.471Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
@@ -11,23 +11,7 @@
     "total": 69,
     "retractedSkipped": 0
   },
-  "closedTonight": [
-    {
-      "id": "09560d761ec1",
-      "kind": "finding",
-      "page": "collector:amazon",
-      "issueClass": "collector-unhealthy",
-      "severity": "high",
-      "summary": "collector \"amazon\" reported healthy:false — the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero.",
-      "predicate": "collector-healthy amazon",
-      "ageDays": 35,
-      "attempts": 0,
-      "firstSeen": "2026-08-14",
-      "lastSeen": "2026-09-18",
-      "verdict": "pass",
-      "reason": "collector amazon healthy, 52 row(s) at 2026-09-18T04:10:55.448Z"
-    }
-  ],
+  "closedTonight": [],
   "regressed": [
     {
       "id": "aba4112ac066",
@@ -37,10 +21,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 43,
-      "attempts": 18,
+      "ageDays": 44,
+      "attempts": 19,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     }
@@ -54,10 +38,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 60,
-      "attempts": 43,
+      "ageDays": 61,
+      "attempts": 44,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "position 9.8 does not satisfy < 9.6"
     },
@@ -69,10 +53,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 60,
-      "attempts": 43,
+      "ageDays": 61,
+      "attempts": 44,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "position 9.7 does not satisfy < 8.1"
     },
@@ -84,10 +68,10 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 17,
-      "attempts": 18,
+      "ageDays": 18,
+      "attempts": 19,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
@@ -101,10 +85,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 60,
-      "attempts": 43,
+      "ageDays": 61,
+      "attempts": 44,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "position 9.8 does not satisfy < 9.6"
     },
@@ -116,10 +100,10 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 60,
-      "attempts": 43,
+      "ageDays": 61,
+      "attempts": 44,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "position 9.7 does not satisfy < 8.1"
     },
@@ -131,10 +115,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 43,
-      "attempts": 18,
+      "ageDays": 44,
+      "attempts": 19,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -146,10 +130,10 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 17,
-      "attempts": 18,
+      "ageDays": 18,
+      "attempts": 19,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-18",
+      "lastSeen": "2026-09-19",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
@@ -198,12 +182,6 @@
       "from": "regressed",
       "to": "regressed",
       "reason": "missing Direct Answer block"
-    },
-    {
-      "id": "09560d761ec1",
-      "from": "regressed",
-      "to": "closed",
-      "reason": "collector amazon healthy, 52 row(s) at 2026-09-18T04:10:55.448Z"
     },
     {
       "id": "d26626ec75ad",
