@@ -7,6 +7,101 @@ type: log
 - Status: DEPLOYED
 - Checks: Secrets scan: ✅, Affiliate links: ✅, Voice constraint: ✅, Credentials not staged: ✅, Schema validity: ✅, Internal links: ✅, Content regression: ✅
 - Weekly summary: wiki/weekly/2026-W37.md
+## [2026-09-17] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-17
+- Pages recorded: 24
+- Device split: {"mobile":0.533,"tablet":0.1,"pc":0.367,"other":0}
+- Behavioral alerts: 18
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 38% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 30% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people/: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/wide-seat-office-chairs-tall-people/: 26% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 25% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 55
+
+
+## [2026-09-15] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-15
+- Pages recorded: 23
+- Device split: {"mobile":0.313,"tablet":0.031,"pc":0.656,"other":0}
+- Behavioral alerts: 11
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 34% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/sihoo-doro-s300/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 24% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/: 22% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 54
+
+
+## [2026-09-14] index-monitor | Indexing Health Check
+
+- Pages inspected: 55 | Redirect sources: 10
+- Indexed: 45 | Page issues: 10 | Redirect issues: 10 | Fixed: 0
+- Sitemap resubmitted: true
+- Page issues: https://tallchairadvisor.com/404/ (wait), https://tallchairadvisor.com/affiliate-disclosure/ (noindex), https://tallchairadvisor.com/contact/ (noindex), https://tallchairadvisor.com/lumbar-support-tall-people/ (wait), https://tallchairadvisor.com/privacy-policy/ (noindex), https://tallchairadvisor.com/shoulder-pain-tall-people/ (wait), https://tallchairadvisor.com/standing-desk-height-tall-people/ (wait), https://tallchairadvisor.com/chair-specs/ (wait), https://tallchairadvisor.com/author/jackson-christopher/ (wait), https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/ (wait)
+- Redirect issues: https://tallchairadvisor.com/author/marcus-reid, https://tallchairadvisor.com/author/marcus-reid/, https://tallchairadvisor.com/best-office-chairs/, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height/, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people/, https://tallchairadvisor.com/best-office-chairs, https://tallchairadvisor.com/chairs/herman-miller-aeron/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/seat-height, https://tallchairadvisor.com/chairs/steelcase-gesture/tall-people
+
+
+## [2026-09-14] ga4-pull | GA4 Data Pull
+
+- Period: 2026-08-17 → 2026-09-14 (28 days)
+- Sessions: 1578 | Users: 1506 | Views: 1770
+- Engagement rate: 15.8% | Avg duration: 41s
+- Affiliate clicks: 100 | ChatGPT sessions: 103
+- Pages: 60 | Channels: 7
+
+
+## [2026-09-14] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-14
+- Pages recorded: 51
+- Device split: {"mobile":0.364,"tablet":0.023,"pc":0.614,"other":0}
+- Behavioral alerts: 15
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/sihoo-doro-s300/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/best-office-chairs-under-500/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 23% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 23% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 53
+
+
+## [2026-09-14] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 16 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 40 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions down 14.6% WoW (4056 vs 4749), clicks up 5.3% (20 vs 19), avg position improving (0.6 spots)
+- Query entropy: 3 fragmented pages
+- Hub candidates: 4
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-09-14] gsc-pull | GSC Data Pull
+
+- Period: 2026-06-16 → 2026-09-14 (90 days)
+- Pages: 55 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 89 | Daily trend rows: 89
+- Clicks: 281 | Impressions: 92266 | Avg pos: 8.1
+
+
+## [2026-09-13] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-13
+- Pages recorded: 52
+- Device split: {"mobile":0.452,"tablet":0.032,"pc":0.516,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-4/?utm_source=chatgpt.com: 38% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 33% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-6/: 26% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 25% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-4/: 22% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 52
 
 
 ## [2026-09-11] clarity-history | Behavioral Data
@@ -4715,3 +4810,64 @@ architecture 0 new · **29/29 test files** · disclosure order 45/45.
 Related: [[affiliate-performance]] · [[aio-citation-tracking]] ·
 [[chair-specs-dataset]] · [[ctr-optimization]] · [[godseye-nightly]] ·
 [[decisions-log]]
+
+---
+
+## 2026-09-17 — Amazon export ingested (window Aug 18 – Sep 16); the EPC replication is withdrawn
+
+Hand export dropped by Jackson (`~/Downloads/TCA Amazon Data/Sept 17 Amazon Data`, 3 CSVs).
+Archived to `raw/affiliate/2026-09-17-amazon-csv/`; write-up at
+`raw/affiliate/2026-09-17-amazon-associates-report.md`.
+
+**Window recorded, not solved.** Jackson stated Aug 18 – Sep 16 at ingest. The Rule 3 algebra was
+**unavailable** — `data/affiliate/latest.json` freezes daily rows only to 2026-08-09, nine days
+before this window opens. First export the decoder could not have rescued. Rule 2 is now the only
+protection; it held because Jackson was asked.
+
+**Headline: `tcachair-20` reads 62 clicks → 0 orders → $0.00 over a full 30 days.**
+The overlap Aug 18–29 sits in both this export and the Aug 30 one, so the prior export's 9 chair
+orders must all have been booked Jul 31 – Aug 17. They aged out; nothing replaced them.
+
+**Retraction.** The Aug 28 and Aug 30 exports both contained Jul 31 – Aug 17 and were therefore
+measuring one order cohort twice — 6 orders, then the same set shipped to 9. The EPC agreement
+($0.484 → $0.4875) followed arithmetically and confirmed nothing. This is Rule 1's failure mode one
+level up: overlap forbids independent *confirmation* just as it forbids *addition*. The archive
+caught the addition version on 2026-08-01 and committed the correlation version on 2026-08-30.
+**The Leap-Plus EPC finding drops to n = 1 cohort.**
+
+**CompanionPicks (shipped 2026-09-01): NULL.** Pre-committed read was a non-zero row for
+`tcaaccessory-20` or `tcadesk-20`. Neither has a row. Logged as a real answer per the commitment.
+
+**Zero chair units, 4th consecutive export.** Avg item value $157.30 → $106.85 → **$94.25**.
+
+**⚠ Amazon changed the export format** (`MM-DD-YYYY`, floats, capital `Other`, blanked titles).
+Cross-dimension reconciliation broken again — `Other` is 105 clicks in linked-product, 58 in
+tracking-id.
+
+**Left open:** 22 orders exist while both named tags read $0.00. Either the format change collapsed
+attribution into `Other`, or CompanionPicks fired into the residual ($94.25 avg sits in its target
+band). **Discriminating test: Associates Central's by-tracking-ID view for Aug 18 – Sep 16** — no
+waiting required. Watchlist hypothesis until then.
+
+**Also corrected this session:** the run of positive months is **two (Jul, Aug)**, not three —
+June was **−$0.41**. August's +$36.09 is **+$18.45** after the $17.64 LLM spend in
+`data/cost-summary.json`, which the monthly log had not been carrying.
+
+Related: [[affiliate-performance]] · [[statistical-confidence-policy]] · [[thesis]] ·
+[[decisions-log]]
+
+---
+
+## 2026-09-17 — Affiliate tag regression found and closed
+
+Chased while cross-reading the Sept export against GSC/GA4. Production was **correct** — it matched
+`origin/main`. The local checkout was **32 commits behind**, which briefly produced the opposite
+(and wrong) conclusion that a redeploy was needed. Jackson caught it: *check against the current
+GitHub repo and the local build to avoid unnecessary redeploys.* **Lesson: verify local/origin
+parity before diffing production against a local build.**
+
+The real defect: `f7d8948` reverted 21 chair links to the legacy tracking ID on the 3 highest-value
+pages, because every agent prompt still named that ID and `lint:affiliate` ran in no workflow.
+Full write-up in [[decisions-log]] 2026-09-17. Fixed on `fix/affiliate-tag-regression`.
+
+Related: [[affiliate-performance]] · [[decisions-log]] · [[godseye-nightly]]

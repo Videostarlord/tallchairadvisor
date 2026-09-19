@@ -1,13 +1,95 @@
 ---
 type: concept
-last_updated: 2026-09-01 (the two tags measuring the price band that converts have never recorded a click — link inventory, not copy)
-sources: [raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md, raw/affiliate/2026-08-30-amazon-associates-report.md, raw/affiliate/2026-08-28-amazon-associates-report.md, raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
+last_updated: 2026-09-17 (the Aug 28/30 EPC "replication" was one order cohort counted twice — withdrawn; chair tag now reads a clean 30-day null)
+sources: [raw/affiliate/2026-09-17-amazon-associates-report.md, raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.md, raw/affiliate/2026-08-30-amazon-associates-report.md, raw/affiliate/2026-08-28-amazon-associates-report.md, raw/affiliate/2026-08-26-amazon-associates-report.md, raw/affiliate/2026-08-13-amazon-associates-report.md, raw/affiliate/2026-08-04-amazon-associates-report.md, raw/affiliate/2026-08-03-amazon-associates-report.md, raw/affiliate/2026-07-31-amazon-associates-report.md, raw/affiliate/2026-07-28-amazon-associates-report.md, raw/affiliate/2026-07-17-amazon-associates-report.md, raw/affiliate/2026-06-30-amazon-associates-report.md, raw/audits/2026-07-04-affiliate-revenue-audit.md, raw/strategy/2026-07-25-affiliate-program-research.md, data/keywords/raw/2026-08-01T09-51-48.json]
 tags: [affiliate, amazon, revenue, monetization, conversion]
 ---
 
 # Affiliate Performance (Amazon Associates)
 
 Tracking IDs (split 2026-08-13, `20aab85`): `tcachair-20` (chairs) · `tcaaccessory-20` · `tcadesk-20` · `tallchairadvi-20` (legacy catch-all, retains all pre-2026-08-13 attribution). Commission tier: ~3% (furniture/home office). Map: `src/data/affiliate-tags.ts`.
+
+---
+
+## ⚠ 2026-09-17 — THE EPC "REPLICATION" WAS ONE COHORT COUNTED TWICE
+
+**Window: rolling 30-day, 2026-08-18 → 2026-09-16** (recorded by Jackson at ingest; the Rule 3
+algebra was unavailable — `latest.json` ends 2026-08-09, nine days before this window opens).
+
+`tcachair-20` reads **62 clicks → 0 orders → $0.00** across a full 30 days.
+
+**The algebra.** The overlap Aug 18–29 sits inside both this export and the Aug 30 one. Had any of
+that export's 9 `tcachair-20` orders been booked in those 12 days, they would still appear here.
+They do not — so **all 9 were booked Jul 31 – Aug 17**, and the chair tag has recorded nothing
+since Aug 18.
+
+**Which retracts this file's most confident recent claim.** The Aug 28 and Aug 30 windows *both*
+contained Jul 31 – Aug 17, so both measured the same order cohort — 6 orders, then the same set
+further shipped to 9. The EPC agreement ($0.484 → $0.4875) followed arithmetically. Two readings of
+one cohort are not two independent samples.
+
+**This is Rule 1's failure mode one level up.** The rule forbids *adding* overlapping snapshots;
+the same overlap equally forbids treating them as independent *confirmations*. This archive caught
+the addition version on 2026-08-01 and then committed the correlation version on 2026-08-30.
+**The Leap-Plus EPC finding is withdrawn to n = 1 cohort.** The fourth export `thesis.md` said was
+owed has arrived and disagrees.
+
+| Tracking ID | Clicks | Ordered | Earnings |
+|---|---|---|---|
+| `tallchairadvi-20` (legacy) | 34 | — | **$0.00** |
+| **`tcachair-20` (chairs)** | **62** | **—** | **$0.00** |
+| `Other` (residual bucket) | 58 | 22 | **$63.21** |
+| `tcaaccessory-20` · `tcadesk-20` | **no rows, ever** | — | — |
+
+**Totals:** 154 clicks · 22 items · $2,073.41 · **$63.21** · 0 returns · 3.05% commission.
+
+**THE CATEGORY ROW IS THE CLEANEST STATEMENT OF THE FINDING — Amazon states it, it is not derived:**
+
+```
+09-16-2026, Furniture, 94 clicks, -, -, -, ... 0.0, -      ← ZERO orders, $0.00
+09-16-2026, Other,     60 clicks, 22 items, $2,073.41, $63.21, 3.05%
+```
+
+**94 Furniture clicks earned $0.00.** All 22 items are non-Furniture. **EPC is $0.00 on chair
+clicks and ~$1.05 on everything else.** All three reports now agree from independent angles that
+chair links earned nothing this window — tracking-id ($0.00 on both named tags), linked-product (no
+ASIN row carries an order), category (94 Furniture clicks, nothing). Strongest version of this
+finding the archive has held.
+
+**⚠ DO NOT QUOTE A CONVERSION RATE OFF THE `Other` ROW.** Its click count is arithmetic residue —
+whatever is left after that report itemised its own rows — so each report yields a different rate
+for the same 22 items: tracking-id 58 clicks → 37.93%; category 60 → **36.67%**; linked-product 105
+→ **20.95%**. Amazon prints the last two itself, in the same drop; they cannot both be the rate.
+**The defensible floor is 22/154 = 14.3% across all clicks.** High for Amazon, but the 37.93%
+describes a funnel that is not a measurable population.
+
+**This also weakens the CompanionPicks reading (b) below:** accessories firing would be expected to
+land in a named category, not `Other`.
+
+**Zero chair units, fourth consecutive export.** Average item value keeps moving away from chair
+prices: $157.30 → $106.85 → **$94.25**. Basket spillover, confirmed a fourth time.
+
+**CompanionPicks readout: NULL.** The pre-committed read was a non-zero row for `tcaaccessory-20`
+or `tcadesk-20`. Neither has a row. Reported as a real answer, per the commitment made at ship.
+
+**⚠ Amazon changed the export format** — `MM-DD-YYYY` dates, float numerics, capital `Other`,
+blanked `Product Title`/`Category`. **The cross-dimension reconciliation that first succeeded on
+Aug 30 is broken again:** `Other` is 105 clicks in linked-product but 58 in tracking-id, which is
+what marks it a per-report residual rather than an entity.
+
+**OPEN — 22 orders exist while both named tags read zero.** Either (a) the format change collapsed
+per-tag attribution into `Other`, or (b) CompanionPicks fired and is landing in the residual — the
+$94.25 average item value sits exactly in the sub-$300 band it was built to test, and 16 of these
+30 days are post-ship. Against (b): Amazon emits zero-rows for known tags (`tallchairadvi-20` is
+one here), so `tcaaccessory-20` should have its own row if it fired.
+**Discriminating test, no waiting required:** Associates Central's UI reports earnings by tracking
+ID. Activity there for Aug 18 – Sep 16 confirms (b); absence confirms (a).
+**Watchlist hypothesis, not a result** — [[statistical-confidence-policy]].
+
+**Earnings rose $36.09 → $63.21 and that is not yet a trend.** Real money, but arriving wholly in
+an unattributed bucket during a format change is the weakest available provenance.
+
+Raw: `raw/affiliate/2026-09-17-amazon-associates-report.md` (+ CSVs in `raw/affiliate/2026-09-17-amazon-csv/`).
 
 ---
 
@@ -55,7 +137,7 @@ Gesture/Leap/Aeron pages ([[lumbar-support-tall-people]] tells those owners not 
 buy one), headrests only on Aeron pages, seat cushions only where the chair has a
 hard height ceiling and no lumbar worth losing.
 
-**⏳ THIS IS A TEST, NOT A RESULT.** The hypothesis is that the sub-$300 band
+**⏳ THIS IS A TEST, NOT A RESULT.** → **NULL as of 2026-09-17; see the block above.** The hypothesis is that the sub-$300 band
 converts where $1,300 chairs do not. **The read is the next hand export showing a
 non-zero row for `tcaaccessory-20` or `tcadesk-20`.** A null result is a real answer
 and must be reported as one — see [[statistical-confidence-policy]], and note that
@@ -77,7 +159,8 @@ Full write-up: `raw/strategy/2026-09-01-portfolio-inversion-aio-tracker-dataset.
 
 | Month | Clicks | Orders | CVR | Ordered Revenue | Shipped Revenue | Net Earnings | Status |
 |--------|--------|--------|-----|-----------------|-----------------|--------------|--------|
-| **2026-08** | 132 | 11 (partial) | — | $1,189.67 | $1,189.67 | **+$36.09** | Days 1–29, from the **Aug 30** export (window Jul 31–Aug 29, solved). **$29.25 on `tcachair-20` + $6.84 booked Aug 1–4.** Positive, but ~64% short of the $100 target. **Clears the Jul 3 kill-list gate as written ("positive"), taking it to 2 of 2–3** — see the ruling Jackson owes below. Closes 2026-09-01. |
+| **2026-09** | — | — | — | — | — | **unresolved** | Sep 1–16 falls inside the **Aug 18 – Sep 16** rolling window and cannot be separated into a calendar month. $63.21 booked in that window, **all of it unattributed**. Do not log a September figure until the tracking-ID question resolves. |
+| **2026-08** | 132 | 11 (partial) | — | $1,189.67 | $1,189.67 | **+$36.09** (Amazon) / **+$18.45** after $17.64 LLM spend | Days 1–29, from the **Aug 30** export (window Jul 31–Aug 29, solved). **$29.25 on `tcachair-20` + $6.84 booked Aug 1–4.** Positive, but ~64% short of the $100 target. **Clears the Jul 3 kill-list gate as written ("positive"), taking it to 2 of 2–3** — see the ruling Jackson owes below. Closes 2026-09-01. |
 | **2026-07** | 92 | 5 (1 direct) | 5.4% | $3,109.76 | $3,109.76 | **+$92.06** | Best month in site history (~2.5x prior best). 66% from a single order. Return window open. |
 | 2026-06 | 70 | 7 | 10.0% | $578.08 | $578.08 | **−$0.41** | 1 return ($610) wiped earnings. |
 

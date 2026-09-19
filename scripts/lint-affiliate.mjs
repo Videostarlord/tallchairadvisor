@@ -26,6 +26,12 @@ const TAGS = Object.fromEntries([...src.matchAll(/^\s*(chair|accessory|desk):\s*
 const ASINS = Object.fromEntries([...src.matchAll(/^\s*([A-Z0-9]{10}):\s*'(chair|accessory|desk)',/gm)].map(m => [m[1], m[2]]));
 const SEARCHES = Object.fromEntries([...src.matchAll(/^\s*'([^']+)':\s*'(chair|accessory|desk)',/gm)].map(m => [m[1], m[2]]));
 
+/** Class tags as a regex alternation, derived — never write a tag literal below. */
+const CLASS_TAG_ALT = Object.values(TAGS).map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+
+/** The pre-split catch-all, parsed from the same file so it is stated once. */
+const LEGACY = (/^export const LEGACY_TAG = '([^']+)';/m.exec(src) ?? [])[1] ?? null;
+
 if (Object.keys(TAGS).length !== 3) {
   console.error(`lint:affiliate: could not parse the three tracking IDs out of ${relative(ROOT, MAP)}`);
   process.exit(1);
@@ -120,10 +126,44 @@ for (const file of walk(resolve(ROOT, 'src'))) {
 // The click side must agree with the link side, or the GA4/Amazon join is broken.
 for (const file of walk(resolve(ROOT, 'src'))) {
   const text = readFileSync(file, 'utf-8');
-  for (const m of text.matchAll(/<a\s[^>]*?tag=(tcachair-20|tcaaccessory-20|tcadesk-20)[^>]*?>/gs)) {
+  for (const m of text.matchAll(new RegExp(`<a\\s[^>]*?tag=(${CLASS_TAG_ALT})[^>]*?>`, 'gs'))) {
     if (!/data-affiliate-class=/.test(m[0])) {
       const line = text.slice(0, m.index).split('\n').length;
       problems.push(`${relative(ROOT, file)}:${line}\n    affiliate link has a tracking ID but no data-affiliate-class — GA4 will record the click as 'unclassified' and it will not join to the Amazon revenue for that class.`);
+    }
+  }
+}
+
+// ── The runtime tracking-ID list must agree with the map ───────────────────
+//
+// Layout.astro's click handler decides whether an outbound click is TRACKED AT
+// ALL by testing the href against a hardcoded array. That array is a second
+// copy of this file's tags with nothing tying the two together: on 2026-08-13
+// the tags were split per product class and a stale single-value array would
+// have recorded ZERO affiliate clicks site-wide while looking perfectly healthy.
+//
+// It cannot import this module — it is an `is:inline` script that ships to the
+// browser unprocessed — so the copy is load-bearing and the only available
+// guarantee is this check. Found by audit 2026-09-17; it was un-gated for five
+// weeks after the split, the same window in which f7d8948 reverted 21 links.
+{
+  const layout = resolve(ROOT, 'src/layouts/Layout.astro');
+  const text = readFileSync(layout, 'utf-8');
+  const decl = /const AFFILIATE_TAGS = \[([^\]]*)\]/.exec(text);
+  if (decl === null) {
+    problems.push(`src/layouts/Layout.astro\n    could not find the runtime \`AFFILIATE_TAGS\` array. It is what decides whether an outbound click is tracked at all; if it was renamed, update this check in scripts/lint-affiliate.mjs so the two stay tied.`);
+  } else {
+    const runtime = [...decl[1].matchAll(/'([^']+)'/g)].map((m) => m[1]).sort();
+    const expected = [...Object.values(TAGS), ...(LEGACY === null ? [] : [LEGACY])]
+      .filter((t, i, a) => a.indexOf(t) === i).sort();
+    const missing = expected.filter((t) => !runtime.includes(t));
+    const extra = runtime.filter((t) => !expected.includes(t));
+    const line = text.slice(0, decl.index).split('\n').length;
+    if (missing.length > 0) {
+      problems.push(`src/layouts/Layout.astro:${line}\n    runtime AFFILIATE_TAGS is MISSING ${missing.join(', ')}. Clicks on links carrying ${missing.length > 1 ? 'those IDs' : 'that ID'} are not tracked in GA4 at all, and the report still looks healthy. Add ${missing.length > 1 ? 'them' : 'it'} — src/data/affiliate-tags.ts is the source of truth.`);
+    }
+    if (extra.length > 0) {
+      problems.push(`src/layouts/Layout.astro:${line}\n    runtime AFFILIATE_TAGS carries ${extra.join(', ')}, which is not in src/data/affiliate-tags.ts. Either the map lost a tag or this array kept a dead one; the two must state the same set.`);
     }
   }
 }

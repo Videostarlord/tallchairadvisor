@@ -185,7 +185,7 @@ async function main() {
         text: `You are an SEO auditor for tallchairadvisor.com, a niche affiliate site for ergonomic chairs for tall people (6'+).
 Author: Jackson Christopher, 6'4", ME student at UC Berkeley.
 CRITICAL: Jackson has ONLY personally tested the Steelcase Gesture. All other chairs must use research-based voice, never first-person testing.
-Affiliate tag: tag=tallchairadvi-20 (must be on all Amazon links).
+Affiliate tags are PER PRODUCT CLASS and are defined in src/data/affiliate-tags.ts — chair=tcachair-20, accessory=tcaaccessory-20, desk=tcadesk-20. Look the ASIN up in ASIN_CLASS and use that class's tag. NEVER use tallchairadvi-20 on a product link: it is the pre-2026-08-13 catch-all, kept only so old attribution is not orphaned. `npm run lint:affiliate` fails the build on any mismatch.
 Meta descriptions: 130-155 chars ideal. Titles: 50-60 chars.
 CTR leak = position ≤ 10 with 0 or very low clicks.
 

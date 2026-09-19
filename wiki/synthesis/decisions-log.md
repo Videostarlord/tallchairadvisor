@@ -1152,3 +1152,146 @@ See [[affiliate-compliance]] for updated full status table.
 
 
 *Append new entries at the top. Each week's entry should note: what was done, what was decided, what was deferred, and any surprising outcomes.*
+
+---
+
+## 2026-09-17 — Retract the chair-tag EPC "replication"; overlap invalidates confirmation, not just addition
+
+**Decision:** withdraw the $0.49 `tcachair-20` EPC finding from settled status back to **n = 1
+order cohort**, and record the methodological rule that caused it.
+
+**Why.** The Aug 28 and Aug 30 exports were treated as two independent windows agreeing on the same
+rate. They were not independent: both windows contained Jul 31 – Aug 17, so both were measuring one
+order cohort — 6 orders, then the same set further shipped to 9. The agreement was arithmetic, not
+evidential. The Aug 18 – Sep 16 window, which excludes that cohort, reads **62 clicks → 0 orders →
+$0.00**.
+
+**The rule this establishes.** `affiliate-performance.md` Rule 1 says overlapping snapshots must
+never be *added*. The same overlap equally forbids treating them as independent *confirmations*.
+This archive caught the addition version on 2026-08-01 and then committed the correlation version
+three weeks later. **Before calling any two exports a replication, check that their windows do not
+share the orders being counted.**
+
+**Cost of being wrong here.** The retracted finding was load-bearing: it was cited as the reason to
+treat Leap Plus as the site's proven monetiser and, by extension, as evidence the chair funnel
+works at all. It does not currently show that.
+
+**Left open, deliberately.** 22 orders exist in this window while both instrumented tags read
+$0.00. Resolving that needs Associates Central's by-tracking-ID view for Aug 18 – Sep 16 — a
+one-minute check that separates "format change collapsed attribution" from "CompanionPicks fired
+into the residual". Not guessed here.
+
+**Second correction, same session.** The run of positive months is **two (Jul, Aug), not three** —
+June closed **−$0.41**. August's +$36.09 is **+$18.45** once the $17.64 of LLM spend in
+`data/cost-summary.json` is counted; the monthly log had been reporting Amazon net as if it were
+profit. The Jul 3 kill-list gate stands at **2 of 2–3**, and the ruling Jackson owes on what
+"positive" means is unchanged and still owed.
+
+Related: [[affiliate-performance]] · [[statistical-confidence-policy]] · [[thesis]]
+
+---
+
+## 2026-09-17 — The tag split reverted itself, because the agents were still told the old rule
+
+**What happened.** `f7d8948` ("fix: Thursday SEO fixes 2026-08-27", author `tca-bot`, authored
+2026-08-27, landed on main 2026-09-01 19:54 UTC) rewrote **21 chair links across 3 pages** from
+`tcachair-20` back to `tallchairadvi-20` — `/office-chairs-for-tall-people/` (13 lines),
+`/knee-pain-seat-depth/` (5), `/correct-chair-dimensions/` (1). Those are the site's **#1
+affiliate-click page** (53% of clicks) and its **#1 and #2 impression pages**.
+
+**Why the agent did it.** The 2026-08-13 split changed the links and the map but not the
+instructions. Every agent prompt still named the legacy ID: `audit.ts:188`, `strategy.ts:480`,
+`execute-fixes.ts:328`, `execute-content.ts` (its CTA template **and** a scoring rule that awarded
+**+20 points** for emitting `tag=tallchairadvi-20`). `CLAUDE.md` said the same. **The bot was
+rewarded for reverting the split.**
+
+**Why nothing caught it.** `scripts/lint-affiliate.mjs` is correct and would have failed this commit
+with the exact error. It was wired into **no workflow at all** — not `tests.yml`, not the agent
+workflows, and there are no git hooks. `thursday.yml` ran `lint:content` before committing, which
+checks ASIN allowlists and disclosure order, not tag-class. `tests.yml` labelled that same
+`lint:content` step *"Content lint (gates every affiliate link)"* — a label that describes a gate
+that did not exist, which is plausibly why the gap went unnoticed for five weeks.
+
+**The shape of this defect is the house pattern.** [[godseye-nightly]] records it: *defects live in
+the SEAM between components, not inside them.* Every component here was correct in isolation — the
+map, the linter, the split, the agents. The failure was entirely in the wiring between them.
+
+**Fixed (branch `fix/affiliate-tag-regression`):**
+1. 21 links restored to `tcachair-20`; `lint:affiliate` green.
+2. All 4 agent prompts rewritten to point at `src/data/affiliate-tags.ts` rather than name a tag;
+   the +20 scoring rule now rewards a **class** tag and explicitly names `f7d8948` as the reason.
+3. `lint:affiliate` wired into `tests.yml` (backstop) and into `thursday.yml`, `friday.yml`,
+   `saturday.yml` **before their commit steps**. The misleading `tests.yml` label corrected.
+4. `CLAUDE.md` corrected, carrying the incident so the instruction cannot quietly revert again.
+
+**What it costs the analysis.** Per-class attribution is unreliable for 2026-08-27 → 2026-09-17:
+the biggest click source was reporting under the legacy ID. The **chair verdict survives** — both
+tags read $0.00, and the category row (94 Furniture clicks → $0.00) does not depend on tags at all.
+
+**Gates at fix time:** build 55 pages · lint:affiliate 165 links ✓ · lint:content 55 pages ✓ ·
+lint:architecture 0 new ✓ · tests 29/30 (`read-validated` fails on a pre-existing stale
+`data/gsc/history/2026-08-03.json`, untouched by this change).
+
+Related: [[affiliate-performance]] · [[godseye-nightly]] · [[open-issues-status]]
+
+---
+
+## 2026-09-17 — Collection stays on, model spend goes to zero
+
+**Decision (Jackson):** keep gathering every dataset so the history is unbroken and manual
+troubleshooting is still possible later, but stop all recurring LLM spend.
+
+**Where the $20.55/mo actually was** — attributed from `data/cost-ledger.jsonl`:
+
+| agent | spend | share | disposition |
+|---|---|---|---|
+| nightly narrative | **$14.53** | **71%** | now opt-in only (`-f force_narrative=true`) |
+| competitor-intelligence | $3.72 | 18% | `if: false`, monday.yml |
+| execute-fixes | $1.03 | 5% | dispatch-only (cron already parked) |
+| audit | $0.57 | 3% | cron parked 2026-09-17 |
+| execute-content | $0.41 | 2% | dispatch-only |
+| strategy | $0.26 | 1% | dispatch-only |
+| verify-deploy | $0.02 | — | `if: false`, saturday.yml |
+
+**The narrative was 71% of the bill.** The deterministic nightly report was always free and is
+unchanged — probe, ledger evaluation, gates, heartbeat all still write to `data/` and `wiki/`. Only
+the prose summary is gone, and `nightly-report.ts` already had the `--no-narrative` path that prints
+*"deterministic report written, no model call, $0 spent."*
+
+**Unchanged and still collecting, all $0:** `gsc:pull` · **`gsc:analyze`** (the whole GSC
+intelligence layer is model-free) · `ga4:pull` · `agent:clarity-history` (every 2 days) ·
+`aio:track` · `roadmap:sync` · `keyword:discovery`/`gaps`/`approve`/`push` · `asin-check` ·
+`collect:all` · `probe` · `ledger:evaluate` · `cost:rollup` · `retention:prune` · all three lints.
+
+**`asin-monthly.yml` was deliberately kept.** Its header states the risk: *"a delisted ASIN keeps
+rendering, keeps taking clicks, and earns nothing — indefinitely, with nothing watching."* Nothing
+else checks liveness, the funnel is 3 chair ASINs, and it costs ~24 Firecrawl pages against a
+500/month free tier. It is the only guard between a delisting and silent revenue-to-zero.
+
+**Found while attributing spend: `scripts/agents/index-monitor.ts` calls the model but never appears
+in the cost ledger by name.** It ran every Monday. **The $20.55 is a floor, not a total** — there is
+unmetered LLM spend in the pipeline, and `cost-summary.json` has been under-reporting. Disabled with
+the rest; the metering gap is left open as a finding.
+
+**What this does not do.** It saves ~$20/month and stops the agent regressions ([[decisions-log]]
+2026-09-17, `f7d8948`). It does not grow anything. Position has been **8.1 on all eight GSC pulls**
+since Aug 6 and impressions fell 7%, so little is being given up — but the ceiling remains content,
+and nothing here writes any.
+
+**Re-arming:** delete the `if: false` lines, or uncomment the crons in tuesday/wednesday/thursday/
+friday. Every pause is a two-line revert and is commented as such in the workflow.
+
+Related: [[affiliate-performance]] · [[godseye-nightly]] · [[open-issues-status]]
+
+---
+
+## ⚠ CORRECTION — the index-monitor "metering gap" was not real
+
+**CORRECTED 2026-09-17 (same day):** this was investigated and is **NOT a metering gap.**
+`index-monitor.ts` calls `meteredCreate` only from `fixPage()`, which runs only for pages the
+classifier marks `fixable`. Across **all 12 reports in git history, zero rows carried a fixable
+fixType** — every issue classified as `wait`. The model call has never fired, so zero ledger
+records is the correct result. `monday.yml` does stage `data/cost-ledger.jsonl`, so the commit
+path was never the problem either. **$20.55 is accurate, not a floor.** The latent risk is real
+— the call site exists and would spend if a page ever classified fixable — but it is now
+disabled with the rest.

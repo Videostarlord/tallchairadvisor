@@ -286,12 +286,17 @@ jobs:
       - name: Write nightly report
         id: report
         if: always()
+        # PAUSED 2026-09-17 (Jackson): the Sunday narrative was $14.53 of $20.55 —
+        # 71% of all model spend on this site. The deterministic report is unchanged
+        # and still written every night; only the prose summary is gone. The full
+        # nightly data (probe, ledger, gates, heartbeat) still lands in data/ and wiki/.
+        # Force one on demand with `gh workflow run nightly.yml -f force_narrative=true`.
         run: |
-          if [ "$(date -u +%u)" = "7" ] || [ "${{ inputs.force_narrative }}" = "true" ]; then
-            echo "Sunday (or forced) — generating the full written narrative."
+          if [ "${{ inputs.force_narrative }}" = "true" ]; then
+            echo "Narrative explicitly forced — this is the one path that spends money."
             npm run nightly
           else
-            echo "Weekday — deterministic report only, no model call."
+            echo "Deterministic report only, no model call, $0 spent."
             npm run nightly -- --no-narrative
           fi
         env:

@@ -325,7 +325,7 @@ async function applyFix(task: FixTask, gscData: Map<string, { impressions: numbe
 Apply ONLY the requested fix — do not refactor, rename, or change anything else.
 CRITICAL RULES:
 - Jackson ONLY personally tested the Steelcase Gesture. Never add first-person testing voice for other chairs.
-- All Amazon links must include tag=tallchairadvi-20.
+- Affiliate tags are PER PRODUCT CLASS and are defined in src/data/affiliate-tags.ts — chair=tcachair-20, accessory=tcaaccessory-20, desk=tcadesk-20. Look the ASIN up in ASIN_CLASS and use that class's tag. NEVER use tallchairadvi-20 on a product link: it is the pre-2026-08-13 catch-all, kept only so old attribution is not orphaned. `npm run lint:affiliate` fails the build on any mismatch.
 - Meta descriptions: 130-155 chars. Titles: 50-60 chars.
 - Schema: valid JSON-LD, no duplicate @type entries.
 - FRONTMATTER ONLY: Use only ASCII characters between the --- markers. Never use em dashes (—), curly quotes, or other Unicode characters directly in the JavaScript frontmatter — use regular hyphens (-) or escape sequences instead. Em dashes in the HTML template section are fine.

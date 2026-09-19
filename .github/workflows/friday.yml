@@ -94,6 +94,9 @@ jobs:
         if: env.CONTENT_WRITTEN == 'true'
         run: npm run lint:content
 
+      - name: Affiliate tag lint (blocks a mistagged commit)
+        run: npm run lint:affiliate
+
       - name: Commit new content
         if: env.CONTENT_WRITTEN == 'true'
         run: |
