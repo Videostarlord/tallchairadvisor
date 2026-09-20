@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-19
+# Session Brief — 2026-09-20
 
-_Generated 2026-09-19T04:07:53.797Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-20T04:28:46.570Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -53,21 +53,21 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 127 | 48 | 30% | 15% |
-| /review/gesture/ | 78 | 3 | 7% | 22% |
-| /correct-chair-dimensions/ | 75 | 0 | 15% | 16% |
-| /review/leap-plus/ | 70 | 8 | 15% | 32% |
-| /best-big-and-tall-office-chairs/ | 58 | 10 | 7% | 23% |
-| / | 55 | 0 | 12% | 26% |
+| /office-chairs-for-tall-people/ | 127 | 48 | 29% | 15% |
+| /review/gesture/ | 78 | 3 | 11% | 22% |
+| /correct-chair-dimensions/ | 75 | 0 | — | 16% |
+| /review/leap-plus/ | 70 | 8 | 25% | 32% |
+| /best-big-and-tall-office-chairs/ | 58 | 10 | — | 23% |
+| / | 55 | 0 | — | 26% |
 | /best-office-chairs-under-500/ | 51 | 8 | — | 26% |
-| /chairs/steelcase-gesture/ | 47 | 2 | 25% | 34% |
+| /chairs/steelcase-gesture/ | 47 | 2 | — | 34% |
 | /office-chairs-for-6-foot-5/ | 47 | 3 | — | 18% |
-| /office-chairs-for-6-foot-7/ | 47 | 5 | 7% | 20% |
-| /review/sihoo-doro-s300/ | 47 | 0 | 6% | 28% |
+| /office-chairs-for-6-foot-7/ | 47 | 5 | — | 20% |
+| /review/sihoo-doro-s300/ | 47 | 0 | 19% | 28% |
 | /knee-pain-seat-depth/ | 40 | 0 | — | 20% |
-| /review/aeron-size-c/ | 40 | 0 | 17% | 42% |
-| /chairs/herman-miller-aeron/tall-people/ | 35 | 0 | — | 24% |
-| /chairs/steelcase-leap-plus/ | 35 | 0 | 38% | 25% |
+| /review/aeron-size-c/ | 40 | 0 | — | 42% |
+| /chairs/herman-miller-aeron/tall-people/ | 35 | 0 | 34% | 24% |
+| /chairs/steelcase-leap-plus/ | 35 | 0 | — | 25% |
 
 ## Money
 
