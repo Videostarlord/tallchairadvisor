@@ -2,6 +2,52 @@
 type: log
 ---
 
+## [2026-09-21] ga4-pull | GA4 Data Pull
+
+- Period: 2026-08-24 → 2026-09-21 (28 days)
+- Sessions: 1266 | Users: 1189 | Views: 1412
+- Engagement rate: 20.0% | Avg duration: 56s
+- Affiliate clicks: 111 | ChatGPT sessions: 103
+- Pages: 64 | Channels: 7
+
+
+## [2026-09-21] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-21
+- Pages recorded: 64
+- Device split: {"mobile":0.289,"tablet":0.026,"pc":0.658,"email":0.026,"other":0}
+- Behavioral alerts: 21
+  - [low-scroll-depth] https://tallchairadvisor.com/refurbished-steelcase-leap-tall-people: 26% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/aeron-vs-gesture/?utm_source=chatgpt.com: 25% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/: 22% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/?utm_source=chatgpt.com: 21% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-3/?utm_source=chatgpt.com: 20% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 57
+
+
+## [2026-09-21] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 16 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 40 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions down 2.1% WoW (3971 vs 4056), clicks down 20% (16 vs 20), avg position stable
+- Query entropy: 2 fragmented pages
+- Hub candidates: 4
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-09-21] gsc-pull | GSC Data Pull
+
+- Period: 2026-06-23 → 2026-09-21 (90 days)
+- Pages: 57 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 90 | Daily trend rows: 89
+- Clicks: 282 | Impressions: 85473 | Avg pos: 8.1
+
+
 ## [2026-09-19] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-09-19
