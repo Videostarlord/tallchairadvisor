@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-20
+# Session Brief — 2026-09-21
 
-_Generated 2026-09-20T04:28:46.570Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-21T04:26:14.294Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
