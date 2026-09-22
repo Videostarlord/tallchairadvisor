@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-09-21T04:26:12.679Z",
+  "generatedAt": "2026-09-22T04:21:33.621Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
   "counts": {
     "open": 0,
-    "closed": 65,
+    "closed": 64,
     "escalated": 3,
-    "regressed": 1,
+    "regressed": 2,
     "total": 69,
     "retractedSkipped": 0
   },
   "closedTonight": [],
   "regressed": [
+    {
+      "id": "1ea2c65ba23b",
+      "kind": "intervention",
+      "page": "/best-office-chairs-under-500/",
+      "issueClass": "intervention:position:2026-07-20",
+      "severity": null,
+      "summary": "/best-office-chairs-under-500/",
+      "predicate": "gsc-position /best-office-chairs-under-500/ < 9.1 after 14d",
+      "ageDays": 64,
+      "attempts": 1,
+      "firstSeen": "2026-07-20",
+      "lastSeen": "2026-09-22",
+      "verdict": "fail",
+      "reason": "position 9.3 does not satisfy < 9.1"
+    },
     {
       "id": "aba4112ac066",
       "kind": "finding",
@@ -21,10 +36,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 46,
-      "attempts": 21,
+      "ageDays": 47,
+      "attempts": 22,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     }
@@ -38,10 +53,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 63,
-      "attempts": 46,
+      "ageDays": 64,
+      "attempts": 47,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
       "reason": "position 9.8 does not satisfy < 9.6"
     },
@@ -53,12 +68,12 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 63,
-      "attempts": 46,
+      "ageDays": 64,
+      "attempts": 47,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
-      "reason": "position 9.7 does not satisfy < 8.1"
+      "reason": "position 9.8 does not satisfy < 8.1"
     },
     {
       "id": "d26626ec75ad",
@@ -68,15 +83,30 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 20,
-      "attempts": 21,
+      "ageDays": 21,
+      "attempts": 22,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
   ],
   "stuck": [
+    {
+      "id": "1ea2c65ba23b",
+      "kind": "intervention",
+      "page": "/best-office-chairs-under-500/",
+      "issueClass": "intervention:position:2026-07-20",
+      "severity": null,
+      "summary": "/best-office-chairs-under-500/",
+      "predicate": "gsc-position /best-office-chairs-under-500/ < 9.1 after 14d",
+      "ageDays": 64,
+      "attempts": 1,
+      "firstSeen": "2026-07-20",
+      "lastSeen": "2026-09-22",
+      "verdict": "fail",
+      "reason": "position 9.3 does not satisfy < 9.1"
+    },
     {
       "id": "65336bac6935",
       "kind": "intervention",
@@ -85,10 +115,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 63,
-      "attempts": 46,
+      "ageDays": 64,
+      "attempts": 47,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
       "reason": "position 9.8 does not satisfy < 9.6"
     },
@@ -100,12 +130,12 @@
       "severity": null,
       "summary": "/office-chairs-for-tall-people/",
       "predicate": "gsc-position /office-chairs-for-tall-people/ < 8.1 after 14d",
-      "ageDays": 63,
-      "attempts": 46,
+      "ageDays": 64,
+      "attempts": 47,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
-      "reason": "position 9.7 does not satisfy < 8.1"
+      "reason": "position 9.8 does not satisfy < 8.1"
     },
     {
       "id": "aba4112ac066",
@@ -115,10 +145,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 46,
-      "attempts": 21,
+      "ageDays": 47,
+      "attempts": 22,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -130,18 +160,18 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 20,
-      "attempts": 21,
+      "ageDays": 21,
+      "attempts": 22,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-09-21",
+      "lastSeen": "2026-09-22",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
   ],
   "coverage": {
     "evaluated": 69,
-    "pass": 65,
-    "fail": 4,
+    "pass": 64,
+    "fail": 5,
     "unevaluable": 0,
     "coveragePercent": 100,
     "openUnevaluable": 0,
@@ -166,6 +196,12 @@
   },
   "transitions": [
     {
+      "id": "1ea2c65ba23b",
+      "from": "closed",
+      "to": "regressed",
+      "reason": "position 9.3 does not satisfy < 9.1"
+    },
+    {
       "id": "65336bac6935",
       "from": "escalated",
       "to": "escalated",
@@ -175,7 +211,7 @@
       "id": "c76d198a75bc",
       "from": "escalated",
       "to": "escalated",
-      "reason": "position 9.7 does not satisfy < 8.1"
+      "reason": "position 9.8 does not satisfy < 8.1"
     },
     {
       "id": "aba4112ac066",

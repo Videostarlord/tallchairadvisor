@@ -1,6 +1,6 @@
-# Session Brief — 2026-09-21
+# Session Brief — 2026-09-22
 
-_Generated 2026-09-21T04:26:14.294Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-09-22T04:21:35.272Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -10,40 +10,40 @@ _Generated 2026-09-21T04:26:14.294Z. Deterministic, no model call. Everything be
 
 ## Traffic
 
-- **GSC 90d:** 92,266 impressions, **281 clicks**, CTR 0.305%, avg position 8.1
-- **Momentum:** Impressions down 14.6% WoW (4056 vs 4749), clicks up 5.3% (20 vs 19), avg position improving (0.6 spots)
-- **GA4 28d:** 1578 sessions total — but Direct is 1248 (79%), engagement 15.8%, 41s.
-  **Treat ~344 non-Direct sessions as the real number.** Site-wide GA4 engagement metrics are not trustworthy while Direct dominates.
-  - Direct: 1248 (79.1%)
-  - Organic Search: 204 (12.9%)
-  - AI Assistant: 111 (7.0%)
-  - Unassigned: 17 (1.1%)
-  - Referral: 7 (0.4%)
+- **GSC 90d:** 85,473 impressions, **282 clicks**, CTR 0.330%, avg position 8.1
+- **Momentum:** Impressions down 2.1% WoW (3971 vs 4056), clicks down 20% (16 vs 20), avg position stable
+- **GA4 28d:** 1266 sessions total — but Direct is 942 (74%), engagement 20.0%, 56s.
+  **Treat ~331 non-Direct sessions as the real number.** Site-wide GA4 engagement metrics are not trustworthy while Direct dominates.
+  - Direct: 942 (74.4%)
+  - Organic Search: 199 (15.7%)
+  - AI Assistant: 107 (8.5%)
+  - Unassigned: 13 (1.0%)
+  - Referral: 8 (0.6%)
   - Organic Social: 3 (0.2%)
-  - Cross-network: 2 (0.1%)
+  - Cross-network: 1 (0.1%)
 
 ## Opportunity (scored on ADDRESSABLE impressions)
 
 | page | type | score | addressable | of total | pos |
 |---|---|---:|---:|---:|---:|
-| /review/leap-plus/ | near-p1 | 605.2 | 2572 | 15539 | 8.5 |
-| /chairs/herman-miller-aeron/ | content-depth | 295 | 175 | 590 | 17.5 |
-| /leg-pain-circulation/ | content-depth | 256.5 | 55 | 513 | 16.1 |
-| /pain-ergonomics/ | content-depth | 227.5 | 455 | 455 | 28.0 |
-| /review/aeron-size-c/ | near-p1 | 164.6 | 864 | 4068 | 10.5 |
-| /chairs/steelcase-leap-plus/ | near-p1 | 128.1 | 493 | 493 | 7.7 |
-| /office-chairs-for-6-foot-5/ | near-p1 | 121.6 | 444 | 444 | 7.3 |
-| /refurbished-steelcase-leap-tall-people/ | near-p1 | 117 | 509 | 509 | 8.7 |
+| /review/leap-plus/ | near-p1 | 542.4 | 2251 | 14732 | 8.3 |
+| /chairs/herman-miller-aeron/ | content-depth | 295 | 171 | 590 | 17.0 |
+| /leg-pain-circulation/ | content-depth | 280.5 | 56 | 561 | 15.4 |
+| /pain-ergonomics/ | content-depth | 221 | 442 | 442 | 27.6 |
+| /review/aeron-size-c/ | near-p1 | 148.8 | 729 | 3564 | 9.8 |
+| /chairs/steelcase-leap-plus/ | near-p1 | 140.5 | 534 | 534 | 7.6 |
+| /office-chairs-for-6-foot-5/ | near-p1 | 127.4 | 465 | 465 | 7.3 |
+| /refurbished-steelcase-leap-tall-people/ | near-p1 | 124.4 | 541 | 541 | 8.7 |
 
 **7 page(s) are AI/agent retrieval, not human demand — do not plan CTR work on these:**
 
-- `/correct-chair-dimensions/` — 16,837 impressions, only 10.1% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/best-office-chairs-under-500/` — 1,655 impressions, only 4.7% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/office-chairs-for-tall-people/` — 3,907 impressions, only 14.5% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/chairs/herman-miller-aeron/tall-people/` — 1,933 impressions, only 3.5% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/review/gesture/` — 6,481 impressions, only 5.9% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/knee-pain-seat-depth/` — 32,822 impressions, only 4.2% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/chairs/steelcase-gesture/seat-depth/` — 1,227 impressions, only 6.4% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/correct-chair-dimensions/` — 15,064 impressions, only 10.1% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/best-office-chairs-under-500/` — 1,684 impressions, only 6.1% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/office-chairs-for-tall-people/` — 3,671 impressions, only 10.2% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/chairs/herman-miller-aeron/tall-people/` — 1,973 impressions, only 3.4% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/review/gesture/` — 6,204 impressions, only 5.4% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/knee-pain-seat-depth/` — 29,116 impressions, only 4.2% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/chairs/steelcase-gesture/seat-depth/` — 1,197 impressions, only 5.8% carry a named query. GEO asset; judge on AI-assistant referrals.
 
 ## Conversion join — affiliate clicks × scroll depth × CTA position
 
@@ -53,21 +53,21 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 127 | 48 | 29% | 15% |
-| /review/gesture/ | 78 | 3 | 11% | 22% |
-| /correct-chair-dimensions/ | 75 | 0 | — | 16% |
-| /review/leap-plus/ | 70 | 8 | 25% | 32% |
-| /best-big-and-tall-office-chairs/ | 58 | 10 | — | 23% |
-| / | 55 | 0 | — | 26% |
-| /best-office-chairs-under-500/ | 51 | 8 | — | 26% |
-| /chairs/steelcase-gesture/ | 47 | 2 | — | 34% |
-| /office-chairs-for-6-foot-5/ | 47 | 3 | — | 18% |
-| /office-chairs-for-6-foot-7/ | 47 | 5 | — | 20% |
-| /review/sihoo-doro-s300/ | 47 | 0 | 19% | 28% |
-| /knee-pain-seat-depth/ | 40 | 0 | — | 20% |
-| /review/aeron-size-c/ | 40 | 0 | — | 42% |
-| /chairs/herman-miller-aeron/tall-people/ | 35 | 0 | 34% | 24% |
-| /chairs/steelcase-leap-plus/ | 35 | 0 | — | 25% |
+| /office-chairs-for-tall-people/ | 115 | 49 | 49% | 15% |
+| /review/gesture/ | 71 | 2 | 13% | 22% |
+| /review/leap-plus/ | 68 | 12 | 65% | 32% |
+| /correct-chair-dimensions/ | 65 | 1 | 98% | 16% |
+| / | 51 | 0 | 22% | 26% |
+| /best-big-and-tall-office-chairs/ | 48 | 12 | 100% | 23% |
+| /chairs/steelcase-gesture/ | 44 | 2 | 57% | 34% |
+| /best-office-chairs-under-500/ | 42 | 5 | 61% | 26% |
+| /office-chairs-for-6-foot-7/ | 40 | 5 | — | 20% |
+| /review/sihoo-doro-s300/ | 39 | 0 | 11% | 28% |
+| /office-chairs-for-6-foot-5/ | 37 | 4 | — | 18% |
+| /chairs/steelcase-leap-plus/ | 33 | 0 | — | 25% |
+| /review/aeron-size-c/ | 33 | 1 | 12% | 42% |
+| /knee-pain-seat-depth/ | 31 | 0 | — | 20% |
+| /chairs/herman-miller-aeron/tall-people/ | 29 | 0 | — | 24% |
 
 ## Money
 
@@ -77,13 +77,13 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 ## Open work the pipeline is tracking
 
-- Ledger: {"open": 0, "closed": 65, "escalated": 3, "regressed": 1, "total": 69, "retractedSkipped": 0}
+- Ledger: {"open": 0, "closed": 64, "escalated": 3, "regressed": 2, "total": 69, "retractedSkipped": 0}
+  - **/best-office-chairs-under-500/** — position 9.3 does not satisfy < 9.1
   - **/correct-chair-dimensions/** — missing Direct Answer block
   - **/correct-chair-dimensions/** — position 9.8 does not satisfy < 9.6
-  - **/office-chairs-for-tall-people/** — position 9.7 does not satisfy < 8.1
+  - **/office-chairs-for-tall-people/** — position 9.8 does not satisfy < 8.1
   - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
-  - **/correct-chair-dimensions/** — position 9.8 does not satisfy < 9.6
-  - **/office-chairs-for-tall-people/** — position 9.7 does not satisfy < 8.1
+  - **/best-office-chairs-under-500/** — position 9.3 does not satisfy < 9.1
 
 ---
 
