@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-09-29] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-09-29
+- Pages recorded: 16
+- Device split: {"mobile":0.278,"pc":0.722,"other":0}
+- Behavioral alerts: 5
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 36% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/knee-pain-seat-depth/: 36% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 21% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 12% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 62
+
+
 ## [2026-09-28] ga4-pull | GA4 Data Pull
 
 - Period: 2026-08-31 → 2026-09-28 (28 days)
