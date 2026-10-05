@@ -1,19 +1,19 @@
 ---
 type: concept
-last_updated: 2026-09-28
+last_updated: 2026-10-05
 sources: [data/gsc/analysis.json]
 tags: [gsc, intelligence, opportunities, ctr, weekly]
 ---
 
 # GSC Weekly Intelligence Digest
 
-**Generated 2026-09-28 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
+**Generated 2026-10-05 by gsc-analyze.ts** | Read this before writing strategy.ts prompt.
 
 ---
 
 ## Momentum
 
-Impressions down 11.1% WoW (3589 vs 4036), clicks up 64.3% (23 vs 14), avg position stable
+Impressions down 46.7% WoW (1960 vs 3680), clicks flat (23 vs 23), avg position declining (1.4 spots)
 
 ---
 
@@ -21,11 +21,11 @@ Impressions down 11.1% WoW (3589 vs 4036), clicks up 64.3% (23 vs 14), avg posit
 
 | Page | Type | Impressions | Position | Action |
 |------|------|-------------|----------|--------|
-| /review/leap-plus/ | near-p1 | 12484 impr | pos 8.3 | pos 8.3 with 2087 addressable impr (of 12484 total — 17% named) — expand content depth + internal links to push into top 5 |
-| /chairs/herman-miller-aeron/ | content-depth | 567 impr | pos 16.4 | pos 16.4 with 567 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
-| /pain-ergonomics/ | content-depth | 436 impr | pos 26.9 | pos 26.9 with 436 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
-| /chairs/steelcase-leap-plus/ | near-p1 | 571 impr | pos 7.6 | pos 7.6 with 571 addressable impr — expand content depth + internal links to push into top 5 |
-| /chairs/steelcase-leap-plus/tall-people/ | near-p1 | 562 impr | pos 8.3 | pos 8.3 with 562 addressable impr — expand content depth + internal links to push into top 5 |
+| /review/leap-plus/ | near-p1 | 10782 impr | pos 8.2 | pos 8.2 with 1804 addressable impr (of 10782 total — 17% named) — expand content depth + internal links to push into top 5 |
+| /chairs/herman-miller-aeron/ | content-depth | 574 impr | pos 16.2 | pos 16.2 with 574 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
+| /pain-ergonomics/ | content-depth | 413 impr | pos 26.1 | pos 26.1 with 413 impr — content too thin or lacks E-E-A-T signals, needs depth upgrade |
+| /chairs/steelcase-leap-plus/ | near-p1 | 577 impr | pos 7.5 | pos 7.5 with 577 addressable impr — expand content depth + internal links to push into top 5 |
+| /chairs/steelcase-leap-plus/tall-people/ | near-p1 | 595 impr | pos 7.9 | pos 7.9 with 595 addressable impr — expand content depth + internal links to push into top 5 |
 
 ---
 
@@ -33,11 +33,11 @@ Impressions down 11.1% WoW (3589 vs 4036), clicks up 64.3% (23 vs 14), avg posit
 
 | Page | Query | Impr | Position | CTR (exp) | Lost clicks/wk |
 |------|-------|------|----------|-----------|----------------|
-| /review/leap-plus/ | "steelcase leap plus" | 1264 impr | pos 9 | 0.95% (exp 2.2%) | ~1.23/wk |
-| /aeron-vs-leap-plus/ | "aeron plus" | 106 impr | pos 8.6 | 0% (exp 2.5%) | ~0.21/wk |
-| /chairs/steelcase-gesture/weight-limit/ | "steelcase gesture weight limit" | 80 impr | pos 8.5 | 0% (exp 2.5%) | ~0.16/wk |
-| /aeron-vs-gesture/ | "aeron vs gesture" | 46 impr | pos 8.5 | 0% (exp 2.5%) | ~0.09/wk |
-| /correct-chair-dimensions/ | "study chair size in feet" | 133 impr | pos 17.9 | 0% (exp 2%) | ~0.21/wk |
+| /review/leap-plus/ | "steelcase leap plus" | 1172 impr | pos 9 | 0.94% (exp 2.2%) | ~1.15/wk |
+| /aeron-vs-leap-plus/ | "aeron plus" | 115 impr | pos 8.4 | 0% (exp 2.5%) | ~0.22/wk |
+| /chairs/steelcase-gesture/weight-limit/ | "steelcase gesture weight limit" | 81 impr | pos 8.3 | 0% (exp 2.5%) | ~0.16/wk |
+| /aeron-vs-gesture/ | "aeron vs gesture" | 50 impr | pos 8.4 | 0% (exp 2.5%) | ~0.1/wk |
+| /correct-chair-dimensions/ | "office chair dimensions" | 60 impr | pos 19.2 | 0% (exp 2%) | ~0.09/wk |
 
 
 
@@ -45,22 +45,23 @@ Impressions down 11.1% WoW (3589 vs 4036), clicks up 64.3% (23 vs 14), avg posit
 
 ## Affiliate Alerts
 
-- **/aeron-vs-gesture/** [medium]: 99 buyer-intent impr | queries: aeron vs gesture, gesture vs aeron
-- **/best-office-chairs-under-500/** [medium]: 92 buyer-intent impr | queries: best office chair under 500, best office chairs under 500
-- **/office-chairs-for-tall-people/** [medium]: 56 buyer-intent impr | queries: best office chairs for tall people, best office chair tall person
+- **/aeron-vs-gesture/** [medium]: 113 buyer-intent impr | queries: aeron vs gesture, gesture vs aeron
+- **/best-office-chairs-under-500/** [medium]: 100 buyer-intent impr | queries: best office chair under 500, best office chairs under 500
+- **/gesture-vs-leap-plus/** [medium]: 67 buyer-intent impr | queries: steelcase leap v2 vs gesture, steelcase gesture vs leap v2
 
 ---
 
 ## Cannibalization Risks
 
-- **"steelcase leap plus"** [high risk]: /review/leap-plus/ vs /chairs/steelcase-leap-plus/ (1265 impr)
-- **"aeron size c"** [medium risk]: /review/aeron-size-c/ vs /chairs/herman-miller-aeron/ (213 impr)
+- **"steelcase leap plus"** [high risk]: /review/leap-plus/ vs /chairs/steelcase-leap-plus/ (1174 impr)
+- **"steelcase leap v2 for tall people"** [medium risk]: /office-chairs-for-tall-people/ vs /chair-headrest-tall-people/ vs /chairs/steelcase-gesture/ vs /chairs/steelcase-leap-plus/ (52 impr)
+- **"herman miller aeron size c"** [medium risk]: /chairs/herman-miller-aeron/ vs /chairs/herman-miller-aeron/size-guide/ vs /chairs/herman-miller-aeron/tall-people/ (19 impr)
 
 ---
 
 ## Device Split
 
-Mobile: 28% of impressions | Mobile CTR 0.24% vs Desktop 0.48% (gap: +0.24pp)
+Mobile: 9% of impressions | Mobile CTR 1.01% vs Desktop 0.31% (gap: -0.7pp)
 
 ---
 
@@ -69,25 +70,26 @@ Mobile: 28% of impressions | Mobile CTR 0.24% vs Desktop 0.48% (gap: +0.24pp)
 **Most fragmented pages** (topic generalists, low per-cluster authority):
 | Page | Entropy | Clusters | Regime |
 |------|---------|----------|--------|
-| /correct-chair-dimensions/ | 5.29 | 135 | fragmented |
-| /office-chairs-for-tall-people/ | 3.636 | 32 | fragmented |
+| /correct-chair-dimensions/ | 5.287 | 119 | fragmented |
+| /best-office-chairs-under-500/ | 3.76 | 39 | fragmented |
 
 
 **Most concentrated pages** (single-keyword risk):
 | Page | Entropy | Clusters | Regime |
 |------|---------|----------|--------|
-| /chairs/steelcase-leap-plus/weight-limit/ | 0.544 | 2 | concentrated |
-| /aeron-vs-leap-plus/ | 0.623 | 5 | concentrated |
-| /review/leap-plus/ | 0.645 | 4 | concentrated |
+| /review/leap-plus/ | 0.466 | 3 | concentrated |
+| /aeron-vs-leap-plus/ | 0.651 | 6 | concentrated |
+| /chairs/steelcase-gesture/weight-limit/ | 0.83 | 5 | concentrated |
 
 
 ---
 
 ## Impression Gravity (Hub Candidates)
 
-- **/correct-chair-dimensions/**: 36 clusters, gravity score 338.99
-- **/office-chairs-for-tall-people/**: 13 clusters, gravity score 105.69
-- **/chairs/herman-miller-aeron/**: 8 clusters, gravity score 50.72
+- **/correct-chair-dimensions/**: 31 clusters, gravity score 287.09
+- **/office-chairs-for-tall-people/**: 12 clusters, gravity score 96.76
+- **/best-office-chairs-under-500/**: 11 clusters, gravity score 81.59
+- **/chairs/herman-miller-aeron/**: 10 clusters, gravity score 63.53
 
 ---
 
@@ -107,11 +109,11 @@ _No AIO suspects in current CTR leak set_
 
 | Page | Cur Pos | Prev Pos | Pos Δ | Impr Δ | Trend |
 |------|---------|----------|-------|--------|-------|
-| /standing-desk-height-tall-people/ | 20.5 | 19.5 | +1 | -34 | falling |
-| /leg-pain-circulation/ | 15.4 | 16.1 | -0.7 | +48 | stable |
-| /review/aeron-size-c/ | 9.8 | 10.5 | -0.7 | -504 | falling |
-| /monitor-arm-tall-people/ | 8.3 | 9 | -0.7 | +212 | rising |
-| /review/sihoo-doro-s300/ | 9.6 | 10.3 | -0.7 | -7 | stable |
+| /heavy-duty-ergonomic-chairs-tall-people/ | 11.1 | 13.1 | -2 | +84 | rising |
+| /about/ | 6.9 | 8.3 | -1.4 | +17 | rising |
+| /office-chair-lower-back-pain-tall-people/ | 8.6 | 9.6 | -1 | +96 | rising |
+| /pain-ergonomics/ | 26.9 | 27.6 | -0.7 | -6 | stable |
+| / | 5.4 | 6.1 | -0.7 | +7 | stable |
 
 ---
 

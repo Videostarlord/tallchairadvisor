@@ -2,6 +2,52 @@
 type: log
 ---
 
+## [2026-10-05] ga4-pull | GA4 Data Pull
+
+- Period: 2026-09-07 → 2026-10-05 (28 days)
+- Sessions: 747 | Users: 668 | Views: 857
+- Engagement rate: 29.5% | Avg duration: 87s
+- Affiliate clicks: 116 | ChatGPT sessions: 97
+- Pages: 67 | Channels: 6
+
+
+## [2026-10-05] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-10-05
+- Pages recorded: 55
+- Device split: {"mobile":0.297,"pc":0.703,"other":0}
+- Behavioral alerts: 18
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 34% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 34% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/aeron-size-c/: 31% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/seat-depth/?utm_source=chatgpt.com: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/monitor-arm-tall-people/?utm_source=chatgpt.com: 29% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 65
+
+
+## [2026-10-05] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 13 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 40 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions down 46.7% WoW (1960 vs 3680), clicks flat (23 vs 23), avg position declining (1.4 spots)
+- Query entropy: 2 fragmented pages
+- Hub candidates: 4
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 45 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-10-05] gsc-pull | GSC Data Pull
+
+- Period: 2026-07-07 → 2026-10-05 (90 days)
+- Pages: 57 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 91 | Daily trend rows: 89
+- Clicks: 279 | Impressions: 61570 | Avg pos: 8.5
+
+
 ## [2026-10-03] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-10-03
