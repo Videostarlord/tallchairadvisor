@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-10-11] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-10-11
+- Pages recorded: 56
+- Device split: {"mobile":0.267,"tablet":0.067,"pc":0.667,"other":0}
+- Behavioral alerts: 6
+  - [low-scroll-depth] https://tallchairadvisor.com/back-pain-spine-height/: 32% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/aeron-size-c/: 21% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/tall-people/: 19% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/pain-ergonomics/: 19% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-leap-plus/: 18% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 68
+
+
 ## [2026-10-09] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-10-09
