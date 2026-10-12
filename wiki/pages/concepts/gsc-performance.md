@@ -1,13 +1,39 @@
 ---
 type: concept
-last_updated: 2026-10-05
-sources: [raw/gsc/gsc-2026-10-05.json]
+last_updated: 2026-10-12
+sources: [raw/gsc/gsc-2026-10-12.json]
 tags: [gsc, performance, metrics, tracking]
 ---
 
 # GSC Performance Tracking
 
-## Latest Snapshot (2026-10-05)
+## Latest Snapshot (2026-10-12)
+
+| Metric | Value |
+|--------|-------|
+| Total impressions | 54056 |
+| Total clicks | 281 |
+| Avg CTR | 0.52% |
+| Avg position | 8.6 |
+
+## Top Pages
+
+| /knee-pain-seat-depth/ | 11238 impr | pos 6.3 | 0.07% CTR | 8 clicks |
+| /review/leap-plus/ | 9617 impr | pos 8.1 | 0.3% CTR | 29 clicks |
+| /correct-chair-dimensions/ | 9170 impr | pos 10.2 | 0.34% CTR | 31 clicks |
+| /review/gesture/ | 4152 impr | pos 7.3 | 0.46% CTR | 19 clicks |
+| /office-chairs-for-tall-people/ | 2942 impr | pos 9.1 | 1.36% CTR | 40 clicks |
+| /chairs/herman-miller-aeron/tall-people/ | 1972 impr | pos 7.5 | 0.81% CTR | 16 clicks |
+| /review/aeron-size-c/ | 1885 impr | pos 8.5 | 0.42% CTR | 8 clicks |
+| /best-office-chairs-under-500/ | 1743 impr | pos 9.5 | 1.84% CTR | 32 clicks |
+| /gesture-vs-leap-plus/ | 1142 impr | pos 9.3 | 0.53% CTR | 6 clicks |
+| /chairs/steelcase-gesture/seat-depth/ | 1096 impr | pos 7.2 | 0.27% CTR | 3 clicks |
+
+*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
+
+## Historical Snapshots
+
+### 2026-10-05
 
 | Metric | Value |
 |--------|-------|
@@ -15,23 +41,6 @@ tags: [gsc, performance, metrics, tracking]
 | Total clicks | 279 |
 | Avg CTR | 0.45% |
 | Avg position | 8.5 |
-
-## Top Pages
-
-| /knee-pain-seat-depth/ | 15431 impr | pos 6.1 | 0.05% CTR | 8 clicks |
-| /review/leap-plus/ | 10782 impr | pos 8.2 | 0.27% CTR | 29 clicks |
-| /correct-chair-dimensions/ | 10520 impr | pos 10.3 | 0.34% CTR | 36 clicks |
-| /review/gesture/ | 4679 impr | pos 7.4 | 0.41% CTR | 19 clicks |
-| /office-chairs-for-tall-people/ | 2935 impr | pos 9.4 | 1.26% CTR | 37 clicks |
-| /review/aeron-size-c/ | 2348 impr | pos 8.9 | 0.43% CTR | 10 clicks |
-| /chairs/herman-miller-aeron/tall-people/ | 2003 impr | pos 7.7 | 0.9% CTR | 18 clicks |
-| /best-office-chairs-under-500/ | 1665 impr | pos 9.3 | 1.92% CTR | 32 clicks |
-| /gesture-vs-leap-plus/ | 1252 impr | pos 9.3 | 0.48% CTR | 6 clicks |
-| /chairs/steelcase-gesture/seat-depth/ | 1130 impr | pos 7.2 | 0.27% CTR | 3 clicks |
-
-*Raw pull — full audit with meta/schema analysis pending (Tuesday)*
-
-## Historical Snapshots
 
 ### 2026-09-28
 
@@ -88,15 +97,6 @@ tags: [gsc, performance, metrics, tracking]
 | Avg position | 8.1 |
 
 ### 2026-08-25
-
-| Metric | Value |
-|--------|-------|
-| Total impressions | 101257 |
-| Total clicks | 275 |
-| Avg CTR | 0.27% |
-| Avg position | 8.1 |
-
-### 2026-08-24
 
 | Metric | Value |
 |--------|-------|
