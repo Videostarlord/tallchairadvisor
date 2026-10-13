@@ -1,6 +1,6 @@
-# Session Brief — 2026-10-12
+# Session Brief — 2026-10-13
 
-_Generated 2026-10-12T05:27:19.327Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-10-13T06:25:10.183Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -10,40 +10,41 @@ _Generated 2026-10-12T05:27:19.327Z. Deterministic, no model call. Everything be
 
 ## Traffic
 
-- **GSC 90d:** 61,570 impressions, **279 clicks**, CTR 0.453%, avg position 8.5
-- **Momentum:** Impressions down 46.7% WoW (1960 vs 3680), clicks flat (23 vs 23), avg position declining (1.4 spots)
-- **GA4 28d:** 747 sessions total — but Direct is 462 (62%), engagement 29.5%, 87s.
-  **Treat ~296 non-Direct sessions as the real number.** Site-wide GA4 engagement metrics are not trustworthy while Direct dominates.
-  - Direct: 462 (61.8%)
-  - Organic Search: 173 (23.2%)
-  - AI Assistant: 99 (13.3%)
-  - Unassigned: 15 (2.0%)
-  - Cross-network: 5 (0.7%)
-  - Referral: 4 (0.5%)
+- **GSC 90d:** 54,056 impressions, **281 clicks**, CTR 0.520%, avg position 8.6
+- **Momentum:** Impressions up 3% WoW (2019 vs 1960), clicks up 13% (26 vs 23), avg position declining (0.6 spots)
+- **GA4 28d:** 717 sessions total — but Direct is 450 (63%), engagement 28.3%, 80s.
+  **Treat ~270 non-Direct sessions as the real number.** Site-wide GA4 engagement metrics are not trustworthy while Direct dominates.
+  - Direct: 450 (62.8%)
+  - Organic Search: 161 (22.5%)
+  - AI Assistant: 75 (10.5%)
+  - Unassigned: 24 (3.3%)
+  - Referral: 6 (0.8%)
+  - Organic Social: 4 (0.6%)
 
 ## Opportunity (scored on ADDRESSABLE impressions)
 
 | page | type | score | addressable | of total | pos |
 |---|---|---:|---:|---:|---:|
-| /review/leap-plus/ | near-p1 | 440 | 1804 | 10782 | 8.2 |
-| /chairs/herman-miller-aeron/ | content-depth | 287 | 574 | 574 | 16.2 |
-| /pain-ergonomics/ | content-depth | 206.5 | 413 | 413 | 26.1 |
-| /chairs/steelcase-leap-plus/ | near-p1 | 153.9 | 577 | 577 | 7.5 |
-| /chairs/steelcase-leap-plus/tall-people/ | near-p1 | 150.6 | 595 | 595 | 7.9 |
-| /office-chairs-for-6-foot-6/ | near-p1 | 132.5 | 550 | 550 | 8.3 |
-| /chair-headrest-tall-people/ | near-p1 | 131.4 | 473 | 473 | 7.2 |
-| /office-chairs-for-6-foot-5/ | near-p1 | 118.1 | 437 | 437 | 7.4 |
+| /review/leap-plus/ | near-p1 | 401.5 | 1626 | 9617 | 8.1 |
+| /chairs/herman-miller-aeron/ | content-depth | 295.5 | 591 | 591 | 16.1 |
+| /pain-ergonomics/ | content-depth | 192.5 | 385 | 385 | 25.0 |
+| /chairs/steelcase-leap-plus/tall-people/ | near-p1 | 150.6 | 580 | 580 | 7.7 |
+| /chairs/steelcase-leap-plus/ | near-p1 | 139.3 | 557 | 557 | 8.0 |
+| /chair-headrest-tall-people/ | near-p1 | 138.6 | 499 | 499 | 7.2 |
+| /chairs/herman-miller-aeron/size-guide/ | content-depth | 129 | 258 | 258 | 27.6 |
+| /office-chairs-for-6-foot-6/ | near-p1 | 125.5 | 502 | 502 | 8.0 |
 
-**8 page(s) are AI/agent retrieval, not human demand — do not plan CTR work on these:**
+**9 page(s) are AI/agent retrieval, not human demand — do not plan CTR work on these:**
 
-- `/office-chairs-for-tall-people/` — 3,176 impressions, only 10.4% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/correct-chair-dimensions/` — 10,520 impressions, only 10.9% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/best-office-chairs-under-500/` — 1,665 impressions, only 9.1% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/review/gesture/` — 4,679 impressions, only 6.6% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/chairs/herman-miller-aeron/tall-people/` — 2,003 impressions, only 3.1% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/knee-pain-seat-depth/` — 15,431 impressions, only 4.5% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/chairs/steelcase-gesture/` — 1,065 impressions, only 5.8% carry a named query. GEO asset; judge on AI-assistant referrals.
-- `/chairs/steelcase-gesture/seat-depth/` — 1,130 impressions, only 5.0% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/office-chairs-for-tall-people/` — 3,012 impressions, only 9.6% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/best-office-chairs-under-500/` — 1,743 impressions, only 12.2% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/correct-chair-dimensions/` — 9,170 impressions, only 10.7% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/review/gesture/` — 4,152 impressions, only 7.3% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/chairs/herman-miller-aeron/tall-people/` — 1,972 impressions, only 2.9% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/knee-pain-seat-depth/` — 11,238 impressions, only 3.7% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/review/aeron-size-c/` — 1,885 impressions, only 13.0% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/chairs/steelcase-gesture/` — 1,050 impressions, only 6.5% carry a named query. GEO asset; judge on AI-assistant referrals.
+- `/chairs/steelcase-gesture/seat-depth/` — 1,096 impressions, only 5.0% carry a named query. GEO asset; judge on AI-assistant referrals.
 
 ## Conversion join — affiliate clicks × scroll depth × CTA position
 
@@ -53,21 +54,21 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 115 | 52 | 6% | 15% |
-| / | 63 | 0 | 93% | 26% |
-| /review/leap-plus/ | 52 | 10 | 100% | 32% |
-| /review/gesture/ | 47 | 1 | — | 22% |
-| /best-office-chairs-under-500/ | 42 | 11 | — | 26% |
-| /chairs/steelcase-gesture/ | 29 | 3 | — | 34% |
-| /chairs/herman-miller-aeron/tall-people/ | 26 | 0 | 19% | 24% |
-| /correct-chair-dimensions/ | 26 | 1 | — | 16% |
-| /best-big-and-tall-office-chairs/ | 25 | 9 | — | 23% |
-| /chairs/herman-miller-aeron/size-guide/ | 23 | 0 | — | 26% |
-| /office-chairs-for-6-foot-5/ | 23 | 3 | — | 18% |
-| /review/aeron-size-c/ | 21 | 3 | 21% | 42% |
-| /office-chairs-for-6-foot-4/ | 18 | 6 | 92% | 19% |
-| /refurbished-steelcase-leap-tall-people/ | 17 | 0 | — | 35% |
-| /review/sihoo-doro-s300/ | 17 | 0 | — | 28% |
+| /office-chairs-for-tall-people/ | 105 | 48 | 11% | 15% |
+| / | 62 | 1 | — | 26% |
+| /review/leap-plus/ | 43 | 7 | — | 32% |
+| /review/gesture/ | 40 | 1 | — | 22% |
+| /best-office-chairs-under-500/ | 35 | 8 | — | 26% |
+| /chairs/herman-miller-aeron/tall-people/ | 27 | 0 | — | 24% |
+| /chairs/herman-miller-aeron/size-guide/ | 22 | 0 | — | 26% |
+| /chairs/steelcase-gesture/ | 22 | 1 | — | 34% |
+| /review/aeron-size-c/ | 21 | 3 | 45% | 42% |
+| /knee-pain-seat-depth/ | 20 | 3 | — | 20% |
+| /review/sihoo-doro-s300/ | 19 | 0 | — | 28% |
+| /correct-chair-dimensions/ | 18 | 1 | — | 16% |
+| /best-big-and-tall-office-chairs/ | 17 | 9 | — | 23% |
+| /chair-headrest-tall-people/ | 17 | 0 | — | 61% |
+| /chairs/steelcase-leap-plus/weight-limit/ | 17 | 3 | — | 30% |
 
 ## Money
 
@@ -78,11 +79,11 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 ## Open work the pipeline is tracking
 
 - Ledger: {"open": 0, "closed": 63, "escalated": 3, "regressed": 3, "total": 69, "retractedSkipped": 0}
-  - **/best-office-chairs-under-500/** — position 9.3 does not satisfy < 9.1
+  - **/best-office-chairs-under-500/** — position 9.5 does not satisfy < 9.1
   - **/correct-chair-dimensions/** — missing Direct Answer block
-  - **collector:amazon** — collector amazon unhealthy — affiliate data is 25 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
-  - **/correct-chair-dimensions/** — position 10.3 does not satisfy < 9.6
-  - **/office-chairs-for-tall-people/** — position 9.4 does not satisfy < 8.1
+  - **collector:amazon** — collector amazon unhealthy — affiliate data is 26 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
+  - **/correct-chair-dimensions/** — position 10.2 does not satisfy < 9.6
+  - **/office-chairs-for-tall-people/** — position 9.1 does not satisfy < 8.1
   - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
 
 ---
