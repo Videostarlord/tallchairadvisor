@@ -1,6 +1,6 @@
-# Session Brief — 2026-10-17
+# Session Brief — 2026-10-18
 
-_Generated 2026-10-17T03:55:35.021Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-10-18T04:02:21.541Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -54,11 +54,11 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 105 | 48 | 28% | 15% |
-| / | 62 | 1 | 47% | 26% |
-| /review/leap-plus/ | 43 | 7 | 27% | 32% |
+| /office-chairs-for-tall-people/ | 105 | 48 | 33% | 15% |
+| / | 62 | 1 | 8% | 26% |
+| /review/leap-plus/ | 43 | 7 | — | 32% |
 | /review/gesture/ | 40 | 1 | — | 22% |
-| /best-office-chairs-under-500/ | 35 | 8 | 11% | 26% |
+| /best-office-chairs-under-500/ | 35 | 8 | 7% | 26% |
 | /chairs/herman-miller-aeron/tall-people/ | 27 | 0 | — | 24% |
 | /chairs/herman-miller-aeron/size-guide/ | 22 | 0 | — | 26% |
 | /chairs/steelcase-gesture/ | 22 | 1 | — | 34% |
@@ -66,7 +66,7 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 | /knee-pain-seat-depth/ | 20 | 3 | — | 20% |
 | /review/sihoo-doro-s300/ | 19 | 0 | — | 28% |
 | /correct-chair-dimensions/ | 18 | 1 | — | 16% |
-| /best-big-and-tall-office-chairs/ | 17 | 9 | 4% | 23% |
+| /best-big-and-tall-office-chairs/ | 17 | 9 | — | 23% |
 | /chair-headrest-tall-people/ | 17 | 0 | — | 61% |
 | /chairs/steelcase-leap-plus/weight-limit/ | 17 | 3 | — | 30% |
 
@@ -81,7 +81,7 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 - Ledger: {"open": 0, "closed": 63, "escalated": 3, "regressed": 3, "total": 69, "retractedSkipped": 0}
   - **/best-office-chairs-under-500/** — position 9.5 does not satisfy < 9.1
   - **/correct-chair-dimensions/** — missing Direct Answer block
-  - **collector:amazon** — collector amazon unhealthy — affiliate data is 30 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
+  - **collector:amazon** — collector amazon unhealthy — affiliate data is 31 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
   - **/correct-chair-dimensions/** — position 10.2 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 9.1 does not satisfy < 8.1
   - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
