@@ -2,6 +2,52 @@
 type: log
 ---
 
+## [2026-10-26] ga4-pull | GA4 Data Pull
+
+- Period: 2026-09-28 → 2026-10-26 (28 days)
+- Sessions: 656 | Users: 609 | Views: 711
+- Engagement rate: 27.0% | Avg duration: 71s
+- Affiliate clicks: 85 | ChatGPT sessions: 38
+- Pages: 59 | Channels: 6
+
+
+## [2026-10-26] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-10-26
+- Pages recorded: 55
+- Device split: {"mobile":0.286,"tablet":0.095,"pc":0.619,"other":0}
+- Behavioral alerts: 5
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/: 18% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 15% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-5/: 13% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/herman-miller-aeron/size-guide/: 12% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/knee-pain-seat-depth/: 8% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 77
+
+
+## [2026-10-26] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 13 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 43 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions down 13.3% WoW (1688 vs 1948), clicks up 54.5% (17 vs 11), avg position improving (1.1 spots)
+- Query entropy: 2 fragmented pages
+- Hub candidates: 5
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 47 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-10-26] gsc-pull | GSC Data Pull
+
+- Period: 2026-07-28 → 2026-10-26 (90 days)
+- Pages: 55 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 91 | Daily trend rows: 89
+- Clicks: 268 | Impressions: 47092 | Avg pos: 8.8
+
+
 ## [2026-10-25] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-10-25

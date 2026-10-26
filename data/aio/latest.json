@@ -1,13 +1,13 @@
 {
   "data": {
-    "generatedAt": "2026-10-19T15:26:32.071Z",
+    "generatedAt": "2026-10-26T15:03:00.254Z",
     "domain": "tallchairadvisor.com",
     "querySource": "data/gsc/analysis.json (ctrLeaks → affiliateOpportunities → clusters, top 20 by impressions)",
     "observations": [
       {
         "query": "steelcase leap plus",
-        "impressions": 993,
-        "gscPosition": 8.9,
+        "impressions": 947,
+        "gscPosition": 8.8,
         "page": "/review/leap-plus/",
         "reason": "ctr-leak",
         "aioPresent": true,
@@ -16,30 +16,30 @@
           "steelcase.com",
           "amazon.com",
           "youtube.com",
-          "thehumansolution.com",
-          "bybluebox.com",
           "thebackstore.com",
-          "google.com"
+          "store.steelcase.com",
+          "google.com",
+          "thehumansolution.com"
         ],
         "tcaOrganicPosition": null,
         "error": null
       },
       {
         "query": "aeron plus",
-        "impressions": 117,
-        "gscPosition": 8.4,
+        "impressions": 123,
+        "gscPosition": 8.3,
         "page": "/aeron-vs-leap-plus/",
         "reason": "ctr-leak",
-        "aioPresent": false,
-        "tcaCited": null,
+        "aioPresent": true,
+        "tcaCited": false,
         "citedDomains": [],
-        "tcaOrganicPosition": 6,
+        "tcaOrganicPosition": null,
         "error": null
       },
       {
         "query": "study chair size in feet",
-        "impressions": 99,
-        "gscPosition": 18.5,
+        "impressions": 85,
+        "gscPosition": 19,
         "page": "/correct-chair-dimensions/",
         "reason": "ctr-leak",
         "aioPresent": true,
@@ -50,27 +50,28 @@
       },
       {
         "query": "aeron vs gesture",
-        "impressions": 64,
-        "gscPosition": 8.1,
+        "impressions": 65,
+        "gscPosition": 8,
         "page": "/aeron-vs-gesture/",
         "reason": "ctr-leak",
         "aioPresent": true,
         "tcaCited": false,
         "citedDomains": [
           "reddit.com",
+          "alexgude.com",
           "btod.com",
           "youtube.com",
-          "creativebloq.com",
           "officelogixshop.com",
-          "tomsguide.com"
+          "google.com",
+          "creativebloq.com"
         ],
         "tcaOrganicPosition": 2,
         "error": null
       },
       {
         "query": "steelcase gesture weight limit",
-        "impressions": 60,
-        "gscPosition": 8.9,
+        "impressions": 57,
+        "gscPosition": 9,
         "page": "/chairs/steelcase-gesture/weight-limit/",
         "reason": "ctr-leak",
         "aioPresent": true,
@@ -78,70 +79,54 @@
         "citedDomains": [
           "steelcase.com",
           "store.steelcase.com",
-          "eu.steelcase.com",
-          "btod.com",
-          "youtube.com"
+          "btod.com"
         ],
-        "tcaOrganicPosition": 20,
+        "tcaOrganicPosition": null,
         "error": null
       },
       {
         "query": "can you compare the features of the aeron and gesture chairs?",
-        "impressions": 44,
+        "impressions": 52,
         "gscPosition": 8.1,
         "page": "/aeron-vs-gesture/",
         "reason": "ctr-leak",
         "aioPresent": true,
         "tcaCited": false,
         "citedDomains": [],
-        "tcaOrganicPosition": null,
+        "tcaOrganicPosition": 10,
+        "error": null
+      },
+      {
+        "query": "steelcase gesture for tall people",
+        "impressions": 36,
+        "gscPosition": 8.4,
+        "page": "/chairs/steelcase-gesture/",
+        "reason": "ctr-leak",
+        "aioPresent": false,
+        "tcaCited": null,
+        "citedDomains": [],
+        "tcaOrganicPosition": 14,
         "error": null
       },
       {
         "query": "steelcase gesture seat depth",
-        "impressions": 36,
-        "gscPosition": 7.3,
+        "impressions": 35,
+        "gscPosition": 7.7,
         "page": "/chairs/steelcase-gesture/seat-depth/",
         "reason": "ctr-leak",
         "aioPresent": true,
         "tcaCited": false,
         "citedDomains": [
-          "store.steelcase.com",
-          "steelcase.com",
           "btod.com",
           "youtube.com"
         ],
-        "tcaOrganicPosition": 22,
-        "error": null
-      },
-      {
-        "query": "steelcase gesture for tall people",
-        "impressions": 35,
-        "gscPosition": 8.3,
-        "page": "/chairs/steelcase-gesture/",
-        "reason": "ctr-leak",
-        "aioPresent": true,
-        "tcaCited": false,
-        "citedDomains": [],
-        "tcaOrganicPosition": 11,
-        "error": null
-      },
-      {
-        "query": "ergonomic chair dimensions",
-        "impressions": 23,
-        "gscPosition": 17.8,
-        "page": "/correct-chair-dimensions/",
-        "reason": "ctr-leak",
-        "aioPresent": false,
-        "tcaCited": null,
-        "citedDomains": [],
-        "tcaOrganicPosition": null,
+        "tcaOrganicPosition": 18,
         "error": null
       },
       {
         "query": "steelcase gesture vs herman miller aeron",
-        "impressions": 20,
-        "gscPosition": 8.5,
+        "impressions": 29,
+        "gscPosition": 8.7,
         "page": "/aeron-vs-gesture/",
         "reason": "ctr-leak",
         "aioPresent": true,
@@ -150,11 +135,53 @@
           "reddit.com",
           "btod.com",
           "youtube.com",
-          "creativebloq.com",
           "officelogixshop.com",
-          "tomsguide.com"
+          "tomsguide.com",
+          "arielle.com.au",
+          "google.com"
         ],
-        "tcaOrganicPosition": 7,
+        "tcaOrganicPosition": 14,
+        "error": null
+      },
+      {
+        "query": "office chair dimensions",
+        "impressions": 22,
+        "gscPosition": 20,
+        "page": "/correct-chair-dimensions/",
+        "reason": "ctr-leak",
+        "aioPresent": true,
+        "tcaCited": false,
+        "citedDomains": [
+          "hbada.com",
+          "logicfox.net",
+          "wired.com",
+          "youtube.com",
+          "google.com",
+          "eurekaergonomic.com",
+          "nationalbusinessfurniture.com",
+          "dimensions.com"
+        ],
+        "tcaOrganicPosition": null,
+        "error": null
+      },
+      {
+        "query": "gesture vs aeron",
+        "impressions": 157,
+        "gscPosition": null,
+        "page": "/aeron-vs-gesture/",
+        "reason": "buyer-intent",
+        "aioPresent": true,
+        "tcaCited": false,
+        "citedDomains": [
+          "reddit.com",
+          "btod.com",
+          "youtube.com",
+          "officelogixshop.com",
+          "tomsguide.com",
+          "arielle.com.au",
+          "google.com"
+        ],
+        "tcaOrganicPosition": 2,
         "error": null
       },
       {
@@ -163,15 +190,9 @@
         "gscPosition": null,
         "page": "/best-office-chairs-under-500/",
         "reason": "buyer-intent",
-        "aioPresent": true,
-        "tcaCited": false,
-        "citedDomains": [
-          "cnet.com",
-          "wired.com",
-          "nytimes.com",
-          "google.com",
-          "quora.com"
-        ],
+        "aioPresent": false,
+        "tcaCited": null,
+        "citedDomains": [],
         "tcaOrganicPosition": null,
         "error": null
       },
@@ -181,8 +202,8 @@
         "gscPosition": null,
         "page": "/best-office-chairs-under-500/",
         "reason": "buyer-intent",
-        "aioPresent": false,
-        "tcaCited": null,
+        "aioPresent": true,
+        "tcaCited": false,
         "citedDomains": [],
         "tcaOrganicPosition": null,
         "error": null
@@ -195,117 +216,42 @@
         "reason": "buyer-intent",
         "aioPresent": true,
         "tcaCited": false,
-        "citedDomains": [
-          "reddit.com",
-          "creativebloq.com",
-          "youtube.com",
-          "btod.com",
-          "google.com"
-        ],
+        "citedDomains": [],
         "tcaOrganicPosition": null,
-        "error": null
-      },
-      {
-        "query": "gesture vs aeron",
-        "impressions": 143,
-        "gscPosition": null,
-        "page": "/aeron-vs-gesture/",
-        "reason": "buyer-intent",
-        "aioPresent": true,
-        "tcaCited": false,
-        "citedDomains": [
-          "reddit.com",
-          "btod.com",
-          "youtube.com",
-          "creativebloq.com",
-          "officelogixshop.com",
-          "tomsguide.com"
-        ],
-        "tcaOrganicPosition": 2,
         "error": null
       },
       {
         "query": "herman miller aeron sizes",
-        "impressions": 182,
-        "gscPosition": 23.7,
+        "impressions": 201,
+        "gscPosition": 25.6,
         "page": "/aeron-size-c-vs-leap-plus/",
         "reason": "top-cluster",
         "aioPresent": true,
         "tcaCited": false,
-        "citedDomains": [
-          "store.hermanmiller.com",
-          "btod.com",
-          "youtube.com",
-          "reddit.com"
-        ],
+        "citedDomains": [],
         "tcaOrganicPosition": null,
         "error": null
       },
       {
-        "query": "size a aeron chair",
-        "impressions": 88,
-        "gscPosition": 38.4,
+        "query": "what size aeron chair",
+        "impressions": 102,
+        "gscPosition": 38.9,
         "page": "/chairs/herman-miller-aeron/",
         "reason": "top-cluster",
         "aioPresent": true,
         "tcaCited": false,
         "citedDomains": [
-          "amazon.com",
           "store.hermanmiller.com",
-          "youtube.com",
-          "dwr.com",
-          "google.com",
-          "madisonseating.com",
-          "facebook.com"
-        ],
-        "tcaOrganicPosition": null,
-        "error": null
-      },
-      {
-        "query": "standard office chair dimensions cm",
-        "impressions": 78,
-        "gscPosition": 20.8,
-        "page": "/correct-chair-dimensions/",
-        "reason": "top-cluster",
-        "aioPresent": true,
-        "tcaCited": false,
-        "citedDomains": [
-          "okamura.com.vn",
-          "merryfair.com",
-          "logicfox.net",
-          "comhoma.com",
-          "deskone.com.au"
-        ],
-        "tcaOrganicPosition": null,
-        "error": null
-      },
-      {
-        "query": "office chair dimensions",
-        "impressions": 71,
-        "gscPosition": 24.9,
-        "page": "/correct-chair-dimensions/",
-        "reason": "top-cluster",
-        "aioPresent": true,
-        "tcaCited": false,
-        "citedDomains": [
-          "dimensions.com",
-          "sohnne.com",
-          "branchfurniture.com",
-          "in.pinterest.com",
-          "google.com",
-          "nationalbusinessfurniture.com",
-          "amazon.com",
-          "eurekaergonomic.com",
-          "youtube.com",
-          "roomsketch3d.com"
+          "designcabinet.biz",
+          "the-edit.lumens.com"
         ],
         "tcaOrganicPosition": null,
         "error": null
       },
       {
         "query": "steelcase leap v2 for tall people",
-        "impressions": 67,
-        "gscPosition": 9.2,
+        "impressions": 70,
+        "gscPosition": 9.3,
         "page": "/office-chairs-for-tall-people/",
         "reason": "top-cluster",
         "aioPresent": true,
@@ -314,16 +260,47 @@
           "reddit.com",
           "youtube.com",
           "crandalloffice.com",
-          "steelcase.com"
+          "instagram.com",
+          "thehumansolution.com"
         ],
         "tcaOrganicPosition": 3,
         "error": null
       },
       {
-        "query": "desk chair dimensions ergonomics",
-        "impressions": 65,
-        "gscPosition": 33.5,
+        "query": "standard office chair height",
+        "impressions": 63,
+        "gscPosition": 20.4,
         "page": "/correct-chair-dimensions/",
+        "reason": "top-cluster",
+        "aioPresent": true,
+        "tcaCited": false,
+        "citedDomains": [
+          "ergonow.com",
+          "karo.co.za",
+          "upliftdesk.com",
+          "philzen.com",
+          "urbanicafurniture.com"
+        ],
+        "tcaOrganicPosition": null,
+        "error": null
+      },
+      {
+        "query": "desk chair dimensions ergonomics",
+        "impressions": 62,
+        "gscPosition": 48,
+        "page": "/correct-chair-dimensions/",
+        "reason": "top-cluster",
+        "aioPresent": false,
+        "tcaCited": null,
+        "citedDomains": [],
+        "tcaOrganicPosition": null,
+        "error": null
+      },
+      {
+        "query": "widest office chair",
+        "impressions": 32,
+        "gscPosition": 8.6,
+        "page": "/wide-seat-office-chairs-tall-people/",
         "reason": "top-cluster",
         "aioPresent": true,
         "tcaCited": false,
@@ -344,28 +321,33 @@
     "deltas": [
       {
         "query": "aeron plus",
-        "was": "AIO, TCA absent",
-        "now": "no AIO"
-      },
-      {
-        "query": "steelcase gesture for tall people",
         "was": "no AIO",
         "now": "AIO, TCA absent"
       },
       {
-        "query": "herman miller aeron sizes",
+        "query": "steelcase gesture for tall people",
+        "was": "AIO, TCA absent",
+        "now": "no AIO"
+      },
+      {
+        "query": "best office chair under 500",
+        "was": "AIO, TCA absent",
+        "now": "no AIO"
+      },
+      {
+        "query": "best office chairs under 500",
         "was": "no AIO",
         "now": "AIO, TCA absent"
       },
       {
         "query": "desk chair dimensions ergonomics",
-        "was": "no AIO",
-        "now": "AIO, TCA absent"
+        "was": "AIO, TCA absent",
+        "now": "no AIO"
       }
     ]
   },
   "meta": {
-    "collectedAt": "2026-10-19T15:26:32.071Z",
+    "collectedAt": "2026-10-26T15:03:00.254Z",
     "rowCount": 20,
     "healthy": true,
     "reason": null
