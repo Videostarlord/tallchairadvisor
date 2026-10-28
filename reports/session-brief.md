@@ -1,6 +1,12 @@
-# Session Brief — 2026-10-27
+# Session Brief — 2026-10-28
 
-_Generated 2026-10-27T04:33:38.078Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-10-28T05:06:06.924Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+
+## ⚠ Could not read
+
+Nothing below draws on these. A source named here was NOT consulted:
+
+- **Clarity latest** — data/clarity/latest.json: schema requires 'deviceSplit.other' (number); key absent. (Clarity latest)
 
 ## Constraints on this session (read before proposing anything)
 
@@ -48,25 +54,7 @@ _Generated 2026-10-27T04:33:38.078Z. Deterministic, no model call. Everything be
 
 _The 2026-08-28 finding: the page with its first CTA at 16% took 49 of 96 site-wide affiliate clicks; every page past ~60% took 0–3._
 
-_`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTML but short on screen. Good for ranking pages against each other; measure the rendered position in a browser before acting on any single number._
-
-| page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
-|---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 98 | 37 | 42% | 15% |
-| / | 56 | 1 | 18% | 26% |
-| /review/leap-plus/ | 37 | 6 | 15% | 32% |
-| /best-office-chairs-under-500/ | 34 | 7 | — | 26% |
-| /review/gesture/ | 30 | 2 | 73% | 22% |
-| /chairs/herman-miller-aeron/size-guide/ | 22 | 0 | 12% | 26% |
-| /chairs/herman-miller-aeron/ | 20 | 0 | — | 33% |
-| /review/aeron-size-c/ | 20 | 2 | 58% | 42% |
-| /knee-pain-seat-depth/ | 19 | 3 | 8% | 20% |
-| /chairs/herman-miller-aeron/tall-people/ | 18 | 0 | — | 24% |
-| /chairs/steelcase-gesture/weight-limit/ | 17 | 1 | 59% | 33% |
-| /correct-chair-dimensions/ | 17 | 0 | — | 16% |
-| /review/sihoo-doro-s300/ | 17 | 0 | — | 28% |
-| /chairs/steelcase-leap-plus/weight-limit/ | 16 | 1 | — | 30% |
-| /chairs/steelcase-gesture/ | 14 | 1 | — | 34% |
+_Needs both GA4 and Clarity; one or both were unreadable this run._
 
 ## Money
 
@@ -76,13 +64,13 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 ## Open work the pipeline is tracking
 
-- Ledger: {"open": 0, "closed": 63, "escalated": 3, "regressed": 3, "total": 69, "retractedSkipped": 0}
+- Ledger: {"open": 0, "closed": 62, "escalated": 3, "regressed": 4, "total": 69, "retractedSkipped": 0}
   - **/best-office-chairs-under-500/** — position 10 does not satisfy < 9.1
+  - **collector:clarity** — collector clarity unhealthy — data/clarity/latest.json: schema requires 'deviceSplit.other' (number); key absent. (Clarity latest). data/clarity/latest.json is written by `npm run agent:clarity-history` (clarity-history.yml + the Monday workflow).
   - **/correct-chair-dimensions/** — missing Direct Answer block
-  - **collector:amazon** — collector amazon unhealthy — affiliate data is 40 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
+  - **collector:amazon** — collector amazon unhealthy — affiliate data is 41 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
   - **/correct-chair-dimensions/** — position 10.2 does not satisfy < 9.6
   - **/office-chairs-for-tall-people/** — position 8.9 does not satisfy < 8.1
-  - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
 
 ---
 
