@@ -1,9 +1,33 @@
 {
-  "data": null,
+  "data": {
+    "source": "data/clarity/latest.json",
+    "pulledAt": "2026-10-29T16:44:08.795Z",
+    "ageHours": 12.5,
+    "slaHours": 192,
+    "numOfDays": 2,
+    "pageCount": 43,
+    "deviceSplit": {
+      "mobile": 0.412,
+      "pc": 0.529,
+      "other": 0,
+      "email": 0.059
+    },
+    "alertCount": 7,
+    "alertsByIssue": {
+      "low-scroll-depth": 7
+    },
+    "credential": {
+      "envVar": "CLARITY_TOKEN",
+      "present": true,
+      "live": true,
+      "checkedAt": "2026-10-29T16:44:08.795Z",
+      "detail": "not re-pinged — data/clarity/latest.json was pulled 12.5h ago, which is itself proof the credential was live. Conserves the 10/day quota (A3)."
+    }
+  },
   "meta": {
-    "collectedAt": "2026-10-29T05:17:15.284Z",
-    "rowCount": 0,
-    "healthy": false,
-    "reason": "data/clarity/latest.json: schema requires 'deviceSplit.other' (number); key absent. (Clarity latest). data/clarity/latest.json is written by `npm run agent:clarity-history` (clarity-history.yml + the Monday workflow)."
+    "collectedAt": "2026-10-30T05:16:34.777Z",
+    "rowCount": 43,
+    "healthy": true,
+    "reason": null
   }
 }
