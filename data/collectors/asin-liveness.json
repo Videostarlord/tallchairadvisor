@@ -1,11 +1,11 @@
 {
   "meta": {
     "collector": "asin-liveness",
-    "observedAt": "2026-10-01T14:12:13.190Z",
+    "observedAt": "2026-11-01T14:03:29.414Z",
     "healthy": true,
     "checked": 24,
-    "alive": 10,
-    "dead": 0,
+    "alive": 9,
+    "dead": 1,
     "unknown": 14,
     "deferred": 0,
     "note": "14 inconclusive check(s) are NOT counted as alive or dead."
@@ -95,8 +95,8 @@
     },
     {
       "asin": "B0116W5BG8",
-      "kind": "alive",
-      "detail": null,
+      "kind": "dead",
+      "detail": "Amazon could not find the listing",
       "pages": [
         "src/pages/best-big-and-tall-office-chairs.astro",
         "src/pages/wide-seat-office-chairs-tall-people.astro"
@@ -294,5 +294,16 @@
       ]
     }
   ],
-  "findings": []
+  "findings": [
+    {
+      "page": "/best-big-and-tall-office-chairs/",
+      "issueClass": "affiliate-link-dead",
+      "severity": "high",
+      "summary": "ASIN B0116W5BG8 (La-Z-Boy Trafford Big & Tall) no longer resolves: Amazon could not find the listing. Linked from 2 page(s): src/pages/best-big-and-tall-office-chairs.astro, src/pages/wide-seat-office-chairs-tall-people.astro. The page still renders the link and still sends clicks, and earns nothing on them. Replace the ASIN and move this one to `known_dead` in data/verified-asins.json.",
+      "closurePredicate": {
+        "kind": "asin-registered",
+        "url": "/best-big-and-tall-office-chairs/"
+      }
+    }
+  ]
 }
