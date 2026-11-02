@@ -2,6 +2,52 @@
 type: log
 ---
 
+## [2026-11-02] ga4-pull | GA4 Data Pull
+
+- Period: 2026-10-05 → 2026-11-02 (28 days)
+- Sessions: 607 | Users: 567 | Views: 665
+- Engagement rate: 24.4% | Avg duration: 64s
+- Affiliate clicks: 74 | ChatGPT sessions: 25
+- Pages: 54 | Channels: 6
+
+
+## [2026-11-02] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-11-02
+- Pages recorded: 58
+- Device split: {"mobile":0.333,"pc":0.667,"other":0}
+- Behavioral alerts: 6
+  - [low-scroll-depth] https://tallchairadvisor.com/gesture-vs-leap-plus/: 28% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 24% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/?utm_source=chatgpt.com: 17% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/office-chairs-for-tall-people/: 12% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/review/leap-plus/: 8% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 82
+
+
+## [2026-11-02] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 16 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 42 actionable
+- AIO suspects: 0
+- Affiliate alerts: 0 high-urgency
+- Site momentum: Impressions up 26.7% WoW (2139 vs 1688), clicks up 17.6% (20 vs 17), avg position stable
+- Query entropy: 2 fragmented pages
+- Hub candidates: 5
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 48 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-11-02] gsc-pull | GSC Data Pull
+
+- Period: 2026-08-04 → 2026-11-02 (90 days)
+- Pages: 54 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 91 | Daily trend rows: 89
+- Clicks: 270 | Impressions: 44097 | Avg pos: 8.7
+
+
 ## [2026-11-01] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-11-01
