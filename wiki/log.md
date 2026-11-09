@@ -2,6 +2,52 @@
 type: log
 ---
 
+## [2026-11-09] ga4-pull | GA4 Data Pull
+
+- Period: 2026-10-12 → 2026-11-09 (28 days)
+- Sessions: 650 | Users: 602 | Views: 975
+- Engagement rate: 26.2% | Avg duration: 67s
+- Affiliate clicks: 105 | ChatGPT sessions: 13
+- Pages: 56 | Channels: 6
+
+
+## [2026-11-09] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-11-09
+- Pages recorded: 63
+- Device split: {"mobile":0.333,"pc":0.667}
+- Behavioral alerts: 15
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/chairs/steelcase-gesture/: 39% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/office-chairs-for-tall-people/: 34% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/chairs/steelcase-leap-plus/seat-height/: 32% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/review/leap-plus/: 25% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/about/: 24% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 86
+
+
+## [2026-11-09] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 18 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 42 actionable
+- AIO suspects: 0
+- Affiliate alerts: 2 high-urgency
+- Site momentum: Impressions up 10.6% WoW (2366 vs 2139), clicks up 25% (25 vs 20), avg position improving (0.6 spots)
+- Query entropy: 2 fragmented pages
+- Hub candidates: 6
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 48 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-11-09] gsc-pull | GSC Data Pull
+
+- Period: 2026-08-11 → 2026-11-09 (90 days)
+- Pages: 54 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 88 | Daily trend rows: 89
+- Clicks: 266 | Impressions: 41190 | Avg pos: 8.7
+
+
 ## [2026-11-07] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-11-07
