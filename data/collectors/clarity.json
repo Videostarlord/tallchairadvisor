@@ -1,32 +1,9 @@
 {
-  "data": {
-    "source": "data/clarity/latest.json",
-    "pulledAt": "2026-11-07T16:10:11.231Z",
-    "ageHours": 37.5,
-    "slaHours": 192,
-    "numOfDays": 2,
-    "pageCount": 107,
-    "deviceSplit": {
-      "mobile": 0.364,
-      "pc": 0.636,
-      "other": 0
-    },
-    "alertCount": 7,
-    "alertsByIssue": {
-      "low-scroll-depth": 7
-    },
-    "credential": {
-      "envVar": "CLARITY_TOKEN",
-      "present": true,
-      "live": true,
-      "checkedAt": "2026-11-09T05:42:34.191Z",
-      "detail": null
-    }
-  },
+  "data": null,
   "meta": {
-    "collectedAt": "2026-11-09T05:42:34.875Z",
-    "rowCount": 107,
-    "healthy": true,
-    "reason": null
+    "collectedAt": "2026-11-10T06:51:11.438Z",
+    "rowCount": 0,
+    "healthy": false,
+    "reason": "data/clarity/latest.json: schema requires 'deviceSplit.other' (number); key absent. (Clarity latest). data/clarity/latest.json is written by `npm run agent:clarity-history` (clarity-history.yml + the Monday workflow)."
   }
 }
