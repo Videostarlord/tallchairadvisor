@@ -12,30 +12,36 @@
     },
     "pages": {
       "project": "tallchairadvisor",
-      "deploymentId": "b981c8c9-7151-4823-9361-0c17cc17ab02",
-      "shortId": "b981c8c9",
+      "deploymentId": "969c6864-0d19-444f-86ac-7aa7167c24a2",
+      "shortId": "969c6864",
       "environment": "production",
-      "url": "https://b981c8c9.tallchairadvisor.pages.dev",
-      "createdOn": "2026-11-09T18:35:03.893614Z",
+      "url": "https://969c6864.tallchairadvisor.pages.dev",
+      "createdOn": "2026-11-10T06:52:30.419382Z",
       "stage": "deploy",
       "status": "success",
       "branch": "main",
-      "commitHash": "746a6aac3285245531c0fcdfff793b591607be95",
-      "commitMessage": "[skip cd] data: Monday pull + index fixes 2026-11-09"
+      "commitHash": "6fe3ecd4c14c6c2e7b0bcb2b91bb73c760f791ca",
+      "commitMessage": "[skip cd] nightly: god's-eye 2026-11-10"
     },
     "cache": {
       "windowDays": 7,
-      "requests": 26192,
-      "cachedRequests": 2510,
-      "hitRatePct": 9.6,
-      "bytes": 257835712,
-      "cachedBytes": 106453835,
+      "requests": 27463,
+      "cachedRequests": 2391,
+      "hitRatePct": 8.7,
+      "bytes": 261818418,
+      "cachedBytes": 104676847,
       "byDay": [
         {
+          "date": "2026-11-11",
+          "requests": 874,
+          "cachedRequests": 8,
+          "hitRatePct": 0.9
+        },
+        {
           "date": "2026-11-10",
-          "requests": 1875,
-          "cachedRequests": 25,
-          "hitRatePct": 1.3
+          "requests": 4270,
+          "cachedRequests": 123,
+          "hitRatePct": 2.9
         },
         {
           "date": "2026-11-09",
@@ -66,29 +72,23 @@
           "requests": 3921,
           "cachedRequests": 324,
           "hitRatePct": 8.3
-        },
-        {
-          "date": "2026-11-04",
-          "requests": 1998,
-          "cachedRequests": 225,
-          "hitRatePct": 11.3
         }
       ]
     },
     "waf": {
       "windowDays": 1,
-      "totalEvents": 19,
+      "totalEvents": 23,
       "byAction": {
-        "block": 19
+        "block": 23
       },
       "bySource": {
-        "firewallManaged": 19
+        "firewallManaged": 23
       }
     },
     "unavailable": []
   },
   "meta": {
-    "collectedAt": "2026-11-10T06:51:11.923Z",
+    "collectedAt": "2026-11-11T05:40:11.222Z",
     "rowCount": 3,
     "healthy": true,
     "reason": null
