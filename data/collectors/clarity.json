@@ -1,32 +1,33 @@
 {
   "data": {
     "source": "data/clarity/latest.json",
-    "pulledAt": "2026-11-11T17:45:37.262Z",
-    "ageHours": 36.3,
+    "pulledAt": "2026-11-13T17:33:41.112Z",
+    "ageHours": 12.3,
     "slaHours": 192,
     "numOfDays": 2,
-    "pageCount": 41,
+    "pageCount": 26,
     "deviceSplit": {
-      "mobile": 0.361,
-      "pc": 0.639,
-      "other": 0
+      "mobile": 0.351,
+      "pc": 0.622,
+      "other": 0,
+      "tablet": 0.027
     },
-    "alertCount": 10,
+    "alertCount": 9,
     "alertsByIssue": {
-      "low-scroll-depth": 10
+      "low-scroll-depth": 9
     },
     "credential": {
       "envVar": "CLARITY_TOKEN",
       "present": true,
-      "live": false,
-      "checkedAt": "2026-11-13T06:02:02.326Z",
-      "detail": "HTTP 23 — The operation was aborted due to timeout — (request timed out — the endpoint did not respond in time)"
+      "live": true,
+      "checkedAt": "2026-11-13T17:33:41.112Z",
+      "detail": "not re-pinged — data/clarity/latest.json was pulled 12.3h ago, which is itself proof the credential was live. Conserves the 10/day quota (A3)."
     }
   },
   "meta": {
-    "collectedAt": "2026-11-13T06:02:22.328Z",
-    "rowCount": 41,
-    "healthy": false,
-    "reason": "Clarity liveness ping could not complete — HTTP 23 — The operation was aborted due to timeout — (request timed out — the endpoint did not respond in time)"
+    "collectedAt": "2026-11-14T05:51:11.535Z",
+    "rowCount": 26,
+    "healthy": true,
+    "reason": null
   }
 }
