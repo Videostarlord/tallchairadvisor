@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-11-15] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-11-15
+- Pages recorded: 56
+- Device split: {"mobile":0.472,"tablet":0.028,"pc":0.5,"other":0}
+- Behavioral alerts: 14
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 35% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/sihoo-doro-s300/: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/review/aeron-size-c/: 24% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/standing-desk-height-tall-people/: 23% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/weight-limit/: 23% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 89
+
+
 ## [2026-11-13] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-11-13
