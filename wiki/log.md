@@ -2,6 +2,52 @@
 type: log
 ---
 
+## [2026-11-16] ga4-pull | GA4 Data Pull
+
+- Period: 2026-10-19 → 2026-11-16 (28 days)
+- Sessions: 678 | Users: 629 | Views: 1011
+- Engagement rate: 28.0% | Avg duration: 82s
+- Affiliate clicks: 132 | ChatGPT sessions: 14
+- Pages: 55 | Channels: 5
+
+
+## [2026-11-16] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-11-16
+- Pages recorded: 55
+- Device split: {"mobile":0.647,"pc":0.353,"other":0}
+- Behavioral alerts: 10
+  - [low-scroll-depth] https://tallchairadvisor.com/review/leap-plus/: 35% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 29% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/knee-pain-seat-depth/: 26% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.pages.dev/chairs/steelcase-leap-plus/seat-height/: 26% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/chairs/steelcase-gesture/: 25% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 90
+
+
+## [2026-11-16] gsc-analyze | GSC Intelligence Analysis
+
+- CTR leaks: 17 (top leak: /review/leap-plus/ — "steelcase leap plus")
+- Opportunities: 41 actionable
+- AIO suspects: 0
+- Affiliate alerts: 2 high-urgency
+- Site momentum: Impressions down 3.3% WoW (2288 vs 2366), clicks up 4% (26 vs 25), avg position stable
+- Query entropy: 2 fragmented pages
+- Hub candidates: 6
+- Transition opportunities: 0
+- AIO recommendations: 0
+- Page velocity: 48 pages
+- Link audit: 0 high-impression pages with < 3 inbound links
+
+
+## [2026-11-16] gsc-pull | GSC Data Pull
+
+- Period: 2026-08-18 → 2026-11-16 (90 days)
+- Pages: 54 | Queries: 200 | PageQuery pairs: 500
+- Device rows: 94 | Daily trend rows: 89
+- Clicks: 277 | Impressions: 39211 | Avg pos: 8.6
+
+
 ## [2026-11-15] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-11-15
