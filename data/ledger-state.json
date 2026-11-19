@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-18T06:54:15.697Z",
+  "generatedAt": "2026-11-19T06:55:19.000Z",
   "ledgerPath": "data/ledger.jsonl",
   "escalateAfter": 3,
   "dryRun": false,
   "counts": {
     "open": 0,
-    "closed": 64,
+    "closed": 63,
     "escalated": 2,
-    "regressed": 3,
+    "regressed": 4,
     "total": 69,
     "retractedSkipped": 0
   },
@@ -21,12 +21,27 @@
       "severity": null,
       "summary": "/best-office-chairs-under-500/",
       "predicate": "gsc-position /best-office-chairs-under-500/ < 9.1 after 14d",
-      "ageDays": 121,
-      "attempts": 58,
+      "ageDays": 122,
+      "attempts": 59,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "position 10.4 does not satisfy < 9.1"
+    },
+    {
+      "id": "50f198fb99b2",
+      "kind": "finding",
+      "page": "collector:gsc",
+      "issueClass": "collector-unhealthy",
+      "severity": "high",
+      "summary": "collector \"gsc\" reported healthy:false — URL Inspection covered 2/49 indexable URLs (4%) — GSC_INSPECT_LIMIT=2 capped the run. R6 index-error detection is incomplete for the remaining 47 URL(s).",
+      "predicate": "collector-healthy gsc",
+      "ageDays": 105,
+      "attempts": 1,
+      "firstSeen": "2026-08-06",
+      "lastSeen": "2026-11-19",
+      "verdict": "fail",
+      "reason": "collector gsc unhealthy — 1 of 10 URL Inspection call(s) failed — https://tallchairadvisor.com/office-chairs-for-tall-people/ (The operation was aborted.). No verdict was recorded for those URLs: a call that did not come back is not an index state."
     },
     {
       "id": "aba4112ac066",
@@ -36,10 +51,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 104,
-      "attempts": 79,
+      "ageDays": 105,
+      "attempts": 80,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -51,12 +66,12 @@
       "severity": "high",
       "summary": "collector \"amazon\" reported healthy:false — the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero.",
       "predicate": "collector-healthy amazon",
-      "ageDays": 96,
-      "attempts": 55,
+      "ageDays": 97,
+      "attempts": 56,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
-      "reason": "collector amazon unhealthy — affiliate data is 62 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
+      "reason": "collector amazon unhealthy — affiliate data is 63 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
     }
   ],
   "escalated": [
@@ -68,10 +83,10 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 121,
-      "attempts": 104,
+      "ageDays": 122,
+      "attempts": 105,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "position 9.6 does not satisfy < 9.6"
     },
@@ -83,10 +98,10 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 78,
-      "attempts": 79,
+      "ageDays": 79,
+      "attempts": 80,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
@@ -100,10 +115,10 @@
       "severity": null,
       "summary": "/best-office-chairs-under-500/",
       "predicate": "gsc-position /best-office-chairs-under-500/ < 9.1 after 14d",
-      "ageDays": 121,
-      "attempts": 58,
+      "ageDays": 122,
+      "attempts": 59,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "position 10.4 does not satisfy < 9.1"
     },
@@ -115,12 +130,27 @@
       "severity": null,
       "summary": "/correct-chair-dimensions/",
       "predicate": "gsc-position /correct-chair-dimensions/ < 9.6 after 14d",
-      "ageDays": 121,
-      "attempts": 104,
+      "ageDays": 122,
+      "attempts": 105,
       "firstSeen": "2026-07-20",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "position 9.6 does not satisfy < 9.6"
+    },
+    {
+      "id": "50f198fb99b2",
+      "kind": "finding",
+      "page": "collector:gsc",
+      "issueClass": "collector-unhealthy",
+      "severity": "high",
+      "summary": "collector \"gsc\" reported healthy:false — URL Inspection covered 2/49 indexable URLs (4%) — GSC_INSPECT_LIMIT=2 capped the run. R6 index-error detection is incomplete for the remaining 47 URL(s).",
+      "predicate": "collector-healthy gsc",
+      "ageDays": 105,
+      "attempts": 1,
+      "firstSeen": "2026-08-06",
+      "lastSeen": "2026-11-19",
+      "verdict": "fail",
+      "reason": "collector gsc unhealthy — 1 of 10 URL Inspection call(s) failed — https://tallchairadvisor.com/office-chairs-for-tall-people/ (The operation was aborted.). No verdict was recorded for those URLs: a call that did not come back is not an index state."
     },
     {
       "id": "aba4112ac066",
@@ -130,10 +160,10 @@
       "severity": "low",
       "summary": "Missing Direct Answer block — page is not answer-first for AI Overviews.",
       "predicate": "geo-capsule /correct-chair-dimensions/",
-      "ageDays": 104,
-      "attempts": 79,
+      "ageDays": 105,
+      "attempts": 80,
       "firstSeen": "2026-08-06",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "missing Direct Answer block"
     },
@@ -145,12 +175,12 @@
       "severity": "high",
       "summary": "collector \"amazon\" reported healthy:false — the automated affiliate pull last succeeded 4 days ago (2026-08-09T08:04:51.883Z), SLA is 3 days. The daily workflow is failing or the stored Amazon session expired — check data/collectors/amazon-session.json and the \"Amazon — Weekly Associates Pull\" / nightly runs. No revenue figure is inferred here; stale data is reported as stale, never as zero.",
       "predicate": "collector-healthy amazon",
-      "ageDays": 96,
-      "attempts": 55,
+      "ageDays": 97,
+      "attempts": 56,
       "firstSeen": "2026-08-14",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
-      "reason": "collector amazon unhealthy — affiliate data is 62 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
+      "reason": "collector amazon unhealthy — affiliate data is 63 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
     },
     {
       "id": "d26626ec75ad",
@@ -160,18 +190,18 @@
       "severity": "medium",
       "summary": "Meta description is 215 chars, outside 130–165.",
       "predicate": "meta-length /chair-specs/ ∈ [130, 165]",
-      "ageDays": 78,
-      "attempts": 79,
+      "ageDays": 79,
+      "attempts": 80,
       "firstSeen": "2026-09-01",
-      "lastSeen": "2026-11-18",
+      "lastSeen": "2026-11-19",
       "verdict": "fail",
       "reason": "meta description is 215 chars, outside [130, 165]"
     }
   ],
   "coverage": {
     "evaluated": 69,
-    "pass": 64,
-    "fail": 5,
+    "pass": 63,
+    "fail": 6,
     "unevaluable": 0,
     "coveragePercent": 100,
     "openUnevaluable": 0,
@@ -208,6 +238,12 @@
       "reason": "position 9.6 does not satisfy < 9.6"
     },
     {
+      "id": "50f198fb99b2",
+      "from": "closed",
+      "to": "regressed",
+      "reason": "collector gsc unhealthy — 1 of 10 URL Inspection call(s) failed — https://tallchairadvisor.com/office-chairs-for-tall-people/ (The operation was aborted.). No verdict was recorded for those URLs: a call that did not come back is not an index state."
+    },
+    {
       "id": "aba4112ac066",
       "from": "regressed",
       "to": "regressed",
@@ -217,7 +253,7 @@
       "id": "09560d761ec1",
       "from": "regressed",
       "to": "regressed",
-      "reason": "collector amazon unhealthy — affiliate data is 62 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
+      "reason": "collector amazon unhealthy — affiliate data is 63 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue."
     },
     {
       "id": "d26626ec75ad",
