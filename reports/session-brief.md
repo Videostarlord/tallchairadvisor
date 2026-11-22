@@ -1,6 +1,6 @@
-# Session Brief — 2026-11-21
+# Session Brief — 2026-11-22
 
-_Generated 2026-11-21T06:38:57.365Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
+_Generated 2026-11-22T06:07:51.734Z. Deterministic, no model call. Everything below is joined from the pipeline's own data._
 
 ## Constraints on this session (read before proposing anything)
 
@@ -49,21 +49,21 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 
 | page | sessions | aff clicks | avg scroll | 1st CTA at (markup) |
 |---|---:|---:|---:|---:|
-| /office-chairs-for-tall-people/ | 128 | 67 | 34% | 15% |
-| / | 46 | 0 | 18% | 26% |
-| /review/leap-plus/ | 45 | 4 | — | 32% |
-| /seat-cushion-height-tall-people/ | 34 | 3 | — | 72% |
-| /review/gesture/ | 30 | 1 | 42% | 22% |
-| /review/aeron-size-c/ | 27 | 3 | 67% | 42% |
-| /chairs/herman-miller-aeron/tall-people/ | 26 | 0 | 11% | 24% |
-| /chairs/steelcase-gesture/ | 26 | 3 | — | 34% |
-| /correct-chair-dimensions/ | 26 | 0 | 19% | 16% |
-| /knee-pain-seat-depth/ | 25 | 0 | 74% | 20% |
+| /office-chairs-for-tall-people/ | 128 | 67 | 44% | 15% |
+| / | 46 | 0 | 24% | 26% |
+| /review/leap-plus/ | 45 | 4 | 23% | 32% |
+| /seat-cushion-height-tall-people/ | 34 | 3 | 100% | 72% |
+| /review/gesture/ | 30 | 1 | 39% | 22% |
+| /review/aeron-size-c/ | 27 | 3 | 54% | 42% |
+| /chairs/herman-miller-aeron/tall-people/ | 26 | 0 | 20% | 24% |
+| /chairs/steelcase-gesture/ | 26 | 3 | 37% | 34% |
+| /correct-chair-dimensions/ | 26 | 0 | 23% | 16% |
+| /knee-pain-seat-depth/ | 25 | 0 | — | 20% |
 | /best-office-chairs-under-500/ | 23 | 11 | — | 26% |
 | /chair-headrest-tall-people/ | 23 | 0 | — | 61% |
-| /chairs/steelcase-leap-plus/ | 22 | 6 | 63% | 25% |
-| /office-chairs-for-6-foot-5/ | 22 | 4 | 14% | 18% |
-| /office-chairs-for-6-foot-7/ | 21 | 1 | 17% | 20% |
+| /chairs/steelcase-leap-plus/ | 22 | 6 | — | 25% |
+| /office-chairs-for-6-foot-5/ | 22 | 4 | — | 18% |
+| /office-chairs-for-6-foot-7/ | 21 | 1 | 34% | 20% |
 
 ## Money
 
@@ -76,7 +76,7 @@ _`1st CTA at` is a MARKUP measure and overstates depth — nav is verbose in HTM
 - Ledger: {"open": 0, "closed": 64, "escalated": 2, "regressed": 3, "total": 69, "retractedSkipped": 0}
   - **/best-office-chairs-under-500/** — position 10.4 does not satisfy < 9.1
   - **/correct-chair-dimensions/** — missing Direct Answer block
-  - **collector:amazon** — collector amazon unhealthy — affiliate data is 65 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
+  - **collector:amazon** — collector amazon unhealthy — affiliate data is 66 days stale — newest export is raw/affiliate/2026-09-17-amazon-associates-report.md (2026-09-17, dated by filename), SLA is 7 days. Amazon Associates → Reports → Download Report (all four: Category, Linked Product, Top Sellers, Tracking ID). Drop the CSVs in raw/affiliate/YYYY-MM-DD-amazon-csv/ and RECORD THE SELECTED DATE RANGE — the CSV does not contain it, and a window that is guessed rather than recorded has already caused one export in this archive to be misread as a second positive month. Amazon Associates exposes no reporting API for individual associates (PRD §4, §10.2), and the 2026-08-09 session-replay workaround was retired 2026-08-26 — see wiki/synthesis/decisions-log.md. Affiliate data is hand-exported by Jackson. This collector reports export staleness only; it never pulls, estimates, or infers affiliate revenue.
   - **/correct-chair-dimensions/** — position 9.6 does not satisfy < 9.6
   - **/chair-specs/** — meta description is 215 chars, outside [130, 165]
   - **/best-office-chairs-under-500/** — position 10.4 does not satisfy < 9.1
