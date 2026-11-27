@@ -2,6 +2,20 @@
 type: log
 ---
 
+## [2026-11-27] clarity-history | Behavioral Data
+
+- Window: 2 days ending 2026-11-27
+- Pages recorded: 28
+- Device split: {"mobile":0.408,"pc":0.592,"other":0}
+- Behavioral alerts: 16
+  - [low-scroll-depth] https://tallchairadvisor.com/review/gesture/: 39% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/leg-pain-circulation/: 39% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-tall-people/: 30% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/author/jackson-christopher/: 30% avg scroll depth — content below fold not seen
+  - [low-scroll-depth] https://tallchairadvisor.com/office-chairs-for-6-foot-3/: 28% avg scroll depth — content below fold not seen
+- history.jsonl total dates: 96
+
+
 ## [2026-11-25] clarity-history | Behavioral Data
 
 - Window: 2 days ending 2026-11-25
